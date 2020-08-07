@@ -39,7 +39,7 @@ void main() {
   });
 }
 
-@easyValidator
+@flutterModelFormValidator
 class SmallerOrEqualToTest {
   SmallerOrEqualToTest(this.a, this.b, this.c, this.d);
 

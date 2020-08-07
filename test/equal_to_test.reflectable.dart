@@ -3,7 +3,7 @@
 
 import "dart:core";
 import 'equal_to_test.dart' as prefix1;
-import 'package:flutter_model_form_validation/src/annotations/easy_validator.dart'
+import 'package:flutter_model_form_validation/src/annotations/flutter_model_form_validator.dart'
     as prefix0;
 import 'package:flutter_model_form_validation/src/annotations/validators/equal_to.dart'
     as prefix2;
@@ -18,14 +18,14 @@ import "package:reflectable/src/reflectable_builder_based.dart" as r;
 import "package:reflectable/reflectable.dart" as r show Reflectable;
 
 final _data = <r.Reflectable, r.ReflectorData>{
-  const prefix0.EasyValidator(): r.ReflectorData(
+  const prefix0.FlutterModelFormValidator(): r.ReflectorData(
       <m.TypeMirror>[
         r.NonGenericClassMirrorImpl(
             r"EqualToTest",
             r".EqualToTest",
             7,
             0,
-            const prefix0.EasyValidator(),
+            const prefix0.FlutterModelFormValidator(),
             const <int>[0, 1, 2, 3, 4, 5, 6, 7],
             const <int>[16, 17, 18, 19, 20, 8, 9, 10, 11, 12, 13, 14, 15],
             const <int>[],
@@ -36,73 +36,149 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             const <int>[-1],
-            const <Object>[prefix0.easyValidator],
+            const <Object>[prefix0.flutterModelFormValidator],
             null)
       ],
       <m.DeclarationMirror>[
-        r.VariableMirrorImpl(r"a", 33797, 0, const prefix0.EasyValidator(), -1,
-            -1, -1, null, const <Object>[
+        r.VariableMirrorImpl(
+            r"a",
+            33797,
+            0,
+            const prefix0.FlutterModelFormValidator(),
+            -1,
+            -1,
+            -1,
+            null, const <Object>[
           const prefix2.EqualTo(
               propertyName: 'b',
               error: '"a" property must be equal to "b" property')
         ]),
-        r.VariableMirrorImpl(r"b", 33797, 0, const prefix0.EasyValidator(), -1,
-            -1, -1, null, const []),
-        r.VariableMirrorImpl(r"c", 33797, 0, const prefix0.EasyValidator(), -1,
-            -1, -1, null, const <Object>[
+        r.VariableMirrorImpl(
+            r"b",
+            33797,
+            0,
+            const prefix0.FlutterModelFormValidator(),
+            -1,
+            -1,
+            -1,
+            null, const []),
+        r.VariableMirrorImpl(
+            r"c",
+            33797,
+            0,
+            const prefix0.FlutterModelFormValidator(),
+            -1,
+            -1,
+            -1,
+            null, const <Object>[
           const prefix2.EqualTo(
               propertyName: 'd',
               error: '"c" property must be equal to "d" property')
         ]),
-        r.VariableMirrorImpl(r"d", 33797, 0, const prefix0.EasyValidator(), -1,
-            -1, -1, null, const []),
-        r.VariableMirrorImpl(r"e", 33797, 0, const prefix0.EasyValidator(), -1,
-            -1, -1, null, const <Object>[
+        r.VariableMirrorImpl(
+            r"d",
+            33797,
+            0,
+            const prefix0.FlutterModelFormValidator(),
+            -1,
+            -1,
+            -1,
+            null, const []),
+        r.VariableMirrorImpl(
+            r"e",
+            33797,
+            0,
+            const prefix0.FlutterModelFormValidator(),
+            -1,
+            -1,
+            -1,
+            null, const <Object>[
           const prefix2.EqualTo(
               propertyName: 'f',
               error: '"a" property must be equal to "b" property')
         ]),
-        r.VariableMirrorImpl(r"f", 33797, 0, const prefix0.EasyValidator(), -1,
-            -1, -1, null, const []),
-        r.VariableMirrorImpl(r"g", 33797, 0, const prefix0.EasyValidator(), -1,
-            -1, -1, null, const <Object>[
+        r.VariableMirrorImpl(
+            r"f",
+            33797,
+            0,
+            const prefix0.FlutterModelFormValidator(),
+            -1,
+            -1,
+            -1,
+            null, const []),
+        r.VariableMirrorImpl(
+            r"g",
+            33797,
+            0,
+            const prefix0.FlutterModelFormValidator(),
+            -1,
+            -1,
+            -1,
+            null, const <Object>[
           const prefix2.EqualTo(
               propertyName: 'h',
               error: '"g" property must be equal to "h" property')
         ]),
-        r.VariableMirrorImpl(r"h", 33797, 0, const prefix0.EasyValidator(), -1,
-            -1, -1, null, const []),
-        r.ImplicitGetterMirrorImpl(const prefix0.EasyValidator(), 0, -1, -1, 8),
-        r.ImplicitGetterMirrorImpl(const prefix0.EasyValidator(), 1, -1, -1, 9),
+        r.VariableMirrorImpl(
+            r"h",
+            33797,
+            0,
+            const prefix0.FlutterModelFormValidator(),
+            -1,
+            -1,
+            -1,
+            null, const []),
         r.ImplicitGetterMirrorImpl(
-            const prefix0.EasyValidator(), 2, -1, -1, 10),
+            const prefix0.FlutterModelFormValidator(), 0, -1, -1, 8),
         r.ImplicitGetterMirrorImpl(
-            const prefix0.EasyValidator(), 3, -1, -1, 11),
+            const prefix0.FlutterModelFormValidator(), 1, -1, -1, 9),
         r.ImplicitGetterMirrorImpl(
-            const prefix0.EasyValidator(), 4, -1, -1, 12),
+            const prefix0.FlutterModelFormValidator(), 2, -1, -1, 10),
         r.ImplicitGetterMirrorImpl(
-            const prefix0.EasyValidator(), 5, -1, -1, 13),
+            const prefix0.FlutterModelFormValidator(), 3, -1, -1, 11),
         r.ImplicitGetterMirrorImpl(
-            const prefix0.EasyValidator(), 6, -1, -1, 14),
+            const prefix0.FlutterModelFormValidator(), 4, -1, -1, 12),
         r.ImplicitGetterMirrorImpl(
-            const prefix0.EasyValidator(), 7, -1, -1, 15),
-        r.MethodMirrorImpl(r"==", 131074, null, -1, -1, -1, null,
-            const <int>[0], const prefix0.EasyValidator(), const []),
+            const prefix0.FlutterModelFormValidator(), 5, -1, -1, 13),
+        r.ImplicitGetterMirrorImpl(
+            const prefix0.FlutterModelFormValidator(), 6, -1, -1, 14),
+        r.ImplicitGetterMirrorImpl(
+            const prefix0.FlutterModelFormValidator(), 7, -1, -1, 15),
+        r.MethodMirrorImpl(
+            r"==",
+            131074,
+            null,
+            -1,
+            -1,
+            -1,
+            null,
+            const <int>[0],
+            const prefix0.FlutterModelFormValidator(),
+            const []),
         r.MethodMirrorImpl(r"toString", 131074, null, -1, -1, -1, null,
-            const <int>[], const prefix0.EasyValidator(), const []),
-        r.MethodMirrorImpl(r"noSuchMethod", 65538, null, null, -1, -1, null,
-            const <int>[1], const prefix0.EasyValidator(), const []),
+            const <int>[], const prefix0.FlutterModelFormValidator(), const []),
+        r.MethodMirrorImpl(
+            r"noSuchMethod",
+            65538,
+            null,
+            null,
+            -1,
+            -1,
+            null,
+            const <int>[1],
+            const prefix0.FlutterModelFormValidator(),
+            const []),
         r.MethodMirrorImpl(r"hashCode", 131075, null, -1, -1, -1, null,
-            const <int>[], const prefix0.EasyValidator(), const []),
+            const <int>[], const prefix0.FlutterModelFormValidator(), const []),
         r.MethodMirrorImpl(r"runtimeType", 131075, null, -1, -1, -1, null,
-            const <int>[], const prefix0.EasyValidator(), const [])
+            const <int>[], const prefix0.FlutterModelFormValidator(), const [])
       ],
       <m.ParameterMirror>[
         r.ParameterMirrorImpl(
             r"other",
             16390,
             16,
-            const prefix0.EasyValidator(),
+            const prefix0.FlutterModelFormValidator(),
             null,
             -1,
             -1,
@@ -114,7 +190,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             r"invocation",
             32774,
             18,
-            const prefix0.EasyValidator(),
+            const prefix0.FlutterModelFormValidator(),
             -1,
             -1,
             -1,

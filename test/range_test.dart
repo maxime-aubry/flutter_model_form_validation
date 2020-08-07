@@ -29,7 +29,7 @@ void main() {
   });
 }
 
-@easyValidator
+@flutterModelFormValidator
 class RangeTest {
   RangeTest(this.a, this.b);
 

@@ -24,6 +24,6 @@ export './src/annotations/validators/url.dart';
 export './src/annotations/validation_annotation.dart';
 export './src/annotations/validation_error.dart';
 export './src/annotations/validation_helper.dart';
-export './src/annotations/easy_validator.dart';
+export 'src/annotations/flutter_model_form_validator.dart';
 export './src/utils/enums.dart';
 export './src/model_state.dart';

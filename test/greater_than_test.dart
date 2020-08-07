@@ -34,7 +34,7 @@ void main() {
   });
 }
 
-@easyValidator
+@flutterModelFormValidator
 class GreaterThanTest {
   GreaterThanTest(this.a, this.b, this.c, this.d);
 

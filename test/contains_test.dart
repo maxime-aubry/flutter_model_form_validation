@@ -25,7 +25,7 @@ void main() {
   });
 }
 
-@easyValidator
+@flutterModelFormValidator
 class ContainsTest {
   ContainsTest(this.a);
 

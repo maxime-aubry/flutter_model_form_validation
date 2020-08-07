@@ -29,7 +29,7 @@ void main() {
   });
 }
 
-@easyValidator
+@flutterModelFormValidator
 class SmallerThanTest {
   SmallerThanTest(this.a, this.b, this.c, this.d);
 

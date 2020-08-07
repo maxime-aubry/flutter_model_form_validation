@@ -23,7 +23,7 @@ void main() {
   });
 }
 
-@easyValidator
+@flutterModelFormValidator
 class EmailTest {
   EmailTest(this.a);
 

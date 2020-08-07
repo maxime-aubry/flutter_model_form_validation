@@ -32,7 +32,7 @@ void main() {
   });
 }
 
-@easyValidator
+@flutterModelFormValidator
 class ImageSizeTest {
   ImageSizeTest(this.value);
 

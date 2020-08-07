@@ -1,5 +1,5 @@
 import 'package:reflectable/reflectable.dart';
-import '../src/annotations/easy_validator.dart';
+import 'annotations/flutter_model_form_validator.dart';
 import '../src/annotations/validation_annotation.dart';
 import '../src/annotations/validation_error.dart';
 
@@ -13,8 +13,8 @@ class ModelState {
     TModel model,
   ) {
     try {
-      InstanceMirror instanceMirror = easyValidator.reflect(model);
-      ClassMirror classMirror = easyValidator.reflectType(TModel);
+      InstanceMirror instanceMirror = flutterModelFormValidator.reflect(model);
+      ClassMirror classMirror = flutterModelFormValidator.reflectType(TModel);
       _errors = Map<String, ValidationError>();
 
       classMirror.declarations
@@ -43,8 +43,8 @@ class ModelState {
     String propertyName,
   ) {
     try {
-      InstanceMirror instanceMirror = easyValidator.reflect(model);
-      ClassMirror classMirror = easyValidator.reflectType(TModel);
+      InstanceMirror instanceMirror = flutterModelFormValidator.reflect(model);
+      ClassMirror classMirror = flutterModelFormValidator.reflectType(TModel);
       DeclarationMirror declarationMirror =
           classMirror.declarations[propertyName];
       _errors = Map<String, ValidationError>();
@@ -102,7 +102,7 @@ class ModelState {
     return validators;
   }
 
-  /// Gets all errors that EasyValidation has detected.
+  /// Gets all errors that flutterModelFormValidator has detected.
   static Map<String, ValidationError> get errors {
     return ModelState._errors;
   }

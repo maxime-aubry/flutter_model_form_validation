@@ -24,7 +24,7 @@ void main() {
   });
 }
 
-@easyValidator
+@flutterModelFormValidator
 class StringLengthTest {
   StringLengthTest(this.a);
 

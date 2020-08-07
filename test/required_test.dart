@@ -27,7 +27,7 @@ void main() {
   });
 }
 
-@easyValidator
+@flutterModelFormValidator
 class RequiredTest {
   RequiredTest(this.a, this.b);
 

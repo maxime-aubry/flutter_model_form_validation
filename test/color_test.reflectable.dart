@@ -3,7 +3,7 @@
 
 import "dart:core";
 import 'color_test.dart' as prefix1;
-import 'package:flutter_model_form_validation/src/annotations/easy_validator.dart'
+import 'package:flutter_model_form_validation/src/annotations/flutter_model_form_validator.dart'
     as prefix0;
 import 'package:flutter_model_form_validation/src/annotations/validators/color.dart'
     as prefix2;
@@ -19,14 +19,14 @@ import "package:reflectable/src/reflectable_builder_based.dart" as r;
 import "package:reflectable/reflectable.dart" as r show Reflectable;
 
 final _data = <r.Reflectable, r.ReflectorData>{
-  const prefix0.EasyValidator(): r.ReflectorData(
+  const prefix0.FlutterModelFormValidator(): r.ReflectorData(
       <m.TypeMirror>[
         r.NonGenericClassMirrorImpl(
             r"ColorWithBothTypesTest",
             r".ColorWithBothTypesTest",
             7,
             0,
-            const prefix0.EasyValidator(),
+            const prefix0.FlutterModelFormValidator(),
             const <int>[0, 1],
             const <int>[7, 8, 9, 10, 11, 5, 6],
             const <int>[],
@@ -37,14 +37,14 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             const <int>[-1],
-            const <Object>[prefix0.easyValidator],
+            const <Object>[prefix0.flutterModelFormValidator],
             null),
         r.NonGenericClassMirrorImpl(
             r"ColorWithDeveloperTypeTest",
             r".ColorWithDeveloperTypeTest",
             7,
             1,
-            const prefix0.EasyValidator(),
+            const prefix0.FlutterModelFormValidator(),
             const <int>[2],
             const <int>[7, 8, 9, 10, 11, 12],
             const <int>[],
@@ -55,14 +55,14 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             const <int>[-1],
-            const <Object>[prefix0.easyValidator],
+            const <Object>[prefix0.flutterModelFormValidator],
             null),
         r.NonGenericClassMirrorImpl(
             r"ColorWithUserTypeTest",
             r".ColorWithUserTypeTest",
             7,
             2,
-            const prefix0.EasyValidator(),
+            const prefix0.FlutterModelFormValidator(),
             const <int>[3, 4],
             const <int>[7, 8, 9, 10, 11, 13, 14],
             const <int>[],
@@ -73,57 +73,123 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             const <int>[-1],
-            const <Object>[prefix0.easyValidator],
+            const <Object>[prefix0.flutterModelFormValidator],
             null)
       ],
       <m.DeclarationMirror>[
-        r.VariableMirrorImpl(r"value", 33797, 0, const prefix0.EasyValidator(),
-            -1, -1, -1, null, const <Object>[
+        r.VariableMirrorImpl(
+            r"value",
+            33797,
+            0,
+            const prefix0.FlutterModelFormValidator(),
+            -1,
+            -1,
+            -1,
+            null, const <Object>[
           const prefix2.Color(
               colorTypeOnProperty: 'colorType',
               colorType: prefix3.ColorType.rgb,
               error: 'invalid color')
         ]),
-        r.VariableMirrorImpl(r"colorType", 33797, 0,
-            const prefix0.EasyValidator(), -1, -1, -1, null, const []),
-        r.VariableMirrorImpl(r"value", 33797, 1, const prefix0.EasyValidator(),
-            -1, -1, -1, null, const <Object>[
+        r.VariableMirrorImpl(
+            r"colorType",
+            33797,
+            0,
+            const prefix0.FlutterModelFormValidator(),
+            -1,
+            -1,
+            -1,
+            null, const []),
+        r.VariableMirrorImpl(
+            r"value",
+            33797,
+            1,
+            const prefix0.FlutterModelFormValidator(),
+            -1,
+            -1,
+            -1,
+            null, const <Object>[
           const prefix2.Color(
               colorType: prefix3.ColorType.hex, error: 'invalid color')
         ]),
-        r.VariableMirrorImpl(r"value", 33797, 2, const prefix0.EasyValidator(),
-            -1, -1, -1, null, const <Object>[
+        r.VariableMirrorImpl(
+            r"value",
+            33797,
+            2,
+            const prefix0.FlutterModelFormValidator(),
+            -1,
+            -1,
+            -1,
+            null, const <Object>[
           const prefix2.Color(
               colorTypeOnProperty: 'colorType', error: 'invalid color')
         ]),
-        r.VariableMirrorImpl(r"colorType", 33797, 2,
-            const prefix0.EasyValidator(), -1, -1, -1, null, const []),
-        r.ImplicitGetterMirrorImpl(const prefix0.EasyValidator(), 0, -1, -1, 5),
-        r.ImplicitGetterMirrorImpl(const prefix0.EasyValidator(), 1, -1, -1, 6),
-        r.MethodMirrorImpl(r"==", 131074, null, -1, -1, -1, null,
-            const <int>[0], const prefix0.EasyValidator(), const []),
+        r.VariableMirrorImpl(
+            r"colorType",
+            33797,
+            2,
+            const prefix0.FlutterModelFormValidator(),
+            -1,
+            -1,
+            -1,
+            null, const []),
+        r.ImplicitGetterMirrorImpl(
+            const prefix0.FlutterModelFormValidator(), 0, -1, -1, 5),
+        r.ImplicitGetterMirrorImpl(
+            const prefix0.FlutterModelFormValidator(), 1, -1, -1, 6),
+        r.MethodMirrorImpl(
+            r"==",
+            131074,
+            null,
+            -1,
+            -1,
+            -1,
+            null,
+            const <int>[0],
+            const prefix0.FlutterModelFormValidator(),
+            const []),
         r.MethodMirrorImpl(r"toString", 131074, null, -1, -1, -1, null,
-            const <int>[], const prefix0.EasyValidator(), const []),
-        r.MethodMirrorImpl(r"noSuchMethod", 65538, null, null, -1, -1, null,
-            const <int>[1], const prefix0.EasyValidator(), const []),
+            const <int>[], const prefix0.FlutterModelFormValidator(), const []),
+        r.MethodMirrorImpl(
+            r"noSuchMethod",
+            65538,
+            null,
+            null,
+            -1,
+            -1,
+            null,
+            const <int>[1],
+            const prefix0.FlutterModelFormValidator(),
+            const []),
         r.MethodMirrorImpl(r"hashCode", 131075, null, -1, -1, -1, null,
-            const <int>[], const prefix0.EasyValidator(), const []),
+            const <int>[], const prefix0.FlutterModelFormValidator(), const []),
         r.MethodMirrorImpl(r"runtimeType", 131075, null, -1, -1, -1, null,
-            const <int>[], const prefix0.EasyValidator(), const []),
+            const <int>[], const prefix0.FlutterModelFormValidator(), const []),
         r.ImplicitGetterMirrorImpl(
-            const prefix0.EasyValidator(), 2, -1, -1, 12),
+            const prefix0.FlutterModelFormValidator(), 2, -1, -1, 12),
         r.ImplicitGetterMirrorImpl(
-            const prefix0.EasyValidator(), 3, -1, -1, 13),
-        r.ImplicitGetterMirrorImpl(const prefix0.EasyValidator(), 4, -1, -1, 14)
+            const prefix0.FlutterModelFormValidator(), 3, -1, -1, 13),
+        r.ImplicitGetterMirrorImpl(
+            const prefix0.FlutterModelFormValidator(), 4, -1, -1, 14)
       ],
       <m.ParameterMirror>[
-        r.ParameterMirrorImpl(r"other", 16390, 7, const prefix0.EasyValidator(),
-            null, -1, -1, null, const [], null, null),
+        r.ParameterMirrorImpl(
+            r"other",
+            16390,
+            7,
+            const prefix0.FlutterModelFormValidator(),
+            null,
+            -1,
+            -1,
+            null,
+            const [],
+            null,
+            null),
         r.ParameterMirrorImpl(
             r"invocation",
             32774,
             9,
-            const prefix0.EasyValidator(),
+            const prefix0.FlutterModelFormValidator(),
             -1,
             -1,
             -1,

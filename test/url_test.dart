@@ -109,7 +109,7 @@ void main() {
   });
 }
 
-@easyValidator
+@flutterModelFormValidator
 class UrlTest {
   UrlTest(this.url);
 

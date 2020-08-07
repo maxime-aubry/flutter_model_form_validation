@@ -29,7 +29,7 @@ void main() {
   });
 }
 
-@easyValidator
+@flutterModelFormValidator
 class FileSizeTest {
   FileSizeTest(this.value);
 

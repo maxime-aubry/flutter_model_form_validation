@@ -23,7 +23,7 @@ void main() {
   });
 }
 
-@easyValidator
+@flutterModelFormValidator
 class RegularExpressionTest {
   RegularExpressionTest(this.a);
 

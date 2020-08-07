@@ -41,7 +41,7 @@ void main() {
   });
 }
 
-@easyValidator
+@flutterModelFormValidator
 class MembershipPasswordTest {
   MembershipPasswordTest(this.a);
 

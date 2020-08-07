@@ -39,7 +39,7 @@ void main() {
   });
 }
 
-@easyValidator
+@flutterModelFormValidator
 class LatitudeTest {
   LatitudeTest(this.a, this.b, this.c);
 

@@ -1,5 +1,5 @@
 import 'package:reflectable/reflectable.dart';
-import 'easy_validator.dart';
+import 'flutter_model_form_validator.dart';
 
 /// [ValidationHelper] somes utilities for validators
 /// {@category Validation helpers}
@@ -9,7 +9,7 @@ class ValidationHelper {
   static Object getLinkedProperty<TModel>(TModel model, String propertyName) {
     try {
       if (propertyName == null) return null;
-      InstanceMirror instanceMirror = easyValidator.reflect(model);
+      InstanceMirror instanceMirror = flutterModelFormValidator.reflect(model);
       Object valueToCompare = instanceMirror.invokeGetter(propertyName);
       return valueToCompare;
     } catch (_) {

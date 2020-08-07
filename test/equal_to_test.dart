@@ -57,7 +57,7 @@ void main() {
   });
 }
 
-@easyValidator
+@flutterModelFormValidator
 class EqualToTest {
   EqualToTest(this.a, this.b, this.c, this.d, this.e, this.f, this.g, this.h);
 

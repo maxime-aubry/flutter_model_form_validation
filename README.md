@@ -1,6 +1,6 @@
-# Easy Validation
+# Flutter model form validation
 
-EasyValidation provides many validators for Flutter, based on [Dart plugin Respectable][1].
+Flutter model form validation provides many validators for Flutter, based on [Dart plugin Respectable][1].
 
 ## Get started
 
@@ -9,18 +9,18 @@ First, you need to add the following dependencies to your 'pubspec.yaml':
 dependencies:
   reflectable: any
   build_runner: any
-  easy_validation: any
+  flutter_model_form_validation: any
 ```
 
 ## How to use validators and validate a model
-Here is a simple usage example. Note that a lot of examples are available in unit test file `test/easy_validation_test.dart`.
+Here is a simple usage example. Note that a lot of examples are available in unit test file `test/flutter_model_form_validation_test.dart`.
 
 How to define a class model with validation:
 
 ```dart
-import 'package:easy_validation/easy_validation.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-@easyValidation
+@flutterModelFormValidator
 class MyModel {
   MyModel(this.firstname, this.lastname, this.gender, this.birthday, this.dateOfDeath);
   
@@ -47,7 +47,7 @@ class MyModel {
 ```
 
 Each time you add a validator and each time you update your model class, you must regenerate a mapping file of your models and validators.
-If this file is not generated and update after any change, EasyValidation won't work !
+If this file is not generated and update after any change, Flutter model form validation won't work !
 
 Use this command line to get the file to get a new file named `*.reflectable.dart` into a flutter package project.
 
@@ -67,7 +67,7 @@ How to validate a model:
 - Call `initializeReflectable` funtion.
 
 ```dart
-import 'package:easy_validation/easy_validation.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:*.reflectable.dart';
 
 initializeReflectable();
@@ -203,7 +203,7 @@ class PasswordInput extends StatelessWidget {
 
 Here is the authentication_model.dart file:
 ```dart
-@easyValidator
+@flutterModelFormValidator
 class AuthenticationModel {
   AuthenticationModel(
     this.email,
@@ -268,7 +268,7 @@ Here is the authentication_form_state.dart file:
 ```dart
 import 'dart:convert';
 
-import 'package:easy_validation/easy_validation.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:equatable/equatable.dart';
 import 'package:greenworld/main.reflectable.dart';
 import 'package:greenworld/models/authentication_model.dart';
@@ -357,4 +357,4 @@ class AuthenticationFormState extends Equatable {
 Please file feature requests and bugs using the [github issue tracker for this repository][2].
 
 [1]: https://github.com/dart-lang/reflectable
-[2]: https://github.com/maxime-aubry/EasyValidation/issues
+[2]: https://github.com/maxime-aubry/flutter_model_form_validation/issues
