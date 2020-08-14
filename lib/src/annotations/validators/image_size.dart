@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:image/image.dart' as DBImage;
+// import 'package:image/image.dart' as DBImage;
 import '../validation_annotation.dart';
 
 /// [ImageSize] validator permits you to check that a string value is a valid image size.
@@ -32,7 +32,7 @@ class ImageSize extends ValidationAnnotation {
   @override
   bool isValid<TModel>(Object value, TModel model) {
     try {
-      if (value is! DBImage.Image) return false;
+      if (value is! Image) return false;
       return _validate(value);
     } catch (e) {
       print(e);
@@ -40,7 +40,7 @@ class ImageSize extends ValidationAnnotation {
     }
   }
 
-  bool _validate(DBImage.Image value) {
+  bool _validate(Image value) {
     if (value != null) {
       if (value.width < this.minWidth ||
           value.height < this.minHeight ||

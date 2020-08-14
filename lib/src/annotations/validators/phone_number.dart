@@ -38,8 +38,7 @@ class PhoneNumber extends ValidationAnnotation {
   }
 
   bool _validate(String value, String countryCode) {
-    if (!Rules.phone.containsKey(countryCode.toUpperCase()))
-      return false;
+    if (!Rules.phone.containsKey(countryCode.toUpperCase())) return false;
 
     RegExp regExp = new RegExp(Rules.phone[countryCode.toUpperCase()]);
     if (regExp.hasMatch(value)) return true;

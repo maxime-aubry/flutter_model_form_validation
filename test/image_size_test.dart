@@ -1,16 +1,13 @@
-import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:image/image.dart' as DBImage;
 import 'image_size_test.reflectable.dart';
 
 void main() {
   initializeReflectable();
 
   test('Test for ImageSize. Valid form.', () {
-    File file = new File('${Directory.current.path}\\assets\\glycine.jpg');
-    DBImage.Image image = DBImage.decodeImage(file.readAsBytesSync());
-
+    Image image = new Image.asset('glycine.jpg');
     ImageSizeTest tester = new ImageSizeTest(image);
     bool isValid = ModelState.isValid<ImageSizeTest>(tester);
     expect(isValid, true);
@@ -18,10 +15,7 @@ void main() {
   });
 
   test('Test for ImageSize. Invalid form.', () {
-    File file =
-        new File('${Directory.current.path}\\assets\\erable-japonais.png');
-    DBImage.Image image = DBImage.decodeImage(file.readAsBytesSync());
-
+    Image image = new Image.asset('erable-japonais.png');
     ImageSizeTest tester = new ImageSizeTest(image);
     bool isValid = ModelState.isValid<ImageSizeTest>(tester);
     expect(isValid, false);
@@ -43,5 +37,5 @@ class ImageSizeTest {
     maxHeight: 1000,
     error: 'Taille d\'image incorrecte',
   )
-  final DBImage.Image value;
+  final Image value;
 }
