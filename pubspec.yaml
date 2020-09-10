@@ -14,6 +14,9 @@ dependencies:
   dartdoc: any
   dart_json_mapper: any
   equatable: any
+  image: any
+  mime: any
+  queries: any
   reflectable: any
 
 dev_dependencies:

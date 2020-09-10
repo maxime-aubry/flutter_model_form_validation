@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 /// [ValidationAnnotation] is the parent class for every validators you will create and use.
 /// {@category Metadata}
 /// {@subCategory ValidationAnnotation}
-abstract class ValidationAnnotation {
+abstract class ValidationAnnotation<TValue> {
   const ValidationAnnotation({
     @required this.criticityLevel,
     @required this.error,
@@ -19,5 +19,5 @@ abstract class ValidationAnnotation {
   /// [model] parameter is also required, even if your custom validator won't use it.
   /// It reprensents your full object model with all values.
   /// Maybe you would validate a property in comparison to others.
-  bool isValid<TModel>(Object value, TModel model);
+  bool isValid<TModel>(TValue value, TModel model);
 }

@@ -1,41 +1,38 @@
 import 'dart:io';
+import 'models/models.dart';
+import 'models/models.reflectable.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'file_size_test.reflectable.dart';
 
 void main() {
   initializeReflectable();
 
-  test('Test for FileSize. Valid form.', () {
-    File file = new File('${Directory.current.path}\\assets\\glycine.jpg');
+  group('FileSize.', () {
+    group('Test the validation > success.', () {
+      test('Loaded image is lighter or equal to 1MO.', () {
+        File file =
+            new File('${Directory.current.path}\\test\\assets\\glycine.jpg');
 
-    FileSizeTest tester = new FileSizeTest(file);
-    bool isValid = ModelState.isValid<FileSizeTest>(tester);
-    expect(isValid, true);
-    expect(ModelState.errors.isEmpty, true);
+        FileSizeTest tester = new FileSizeTest(file);
+        bool isValid = ModelState.isValid<FileSizeTest>(tester);
+        expect(isValid, true);
+        expect(ModelState.errors.isEmpty, true);
+      });
+    });
+
+    group('Test the validation > failure.', () {
+      test('Loaded image is heavier than 1MO.', () {
+        File file = new File(
+            '${Directory.current.path}\\test\\assets\\erable-japonais.png');
+
+        FileSizeTest tester = new FileSizeTest(file);
+        bool isValid = ModelState.isValid<FileSizeTest>(tester);
+        expect(isValid, false);
+
+        expect(ModelState.errors['value'].validatorType, FileSize);
+        expect(ModelState.errors['value'].propertyName, 'value');
+        expect(ModelState.errors['value'].error, 'Invalid file size');
+      });
+    });
   });
-
-  test('Test for FileSize. Invalid form.', () {
-    File file =
-        new File('${Directory.current.path}\\assets\\erable-japonais.png');
-
-    FileSizeTest tester = new FileSizeTest(file);
-    bool isValid = ModelState.isValid<FileSizeTest>(tester);
-    expect(isValid, false);
-
-    expect(ModelState.errors['value'].validatorType, FileMimeType);
-    expect(ModelState.errors['value'].propertyName, 'value');
-    expect(ModelState.errors['value'].error, 'invalid file size');
-  });
-}
-
-@flutterModelFormValidator
-class FileSizeTest {
-  FileSizeTest(this.value);
-
-  @FileMimeType(
-    mimeTypes: ['image/jpeg', 'image/bmp'],
-    error: 'invalid file size',
-  )
-  final File value;
 }

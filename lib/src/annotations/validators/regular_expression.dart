@@ -1,26 +1,26 @@
 import 'package:flutter/widgets.dart';
-import '../validation_annotation.dart';
+import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
 
 /// [RegularExpression] validator permits you to check that a string value is accordance with provided regular expression.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class RegularExpression extends ValidationAnnotation {
+class RegularExpression extends ValidationAnnotation<String> {
   const RegularExpression({
     @required this.expression,
     @required this.error,
   }) : super(criticityLevel: 2, error: error);
 
-  /// This is the regular expression to use.
+  /// [expression] is the regular expression to use.
   final String expression;
 
-  /// This is the custom error to return in case of invalidation.
+  /// [error] is the custom error to return in case of invalidation.
   final String error;
 
   @override
-  bool isValid<TModel>(Object value, TModel model) {
+  bool isValid<TModel>(String value, TModel model) {
     try {
-      if (value is! String) return false;
-      return _validate(value);
+      bool isValid = _validate(value);
+      return isValid;
     } catch (e) {
       print(e);
       return false;

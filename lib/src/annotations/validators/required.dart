@@ -9,12 +9,13 @@ class Required extends ValidationAnnotation {
     @required this.error,
   }) : super(criticityLevel: 1, error: error);
 
-  /// This is the custom error to return in case of invalidation.
+  /// [error] is the custom error to return in case of invalidation.
   final String error;
 
   @override
   bool isValid<TModel>(Object value, TModel model) {
-    return _validate(value);
+    bool isValid = _validate(value);
+    return isValid;
   }
 
   bool _validate(Object value) {
