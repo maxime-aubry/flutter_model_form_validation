@@ -12,3 +12,5 @@ enum GpsFormat {
   dms,
   dm,
 }
+
+enum PhoneNumberType { landline, mobile }

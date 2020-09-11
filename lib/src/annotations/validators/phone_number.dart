@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validation_helper.dart';
 import 'package:flutter_model_form_validation/src/utils/rules.dart';
@@ -9,15 +10,23 @@ import 'package:flutter_model_form_validation/src/utils/rules.dart';
 class PhoneNumber extends ValidationAnnotation<String> {
   const PhoneNumber({
     this.countryCode,
+    this.phoneNumberType,
     this.countryCodeOnProperty,
+    this.phoneNumberTypeOnProperty,
     @required this.error,
   }) : super(criticityLevel: 2, error: error);
 
   /// [countryCode] is the country code.
   final String countryCode;
 
+  /// [phoneNumberType] is the type of phone number, landline or mobile phone.
+  final PhoneNumberType phoneNumberType;
+
   /// [countryCodeOnProperty] is the name of targeted property that user uses to provide country code. This one has priority on [countryCode] value.
   final String countryCodeOnProperty;
+
+  /// [phoneNumberTypeOnProperty] is the name of targeted property that user uses to provide phone number type. This one has priority on [phoneNumberType] value.
+  final String phoneNumberTypeOnProperty;
 
   /// [error] is the custom error to return in case of invalidation.
   final String error;
@@ -28,8 +37,15 @@ class PhoneNumber extends ValidationAnnotation<String> {
       String _countryCode = ValidationHelper.getLinkedProperty<TModel, String>(
               model, this.countryCodeOnProperty) ??
           this.countryCode;
+      PhoneNumberType _phoneNumberType =
+          ValidationHelper.getLinkedProperty<TModel, PhoneNumberType>(
+                  model, this.phoneNumberTypeOnProperty) ??
+              this.phoneNumberType;
 
-      bool isValid = _validate(value, _countryCode.toUpperCase());
+      if (_countryCode == null || _phoneNumberType == null) return false;
+
+      bool isValid = _validate(value, _countryCode.toUpperCase(),
+          _phoneNumberType.toString().split('.')[1]);
       return isValid;
     } catch (e) {
       print(e);
@@ -37,10 +53,16 @@ class PhoneNumber extends ValidationAnnotation<String> {
     }
   }
 
-  bool _validate(String value, String countryCodeValue) {
-    if (!Rules.phone.containsKey(countryCodeValue)) return false;
+  bool _validate(
+      String value, String countryCodeValue, String phoneNumberTypeValue) {
+    if (!Rules.phone.containsKey('$countryCodeValue-$phoneNumberTypeValue'))
+      return false;
 
-    RegExp regExp = new RegExp(Rules.phone[countryCodeValue]);
+    // sanitize the value
+    value = value.replaceAll(new RegExp(r'[\D]'), '');
+
+    RegExp regExp =
+        new RegExp(Rules.phone['$countryCodeValue-$phoneNumberTypeValue']);
     if (regExp.hasMatch(value)) return true;
     return false;
   }

@@ -901,40 +901,48 @@ class NumberRangeWithDeveloperValuesTest {
 //#region PhoneNumber
 @flutterModelFormValidator
 class PhoneNumberTest {
-  PhoneNumberTest(this.value, this.countryCode);
+  PhoneNumberTest(this.value, this.countryCode, this.phoneNumberType);
 
   @PhoneNumber(
+    phoneNumberTypeOnProperty: 'phoneNumberType',
     countryCodeOnProperty: 'countryCode',
     error: 'Invalid phone number',
   )
   final String value;
   final String countryCode;
+  final PhoneNumberType phoneNumberType;
 }
 
 @flutterModelFormValidator
 class PhoneNumberWithUserAndDeveloperValuesTest {
-  PhoneNumberWithUserAndDeveloperValuesTest(this.value, this.countryCode);
+  PhoneNumberWithUserAndDeveloperValuesTest(
+      this.value, this.countryCode, this.phoneNumberType);
 
   @PhoneNumber(
     countryCodeOnProperty: 'countryCode',
+    phoneNumberTypeOnProperty: 'phoneNumberType',
     countryCode: 'US',
+    phoneNumberType: PhoneNumberType.mobile,
     error: 'Invalid phone number',
   )
   final String value;
   final String countryCode;
+  final PhoneNumberType phoneNumberType;
 }
 
 @flutterModelFormValidator
 class PhoneNumberWithUserValuesTest {
-  PhoneNumberWithUserValuesTest(this.value, this.countryCode);
+  PhoneNumberWithUserValuesTest(
+      this.value, this.countryCode, this.phoneNumberType);
 
   @PhoneNumber(
     countryCodeOnProperty: 'countryCode',
-    countryCode: 'US',
+    phoneNumberTypeOnProperty: 'phoneNumberType',
     error: 'Invalid phone number',
   )
   final String value;
   final String countryCode;
+  final PhoneNumberType phoneNumberType;
 }
 
 @flutterModelFormValidator
@@ -943,6 +951,7 @@ class PhoneNumberWithDeveloperValuesTest {
 
   @PhoneNumber(
     countryCode: 'US',
+    phoneNumberType: PhoneNumberType.mobile,
     error: 'Invalid phone number',
   )
   final String value;
