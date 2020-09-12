@@ -12,6 +12,50 @@ dependencies:
   flutter_model_form_validation: any
 ```
 
+## Complete list of current validators
+
+| Validator | Description | Progress |
+| --- | --- | --- |
+| ContainsDateTime | ContainsDateTime validator permits you to check that a datetime value is into an array. | done |
+| ContainsNumber | ContainsNumber validator permits you to check that a number value is into an array. | done |
+| ContainsString | ContainsString validator permits you to check that a string value is into an array. | done |
+| DateTimeRange | DateTimeRange validator permits you to check that a datetime using by declared settings. | done |
+| Email | Email validator permits you to check that a string value is a valid email. | done |
+| EqualToDatetime | EqualToDatetime validator permits you to check that a value is equal to the value of another property. | done |
+| EqualToNumber | EqualToNumber validator permits you to check that a value is equal to the value of another property. | done |
+| EqualToString | EqualToString validator permits you to check that a value is equal to the value of another property. | done |
+| FileMimeType | FileMimeType validator permits you to check that a string value is a valid mime type. | done |
+| FileSize | FileSize validator permits you to check that a string value is a valid size. | done |
+| GreaterOrEqualToDatetime | GreaterOrEqualToDatetime validator permits you to check that a value is greater or equal to the value of another property. | done |
+| GreaterOrEqualToNumber | GreaterOrEqualToNumber validator permits you to check that a value is greater or equal to the value of another property. | done |
+| GreaterOrEqualToString | GreaterOrEqualToString validator permits you to check that a value is greater or equal to the value of another property. | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+|  |  | done |
+
 ## How to use validators and validate a model
 Here is a simple usage example. Note that a lot of examples are available in unit test file `test/flutter_model_form_validation_test.dart`.
 
@@ -351,50 +395,6 @@ class AuthenticationFormState extends Equatable {
   }
 }
 ```
-
-## Complete list of current validators
-
-| Validator | Description | Progress |
-| --- | --- | --- |
-| ContainsDateTime | ContainsDateTime validator permits you to check that a datetime value is into an array. | done |
-| ContainsNumber | ContainsNumber validator permits you to check that a number value is into an array. | done |
-| ContainsString | ContainsString validator permits you to check that a string value is into an array. | done |
-| DateTimeRange | DateTimeRange validator permits you to check that a datetime using by declared settings. | done |
-| Email | Email validator permits you to check that a string value is a valid email. | done |
-| EqualToDatetime | EqualToDatetime validator permits you to check that a value is equal to the value of another property. | done |
-| EqualToNumber | EqualToNumber validator permits you to check that a value is equal to the value of another property. | done |
-| EqualToString | EqualToString validator permits you to check that a value is equal to the value of another property. | done |
-| FileMimeType | FileMimeType validator permits you to check that a string value is a valid mime type. | done |
-| FileSize | FileSize validator permits you to check that a string value is a valid size. | done |
-| GreaterOrEqualToDatetime | GreaterOrEqualToDatetime validator permits you to check that a value is greater or equal to the value of another property. | done |
-| GreaterOrEqualToNumber | GreaterOrEqualToNumber validator permits you to check that a value is greater or equal to the value of another property. | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
-|  |  | done |
 
 ## Feature requests and bug reports
 
