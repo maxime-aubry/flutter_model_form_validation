@@ -41,7 +41,7 @@ class MyModel {
   final DateTime birthday;
 
   @DateTimeRange(min: '1900-01-01', max: null, error: 'DateOfDeath must be betwwen 1900/01/01 and infinity')
-  @GreaterOrEqualTo(propertyName: 'birthday', error: 'DateOfDeath must be greater than Birthday')
+  @GreaterOrEqualToDatetime(propertyName: 'birthday', error: 'DateOfDeath must be greater than Birthday')
   final DateTime dateOfDeath;
 }
 ```
@@ -351,6 +351,13 @@ class AuthenticationFormState extends Equatable {
   }
 }
 ```
+
+## Complete list of current validators
+
+| Validator | Description | Progress |
+| --- | --- | --- |
+| ContainsDateTime | ContainsDateTime validator permits you to check that a datetime value is into an array. | done |
+
 
 ## Feature requests and bug reports
 
