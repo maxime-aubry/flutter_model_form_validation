@@ -357,7 +357,9 @@ class AuthenticationFormState extends Equatable {
 | Validator | Description | Progress |
 | --- | --- | --- |
 | ContainsDateTime | ContainsDateTime validator permits you to check that a datetime value is into an array. | done |
-
+| ContainsNumber | ContainsNumber validator permits you to check that a number value is into an array. | done |
+| ContainsString | ContainsString validator permits you to check that a string value is into an array. | done |
+| DateTimeRange | DateTimeRange validator permits you to check that a datetime using by declared settings. | done |
 
 ## Feature requests and bug reports
 
