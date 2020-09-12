@@ -80,7 +80,7 @@ void main() {
         expect(isValid, false);
 
         expect(
-            ModelState.errors['value'].validatorType, SmallerOrEqualToDatetime);
+            ModelState.errors['value'].validatorType, SmallerOrEqualToDateTime);
         expect(ModelState.errors['value'].propertyName, 'value');
         expect(ModelState.errors['value'].error,
             'Value is not equal to the value to compare');

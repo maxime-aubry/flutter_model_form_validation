@@ -3,11 +3,11 @@ import 'package:flutter_model_form_validation/src/annotations/validation_annotat
 import 'package:flutter_model_form_validation/src/annotations/validation_helper.dart';
 import 'package:flutter_model_form_validation/src/utils/parsers.dart';
 
-/// [NotEqualToDatetime] validator permits you to check that a value is not equal to the value of another property.
+/// [NotEqualToDateTime] validator permits you to check that a value is not equal to the value of another property.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class NotEqualToDatetime extends ValidationAnnotation<DateTime> {
-  const NotEqualToDatetime({
+class NotEqualToDateTime extends ValidationAnnotation<DateTime> {
+  const NotEqualToDateTime({
     this.valueToCompare,
     this.valueToCompareOnProperty,
     @required this.error,

@@ -68,7 +68,7 @@ void main() {
         bool isValid = ModelState.isValid<SmallerThanDatetimeTest>(tester);
         expect(isValid, false);
 
-        expect(ModelState.errors['value'].validatorType, SmallerThanDatetime);
+        expect(ModelState.errors['value'].validatorType, SmallerThanDateTime);
         expect(ModelState.errors['value'].propertyName, 'value');
         expect(ModelState.errors['value'].error,
             'Value is not equal to the value to compare');
@@ -82,7 +82,7 @@ void main() {
         bool isValid = ModelState.isValid<SmallerThanDatetimeTest>(tester);
         expect(isValid, false);
 
-        expect(ModelState.errors['value'].validatorType, SmallerThanDatetime);
+        expect(ModelState.errors['value'].validatorType, SmallerThanDateTime);
         expect(ModelState.errors['value'].propertyName, 'value');
         expect(ModelState.errors['value'].error,
             'Value is not equal to the value to compare');

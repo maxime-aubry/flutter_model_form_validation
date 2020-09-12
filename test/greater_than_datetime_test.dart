@@ -68,7 +68,7 @@ void main() {
         bool isValid = ModelState.isValid<GreaterThanDatetimeTest>(tester);
         expect(isValid, false);
 
-        expect(ModelState.errors['value'].validatorType, GreaterThanDatetime);
+        expect(ModelState.errors['value'].validatorType, GreaterThanDateTime);
         expect(ModelState.errors['value'].propertyName, 'value');
         expect(ModelState.errors['value'].error,
             'Value is not equal to the value to compare');
@@ -82,7 +82,7 @@ void main() {
         bool isValid = ModelState.isValid<GreaterThanDatetimeTest>(tester);
         expect(isValid, false);
 
-        expect(ModelState.errors['value'].validatorType, GreaterThanDatetime);
+        expect(ModelState.errors['value'].validatorType, GreaterThanDateTime);
         expect(ModelState.errors['value'].propertyName, 'value');
         expect(ModelState.errors['value'].error,
             'Value is not equal to the value to compare');

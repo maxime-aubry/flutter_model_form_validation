@@ -68,7 +68,7 @@ void main() {
         bool isValid = ModelState.isValid<NotEqualToDatetimeTest>(tester);
         expect(isValid, false);
 
-        expect(ModelState.errors['value'].validatorType, NotEqualToDatetime);
+        expect(ModelState.errors['value'].validatorType, NotEqualToDateTime);
         expect(ModelState.errors['value'].propertyName, 'value');
         expect(ModelState.errors['value'].error,
             'Value is not equal to the value to compare');

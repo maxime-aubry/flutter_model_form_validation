@@ -3,11 +3,11 @@ import 'package:flutter_model_form_validation/src/annotations/validation_annotat
 import 'package:flutter_model_form_validation/src/annotations/validation_helper.dart';
 import 'package:flutter_model_form_validation/src/utils/parsers.dart';
 
-/// [SmallerOrEqualToDatetime] validator permits you to check that a value is smaller or equal to the value of another property.
+/// [SmallerOrEqualToDateTime] validator permits you to check that a value is smaller or equal to the value of another property.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class SmallerOrEqualToDatetime extends ValidationAnnotation<DateTime> {
-  const SmallerOrEqualToDatetime({
+class SmallerOrEqualToDateTime extends ValidationAnnotation<DateTime> {
+  const SmallerOrEqualToDateTime({
     this.valueToCompare,
     this.valueToCompareOnProperty,
     @required this.error,

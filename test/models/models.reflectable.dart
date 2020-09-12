@@ -2136,7 +2136,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix8.EqualToDatetime(
+          const prefix8.EqualToDateTime(
               valueToCompareOnProperty: 'valueToCompare',
               error: 'Value is not equal to the value to compare')
         ]),
@@ -2158,7 +2158,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix8.EqualToDatetime(
+          const prefix8.EqualToDateTime(
               valueToCompareOnProperty: 'valueToCompare',
               valueToCompare: '2019-01-01T00:00:00',
               error: 'Value is not equal to the value to compare')
@@ -2181,7 +2181,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix8.EqualToDatetime(
+          const prefix8.EqualToDateTime(
               valueToCompareOnProperty: 'valueToCompare',
               error: 'Value is not equal to the value to compare')
         ]),
@@ -2203,7 +2203,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix8.EqualToDatetime(
+          const prefix8.EqualToDateTime(
               valueToCompare: '2019-01-01T00:00:00',
               error: 'Value is not equal to the value to compare')
         ]),
@@ -2400,7 +2400,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix13.GreaterOrEqualToDatetime(
+          const prefix13.GreaterOrEqualToDateTime(
               valueToCompareOnProperty: 'valueToCompare',
               error: 'Value is not equal to the value to compare')
         ]),
@@ -2422,7 +2422,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix13.GreaterOrEqualToDatetime(
+          const prefix13.GreaterOrEqualToDateTime(
               valueToCompareOnProperty: 'valueToCompare',
               valueToCompare: '2019-01-01T00:00:00',
               error: 'Value is not equal to the value to compare')
@@ -2445,7 +2445,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix13.GreaterOrEqualToDatetime(
+          const prefix13.GreaterOrEqualToDateTime(
               valueToCompareOnProperty: 'valueToCompare',
               error: 'Value is not equal to the value to compare')
         ]),
@@ -2467,7 +2467,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix13.GreaterOrEqualToDatetime(
+          const prefix13.GreaterOrEqualToDateTime(
               valueToCompare: '2019-01-01T00:00:00',
               error: 'Value is not equal to the value to compare')
         ]),
@@ -2640,7 +2640,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix16.GreaterThanDatetime(
+          const prefix16.GreaterThanDateTime(
               valueToCompareOnProperty: 'valueToCompare',
               error: 'Value is not equal to the value to compare')
         ]),
@@ -2662,7 +2662,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix16.GreaterThanDatetime(
+          const prefix16.GreaterThanDateTime(
               valueToCompareOnProperty: 'valueToCompare',
               valueToCompare: '2019-01-01T00:00:00',
               error: 'Value is not equal to the value to compare')
@@ -2685,7 +2685,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix16.GreaterThanDatetime(
+          const prefix16.GreaterThanDateTime(
               valueToCompareOnProperty: 'valueToCompare',
               error: 'Value is not equal to the value to compare')
         ]),
@@ -2707,7 +2707,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix16.GreaterThanDatetime(
+          const prefix16.GreaterThanDateTime(
               valueToCompare: '2019-01-01T00:00:00',
               error: 'Value is not equal to the value to compare')
         ]),
@@ -2994,7 +2994,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix22.NotEqualToDatetime(
+          const prefix22.NotEqualToDateTime(
               valueToCompareOnProperty: 'valueToCompare',
               error: 'Value is not equal to the value to compare')
         ]),
@@ -3016,7 +3016,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix22.NotEqualToDatetime(
+          const prefix22.NotEqualToDateTime(
               valueToCompareOnProperty: 'valueToCompare',
               valueToCompare: '2019-01-01T00:00:00',
               error: 'Value is not equal to the value to compare')
@@ -3039,7 +3039,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix22.NotEqualToDatetime(
+          const prefix22.NotEqualToDateTime(
               valueToCompareOnProperty: 'valueToCompare',
               error: 'Value is not equal to the value to compare')
         ]),
@@ -3061,7 +3061,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix22.NotEqualToDatetime(
+          const prefix22.NotEqualToDateTime(
               valueToCompare: '2019-01-01T00:00:00',
               error: 'Value is not equal to the value to compare')
         ]),
@@ -3479,7 +3479,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix30.SmallerOrEqualToDatetime(
+          const prefix30.SmallerOrEqualToDateTime(
               valueToCompareOnProperty: 'valueToCompare',
               error: 'Value is not equal to the value to compare')
         ]),
@@ -3501,7 +3501,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix30.SmallerOrEqualToDatetime(
+          const prefix30.SmallerOrEqualToDateTime(
               valueToCompareOnProperty: 'valueToCompare',
               valueToCompare: '2019-01-01T00:00:00',
               error: 'Value is not equal to the value to compare')
@@ -3524,7 +3524,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix30.SmallerOrEqualToDatetime(
+          const prefix30.SmallerOrEqualToDateTime(
               valueToCompareOnProperty: 'valueToCompare',
               error: 'Value is not equal to the value to compare')
         ]),
@@ -3546,7 +3546,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix30.SmallerOrEqualToDatetime(
+          const prefix30.SmallerOrEqualToDateTime(
               valueToCompare: '2019-01-01T00:00:00',
               error: 'Value is not equal to the value to compare')
         ]),
@@ -3719,7 +3719,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix33.SmallerThanDatetime(
+          const prefix33.SmallerThanDateTime(
               valueToCompareOnProperty: 'valueToCompare',
               error: 'Value is not equal to the value to compare')
         ]),
@@ -3741,7 +3741,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix33.SmallerThanDatetime(
+          const prefix33.SmallerThanDateTime(
               valueToCompareOnProperty: 'valueToCompare',
               valueToCompare: '2019-01-01T00:00:00',
               error: 'Value is not equal to the value to compare')
@@ -3764,7 +3764,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix33.SmallerThanDatetime(
+          const prefix33.SmallerThanDateTime(
               valueToCompareOnProperty: 'valueToCompare',
               error: 'Value is not equal to the value to compare')
         ]),
@@ -3786,7 +3786,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null, const <Object>[
-          const prefix33.SmallerThanDatetime(
+          const prefix33.SmallerThanDateTime(
               valueToCompare: '2019-01-01T00:00:00',
               error: 'Value is not equal to the value to compare')
         ]),

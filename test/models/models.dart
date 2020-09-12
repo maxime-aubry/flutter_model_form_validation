@@ -123,7 +123,7 @@ class EmailTest {
 class EqualToDatetimeTest {
   EqualToDatetimeTest(this.value, this.valueToCompare);
 
-  @EqualToDatetime(
+  @EqualToDateTime(
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
@@ -136,7 +136,7 @@ class EqualToDatetimeWithUserAndDeveloperValuesTest {
   EqualToDatetimeWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
-  @EqualToDatetime(
+  @EqualToDateTime(
     valueToCompareOnProperty: 'valueToCompare',
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
@@ -149,7 +149,7 @@ class EqualToDatetimeWithUserAndDeveloperValuesTest {
 class EqualToDatetimeWithUserValuesTest {
   EqualToDatetimeWithUserValuesTest(this.value, this.valueToCompare);
 
-  @EqualToDatetime(
+  @EqualToDateTime(
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
@@ -161,7 +161,7 @@ class EqualToDatetimeWithUserValuesTest {
 class EqualToDatetimeWithDeveloperValuesTest {
   EqualToDatetimeWithDeveloperValuesTest(this.value);
 
-  @EqualToDatetime(
+  @EqualToDateTime(
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
   )
@@ -300,7 +300,7 @@ class FileSizeTest {
 class GreaterOrEqualToDatetimeTest {
   GreaterOrEqualToDatetimeTest(this.value, this.valueToCompare);
 
-  @GreaterOrEqualToDatetime(
+  @GreaterOrEqualToDateTime(
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
@@ -313,7 +313,7 @@ class GreaterOrEqualToDatetimeWithUserAndDeveloperValuesTest {
   GreaterOrEqualToDatetimeWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
-  @GreaterOrEqualToDatetime(
+  @GreaterOrEqualToDateTime(
     valueToCompareOnProperty: 'valueToCompare',
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
@@ -326,7 +326,7 @@ class GreaterOrEqualToDatetimeWithUserAndDeveloperValuesTest {
 class GreaterOrEqualToDatetimeWithUserValuesTest {
   GreaterOrEqualToDatetimeWithUserValuesTest(this.value, this.valueToCompare);
 
-  @GreaterOrEqualToDatetime(
+  @GreaterOrEqualToDateTime(
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
@@ -338,7 +338,7 @@ class GreaterOrEqualToDatetimeWithUserValuesTest {
 class GreaterOrEqualToDatetimeWithDeveloperValuesTest {
   GreaterOrEqualToDatetimeWithDeveloperValuesTest(this.value);
 
-  @GreaterOrEqualToDatetime(
+  @GreaterOrEqualToDateTime(
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
   )
@@ -453,7 +453,7 @@ class GreaterOrEqualToStringWithDeveloperValuesTest {
 class GreaterThanDatetimeTest {
   GreaterThanDatetimeTest(this.value, this.valueToCompare);
 
-  @GreaterThanDatetime(
+  @GreaterThanDateTime(
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
@@ -466,7 +466,7 @@ class GreaterThanDatetimeWithUserAndDeveloperValuesTest {
   GreaterThanDatetimeWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
-  @GreaterThanDatetime(
+  @GreaterThanDateTime(
     valueToCompareOnProperty: 'valueToCompare',
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
@@ -479,7 +479,7 @@ class GreaterThanDatetimeWithUserAndDeveloperValuesTest {
 class GreaterThanDatetimeWithUserValuesTest {
   GreaterThanDatetimeWithUserValuesTest(this.value, this.valueToCompare);
 
-  @GreaterThanDatetime(
+  @GreaterThanDateTime(
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
@@ -491,7 +491,7 @@ class GreaterThanDatetimeWithUserValuesTest {
 class GreaterThanDatetimeWithDeveloperValuesTest {
   GreaterThanDatetimeWithDeveloperValuesTest(this.value);
 
-  @GreaterThanDatetime(
+  @GreaterThanDateTime(
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
   )
@@ -692,7 +692,7 @@ class MembershipPasswordTest {
 class NotEqualToDatetimeTest {
   NotEqualToDatetimeTest(this.value, this.valueToCompare);
 
-  @NotEqualToDatetime(
+  @NotEqualToDateTime(
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
@@ -705,7 +705,7 @@ class NotEqualToDatetimeWithUserAndDeveloperValuesTest {
   NotEqualToDatetimeWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
-  @NotEqualToDatetime(
+  @NotEqualToDateTime(
     valueToCompareOnProperty: 'valueToCompare',
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
@@ -718,7 +718,7 @@ class NotEqualToDatetimeWithUserAndDeveloperValuesTest {
 class NotEqualToDatetimeWithUserValuesTest {
   NotEqualToDatetimeWithUserValuesTest(this.value, this.valueToCompare);
 
-  @NotEqualToDatetime(
+  @NotEqualToDateTime(
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
@@ -730,7 +730,7 @@ class NotEqualToDatetimeWithUserValuesTest {
 class NotEqualToDatetimeWithDeveloperValuesTest {
   NotEqualToDatetimeWithDeveloperValuesTest(this.value);
 
-  @NotEqualToDatetime(
+  @NotEqualToDateTime(
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
   )
@@ -988,7 +988,7 @@ class RequiredTest {
 class SmallerOrEqualToDatetimeTest {
   SmallerOrEqualToDatetimeTest(this.value, this.valueToCompare);
 
-  @SmallerOrEqualToDatetime(
+  @SmallerOrEqualToDateTime(
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
@@ -1001,7 +1001,7 @@ class SmallerOrEqualToDatetimeWithUserAndDeveloperValuesTest {
   SmallerOrEqualToDatetimeWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
-  @SmallerOrEqualToDatetime(
+  @SmallerOrEqualToDateTime(
     valueToCompareOnProperty: 'valueToCompare',
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
@@ -1014,7 +1014,7 @@ class SmallerOrEqualToDatetimeWithUserAndDeveloperValuesTest {
 class SmallerOrEqualToDatetimeWithUserValuesTest {
   SmallerOrEqualToDatetimeWithUserValuesTest(this.value, this.valueToCompare);
 
-  @SmallerOrEqualToDatetime(
+  @SmallerOrEqualToDateTime(
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
@@ -1026,7 +1026,7 @@ class SmallerOrEqualToDatetimeWithUserValuesTest {
 class SmallerOrEqualToDatetimeWithDeveloperValuesTest {
   SmallerOrEqualToDatetimeWithDeveloperValuesTest(this.value);
 
-  @SmallerOrEqualToDatetime(
+  @SmallerOrEqualToDateTime(
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
   )
@@ -1141,7 +1141,7 @@ class SmallerOrEqualToStringWithDeveloperValuesTest {
 class SmallerThanDatetimeTest {
   SmallerThanDatetimeTest(this.value, this.valueToCompare);
 
-  @SmallerThanDatetime(
+  @SmallerThanDateTime(
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
@@ -1154,7 +1154,7 @@ class SmallerThanDatetimeWithUserAndDeveloperValuesTest {
   SmallerThanDatetimeWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
-  @SmallerThanDatetime(
+  @SmallerThanDateTime(
     valueToCompareOnProperty: 'valueToCompare',
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
@@ -1167,7 +1167,7 @@ class SmallerThanDatetimeWithUserAndDeveloperValuesTest {
 class SmallerThanDatetimeWithUserValuesTest {
   SmallerThanDatetimeWithUserValuesTest(this.value, this.valueToCompare);
 
-  @SmallerThanDatetime(
+  @SmallerThanDateTime(
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
@@ -1179,7 +1179,7 @@ class SmallerThanDatetimeWithUserValuesTest {
 class SmallerThanDatetimeWithDeveloperValuesTest {
   SmallerThanDatetimeWithDeveloperValuesTest(this.value);
 
-  @SmallerThanDatetime(
+  @SmallerThanDateTime(
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
   )
