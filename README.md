@@ -39,7 +39,7 @@ dependencies:
 | NotEqualToNumber | NotEqualToNumber validator permits you to check that a value is not equal to the value of another property. | done |
 | NotEqualToString | NotEqualToString validator permits you to check that a value is not equal to the value of another property. | done |
 | NumberRange | NumberRange validator permits you to check that a number using by declared settings. | done |
-| PhoneNumber | PhoneNumber validator permits you to check that a string value is a valid phone number. | wokr in progress. I need documentation about phone number formats for each country in the world |
+| PhoneNumber | PhoneNumber validator permits you to check that a string value is a valid phone number. | wokr in progress. I need documentation about phone number formats for each country in the world. |
 | RegularExpression | RegularExpression validator permits you to check that a string value is accordance with provided regular expression. | done |
 | Required | Required validator permits you to check that a value is provided. | done |
 | SmallerOrEqualToDateTime | SmallerOrEqualToDateTime validator permits you to check that a value is smaller or equal to the value of another property. | done |
