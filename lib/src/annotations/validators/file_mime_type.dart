@@ -1,28 +1,28 @@
 import 'dart:io';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
 import 'package:mime/mime.dart';
-import '../validation_annotation.dart';
 
 /// [FileMimeType] validator permits you to check that a string value is a valid mime type.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class FileMimeType extends ValidationAnnotation {
+class FileMimeType extends ValidationAnnotation<File> {
   const FileMimeType({
     @required this.mimeTypes,
     @required this.error,
   }) : super(criticityLevel: 2, error: error);
 
-  /// This is the allowed mime types list.
+  /// [mimeTypes] is the allowed mime types list.
   final List<String> mimeTypes;
 
-  /// This is the custom error to return in case of invalidation.
+  /// [error] is the custom error to return in case of invalidation.
   final String error;
 
   @override
-  bool isValid<TModel>(Object value, TModel model) {
+  bool isValid<TModel>(File value, TModel model) {
     try {
-      if (value is! File) return false;
-      return _validate(value);
+      bool isValid = _validate(value);
+      return isValid;
     } catch (e) {
       print(e);
       return false;
@@ -31,7 +31,7 @@ class FileMimeType extends ValidationAnnotation {
 
   bool _validate(File value) {
     if (value != null && value.existsSync()) {
-      String mimeType = lookupMimeType(value.uri.toFilePath());
+      String mimeType = lookupMimeType(value.path);
       if (this.mimeTypes.contains(mimeType)) return true;
       return false;
     }

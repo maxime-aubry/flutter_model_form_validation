@@ -1,39 +1,40 @@
+import 'models/models.dart';
+import 'models/models.reflectable.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'required_test.reflectable.dart';
 
 void main() {
   initializeReflectable();
 
-  test('Test for Required. Valid form.', () {
-    RequiredTest tester = new RequiredTest('azerty', 'ytreza');
-    bool isValid = ModelState.isValid<RequiredTest>(tester);
-    expect(isValid, true);
-    expect(ModelState.errors.isEmpty, true);
+  group('Required.', () {
+    group('Test the validation > success.', () {
+      test('Data is provided.', () {
+        RequiredTest tester = new RequiredTest('a');
+        bool isValid = ModelState.isValid<RequiredTest>(tester);
+        expect(isValid, true);
+        expect(ModelState.errors.isEmpty, true);
+      });
+    });
+    group('Test the validation > failure.', () {
+      test('Data is empty string.', () {
+        RequiredTest tester = new RequiredTest('');
+        bool isValid = ModelState.isValid<RequiredTest>(tester);
+        expect(isValid, false);
+
+        expect(ModelState.errors['value'].validatorType, Required);
+        expect(ModelState.errors['value'].propertyName, 'value');
+        expect(ModelState.errors['value'].error, 'Value is required');
+      });
+
+      test('Data is null.', () {
+        RequiredTest tester = new RequiredTest(null);
+        bool isValid = ModelState.isValid<RequiredTest>(tester);
+        expect(isValid, false);
+
+        expect(ModelState.errors['value'].validatorType, Required);
+        expect(ModelState.errors['value'].propertyName, 'value');
+        expect(ModelState.errors['value'].error, 'Value is required');
+      });
+    });
   });
-
-  test('Test for Required. Invalid form.', () {
-    RequiredTest tester = new RequiredTest('', null);
-    bool isValid = ModelState.isValid<RequiredTest>(tester);
-    expect(isValid, false);
-
-    expect(ModelState.errors['a'].validatorType, Required);
-    expect(ModelState.errors['a'].propertyName, 'a');
-    expect(ModelState.errors['a'].error, '"a" is required');
-
-    expect(ModelState.errors['b'].validatorType, Required);
-    expect(ModelState.errors['b'].propertyName, 'b');
-    expect(ModelState.errors['b'].error, '"b" is required');
-  });
-}
-
-@flutterModelFormValidator
-class RequiredTest {
-  RequiredTest(this.a, this.b);
-
-  @Required(error: '"a" is required')
-  final String a;
-
-  @Required(error: '"b" is required')
-  final String b;
 }

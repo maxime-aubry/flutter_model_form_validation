@@ -5,19 +5,19 @@ import '../../utils/rules.dart';
 /// [URL] validator permits you to check that a string value is a valid URL.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class URL extends ValidationAnnotation {
+class URL extends ValidationAnnotation<String> {
   const URL({
     @required this.error,
   }) : super(criticityLevel: 2, error: error);
 
-  /// This is the custom error to return in case of invalidation.
+  /// [error] is the custom error to return in case of invalidation.
   final String error;
 
   @override
-  bool isValid<TModel>(Object value, TModel model) {
+  bool isValid<TModel>(String value, TModel model) {
     try {
-      if (value is! String) return false;
-      return _validate(value);
+      bool isValid = _validate(value);
+      return isValid;
     } catch (e) {
       print(e);
       return false;

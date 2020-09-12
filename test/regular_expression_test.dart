@@ -1,33 +1,32 @@
+import 'models/models.dart';
+import 'models/models.reflectable.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'regular_expression_test.reflectable.dart';
 
 void main() {
   initializeReflectable();
 
-  test('Test for RegularExpression. Valid form.', () {
-    RegularExpressionTest tester = new RegularExpressionTest('Hello');
-    bool isValid = ModelState.isValid<RegularExpressionTest>(tester);
-    expect(isValid, true);
-    expect(ModelState.errors.isEmpty, true);
+  group('RegularExpression.', () {
+    group('Test the validation > success.', () {
+      test('Valid regular expression.', () {
+        RegularExpressionTest tester = new RegularExpressionTest('Hello');
+        bool isValid = ModelState.isValid<RegularExpressionTest>(tester);
+        expect(isValid, true);
+        expect(ModelState.errors.isEmpty, true);
+      });
+    });
+
+    group('Test the validation > failure.', () {
+      test('Invalid regular expression.', () {
+        RegularExpressionTest tester =
+            new RegularExpressionTest('Good morning');
+        bool isValid = ModelState.isValid<RegularExpressionTest>(tester);
+        expect(isValid, false);
+
+        expect(ModelState.errors['value'].validatorType, RegularExpression);
+        expect(ModelState.errors['value'].propertyName, 'value');
+        expect(ModelState.errors['value'].error, 'Invalid regular expression');
+      });
+    });
   });
-
-  test('Test for RegularExpression. Invalid form.', () {
-    RegularExpressionTest tester = new RegularExpressionTest('Good morning');
-    bool isValid = ModelState.isValid<RegularExpressionTest>(tester);
-    expect(isValid, false);
-
-    expect(ModelState.errors['a'].validatorType, RegularExpression);
-    expect(ModelState.errors['a'].propertyName, 'a');
-    expect(ModelState.errors['a'].error, 'invalid regular expression');
-  });
-}
-
-@flutterModelFormValidator
-class RegularExpressionTest {
-  RegularExpressionTest(this.a);
-
-  @RegularExpression(
-      expression: r'^Hello|Bye$', error: 'invalid regular expression')
-  final String a;
 }

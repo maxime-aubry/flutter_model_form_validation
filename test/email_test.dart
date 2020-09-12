@@ -1,32 +1,30 @@
+import 'models/models.dart';
+import 'models/models.reflectable.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'email_test.reflectable.dart';
 
 void main() {
   initializeReflectable();
 
-  test('Test for Email. Valid form.', () {
-    EmailTest tester = new EmailTest('azerty@test.com');
-    bool isValid = ModelState.isValid<EmailTest>(tester);
-    expect(isValid, true);
-    expect(ModelState.errors.isEmpty, true);
+  group('Email.', () {
+    group('Test the validation > success.', () {
+      test('Valid email.', () {
+        EmailTest tester = new EmailTest('azerty@test.com');
+        bool isValid = ModelState.isValid<EmailTest>(tester);
+        expect(isValid, true);
+        expect(ModelState.errors.isEmpty, true);
+      });
+    });
+    group('Test the validation > failure.', () {
+      test('Invalid email.', () {
+        EmailTest tester = new EmailTest('azerty@.com');
+        bool isValid = ModelState.isValid<EmailTest>(tester);
+        expect(isValid, false);
+
+        expect(ModelState.errors['value'].validatorType, Email);
+        expect(ModelState.errors['value'].propertyName, 'value');
+        expect(ModelState.errors['value'].error, 'Invalid email');
+      });
+    });
   });
-
-  test('Test for Email. Invalid form.', () {
-    EmailTest tester = new EmailTest('azerty@.com');
-    bool isValid = ModelState.isValid<EmailTest>(tester);
-    expect(isValid, false);
-
-    expect(ModelState.errors['a'].validatorType, Email);
-    expect(ModelState.errors['a'].propertyName, 'a');
-    expect(ModelState.errors['a'].error, 'invalid email');
-  });
-}
-
-@flutterModelFormValidator
-class EmailTest {
-  EmailTest(this.a);
-
-  @Email(error: 'invalid email')
-  final String a;
 }

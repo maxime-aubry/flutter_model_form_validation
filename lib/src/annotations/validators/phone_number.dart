@@ -1,47 +1,68 @@
 import 'package:flutter/widgets.dart';
-import '../validation_annotation.dart';
-import '../validation_helper.dart';
-import '../../utils/rules.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
+import 'package:flutter_model_form_validation/src/annotations/validation_helper.dart';
+import 'package:flutter_model_form_validation/src/utils/rules.dart';
 
 /// [PhoneNumber] validator permits you to check that a string value is a valid phone number.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class PhoneNumber extends ValidationAnnotation {
+class PhoneNumber extends ValidationAnnotation<String> {
   const PhoneNumber({
     this.countryCode,
+    this.phoneNumberType,
     this.countryCodeOnProperty,
+    this.phoneNumberTypeOnProperty,
     @required this.error,
   }) : super(criticityLevel: 2, error: error);
 
-  /// This is the country code.
+  /// [countryCode] is the country code.
   final String countryCode;
 
-  /// This is the country code on a targeted property.
+  /// [phoneNumberType] is the type of phone number, landline or mobile phone.
+  final PhoneNumberType phoneNumberType;
+
+  /// [countryCodeOnProperty] is the name of targeted property that user uses to provide country code. This one has priority on [countryCode] value.
   final String countryCodeOnProperty;
 
-  /// This is the custom error to return in case of invalidation.
+  /// [phoneNumberTypeOnProperty] is the name of targeted property that user uses to provide phone number type. This one has priority on [phoneNumberType] value.
+  final String phoneNumberTypeOnProperty;
+
+  /// [error] is the custom error to return in case of invalidation.
   final String error;
 
   @override
-  bool isValid<TModel>(Object value, TModel model) {
+  bool isValid<TModel>(String value, TModel model) {
     try {
-      if (value is! String) return false;
+      String _countryCode = ValidationHelper.getLinkedProperty<TModel, String>(
+              model, this.countryCodeOnProperty) ??
+          this.countryCode;
+      PhoneNumberType _phoneNumberType =
+          ValidationHelper.getLinkedProperty<TModel, PhoneNumberType>(
+                  model, this.phoneNumberTypeOnProperty) ??
+              this.phoneNumberType;
 
-      String countryCodeOnProperty = ValidationHelper.getLinkedProperty<TModel>(
-          model, this.countryCodeOnProperty);
+      if (_countryCode == null || _phoneNumberType == null) return false;
 
-      return _validate(value, countryCodeOnProperty ?? this.countryCode);
+      bool isValid = _validate(value, _countryCode.toUpperCase(),
+          _phoneNumberType.toString().split('.')[1]);
+      return isValid;
     } catch (e) {
       print(e);
       return false;
     }
   }
 
-  bool _validate(String value, String countryCode) {
-    if (!Rules.phone.containsKey(countryCode.toUpperCase()))
+  bool _validate(
+      String value, String countryCodeValue, String phoneNumberTypeValue) {
+    if (!Rules.phone.containsKey('$countryCodeValue-$phoneNumberTypeValue'))
       return false;
 
-    RegExp regExp = new RegExp(Rules.phone[countryCode.toUpperCase()]);
+    // sanitize the value
+    value = value.replaceAll(new RegExp(r'[\D]'), '');
+
+    RegExp regExp =
+        new RegExp(Rules.phone['$countryCodeValue-$phoneNumberTypeValue']);
     if (regExp.hasMatch(value)) return true;
     return false;
   }

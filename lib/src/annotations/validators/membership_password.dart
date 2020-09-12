@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
-import '../validation_annotation.dart';
+import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
 
 /// [MembershipPassword] validator permits you to check that a string value is accordance with declared settings.
 /// You must set to true at least one options. In the other case, your validator will always return false.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class MembershipPassword extends ValidationAnnotation {
+class MembershipPassword extends ValidationAnnotation<String> {
   const MembershipPassword({
     @required this.minLength,
     @required this.maxLength,
@@ -16,36 +16,36 @@ class MembershipPassword extends ValidationAnnotation {
     @required this.error,
   }) : super(criticityLevel: 2, error: error);
 
-  /// This is the minimal string length of your password.
+  /// [minLength] is the minimal string length of your password.
   final int minLength;
 
-  /// This is the maximal string length of your password.
+  /// [maxLength] is the maximal string length of your password.
   final int maxLength;
 
-  /// If true, forces to add alphabetical characters to the password.
+  /// [includesAlphabeticalCharacters] forces to add alphabetical characters to the password.
   final bool includesAlphabeticalCharacters;
 
-  /// If true, forces to add uppercase characters to the password.
+  /// [includesUppercaseCharacters] forces to add uppercase characters to the password.
   final bool includesUppercaseCharacters;
 
-  /// If true, forces to add numerical characters to the password.
+  /// [includesNumericalCharacters] forces to add numerical characters to the password.
   final bool includesNumericalCharacters;
 
-  /// If true, forces to add special characters to the password.
+  /// [includesSpecialCharacters] forces to add special characters to the password.
   final bool includesSpecialCharacters;
 
-  /// This is the custom error to return in case of invalidation.
+  /// [error] is the custom error to return in case of invalidation.
   final String error;
 
   @override
-  bool isValid<TModel>(Object value, TModel model) {
+  bool isValid<TModel>(String value, TModel model) {
     try {
       if (!this.includesAlphabeticalCharacters &&
           !this.includesUppercaseCharacters &&
           !this.includesNumericalCharacters &&
           !this.includesSpecialCharacters) return false;
-      if (value is! String) return false;
-      return _validate(value);
+      bool isValid = _validate(value);
+      return isValid;
     } catch (e) {
       print(e);
       return false;
