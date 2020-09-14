@@ -1,3 +1,5 @@
-## [0.0.1] - TODO: Add release date.
+## [1.0.0] - 2020-09-14.
 
-* TODO: Describe initial release.
+Provides full library with basic validators.
+An example project is available to help developers to learn to use this library.
+Have fun !
