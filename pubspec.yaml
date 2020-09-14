@@ -1,6 +1,6 @@
 name: flutter_model_form_validation
 description: A new Flutter package project for model validation. Use annotation on a class to describe its rules. Make your own validators easily. This package replaces EasyValidation.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/maxime-aubry/flutter_model_form_validation
 
 environment:
@@ -12,8 +12,8 @@ dependencies:
     sdk: flutter
   build_runner: ^1.10.0
   dartdoc: ^0.32.1
-  dart_json_mapper: ^1.5.21
-  equatable: ^1.2.4
+  dart_json_mapper: ^1.5.22
+  equatable: ^1.2.5
   image: ^2.1.14
   mime: ^0.9.7
   queries: ^0.1.14

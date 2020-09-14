@@ -13,7 +13,7 @@ void main() {
           () {
         File file =
             new File('${Directory.current.path}\\test\\assets\\glycine.jpg');
-        ImageSizeTest tester = new ImageSizeTest(file);
+        ImageSizeTest tester = new ImageSizeTest(file.readAsBytesSync());
         bool isValid = ModelState.isValid<ImageSizeTest>(tester);
         expect(isValid, true);
         expect(ModelState.errors.isEmpty, true);
@@ -26,7 +26,7 @@ void main() {
           () {
         File file = new File(
             '${Directory.current.path}\\test\\assets\\erable-japonais.png');
-        ImageSizeTest tester = new ImageSizeTest(file);
+        ImageSizeTest tester = new ImageSizeTest(file.readAsBytesSync());
         bool isValid = ModelState.isValid<ImageSizeTest>(tester);
         expect(isValid, false);
 

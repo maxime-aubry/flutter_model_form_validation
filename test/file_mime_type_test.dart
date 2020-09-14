@@ -13,7 +13,7 @@ void main() {
         File file =
             new File('${Directory.current.path}\\test\\assets\\glycine.jpg');
 
-        FileMimeTypeTest tester = new FileMimeTypeTest(file);
+        FileMimeTypeTest tester = new FileMimeTypeTest(file.readAsBytesSync());
         bool isValid = ModelState.isValid<FileMimeTypeTest>(tester);
         expect(isValid, true);
         expect(ModelState.errors.isEmpty, true);
@@ -25,7 +25,7 @@ void main() {
         File file = new File(
             '${Directory.current.path}\\test\\assets\\erable-japonais.png');
 
-        FileMimeTypeTest tester = new FileMimeTypeTest(file);
+        FileMimeTypeTest tester = new FileMimeTypeTest(file.readAsBytesSync());
         bool isValid = ModelState.isValid<FileMimeTypeTest>(tester);
         expect(isValid, false);
 
