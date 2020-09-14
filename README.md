@@ -1,6 +1,7 @@
 # Flutter model form validation
 
 Flutter model form validation provides many validators for Flutter, based on [Dart plugin Respectable][1].
+This package replaces EasyValidation.
 
 ## Get started
 
