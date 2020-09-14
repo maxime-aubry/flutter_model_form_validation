@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
 import 'package:image/image.dart' as imageDecoder;
@@ -6,7 +5,7 @@ import 'package:image/image.dart' as imageDecoder;
 /// [ImageSize] validator permits you to check that a string value is a valid image size.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class ImageSize extends ValidationAnnotation<File> {
+class ImageSize extends ValidationAnnotation<List<int>> {
   const ImageSize({
     @required this.minWidth,
     @required this.minHeight,
@@ -31,10 +30,9 @@ class ImageSize extends ValidationAnnotation<File> {
   final String error;
 
   @override
-  bool isValid<TModel>(File value, TModel model) {
+  bool isValid<TModel>(List<int> value, TModel model) {
     try {
-      imageDecoder.Image image =
-          imageDecoder.decodeImage(value.readAsBytesSync());
+      imageDecoder.Image image = imageDecoder.decodeImage(value);
       bool isValid = _validate(image);
       return isValid;
     } catch (e) {

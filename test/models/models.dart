@@ -278,7 +278,7 @@ class FileMimeTypeTest {
     mimeTypes: ['image/jpeg', 'image/bmp'],
     error: 'Invalid mime type',
   )
-  final File value;
+  final List<int> value;
 }
 //#endregion
 
@@ -291,7 +291,7 @@ class FileSizeTest {
     size: 1048576,
     error: 'Invalid file size',
   )
-  final File value;
+  final List<int> value;
 }
 //#endregion
 
@@ -613,7 +613,7 @@ class ImageSizeTest {
     maxHeight: 1000,
     error: 'Taille d\'image incorrecte',
   )
-  final File value;
+  final List<int> value;
 }
 //#endregion
 
