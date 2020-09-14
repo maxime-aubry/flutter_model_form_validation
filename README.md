@@ -16,41 +16,41 @@ dependencies:
 
 | Validator | Description | Progress |
 | --- | --- | --- |
-| ContainsDateTime | ContainsDateTime validator permits you to check that a datetime value is into an array. | done |
-| ContainsNumber | ContainsNumber validator permits you to check that a number value is into an array. | done |
-| ContainsString | ContainsString validator permits you to check that a string value is into an array. | done |
-| DateTimeRange | DateTimeRange validator permits you to check that a datetime using by declared settings. | done |
-| Email | Email validator permits you to check that a string value is a valid email. | done |
-| EqualToDateTime | EqualToDateTime validator permits you to check that a value is equal to the value of another property. | done |
-| EqualToNumber | EqualToNumber validator permits you to check that a value is equal to the value of another property. | done |
-| EqualToString | EqualToString validator permits you to check that a value is equal to the value of another property. | done |
-| FileMimeType | FileMimeType validator permits you to check that a string value is a valid mime type. | done |
-| FileSize | FileSize validator permits you to check that a string value is a valid size. | done |
-| GreaterOrEqualToDateTime | GreaterOrEqualToDateTime validator permits you to check that a value is greater or equal to the value of another property. | done |
-| GreaterOrEqualToNumber | GreaterOrEqualToNumber validator permits you to check that a value is greater or equal to the value of another property. | done |
-| GreaterOrEqualToString | GreaterOrEqualToString validator permits you to check that a value is greater or equal to the value of another property. | done |
-| GreaterThanDateTime | GreaterThanDateTime validator permits you to check that a value is greater than the value of another property. | done |
-| GreaterThanNumber | GreaterThanNumber validator permits you to check that a value is greater than the value of another property. | done |
-| GreaterThanString | GreaterThanString validator permits you to check that a value is greater than the value of another property. | done |
-| ImageSize | ImageSize validator permits you to check that a string value is a valid image size. | done |
-| InText | InText validator permits you to check that a string value is into a text. | done |
-| MembershipPassword | MembershipPassword validator permits you to check that a string value is accordance with declared settings. | done |
-| NotEqualToDateTime | NotEqualToDateTime validator permits you to check that a value is not equal to the value of another property. | done |
-| NotEqualToNumber | NotEqualToNumber validator permits you to check that a value is not equal to the value of another property. | done |
-| NotEqualToString | NotEqualToString validator permits you to check that a value is not equal to the value of another property. | done |
-| NumberRange | NumberRange validator permits you to check that a number using by declared settings. | done |
-| PhoneNumber | PhoneNumber validator permits you to check that a string value is a valid phone number. | wokr in progress. I need documentation about phone number formats for each country in the world. |
-| RegularExpression | RegularExpression validator permits you to check that a string value is accordance with provided regular expression. | done |
-| Required | Required validator permits you to check that a value is provided. | done |
-| SmallerOrEqualToDateTime | SmallerOrEqualToDateTime validator permits you to check that a value is smaller or equal to the value of another property. | done |
-| SmallerOrEqualToNumber | SmallerOrEqualToNumber validator permits you to check that a value is smaller or equal to the value of another property. | done |
-| SmallerOrEqualToString | SmallerOrEqualToString validator permits you to check that a value is smaller or equal to the value of another property. | done |
-| SmallerThanDateTime | SmallerThanDateTime validator permits you to check that a value is smaller than the value of another property. | done |
-| SmallerThanNumber | SmallerThanNumber validator permits you to check that a value is smaller than the value of another property. | done |
-| SmallerThanString | SmallerThanString validator permits you to check that a value is smaller than the value of another property. | done |
-| StringLength | StringLength validator permits you to check that a string value has a length between two values. | done |
-| StringRange | StringRange validator permits you to check that a string using by declared settings. | done |
-| URL | URL validator permits you to check that a string value is a valid URL. | done |
+| `ContainsDateTime` | **ContainsDateTime** validator permits you to check that a datetime value is into an array. | **done** |
+| `ContainsNumber` | **ContainsNumber** validator permits you to check that a number value is into an array. | **done** |
+| `ContainsString` | **ContainsString** validator permits you to check that a string value is into an array. | **done** |
+| `DateTimeRange` | **DateTimeRange** validator permits you to check that a datetime using by declared settings. | **done** |
+| `Email` | **Email** validator permits you to check that a string value is a valid email. | **done** |
+| `EqualToDateTime` | **EqualToDateTime** validator permits you to check that a value is equal to the value of another property. | **done** |
+| `EqualToNumber` | **EqualToNumber** validator permits you to check that a value is equal to the value of another property. | **done** |
+| `EqualToString` | **EqualToString** validator permits you to check that a value is equal to the value of another property. | **done** |
+| `FileMimeType` | **FileMimeType** validator permits you to check that a string value is a valid mime type. | **done** |
+| `FileSize` | **FileSize** validator permits you to check that a string value is a valid size. | **done** |
+| `GreaterOrEqualToDateTime` | **GreaterOrEqualToDateTime** validator permits you to check that a value is greater or equal to the value of another property. | **done** |
+| `GreaterOrEqualToNumber` | **GreaterOrEqualToNumber** validator permits you to check that a value is greater or equal to the value of another property. | **done** |
+| `GreaterOrEqualToString` | **GreaterOrEqualToString** validator permits you to check that a value is greater or equal to the value of another property. | **done** |
+| `GreaterThanDateTime` | **GreaterThanDateTime** validator permits you to check that a value is greater than the value of another property. | **done** |
+| `GreaterThanNumber` | **GreaterThanNumber** validator permits you to check that a value is greater than the value of another property. | **done** |
+| `GreaterThanString` | **GreaterThanString** validator permits you to check that a value is greater than the value of another property. | **done** |
+| `ImageSize` | **ImageSize** validator permits you to check that a string value is a valid image size. | **done** |
+| `InText` | **InText** validator permits you to check that a string value is into a text. | **done** |
+| `MembershipPassword` | **MembershipPassword** validator permits you to check that a string value is accordance with declared settings. | **done** |
+| `NotEqualToDateTime` | **NotEqualToDateTime** validator permits you to check that a value is not equal to the value of another property. | **done** |
+| `NotEqualToNumber` | **NotEqualToNumber** validator permits you to check that a value is not equal to the value of another property. | **done** |
+| `NotEqualToString` | **NotEqualToString** validator permits you to check that a value is not equal to the value of another property. | **done** |
+| `NumberRange` | **NumberRange** validator permits you to check that a number using by declared settings. | **done** |
+| `PhoneNumber` | **PhoneNumber** validator permits you to check that a string value is a valid phone number. | **wokr in progress. I need documentation about phone number formats for each country in the world. |
+| `RegularExpression` | **RegularExpression** validator permits you to check that a string value is accordance with provided regular expression. | **done** |
+| `Required` | **Required** validator permits you to check that a value is provided. | **done** |
+| `SmallerOrEqualToDateTime` | **SmallerOrEqualToDateTime** validator permits you to check that a value is smaller or equal to the value of another property. | **done** |
+| `SmallerOrEqualToNumber` | **SmallerOrEqualToNumber** validator permits you to check that a value is smaller or equal to the value of another property. | **done** |
+| `SmallerOrEqualToString` | **SmallerOrEqualToString** validator permits you to check that a value is smaller or equal to the value of another property. | **done** |
+| `SmallerThanDateTime` | **SmallerThanDateTime** validator permits you to check that a value is smaller than the value of another property. | **done** |
+| `SmallerThanNumber` | **SmallerThanNumber** validator permits you to check that a value is smaller than the value of another property. | **done** |
+| `SmallerThanString` | **SmallerThanString** validator permits you to check that a value is smaller than the value of another property. | **done** |
+| `StringLength` | **StringLength** validator permits you to check that a string value has a length between two values. | **done** |
+| `StringRange` | **StringRange** validator permits you to check that a string using by declared settings. | **done** |
+| `URL` | **URL** validator permits you to check that a string value is a valid URL. | **done** |
 
 ## How to use validators and validate a model
 Here is a simple usage example. Note that a lot of examples are available in unit test file `test/flutter_model_form_validation_test.dart`.
