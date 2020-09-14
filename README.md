@@ -125,116 +125,166 @@ if (isValid) {
 
 Practice usage for Flutter with Blocs:
 
-Here is the authentication_form.dart file:
+Here is the login_form.dart file:
 ```dart
-class AuthenticationForm extends StatefulWidget {
-  @override
-  _AuthenticationFormState createState() => _AuthenticationFormState();
-}
+import 'package:example/blocs/login_form_bloc.dart';
+import 'package:example/blocs/login_form_event.dart';
+import 'package:example/blocs/login_form_state.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-class _AuthenticationFormState extends State<AuthenticationForm> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
-  AuthenticationFormBloc _authenticationFormBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    _authenticationFormBloc = BlocProvider.of<AuthenticationFormBloc>(context);
-    _emailController.addListener(_onEmailChanged);
-    _passwordController.addListener(_onPasswordChanged);
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext pageContext) {
-    return MultiBlocListener(
-      listeners: [
-        // ...
-      ],
-      child: BlocBuilder<AuthenticationFormBloc, AuthenticationFormState>(
-        builder: (BuildContext context, AuthenticationFormState state) {
-          return Form(
-            child: Padding(
-              padding: EdgeInsets.all(15),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>
-                  EmailInput(controller: _emailController),
-                  PasswordInput(controller: _passwordController),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  // Events
-  void _onEmailChanged() {
-    _authenticationFormBloc
-        .dispatch(EmailChangedEvent(email: _emailController.text));
-  }
-
-  void _onPasswordChanged() {
-    _authenticationFormBloc
-        .dispatch(PasswordChangedEvent(password: _passwordController.text));
-  }
-}
-```
-
-Here is the email_input.dart:
-```dart
-class PasswordInput extends StatelessWidget {
-  PasswordInput({
-    @required this.controller,
-  });
-
-  final TextEditingController controller;
+class LoginForm extends StatelessWidget {
+  final FocusNode _focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
-    final AuthenticationFormBloc _authenticationFormBloc =
-        BlocProvider.of<AuthenticationFormBloc>(context);
+    return BlocListener<LoginFormBloc, LoginFormState>(
+      listener: (BuildContext context, LoginFormState state) {},
+      child: Material(
+        child: Form(
+          child: Padding(
+            padding: EdgeInsets.all(15),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                EmailInput(),
+                PasswordInput(focusNode: this._focusNode),
+                SubmitButton(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
-    return BlocBuilder<AuthenticationFormBloc, AuthenticationFormState>(
-      bloc: _authenticationFormBloc,
-      builder: (BuildContext context, AuthenticationFormState state) {
+class EmailInput extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LoginFormBloc, LoginFormState>(
+      buildWhen: (LoginFormState previous, LoginFormState current) =>
+          ModelFormUtilities.refreshWhen(previous, current),
+      builder: (BuildContext context, LoginFormState state) {
         return TextFormField(
           decoration: InputDecoration(
-            icon: Icon(
-              Icons.lock,
-              color: Colors.grey,
-            ),
+            labelText: 'Email',
+          ),
+          autofocus: true,
+          autovalidate: true,
+          autocorrect: false,
+          keyboardType: TextInputType.text,
+          onChanged: (String value) =>
+              context.bloc<LoginFormBloc>().add(LoginFormEmailChanged(value)),
+          validator: (String value) =>
+              ModelFormUtilities.getErrorMessage(state, 'email'),
+        );
+      },
+    );
+  }
+}
+
+class PasswordInput extends StatelessWidget {
+  PasswordInput({Key key, @required this.focusNode}) : super(key: key);
+
+  final FocusNode focusNode;
+  final TextEditingController controller = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LoginFormBloc, LoginFormState>(
+      buildWhen: (LoginFormState previous, LoginFormState current) =>
+          ModelFormUtilities.refreshWhen(previous, current),
+      builder: (BuildContext context, LoginFormState state) {
+        return TextFormField(
+          decoration: InputDecoration(
+            labelText: 'Password',
             suffixIcon: IconButton(
               icon: Icon(
                 Icons.info,
                 color: Colors.grey,
               ),
+              onPressed: () {
+                alertDialogPasswordValidation(context, controller.text);
+              },
             ),
-            labelText: 'Password',
-            labelStyle: TextStyle(color: Colors.grey),
           ),
+          focusNode: this.focusNode,
           controller: controller,
-          obscureText: true,
           autovalidate: true,
           autocorrect: false,
-          textInputAction: TextInputAction.done,
-          keyboardType: TextInputType.text,
-          validator: (String value) {
-            if (state.errors.containsKey('password'))
-              return state.errors['password'];
-            return null;
-          },
+          obscureText: true,
+          keyboardType: TextInputType.visiblePassword,
+          onChanged: (String value) => context
+              .bloc<LoginFormBloc>()
+              .add(LoginFormPasswordChanged(value)),
+          validator: (String value) =>
+              ModelFormUtilities.getErrorMessage(state, 'password'),
+        );
+      },
+    );
+  }
+}
+
+Future<void> alertDialogPasswordValidation(
+    BuildContext context, String password) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      Map<String, bool> rules = MembershipPassword.getErrorDetails(
+          password, 8, 16, true, true, true, true);
+      Map<String, String> labels = {
+        'minLength': 'Min length of 8',
+        'maxLength': 'Max length of 16',
+        'includesAlphabeticalCharacters': 'At least one alphabetical character',
+        'includesUppercaseCharacters': 'At least one uppercase character',
+        'includesNumericalCharacters': 'At least one numeric character',
+        'includesSpecialCharacters': 'At least one special character',
+      };
+
+      return AlertDialog(
+        title: Text('Validation rules'),
+        content: Container(
+          width: double.maxFinite,
+          child: ListView(children: <Widget>[
+            for (String key in labels.keys)
+              ListTile(
+                leading: Icon(
+                  rules[key] ? Icons.done : Icons.error,
+                  color: rules[key] ? Colors.greenAccent : Colors.redAccent,
+                ),
+                title: Text(labels[key]),
+              )
+          ]),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+class SubmitButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LoginFormBloc, LoginFormState>(
+      buildWhen: (LoginFormState previous, LoginFormState current) =>
+          ModelFormUtilities.refreshWhen(
+              previous, current, (p, c) => p.isValid != c.isValid),
+      builder: (BuildContext context, LoginFormState state) {
+        return RaisedButton(
+          onPressed: (state.isValid ? () {} : null),
+          child: Text('Submit form'),
         );
       },
     );
@@ -244,14 +294,19 @@ class PasswordInput extends StatelessWidget {
 
 Here is the authentication_model.dart file:
 ```dart
+import 'package:dart_json_mapper/dart_json_mapper.dart' show jsonSerializable;
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+
 @flutterModelFormValidator
+@jsonSerializable
 class AuthenticationModel {
-  AuthenticationModel(
+  AuthenticationModel({
     this.email,
     this.password,
-  );
+  });
 
   @Required(error: 'Email is required')
+  @Email(error: 'Invalid email')
   String email;
 
   @Required(error: 'Password is required')
@@ -269,126 +324,96 @@ class AuthenticationModel {
 
 Here is the authentication_form_bloc.dart:
 ```dart
-class AuthenticationFormBloc
-    extends Bloc<AuthenticationFormEvent, AuthenticationFormState> {
-  @override
-  AuthenticationFormState get initialState => AuthenticationFormState.initial();
+import 'package:bloc/bloc.dart';
+import 'package:example/blocs/login_form_event.dart';
+import 'package:example/blocs/login_form_state.dart';
+
+class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
+  LoginFormBloc() : super(const LoginFormState());
 
   @override
-  Stream<AuthenticationFormState> mapEventToState(
-    AuthenticationFormEvent event,
-  ) async* {
-    if (event is PasswordChangedEvent)
-      yield* _onPasswordChanged(event.password);
+  Stream<LoginFormState> mapEventToState(LoginFormEvent event) async* {
+    if (event is LoginFormEmailChanged)
+      yield _mapUsernameChangedToState(event, state);
+    else if (event is LoginFormPasswordChanged)
+      yield _mapPasswordChangedToState(event, state);
   }
 
-  Stream<AuthenticationFormState> _onPasswordChanged(String password) async* {
-    yield currentState.copyWith(password: password);
+  LoginFormState _mapUsernameChangedToState(
+    LoginFormEmailChanged event,
+    LoginFormState state,
+  ) {
+    return state.updateUser(email: event.email);
+  }
+
+  LoginFormState _mapPasswordChangedToState(
+    LoginFormPasswordChanged event,
+    LoginFormState state,
+  ) {
+    return state.updateUser(password: event.password);
   }
 }
 ```
 
 Here is the authentication_form_event.dart file:
 ```dart
-@immutable
-abstract class AuthenticationFormEvent extends Equatable {
-  AuthenticationFormEvent([List props = const []]) : super(props);
-}
+import 'package:equatable/equatable.dart';
 
-class PasswordChangedEvent extends AuthenticationFormEvent {
-  final String password;
-
-  PasswordChangedEvent({@required this.password}) : super([password]);
+abstract class LoginFormEvent extends Equatable {
+  const LoginFormEvent();
 
   @override
-  String toString() => 'PasswordChangedEvent { password: $password }';
+  List<Object> get props => [];
+}
+
+class LoginFormEmailChanged extends LoginFormEvent {
+  const LoginFormEmailChanged(this.email);
+
+  final String email;
+
+  @override
+  List<Object> get props => [email];
+}
+
+class LoginFormPasswordChanged extends LoginFormEvent {
+  const LoginFormPasswordChanged(this.password);
+
+  final String password;
+
+  @override
+  List<Object> get props => [password];
 }
 ```
 
 Here is the authentication_form_state.dart file:
 ```dart
-import 'dart:convert';
-
+import 'package:example/entities/authentication_model.dart';
+import 'package:example/main.reflectable.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-import 'package:equatable/equatable.dart';
-import 'package:greenworld/main.reflectable.dart';
-import 'package:greenworld/models/authentication_model.dart';
-import 'package:meta/meta.dart';
 
-@immutable
-class AuthenticationFormState extends Equatable {
-  final String email;
-  final String password;
-  final Map<String, ValidationError> errors = Map<String, ValidationError>();
-  final bool isFormValid;
+class LoginFormState extends ModelFormState<AuthenticationModel> {
+  const LoginFormState({
+    AuthenticationModel viewmodel,
+    bool isValid = false,
+    Map<String, ValidationError> errors = const {},
+  }) : super(viewmodel: viewmodel, isValid: isValid, errors: errors);
 
-  AuthenticationFormState({
-    @required this.email,
-    @required this.password,
-    Map<String, ValidationError> errors,
-    @required this.isFormValid,
-  }) : super([
-          email,
-          password,
-          isFormValid,
-        ]) {
-    this.errors.addAll(errors);
-  }
-
-  bool _validate(AuthenticationModel model, Map<String, ValidationError> _errors) {
-    initializeReflectable();
-    bool _isFormValid = ModelState.isValid<AuthenticationModel>(model);
-
-    if (_isFormValid) {
-      print('form is valid');
-      print(json.encode(model));
-      _errors.clear();
-    } else {
-      print('Form is not valid');
-      print(json.encode(model));
-      _errors.addAll(ModelState.errors ?? Map<String, ValidationError>());
-    }
-
-    return _isFormValid;
-  }
-
-  factory AuthenticationFormState.initial() {
-    return AuthenticationFormState(
-      email: '',
-      password: '',
-      errors: Map<String, ValidationError>(),
-      isFormValid: false,
-    );
-  }
-
-  AuthenticationFormState copyWith({
+  LoginFormState updateUser({
     String email,
     String password,
-    String retypePassword,
   }) {
-    AuthenticationModel model = AuthenticationModel(
-      email ?? this.email,
-      password ?? this.password,
-    );
-    Map<String, ValidationError> _errors = Map<String, ValidationError>();
-    bool _isFormValid = _validate(model, _errors);
+    initializeReflectable();
+    AuthenticationModel copyOfViewmodel =
+        ModelFormUtilities.getDeepCopy(this.viewmodel) ??
+            new AuthenticationModel();
+    copyOfViewmodel.email = email ?? this.viewmodel?.email ?? null;
+    copyOfViewmodel.password = password ?? this.viewmodel?.password ?? null;
 
-    return AuthenticationFormState(
-      email: email ?? this.email,
-      password: password ?? this.password,
-      errors: _errors,
-      isFormValid: _isFormValid,
+    return LoginFormState(
+      viewmodel: copyOfViewmodel,
+      isValid: ModelState.isValid<AuthenticationModel>(copyOfViewmodel),
+      errors: ModelState.errors,
     );
-  }
-
-  @override
-  String toString() {
-    return '''AuthenticationFormState {
-      email: $email,
-      password: $password,
-      errors: $errors,
-      isFormValid: $isFormValid,
-    }''';
   }
 }
 ```
