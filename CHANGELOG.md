@@ -9,3 +9,7 @@ Have fun !
 Version 1.0.0 was not compataible with flutter-web because of dart:io.
 Il removed this import into three validators (FileMimeType, FileSize and ImageSize).
 Those validators now use a byte array instead of a File object.
+
+## [1.0.2] - 2020-09-14.
+
+Removing dartdoc.

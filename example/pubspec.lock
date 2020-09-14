@@ -127,13 +127,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
-  cli_util:
-    dependency: transitive
-    description:
-      name: cli_util
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.4"
   clock:
     dependency: transitive
     description:
@@ -197,13 +190,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.6"
-  dartdoc:
-    dependency: transitive
-    description:
-      name: dartdoc
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.32.1"
   equatable:
     dependency: "direct main"
     description:
@@ -218,13 +204,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
-  file:
-    dependency: transitive
-    description:
-      name: file
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.2.1"
   fixnum:
     dependency: transitive
     description:
@@ -250,7 +229,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.0.1"
+    version: "1.0.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -340,13 +319,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.11.4"
-  markdown:
-    dependency: transitive
-    description:
-      name: markdown
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.8"
   matcher:
     dependency: transitive
     description:
@@ -368,13 +340,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.7"
-  mustache:
-    dependency: transitive
-    description:
-      name: mustache
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.1"
   nested:
     dependency: transitive
     description:
@@ -424,13 +389,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.4"
-  platform:
-    dependency: transitive
-    description:
-      name: platform
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.2.1"
   pool:
     dependency: transitive
     description:
@@ -438,13 +396,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.0"
-  process:
-    dependency: transitive
-    description:
-      name: process
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.13"
   provider:
     dependency: transitive
     description:
@@ -487,13 +438,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.5"
-  resource:
-    dependency: transitive
-    description:
-      name: resource
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.7"
   shelf:
     dependency: transitive
     description:
