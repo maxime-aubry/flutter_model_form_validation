@@ -10,14 +10,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  build_runner: any
-  dartdoc: any
-  dart_json_mapper: any
-  equatable: any
-  image: any
-  mime: any
-  queries: any
-  reflectable: any
+  build_runner: ^1.10.0
+  dartdoc: ^0.32.1
+  dart_json_mapper: ^1.5.22
+  equatable: ^1.2.5
+  image: ^2.1.14
+  mime: ^0.9.7
+  queries: ^0.1.14
+  reflectable: ^2.2.5
 
 dev_dependencies:
   flutter_test:
