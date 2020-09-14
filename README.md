@@ -82,7 +82,7 @@ class MyModel {
   final DateTime birthday;
 
   @DateTimeRange(min: '1900-01-01', max: null, error: 'DateOfDeath must be betwwen 1900/01/01 and infinity')
-  @GreaterOrEqualToDateTime(valueToCompareOnProperty: 'birthday', error: 'DateOfDeath must be greater than Birthday')
+  @GreaterThanDateTime(valueToCompareOnProperty: 'birthday', error: 'DateOfDeath must be greater than Birthday')
   final DateTime dateOfDeath;
 }
 ```
