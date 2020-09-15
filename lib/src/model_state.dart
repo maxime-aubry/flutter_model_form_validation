@@ -1,7 +1,7 @@
+import 'package:flutter_model_form_validation/src/annotations/flutter_model_form_validator.dart';
+import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
+import 'package:flutter_model_form_validation/src/annotations/validation_error.dart';
 import 'package:reflectable/reflectable.dart';
-import 'annotations/flutter_model_form_validator.dart';
-import '../src/annotations/validation_annotation.dart';
-import '../src/annotations/validation_error.dart';
 
 class ModelState {
   static Map<String, ValidationError> _errors;
@@ -17,48 +17,15 @@ class ModelState {
       ClassMirror classMirror = flutterModelFormValidator.reflectType(TModel);
       _errors = Map<String, ValidationError>();
 
-      classMirror.declarations
-          .forEach((String propertyName, DeclarationMirror declarationMirror) {
+      for (MapEntry<String, DeclarationMirror> item
+          in classMirror.declarations.entries) {
         ValidationError error = _validateProperty(
-          propertyName,
-          declarationMirror,
+          item.key,
+          item.value,
           instanceMirror,
           model,
         );
-        if (error != null) _errors[propertyName] = error;
-      });
-
-      return _errors.isEmpty;
-    } catch (e) {
-      print(e);
-      return false;
-    }
-  }
-
-  /// Gets the state of current [propertyName] into the [model] binding of [TModel] type.
-  /// Browses all declared metadata of [ValidationAnnotation] type for property.
-  /// Then, executes "IsValid" method that returns true or false. First of them that retuns false invalidates your property. If there is none, your property is valid.
-  static bool isValidProperty<TModel>(
-    TModel model,
-    String propertyName,
-  ) {
-    try {
-      InstanceMirror instanceMirror = flutterModelFormValidator.reflect(model);
-      ClassMirror classMirror = flutterModelFormValidator.reflectType(TModel);
-      DeclarationMirror declarationMirror =
-          classMirror.declarations[propertyName];
-      _errors = Map<String, ValidationError>();
-
-      if (declarationMirror != null) {
-        ValidationError error = _validateProperty(
-          propertyName,
-          declarationMirror,
-          instanceMirror,
-          model,
-        );
-        if (error != null) _errors[propertyName] = error;
-      } else {
-        throw Exception('No property found for this name in this object');
+        if (error != null) _errors[item.key] = error;
       }
 
       return _errors.isEmpty;

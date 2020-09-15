@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../annotations/validation_error.dart';
+import 'package:flutter_model_form_validation/src/annotations/validation_error.dart';
 
 /// [ModelFormState] is the parent class of your state class if you want to use BlOcs.
 /// {@category BlOcs support}
