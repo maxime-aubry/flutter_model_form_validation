@@ -1,4 +1,5 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+import 'package:property_change_notifier/property_change_notifier.dart';
 
 /*group('xxxx.', () {
     group('Test the priority between user and developer static data.', () {});
@@ -8,16 +9,67 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 
 void main() {}
 
+@flutterModelFormValidator
+class ComplexFormTest with PropertyChangeNotifier<String> {
+  ComplexFormTest(
+      this.firstName, this.lastName, this.birthDay, this.dateOfDeath);
+
+  @Required(error: 'firstname is required')
+  @StringLength(min: 3, max: 50, error: 'Invalid string length')
+  String firstName;
+
+  @Required(error: 'lastname is required')
+  @StringLength(min: 3, max: 50, error: 'Invalid string length')
+  String lastName;
+
+  @Required(error: 'birthday is required')
+  DateTime birthDay;
+
+  @GreaterOrEqualToDateTime(
+      valueToCompareOnProperty: 'birthDay',
+      error: 'date of death must be greater or equal to birthday')
+  @SmallerOrEqualToDateTime(
+      valueToCompare: '2020-01-01',
+      error: 'date of death must be smaller or equal than 2020-01-01')
+  DateTime dateOfDeath;
+
+  // getters and setters
+  String get first_name => this.firstName;
+  String get last_name => this.lastName;
+  DateTime get birth_day => this.birthDay;
+  DateTime get date_of_death => this.dateOfDeath;
+
+  set first_name(String firstName) {
+    this.firstName = firstName;
+    notifyListeners('firstName');
+  }
+
+  set last_name(String lastName) {
+    this.lastName = lastName;
+    notifyListeners('lastName');
+  }
+
+  set birth_day(DateTime birthDay) {
+    this.birthDay = birthDay;
+    notifyListeners('birthDay');
+  }
+
+  set date_of_death(DateTime dateOfDeath) {
+    this.dateOfDeath = dateOfDeath;
+    notifyListeners('dateOfDeath');
+  }
+}
+
 //#region ContainsDateTime
 @flutterModelFormValidator
-class ContainsDateTimeTest {
+class ContainsDateTimeTest with PropertyChangeNotifier<String> {
   ContainsDateTimeTest(this.value);
 
   @ContainsDateTime(
     items: ['2020-01-01', '2020-06-01', '2020-12-31'],
     error: 'Invalid datetime',
   )
-  final DateTime value;
+  DateTime value;
 }
 //#endregion
 
@@ -30,7 +82,7 @@ class ContainsNumberTest {
     items: [1, 2, 3],
     error: 'Invalid number',
   )
-  final num value;
+  num value;
 }
 //#endregion
 
@@ -43,7 +95,7 @@ class ContainsStringTest {
     items: ['lorem', 'ipsum', 'dolor', 'sit', 'amet'],
     error: 'Invalid keyword',
   )
-  final String value;
+  String value;
 }
 //#endregion
 
@@ -57,9 +109,9 @@ class DateTimeRangeTest {
     maxOnProperty: 'max',
     error: 'This datetime is not in the range',
   )
-  final DateTime value;
-  final DateTime min;
-  final DateTime max;
+  DateTime value;
+  DateTime min;
+  DateTime max;
 }
 
 @flutterModelFormValidator
@@ -73,9 +125,9 @@ class DateTimeRangeWithUserAndDeveloperValuesTest {
     max: '2019-12-31',
     error: 'This datetime is not in the range',
   )
-  final DateTime value;
-  final DateTime min;
-  final DateTime max;
+  DateTime value;
+  DateTime min;
+  DateTime max;
 }
 
 @flutterModelFormValidator
@@ -87,9 +139,9 @@ class DateTimeRangeWithUserValuesTest {
     maxOnProperty: 'max',
     error: 'This datetime is not in the range',
   )
-  final DateTime value;
-  final DateTime min;
-  final DateTime max;
+  DateTime value;
+  DateTime min;
+  DateTime max;
 }
 
 @flutterModelFormValidator
@@ -101,7 +153,7 @@ class DateTimeRangeWithDeveloperValuesTest {
     max: '2019-12-31',
     error: 'This datetime is not in the range',
   )
-  final DateTime value;
+  DateTime value;
 }
 //#endregion
 
@@ -113,7 +165,7 @@ class EmailTest {
   @Email(
     error: 'Invalid email',
   )
-  final String value;
+  String value;
 }
 //#endregion
 
@@ -126,8 +178,8 @@ class EqualToDatetimeTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime value;
+  DateTime valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -140,8 +192,8 @@ class EqualToDatetimeWithUserAndDeveloperValuesTest {
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime value;
+  DateTime valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -152,8 +204,8 @@ class EqualToDatetimeWithUserValuesTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime value;
+  DateTime valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -164,7 +216,7 @@ class EqualToDatetimeWithDeveloperValuesTest {
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
+  DateTime value;
 }
 //#endregion
 
@@ -177,8 +229,8 @@ class EqualToNumberTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
-  final num valueToCompare;
+  num value;
+  num valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -190,8 +242,8 @@ class EqualToNumberWithUserAndDeveloperValuesTest {
     valueToCompare: 1,
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
-  final num valueToCompare;
+  num value;
+  num valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -202,8 +254,8 @@ class EqualToNumberWithUserValuesTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
-  final num valueToCompare;
+  num value;
+  num valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -214,7 +266,7 @@ class EqualToNumberWithDeveloperValuesTest {
     valueToCompare: 1,
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
+  num value;
 }
 //#endregion
 
@@ -227,8 +279,8 @@ class EqualToStringTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
-  final String valueToCompare;
+  String value;
+  String valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -240,8 +292,8 @@ class EqualToStringWithUserAndDeveloperValuesTest {
     valueToCompare: 'b',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
-  final String valueToCompare;
+  String value;
+  String valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -252,8 +304,8 @@ class EqualToStringWithUserValuesTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
-  final String valueToCompare;
+  String value;
+  String valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -264,7 +316,7 @@ class EqualToStringWithDeveloperValuesTest {
     valueToCompare: 'b',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
+  String value;
 }
 //#endregion
 
@@ -277,7 +329,7 @@ class FileMimeTypeTest {
     mimeTypes: ['image/jpeg', 'image/bmp'],
     error: 'Invalid mime type',
   )
-  final List<int> value;
+  List<int> value;
 }
 //#endregion
 
@@ -290,7 +342,7 @@ class FileSizeTest {
     size: 1048576,
     error: 'Invalid file size',
   )
-  final List<int> value;
+  List<int> value;
 }
 //#endregion
 
@@ -303,8 +355,8 @@ class GreaterOrEqualToDatetimeTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime value;
+  DateTime valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -317,8 +369,8 @@ class GreaterOrEqualToDatetimeWithUserAndDeveloperValuesTest {
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime value;
+  DateTime valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -329,8 +381,8 @@ class GreaterOrEqualToDatetimeWithUserValuesTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime value;
+  DateTime valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -341,7 +393,7 @@ class GreaterOrEqualToDatetimeWithDeveloperValuesTest {
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
+  DateTime value;
 }
 //#endregion
 
@@ -354,8 +406,8 @@ class GreaterOrEqualToNumberTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
-  final num valueToCompare;
+  num value;
+  num valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -368,8 +420,8 @@ class GreaterOrEqualToNumberWithUserAndDeveloperValuesTest {
     valueToCompare: 1,
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
-  final num valueToCompare;
+  num value;
+  num valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -380,8 +432,8 @@ class GreaterOrEqualToNumberWithUserValuesTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
-  final num valueToCompare;
+  num value;
+  num valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -392,7 +444,7 @@ class GreaterOrEqualToNumberWithDeveloperValuesTest {
     valueToCompare: 1,
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
+  num value;
 }
 //#endregion
 
@@ -405,8 +457,8 @@ class GreaterOrEqualToStringTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
-  final String valueToCompare;
+  String value;
+  String valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -419,8 +471,8 @@ class GreaterOrEqualToStringWithUserAndDeveloperValuesTest {
     valueToCompare: 'b',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
-  final String valueToCompare;
+  String value;
+  String valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -431,8 +483,8 @@ class GreaterOrEqualToStringWithUserValuesTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
-  final String valueToCompare;
+  String value;
+  String valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -443,7 +495,7 @@ class GreaterOrEqualToStringWithDeveloperValuesTest {
     valueToCompare: 'b',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
+  String value;
 }
 //#endregion
 
@@ -456,8 +508,8 @@ class GreaterThanDatetimeTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime value;
+  DateTime valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -470,8 +522,8 @@ class GreaterThanDatetimeWithUserAndDeveloperValuesTest {
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime value;
+  DateTime valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -482,8 +534,8 @@ class GreaterThanDatetimeWithUserValuesTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime value;
+  DateTime valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -494,7 +546,7 @@ class GreaterThanDatetimeWithDeveloperValuesTest {
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
+  DateTime value;
 }
 //#endregion
 
@@ -507,8 +559,8 @@ class GreaterThanNumberTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
-  final num valueToCompare;
+  num value;
+  num valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -521,8 +573,8 @@ class GreaterThanNumberWithUserAndDeveloperValuesTest {
     valueToCompare: 1,
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
-  final num valueToCompare;
+  num value;
+  num valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -533,8 +585,8 @@ class GreaterThanNumberWithUserValuesTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
-  final num valueToCompare;
+  num value;
+  num valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -545,7 +597,7 @@ class GreaterThanNumberWithDeveloperValuesTest {
     valueToCompare: 1,
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
+  num value;
 }
 //#endregion
 
@@ -558,8 +610,8 @@ class GreaterThanStringTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
-  final String valueToCompare;
+  String value;
+  String valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -572,8 +624,8 @@ class GreaterThanStringWithUserAndDeveloperValuesTest {
     valueToCompare: 'b',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
-  final String valueToCompare;
+  String value;
+  String valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -584,8 +636,8 @@ class GreaterThanStringWithUserValuesTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
-  final String valueToCompare;
+  String value;
+  String valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -596,7 +648,7 @@ class GreaterThanStringWithDeveloperValuesTest {
     valueToCompare: 'b',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
+  String value;
 }
 //#endregion
 
@@ -612,7 +664,7 @@ class ImageSizeTest {
     maxHeight: 1000,
     error: 'Taille d\'image incorrecte',
   )
-  final List<int> value;
+  List<int> value;
 }
 //#endregion
 
@@ -625,8 +677,8 @@ class InTextTest {
     textOnProperty: 'text',
     error: 'Keyword is not in the string',
   )
-  final String value;
-  final String text;
+  String value;
+  String text;
 }
 
 @flutterModelFormValidator
@@ -639,8 +691,8 @@ class InTextWithUserAndDeveloperValuesTest {
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     error: 'Keyword is not in the string',
   )
-  final String value;
-  final String text;
+  String value;
+  String text;
 }
 
 @flutterModelFormValidator
@@ -651,8 +703,8 @@ class InTextWithUserValuesTest {
     textOnProperty: 'text',
     error: 'Keyword is not in the string',
   )
-  final String value;
-  final String text;
+  String value;
+  String text;
 }
 
 @flutterModelFormValidator
@@ -664,7 +716,7 @@ class InTextWithDeveloperValuesTest {
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     error: 'Keyword is not in the string',
   )
-  final String value;
+  String value;
 }
 //#endregion
 
@@ -682,7 +734,7 @@ class MembershipPasswordTest {
     includesSpecialCharacters: true,
     error: 'Invalid password',
   )
-  final String value;
+  String value;
 }
 //#endregion
 
@@ -695,8 +747,8 @@ class NotEqualToDatetimeTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime value;
+  DateTime valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -709,8 +761,8 @@ class NotEqualToDatetimeWithUserAndDeveloperValuesTest {
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime value;
+  DateTime valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -721,8 +773,8 @@ class NotEqualToDatetimeWithUserValuesTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime value;
+  DateTime valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -733,7 +785,7 @@ class NotEqualToDatetimeWithDeveloperValuesTest {
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
+  DateTime value;
 }
 //#endregion
 
@@ -746,8 +798,8 @@ class NotEqualToNumberTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
-  final num valueToCompare;
+  num value;
+  num valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -760,8 +812,8 @@ class NotEqualToNumberWithUserAndDeveloperValuesTest {
     valueToCompare: 1,
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
-  final num valueToCompare;
+  num value;
+  num valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -772,8 +824,8 @@ class NotEqualToNumberWithUserValuesTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
-  final num valueToCompare;
+  num value;
+  num valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -784,7 +836,7 @@ class NotEqualToNumberWithDeveloperValuesTest {
     valueToCompare: 1,
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
+  num value;
 }
 //#endregion
 
@@ -797,8 +849,8 @@ class NotEqualToStringTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
-  final String valueToCompare;
+  String value;
+  String valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -811,8 +863,8 @@ class NotEqualToStringWithUserAndDeveloperValuesTest {
     valueToCompare: 'b',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
-  final String valueToCompare;
+  String value;
+  String valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -823,8 +875,8 @@ class NotEqualToStringWithUserValuesTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
-  final String valueToCompare;
+  String value;
+  String valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -835,7 +887,7 @@ class NotEqualToStringWithDeveloperValuesTest {
     valueToCompare: 'b',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
+  String value;
 }
 //#endregion
 
@@ -849,9 +901,9 @@ class NumberRangeTest {
     maxOnProperty: 'max',
     error: 'This Number is not in the range',
   )
-  final num value;
-  final num min;
-  final num max;
+  num value;
+  num min;
+  num max;
 }
 
 @flutterModelFormValidator
@@ -865,9 +917,9 @@ class NumberRangeWithUserAndDeveloperValuesTest {
     max: -1,
     error: 'This Number is not in the range',
   )
-  final num value;
-  final num min;
-  final num max;
+  num value;
+  num min;
+  num max;
 }
 
 @flutterModelFormValidator
@@ -879,9 +931,9 @@ class NumberRangeWithUserValuesTest {
     maxOnProperty: 'max',
     error: 'This Number is not in the range',
   )
-  final num value;
-  final num min;
-  final num max;
+  num value;
+  num min;
+  num max;
 }
 
 @flutterModelFormValidator
@@ -893,7 +945,7 @@ class NumberRangeWithDeveloperValuesTest {
     max: -1,
     error: 'This Number is not in the range',
   )
-  final num value;
+  num value;
 }
 //#endregion
 
@@ -907,9 +959,9 @@ class PhoneNumberTest {
     countryCodeOnProperty: 'countryCode',
     error: 'Invalid phone number',
   )
-  final String value;
-  final String countryCode;
-  final PhoneNumberType phoneNumberType;
+  String value;
+  String countryCode;
+  PhoneNumberType phoneNumberType;
 }
 
 @flutterModelFormValidator
@@ -924,9 +976,9 @@ class PhoneNumberWithUserAndDeveloperValuesTest {
     phoneNumberType: PhoneNumberType.mobile,
     error: 'Invalid phone number',
   )
-  final String value;
-  final String countryCode;
-  final PhoneNumberType phoneNumberType;
+  String value;
+  String countryCode;
+  PhoneNumberType phoneNumberType;
 }
 
 @flutterModelFormValidator
@@ -939,9 +991,9 @@ class PhoneNumberWithUserValuesTest {
     phoneNumberTypeOnProperty: 'phoneNumberType',
     error: 'Invalid phone number',
   )
-  final String value;
-  final String countryCode;
-  final PhoneNumberType phoneNumberType;
+  String value;
+  String countryCode;
+  PhoneNumberType phoneNumberType;
 }
 
 @flutterModelFormValidator
@@ -953,7 +1005,7 @@ class PhoneNumberWithDeveloperValuesTest {
     phoneNumberType: PhoneNumberType.mobile,
     error: 'Invalid phone number',
   )
-  final String value;
+  String value;
 }
 //#endregion
 
@@ -966,7 +1018,7 @@ class RegularExpressionTest {
     expression: r'^Hello|Bye$',
     error: 'Invalid regular expression',
   )
-  final String value;
+  String value;
 }
 //#endregion
 
@@ -978,7 +1030,7 @@ class RequiredTest {
   @Required(
     error: 'Value is required',
   )
-  final String value;
+  String value;
 }
 //#endregion
 
@@ -991,8 +1043,8 @@ class SmallerOrEqualToDatetimeTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime value;
+  DateTime valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -1005,8 +1057,8 @@ class SmallerOrEqualToDatetimeWithUserAndDeveloperValuesTest {
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime value;
+  DateTime valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -1017,8 +1069,8 @@ class SmallerOrEqualToDatetimeWithUserValuesTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime value;
+  DateTime valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -1029,7 +1081,7 @@ class SmallerOrEqualToDatetimeWithDeveloperValuesTest {
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
+  DateTime value;
 }
 //#endregion
 
@@ -1042,8 +1094,8 @@ class SmallerOrEqualToNumberTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
-  final num valueToCompare;
+  num value;
+  num valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -1056,8 +1108,8 @@ class SmallerOrEqualToNumberWithUserAndDeveloperValuesTest {
     valueToCompare: 1,
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
-  final num valueToCompare;
+  num value;
+  num valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -1068,8 +1120,8 @@ class SmallerOrEqualToNumberWithUserValuesTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
-  final num valueToCompare;
+  num value;
+  num valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -1080,7 +1132,7 @@ class SmallerOrEqualToNumberWithDeveloperValuesTest {
     valueToCompare: 1,
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
+  num value;
 }
 //#endregion
 
@@ -1093,8 +1145,8 @@ class SmallerOrEqualToStringTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
-  final String valueToCompare;
+  String value;
+  String valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -1107,8 +1159,8 @@ class SmallerOrEqualToStringWithUserAndDeveloperValuesTest {
     valueToCompare: 'b',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
-  final String valueToCompare;
+  String value;
+  String valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -1119,8 +1171,8 @@ class SmallerOrEqualToStringWithUserValuesTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
-  final String valueToCompare;
+  String value;
+  String valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -1131,7 +1183,7 @@ class SmallerOrEqualToStringWithDeveloperValuesTest {
     valueToCompare: 'b',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
+  String value;
 }
 //#endregion
 
@@ -1144,8 +1196,8 @@ class SmallerThanDatetimeTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime value;
+  DateTime valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -1158,8 +1210,8 @@ class SmallerThanDatetimeWithUserAndDeveloperValuesTest {
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime value;
+  DateTime valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -1170,8 +1222,8 @@ class SmallerThanDatetimeWithUserValuesTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime value;
+  DateTime valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -1182,7 +1234,7 @@ class SmallerThanDatetimeWithDeveloperValuesTest {
     valueToCompare: '2019-01-01T00:00:00',
     error: 'Value is not equal to the value to compare',
   )
-  final DateTime value;
+  DateTime value;
 }
 //#endregion
 
@@ -1195,8 +1247,8 @@ class SmallerThanNumberTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
-  final num valueToCompare;
+  num value;
+  num valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -1209,8 +1261,8 @@ class SmallerThanNumberWithUserAndDeveloperValuesTest {
     valueToCompare: 1,
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
-  final num valueToCompare;
+  num value;
+  num valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -1221,8 +1273,8 @@ class SmallerThanNumberWithUserValuesTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
-  final num valueToCompare;
+  num value;
+  num valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -1233,7 +1285,7 @@ class SmallerThanNumberWithDeveloperValuesTest {
     valueToCompare: 1,
     error: 'Value is not equal to the value to compare',
   )
-  final num value;
+  num value;
 }
 //#endregion
 
@@ -1246,8 +1298,8 @@ class SmallerThanStringTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
-  final String valueToCompare;
+  String value;
+  String valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -1260,8 +1312,8 @@ class SmallerThanStringWithUserAndDeveloperValuesTest {
     valueToCompare: 'b',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
-  final String valueToCompare;
+  String value;
+  String valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -1272,8 +1324,8 @@ class SmallerThanStringWithUserValuesTest {
     valueToCompareOnProperty: 'valueToCompare',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
-  final String valueToCompare;
+  String value;
+  String valueToCompare;
 }
 
 @flutterModelFormValidator
@@ -1284,7 +1336,7 @@ class SmallerThanStringWithDeveloperValuesTest {
     valueToCompare: 'b',
     error: 'Value is not equal to the value to compare',
   )
-  final String value;
+  String value;
 }
 //#endregion
 
@@ -1298,7 +1350,7 @@ class StringLengthTest {
     max: 20,
     error: '"value" property must have between 10 and 20 characters',
   )
-  final String value;
+  String value;
 }
 //#endregion
 
@@ -1312,9 +1364,9 @@ class StringRangeTest {
     maxOnProperty: 'max',
     error: 'This string is not in the range',
   )
-  final String value;
-  final String min;
-  final String max;
+  String value;
+  String min;
+  String max;
 }
 
 @flutterModelFormValidator
@@ -1328,9 +1380,9 @@ class StringRangeWithUserAndDeveloperValuesTest {
     max: 'd',
     error: 'This String is not in the range',
   )
-  final String value;
-  final String min;
-  final String max;
+  String value;
+  String min;
+  String max;
 }
 
 @flutterModelFormValidator
@@ -1342,9 +1394,9 @@ class StringRangeWithUserValuesTest {
     maxOnProperty: 'max',
     error: 'This String is not in the range',
   )
-  final String value;
-  final String min;
-  final String max;
+  String value;
+  String min;
+  String max;
 }
 
 @flutterModelFormValidator
@@ -1356,7 +1408,7 @@ class StringRangeWithDeveloperValuesTest {
     max: 'd',
     error: 'This String is not in the range',
   )
-  final String value;
+  String value;
 }
 //#endregion
 
@@ -1368,6 +1420,6 @@ class UrlTest {
   @URL(
     error: 'Invalid URL',
   )
-  final String value;
+  String value;
 }
 //#endregion

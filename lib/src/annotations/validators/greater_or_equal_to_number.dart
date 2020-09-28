@@ -22,13 +22,11 @@ class GreaterOrEqualToNumber extends ValidationAnnotation<num> {
   final String error;
 
   @override
-  bool isValid<TModel>(num value, TModel model) {
+  Future<bool> isValid<TModel>(num value, TModel model) async {
     try {
       num _valueToCompare = ValidationHelper.getLinkedProperty<TModel, num>(
               model, this.valueToCompareOnProperty) ??
           this.valueToCompare;
-
-      if (_valueToCompare == null) return false;
 
       bool isValid = _validate(value, _valueToCompare);
       return isValid;
@@ -38,5 +36,9 @@ class GreaterOrEqualToNumber extends ValidationAnnotation<num> {
     }
   }
 
-  bool _validate(num value, num valueToCompare) => (value >= valueToCompare);
+  bool _validate(num value, num valueToCompare) {
+    if (value == null) return true;
+    if (valueToCompare == null) return false;
+    return (value >= valueToCompare);
+  }
 }

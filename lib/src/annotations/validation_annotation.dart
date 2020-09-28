@@ -19,5 +19,5 @@ abstract class ValidationAnnotation<TValue> {
   /// [model] parameter is also required, even if your custom validator won't use it.
   /// It reprensents your full object model with all values.
   /// Maybe you would validate a property in comparison to others.
-  bool isValid<TModel>(TValue value, TModel model);
+  Future<bool> isValid<TModel>(TValue value, TModel model);
 }

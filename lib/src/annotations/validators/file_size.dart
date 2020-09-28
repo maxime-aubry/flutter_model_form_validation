@@ -17,7 +17,7 @@ class FileSize extends ValidationAnnotation<List<int>> {
   final String error;
 
   @override
-  bool isValid<TModel>(List<int> value, TModel model) {
+  Future<bool> isValid<TModel>(List<int> value, TModel model) async {
     try {
       bool isValid = _validate(value);
       return isValid;
@@ -28,7 +28,7 @@ class FileSize extends ValidationAnnotation<List<int>> {
   }
 
   bool _validate(List<int> value) {
-    if (value == null) return false;
+    if (value == null) return true;
     if (value.length <= this.size) return true;
     return false;
   }

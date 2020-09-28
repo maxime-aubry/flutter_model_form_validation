@@ -31,7 +31,7 @@ class DateTimeRange extends ValidationAnnotation<DateTime> {
   final String error;
 
   @override
-  bool isValid<TModel>(DateTime value, TModel model) {
+  Future<bool> isValid<TModel>(DateTime value, TModel model) async {
     try {
       DateTime _min = ValidationHelper.getLinkedProperty<TModel, DateTime>(
               model, this.minOnProperty) ??
@@ -39,8 +39,6 @@ class DateTimeRange extends ValidationAnnotation<DateTime> {
       DateTime _max = ValidationHelper.getLinkedProperty<TModel, DateTime>(
               model, this.maxOnProperty) ??
           this.max.toDateTime();
-
-      if (_min == null || _max == null) return false;
 
       bool isValid = _validate(value, _min, _max);
       return isValid;
@@ -50,7 +48,10 @@ class DateTimeRange extends ValidationAnnotation<DateTime> {
     }
   }
 
-  bool _validate(DateTime value, DateTime minValue, DateTime maxValue) =>
-      ((value.isAfter(minValue) || (value.compareTo(minValue) == 0)) &&
-          (value.isBefore(maxValue) || (value.compareTo(maxValue) == 0)));
+  bool _validate(DateTime value, DateTime minValue, DateTime maxValue) {
+    if (value == null) return true;
+    if (minValue == null || maxValue == null) return false;
+    return ((value.isAfter(minValue) || (value.compareTo(minValue) == 0)) &&
+        (value.isBefore(maxValue) || (value.compareTo(maxValue) == 0)));
+  }
 }

@@ -32,7 +32,7 @@ class PhoneNumber extends ValidationAnnotation<String> {
   final String error;
 
   @override
-  bool isValid<TModel>(String value, TModel model) {
+  Future<bool> isValid<TModel>(String value, TModel model) async {
     try {
       String _countryCode = ValidationHelper.getLinkedProperty<TModel, String>(
               model, this.countryCodeOnProperty) ??
@@ -42,10 +42,8 @@ class PhoneNumber extends ValidationAnnotation<String> {
                   model, this.phoneNumberTypeOnProperty) ??
               this.phoneNumberType;
 
-      if (_countryCode == null || _phoneNumberType == null) return false;
-
-      bool isValid = _validate(value, _countryCode.toUpperCase(),
-          _phoneNumberType.toString().split('.')[1]);
+      bool isValid = _validate(value, _countryCode?.toUpperCase(),
+          _phoneNumberType?.toString()?.split('.')[1]);
       return isValid;
     } catch (e) {
       print(e);
@@ -55,6 +53,8 @@ class PhoneNumber extends ValidationAnnotation<String> {
 
   bool _validate(
       String value, String countryCodeValue, String phoneNumberTypeValue) {
+    if (value == null) return true;
+    if (countryCodeValue == null || phoneNumberTypeValue == null) return false;
     if (!Rules.phone.containsKey('$countryCodeValue-$phoneNumberTypeValue'))
       return false;
 

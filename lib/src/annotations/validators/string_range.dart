@@ -30,7 +30,7 @@ class StringRange extends ValidationAnnotation<String> {
   final String error;
 
   @override
-  bool isValid<TModel>(String value, TModel model) {
+  Future<bool> isValid<TModel>(String value, TModel model) async {
     try {
       String _min = ValidationHelper.getLinkedProperty<TModel, String>(
               model, this.minOnProperty) ??
@@ -38,8 +38,6 @@ class StringRange extends ValidationAnnotation<String> {
       String _max = ValidationHelper.getLinkedProperty<TModel, String>(
               model, this.maxOnProperty) ??
           this.max;
-
-      if (_min == null || _max == null) return false;
 
       bool isValid = _validate(value, _min, _max);
       return isValid;
@@ -49,7 +47,11 @@ class StringRange extends ValidationAnnotation<String> {
     }
   }
 
-  bool _validate(String value, String minValue, String maxValue) =>
-      ((value.compareTo(minValue) == 0 || value.compareTo(minValue) == 1) &&
-          (value.compareTo(maxValue) == 0 || value.compareTo(maxValue) == -1));
+  bool _validate(String value, String minValue, String maxValue) {
+    if (value == null) return true;
+    if (minValue == null || maxValue == null) return false;
+    return ((value.compareTo(minValue) == 0 ||
+            value.compareTo(minValue) == 1) &&
+        (value.compareTo(maxValue) == 0 || value.compareTo(maxValue) == -1));
+  }
 }

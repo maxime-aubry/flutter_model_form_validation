@@ -1,4 +1,5 @@
 import 'dart:core';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
 import 'package:queries/collections.dart';
@@ -19,7 +20,7 @@ class ContainsDateTime extends ValidationAnnotation<DateTime> {
   final String error;
 
   @override
-  bool isValid<TModel>(DateTime value, TModel model) {
+  Future<bool> isValid<TModel>(DateTime value, TModel model) async {
     try {
       List<DateTime> _items = Collection(this.items)
           .select((item) => DateTime.tryParse(item) ?? null)
@@ -33,5 +34,8 @@ class ContainsDateTime extends ValidationAnnotation<DateTime> {
     }
   }
 
-  bool _validate(DateTime value, List<DateTime> items) => items.contains(value);
+  bool _validate(DateTime value, List<DateTime> items) {
+    if (value == null) return true;
+    return items.contains(value);
+  }
 }

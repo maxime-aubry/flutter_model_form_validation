@@ -30,7 +30,7 @@ class ImageSize extends ValidationAnnotation<List<int>> {
   final String error;
 
   @override
-  bool isValid<TModel>(List<int> value, TModel model) {
+  Future<bool> isValid<TModel>(List<int> value, TModel model) async {
     try {
       imageDecoder.Image image = imageDecoder.decodeImage(value);
       bool isValid = _validate(image);
@@ -42,13 +42,11 @@ class ImageSize extends ValidationAnnotation<List<int>> {
   }
 
   bool _validate(imageDecoder.Image value) {
-    if (value != null) {
-      if (value.width < this.minWidth ||
-          value.height < this.minHeight ||
-          value.width > this.maxWidth ||
-          value.height > this.maxHeight) return false;
-      return true;
-    }
-    return false;
+    if (value == null) return true;
+    if (value.width < this.minWidth ||
+        value.height < this.minHeight ||
+        value.width > this.maxWidth ||
+        value.height > this.maxHeight) return false;
+    return true;
   }
 }

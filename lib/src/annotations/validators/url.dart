@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
-import '../validation_annotation.dart';
+
 import '../../utils/rules.dart';
+import '../validation_annotation.dart';
 
 /// [URL] validator permits you to check that a string value is a valid URL.
 /// {@category Metadata}
@@ -14,7 +15,7 @@ class URL extends ValidationAnnotation<String> {
   final String error;
 
   @override
-  bool isValid<TModel>(String value, TModel model) {
+  Future<bool> isValid<TModel>(String value, TModel model) async {
     try {
       bool isValid = _validate(value);
       return isValid;
@@ -25,6 +26,8 @@ class URL extends ValidationAnnotation<String> {
   }
 
   bool _validate(String value) {
+    if (value == null) return true;
+
     RegExp regExp = new RegExp(Rules.url);
     if (regExp.hasMatch(value)) return true;
     return false;

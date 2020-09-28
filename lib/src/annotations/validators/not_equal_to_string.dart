@@ -22,14 +22,12 @@ class NotEqualToString extends ValidationAnnotation<String> {
   final String error;
 
   @override
-  bool isValid<TModel>(String value, TModel model) {
+  Future<bool> isValid<TModel>(String value, TModel model) async {
     try {
       String _valueToCompare =
           ValidationHelper.getLinkedProperty<TModel, String>(
                   model, this.valueToCompareOnProperty) ??
               this.valueToCompare;
-
-      if (_valueToCompare == null) return false;
 
       bool isValid = _validate(value, _valueToCompare);
       return isValid;
@@ -39,6 +37,9 @@ class NotEqualToString extends ValidationAnnotation<String> {
     }
   }
 
-  bool _validate(String value, String valueToCompare) =>
-      (value.compareTo(valueToCompare) != 0);
+  bool _validate(String value, String valueToCompare) {
+    if (value == null) return true;
+    if (valueToCompare == null) return false;
+    return (value.compareTo(valueToCompare) != 0);
+  }
 }

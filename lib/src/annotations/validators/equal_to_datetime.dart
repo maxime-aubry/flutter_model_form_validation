@@ -23,14 +23,12 @@ class EqualToDateTime extends ValidationAnnotation<DateTime> {
   final String error;
 
   @override
-  bool isValid<TModel>(DateTime value, TModel model) {
+  Future<bool> isValid<TModel>(DateTime value, TModel model) async {
     try {
       DateTime _valueToCompare =
           ValidationHelper.getLinkedProperty<TModel, DateTime>(
                   model, this.valueToCompareOnProperty) ??
               this.valueToCompare.toDateTime();
-
-      if (_valueToCompare == null) return false;
 
       bool isValid = _validate(value, _valueToCompare);
       return isValid;
@@ -40,6 +38,9 @@ class EqualToDateTime extends ValidationAnnotation<DateTime> {
     }
   }
 
-  bool _validate(DateTime value, DateTime valueToCompare) =>
-      (value.compareTo(valueToCompare) == 0);
+  bool _validate(DateTime value, DateTime valueToCompare) {
+    if (value == null) return true;
+    if (valueToCompare == null) return false;
+    return (value.isAtSameMomentAs(valueToCompare));
+  }
 }

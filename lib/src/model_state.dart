@@ -1,76 +1,129 @@
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_model_form_validation/src/annotations/flutter_model_form_validator.dart';
 import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
-import 'package:flutter_model_form_validation/src/annotations/validation_error.dart';
+import 'package:flutter_model_form_validation/src/form_properties.dart';
+import 'package:flutter_model_form_validation/src/form_property.dart';
+import 'package:property_change_notifier/property_change_notifier.dart';
+import 'package:queries/collections.dart';
 import 'package:reflectable/reflectable.dart';
 
-class ModelState {
-  static Map<String, ValidationError> _errors;
+enum FormStatus {
+  pure,
+  valid,
+  invalid,
+  validationInProgress,
+  submissionInProgress,
+  submissionSuccess,
+  submissionFailure,
+}
+
+class ModelState<TModel extends PropertyChangeNotifier<String>> {
+  ModelState(this.model);
+
+  final TModel model;
+  List<FormProperty> _properties;
+  FormStatus _status;
+  String _error;
+
+  List<FormProperty> get properties {
+    return this._properties;
+  }
+
+  FormStatus get status {
+    return this._status;
+  }
+
+  String get error {
+    return this.error;
+  }
+
+  void init() {
+    try {
+      ClassMirror classMirror = flutterModelFormValidator.reflectType(TModel);
+      this._status = FormStatus.pure;
+      this._properties =
+          FormProperties.getProperties<TModel>(this.model, classMirror);
+      this._addListeners();
+      //this.validate();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void _addListeners() {
+    try {
+      for (FormProperty property in this._properties)
+        this
+            .model
+            .addListener(() => _actualizeInput(property), [property.name]);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void _actualizeInput(FormProperty property) {
+    try {
+      property.update<TModel>(model);
+      bool isValidForm = !Collection(this._properties)
+          .any((arg1) => arg1.status == InputStatus.invalid);
+      this._status = (isValidForm) ? FormStatus.valid : FormStatus.invalid;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  FormProperty getProperty(String propertyName) {
+    try {
+      FormProperty property = Collection(this._properties)
+          .where((arg1) => arg1.name == propertyName)
+          .singleOrDefault();
+      return property;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 
   /// Gets the state of current [model] binding of [TModel] type.
   /// Browses all declared metadata of [ValidationAnnotation] type, for each property into your class model.
   /// Then, executes "IsValid" method that returns true or false. For each property, first of them that returns false invalidates your property, and so, your model. If there is none, your property and model are valid.
-  static bool isValid<TModel>(
-    TModel model,
-  ) {
+  Future<bool> validateForm() async {
     try {
-      InstanceMirror instanceMirror = flutterModelFormValidator.reflect(model);
-      ClassMirror classMirror = flutterModelFormValidator.reflectType(TModel);
-      _errors = Map<String, ValidationError>();
+      this._status = FormStatus.validationInProgress;
 
-      for (MapEntry<String, DeclarationMirror> item
-          in classMirror.declarations.entries) {
-        ValidationError error = _validateProperty(
-          item.key,
-          item.value,
-          instanceMirror,
-          model,
-        );
-        if (error != null) _errors[item.key] = error;
-      }
+      // validate each property
+      for (FormProperty property in this._properties)
+        await property.update(this.model);
 
-      return _errors.isEmpty;
+      // validate the form
+      bool isValid = !Collection(this._properties)
+          .any((arg1) => arg1.status == InputStatus.invalid);
+      this._status = isValid ? FormStatus.valid : FormStatus.invalid;
+      return isValid;
     } catch (e) {
       print(e);
       return false;
     }
   }
 
-  static ValidationError _validateProperty<TModel>(
-    String key,
-    DeclarationMirror declarationMirror,
-    InstanceMirror instanceMirror,
-    TModel model,
-  ) {
-    ValidationError error;
-    List<ValidationAnnotation> annotations =
-        _getValidators(declarationMirror.metadata);
+  /*void setServerErrors(String error, Map<String, String> errors) {
+    try {
+      if (this._status == FormStatus.submissionInProgress)
+        throw new Exception('Current form is not submitting');
 
-    for (ValidationAnnotation annotation in annotations) {
-      Object value = instanceMirror.invokeGetter(key);
-      bool isValid = annotation.isValid(value, model);
-      if (!isValid) {
-        error = ValidationError(
-          propertyName: key,
-          validatorType: annotation.runtimeType,
-          error: annotation.error,
-        );
-        break;
+      this._status = ((error == null || error.isEmpty) &&
+              (errors == null || errors.isEmpty))
+          ? FormStatus.submissionSuccess
+          : FormStatus.submissionFailure;
+
+      this._error = error;
+
+      for (FormProperty property in this._properties) {
+        if (errors.containsKey(property.name))
+          property.setServerError(errors[property.name]);
       }
+    } catch (e) {
+      print(e);
     }
-
-    return error;
-  }
-
-  static List<ValidationAnnotation> _getValidators(List<Object> metadata) {
-    List<ValidationAnnotation> validators = new List<ValidationAnnotation>();
-    for (Object metadatum in metadata)
-      if (metadatum is ValidationAnnotation) validators.add(metadatum);
-    validators.sort((a, b) => a.criticityLevel.compareTo(b.criticityLevel));
-    return validators;
-  }
-
-  /// Gets all errors that flutterModelFormValidator has detected.
-  static Map<String, ValidationError> get errors {
-    return ModelState._errors;
-  }
+  }*/
 }

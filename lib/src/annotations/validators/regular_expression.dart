@@ -17,7 +17,7 @@ class RegularExpression extends ValidationAnnotation<String> {
   final String error;
 
   @override
-  bool isValid<TModel>(String value, TModel model) {
+  Future<bool> isValid<TModel>(String value, TModel model) async {
     try {
       bool isValid = _validate(value);
       return isValid;

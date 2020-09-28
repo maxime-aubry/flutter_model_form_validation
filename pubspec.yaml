@@ -15,6 +15,7 @@ dependencies:
   equatable: ^1.2.5
   image: ^2.1.14
   mime: ^0.9.7
+  property_change_notifier: ^0.2.0
   queries: ^0.1.14
   reflectable: ^2.2.5
 

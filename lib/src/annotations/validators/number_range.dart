@@ -30,7 +30,7 @@ class NumberRange extends ValidationAnnotation<num> {
   final String error;
 
   @override
-  bool isValid<TModel>(num value, TModel model) {
+  Future<bool> isValid<TModel>(num value, TModel model) async {
     try {
       num _min = ValidationHelper.getLinkedProperty<TModel, num>(
               model, this.minOnProperty) ??
@@ -38,8 +38,6 @@ class NumberRange extends ValidationAnnotation<num> {
       num _max = ValidationHelper.getLinkedProperty<TModel, num>(
               model, this.maxOnProperty) ??
           this.max;
-
-      if (_min == null || _max == null) return false;
 
       bool isValid = _validate(value, _min, _max);
       return isValid;
@@ -49,6 +47,9 @@ class NumberRange extends ValidationAnnotation<num> {
     }
   }
 
-  bool _validate(num value, num minValue, num maxValue) =>
-      (value >= minValue && value <= maxValue);
+  bool _validate(num value, num minValue, num maxValue) {
+    if (value == null) return true;
+    if (minValue == null || maxValue == null) return false;
+    return (value >= minValue && value <= maxValue);
+  }
 }

@@ -1,4 +1,5 @@
 import 'dart:core';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
 
@@ -18,7 +19,7 @@ class ContainsNumber extends ValidationAnnotation<num> {
   final String error;
 
   @override
-  bool isValid<TModel>(num value, TModel model) {
+  Future<bool> isValid<TModel>(num value, TModel model) async {
     try {
       bool isValid = _validate(value, this.items);
       return isValid;
@@ -28,5 +29,8 @@ class ContainsNumber extends ValidationAnnotation<num> {
     }
   }
 
-  bool _validate(num value, List<num> items) => items.contains(value);
+  bool _validate(num value, List<num> items) {
+    if (value == null) return true;
+    return items.contains(value);
+  }
 }

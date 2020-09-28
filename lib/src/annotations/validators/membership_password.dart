@@ -38,12 +38,8 @@ class MembershipPassword extends ValidationAnnotation<String> {
   final String error;
 
   @override
-  bool isValid<TModel>(String value, TModel model) {
+  Future<bool> isValid<TModel>(String value, TModel model) async {
     try {
-      if (!this.includesAlphabeticalCharacters &&
-          !this.includesUppercaseCharacters &&
-          !this.includesNumericalCharacters &&
-          !this.includesSpecialCharacters) return false;
       bool isValid = _validate(value);
       return isValid;
     } catch (e) {
@@ -53,6 +49,11 @@ class MembershipPassword extends ValidationAnnotation<String> {
   }
 
   bool _validate(String value) {
+    if (!this.includesAlphabeticalCharacters &&
+        !this.includesUppercaseCharacters &&
+        !this.includesNumericalCharacters &&
+        !this.includesSpecialCharacters) return false;
+
     String expression = r'^' +
         (this.includesAlphabeticalCharacters ? r'(?=.*[a-z])' : '') +
         (this.includesAlphabeticalCharacters && this.includesUppercaseCharacters

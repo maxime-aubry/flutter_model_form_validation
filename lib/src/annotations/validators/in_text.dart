@@ -1,4 +1,5 @@
 import 'dart:core';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validation_helper.dart';
@@ -23,13 +24,11 @@ class InText extends ValidationAnnotation<String> {
   final String error;
 
   @override
-  bool isValid<TModel>(String value, TModel model) {
+  Future<bool> isValid<TModel>(String value, TModel model) async {
     try {
       String _text = ValidationHelper.getLinkedProperty<TModel, String>(
               model, this.textOnProperty) ??
           this.text;
-
-      if (_text == null) return false;
 
       bool isValid = _validate(value.toLowerCase(), _text.toLowerCase());
       return isValid;
@@ -39,5 +38,9 @@ class InText extends ValidationAnnotation<String> {
     }
   }
 
-  bool _validate(String value, String text) => text.contains(value);
+  bool _validate(String value, String text) {
+    if (value == null) return true;
+    if (text == null) return false;
+    return text.contains(value);
+  }
 }

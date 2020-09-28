@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+
 import '../validation_annotation.dart';
 
 /// [StringLength] validator permits you to check that a string value has a length between two values.
@@ -21,7 +22,7 @@ class StringLength extends ValidationAnnotation<String> {
   final String error;
 
   @override
-  bool isValid<TModel>(String value, TModel model) {
+  Future<bool> isValid<TModel>(String value, TModel model) async {
     try {
       bool isValid = _validate(value);
       return isValid;
@@ -31,6 +32,8 @@ class StringLength extends ValidationAnnotation<String> {
     }
   }
 
-  bool _validate(String value) =>
-      (value.length >= this.min && value.length <= this.max);
+  bool _validate(String value) {
+    if (value == null) return true;
+    return (value.length >= this.min && value.length <= this.max);
+  }
 }

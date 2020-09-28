@@ -13,7 +13,7 @@ class Required extends ValidationAnnotation {
   final String error;
 
   @override
-  bool isValid<TModel>(Object value, TModel model) {
+  Future<bool> isValid<TModel>(Object value, TModel model) async {
     bool isValid = _validate(value);
     return isValid;
   }
