@@ -27,14 +27,15 @@ class ModelState<TModel extends PropertyChangeNotifier<String>> {
   List<FormProperty> _properties;
   FormStatus _status;
 
-  List<FormProperty> get properties {
-    return this._properties;
-  }
+  /// Gets the list of properties.
+  List<FormProperty> get properties => this._properties;
 
-  FormStatus get status {
-    return this._status;
-  }
+  /// Gets the form status (pure, valid, invalid, validation in progress, submission in progress, submission success, submission failure).
+  FormStatus get status => this._status;
 
+  /// Initialize the form.
+  /// Declare the form status to pure.
+  /// Add listeners for each property, what will trigger validators when a value is setted.
   void _init() {
     try {
       ClassMirror classMirror = flutterModelFormValidator.reflectType(TModel);
@@ -47,6 +48,7 @@ class ModelState<TModel extends PropertyChangeNotifier<String>> {
     }
   }
 
+  /// Each time a value is setted in the form, the targeted property is updated and validated.
   void _addListeners() {
     try {
       for (FormProperty property in this._properties)
@@ -58,6 +60,7 @@ class ModelState<TModel extends PropertyChangeNotifier<String>> {
     }
   }
 
+  /// Actualize a property of the current model, and validate it.
   void _actualizeInput(FormProperty property) {
     try {
       property.update<TModel>(model);
@@ -69,6 +72,7 @@ class ModelState<TModel extends PropertyChangeNotifier<String>> {
     }
   }
 
+  /// Returns the property with provided name.
   FormProperty getProperty(String propertyName) {
     try {
       FormProperty property = Collection(this._properties)
@@ -81,9 +85,10 @@ class ModelState<TModel extends PropertyChangeNotifier<String>> {
     }
   }
 
-  /// Gets the state of current [model] binding of [TModel] type.
+  /// Validate the current form with [model] binding of [TModel] type.
   /// Browses all declared metadata of [ValidationAnnotation] type, for each property into your class model.
-  /// Then, executes "IsValid" method that returns true or false. For each property, first of them that returns false invalidates your property, and so, your model. If there is none, your property and model are valid.
+  /// Then, set the form input status on each property and the form status.
+  /// Returns true is form is valid, or false if is not.
   Future<bool> validateForm() async {
     try {
       this._status = FormStatus.validationInProgress;

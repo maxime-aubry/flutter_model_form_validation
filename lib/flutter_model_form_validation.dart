@@ -1,6 +1,10 @@
 library flutter_model_form_validation;
 
+export 'src/annotations/flutter_model_form_validator.dart';
 export 'src/annotations/validation_annotation.dart';
+export 'src/annotations/validation_annotation.dart';
+export 'src/annotations/validation_error.dart';
+export 'src/annotations/validation_helper.dart';
 export 'src/annotations/validators/contains_datetime.dart';
 export 'src/annotations/validators/contains_number.dart';
 export 'src/annotations/validators/contains_string.dart';
@@ -36,11 +40,8 @@ export 'src/annotations/validators/smaller_than_string.dart';
 export 'src/annotations/validators/string_length.dart';
 export 'src/annotations/validators/string_range.dart';
 export 'src/annotations/validators/url.dart';
-export 'src/annotations/validation_annotation.dart';
-export 'src/annotations/validation_error.dart';
-export 'src/annotations/validation_helper.dart';
 export 'src/bloc_support/model_form_state.dart';
 export 'src/bloc_support/model_form_utilities.dart';
-export 'src/annotations/flutter_model_form_validator.dart';
-export 'src/utils/enums.dart';
+export 'src/form_property.dart';
 export 'src/model_state.dart';
+export 'src/utils/enums.dart';
