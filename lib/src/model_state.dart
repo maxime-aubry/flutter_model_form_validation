@@ -18,12 +18,14 @@ enum FormStatus {
 }
 
 class ModelState<TModel extends PropertyChangeNotifier<String>> {
-  ModelState(this.model);
+  ModelState(TModel model) {
+    this.model = model;
+    this._init();
+  }
 
-  final TModel model;
+  TModel model;
   List<FormProperty> _properties;
   FormStatus _status;
-  String _error;
 
   List<FormProperty> get properties {
     return this._properties;
@@ -33,18 +35,13 @@ class ModelState<TModel extends PropertyChangeNotifier<String>> {
     return this._status;
   }
 
-  String get error {
-    return this.error;
-  }
-
-  void init() {
+  void _init() {
     try {
       ClassMirror classMirror = flutterModelFormValidator.reflectType(TModel);
       this._status = FormStatus.pure;
       this._properties =
           FormProperties.getProperties<TModel>(this.model, classMirror);
       this._addListeners();
-      //this.validate();
     } catch (e) {
       print(e);
     }
@@ -105,25 +102,4 @@ class ModelState<TModel extends PropertyChangeNotifier<String>> {
       return false;
     }
   }
-
-  /*void setServerErrors(String error, Map<String, String> errors) {
-    try {
-      if (this._status == FormStatus.submissionInProgress)
-        throw new Exception('Current form is not submitting');
-
-      this._status = ((error == null || error.isEmpty) &&
-              (errors == null || errors.isEmpty))
-          ? FormStatus.submissionSuccess
-          : FormStatus.submissionFailure;
-
-      this._error = error;
-
-      for (FormProperty property in this._properties) {
-        if (errors.containsKey(property.name))
-          property.setServerError(errors[property.name]);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }*/
 }

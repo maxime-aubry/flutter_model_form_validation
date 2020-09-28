@@ -14,7 +14,6 @@ void main() {
         ComplexFormTest model = new ComplexFormTest(null, null, null, null);
         ModelState<ComplexFormTest> modelState =
             new ModelState<ComplexFormTest>(model);
-        modelState.init();
 
         expect(modelState.status, FormStatus.pure);
         expect(modelState.getProperty('firstName').status, InputStatus.pure);
@@ -44,7 +43,6 @@ void main() {
         );
         ModelState<ComplexFormTest> modelState =
             new ModelState<ComplexFormTest>(model);
-        modelState.init();
 
         expect(modelState.status, FormStatus.pure);
         expect(modelState.getProperty('firstName').status, InputStatus.pure);
@@ -60,7 +58,6 @@ void main() {
         ComplexFormTest model = new ComplexFormTest(null, null, null, null);
         ModelState<ComplexFormTest> modelState =
             new ModelState<ComplexFormTest>(model);
-        modelState.init();
 
         expect(modelState.status, FormStatus.pure);
         expect(modelState.getProperty('firstName').status, InputStatus.pure);
@@ -79,7 +76,6 @@ void main() {
         );
         ModelState<ComplexFormTest> modelState =
             new ModelState<ComplexFormTest>(model);
-        modelState.init();
 
         expect(modelState.status, FormStatus.pure);
         expect(modelState.getProperty('firstName').status, InputStatus.pure);
@@ -97,7 +93,6 @@ void main() {
         ComplexFormTest model = new ComplexFormTest(null, null, null, null);
         ModelState<ComplexFormTest> modelState =
             new ModelState<ComplexFormTest>(model);
-        modelState.init();
 
         model.first_name = 'Ed';
         model.last_name = null;
