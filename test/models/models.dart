@@ -33,12 +33,13 @@ class ComplexFormTest with PropertyChangeNotifier<String> {
       error: 'date of death must be smaller or equal than 2020-01-01')
   DateTime dateOfDeath;
 
-  // getters and setters
+  // getters
   String get first_name => this.firstName;
   String get last_name => this.lastName;
   DateTime get birth_day => this.birthDay;
   DateTime get date_of_death => this.dateOfDeath;
 
+  // setters
   set first_name(String firstName) {
     this.firstName = firstName;
     notifyListeners('firstName');
@@ -75,7 +76,7 @@ class ContainsDateTimeTest with PropertyChangeNotifier<String> {
 
 //#region ContainsNumber
 @flutterModelFormValidator
-class ContainsNumberTest {
+class ContainsNumberTest with PropertyChangeNotifier<String> {
   ContainsNumberTest(this.value);
 
   @ContainsNumber(
@@ -88,7 +89,7 @@ class ContainsNumberTest {
 
 //#region ContainsString
 @flutterModelFormValidator
-class ContainsStringTest {
+class ContainsStringTest with PropertyChangeNotifier<String> {
   ContainsStringTest(this.value);
 
   @ContainsString(
@@ -101,7 +102,7 @@ class ContainsStringTest {
 
 //#region DateTimeRange
 @flutterModelFormValidator
-class DateTimeRangeTest {
+class DateTimeRangeTest with PropertyChangeNotifier<String> {
   DateTimeRangeTest(this.value, this.min, this.max);
 
   @DateTimeRange(
@@ -115,7 +116,8 @@ class DateTimeRangeTest {
 }
 
 @flutterModelFormValidator
-class DateTimeRangeWithUserAndDeveloperValuesTest {
+class DateTimeRangeWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   DateTimeRangeWithUserAndDeveloperValuesTest(this.value, this.min, this.max);
 
   @DateTimeRange(
@@ -131,7 +133,7 @@ class DateTimeRangeWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class DateTimeRangeWithUserValuesTest {
+class DateTimeRangeWithUserValuesTest with PropertyChangeNotifier<String> {
   DateTimeRangeWithUserValuesTest(this.value, this.min, this.max);
 
   @DateTimeRange(
@@ -145,7 +147,7 @@ class DateTimeRangeWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class DateTimeRangeWithDeveloperValuesTest {
+class DateTimeRangeWithDeveloperValuesTest with PropertyChangeNotifier<String> {
   DateTimeRangeWithDeveloperValuesTest(this.value);
 
   @DateTimeRange(
@@ -159,7 +161,7 @@ class DateTimeRangeWithDeveloperValuesTest {
 
 //#region Email
 @flutterModelFormValidator
-class EmailTest {
+class EmailTest with PropertyChangeNotifier<String> {
   EmailTest(this.value);
 
   @Email(
@@ -171,7 +173,7 @@ class EmailTest {
 
 //#region EqualToDatetime
 @flutterModelFormValidator
-class EqualToDatetimeTest {
+class EqualToDatetimeTest with PropertyChangeNotifier<String> {
   EqualToDatetimeTest(this.value, this.valueToCompare);
 
   @EqualToDateTime(
@@ -183,7 +185,8 @@ class EqualToDatetimeTest {
 }
 
 @flutterModelFormValidator
-class EqualToDatetimeWithUserAndDeveloperValuesTest {
+class EqualToDatetimeWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   EqualToDatetimeWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
@@ -197,7 +200,7 @@ class EqualToDatetimeWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class EqualToDatetimeWithUserValuesTest {
+class EqualToDatetimeWithUserValuesTest with PropertyChangeNotifier<String> {
   EqualToDatetimeWithUserValuesTest(this.value, this.valueToCompare);
 
   @EqualToDateTime(
@@ -209,7 +212,8 @@ class EqualToDatetimeWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class EqualToDatetimeWithDeveloperValuesTest {
+class EqualToDatetimeWithDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   EqualToDatetimeWithDeveloperValuesTest(this.value);
 
   @EqualToDateTime(
@@ -222,7 +226,7 @@ class EqualToDatetimeWithDeveloperValuesTest {
 
 //#region EqualToNumber
 @flutterModelFormValidator
-class EqualToNumberTest {
+class EqualToNumberTest with PropertyChangeNotifier<String> {
   EqualToNumberTest(this.value, this.valueToCompare);
 
   @EqualToNumber(
@@ -234,7 +238,8 @@ class EqualToNumberTest {
 }
 
 @flutterModelFormValidator
-class EqualToNumberWithUserAndDeveloperValuesTest {
+class EqualToNumberWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   EqualToNumberWithUserAndDeveloperValuesTest(this.value, this.valueToCompare);
 
   @EqualToNumber(
@@ -247,7 +252,7 @@ class EqualToNumberWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class EqualToNumberWithUserValuesTest {
+class EqualToNumberWithUserValuesTest with PropertyChangeNotifier<String> {
   EqualToNumberWithUserValuesTest(this.value, this.valueToCompare);
 
   @EqualToNumber(
@@ -259,7 +264,7 @@ class EqualToNumberWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class EqualToNumberWithDeveloperValuesTest {
+class EqualToNumberWithDeveloperValuesTest with PropertyChangeNotifier<String> {
   EqualToNumberWithDeveloperValuesTest(this.value);
 
   @EqualToNumber(
@@ -272,7 +277,7 @@ class EqualToNumberWithDeveloperValuesTest {
 
 //#region EqualToString
 @flutterModelFormValidator
-class EqualToStringTest {
+class EqualToStringTest with PropertyChangeNotifier<String> {
   EqualToStringTest(this.value, this.valueToCompare);
 
   @EqualToString(
@@ -284,7 +289,8 @@ class EqualToStringTest {
 }
 
 @flutterModelFormValidator
-class EqualToStringWithUserAndDeveloperValuesTest {
+class EqualToStringWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   EqualToStringWithUserAndDeveloperValuesTest(this.value, this.valueToCompare);
 
   @EqualToString(
@@ -297,7 +303,7 @@ class EqualToStringWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class EqualToStringWithUserValuesTest {
+class EqualToStringWithUserValuesTest with PropertyChangeNotifier<String> {
   EqualToStringWithUserValuesTest(this.value, this.valueToCompare);
 
   @EqualToString(
@@ -309,7 +315,7 @@ class EqualToStringWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class EqualToStringWithDeveloperValuesTest {
+class EqualToStringWithDeveloperValuesTest with PropertyChangeNotifier<String> {
   EqualToStringWithDeveloperValuesTest(this.value);
 
   @EqualToString(
@@ -322,7 +328,7 @@ class EqualToStringWithDeveloperValuesTest {
 
 //#region FileMimeType
 @flutterModelFormValidator
-class FileMimeTypeTest {
+class FileMimeTypeTest with PropertyChangeNotifier<String> {
   FileMimeTypeTest(this.value);
 
   @FileMimeType(
@@ -335,7 +341,7 @@ class FileMimeTypeTest {
 
 //#region FileSize
 @flutterModelFormValidator
-class FileSizeTest {
+class FileSizeTest with PropertyChangeNotifier<String> {
   FileSizeTest(this.value);
 
   @FileSize(
@@ -348,7 +354,7 @@ class FileSizeTest {
 
 //#region GreaterOrEqualToDatetime
 @flutterModelFormValidator
-class GreaterOrEqualToDatetimeTest {
+class GreaterOrEqualToDatetimeTest with PropertyChangeNotifier<String> {
   GreaterOrEqualToDatetimeTest(this.value, this.valueToCompare);
 
   @GreaterOrEqualToDateTime(
@@ -360,7 +366,8 @@ class GreaterOrEqualToDatetimeTest {
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToDatetimeWithUserAndDeveloperValuesTest {
+class GreaterOrEqualToDatetimeWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   GreaterOrEqualToDatetimeWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
@@ -374,7 +381,8 @@ class GreaterOrEqualToDatetimeWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToDatetimeWithUserValuesTest {
+class GreaterOrEqualToDatetimeWithUserValuesTest
+    with PropertyChangeNotifier<String> {
   GreaterOrEqualToDatetimeWithUserValuesTest(this.value, this.valueToCompare);
 
   @GreaterOrEqualToDateTime(
@@ -386,7 +394,8 @@ class GreaterOrEqualToDatetimeWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToDatetimeWithDeveloperValuesTest {
+class GreaterOrEqualToDatetimeWithDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   GreaterOrEqualToDatetimeWithDeveloperValuesTest(this.value);
 
   @GreaterOrEqualToDateTime(
@@ -399,7 +408,7 @@ class GreaterOrEqualToDatetimeWithDeveloperValuesTest {
 
 //#region GreaterOrEqualToNumber
 @flutterModelFormValidator
-class GreaterOrEqualToNumberTest {
+class GreaterOrEqualToNumberTest with PropertyChangeNotifier<String> {
   GreaterOrEqualToNumberTest(this.value, this.valueToCompare);
 
   @GreaterOrEqualToNumber(
@@ -411,7 +420,8 @@ class GreaterOrEqualToNumberTest {
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToNumberWithUserAndDeveloperValuesTest {
+class GreaterOrEqualToNumberWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   GreaterOrEqualToNumberWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
@@ -425,7 +435,8 @@ class GreaterOrEqualToNumberWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToNumberWithUserValuesTest {
+class GreaterOrEqualToNumberWithUserValuesTest
+    with PropertyChangeNotifier<String> {
   GreaterOrEqualToNumberWithUserValuesTest(this.value, this.valueToCompare);
 
   @GreaterOrEqualToNumber(
@@ -437,7 +448,8 @@ class GreaterOrEqualToNumberWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToNumberWithDeveloperValuesTest {
+class GreaterOrEqualToNumberWithDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   GreaterOrEqualToNumberWithDeveloperValuesTest(this.value);
 
   @GreaterOrEqualToNumber(
@@ -450,7 +462,7 @@ class GreaterOrEqualToNumberWithDeveloperValuesTest {
 
 //#region GreaterOrEqualToString
 @flutterModelFormValidator
-class GreaterOrEqualToStringTest {
+class GreaterOrEqualToStringTest with PropertyChangeNotifier<String> {
   GreaterOrEqualToStringTest(this.value, this.valueToCompare);
 
   @GreaterOrEqualToString(
@@ -462,7 +474,8 @@ class GreaterOrEqualToStringTest {
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToStringWithUserAndDeveloperValuesTest {
+class GreaterOrEqualToStringWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   GreaterOrEqualToStringWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
@@ -476,7 +489,8 @@ class GreaterOrEqualToStringWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToStringWithUserValuesTest {
+class GreaterOrEqualToStringWithUserValuesTest
+    with PropertyChangeNotifier<String> {
   GreaterOrEqualToStringWithUserValuesTest(this.value, this.valueToCompare);
 
   @GreaterOrEqualToString(
@@ -488,7 +502,8 @@ class GreaterOrEqualToStringWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToStringWithDeveloperValuesTest {
+class GreaterOrEqualToStringWithDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   GreaterOrEqualToStringWithDeveloperValuesTest(this.value);
 
   @GreaterOrEqualToString(
@@ -501,7 +516,7 @@ class GreaterOrEqualToStringWithDeveloperValuesTest {
 
 //#region GreaterThanDatetime
 @flutterModelFormValidator
-class GreaterThanDatetimeTest {
+class GreaterThanDatetimeTest with PropertyChangeNotifier<String> {
   GreaterThanDatetimeTest(this.value, this.valueToCompare);
 
   @GreaterThanDateTime(
@@ -513,7 +528,8 @@ class GreaterThanDatetimeTest {
 }
 
 @flutterModelFormValidator
-class GreaterThanDatetimeWithUserAndDeveloperValuesTest {
+class GreaterThanDatetimeWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   GreaterThanDatetimeWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
@@ -527,7 +543,8 @@ class GreaterThanDatetimeWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class GreaterThanDatetimeWithUserValuesTest {
+class GreaterThanDatetimeWithUserValuesTest
+    with PropertyChangeNotifier<String> {
   GreaterThanDatetimeWithUserValuesTest(this.value, this.valueToCompare);
 
   @GreaterThanDateTime(
@@ -539,7 +556,8 @@ class GreaterThanDatetimeWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class GreaterThanDatetimeWithDeveloperValuesTest {
+class GreaterThanDatetimeWithDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   GreaterThanDatetimeWithDeveloperValuesTest(this.value);
 
   @GreaterThanDateTime(
@@ -552,7 +570,7 @@ class GreaterThanDatetimeWithDeveloperValuesTest {
 
 //#region GreaterThanNumber
 @flutterModelFormValidator
-class GreaterThanNumberTest {
+class GreaterThanNumberTest with PropertyChangeNotifier<String> {
   GreaterThanNumberTest(this.value, this.valueToCompare);
 
   @GreaterThanNumber(
@@ -564,7 +582,8 @@ class GreaterThanNumberTest {
 }
 
 @flutterModelFormValidator
-class GreaterThanNumberWithUserAndDeveloperValuesTest {
+class GreaterThanNumberWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   GreaterThanNumberWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
@@ -578,7 +597,7 @@ class GreaterThanNumberWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class GreaterThanNumberWithUserValuesTest {
+class GreaterThanNumberWithUserValuesTest with PropertyChangeNotifier<String> {
   GreaterThanNumberWithUserValuesTest(this.value, this.valueToCompare);
 
   @GreaterThanNumber(
@@ -590,7 +609,8 @@ class GreaterThanNumberWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class GreaterThanNumberWithDeveloperValuesTest {
+class GreaterThanNumberWithDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   GreaterThanNumberWithDeveloperValuesTest(this.value);
 
   @GreaterThanNumber(
@@ -603,7 +623,7 @@ class GreaterThanNumberWithDeveloperValuesTest {
 
 //#region GreaterThanString
 @flutterModelFormValidator
-class GreaterThanStringTest {
+class GreaterThanStringTest with PropertyChangeNotifier<String> {
   GreaterThanStringTest(this.value, this.valueToCompare);
 
   @GreaterThanString(
@@ -615,7 +635,8 @@ class GreaterThanStringTest {
 }
 
 @flutterModelFormValidator
-class GreaterThanStringWithUserAndDeveloperValuesTest {
+class GreaterThanStringWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   GreaterThanStringWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
@@ -629,7 +650,7 @@ class GreaterThanStringWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class GreaterThanStringWithUserValuesTest {
+class GreaterThanStringWithUserValuesTest with PropertyChangeNotifier<String> {
   GreaterThanStringWithUserValuesTest(this.value, this.valueToCompare);
 
   @GreaterThanString(
@@ -641,7 +662,8 @@ class GreaterThanStringWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class GreaterThanStringWithDeveloperValuesTest {
+class GreaterThanStringWithDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   GreaterThanStringWithDeveloperValuesTest(this.value);
 
   @GreaterThanString(
@@ -654,7 +676,7 @@ class GreaterThanStringWithDeveloperValuesTest {
 
 //#region ImageSize
 @flutterModelFormValidator
-class ImageSizeTest {
+class ImageSizeTest with PropertyChangeNotifier<String> {
   ImageSizeTest(this.value);
 
   @ImageSize(
@@ -670,7 +692,7 @@ class ImageSizeTest {
 
 //#region InText
 @flutterModelFormValidator
-class InTextTest {
+class InTextTest with PropertyChangeNotifier<String> {
   InTextTest(this.value, this.text);
 
   @InText(
@@ -682,7 +704,7 @@ class InTextTest {
 }
 
 @flutterModelFormValidator
-class InTextWithUserAndDeveloperValuesTest {
+class InTextWithUserAndDeveloperValuesTest with PropertyChangeNotifier<String> {
   InTextWithUserAndDeveloperValuesTest(this.value, this.text);
 
   @InText(
@@ -696,7 +718,7 @@ class InTextWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class InTextWithUserValuesTest {
+class InTextWithUserValuesTest with PropertyChangeNotifier<String> {
   InTextWithUserValuesTest(this.value, this.text);
 
   @InText(
@@ -708,7 +730,7 @@ class InTextWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class InTextWithDeveloperValuesTest {
+class InTextWithDeveloperValuesTest with PropertyChangeNotifier<String> {
   InTextWithDeveloperValuesTest(this.value);
 
   @InText(
@@ -722,7 +744,7 @@ class InTextWithDeveloperValuesTest {
 
 //#region MembershipPassword
 @flutterModelFormValidator
-class MembershipPasswordTest {
+class MembershipPasswordTest with PropertyChangeNotifier<String> {
   MembershipPasswordTest(this.value);
 
   @MembershipPassword(
@@ -740,7 +762,7 @@ class MembershipPasswordTest {
 
 //#region NotEqualToDatetime
 @flutterModelFormValidator
-class NotEqualToDatetimeTest {
+class NotEqualToDatetimeTest with PropertyChangeNotifier<String> {
   NotEqualToDatetimeTest(this.value, this.valueToCompare);
 
   @NotEqualToDateTime(
@@ -752,7 +774,8 @@ class NotEqualToDatetimeTest {
 }
 
 @flutterModelFormValidator
-class NotEqualToDatetimeWithUserAndDeveloperValuesTest {
+class NotEqualToDatetimeWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   NotEqualToDatetimeWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
@@ -766,7 +789,7 @@ class NotEqualToDatetimeWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class NotEqualToDatetimeWithUserValuesTest {
+class NotEqualToDatetimeWithUserValuesTest with PropertyChangeNotifier<String> {
   NotEqualToDatetimeWithUserValuesTest(this.value, this.valueToCompare);
 
   @NotEqualToDateTime(
@@ -778,7 +801,8 @@ class NotEqualToDatetimeWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class NotEqualToDatetimeWithDeveloperValuesTest {
+class NotEqualToDatetimeWithDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   NotEqualToDatetimeWithDeveloperValuesTest(this.value);
 
   @NotEqualToDateTime(
@@ -791,7 +815,7 @@ class NotEqualToDatetimeWithDeveloperValuesTest {
 
 //#region NotEqualToNumber
 @flutterModelFormValidator
-class NotEqualToNumberTest {
+class NotEqualToNumberTest with PropertyChangeNotifier<String> {
   NotEqualToNumberTest(this.value, this.valueToCompare);
 
   @NotEqualToNumber(
@@ -803,7 +827,8 @@ class NotEqualToNumberTest {
 }
 
 @flutterModelFormValidator
-class NotEqualToNumberWithUserAndDeveloperValuesTest {
+class NotEqualToNumberWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   NotEqualToNumberWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
@@ -817,7 +842,7 @@ class NotEqualToNumberWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class NotEqualToNumberWithUserValuesTest {
+class NotEqualToNumberWithUserValuesTest with PropertyChangeNotifier<String> {
   NotEqualToNumberWithUserValuesTest(this.value, this.valueToCompare);
 
   @NotEqualToNumber(
@@ -829,7 +854,8 @@ class NotEqualToNumberWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class NotEqualToNumberWithDeveloperValuesTest {
+class NotEqualToNumberWithDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   NotEqualToNumberWithDeveloperValuesTest(this.value);
 
   @NotEqualToNumber(
@@ -842,7 +868,7 @@ class NotEqualToNumberWithDeveloperValuesTest {
 
 //#region NotEqualToString
 @flutterModelFormValidator
-class NotEqualToStringTest {
+class NotEqualToStringTest with PropertyChangeNotifier<String> {
   NotEqualToStringTest(this.value, this.valueToCompare);
 
   @NotEqualToString(
@@ -854,7 +880,8 @@ class NotEqualToStringTest {
 }
 
 @flutterModelFormValidator
-class NotEqualToStringWithUserAndDeveloperValuesTest {
+class NotEqualToStringWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   NotEqualToStringWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
@@ -868,7 +895,7 @@ class NotEqualToStringWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class NotEqualToStringWithUserValuesTest {
+class NotEqualToStringWithUserValuesTest with PropertyChangeNotifier<String> {
   NotEqualToStringWithUserValuesTest(this.value, this.valueToCompare);
 
   @NotEqualToString(
@@ -880,7 +907,8 @@ class NotEqualToStringWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class NotEqualToStringWithDeveloperValuesTest {
+class NotEqualToStringWithDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   NotEqualToStringWithDeveloperValuesTest(this.value);
 
   @NotEqualToString(
@@ -893,7 +921,7 @@ class NotEqualToStringWithDeveloperValuesTest {
 
 //#region NumberRange
 @flutterModelFormValidator
-class NumberRangeTest {
+class NumberRangeTest with PropertyChangeNotifier<String> {
   NumberRangeTest(this.value, this.min, this.max);
 
   @NumberRange(
@@ -907,7 +935,8 @@ class NumberRangeTest {
 }
 
 @flutterModelFormValidator
-class NumberRangeWithUserAndDeveloperValuesTest {
+class NumberRangeWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   NumberRangeWithUserAndDeveloperValuesTest(this.value, this.min, this.max);
 
   @NumberRange(
@@ -923,7 +952,7 @@ class NumberRangeWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class NumberRangeWithUserValuesTest {
+class NumberRangeWithUserValuesTest with PropertyChangeNotifier<String> {
   NumberRangeWithUserValuesTest(this.value, this.min, this.max);
 
   @NumberRange(
@@ -937,7 +966,7 @@ class NumberRangeWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class NumberRangeWithDeveloperValuesTest {
+class NumberRangeWithDeveloperValuesTest with PropertyChangeNotifier<String> {
   NumberRangeWithDeveloperValuesTest(this.value);
 
   @NumberRange(
@@ -951,7 +980,7 @@ class NumberRangeWithDeveloperValuesTest {
 
 //#region PhoneNumber
 @flutterModelFormValidator
-class PhoneNumberTest {
+class PhoneNumberTest with PropertyChangeNotifier<String> {
   PhoneNumberTest(this.value, this.countryCode, this.phoneNumberType);
 
   @PhoneNumber(
@@ -965,7 +994,8 @@ class PhoneNumberTest {
 }
 
 @flutterModelFormValidator
-class PhoneNumberWithUserAndDeveloperValuesTest {
+class PhoneNumberWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   PhoneNumberWithUserAndDeveloperValuesTest(
       this.value, this.countryCode, this.phoneNumberType);
 
@@ -982,7 +1012,7 @@ class PhoneNumberWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class PhoneNumberWithUserValuesTest {
+class PhoneNumberWithUserValuesTest with PropertyChangeNotifier<String> {
   PhoneNumberWithUserValuesTest(
       this.value, this.countryCode, this.phoneNumberType);
 
@@ -997,7 +1027,7 @@ class PhoneNumberWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class PhoneNumberWithDeveloperValuesTest {
+class PhoneNumberWithDeveloperValuesTest with PropertyChangeNotifier<String> {
   PhoneNumberWithDeveloperValuesTest(this.value);
 
   @PhoneNumber(
@@ -1011,7 +1041,7 @@ class PhoneNumberWithDeveloperValuesTest {
 
 //#region RegularExpression
 @flutterModelFormValidator
-class RegularExpressionTest {
+class RegularExpressionTest with PropertyChangeNotifier<String> {
   RegularExpressionTest(this.value);
 
   @RegularExpression(
@@ -1024,7 +1054,7 @@ class RegularExpressionTest {
 
 //#region Required
 @flutterModelFormValidator
-class RequiredTest {
+class RequiredTest with PropertyChangeNotifier<String> {
   RequiredTest(this.value);
 
   @Required(
@@ -1036,7 +1066,7 @@ class RequiredTest {
 
 //#region SmallerOrEqualToDatetime
 @flutterModelFormValidator
-class SmallerOrEqualToDatetimeTest {
+class SmallerOrEqualToDatetimeTest with PropertyChangeNotifier<String> {
   SmallerOrEqualToDatetimeTest(this.value, this.valueToCompare);
 
   @SmallerOrEqualToDateTime(
@@ -1048,7 +1078,8 @@ class SmallerOrEqualToDatetimeTest {
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToDatetimeWithUserAndDeveloperValuesTest {
+class SmallerOrEqualToDatetimeWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   SmallerOrEqualToDatetimeWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
@@ -1062,7 +1093,8 @@ class SmallerOrEqualToDatetimeWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToDatetimeWithUserValuesTest {
+class SmallerOrEqualToDatetimeWithUserValuesTest
+    with PropertyChangeNotifier<String> {
   SmallerOrEqualToDatetimeWithUserValuesTest(this.value, this.valueToCompare);
 
   @SmallerOrEqualToDateTime(
@@ -1074,7 +1106,8 @@ class SmallerOrEqualToDatetimeWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToDatetimeWithDeveloperValuesTest {
+class SmallerOrEqualToDatetimeWithDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   SmallerOrEqualToDatetimeWithDeveloperValuesTest(this.value);
 
   @SmallerOrEqualToDateTime(
@@ -1087,7 +1120,7 @@ class SmallerOrEqualToDatetimeWithDeveloperValuesTest {
 
 //#region SmallerOrEqualToNumber
 @flutterModelFormValidator
-class SmallerOrEqualToNumberTest {
+class SmallerOrEqualToNumberTest with PropertyChangeNotifier<String> {
   SmallerOrEqualToNumberTest(this.value, this.valueToCompare);
 
   @SmallerOrEqualToNumber(
@@ -1099,7 +1132,8 @@ class SmallerOrEqualToNumberTest {
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToNumberWithUserAndDeveloperValuesTest {
+class SmallerOrEqualToNumberWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   SmallerOrEqualToNumberWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
@@ -1113,7 +1147,8 @@ class SmallerOrEqualToNumberWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToNumberWithUserValuesTest {
+class SmallerOrEqualToNumberWithUserValuesTest
+    with PropertyChangeNotifier<String> {
   SmallerOrEqualToNumberWithUserValuesTest(this.value, this.valueToCompare);
 
   @SmallerOrEqualToNumber(
@@ -1125,7 +1160,8 @@ class SmallerOrEqualToNumberWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToNumberWithDeveloperValuesTest {
+class SmallerOrEqualToNumberWithDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   SmallerOrEqualToNumberWithDeveloperValuesTest(this.value);
 
   @SmallerOrEqualToNumber(
@@ -1138,7 +1174,7 @@ class SmallerOrEqualToNumberWithDeveloperValuesTest {
 
 //#region SmallerOrEqualToString
 @flutterModelFormValidator
-class SmallerOrEqualToStringTest {
+class SmallerOrEqualToStringTest with PropertyChangeNotifier<String> {
   SmallerOrEqualToStringTest(this.value, this.valueToCompare);
 
   @SmallerOrEqualToString(
@@ -1150,7 +1186,8 @@ class SmallerOrEqualToStringTest {
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToStringWithUserAndDeveloperValuesTest {
+class SmallerOrEqualToStringWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   SmallerOrEqualToStringWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
@@ -1164,7 +1201,8 @@ class SmallerOrEqualToStringWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToStringWithUserValuesTest {
+class SmallerOrEqualToStringWithUserValuesTest
+    with PropertyChangeNotifier<String> {
   SmallerOrEqualToStringWithUserValuesTest(this.value, this.valueToCompare);
 
   @SmallerOrEqualToString(
@@ -1176,7 +1214,8 @@ class SmallerOrEqualToStringWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToStringWithDeveloperValuesTest {
+class SmallerOrEqualToStringWithDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   SmallerOrEqualToStringWithDeveloperValuesTest(this.value);
 
   @SmallerOrEqualToString(
@@ -1189,7 +1228,7 @@ class SmallerOrEqualToStringWithDeveloperValuesTest {
 
 //#region SmallerThanDatetime
 @flutterModelFormValidator
-class SmallerThanDatetimeTest {
+class SmallerThanDatetimeTest with PropertyChangeNotifier<String> {
   SmallerThanDatetimeTest(this.value, this.valueToCompare);
 
   @SmallerThanDateTime(
@@ -1201,7 +1240,8 @@ class SmallerThanDatetimeTest {
 }
 
 @flutterModelFormValidator
-class SmallerThanDatetimeWithUserAndDeveloperValuesTest {
+class SmallerThanDatetimeWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   SmallerThanDatetimeWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
@@ -1215,7 +1255,8 @@ class SmallerThanDatetimeWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class SmallerThanDatetimeWithUserValuesTest {
+class SmallerThanDatetimeWithUserValuesTest
+    with PropertyChangeNotifier<String> {
   SmallerThanDatetimeWithUserValuesTest(this.value, this.valueToCompare);
 
   @SmallerThanDateTime(
@@ -1227,7 +1268,8 @@ class SmallerThanDatetimeWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class SmallerThanDatetimeWithDeveloperValuesTest {
+class SmallerThanDatetimeWithDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   SmallerThanDatetimeWithDeveloperValuesTest(this.value);
 
   @SmallerThanDateTime(
@@ -1240,7 +1282,7 @@ class SmallerThanDatetimeWithDeveloperValuesTest {
 
 //#region SmallerThanNumber
 @flutterModelFormValidator
-class SmallerThanNumberTest {
+class SmallerThanNumberTest with PropertyChangeNotifier<String> {
   SmallerThanNumberTest(this.value, this.valueToCompare);
 
   @SmallerThanNumber(
@@ -1252,7 +1294,8 @@ class SmallerThanNumberTest {
 }
 
 @flutterModelFormValidator
-class SmallerThanNumberWithUserAndDeveloperValuesTest {
+class SmallerThanNumberWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   SmallerThanNumberWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
@@ -1266,7 +1309,7 @@ class SmallerThanNumberWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class SmallerThanNumberWithUserValuesTest {
+class SmallerThanNumberWithUserValuesTest with PropertyChangeNotifier<String> {
   SmallerThanNumberWithUserValuesTest(this.value, this.valueToCompare);
 
   @SmallerThanNumber(
@@ -1278,7 +1321,8 @@ class SmallerThanNumberWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class SmallerThanNumberWithDeveloperValuesTest {
+class SmallerThanNumberWithDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   SmallerThanNumberWithDeveloperValuesTest(this.value);
 
   @SmallerThanNumber(
@@ -1291,7 +1335,7 @@ class SmallerThanNumberWithDeveloperValuesTest {
 
 //#region SmallerThanString
 @flutterModelFormValidator
-class SmallerThanStringTest {
+class SmallerThanStringTest with PropertyChangeNotifier<String> {
   SmallerThanStringTest(this.value, this.valueToCompare);
 
   @SmallerThanString(
@@ -1303,7 +1347,8 @@ class SmallerThanStringTest {
 }
 
 @flutterModelFormValidator
-class SmallerThanStringWithUserAndDeveloperValuesTest {
+class SmallerThanStringWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   SmallerThanStringWithUserAndDeveloperValuesTest(
       this.value, this.valueToCompare);
 
@@ -1317,7 +1362,7 @@ class SmallerThanStringWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class SmallerThanStringWithUserValuesTest {
+class SmallerThanStringWithUserValuesTest with PropertyChangeNotifier<String> {
   SmallerThanStringWithUserValuesTest(this.value, this.valueToCompare);
 
   @SmallerThanString(
@@ -1329,7 +1374,8 @@ class SmallerThanStringWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class SmallerThanStringWithDeveloperValuesTest {
+class SmallerThanStringWithDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   SmallerThanStringWithDeveloperValuesTest(this.value);
 
   @SmallerThanString(
@@ -1342,7 +1388,7 @@ class SmallerThanStringWithDeveloperValuesTest {
 
 //#region StringLength
 @flutterModelFormValidator
-class StringLengthTest {
+class StringLengthTest with PropertyChangeNotifier<String> {
   StringLengthTest(this.value);
 
   @StringLength(
@@ -1356,7 +1402,7 @@ class StringLengthTest {
 
 //#region StringRange
 @flutterModelFormValidator
-class StringRangeTest {
+class StringRangeTest with PropertyChangeNotifier<String> {
   StringRangeTest(this.value, this.min, this.max);
 
   @StringRange(
@@ -1370,7 +1416,8 @@ class StringRangeTest {
 }
 
 @flutterModelFormValidator
-class StringRangeWithUserAndDeveloperValuesTest {
+class StringRangeWithUserAndDeveloperValuesTest
+    with PropertyChangeNotifier<String> {
   StringRangeWithUserAndDeveloperValuesTest(this.value, this.min, this.max);
 
   @StringRange(
@@ -1386,7 +1433,7 @@ class StringRangeWithUserAndDeveloperValuesTest {
 }
 
 @flutterModelFormValidator
-class StringRangeWithUserValuesTest {
+class StringRangeWithUserValuesTest with PropertyChangeNotifier<String> {
   StringRangeWithUserValuesTest(this.value, this.min, this.max);
 
   @StringRange(
@@ -1400,7 +1447,7 @@ class StringRangeWithUserValuesTest {
 }
 
 @flutterModelFormValidator
-class StringRangeWithDeveloperValuesTest {
+class StringRangeWithDeveloperValuesTest with PropertyChangeNotifier<String> {
   StringRangeWithDeveloperValuesTest(this.value);
 
   @StringRange(
@@ -1414,7 +1461,7 @@ class StringRangeWithDeveloperValuesTest {
 
 //#region URL
 @flutterModelFormValidator
-class UrlTest {
+class UrlTest with PropertyChangeNotifier<String> {
   UrlTest(this.value);
 
   @URL(

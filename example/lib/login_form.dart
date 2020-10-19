@@ -45,7 +45,7 @@ class EmailInput extends StatelessWidget {
             labelText: 'Email',
           ),
           autofocus: true,
-          autovalidate: true,
+          autovalidateMode: AutovalidateMode.always,
           autocorrect: false,
           keyboardType: TextInputType.text,
           onChanged: (String value) =>
@@ -85,7 +85,7 @@ class PasswordInput extends StatelessWidget {
           ),
           focusNode: this.focusNode,
           controller: controller,
-          autovalidate: true,
+          autovalidateMode: AutovalidateMode.always,
           autocorrect: false,
           obscureText: true,
           keyboardType: TextInputType.visiblePassword,

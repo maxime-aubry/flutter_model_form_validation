@@ -1,38 +1,41 @@
-// import 'dart:io';
-// import 'models/models.dart';
-// import 'models/models.reflectable.dart';
-// import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-// import 'package:flutter_test/flutter_test.dart';
+import 'dart:io';
 
-// void main() {
-//   initializeReflectable();
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-//   group('FileSize.', () {
-//     group('Test the validation > success.', () {
-//       test('Loaded image is lighter or equal to 1MO.', () {
-//         File file =
-//             new File('${Directory.current.path}\\test\\assets\\glycine.jpg');
+import 'models/models.dart';
+import 'models/models.reflectable.dart';
 
-//         FileSizeTest tester = new FileSizeTest(file.readAsBytesSync());
-//         bool isValid = ModelState.isValid<FileSizeTest>(tester);
-//         expect(isValid, true);
-//         expect(ModelState.errors.isEmpty, true);
-//       });
-//     });
+void main() {
+  initializeReflectable();
 
-//     group('Test the validation > failure.', () {
-//       test('Loaded image is heavier than 1MO.', () {
-//         File file = new File(
-//             '${Directory.current.path}\\test\\assets\\erable-japonais.png');
+  group('FileSize.', () {
+    group('Test the validation > success.', () {
+      test('Loaded image is lighter or equal to 1MO.', () async {
+        File file =
+            new File('${Directory.current.path}\\test\\assets\\glycine.jpg');
+        FileSizeTest model = new FileSizeTest(file.readAsBytesSync());
+        ModelState<FileSizeTest> modelState =
+            new ModelState<FileSizeTest>(model);
 
-//         FileSizeTest tester = new FileSizeTest(file.readAsBytesSync());
-//         bool isValid = ModelState.isValid<FileSizeTest>(tester);
-//         expect(isValid, false);
+        expect(await modelState.validateForm(), true);
+        expect(modelState.errors.isEmpty, true);
+      });
+    });
 
-//         expect(ModelState.errors['value'].validatorType, FileSize);
-//         expect(ModelState.errors['value'].propertyName, 'value');
-//         expect(ModelState.errors['value'].error, 'Invalid file size');
-//       });
-//     });
-//   });
-// }
+    group('Test the validation > failure.', () {
+      test('Loaded image is heavier than 1MO.', () async {
+        File file = new File(
+            '${Directory.current.path}\\test\\assets\\erable-japonais.png');
+        FileSizeTest model = new FileSizeTest(file.readAsBytesSync());
+        ModelState<FileSizeTest> modelState =
+            new ModelState<FileSizeTest>(model);
+
+        expect(await modelState.validateForm(), false);
+        expect(modelState.errors['value'].validatorType, FileSize);
+        expect(modelState.errors['value'].propertyName, 'value');
+        expect(modelState.errors['value'].error, 'Invalid file size');
+      });
+    });
+  });
+}

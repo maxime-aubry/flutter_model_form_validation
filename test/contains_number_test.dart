@@ -1,31 +1,35 @@
-// import 'models/models.dart';
-// import 'models/models.reflectable.dart';
-// import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-// import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-// void main() {
-//   initializeReflectable();
+import 'models/models.dart';
+import 'models/models.reflectable.dart';
 
-//   group('ContainsNumber.', () {
-//     group('Test the validation > success.', () {
-//       test('2 is in array.', () {
-//         ContainsNumberTest tester = new ContainsNumberTest(2);
-//         bool isValid = ModelState.isValid<ContainsNumberTest>(tester);
-//         expect(isValid, true);
-//         expect(ModelState.errors.isEmpty, true);
-//       });
-//     });
+void main() {
+  initializeReflectable();
 
-//     group('Test the validation > failure.', () {
-//       test('4 is not in array.', () {
-//         ContainsNumberTest tester = new ContainsNumberTest(4);
-//         bool isValid = ModelState.isValid<ContainsNumberTest>(tester);
-//         expect(isValid, false);
+  group('ContainsNumber.', () {
+    group('Test the validation > success.', () {
+      test('2 is in array.', () async {
+        ContainsNumberTest model = new ContainsNumberTest(2);
+        ModelState<ContainsNumberTest> modelState =
+            new ModelState<ContainsNumberTest>(model);
 
-//         expect(ModelState.errors['value'].validatorType, ContainsNumber);
-//         expect(ModelState.errors['value'].propertyName, 'value');
-//         expect(ModelState.errors['value'].error, 'Invalid number');
-//       });
-//     });
-//   });
-// }
+        expect(await modelState.validateForm(), true);
+        expect(modelState.errors.isEmpty, true);
+      });
+    });
+
+    group('Test the validation > failure.', () {
+      test('4 is not in array.', () async {
+        ContainsNumberTest model = new ContainsNumberTest(4);
+        ModelState<ContainsNumberTest> modelState =
+            new ModelState<ContainsNumberTest>(model);
+
+        expect(await modelState.validateForm(), false);
+        expect(modelState.errors['value'].validatorType, ContainsNumber);
+        expect(modelState.errors['value'].propertyName, 'value');
+        expect(modelState.errors['value'].error, 'Invalid number');
+      });
+    });
+  });
+}

@@ -1,32 +1,33 @@
-// import 'models/models.dart';
-// import 'models/models.reflectable.dart';
-// import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-// import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-// void main() {
-//   initializeReflectable();
+import 'models/models.dart';
+import 'models/models.reflectable.dart';
 
-//   group('RegularExpression.', () {
-//     group('Test the validation > success.', () {
-//       test('Valid regular expression.', () {
-//         RegularExpressionTest tester = new RegularExpressionTest('Hello');
-//         bool isValid = ModelState.isValid<RegularExpressionTest>(tester);
-//         expect(isValid, true);
-//         expect(ModelState.errors.isEmpty, true);
-//       });
-//     });
+void main() {
+  initializeReflectable();
 
-//     group('Test the validation > failure.', () {
-//       test('Invalid regular expression.', () {
-//         RegularExpressionTest tester =
-//             new RegularExpressionTest('Good morning');
-//         bool isValid = ModelState.isValid<RegularExpressionTest>(tester);
-//         expect(isValid, false);
+  group('RegularExpression.', () {
+    group('Test the validation > success.', () {
+      test('Valid regular expression.', () async {
+        RegularExpressionTest model = new RegularExpressionTest('Hello');
+        ModelState modelState = new ModelState<RegularExpressionTest>(model);
 
-//         expect(ModelState.errors['value'].validatorType, RegularExpression);
-//         expect(ModelState.errors['value'].propertyName, 'value');
-//         expect(ModelState.errors['value'].error, 'Invalid regular expression');
-//       });
-//     });
-//   });
-// }
+        expect(await modelState.validateForm(), true);
+        expect(modelState.errors.isEmpty, true);
+      });
+    });
+
+    group('Test the validation > failure.', () {
+      test('Invalid regular expression.', () async {
+        RegularExpressionTest model = new RegularExpressionTest('Good morning');
+        ModelState modelState = new ModelState<RegularExpressionTest>(model);
+
+        expect(await modelState.validateForm(), false);
+        expect(modelState.errors['value'].validatorType, RegularExpression);
+        expect(modelState.errors['value'].propertyName, 'value');
+        expect(modelState.errors['value'].error, 'Invalid regular expression');
+      });
+    });
+  });
+}

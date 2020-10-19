@@ -1,30 +1,32 @@
-// import 'models/models.dart';
-// import 'models/models.reflectable.dart';
-// import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-// import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-// void main() {
-//   initializeReflectable();
+import 'models/models.dart';
+import 'models/models.reflectable.dart';
 
-//   group('Email.', () {
-//     group('Test the validation > success.', () {
-//       test('Valid email.', () {
-//         EmailTest tester = new EmailTest('azerty@test.com');
-//         bool isValid = ModelState.isValid<EmailTest>(tester);
-//         expect(isValid, true);
-//         expect(ModelState.errors.isEmpty, true);
-//       });
-//     });
-//     group('Test the validation > failure.', () {
-//       test('Invalid email.', () {
-//         EmailTest tester = new EmailTest('azerty@.com');
-//         bool isValid = ModelState.isValid<EmailTest>(tester);
-//         expect(isValid, false);
+void main() {
+  initializeReflectable();
 
-//         expect(ModelState.errors['value'].validatorType, Email);
-//         expect(ModelState.errors['value'].propertyName, 'value');
-//         expect(ModelState.errors['value'].error, 'Invalid email');
-//       });
-//     });
-//   });
-// }
+  group('Email.', () {
+    group('Test the validation > success.', () {
+      test('Valid email.', () async {
+        EmailTest model = new EmailTest('azerty@test.com');
+        ModelState<EmailTest> modelState = new ModelState<EmailTest>(model);
+
+        expect(await modelState.validateForm(), true);
+        expect(modelState.errors.isEmpty, true);
+      });
+    });
+    group('Test the validation > failure.', () {
+      test('Invalid email.', () async {
+        EmailTest model = new EmailTest('azerty@.com');
+        ModelState<EmailTest> modelState = new ModelState<EmailTest>(model);
+
+        expect(await modelState.validateForm(), false);
+        expect(modelState.errors['value'].validatorType, Email);
+        expect(modelState.errors['value'].propertyName, 'value');
+        expect(modelState.errors['value'].error, 'Invalid email');
+      });
+    });
+  });
+}

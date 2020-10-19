@@ -11,9 +11,12 @@ enum InputStatus {
   validationInProgress,
 }
 
-class FormProperty {
-  FormProperty(
-      this._name, this._value, this._status, this._validators, this._error);
+class FormProperty<TModel> {
+  FormProperty(TModel model, VariableMirror declaration)
+      : assert(model != null),
+        assert(declaration != null) {
+    this._init(model, declaration);
+  }
 
   String _name;
   Object _value;
@@ -37,21 +40,17 @@ class FormProperty {
   ValidationError get error => this._error;
 
   /// Initialize a form property.
-  static FormProperty init<TModel>(TModel model, VariableMirror declaration) {
+  void _init(TModel model, VariableMirror declaration) {
     InstanceMirror instanceMirror = flutterModelFormValidator.reflect(model);
-    Object value = instanceMirror.invokeGetter(declaration.simpleName);
-    FormProperty property = new FormProperty(
-      declaration.simpleName,
-      value,
-      InputStatus.pure,
-      FormProperty._getValidators(declaration),
-      null,
-    );
-    return property;
+    this._name = declaration.simpleName;
+    this._value = instanceMirror.invokeGetter(declaration.simpleName);
+    this._status = InputStatus.pure;
+    this._validators = this._getValidators(declaration);
+    this._error = null;
   }
 
   /// Returns a list of validators for this form property.
-  static List<ValidationAnnotation> _getValidators(
+  List<ValidationAnnotation> _getValidators(
     VariableMirror declaration,
   ) {
     List<ValidationAnnotation> validators = Collection(declaration.metadata)
@@ -62,19 +61,9 @@ class FormProperty {
     return validators;
   }
 
-  /// Updates the value and validate it.
-  /// The input status will be actualized.
-  Future update<TModel>(TModel model) async {
-    InstanceMirror instanceMirror = flutterModelFormValidator.reflect(model);
-    this._value = instanceMirror.invokeGetter(this._name);
-    this._status = InputStatus.validationInProgress;
-    this._status =
-        await this._validate(model) ? InputStatus.valid : InputStatus.invalid;
-  }
-
   /// Executes the validators, one after the other for this property.
   /// First of them that is invalid will stop the loop and invalidate the property.
-  Future<bool> _validate<TModel>(TModel model) async {
+  Future<bool> _validate(TModel model) async {
     bool isValid = true;
     this._error = null;
 
@@ -90,5 +79,15 @@ class FormProperty {
       }
     }
     return isValid;
+  }
+
+  /// Updates the value and validate it.
+  /// The input status will be actualized.
+  Future update(TModel model) async {
+    InstanceMirror instanceMirror = flutterModelFormValidator.reflect(model);
+    this._value = instanceMirror.invokeGetter(this._name);
+    this._status = InputStatus.validationInProgress;
+    this._status =
+        await this._validate(model) ? InputStatus.valid : InputStatus.invalid;
   }
 }

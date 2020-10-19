@@ -22,8 +22,10 @@ class LoginFormState extends ModelFormState<AuthenticationModel> {
 
     return LoginFormState(
       viewmodel: copyOfViewmodel,
-      isValid: ModelState.isValid<AuthenticationModel>(copyOfViewmodel),
-      errors: ModelState.errors,
+      //isValid: ModelState.isValid<AuthenticationModel>(copyOfViewmodel),
+      //errors: ModelState.errors,
+      isValid: true,
+      errors: {},
     );
   }
 }

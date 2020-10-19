@@ -113,7 +113,7 @@ import 'package:*.reflectable.dart';
 
 initializeReflectable();
 
-MyModel tester = new MyModel('Maxime', 'AUBRY', 'M', DateTime.parse('1986-12-22'), null);
+MyModel model = new MyModel('Maxime', 'AUBRY', 'M', DateTime.parse('1986-12-22'), null);
 bool isValid = ModelState.isValid<MyModel>(tester);
 
 if (isValid) {

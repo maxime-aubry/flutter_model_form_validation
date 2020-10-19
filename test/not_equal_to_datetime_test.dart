@@ -1,78 +1,83 @@
-// import 'models/models.dart';
-// import 'models/models.reflectable.dart';
-// import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-// import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-// void main() {
-//   initializeReflectable();
+import 'models/models.dart';
+import 'models/models.reflectable.dart';
 
-//   group('NotEqualToDatetime.', () {
-//     group('Test the priority between user and developer static data.', () {
-//       test(
-//           '"valueToCompare" is provided by user and developer. User data has priority.',
-//           () {
-//         NotEqualToDatetimeWithUserAndDeveloperValuesTest tester =
-//             new NotEqualToDatetimeWithUserAndDeveloperValuesTest(
-//           new DateTime(2020, 1, 2),
-//           new DateTime(2020, 1, 1),
-//         );
-//         bool isValid = ModelState.isValid<
-//             NotEqualToDatetimeWithUserAndDeveloperValuesTest>(tester);
-//         expect(isValid, true);
-//         expect(ModelState.errors.isEmpty, true);
-//       });
+void main() {
+  initializeReflectable();
 
-//       test('"valueToCompare" is provided by user only.', () {
-//         NotEqualToDatetimeWithUserValuesTest tester =
-//             new NotEqualToDatetimeWithUserValuesTest(
-//           new DateTime(2020, 1, 2),
-//           new DateTime(2020, 1, 1),
-//         );
-//         bool isValid =
-//             ModelState.isValid<NotEqualToDatetimeWithUserValuesTest>(tester);
-//         expect(isValid, true);
-//         expect(ModelState.errors.isEmpty, true);
-//       });
+  group('NotEqualToDatetime.', () {
+    group('Test the priority between user and developer static data.', () {
+      test(
+          '"valueToCompare" is provided by user and developer. User data has priority.',
+          () async {
+        NotEqualToDatetimeWithUserAndDeveloperValuesTest model =
+            new NotEqualToDatetimeWithUserAndDeveloperValuesTest(
+          new DateTime(2020, 1, 2),
+          new DateTime(2020, 1, 1),
+        );
+        ModelState modelState =
+            new ModelState<NotEqualToDatetimeWithUserAndDeveloperValuesTest>(
+                model);
 
-//       test('"valueToCompare" is provided by developer only.', () {
-//         NotEqualToDatetimeWithDeveloperValuesTest tester =
-//             new NotEqualToDatetimeWithDeveloperValuesTest(
-//           new DateTime(2019, 1, 2),
-//         );
-//         bool isValid =
-//             ModelState.isValid<NotEqualToDatetimeWithDeveloperValuesTest>(
-//                 tester);
-//         expect(isValid, true);
-//         expect(ModelState.errors.isEmpty, true);
-//       });
-//     });
+        expect(await modelState.validateForm(), true);
+        expect(modelState.errors.isEmpty, true);
+      });
 
-//     group('Test the validation > success.', () {
-//       test('The value is equal to value to compare.', () {
-//         NotEqualToDatetimeTest tester = new NotEqualToDatetimeTest(
-//           new DateTime(2020, 1, 2),
-//           new DateTime(2020, 1, 1),
-//         );
-//         bool isValid = ModelState.isValid<NotEqualToDatetimeTest>(tester);
-//         expect(isValid, true);
-//         expect(ModelState.errors.isEmpty, true);
-//       });
-//     });
+      test('"valueToCompare" is provided by user only.', () async {
+        NotEqualToDatetimeWithUserValuesTest model =
+            new NotEqualToDatetimeWithUserValuesTest(
+          new DateTime(2020, 1, 2),
+          new DateTime(2020, 1, 1),
+        );
+        ModelState modelState =
+            new ModelState<NotEqualToDatetimeWithUserValuesTest>(model);
 
-//     group('Test the validation > failure.', () {
-//       test('The value is not equal to value to compare.', () {
-//         NotEqualToDatetimeTest tester = new NotEqualToDatetimeTest(
-//           new DateTime(2020, 1, 1),
-//           new DateTime(2020, 1, 1),
-//         );
-//         bool isValid = ModelState.isValid<NotEqualToDatetimeTest>(tester);
-//         expect(isValid, false);
+        expect(await modelState.validateForm(), true);
+        expect(modelState.errors.isEmpty, true);
+      });
 
-//         expect(ModelState.errors['value'].validatorType, NotEqualToDateTime);
-//         expect(ModelState.errors['value'].propertyName, 'value');
-//         expect(ModelState.errors['value'].error,
-//             'Value is not equal to the value to compare');
-//       });
-//     });
-//   });
-// }
+      test('"valueToCompare" is provided by developer only.', () async {
+        NotEqualToDatetimeWithDeveloperValuesTest model =
+            new NotEqualToDatetimeWithDeveloperValuesTest(
+          new DateTime(2019, 1, 2),
+        );
+        ModelState modelState =
+            new ModelState<NotEqualToDatetimeWithDeveloperValuesTest>(model);
+
+        expect(await modelState.validateForm(), true);
+        expect(modelState.errors.isEmpty, true);
+      });
+    });
+
+    group('Test the validation > success.', () {
+      test('The value is equal to value to compare.', () async {
+        NotEqualToDatetimeTest model = new NotEqualToDatetimeTest(
+          new DateTime(2020, 1, 2),
+          new DateTime(2020, 1, 1),
+        );
+        ModelState modelState = new ModelState<NotEqualToDatetimeTest>(model);
+
+        expect(await modelState.validateForm(), true);
+        expect(modelState.errors.isEmpty, true);
+      });
+    });
+
+    group('Test the validation > failure.', () {
+      test('The value is not equal to value to compare.', () async {
+        NotEqualToDatetimeTest model = new NotEqualToDatetimeTest(
+          new DateTime(2020, 1, 1),
+          new DateTime(2020, 1, 1),
+        );
+        ModelState modelState = new ModelState<NotEqualToDatetimeTest>(model);
+
+        expect(await modelState.validateForm(), false);
+        expect(modelState.errors['value'].validatorType, NotEqualToDateTime);
+        expect(modelState.errors['value'].propertyName, 'value');
+        expect(modelState.errors['value'].error,
+            'Value is not equal to the value to compare');
+      });
+    });
+  });
+}

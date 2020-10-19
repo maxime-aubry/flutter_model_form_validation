@@ -1,40 +1,42 @@
-// import 'models/models.dart';
-// import 'models/models.reflectable.dart';
-// import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-// import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-// void main() {
-//   initializeReflectable();
+import 'models/models.dart';
+import 'models/models.reflectable.dart';
 
-//   group('Required.', () {
-//     group('Test the validation > success.', () {
-//       test('Data is provided.', () {
-//         RequiredTest tester = new RequiredTest('a');
-//         bool isValid = ModelState.isValid<RequiredTest>(tester);
-//         expect(isValid, true);
-//         expect(ModelState.errors.isEmpty, true);
-//       });
-//     });
-//     group('Test the validation > failure.', () {
-//       test('Data is empty string.', () {
-//         RequiredTest tester = new RequiredTest('');
-//         bool isValid = ModelState.isValid<RequiredTest>(tester);
-//         expect(isValid, false);
+void main() {
+  initializeReflectable();
 
-//         expect(ModelState.errors['value'].validatorType, Required);
-//         expect(ModelState.errors['value'].propertyName, 'value');
-//         expect(ModelState.errors['value'].error, 'Value is required');
-//       });
+  group('Required.', () {
+    group('Test the validation > success.', () {
+      test('Data is provided.', () async {
+        RequiredTest model = new RequiredTest('a');
+        ModelState modelState = new ModelState<RequiredTest>(model);
 
-//       test('Data is null.', () {
-//         RequiredTest tester = new RequiredTest(null);
-//         bool isValid = ModelState.isValid<RequiredTest>(tester);
-//         expect(isValid, false);
+        expect(await modelState.validateForm(), true);
+        expect(modelState.errors.isEmpty, true);
+      });
+    });
+    group('Test the validation > failure.', () {
+      test('Data is empty string.', () async {
+        RequiredTest model = new RequiredTest('');
+        ModelState modelState = new ModelState<RequiredTest>(model);
 
-//         expect(ModelState.errors['value'].validatorType, Required);
-//         expect(ModelState.errors['value'].propertyName, 'value');
-//         expect(ModelState.errors['value'].error, 'Value is required');
-//       });
-//     });
-//   });
-// }
+        expect(await modelState.validateForm(), false);
+        expect(modelState.errors['value'].validatorType, Required);
+        expect(modelState.errors['value'].propertyName, 'value');
+        expect(modelState.errors['value'].error, 'Value is required');
+      });
+
+      test('Data is null.', () async {
+        RequiredTest model = new RequiredTest(null);
+        ModelState modelState = new ModelState<RequiredTest>(model);
+
+        expect(await modelState.validateForm(), false);
+        expect(modelState.errors['value'].validatorType, Required);
+        expect(modelState.errors['value'].propertyName, 'value');
+        expect(modelState.errors['value'].error, 'Value is required');
+      });
+    });
+  });
+}

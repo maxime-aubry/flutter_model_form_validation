@@ -1,62 +1,68 @@
-// import 'models/models.dart';
-// import 'models/models.reflectable.dart';
-// import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-// import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-// void main() {
-//   initializeReflectable();
+import 'models/models.dart';
+import 'models/models.reflectable.dart';
 
-//   group('InText.', () {
-//     group('Test the priority between user and developer static data.', () {
-//       test('"Text" is provided by user and developer. User data has priority.',
-//           () {
-//         InTextWithUserAndDeveloperValuesTest tester =
-//             new InTextWithUserAndDeveloperValuesTest(
-//                 'father', 'I am your father !');
-//         bool isValid =
-//             ModelState.isValid<InTextWithUserAndDeveloperValuesTest>(tester);
-//         expect(isValid, true);
-//         expect(ModelState.errors.isEmpty, true);
-//       });
+void main() {
+  initializeReflectable();
 
-//       test('"Text" is provided by user only.', () {
-//         InTextWithUserValuesTest tester =
-//             new InTextWithUserValuesTest('father', 'I am your father !');
-//         bool isValid = ModelState.isValid<InTextWithUserValuesTest>(tester);
-//         expect(isValid, true);
-//         expect(ModelState.errors.isEmpty, true);
-//       });
+  group('InText.', () {
+    group('Test the priority between user and developer static data.', () {
+      test('"Text" is provided by user and developer. User data has priority.',
+          () async {
+        InTextWithUserAndDeveloperValuesTest model =
+            new InTextWithUserAndDeveloperValuesTest(
+                'father', 'I am your father !');
+        ModelState<InTextWithUserAndDeveloperValuesTest> modelState =
+            new ModelState<InTextWithUserAndDeveloperValuesTest>(model);
 
-//       test('"Text" is provided by developer only.', () {
-//         InTextWithDeveloperValuesTest tester =
-//             new InTextWithDeveloperValuesTest('lorem');
-//         bool isValid =
-//             ModelState.isValid<InTextWithDeveloperValuesTest>(tester);
-//         expect(isValid, true);
-//         expect(ModelState.errors.isEmpty, true);
-//       });
-//     });
+        expect(await modelState.validateForm(), true);
+        expect(modelState.errors.isEmpty, true);
+      });
 
-//     group('Test the validation > success.', () {
-//       test('The value is contained into "text".', () {
-//         InTextTest tester = new InTextTest('father', 'I am your father !');
-//         bool isValid = ModelState.isValid<InTextTest>(tester);
-//         expect(isValid, true);
-//         expect(ModelState.errors.isEmpty, true);
-//       });
-//     });
+      test('"Text" is provided by user only.', () async {
+        InTextWithUserValuesTest model =
+            new InTextWithUserValuesTest('father', 'I am your father !');
+        ModelState<InTextWithUserValuesTest> modelState =
+            new ModelState<InTextWithUserValuesTest>(model);
 
-//     group('Test the validation > failure.', () {
-//       test('The value is not contained into "text".', () {
-//         InTextTest tester = new InTextTest('luke', 'I am your father !');
-//         bool isValid = ModelState.isValid<InTextTest>(tester);
-//         expect(isValid, false);
+        expect(await modelState.validateForm(), true);
+        expect(modelState.errors.isEmpty, true);
+      });
 
-//         expect(ModelState.errors['value'].validatorType, InText);
-//         expect(ModelState.errors['value'].propertyName, 'value');
-//         expect(
-//             ModelState.errors['value'].error, 'Keyword is not in the string');
-//       });
-//     });
-//   });
-// }
+      test('"Text" is provided by developer only.', () async {
+        InTextWithDeveloperValuesTest model =
+            new InTextWithDeveloperValuesTest('lorem');
+        ModelState<InTextWithDeveloperValuesTest> modelState =
+            new ModelState<InTextWithDeveloperValuesTest>(model);
+
+        expect(await modelState.validateForm(), true);
+        expect(modelState.errors.isEmpty, true);
+      });
+    });
+
+    group('Test the validation > success.', () {
+      test('The value is contained into "text".', () async {
+        InTextTest model = new InTextTest('father', 'I am your father !');
+        ModelState<InTextTest> modelState = new ModelState<InTextTest>(model);
+
+        expect(await modelState.validateForm(), true);
+        expect(modelState.errors.isEmpty, true);
+      });
+    });
+
+    group('Test the validation > failure.', () {
+      test('The value is not contained into "text".', () async {
+        InTextTest model = new InTextTest('luke', 'I am your father !');
+        ModelState<InTextTest> modelState = new ModelState<InTextTest>(model);
+
+        expect(await modelState.validateForm(), false);
+        expect(modelState.errors['value'].validatorType, InText);
+        expect(modelState.errors['value'].propertyName, 'value');
+        expect(
+            modelState.errors['value'].error, 'Keyword is not in the string');
+      });
+    });
+  });
+}

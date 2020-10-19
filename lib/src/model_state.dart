@@ -18,7 +18,7 @@ enum FormStatus {
 }
 
 class ModelState<TModel extends PropertyChangeNotifier<String>> {
-  ModelState(TModel model) {
+  ModelState(TModel model) : assert(model != null) {
     this.model = model;
     this._init();
   }
@@ -33,15 +33,24 @@ class ModelState<TModel extends PropertyChangeNotifier<String>> {
   /// Gets the form status (pure, valid, invalid, validation in progress, submission in progress, submission success, submission failure).
   FormStatus get status => this._status;
 
+  /// Gets the list of properties errors.
+  Map<String, ValidationError> get errors {
+    Map<String, ValidationError> _errors = {};
+    for (FormProperty property in this._properties)
+      if (property.error != null) _errors[property.name] = property.error;
+    return _errors;
+  }
+
   /// Initialize the form.
   /// Declare the form status to pure.
   /// Add listeners for each property, what will trigger validators when a value is setted.
   void _init() {
     try {
       ClassMirror classMirror = flutterModelFormValidator.reflectType(TModel);
+      FormProperties formProperties = new FormProperties();
       this._status = FormStatus.pure;
       this._properties =
-          FormProperties.getProperties<TModel>(this.model, classMirror);
+          formProperties.getProperties<TModel>(this.model, classMirror);
       this._addListeners();
     } catch (e) {
       print(e);
@@ -63,7 +72,7 @@ class ModelState<TModel extends PropertyChangeNotifier<String>> {
   /// Actualize a property of the current model, and validate it.
   void _actualizeInput(FormProperty property) {
     try {
-      property.update<TModel>(model);
+      property.update(model);
       bool isValidForm = !Collection(this._properties)
           .any((arg1) => arg1.status == InputStatus.invalid);
       this._status = (isValidForm) ? FormStatus.valid : FormStatus.invalid;
