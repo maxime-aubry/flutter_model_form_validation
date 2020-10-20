@@ -12,7 +12,7 @@ enum InputStatus {
 }
 
 class FormProperty<TModel> {
-  FormProperty(TModel model, VariableMirror declaration)
+  FormProperty(TModel model, MethodMirror declaration)
       : assert(model != null),
         assert(declaration != null) {
     this._init(model, declaration);
@@ -40,7 +40,7 @@ class FormProperty<TModel> {
   ValidationError get error => this._error;
 
   /// Initialize a form property.
-  void _init(TModel model, VariableMirror declaration) {
+  void _init(TModel model, MethodMirror declaration) {
     InstanceMirror instanceMirror = flutterModelFormValidator.reflect(model);
     this._name = declaration.simpleName;
     this._value = instanceMirror.invokeGetter(declaration.simpleName);
@@ -51,7 +51,7 @@ class FormProperty<TModel> {
 
   /// Returns a list of validators for this form property.
   List<ValidationAnnotation> _getValidators(
-    VariableMirror declaration,
+    MethodMirror declaration,
   ) {
     List<ValidationAnnotation> validators = Collection(declaration.metadata)
         .where((arg1) => arg1 is ValidationAnnotation)

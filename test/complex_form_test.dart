@@ -26,10 +26,11 @@ void main() {
         model.date_of_death = new DateTime(2019, 06, 01);
         await Future.delayed(const Duration(microseconds: 100), () {});
 
-        expect(modelState.getProperty('firstName').status, InputStatus.valid);
-        expect(modelState.getProperty('lastName').status, InputStatus.valid);
-        expect(modelState.getProperty('birthDay').status, InputStatus.valid);
-        expect(modelState.getProperty('dateOfDeath').status, InputStatus.valid);
+        expect(modelState.getProperty('first_name').status, InputStatus.valid);
+        expect(modelState.getProperty('last_name').status, InputStatus.valid);
+        expect(modelState.getProperty('birth_day').status, InputStatus.valid);
+        expect(
+            modelState.getProperty('date_of_death').status, InputStatus.valid);
         expect(await modelState.validateForm(), true);
       });
 
@@ -44,10 +45,11 @@ void main() {
             new ModelState<ComplexFormTest>(model);
 
         expect(modelState.status, FormStatus.pure);
-        expect(modelState.getProperty('firstName').status, InputStatus.pure);
-        expect(modelState.getProperty('lastName').status, InputStatus.pure);
-        expect(modelState.getProperty('birthDay').status, InputStatus.pure);
-        expect(modelState.getProperty('dateOfDeath').status, InputStatus.pure);
+        expect(modelState.getProperty('first_name').status, InputStatus.pure);
+        expect(modelState.getProperty('last_name').status, InputStatus.pure);
+        expect(modelState.getProperty('birth_day').status, InputStatus.pure);
+        expect(
+            modelState.getProperty('date_of_death').status, InputStatus.pure);
         expect(await modelState.validateForm(), true);
       });
     });
@@ -59,10 +61,11 @@ void main() {
             new ModelState<ComplexFormTest>(model);
 
         expect(modelState.status, FormStatus.pure);
-        expect(modelState.getProperty('firstName').status, InputStatus.pure);
-        expect(modelState.getProperty('lastName').status, InputStatus.pure);
-        expect(modelState.getProperty('birthDay').status, InputStatus.pure);
-        expect(modelState.getProperty('dateOfDeath').status, InputStatus.pure);
+        expect(modelState.getProperty('first_name').status, InputStatus.pure);
+        expect(modelState.getProperty('last_name').status, InputStatus.pure);
+        expect(modelState.getProperty('birth_day').status, InputStatus.pure);
+        expect(
+            modelState.getProperty('date_of_death').status, InputStatus.pure);
         expect(await modelState.validateForm(), false);
       });
 
@@ -77,14 +80,15 @@ void main() {
             new ModelState<ComplexFormTest>(model);
 
         expect(modelState.status, FormStatus.pure);
-        expect(modelState.getProperty('firstName').status, InputStatus.pure);
-        expect(modelState.getProperty('firstName').error, isNull);
-        expect(modelState.getProperty('lastName').status, InputStatus.pure);
-        expect(modelState.getProperty('lastName').error, isNull);
-        expect(modelState.getProperty('birthDay').status, InputStatus.pure);
-        expect(modelState.getProperty('birthDay').error, isNull);
-        expect(modelState.getProperty('dateOfDeath').status, InputStatus.pure);
-        expect(modelState.getProperty('dateOfDeath').error, isNull);
+        expect(modelState.getProperty('first_name').status, InputStatus.pure);
+        expect(modelState.getProperty('first_name').error, isNull);
+        expect(modelState.getProperty('last_name').status, InputStatus.pure);
+        expect(modelState.getProperty('last_name').error, isNull);
+        expect(modelState.getProperty('birth_day').status, InputStatus.pure);
+        expect(modelState.getProperty('birth_day').error, isNull);
+        expect(
+            modelState.getProperty('date_of_death').status, InputStatus.pure);
+        expect(modelState.getProperty('date_of_death').error, isNull);
         expect(await modelState.validateForm(), false);
       });
 
@@ -106,29 +110,30 @@ void main() {
         await Future.delayed(const Duration(microseconds: 100), () {});
 
         expect(modelState.status, FormStatus.invalid);
-        expect(modelState.getProperty('firstName').status, InputStatus.invalid);
-        expect(modelState.getProperty('firstName').error, isNotNull);
-        expect(modelState.getProperty('firstName').error.error,
-            'Invalid string length');
-        expect(modelState.getProperty('lastName').status, InputStatus.invalid);
-        expect(modelState.getProperty('lastName').error, isNotNull);
-        expect(modelState.getProperty('lastName').error.error,
-            'lastname is required');
-        expect(modelState.getProperty('birthDay').status, InputStatus.valid);
-        expect(modelState.getProperty('birthDay').error, isNull);
         expect(
-            modelState.getProperty('dateOfDeath').status, InputStatus.invalid);
-        expect(modelState.getProperty('dateOfDeath').error, isNotNull);
-        expect(modelState.getProperty('dateOfDeath').error.error,
+            modelState.getProperty('first_name').status, InputStatus.invalid);
+        expect(modelState.getProperty('first_name').error, isNotNull);
+        expect(modelState.getProperty('first_name').error.error,
+            'Invalid string length');
+        expect(modelState.getProperty('last_name').status, InputStatus.invalid);
+        expect(modelState.getProperty('last_name').error, isNotNull);
+        expect(modelState.getProperty('last_name').error.error,
+            'lastname is required');
+        expect(modelState.getProperty('birth_day').status, InputStatus.valid);
+        expect(modelState.getProperty('birth_day').error, isNull);
+        expect(modelState.getProperty('date_of_death').status,
+            InputStatus.invalid);
+        expect(modelState.getProperty('date_of_death').error, isNotNull);
+        expect(modelState.getProperty('date_of_death').error.error,
             'date of death must be smaller or equal than 2020-01-01');
 
         model.date_of_death = new DateTime(1980, 12, 14);
         await Future.delayed(const Duration(seconds: 1), () {});
 
-        expect(
-            modelState.getProperty('dateOfDeath').status, InputStatus.invalid);
-        expect(modelState.getProperty('dateOfDeath').error, isNotNull);
-        expect(modelState.getProperty('dateOfDeath').error.error,
+        expect(modelState.getProperty('date_of_death').status,
+            InputStatus.invalid);
+        expect(modelState.getProperty('date_of_death').error, isNotNull);
+        expect(modelState.getProperty('date_of_death').error.error,
             'date of death must be greater or equal to birthday');
         expect(await modelState.validateForm(), false);
       });

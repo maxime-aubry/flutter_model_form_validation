@@ -70,9 +70,9 @@ class ModelState<TModel extends PropertyChangeNotifier<String>> {
   }
 
   /// Actualize a property of the current model, and validate it.
-  void _actualizeInput(FormProperty property) {
+  Future _actualizeInput(FormProperty property) async {
     try {
-      property.update(model);
+      await property.update(model);
       bool isValidForm = !Collection(this._properties)
           .any((arg1) => arg1.status == InputStatus.invalid);
       this._status = (isValidForm) ? FormStatus.valid : FormStatus.invalid;

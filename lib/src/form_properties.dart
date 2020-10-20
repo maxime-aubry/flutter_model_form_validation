@@ -8,9 +8,9 @@ class FormProperties {
     List<FormProperty> properties = new List<FormProperty>();
     for (MapEntry<String, DeclarationMirror> item
         in classMirror.declarations.entries)
-      if (item.value is VariableMirror)
+      if (item.value is MethodMirror && !item.value.simpleName.endsWith('='))
         properties.add(
-          new FormProperty(model, item.value as VariableMirror),
+          new FormProperty(model, item.value as MethodMirror),
         );
     return properties;
   }
