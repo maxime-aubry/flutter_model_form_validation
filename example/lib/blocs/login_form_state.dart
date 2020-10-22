@@ -1,13 +1,15 @@
-import 'package:example/entities/authentication_model.dart';
-import 'package:example/main.reflectable.dart';
-import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+// import 'package:example/entities/authentication_model.dart';
+// import 'package:example/main.reflectable.dart';
+// import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-class LoginFormState extends ModelFormState<AuthenticationModel> {
+/*class LoginFormState extends ModelFormState<AuthenticationModel> {
   const LoginFormState({
     AuthenticationModel viewmodel,
     bool isValid = false,
     Map<String, ValidationError> errors = const {},
-  }) : super(viewmodel: viewmodel, isValid: isValid, errors: errors);
+  })
+    // : super(viewmodel: viewmodel, isValid: isValid, errors: errors);
+    : super(modelState: )
 
   LoginFormState updateUser({
     String email,
@@ -28,4 +30,4 @@ class LoginFormState extends ModelFormState<AuthenticationModel> {
       errors: {},
     );
   }
-}
+}*/

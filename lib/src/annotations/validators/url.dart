@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
 
 import '../../utils/rules.dart';
-import '../validation_annotation.dart';
+import '../form_declarers/form_validator.dart';
 
 /// [URL] validator permits you to check that a string value is a valid URL.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class URL extends ValidationAnnotation<String> {
+class URL extends FormValidator<String> {
   const URL({
     @required this.error,
   }) : super(criticityLevel: 2, error: error);

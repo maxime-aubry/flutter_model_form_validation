@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator.dart';
 import 'package:mime/mime.dart';
 
 /// [FileMimeType] validator permits you to check that a string value is a valid mime type.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class FileMimeType extends ValidationAnnotation<List<int>> {
+class FileMimeType extends FormValidator<List<int>> {
   const FileMimeType({
     @required this.mimeTypes,
     @required this.error,

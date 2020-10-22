@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
-import 'package:flutter_model_form_validation/src/annotations/validation_helper.dart';
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator.dart';
+import 'package:flutter_model_form_validation/src/annotations/helpers/validation_helper.dart';
 
 /// [EqualToString] validator permits you to check that a value is equal to the value of another property.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class EqualToString extends ValidationAnnotation<String> {
+class EqualToString extends FormValidator<String> {
   const EqualToString({
     this.valueToCompare,
     this.valueToCompareOnProperty,

@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
-import 'package:flutter_model_form_validation/src/annotations/validation_helper.dart';
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator.dart';
+import 'package:flutter_model_form_validation/src/annotations/helpers/validation_helper.dart';
 
 /// [GreaterThanNumber] validator permits you to check that a value is greater than the value of another property.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class GreaterThanNumber extends ValidationAnnotation<num> {
+class GreaterThanNumber extends FormValidator<num> {
   const GreaterThanNumber({
     this.valueToCompare,
     this.valueToCompareOnProperty,

@@ -1,13 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
-import 'package:flutter_model_form_validation/src/annotations/validation_helper.dart';
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator.dart';
+import 'package:flutter_model_form_validation/src/annotations/helpers/validation_helper.dart';
 import 'package:flutter_model_form_validation/src/utils/rules.dart';
 
 /// [PhoneNumber] validator permits you to check that a string value is a valid phone number.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class PhoneNumber extends ValidationAnnotation<String> {
+class PhoneNumber extends FormValidator<String> {
   const PhoneNumber({
     this.countryCode,
     this.phoneNumberType,

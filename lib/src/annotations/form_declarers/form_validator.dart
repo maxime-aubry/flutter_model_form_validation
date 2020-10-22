@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
 
-/// [ValidationAnnotation] is the parent class for every validators you will create and use.
+/// [FormValidator] is the parent class for every validators you will create and use.
 /// {@category Metadata}
-/// {@subCategory ValidationAnnotation}
-abstract class ValidationAnnotation<TValue> {
-  const ValidationAnnotation({
+/// {@subCategory FormDeclarators}
+abstract class FormValidator<TValue> {
+  const FormValidator({
     @required this.criticityLevel,
     @required this.error,
   });

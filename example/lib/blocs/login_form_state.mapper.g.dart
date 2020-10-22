@@ -2,7 +2,7 @@
 // https://github.com/k-paxian/dart-json-mapper
 import 'package:dart_json_mapper/dart_json_mapper.dart' show JsonMapper, JsonMapperAdapter, typeOf;
 
-// No output from reflectable, there is no `main`.
+// No output from reflectable, 'package:reflectable/reflectable.dart' not used.
 final login_form_stateAdapter = JsonMapperAdapter(
   title: 'login_form_stateAdapter',
   url: 'asset:flutter_model_form_validation/example/lib/blocs/login_form_state.dart',

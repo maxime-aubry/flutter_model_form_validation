@@ -1,12 +1,12 @@
 import 'dart:core';
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator.dart';
 
 /// [ContainsNumber] validator permits you to check that a number value is into an array.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class ContainsNumber extends ValidationAnnotation<num> {
+class ContainsNumber extends FormValidator<num> {
   const ContainsNumber({
     @required this.items,
     @required this.error,

@@ -20,5 +20,9 @@ class ModelFormState<TViewModel> extends Equatable {
   final Map<String, ValidationError> errors;
 
   @override
-  List<Object> get props => [viewmodel, isValid, errors];
+  List<Object> get props => [
+        viewmodel,
+        isValid,
+        errors,
+      ];
 }

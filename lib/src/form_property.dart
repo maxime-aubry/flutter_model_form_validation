@@ -1,5 +1,5 @@
 import 'package:flutter_model_form_validation/src/annotations/flutter_model_form_validator.dart';
-import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator.dart';
 import 'package:flutter_model_form_validation/src/annotations/validation_error.dart';
 import 'package:queries/collections.dart';
 import 'package:reflectable/reflectable.dart';
@@ -21,7 +21,7 @@ class FormProperty<TModel> {
   String _name;
   Object _value;
   InputStatus _status;
-  List<ValidationAnnotation> _validators;
+  List<FormValidator> _validators;
   ValidationError _error;
 
   /// Gets the property name.
@@ -34,7 +34,7 @@ class FormProperty<TModel> {
   InputStatus get status => this._status;
 
   /// Gets the list of validators.
-  List<ValidationAnnotation> get validators => this._validators;
+  List<FormValidator> get validators => this._validators;
 
   /// Gets the error.
   ValidationError get error => this._error;
@@ -50,12 +50,12 @@ class FormProperty<TModel> {
   }
 
   /// Returns a list of validators for this form property.
-  List<ValidationAnnotation> _getValidators(
+  List<FormValidator> _getValidators(
     MethodMirror declaration,
   ) {
-    List<ValidationAnnotation> validators = Collection(declaration.metadata)
-        .where((arg1) => arg1 is ValidationAnnotation)
-        .select((arg1) => arg1 as ValidationAnnotation)
+    List<FormValidator> validators = Collection(declaration.metadata)
+        .where((arg1) => arg1 is FormValidator)
+        .select((arg1) => arg1 as FormValidator)
         .orderBy((arg1) => arg1.criticityLevel)
         .toList();
     return validators;
@@ -67,7 +67,7 @@ class FormProperty<TModel> {
     bool isValid = true;
     this._error = null;
 
-    for (ValidationAnnotation validator in this._validators) {
+    for (FormValidator validator in this._validators) {
       isValid = await validator.isValid(this._value, model);
       if (!isValid) {
         this._error = ValidationError(

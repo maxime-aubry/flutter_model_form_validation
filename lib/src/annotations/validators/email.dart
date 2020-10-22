@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator.dart';
 import 'package:flutter_model_form_validation/src/utils/rules.dart';
 
 /// [Email] validator permits you to check that a string value is a valid email.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class Email extends ValidationAnnotation<String> {
+class Email extends FormValidator<String> {
   const Email({
     @required this.error,
   }) : super(criticityLevel: 2, error: error);

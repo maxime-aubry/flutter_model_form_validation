@@ -1,12 +1,12 @@
 import 'dart:core';
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator.dart';
 
 /// [ContainsString] validator permits you to check that a string value is into an array.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class ContainsString extends ValidationAnnotation<String> {
+class ContainsString extends FormValidator<String> {
   const ContainsString({
     @required this.items,
     @required this.error,

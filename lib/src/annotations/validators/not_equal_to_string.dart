@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
-import 'package:flutter_model_form_validation/src/annotations/validation_helper.dart';
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator.dart';
+import 'package:flutter_model_form_validation/src/annotations/helpers/validation_helper.dart';
 
 /// [NotEqualToString] validator permits you to check that a value is not equal to the value of another property.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class NotEqualToString extends ValidationAnnotation<String> {
+class NotEqualToString extends FormValidator<String> {
   const NotEqualToString({
     this.valueToCompare,
     this.valueToCompareOnProperty,

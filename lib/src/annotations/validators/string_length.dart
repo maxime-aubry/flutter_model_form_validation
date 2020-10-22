@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
 
-import '../validation_annotation.dart';
+import '../form_declarers/form_validator.dart';
 
 /// [StringLength] validator permits you to check that a string value has a length between two values.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class StringLength extends ValidationAnnotation<String> {
+class StringLength extends FormValidator<String> {
   const StringLength({
     @required this.min,
     @required this.max,

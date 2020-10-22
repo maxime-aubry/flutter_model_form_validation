@@ -1,13 +1,13 @@
 import 'dart:core';
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_model_form_validation/src/annotations/validation_annotation.dart';
-import 'package:flutter_model_form_validation/src/annotations/validation_helper.dart';
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator.dart';
+import 'package:flutter_model_form_validation/src/annotations/helpers/validation_helper.dart';
 
 /// [InText] validator permits you to check that a string value is into a text.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class InText extends ValidationAnnotation<String> {
+class InText extends FormValidator<String> {
   const InText({
     this.text,
     this.textOnProperty,

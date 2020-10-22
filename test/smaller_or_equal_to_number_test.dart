@@ -1,82 +1,82 @@
-import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-import 'package:flutter_test/flutter_test.dart';
+// import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+// import 'package:flutter_test/flutter_test.dart';
 
-import 'models/models.dart';
-import 'models/models.reflectable.dart';
+// import 'models/models.dart';
+// import 'models/models.reflectable.dart';
 
-void main() {
-  initializeReflectable();
+// void main() {
+//   initializeReflectable();
 
-  group('SmallerOrEqualToNumber.', () {
-    group('Test the priority between user and developer static data.', () {
-      test(
-          '"valueToCompare" is provided by user and developer. User data has priority.',
-          () async {
-        SmallerOrEqualToNumberWithUserAndDeveloperValuesTest model =
-            new SmallerOrEqualToNumberWithUserAndDeveloperValuesTest(10, 10);
-        ModelState modelState = new ModelState<
-            SmallerOrEqualToNumberWithUserAndDeveloperValuesTest>(model);
+//   group('SmallerOrEqualToNumber.', () {
+//     group('Test the priority between user and developer static data.', () {
+//       test(
+//           '"valueToCompare" is provided by user and developer. User data has priority.',
+//           () async {
+//         SmallerOrEqualToNumberWithUserAndDeveloperValuesTest model =
+//             new SmallerOrEqualToNumberWithUserAndDeveloperValuesTest(10, 10);
+//         ModelState modelState = new ModelState<
+//             SmallerOrEqualToNumberWithUserAndDeveloperValuesTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.errors.isEmpty, true);
-      });
+//         expect(await modelState.validateForm(), true);
+//         expect(modelState.errors.isEmpty, true);
+//       });
 
-      test('"valueToCompare" is provided by user only.', () async {
-        SmallerOrEqualToNumberWithUserValuesTest model =
-            new SmallerOrEqualToNumberWithUserValuesTest(10, 10);
-        ModelState modelState =
-            new ModelState<SmallerOrEqualToNumberWithUserValuesTest>(model);
+//       test('"valueToCompare" is provided by user only.', () async {
+//         SmallerOrEqualToNumberWithUserValuesTest model =
+//             new SmallerOrEqualToNumberWithUserValuesTest(10, 10);
+//         ModelState modelState =
+//             new ModelState<SmallerOrEqualToNumberWithUserValuesTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.errors.isEmpty, true);
-      });
+//         expect(await modelState.validateForm(), true);
+//         expect(modelState.errors.isEmpty, true);
+//       });
 
-      test('"valueToCompare" is provided by developer only.', () async {
-        SmallerOrEqualToNumberWithDeveloperValuesTest model =
-            new SmallerOrEqualToNumberWithDeveloperValuesTest(1);
-        ModelState modelState =
-            new ModelState<SmallerOrEqualToNumberWithDeveloperValuesTest>(
-                model);
+//       test('"valueToCompare" is provided by developer only.', () async {
+//         SmallerOrEqualToNumberWithDeveloperValuesTest model =
+//             new SmallerOrEqualToNumberWithDeveloperValuesTest(1);
+//         ModelState modelState =
+//             new ModelState<SmallerOrEqualToNumberWithDeveloperValuesTest>(
+//                 model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.errors.isEmpty, true);
-      });
-    });
+//         expect(await modelState.validateForm(), true);
+//         expect(modelState.errors.isEmpty, true);
+//       });
+//     });
 
-    group('Test the validation > success.', () {
-      test('The value is smaller than value to compare.', () async {
-        SmallerOrEqualToNumberTest model =
-            new SmallerOrEqualToNumberTest(1, 12);
-        ModelState modelState =
-            new ModelState<SmallerOrEqualToNumberTest>(model);
+//     group('Test the validation > success.', () {
+//       test('The value is smaller than value to compare.', () async {
+//         SmallerOrEqualToNumberTest model =
+//             new SmallerOrEqualToNumberTest(1, 12);
+//         ModelState modelState =
+//             new ModelState<SmallerOrEqualToNumberTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.errors.isEmpty, true);
-      });
+//         expect(await modelState.validateForm(), true);
+//         expect(modelState.errors.isEmpty, true);
+//       });
 
-      test('The value is equal to value to compare.', () async {
-        SmallerOrEqualToNumberTest model = new SmallerOrEqualToNumberTest(1, 1);
-        ModelState modelState =
-            new ModelState<SmallerOrEqualToNumberTest>(model);
+//       test('The value is equal to value to compare.', () async {
+//         SmallerOrEqualToNumberTest model = new SmallerOrEqualToNumberTest(1, 1);
+//         ModelState modelState =
+//             new ModelState<SmallerOrEqualToNumberTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.errors.isEmpty, true);
-      });
-    });
+//         expect(await modelState.validateForm(), true);
+//         expect(modelState.errors.isEmpty, true);
+//       });
+//     });
 
-    group('Test the validation > failure.', () {
-      test('The value is greater than value to compare.', () async {
-        SmallerOrEqualToNumberTest model = new SmallerOrEqualToNumberTest(1, 0);
-        ModelState modelState =
-            new ModelState<SmallerOrEqualToNumberTest>(model);
+//     group('Test the validation > failure.', () {
+//       test('The value is greater than value to compare.', () async {
+//         SmallerOrEqualToNumberTest model = new SmallerOrEqualToNumberTest(1, 0);
+//         ModelState modelState =
+//             new ModelState<SmallerOrEqualToNumberTest>(model);
 
-        expect(await modelState.validateForm(), false);
-        expect(
-            modelState.errors['value'].validatorType, SmallerOrEqualToNumber);
-        expect(modelState.errors['value'].propertyName, 'value');
-        expect(modelState.errors['value'].error,
-            'Value is not equal to the value to compare');
-      });
-    });
-  });
-}
+//         expect(await modelState.validateForm(), false);
+//         expect(
+//             modelState.errors['value'].validatorType, SmallerOrEqualToNumber);
+//         expect(modelState.errors['value'].propertyName, 'value');
+//         expect(modelState.errors['value'].error,
+//             'Value is not equal to the value to compare');
+//       });
+//     });
+//   });
+// }
