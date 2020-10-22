@@ -47,8 +47,12 @@ class FormBuilder<TModel> {
         EPropertyType propertyType = this._getPropertyType(control.value);
 
         if (propertyType == EPropertyType.Input) {
-          group.controls[control.key] = this
-              ._createFormControl(instanceMirror, control.key, control.value);
+          group.controls[control.key] = this._createFormControl(
+            instanceMirror,
+            control.key,
+            control.value,
+            instanceMirror.reflectee,
+          );
         }
 
         if (propertyType == EPropertyType.Object) {
@@ -145,10 +149,11 @@ class FormBuilder<TModel> {
     InstanceMirror instanceMirror,
     String propertyName,
     MethodMirror declaration,
+    Object parent,
   ) {
     Object value = this._getSubObject(instanceMirror, propertyName);
     FormControl formControl =
-        new FormControl(instanceMirror, declaration, value);
+        new FormControl(instanceMirror, declaration, parent, value);
     return formControl;
   }
 }

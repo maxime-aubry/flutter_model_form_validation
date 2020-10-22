@@ -51,13 +51,13 @@ class ModelState<TModel extends PropertyChangeNotifier<String>> {
       this._status = FormStatus.pure;
       this._properties =
           formProperties.getProperties<TModel>(this.model, classMirror);
-      this._addListeners();
+      //this._addListeners();
     } catch (e) {
       print(e);
     }
   }
 
-  /// Each time a value is setted in the form, the targeted property is updated and validated.
+  /*/// Each time a value is setted in the form, the targeted property is updated and validated.
   void _addListeners() {
     try {
       for (FormProperty property in this._properties)
@@ -79,7 +79,7 @@ class ModelState<TModel extends PropertyChangeNotifier<String>> {
     } catch (e) {
       print(e);
     }
-  }
+  }*/
 
   /// Returns the property with provided name.
   FormProperty getProperty(String propertyName) {

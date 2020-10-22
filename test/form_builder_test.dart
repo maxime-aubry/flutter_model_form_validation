@@ -205,12 +205,18 @@ void main() {
       expect(fc.value, new DateTime(2020, 04, 17));
     });
 
-    test('Add elements to form.', () {
-      /*ComplexFormTest model = new ComplexFormTest(null, null, null, null);
+    test('Form is updated when a set a value.', () async {
+      ComplexFormTest model = new ComplexFormTest(null, null, null, null);
       FormBuilder fb = new FormBuilder<ComplexFormTest>(model);
 
-      FormArray fa = (fb.group.controls['books'] as FormArray);
-      fa.addItem(new FormGroup());*/
+      model.favorite_book.name = 'xx';
+      await Future.delayed(const Duration(microseconds: 100), () {});
+
+      model.favorite_book.price = 10;
+      await Future.delayed(const Duration(microseconds: 100), () {});
+
+      model.favorite_book.loan_date = new DateTime(2020, 01, 01);
+      await Future.delayed(const Duration(microseconds: 100), () {});
     });
   });
 }

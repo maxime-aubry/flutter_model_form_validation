@@ -23,6 +23,11 @@ class AbstractControl {
   List<FormValidator> get validators => this._validators;
   ValidationError get error => this._error;
 
+  // setter
+  set error(ValidationError value) {
+    this._error = value;
+  }
+
   // private methods
   void _init(MethodMirror declaration) {
     this._validators = this.getValidators(declaration);
