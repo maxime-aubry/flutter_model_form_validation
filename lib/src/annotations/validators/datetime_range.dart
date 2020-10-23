@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator.dart';
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator_attribute.dart';
 import 'package:flutter_model_form_validation/src/annotations/helpers/validation_helper.dart';
 import 'package:flutter_model_form_validation/src/utils/parsers.dart';
 
 /// [DateTimeRange] validator permits you to check that a datetime using by declared settings.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class DateTimeRange extends FormValidator<DateTime> {
+class DateTimeRange extends FormValidatorAttribute<DateTime> {
   const DateTimeRange({
     this.min,
     this.max,

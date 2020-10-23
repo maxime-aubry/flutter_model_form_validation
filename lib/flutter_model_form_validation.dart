@@ -7,10 +7,10 @@ export 'src/annotations/flutter_model_form_validator.dart';
 /***********************************
  * annotations > form declarers
  **********************************/
-export 'src/annotations/form_declarers/form_collection.dart';
-export 'src/annotations/form_declarers/form_input.dart';
-export 'src/annotations/form_declarers/form_object.dart';
-export 'src/annotations/form_declarers/form_validator.dart';
+export 'src/annotations/form_declarers/form_array_attribute.dart';
+export 'src/annotations/form_declarers/form_control_attribute.dart';
+export 'src/annotations/form_declarers/form_group_attribute.dart';
+export 'src/annotations/form_declarers/form_validator_attribute.dart';
 /***********************************
  * annotations > helpers
  **********************************/
@@ -60,10 +60,10 @@ export 'src/annotations/validators/url.dart';
 export 'src/bloc_support/model_form_state.dart';
 export 'src/bloc_support/model_form_utilities.dart';
 export 'src/form_builder/abstract_control.dart';
-export 'src/form_builder/form_array.dart';
 /***********************************
  * form builder
  **********************************/
+export 'src/form_builder/form_array.dart';
 export 'src/form_builder/form_builder.dart';
 export 'src/form_builder/form_control.dart';
 export 'src/form_builder/form_group.dart';

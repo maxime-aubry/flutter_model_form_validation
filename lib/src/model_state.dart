@@ -1,5 +1,5 @@
 import 'package:flutter_model_form_validation/src/annotations/flutter_model_form_validator.dart';
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator.dart';
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator_attribute.dart';
 import 'package:flutter_model_form_validation/src/annotations/validation_error.dart';
 import 'package:flutter_model_form_validation/src/form_properties.dart';
 import 'package:flutter_model_form_validation/src/form_property.dart';
@@ -95,7 +95,7 @@ class ModelState<TModel extends PropertyChangeNotifier<String>> {
   }
 
   /// Validate the current form with [model] binding of [TModel] type.
-  /// Browses all declared metadata of [FormValidator] type, for each property into your class model.
+  /// Browses all declared metadata of [FormValidatorAttribute] type, for each property into your class model.
   /// Then, set the form input status on each property and the form status.
   /// Returns true is form is valid, or false if is not.
   Future<bool> validateForm() async {

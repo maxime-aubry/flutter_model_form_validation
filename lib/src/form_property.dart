@@ -1,5 +1,5 @@
 import 'package:flutter_model_form_validation/src/annotations/flutter_model_form_validator.dart';
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator.dart';
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator_attribute.dart';
 import 'package:flutter_model_form_validation/src/annotations/validation_error.dart';
 import 'package:queries/collections.dart';
 import 'package:reflectable/reflectable.dart';
@@ -21,7 +21,7 @@ class FormProperty<TModel> {
   String _name;
   Object _value;
   InputStatus _status;
-  List<FormValidator> _validators;
+  List<FormValidatorAttribute> _validators;
   ValidationError _error;
 
   /// Gets the property name.
@@ -34,7 +34,7 @@ class FormProperty<TModel> {
   InputStatus get status => this._status;
 
   /// Gets the list of validators.
-  List<FormValidator> get validators => this._validators;
+  List<FormValidatorAttribute> get validators => this._validators;
 
   /// Gets the error.
   ValidationError get error => this._error;
@@ -50,12 +50,12 @@ class FormProperty<TModel> {
   }
 
   /// Returns a list of validators for this form property.
-  List<FormValidator> _getValidators(
+  List<FormValidatorAttribute> _getValidators(
     MethodMirror declaration,
   ) {
-    List<FormValidator> validators = Collection(declaration.metadata)
-        .where((arg1) => arg1 is FormValidator)
-        .select((arg1) => arg1 as FormValidator)
+    List<FormValidatorAttribute> validators = Collection(declaration.metadata)
+        .where((arg1) => arg1 is FormValidatorAttribute)
+        .select((arg1) => arg1 as FormValidatorAttribute)
         .orderBy((arg1) => arg1.criticityLevel)
         .toList();
     return validators;
@@ -67,7 +67,7 @@ class FormProperty<TModel> {
     bool isValid = true;
     this._error = null;
 
-    for (FormValidator validator in this._validators) {
+    for (FormValidatorAttribute validator in this._validators) {
       isValid = await validator.isValid(this._value, model);
       if (!isValid) {
         this._error = ValidationError(

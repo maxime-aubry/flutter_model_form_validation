@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator.dart';
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator_attribute.dart';
 import 'package:image/image.dart' as imageDecoder;
 
 /// [ImageSize] validator permits you to check that a string value is a valid image size.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class ImageSize extends FormValidator<List<int>> {
+class ImageSize extends FormValidatorAttribute<List<int>> {
   const ImageSize({
     @required this.minWidth,
     @required this.minHeight,

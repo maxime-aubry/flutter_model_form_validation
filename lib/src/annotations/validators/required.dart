@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
-import '../form_declarers/form_validator.dart';
+import '../form_declarers/form_validator_attribute.dart';
 
 /// [Required] validator permits you to check that a value is provided.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class Required extends FormValidator {
+class Required extends FormValidatorAttribute {
   const Required({
     @required this.error,
   }) : super(criticityLevel: 1, error: error);

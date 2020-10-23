@@ -31,21 +31,21 @@ class ComplexFormTest with PropertyChangeNotifier<String> {
   Book _favoriteBook;
 
   // getters
-  @FormInput()
+  @FormControlAttribute()
   @Required(error: 'firstname is required')
   @StringLength(min: 3, max: 50, error: 'Invalid string length')
   String get first_name => this._firstName;
 
-  @FormInput()
+  @FormControlAttribute()
   @Required(error: 'lastname is required')
   @StringLength(min: 3, max: 50, error: 'Invalid string length')
   String get last_name => this._lastName;
 
-  @FormInput()
+  @FormControlAttribute()
   @Required(error: 'birthday is required')
   DateTime get birth_day => this._birthDay;
 
-  @FormInput()
+  @FormControlAttribute()
   @Required(error: 'subscription date is required')
   @GreaterOrEqualToDateTime(
       valueToCompareOnProperty: 'birth_day',
@@ -55,10 +55,10 @@ class ComplexFormTest with PropertyChangeNotifier<String> {
       error: 'date of death must be smaller or equal than 2020-01-01')
   DateTime get subscription_date => this._subscriptionDate;
 
-  @FormCollection()
+  @FormArrayAttribute()
   List<Book> get books => this._books;
 
-  @FormObject()
+  @FormGroupAttribute()
   Book get favorite_book => this._favoriteBook;
 
   // setters

@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator.dart';
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator_attribute.dart';
 
 /// [MembershipPassword] validator permits you to check that a string value is accordance with declared settings.
 /// You must set to true at least one options. In the other case, your validator will always return false.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class MembershipPassword extends FormValidator<String> {
+class MembershipPassword extends FormValidatorAttribute<String> {
   const MembershipPassword({
     @required this.minLength,
     @required this.maxLength,

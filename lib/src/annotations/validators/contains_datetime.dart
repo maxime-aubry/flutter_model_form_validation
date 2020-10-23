@@ -1,13 +1,13 @@
 import 'dart:core';
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator.dart';
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator_attribute.dart';
 import 'package:queries/collections.dart';
 
 /// [ContainsDateTime] validator permits you to check that a datetime value is into an array.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class ContainsDateTime extends FormValidator<DateTime> {
+class ContainsDateTime extends FormValidatorAttribute<DateTime> {
   const ContainsDateTime({
     @required this.items,
     @required this.error,

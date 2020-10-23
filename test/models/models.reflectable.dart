@@ -6,11 +6,11 @@ import 'models.dart' as prefix1;
 import 'package:dart_json_mapper/src/model/annotations.dart' as prefix2;
 import 'package:flutter_model_form_validation/src/annotations/flutter_model_form_validator.dart'
     as prefix0;
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_collection.dart'
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_array_attribute.dart'
     as prefix8;
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_input.dart'
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_control_attribute.dart'
     as prefix3;
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_object.dart'
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_group_attribute.dart'
     as prefix9;
 import 'package:flutter_model_form_validation/src/annotations/validators/greater_or_equal_to_datetime.dart'
     as prefix6;
@@ -164,7 +164,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             const <int>[],
             const prefix0.FlutterModelFormValidator(),
             const <Object>[
-              const prefix3.FormInput(),
+              const prefix3.FormControlAttribute(),
               const prefix4.Required(error: 'firstname is required'),
               const prefix5.StringLength(
                   min: 3, max: 50, error: 'Invalid string length')
@@ -180,7 +180,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             const <int>[],
             const prefix0.FlutterModelFormValidator(),
             const <Object>[
-              const prefix3.FormInput(),
+              const prefix3.FormControlAttribute(),
               const prefix4.Required(error: 'lastname is required'),
               const prefix5.StringLength(
                   min: 3, max: 50, error: 'Invalid string length')
@@ -196,7 +196,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             const <int>[],
             const prefix0.FlutterModelFormValidator(),
             const <Object>[
-              const prefix3.FormInput(),
+              const prefix3.FormControlAttribute(),
               const prefix4.Required(error: 'birthday is required')
             ]),
         r.MethodMirrorImpl(
@@ -210,7 +210,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             const <int>[],
             const prefix0.FlutterModelFormValidator(),
             const <Object>[
-              const prefix3.FormInput(),
+              const prefix3.FormControlAttribute(),
               const prefix4.Required(error: 'subscription date is required'),
               const prefix6.GreaterOrEqualToDateTime(
                   valueToCompareOnProperty: 'birth_day',
@@ -230,7 +230,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             null,
             const <int>[],
             const prefix0.FlutterModelFormValidator(),
-            const <Object>[const prefix8.FormCollection()]),
+            const <Object>[const prefix8.FormArrayAttribute()]),
         r.MethodMirrorImpl(
             r'favorite_book',
             131075,
@@ -241,7 +241,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             null,
             const <int>[],
             const prefix0.FlutterModelFormValidator(),
-            const <Object>[const prefix9.FormObject()]),
+            const <Object>[const prefix9.FormGroupAttribute()]),
         r.MethodMirrorImpl(
             r'first_name=',
             262148,

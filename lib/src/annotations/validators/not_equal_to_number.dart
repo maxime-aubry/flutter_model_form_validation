@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator.dart';
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator_attribute.dart';
 import 'package:flutter_model_form_validation/src/annotations/helpers/validation_helper.dart';
 
 /// [NotEqualToNumber] validator permits you to check that a value is not equal to the value of another property.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class NotEqualToNumber extends FormValidator<num> {
+class NotEqualToNumber extends FormValidatorAttribute<num> {
   const NotEqualToNumber({
     this.valueToCompare,
     this.valueToCompareOnProperty,

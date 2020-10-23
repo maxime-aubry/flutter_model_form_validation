@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator.dart';
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator_attribute.dart';
 
 /// [RegularExpression] validator permits you to check that a string value is accordance with provided regular expression.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class RegularExpression extends FormValidator<String> {
+class RegularExpression extends FormValidatorAttribute<String> {
   const RegularExpression({
     @required this.expression,
     @required this.error,

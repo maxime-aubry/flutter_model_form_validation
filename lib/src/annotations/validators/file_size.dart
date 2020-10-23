@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator.dart';
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator_attribute.dart';
 
 /// [FileSize] validator permits you to check that a string value is a valid size.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class FileSize extends FormValidator<List<int>> {
+class FileSize extends FormValidatorAttribute<List<int>> {
   const FileSize({
     @required this.size,
     @required this.error,
