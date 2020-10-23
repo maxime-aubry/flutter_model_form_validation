@@ -2,19 +2,20 @@ import 'package:flutter_model_form_validation/src/annotations/form_declarers/for
 import 'package:flutter_model_form_validation/src/annotations/validation_error.dart';
 import 'package:flutter_model_form_validation/src/form_builder/abstract_control.dart';
 import 'package:flutter_model_form_validation/src/form_builder/form_group.dart';
+import 'package:flutter_model_form_validation/src/model_state.dart';
 import 'package:property_change_notifier/property_change_notifier.dart';
 import 'package:reflectable/mirrors.dart';
 
 class FormControl<TModel extends PropertyChangeNotifier<String>>
     extends AbstractControl {
   FormControl(
-    TModel model,
+    ModelState<TModel> modelState,
     Object value,
     String name,
     FormGroup parent,
-  )   : assert(model != null),
+  )   : assert(modelState != null),
         super() {
-    this.model = model;
+    this.modelState = modelState;
     this.value = value;
     this.name = name;
     this.parent = parent;
@@ -23,7 +24,7 @@ class FormControl<TModel extends PropertyChangeNotifier<String>>
   }
 
   // public properties
-  TModel model;
+  ModelState<TModel> modelState;
   Object value;
   String name;
   EAbstractControlStatus status;
@@ -41,7 +42,9 @@ class FormControl<TModel extends PropertyChangeNotifier<String>>
 
   void _addListener() {
     this.parent.currentPartOfModel.addListener(
-      () => _setValue(),
+      () async {
+        await _setValue();
+      },
       ['${this.parent.currentPartOfModel.hashCode}.${this.name}'],
     );
   }
@@ -65,7 +68,7 @@ class FormControl<TModel extends PropertyChangeNotifier<String>>
     this.error = null;
 
     for (FormValidatorAttribute validator in this.validators) {
-      isValid = await validator.isValid(this.value, this.model);
+      isValid = await validator.isValid(this.value, this.modelState);
       if (!isValid) {
         this.error = ValidationError(
           propertyName: this.name,

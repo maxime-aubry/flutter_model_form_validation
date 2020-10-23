@@ -67,7 +67,6 @@ export 'src/form_builder/form_array.dart';
 export 'src/form_builder/form_builder.dart';
 export 'src/form_builder/form_control.dart';
 export 'src/form_builder/form_group.dart';
-export 'src/form_property.dart';
 export 'src/model_state.dart';
 /***********************************
  * utilities

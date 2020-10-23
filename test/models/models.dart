@@ -102,6 +102,7 @@ class Book with PropertyChangeNotifier<String> {
 
   // getters
   @Required(error: 'name is required')
+  @StringLength(min: 3, max: 100, error: 'Book name need at least 3 letters')
   String get name => this._name;
 
   @Required(error: 'price is required')

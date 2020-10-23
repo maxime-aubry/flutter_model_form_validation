@@ -4,6 +4,7 @@ import 'package:flutter_model_form_validation/src/annotations/form_declarers/for
 import 'package:flutter_model_form_validation/src/form_builder/abstract_control.dart';
 import 'package:flutter_model_form_validation/src/form_builder/form_array.dart';
 import 'package:flutter_model_form_validation/src/form_builder/form_control.dart';
+import 'package:flutter_model_form_validation/src/model_state.dart';
 import 'package:property_change_notifier/property_change_notifier.dart';
 import 'package:queries/collections.dart';
 import 'package:reflectable/reflectable.dart';
@@ -12,13 +13,13 @@ class FormGroup<TModel extends PropertyChangeNotifier<String>,
         TCurrentModel extends PropertyChangeNotifier<String>>
     extends AbstractControl {
   FormGroup(
-    TModel model,
+    ModelState<TModel> modelState,
     Object currentPartOfModel,
     FormGroup parent,
-  )   : assert(model != null),
+  )   : assert(modelState != null),
         assert(currentPartOfModel != null),
         super() {
-    this.model = model;
+    this.modelState = modelState;
     this.currentPartOfModel = currentPartOfModel as TCurrentModel;
     this.parent = parent;
     this.controls = {};
@@ -29,7 +30,7 @@ class FormGroup<TModel extends PropertyChangeNotifier<String>,
   InstanceMirror _instanceMirror;
 
   // public properties
-  TModel model;
+  ModelState<TModel> modelState;
   TCurrentModel currentPartOfModel;
   FormGroup parent;
   Map<String, AbstractControl> controls;
@@ -59,7 +60,7 @@ class FormGroup<TModel extends PropertyChangeNotifier<String>,
         this._addChildFormControl(formControl.key);
 
       // add validators
-      this.validators = this.getValidators(formControl.value as MethodMirror);
+      //this.validators = this.getValidators(formControl.value as MethodMirror);
     }
   }
 
@@ -95,7 +96,7 @@ class FormGroup<TModel extends PropertyChangeNotifier<String>,
     Object child = this._getSubObject(propertyName);
     if (child != null)
       this.controls[propertyName] = new FormGroup(
-        this.model,
+        this.modelState,
         child,
         this,
       );
@@ -105,7 +106,7 @@ class FormGroup<TModel extends PropertyChangeNotifier<String>,
     List children = this._getSubObject(propertyName);
     if (children != null)
       this.controls[propertyName] = new FormArray(
-        this.model,
+        this.modelState,
         children,
         this,
       );
@@ -114,7 +115,7 @@ class FormGroup<TModel extends PropertyChangeNotifier<String>,
   void _addChildFormControl(String propertyName) {
     Object child = this._getSubObject(propertyName);
     this.controls[propertyName] = new FormControl(
-      this.model,
+      this.modelState,
       child,
       propertyName,
       this,

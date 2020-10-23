@@ -409,7 +409,11 @@ final _data = <r.Reflectable, r.ReflectorData>{
             null,
             const <int>[],
             const prefix0.FlutterModelFormValidator(),
-            const <Object>[const prefix4.Required(error: 'name is required')]),
+            const <Object>[
+              const prefix4.Required(error: 'name is required'),
+              const prefix5.StringLength(
+                  min: 3, max: 100, error: 'Book name need at least 3 letters')
+            ]),
         r.MethodMirrorImpl(
             r'price',
             131075,
