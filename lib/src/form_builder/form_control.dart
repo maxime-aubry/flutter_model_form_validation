@@ -1,83 +1,70 @@
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_validator_attribute.dart';
-import 'package:flutter_model_form_validation/src/annotations/validation_error.dart';
-import 'package:flutter_model_form_validation/src/form_builder/abstract_control.dart';
-import 'package:flutter_model_form_validation/src/form_builder/form_group.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/model_state.dart';
 import 'package:property_change_notifier/property_change_notifier.dart';
 import 'package:reflectable/mirrors.dart';
 
 class FormControl<TModel extends PropertyChangeNotifier<String>>
-    extends AbstractControl {
+    extends AbstractControl<TModel> {
   FormControl(
     ModelState<TModel> modelState,
     Object value,
     String name,
-    FormGroup parent,
+    FormGroup parentGroup,
   )   : assert(modelState != null),
-        super() {
+        assert(name != null),
+        assert(parentGroup != null),
+        super(name, parentGroup) {
     this.modelState = modelState;
     this.value = value;
-    this.name = name;
-    this.parent = parent;
-    this.status = EAbstractControlStatus.pure;
     this._init(value);
   }
 
   // public properties
   ModelState<TModel> modelState;
   Object value;
-  String name;
-  EAbstractControlStatus status;
-  FormGroup parent;
 
-  // private methods
+  /// [_init] mehtod initialize this form control.
+  /// It adds validators, add default status into the model state, and adds a listener.
   void _init(Object value) {
-    InstanceMirror instanceMirror =
-        this.getInstanceMirror(this.parent.currentPartOfModel);
-    MethodMirror methodMirror =
-        instanceMirror.type.declarations[this.name] as MethodMirror;
-    this.validators = this.getValidators(methodMirror);
-    this._addListener();
+    if (this.parentGroup != null) {
+      InstanceMirror instanceMirror =
+          this.getInstanceMirror(this.parentGroup.current);
+      MethodMirror methodMirror =
+          instanceMirror.type.declarations[this.name] as MethodMirror;
+
+      // add validators
+      this.validators = this.getValidators(methodMirror);
+
+      // add empty error record to model state
+      this.modelState.actualizeAbstractControlState(
+            '${this.parentGroup.current.hashCode}.${this.name}',
+            null,
+            this.status,
+          );
+
+      // add listener, triggered when a value is changed by form user
+      this._addListener();
+    }
   }
 
+  /// [_addListener] method adds a listener on this form control.
+  /// Each time a value is changed into the form, this one is notified here.
   void _addListener() {
-    this.parent.currentPartOfModel.addListener(
+    this.parentGroup.current.addListener(
       () async {
         await _setValue();
       },
-      ['${this.parent.currentPartOfModel.hashCode}.${this.name}'],
+      ['${this.parentGroup.current.hashCode}.${this.name}'],
     );
   }
 
+  /// [_setValue] method set this form control with the new value from form.
+  /// Next, this value is validated, and the model state too.
   Future _setValue() async {
-    try {
-      InstanceMirror instanceMirror =
-          this.getInstanceMirror(this.parent.currentPartOfModel);
-      this.value = instanceMirror.invokeGetter(this.name);
-      this.status = EAbstractControlStatus.validationInProgress;
-      this.status = await this._validate()
-          ? EAbstractControlStatus.valid
-          : EAbstractControlStatus.invalid;
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  Future<bool> _validate() async {
-    bool isValid = true;
-    this.error = null;
-
-    for (FormValidatorAttribute validator in this.validators) {
-      isValid = await validator.isValid(this.value, this.modelState);
-      if (!isValid) {
-        this.error = ValidationError(
-          propertyName: this.name,
-          validatorType: validator.runtimeType,
-          error: validator.error,
-        );
-        break;
-      }
-    }
-    return isValid;
+    InstanceMirror instanceMirror =
+        this.getInstanceMirror(this.parentGroup.current);
+    this.value = instanceMirror.invokeGetter(this.name);
+    await this.validate(this.modelState, this.name, this.value);
   }
 }

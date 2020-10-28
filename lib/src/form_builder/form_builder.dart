@@ -5,7 +5,7 @@ import 'package:property_change_notifier/property_change_notifier.dart';
 class FormBuilder<TModel extends PropertyChangeNotifier<String>> {
   FormBuilder(ModelState<TModel> modelState) : assert(modelState != null) {
     this._modelState = modelState;
-    this._init();
+    if (modelState != null) this._init();
   }
 
   // private properties
@@ -18,7 +18,8 @@ class FormBuilder<TModel extends PropertyChangeNotifier<String>> {
   void _init() {
     this.group = new FormGroup(
       this._modelState,
-      this._modelState.model as Object,
+      this._modelState.model,
+      null,
       null,
     );
   }

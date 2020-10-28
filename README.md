@@ -131,7 +131,7 @@ import 'package:example/blocs/login_form_bloc.dart';
 import 'package:example/blocs/login_form_event.dart';
 import 'package:example/blocs/login_form_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 

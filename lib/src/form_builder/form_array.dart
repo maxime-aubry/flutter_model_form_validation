@@ -2,26 +2,26 @@ import 'package:flutter_model_form_validation/src/form_builder/abstract_control.
 import 'package:flutter_model_form_validation/src/form_builder/form_group.dart';
 import 'package:flutter_model_form_validation/src/model_state.dart';
 import 'package:property_change_notifier/property_change_notifier.dart';
+import 'package:queries/collections.dart';
+import 'package:reflectable/reflectable.dart';
 
 class FormArray<TModel extends PropertyChangeNotifier<String>,
         TCurrentModel extends PropertyChangeNotifier<String>>
-    extends AbstractControl {
+    extends AbstractControl<TModel> {
   FormArray(
     ModelState<TModel> modelState,
     List items,
-    AbstractControl parent,
+    String name,
+    FormGroup parentGroup,
   )   : assert(modelState != null),
-        assert(items != null),
-        super() {
+        assert(name != null),
+        assert(parentGroup != null),
+        super(name, parentGroup) {
     this.modelState = modelState;
-    this.items = items as List<TCurrentModel>;
-    this.groups = new List<FormGroup>();
-    this._parent = parent;
+    this.items = (items == null) ? null : items as List<TCurrentModel>;
+    this.groups = (items == null) ? null : new List<FormGroup>();
     this._init();
   }
-
-  // private properties
-  FormGroup _parent;
 
   // public properties
   ModelState<TModel> modelState;
@@ -29,7 +29,75 @@ class FormArray<TModel extends PropertyChangeNotifier<String>,
   List<FormGroup> groups;
 
   void _init() {
-    for (TCurrentModel item in items)
-      this.groups.add(new FormGroup(this.modelState, item, this._parent));
+    this._actualize();
+
+    // add validators
+    if (this.parentGroup != null) {
+      InstanceMirror instanceMirror =
+          this.getInstanceMirror(this.parentGroup.current);
+      MethodMirror methodMirror =
+          instanceMirror.type.declarations[this.name] as MethodMirror;
+      this.validators = this.getValidators(methodMirror);
+
+      // add empty error record to model state
+      this.modelState.actualizeAbstractControlState(
+            '${this.parentGroup.current.hashCode}.${this.name}',
+            null,
+            this.status,
+          );
+
+      // add listener, triggered when an item is added or removed, or the list is erased by form user
+      this._addListener();
+    }
+  }
+
+  /// [_addListener] method adds a listener on this form array.
+  /// Each time an item will be added or removed, this one will be notified here.
+  void _addListener() {
+    this.parentGroup.current.addListener(
+      () async {
+        await _setValue();
+      },
+      ['${this.parentGroup.current.hashCode}.${this.name}'],
+    );
+  }
+
+  /// [_setValue] method set this form control with the new value from form.
+  /// Next, this value is validated, and the model state too.
+  Future _setValue() async {
+    this._actualize();
+    await this.validate(this.modelState, this.name, this.items);
+  }
+
+  /// [_actualize] method actualize [items] and [groups] collections of form array.
+  void _actualize() {
+    InstanceMirror instanceMirror =
+        this.getInstanceMirror(this.parentGroup.current);
+    this.items = instanceMirror.invokeGetter(this.name);
+
+    if (this.items == null) this.items = new List<TCurrentModel>();
+    if (this.groups == null) this.groups = new List<FormGroup>();
+
+    // add new items
+    for (TCurrentModel item in this.items) {
+      bool isInGroup =
+          Collection(this.groups).where((arg1) => arg1.current == item).any();
+      if (!isInGroup)
+        this.groups.add(new FormGroup(
+              this.modelState,
+              item,
+              this.name,
+              this.parentGroup,
+            ));
+    }
+
+    // remove lost items
+    List<FormGroup> groupsToRemove = new List<FormGroup>();
+    for (FormGroup group in this.groups) {
+      bool isInItems =
+          Collection(this.items).where((arg1) => arg1 == group.current).any();
+      if (!isInItems) groupsToRemove.add(group);
+    }
+    for (FormGroup group in groupsToRemove) this.groups.remove(group);
   }
 }

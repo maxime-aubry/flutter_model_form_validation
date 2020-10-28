@@ -1,119 +1,95 @@
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_array_attribute.dart';
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_control_attribute.dart';
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_group_attribute.dart';
-import 'package:flutter_model_form_validation/src/form_builder/abstract_control.dart';
-import 'package:flutter_model_form_validation/src/form_builder/form_array.dart';
-import 'package:flutter_model_form_validation/src/form_builder/form_control.dart';
+import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/model_state.dart';
 import 'package:property_change_notifier/property_change_notifier.dart';
-import 'package:queries/collections.dart';
 import 'package:reflectable/reflectable.dart';
 
 class FormGroup<TModel extends PropertyChangeNotifier<String>,
         TCurrentModel extends PropertyChangeNotifier<String>>
-    extends AbstractControl {
+    extends AbstractControl<TModel> {
   FormGroup(
     ModelState<TModel> modelState,
-    Object currentPartOfModel,
-    FormGroup parent,
+    Object current,
+    String name,
+    FormGroup parentGroup,
   )   : assert(modelState != null),
-        assert(currentPartOfModel != null),
-        super() {
+        super(name, parentGroup) {
     this.modelState = modelState;
-    this.currentPartOfModel = currentPartOfModel as TCurrentModel;
-    this.parent = parent;
-    this.controls = {};
+    this.current = current as TCurrentModel;
+    this.name = name;
+    this.controls = (current == null) ? null : {};
     this._init();
   }
 
-  // private properties
-  InstanceMirror _instanceMirror;
-
   // public properties
   ModelState<TModel> modelState;
-  TCurrentModel currentPartOfModel;
-  FormGroup parent;
+  TCurrentModel current;
   Map<String, AbstractControl> controls;
 
   void _init() {
-    this._instanceMirror = this.getInstanceMirror(this.currentPartOfModel);
+    // create sub-object if it is not null
+    if (this.current != null) this._actualize();
 
-    Iterable<MapEntry<String, DeclarationMirror>> formControls = this
-        ._instanceMirror
-        .type
-        .declarations
-        .entries
-        .where((element) =>
-            !element.key.endsWith('=') && element.value is MethodMirror);
+    // add validators
+    if (this.parentGroup != null) {
+      InstanceMirror instanceMirror =
+          this.getInstanceMirror(this.parentGroup.current);
+      MethodMirror methodMirror =
+          instanceMirror.type.declarations[this.name] as MethodMirror;
+      this.validators = this.getValidators(methodMirror);
 
-    for (MapEntry<String, DeclarationMirror> formControl in formControls) {
-      EFormDeclarer formDeclarer =
-          this._getFormDeclarer(formControl.value as MethodMirror);
+      // add empty error record to model state
+      this.modelState.actualizeAbstractControlState(
+            '${this.parentGroup.current.hashCode}.${this.name}',
+            null,
+            this.status,
+          );
 
-      if (formDeclarer == EFormDeclarer.FormGroup)
-        this._addChildFormGroup(formControl.key);
-
-      if (formDeclarer == EFormDeclarer.FormArray)
-        this._addChildFormArray(formControl.key);
-
-      if (formDeclarer == EFormDeclarer.FormControl)
-        this._addChildFormControl(formControl.key);
-
-      // add validators
-      //this.validators = this.getValidators(formControl.value as MethodMirror);
+      // add listener, triggered when a sub-object is added or removed by form user
+      this._addListener();
     }
   }
 
   EFormDeclarer _getFormDeclarer(MethodMirror childDeclaration) {
-    bool isFormGroup = Collection(childDeclaration.metadata)
-        .any((arg1) => arg1 is FormGroupAttribute);
-    bool isFormArray = Collection(childDeclaration.metadata)
-        .any((arg1) => arg1 is FormArrayAttribute);
-    bool isFormControl = Collection(childDeclaration.metadata)
-        .any((arg1) => arg1 is FormControlAttribute);
+    if (childDeclaration.dynamicReflectedReturnType == DateTime ||
+        childDeclaration.dynamicReflectedReturnType == bool ||
+        childDeclaration.dynamicReflectedReturnType == num ||
+        childDeclaration.dynamicReflectedReturnType == String)
+      return EFormDeclarer.FormControl;
 
-    int nbPropertyTypes = Collection([isFormGroup, isFormArray, isFormControl])
-        .count((arg1) => arg1 == true);
+    if (childDeclaration.dynamicReflectedReturnType == List)
+      return EFormDeclarer.FormArray;
 
-    if (nbPropertyTypes > 1)
-      throw new PropertyTypeException(
-          'More than one property type has been declared on this class member.');
-    if (isFormGroup) return EFormDeclarer.FormGroup;
-    if (isFormArray) return EFormDeclarer.FormArray;
-    if (isFormControl) return EFormDeclarer.FormControl;
-
-    // In the case of a collection item, there is not @FormInput annotation
-    // so, let's return Input response
-    return EFormDeclarer.FormControl;
+    return EFormDeclarer.FormGroup;
   }
 
-  Object _getSubObject(String propertyName) {
-    Object child = this._instanceMirror.invokeGetter(propertyName);
+  Object _getSubObject(InstanceMirror instanceMirror, String propertyName) {
+    Object child = instanceMirror.invokeGetter(propertyName);
     return child;
   }
 
-  void _addChildFormGroup(String propertyName) {
-    Object child = this._getSubObject(propertyName);
-    if (child != null)
-      this.controls[propertyName] = new FormGroup(
-        this.modelState,
-        child,
-        this,
-      );
+  void _addChildFormGroup(InstanceMirror instanceMirror, String propertyName) {
+    Object child = this._getSubObject(instanceMirror, propertyName);
+    this.controls[propertyName] = new FormGroup(
+      this.modelState,
+      child,
+      propertyName,
+      this,
+    );
   }
 
-  void _addChildFormArray(String propertyName) {
-    List children = this._getSubObject(propertyName);
-    if (children != null)
-      this.controls[propertyName] = new FormArray(
-        this.modelState,
-        children,
-        this,
-      );
+  void _addChildFormArray(InstanceMirror instanceMirror, String propertyName) {
+    List children = this._getSubObject(instanceMirror, propertyName);
+    this.controls[propertyName] = new FormArray(
+      this.modelState,
+      children,
+      propertyName,
+      this,
+    );
   }
 
-  void _addChildFormControl(String propertyName) {
-    Object child = this._getSubObject(propertyName);
+  void _addChildFormControl(
+      InstanceMirror instanceMirror, String propertyName) {
+    Object child = this._getSubObject(instanceMirror, propertyName);
     this.controls[propertyName] = new FormControl(
       this.modelState,
       child,
@@ -121,12 +97,58 @@ class FormGroup<TModel extends PropertyChangeNotifier<String>,
       this,
     );
   }
-}
 
-class PropertyTypeException implements Exception {
-  PropertyTypeException(this.message);
+  /// [_addListener] method adds a listener on this form array.
+  /// Each time an item will be added or removed, this one will be notified here.
+  void _addListener() {
+    this.parentGroup.current.addListener(
+      () async {
+        await _setValue();
+      },
+      ['${this.parentGroup.current.hashCode}.${this.name}'],
+    );
+  }
 
-  final String message;
+  /// [_setValue] method set this form control with the new value from form.
+  /// Next, this value is validated, and the model state too.
+  Future _setValue() async {
+    // set new sub-object
+    InstanceMirror instanceMirror =
+        this.getInstanceMirror(this.parentGroup.current);
+    this.current = this._getSubObject(instanceMirror, this.name);
+
+    if (this.current != null) {
+      // actualize children
+      this._actualize();
+      // validate current value
+      await this.validate(this.modelState, this.name, this.current);
+    }
+  }
+
+  void _actualize() {
+    InstanceMirror instanceMirror = this.getInstanceMirror(this.current);
+    Iterable<MapEntry<String, DeclarationMirror>> formControls = instanceMirror
+        .type.declarations.entries
+        .where((element) =>
+            !element.key.endsWith('=') &&
+            (element.value as MethodMirror).isGetter)
+        .toList();
+    this.controls = new Map<String, AbstractControl>();
+
+    for (MapEntry<String, DeclarationMirror> formControl in formControls) {
+      EFormDeclarer formDeclarer =
+          this._getFormDeclarer(formControl.value as MethodMirror);
+
+      if (formDeclarer == EFormDeclarer.FormGroup)
+        this._addChildFormGroup(instanceMirror, formControl.key);
+
+      if (formDeclarer == EFormDeclarer.FormArray)
+        this._addChildFormArray(instanceMirror, formControl.key);
+
+      if (formDeclarer == EFormDeclarer.FormControl)
+        this._addChildFormControl(instanceMirror, formControl.key);
+    }
+  }
 }
 
 enum EFormDeclarer {

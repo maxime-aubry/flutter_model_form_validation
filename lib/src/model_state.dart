@@ -1,48 +1,107 @@
-import 'package:flutter_model_form_validation/src/annotations/validation_error.dart';
-import 'package:flutter_model_form_validation/src/form_builder/form_builder.dart';
+import 'package:flutter_model_form_validation/src/annotations/validators/validation_error.dart';
+import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:property_change_notifier/property_change_notifier.dart';
+import 'package:queries/collections.dart';
 
-enum FormStatus {
+enum EFormStatus {
   pure,
   valid,
   invalid,
-  validationInProgress,
-  submissionInProgress,
-  submissionSuccess,
-  submissionFailure,
 }
 
-class ModelState<TModel extends PropertyChangeNotifier<String>> {
+class ModelState<TModel extends PropertyChangeNotifier<String>>
+    with PropertyChangeNotifier<String> {
   ModelState(TModel model) : assert(model != null) {
     this.model = model;
+    this.status = EFormStatus.pure;
+    this.formControlStates = new Map<String, AbstractControlState>();
     this._init();
   }
 
-  TModel model;
-  FormBuilder _formBuilder;
-  FormStatus _status;
-  Map<String, ValidationError> get errors => null;
+  // private properties
+  FormBuilder formBuilder;
 
+  // public properties
+  TModel model;
+  EFormStatus status;
+  Map<String, AbstractControlState> formControlStates;
+
+  // private methods
   void _init() {
-    this._formBuilder = new FormBuilder<TModel>(this);
+    this.formBuilder = new FormBuilder<TModel>(this);
   }
 
-  // Future<bool> validateForm() async {
-  //   try {
-  //     this._status = FormStatus.validationInProgress;
+  void actualizeAbstractControlState(
+    String key,
+    ValidationError error,
+    EAbstractControlStatus status,
+  ) {
+    this.formControlStates[key] = new AbstractControlState(
+      key,
+      error,
+      status,
+    );
+    this._actualizeModelState();
+    this.notifyListeners('formControlStates');
+    this.notifyListeners('status');
+  }
 
-  //     // validate each property
-  //     for (FormProperty property in this._properties)
-  //       await property.update(this.model);
+  static String getListenerName(Object value, String propertyName) =>
+      '${value.hashCode}.$propertyName';
 
-  //     // validate the form
-  //     bool isValid = !Collection(this._properties)
-  //         .any((arg1) => arg1.status == InputStatus.invalid);
-  //     this._status = isValid ? FormStatus.valid : FormStatus.invalid;
-  //     return isValid;
-  //   } catch (e) {
-  //     print(e);
-  //     return false;
-  //   }
-  // }
+  Future<bool> validateForm() async {
+    for (MapEntry<String, AbstractControl> control
+        in this.formBuilder.group.controls.entries) {
+      if (control.value is FormGroup) this._validateFormGroup(control.value);
+      if (control.value is FormArray) this._validateFormArray(control.value);
+      if (control.value is FormControl)
+        this._validateFormControl(control.value);
+    }
+
+    return this.status == EFormStatus.valid;
+  }
+
+  Future _validateFormGroup(FormGroup formGroup) async {
+    await formGroup.validate(
+      formGroup.modelState,
+      formGroup.name,
+      formGroup.current,
+    );
+
+    for (MapEntry<String, AbstractControl> control
+        in formGroup.controls.entries) {
+      if (control.value is FormGroup) this._validateFormGroup(control.value);
+      if (control.value is FormArray) this._validateFormArray(control.value);
+      if (control.value is FormControl)
+        this._validateFormControl(control.value);
+    }
+  }
+
+  Future _validateFormArray(FormArray formArray) async {
+    await formArray.validate(
+      formArray.modelState,
+      formArray.name,
+      formArray.items,
+    );
+
+    for (FormGroup formGroup in formArray.groups) _validateFormGroup(formGroup);
+  }
+
+  Future _validateFormControl(FormControl formControl) async {
+    await formControl.validate(
+      formControl.modelState,
+      formControl.name,
+      formControl.value,
+    );
+  }
+
+  bool _actualizeModelState() {
+    bool isValid = !Dictionary.fromMap(this.formControlStates)
+        .where((arg1) =>
+            arg1.value != null &&
+            arg1.value.status == EAbstractControlStatus.invalid)
+        .any();
+    this.status = isValid ? EFormStatus.valid : EFormStatus.invalid;
+    return isValid;
+  }
 }
