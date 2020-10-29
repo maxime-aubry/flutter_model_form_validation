@@ -1,109 +1,132 @@
-import 'package:reflectable/reflectable.dart';
-import 'annotations/flutter_model_form_validator.dart';
-import '../src/annotations/validation_annotation.dart';
-import '../src/annotations/validation_error.dart';
+import 'package:flutter_model_form_validation/src/form_builder/index.dart';
+import 'package:flutter_model_form_validation/src/index.dart';
+import 'package:flutter_model_form_validation/src/utils/index.dart';
+import 'package:queries/collections.dart';
 
-class ModelState {
-  static Map<String, ValidationError> _errors;
+enum EFormStatus {
+  pure,
+  valid,
+  invalid,
+}
 
-  /// Gets the state of current [model] binding of [TModel] type.
-  /// Browses all declared metadata of [ValidationAnnotation] type, for each property into your class model.
-  /// Then, executes "IsValid" method that returns true or false. For each property, first of them that returns false invalidates your property, and so, your model. If there is none, your property and model are valid.
-  static bool isValid<TModel>(
-    TModel model,
-  ) {
-    try {
-      InstanceMirror instanceMirror = flutterModelFormValidator.reflect(model);
-      ClassMirror classMirror = flutterModelFormValidator.reflectType(TModel);
-      _errors = Map<String, ValidationError>();
+class ModelState<TModel extends ModelForm> {
+  ModelState(TModel model) : assert(model != null) {
+    this.model = model;
+    this.status = EFormStatus.pure;
+    this._formControlStates = new Map<String, AbstractControlState>();
+    this._init();
+  }
 
-      classMirror.declarations
-          .forEach((String propertyName, DeclarationMirror declarationMirror) {
-        ValidationError error = _validateProperty(
-          propertyName,
-          declarationMirror,
-          instanceMirror,
-          model,
-        );
-        if (error != null) _errors[propertyName] = error;
-      });
+  // private properties
+  Map<String, AbstractControlState> _formControlStates;
 
-      return _errors.isEmpty;
-    } catch (e) {
-      print(e);
-      return false;
+  // public properties
+  TModel model;
+  EFormStatus status;
+  FormBuilder formBuilder;
+
+  // private methods
+  void _init() {
+    this.formBuilder = new FormBuilder<TModel>(this);
+  }
+
+  Future _validateFormGroup(FormGroup formGroup) async {
+    print('Validating form group "${formGroup.getListenerName()}".');
+
+    await formGroup.validate(
+      formGroup.modelState,
+      formGroup.name,
+      formGroup.current,
+    );
+
+    for (MapEntry<String, AbstractControl> control
+        in formGroup.controls.entries) {
+      if (control.value is FormGroup)
+        await this._validateFormGroup(control.value);
+      if (control.value is FormArray)
+        await this._validateFormArray(control.value);
+      if (control.value is FormControl)
+        await this._validateFormControl(control.value);
     }
   }
 
-  /// Gets the state of current [propertyName] into the [model] binding of [TModel] type.
-  /// Browses all declared metadata of [ValidationAnnotation] type for property.
-  /// Then, executes "IsValid" method that returns true or false. First of them that retuns false invalidates your property. If there is none, your property is valid.
-  static bool isValidProperty<TModel>(
-    TModel model,
-    String propertyName,
-  ) {
-    try {
-      InstanceMirror instanceMirror = flutterModelFormValidator.reflect(model);
-      ClassMirror classMirror = flutterModelFormValidator.reflectType(TModel);
-      DeclarationMirror declarationMirror =
-          classMirror.declarations[propertyName];
-      _errors = Map<String, ValidationError>();
+  Future _validateFormArray(FormArray formArray) async {
+    print('Validating form group "${formArray.getListenerName()}".');
 
-      if (declarationMirror != null) {
-        ValidationError error = _validateProperty(
-          propertyName,
-          declarationMirror,
-          instanceMirror,
-          model,
-        );
-        if (error != null) _errors[propertyName] = error;
-      } else {
-        throw Exception('No property found for this name in this object');
-      }
+    await formArray.validate(
+      formArray.modelState,
+      formArray.name,
+      formArray.items,
+    );
 
-      return _errors.isEmpty;
-    } catch (e) {
-      print(e);
-      return false;
-    }
+    for (FormGroup formGroup in formArray.groups)
+      await _validateFormGroup(formGroup);
   }
 
-  static ValidationError _validateProperty<TModel>(
+  Future _validateFormControl(FormControl formControl) async {
+    print('Validating form group "${formControl.getListenerName()}".');
+
+    await formControl.validate(
+      formControl.modelState,
+      formControl.name,
+      formControl.value,
+    );
+  }
+
+  bool _actualizeModelState() {
+    bool isValid = !Dictionary.fromMap(this._formControlStates)
+        .where((arg1) =>
+            arg1.value != null &&
+            arg1.value.status == EAbstractControlStatus.invalid)
+        .any();
+    this.status = isValid ? EFormStatus.valid : EFormStatus.invalid;
+    return isValid;
+  }
+
+  // public methods
+  void actualizeAbstractControlState(
     String key,
-    DeclarationMirror declarationMirror,
-    InstanceMirror instanceMirror,
-    TModel model,
+    ValidationError error,
+    EAbstractControlStatus status,
   ) {
-    ValidationError error;
-    List<ValidationAnnotation> annotations =
-        _getValidators(declarationMirror.metadata);
+    print('Actualizing form element "$key" with status "$status".');
 
-    for (ValidationAnnotation annotation in annotations) {
-      Object value = instanceMirror.invokeGetter(key);
-      bool isValid = annotation.isValid(value, model);
-      if (!isValid) {
-        error = ValidationError(
-          propertyName: key,
-          validatorType: annotation.runtimeType,
-          error: annotation.error,
-        );
-        break;
-      }
+    this._formControlStates[key] = new AbstractControlState(
+      key,
+      error,
+      status,
+    );
+    this._actualizeModelState();
+    // this.model.notifyModelState('formControlStates');
+    // this.model.notifyModelState('status');
+  }
+
+  Future<bool> validateForm() async {
+    print('Validating form from user.');
+
+    for (MapEntry<String, AbstractControl> control
+        in this.formBuilder.group.controls.entries) {
+      if (control.value is FormGroup)
+        await this._validateFormGroup(control.value);
+      if (control.value is FormArray)
+        await this._validateFormArray(control.value);
+      if (control.value is FormControl)
+        await this._validateFormControl(control.value);
     }
 
+    if (this.status == EFormStatus.valid)
+      print('Form is valid');
+    else
+      print('Form is invalid');
+
+    return this.status == EFormStatus.valid;
+  }
+
+  ValidationError getValidationError(ModelForm value, String property) {
+    String listenerName = value.getListenerName(property);
+    if (!this._formControlStates.containsKey(listenerName))
+      throw new Exception('Form property status not found');
+    ValidationError error = this._formControlStates[listenerName].error;
     return error;
-  }
-
-  static List<ValidationAnnotation> _getValidators(List<Object> metadata) {
-    List<ValidationAnnotation> validators = new List<ValidationAnnotation>();
-    for (Object metadatum in metadata)
-      if (metadatum is ValidationAnnotation) validators.add(metadatum);
-    validators.sort((a, b) => a.criticityLevel.compareTo(b.criticityLevel));
-    return validators;
-  }
-
-  /// Gets all errors that flutterModelFormValidator has detected.
-  static Map<String, ValidationError> get errors {
-    return ModelState._errors;
   }
 }

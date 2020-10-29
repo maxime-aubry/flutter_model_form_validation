@@ -1,678 +1,1657 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-/*group('xxxx.', () {
-    group('Test the priority between user and developer static data.', () {});
-    group('Test the validation > success.', () {});
-    group('Test the validation > failure.', () {});
-  });*/
-
 void main() {}
+
+//#region ComplexFormTest
+@flutterModelFormValidator
+class FormBuilderTest extends ModelForm {
+  FormBuilderTest(
+    this._firstName,
+    this._lastName,
+    this._birthDay,
+    this._subscriptionDate,
+  );
+
+  // private properties
+  String _firstName;
+  String _lastName;
+  DateTime _birthDay;
+  DateTime _subscriptionDate;
+  List<Book> _books;
+  Book _favoriteBook;
+
+  // getters
+  @Required(error: 'error message here')
+  @StringLength(min: 3, max: 50, error: 'error message here')
+  String get first_name => this._firstName;
+
+  @Required(error: 'error message here')
+  @StringLength(min: 3, max: 50, error: 'error message here')
+  String get last_name => this._lastName;
+
+  @Required(error: 'error message here')
+  DateTime get birth_day => this._birthDay;
+
+  @Required(error: 'error message here')
+  @GreaterOrEqualToDateTime(
+      valueToCompareOnProperty: 'birth_day', error: 'error message here')
+  @SmallerOrEqualToDateTime(
+      valueToCompare: '2020-01-01', error: 'error message here')
+  DateTime get subscription_date => this._subscriptionDate;
+
+  @NbItems(min: 1, max: 3, error: 'error message here')
+  List<Book> get books => this._books;
+
+  @Required(error: 'error message here')
+  Book get favorite_book => this._favoriteBook;
+
+  // setters
+  set first_name(String value) {
+    this._firstName = value;
+    this.notifyModelState('first_name');
+  }
+
+  set last_name(String value) {
+    this._lastName = value;
+    this.notifyModelState('last_name');
+  }
+
+  set birth_day(DateTime value) {
+    this._birthDay = value;
+    this.notifyModelState('birth_day');
+  }
+
+  set subscription_date(DateTime value) {
+    this._subscriptionDate = value;
+    this.notifyModelState('subscription_date');
+  }
+
+  set books(List<Book> value) {
+    this._books = value;
+    this.notifyModelState('books');
+  }
+
+  set favorite_book(Book value) {
+    this._favoriteBook = value;
+    this.notifyModelState('favorite_book');
+  }
+
+  void addItemOnBooks(Book item) {
+    if (this._books == null) this._books = new List<Book>();
+    this._books.add(item);
+    this.notifyModelState('books');
+  }
+
+  void removeItemOnBook(Book item) {
+    if (this._books.contains(item)) this._books.remove(item);
+    this.notifyModelState('books');
+  }
+}
+
+@flutterModelFormValidator
+class Book extends ModelForm {
+  Book(this._name, this._price, this._loanDate);
+
+  // private properties
+  String _name;
+  num _price;
+  DateTime _loanDate;
+
+  // getters
+  @Required(error: 'error message here')
+  @StringLength(min: 3, max: 100, error: 'error message here')
+  String get name => this._name;
+
+  @Required(error: 'price is required')
+  @GreaterThanNumber(valueToCompare: 0, error: 'error message here')
+  num get price => this._price;
+
+  @Required(error: 'error message here')
+  DateTime get loan_date => this._loanDate;
+
+  // setters
+  set name(String value) {
+    this._name = value;
+    this.notifyModelState('name');
+  }
+
+  set price(num value) {
+    this._price = value;
+    this.notifyModelState('price');
+  }
+
+  set loan_date(DateTime value) {
+    this._loanDate = value;
+    this.notifyModelState('loan_date');
+  }
+}
+//#endregion
 
 //#region ContainsDateTime
 @flutterModelFormValidator
-class ContainsDateTimeTest {
-  ContainsDateTimeTest(this.value);
+class ContainsDateTimeTest extends ModelForm {
+  ContainsDateTimeTest(
+    this._value,
+  );
 
+  // private properties
+  DateTime _value;
+
+  // getters
   @ContainsDateTime(
     items: ['2020-01-01', '2020-06-01', '2020-12-31'],
-    error: 'Invalid datetime',
+    error: 'error message here',
   )
-  final DateTime value;
+  DateTime get value => this._value;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region ContainsNumber
 @flutterModelFormValidator
-class ContainsNumberTest {
-  ContainsNumberTest(this.value);
+class ContainsNumberTest extends ModelForm {
+  ContainsNumberTest(
+    this._value,
+  );
 
+  // private properties
+  num _value;
+
+  // getters
   @ContainsNumber(
     items: [1, 2, 3],
-    error: 'Invalid number',
+    error: 'error message here',
   )
-  final num value;
+  num get value => this._value;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region ContainsString
 @flutterModelFormValidator
-class ContainsStringTest {
-  ContainsStringTest(this.value);
+class ContainsStringTest extends ModelForm {
+  ContainsStringTest(
+    this._value,
+  );
 
+  // private properties
+  String _value;
+
+  // getters
   @ContainsString(
     items: ['lorem', 'ipsum', 'dolor', 'sit', 'amet'],
-    error: 'Invalid keyword',
+    error: 'error message here',
   )
-  final String value;
+  String get value => this._value;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region DateTimeRange
 @flutterModelFormValidator
-class DateTimeRangeTest {
-  DateTimeRangeTest(this.value, this.min, this.max);
+class DateTimeRangeTest extends ModelForm {
+  DateTimeRangeTest(
+    this._value,
+    this._min,
+    this._max,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _min;
+  DateTime _max;
+
+  // getters
   @DateTimeRange(
     minOnProperty: 'min',
     maxOnProperty: 'max',
-    error: 'This datetime is not in the range',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime min;
-  final DateTime max;
+  DateTime get value => this._value;
+  DateTime get min => this._min;
+  DateTime get max => this._max;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set min(DateTime value) {
+    this._min = value;
+    this.notifyModelState('min');
+  }
+
+  set max(DateTime value) {
+    this._max = value;
+    this.notifyModelState('max');
+  }
 }
 
 @flutterModelFormValidator
-class DateTimeRangeWithUserAndDeveloperValuesTest {
-  DateTimeRangeWithUserAndDeveloperValuesTest(this.value, this.min, this.max);
+class DateTimeRangeWithUserAndDeveloperValuesTest extends ModelForm {
+  DateTimeRangeWithUserAndDeveloperValuesTest(
+    this._value,
+    this._min,
+    this._max,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _min;
+  DateTime _max;
+
+  // getters
   @DateTimeRange(
     minOnProperty: 'min',
     maxOnProperty: 'max',
     min: '2019-01-01',
     max: '2019-12-31',
-    error: 'This datetime is not in the range',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime min;
-  final DateTime max;
+  DateTime get value => this._value;
+  DateTime get min => this._min;
+  DateTime get max => this._max;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set min(DateTime min) {
+    this._min = min;
+    this.notifyModelState('min');
+  }
+
+  set max(DateTime max) {
+    this._max = max;
+    this.notifyModelState('max');
+  }
 }
 
 @flutterModelFormValidator
-class DateTimeRangeWithUserValuesTest {
-  DateTimeRangeWithUserValuesTest(this.value, this.min, this.max);
+class DateTimeRangeWithUserValuesTest extends ModelForm {
+  DateTimeRangeWithUserValuesTest(
+    this._value,
+    this._min,
+    this._max,
+  );
 
+  // private properties
   @DateTimeRange(
     minOnProperty: 'min',
     maxOnProperty: 'max',
-    error: 'This datetime is not in the range',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime min;
-  final DateTime max;
+  DateTime _value;
+  DateTime _min;
+  DateTime _max;
+
+  // getters
+  DateTime get value => this._value;
+  DateTime get min => this._min;
+  DateTime get max => this._max;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set min(DateTime min) {
+    this._min = min;
+    this.notifyModelState('min');
+  }
+
+  set max(DateTime max) {
+    this._max = max;
+    this.notifyModelState('max');
+  }
 }
 
 @flutterModelFormValidator
-class DateTimeRangeWithDeveloperValuesTest {
-  DateTimeRangeWithDeveloperValuesTest(this.value);
+class DateTimeRangeWithDeveloperValuesTest extends ModelForm {
+  DateTimeRangeWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  DateTime _value;
+
+  // getters
   @DateTimeRange(
     min: '2019-01-01',
     max: '2019-12-31',
-    error: 'This datetime is not in the range',
+    error: 'error message here',
   )
-  final DateTime value;
+  DateTime get value => this._value;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region Email
 @flutterModelFormValidator
-class EmailTest {
-  EmailTest(this.value);
+class EmailTest extends ModelForm {
+  EmailTest(
+    this._value,
+  );
 
-  @Email(
-    error: 'Invalid email',
-  )
-  final String value;
+  // private properties
+  String _value;
+
+  // getters
+  @Email(error: 'error message here')
+  String get value => this._value;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region EqualToDatetime
 @flutterModelFormValidator
-class EqualToDatetimeTest {
-  EqualToDatetimeTest(this.value, this.valueToCompare);
+class EqualToDatetimeTest extends ModelForm {
+  EqualToDatetimeTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _valueToCompare;
+
+  // getters
   @EqualToDateTime(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime get value => this._value;
+  DateTime get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(DateTime value) {
+    this._valueToCompare = value;
+    this.notifyModelState('valueToCompare');
+  }
 }
 
 @flutterModelFormValidator
-class EqualToDatetimeWithUserAndDeveloperValuesTest {
+class EqualToDatetimeWithUserAndDeveloperValuesTest extends ModelForm {
   EqualToDatetimeWithUserAndDeveloperValuesTest(
-      this.value, this.valueToCompare);
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _valueToCompare;
+
+  // getters
   @EqualToDateTime(
-    valueToCompareOnProperty: 'valueToCompare',
+    valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime get value => this._value;
+  DateTime get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(DateTime value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class EqualToDatetimeWithUserValuesTest {
-  EqualToDatetimeWithUserValuesTest(this.value, this.valueToCompare);
+class EqualToDatetimeWithUserValuesTest extends ModelForm {
+  EqualToDatetimeWithUserValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _valueToCompare;
+
+  // getters
   @EqualToDateTime(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime get value => this._value;
+  DateTime get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(DateTime value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class EqualToDatetimeWithDeveloperValuesTest {
-  EqualToDatetimeWithDeveloperValuesTest(this.value);
+class EqualToDatetimeWithDeveloperValuesTest extends ModelForm {
+  EqualToDatetimeWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  DateTime _value;
+
+  // getters
   @EqualToDateTime(
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final DateTime value;
+  DateTime get value => this._value;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region EqualToNumber
 @flutterModelFormValidator
-class EqualToNumberTest {
-  EqualToNumberTest(this.value, this.valueToCompare);
+class EqualToNumberTest extends ModelForm {
+  EqualToNumberTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  num _value;
+  num _valueToCompare;
+
+  // getters
   @EqualToNumber(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final num value;
-  final num valueToCompare;
+  num get value => this._value;
+  num get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(num value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class EqualToNumberWithUserAndDeveloperValuesTest {
-  EqualToNumberWithUserAndDeveloperValuesTest(this.value, this.valueToCompare);
+class EqualToNumberWithUserAndDeveloperValuesTest extends ModelForm {
+  EqualToNumberWithUserAndDeveloperValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  num _value;
+  num _valueToCompare;
+
+  // getters
   @EqualToNumber(
-    valueToCompareOnProperty: 'valueToCompare',
+    valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final num value;
-  final num valueToCompare;
+  num get value => this._value;
+  num get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(num value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class EqualToNumberWithUserValuesTest {
-  EqualToNumberWithUserValuesTest(this.value, this.valueToCompare);
+class EqualToNumberWithUserValuesTest extends ModelForm {
+  EqualToNumberWithUserValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  num _value;
+  num _valueToCompare;
+
+  // getters
   @EqualToNumber(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final num value;
-  final num valueToCompare;
+  num get value => this._value;
+  num get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(num value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class EqualToNumberWithDeveloperValuesTest {
-  EqualToNumberWithDeveloperValuesTest(this.value);
+class EqualToNumberWithDeveloperValuesTest extends ModelForm {
+  EqualToNumberWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  num _value;
+
+  // getters
   @EqualToNumber(
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final num value;
+  num get value => this._value;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region EqualToString
 @flutterModelFormValidator
-class EqualToStringTest {
-  EqualToStringTest(this.value, this.valueToCompare);
+class EqualToStringTest extends ModelForm {
+  EqualToStringTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  String _value;
+  String _valueToCompare;
+
+  // getters
   @EqualToString(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final String value;
-  final String valueToCompare;
+  String get value => this._value;
+  String get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(String value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class EqualToStringWithUserAndDeveloperValuesTest {
-  EqualToStringWithUserAndDeveloperValuesTest(this.value, this.valueToCompare);
+class EqualToStringWithUserAndDeveloperValuesTest extends ModelForm {
+  EqualToStringWithUserAndDeveloperValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  String _value;
+  String _valueToCompare;
+
+  // getters
   @EqualToString(
-    valueToCompareOnProperty: 'valueToCompare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
+  )
+  String get value => this._value;
+  String get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(String value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
+}
+
+@flutterModelFormValidator
+class EqualToStringWithUserValuesTest extends ModelForm {
+  EqualToStringWithUserValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
+
+  // private properties
+  String _value;
+  String _valueToCompare;
+
+  // getters
+  @EqualToString(
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
+  )
+  String get value => this._value;
+  String get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(String value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
+}
+
+@flutterModelFormValidator
+class EqualToStringWithDeveloperValuesTest extends ModelForm {
+  EqualToStringWithDeveloperValuesTest(
+    this._value,
+  );
+
+  // private properties
+  String _value;
+
+  // getters
+  @EqualToString(
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final String value;
-  final String valueToCompare;
-}
+  String get value => this._value;
 
-@flutterModelFormValidator
-class EqualToStringWithUserValuesTest {
-  EqualToStringWithUserValuesTest(this.value, this.valueToCompare);
-
-  @EqualToString(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
-  )
-  final String value;
-  final String valueToCompare;
-}
-
-@flutterModelFormValidator
-class EqualToStringWithDeveloperValuesTest {
-  EqualToStringWithDeveloperValuesTest(this.value);
-
-  @EqualToString(
-    valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
-  )
-  final String value;
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region FileMimeType
 @flutterModelFormValidator
-class FileMimeTypeTest {
-  FileMimeTypeTest(this.value);
+class FileMimeTypeTest extends ModelForm {
+  FileMimeTypeTest(
+    this._value,
+  );
 
+  // private properties
+  List<int> _value;
+
+  // getters
   @FileMimeType(
     mimeTypes: ['image/jpeg', 'image/bmp'],
-    error: 'Invalid mime type',
+    error: 'error message here',
   )
-  final List<int> value;
+  List<int> get value => this._value;
+
+  // setters
+  set value(List<int> value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region FileSize
 @flutterModelFormValidator
-class FileSizeTest {
-  FileSizeTest(this.value);
+class FileSizeTest extends ModelForm {
+  FileSizeTest(
+    this._value,
+  );
 
+  // private properties
+  List<int> _value;
+
+  // getters
   @FileSize(
     size: 1048576,
-    error: 'Invalid file size',
+    error: 'error message here',
   )
-  final List<int> value;
+  List<int> get value => this._value;
+
+  // setters
+  set value(List<int> value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region GreaterOrEqualToDatetime
 @flutterModelFormValidator
-class GreaterOrEqualToDatetimeTest {
-  GreaterOrEqualToDatetimeTest(this.value, this.valueToCompare);
+class GreaterOrEqualToDatetimeTest extends ModelForm {
+  GreaterOrEqualToDatetimeTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _valueToCompare;
+
+  // getters
   @GreaterOrEqualToDateTime(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime get value => this._value;
+  DateTime get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(DateTime value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToDatetimeWithUserAndDeveloperValuesTest {
+class GreaterOrEqualToDatetimeWithUserAndDeveloperValuesTest extends ModelForm {
   GreaterOrEqualToDatetimeWithUserAndDeveloperValuesTest(
-      this.value, this.valueToCompare);
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _valueToCompare;
+
+  // getters
   @GreaterOrEqualToDateTime(
-    valueToCompareOnProperty: 'valueToCompare',
+    valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime get value => this._value;
+  DateTime get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(DateTime value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToDatetimeWithUserValuesTest {
-  GreaterOrEqualToDatetimeWithUserValuesTest(this.value, this.valueToCompare);
+class GreaterOrEqualToDatetimeWithUserValuesTest extends ModelForm {
+  GreaterOrEqualToDatetimeWithUserValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _valueToCompare;
+
+  // getters
   @GreaterOrEqualToDateTime(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime get value => this._value;
+  DateTime get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(DateTime value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToDatetimeWithDeveloperValuesTest {
-  GreaterOrEqualToDatetimeWithDeveloperValuesTest(this.value);
+class GreaterOrEqualToDatetimeWithDeveloperValuesTest extends ModelForm {
+  GreaterOrEqualToDatetimeWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  DateTime _value;
+
+  // getters
   @GreaterOrEqualToDateTime(
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final DateTime value;
+  DateTime get value => this._value;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region GreaterOrEqualToNumber
 @flutterModelFormValidator
-class GreaterOrEqualToNumberTest {
-  GreaterOrEqualToNumberTest(this.value, this.valueToCompare);
+class GreaterOrEqualToNumberTest extends ModelForm {
+  GreaterOrEqualToNumberTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  num _value;
+  num _valueToCompare;
+
+  // getters
   @GreaterOrEqualToNumber(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final num value;
-  final num valueToCompare;
+  num get value => this._value;
+  num get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(num value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToNumberWithUserAndDeveloperValuesTest {
+class GreaterOrEqualToNumberWithUserAndDeveloperValuesTest extends ModelForm {
   GreaterOrEqualToNumberWithUserAndDeveloperValuesTest(
-      this.value, this.valueToCompare);
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  num _value;
+  num _valueToCompare;
+
+  // getters
   @GreaterOrEqualToNumber(
-    valueToCompareOnProperty: 'valueToCompare',
+    valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final num value;
-  final num valueToCompare;
+  num get value => this._value;
+  num get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(num value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToNumberWithUserValuesTest {
-  GreaterOrEqualToNumberWithUserValuesTest(this.value, this.valueToCompare);
+class GreaterOrEqualToNumberWithUserValuesTest extends ModelForm {
+  GreaterOrEqualToNumberWithUserValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  num _value;
+  num _valueToCompare;
+
+  // getters
   @GreaterOrEqualToNumber(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final num value;
-  final num valueToCompare;
+  num get value => this._value;
+  num get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(num value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToNumberWithDeveloperValuesTest {
-  GreaterOrEqualToNumberWithDeveloperValuesTest(this.value);
+class GreaterOrEqualToNumberWithDeveloperValuesTest extends ModelForm {
+  GreaterOrEqualToNumberWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  num _value;
+
+  // getters
   @GreaterOrEqualToNumber(
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final num value;
+  num get value => this._value;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region GreaterOrEqualToString
 @flutterModelFormValidator
-class GreaterOrEqualToStringTest {
-  GreaterOrEqualToStringTest(this.value, this.valueToCompare);
+class GreaterOrEqualToStringTest extends ModelForm {
+  GreaterOrEqualToStringTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  String _value;
+  String _valueToCompare;
+
+  // getters
   @GreaterOrEqualToString(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final String value;
-  final String valueToCompare;
+  String get value => this._value;
+  String get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(String value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToStringWithUserAndDeveloperValuesTest {
+class GreaterOrEqualToStringWithUserAndDeveloperValuesTest extends ModelForm {
   GreaterOrEqualToStringWithUserAndDeveloperValuesTest(
-      this.value, this.valueToCompare);
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  String _value;
+  String _valueToCompare;
+
+  // getters
   @GreaterOrEqualToString(
-    valueToCompareOnProperty: 'valueToCompare',
+    valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final String value;
-  final String valueToCompare;
+  String get value => this._value;
+  String get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(String value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToStringWithUserValuesTest {
-  GreaterOrEqualToStringWithUserValuesTest(this.value, this.valueToCompare);
+class GreaterOrEqualToStringWithUserValuesTest extends ModelForm {
+  GreaterOrEqualToStringWithUserValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  String _value;
+  String _valueToCompare;
+
+  // getters
   @GreaterOrEqualToString(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final String value;
-  final String valueToCompare;
+  String get value => this._value;
+  String get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(String value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToStringWithDeveloperValuesTest {
-  GreaterOrEqualToStringWithDeveloperValuesTest(this.value);
+class GreaterOrEqualToStringWithDeveloperValuesTest extends ModelForm {
+  GreaterOrEqualToStringWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  String _value;
+
+  // getters
   @GreaterOrEqualToString(
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final String value;
+  String get value => this._value;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region GreaterThanDatetime
 @flutterModelFormValidator
-class GreaterThanDatetimeTest {
-  GreaterThanDatetimeTest(this.value, this.valueToCompare);
+class GreaterThanDatetimeTest extends ModelForm {
+  GreaterThanDatetimeTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _valueToCompare;
+
+  // getters
   @GreaterThanDateTime(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime get value => this._value;
+  DateTime get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(DateTime value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class GreaterThanDatetimeWithUserAndDeveloperValuesTest {
+class GreaterThanDatetimeWithUserAndDeveloperValuesTest extends ModelForm {
   GreaterThanDatetimeWithUserAndDeveloperValuesTest(
-      this.value, this.valueToCompare);
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _valueToCompare;
+
+  // getters
   @GreaterThanDateTime(
-    valueToCompareOnProperty: 'valueToCompare',
+    valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime get value => this._value;
+  DateTime get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(DateTime value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class GreaterThanDatetimeWithUserValuesTest {
-  GreaterThanDatetimeWithUserValuesTest(this.value, this.valueToCompare);
+class GreaterThanDatetimeWithUserValuesTest extends ModelForm {
+  GreaterThanDatetimeWithUserValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _valueToCompare;
+
+  // getters
   @GreaterThanDateTime(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime get value => this._value;
+  DateTime get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(DateTime value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class GreaterThanDatetimeWithDeveloperValuesTest {
-  GreaterThanDatetimeWithDeveloperValuesTest(this.value);
+class GreaterThanDatetimeWithDeveloperValuesTest extends ModelForm {
+  GreaterThanDatetimeWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  DateTime _value;
+
+  // getters
   @GreaterThanDateTime(
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final DateTime value;
+  DateTime get value => this._value;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region GreaterThanNumber
 @flutterModelFormValidator
-class GreaterThanNumberTest {
-  GreaterThanNumberTest(this.value, this.valueToCompare);
+class GreaterThanNumberTest extends ModelForm {
+  GreaterThanNumberTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  num _value;
+  num _valueToCompare;
+
+  // getters
   @GreaterThanNumber(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final num value;
-  final num valueToCompare;
+  num get value => this._value;
+  num get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(num value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class GreaterThanNumberWithUserAndDeveloperValuesTest {
+class GreaterThanNumberWithUserAndDeveloperValuesTest extends ModelForm {
   GreaterThanNumberWithUserAndDeveloperValuesTest(
-      this.value, this.valueToCompare);
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  num _value;
+  num _valueToCompare;
+
+  // getters
   @GreaterThanNumber(
-    valueToCompareOnProperty: 'valueToCompare',
+    valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final num value;
-  final num valueToCompare;
+  num get value => this._value;
+  num get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(num value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class GreaterThanNumberWithUserValuesTest {
-  GreaterThanNumberWithUserValuesTest(this.value, this.valueToCompare);
+class GreaterThanNumberWithUserValuesTest extends ModelForm {
+  GreaterThanNumberWithUserValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  num _value;
+  num _valueToCompare;
+
+  // getters
   @GreaterThanNumber(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final num value;
-  final num valueToCompare;
+  num get value => this._value;
+  num get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(num value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class GreaterThanNumberWithDeveloperValuesTest {
-  GreaterThanNumberWithDeveloperValuesTest(this.value);
+class GreaterThanNumberWithDeveloperValuesTest extends ModelForm {
+  GreaterThanNumberWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  num _value;
+
+  // getters
   @GreaterThanNumber(
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final num value;
+  num get value => this._value;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region GreaterThanString
 @flutterModelFormValidator
-class GreaterThanStringTest {
-  GreaterThanStringTest(this.value, this.valueToCompare);
+class GreaterThanStringTest extends ModelForm {
+  GreaterThanStringTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  String _value;
+  String _valueToCompare;
+
+  // getters
   @GreaterThanString(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final String value;
-  final String valueToCompare;
+  String get value => this._value;
+  String get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(String value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class GreaterThanStringWithUserAndDeveloperValuesTest {
+class GreaterThanStringWithUserAndDeveloperValuesTest extends ModelForm {
   GreaterThanStringWithUserAndDeveloperValuesTest(
-      this.value, this.valueToCompare);
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  String _value;
+  String _valueToCompare;
+
+  // getters
   @GreaterThanString(
-    valueToCompareOnProperty: 'valueToCompare',
+    valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final String value;
-  final String valueToCompare;
+  String get value => this._value;
+  String get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(String value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class GreaterThanStringWithUserValuesTest {
-  GreaterThanStringWithUserValuesTest(this.value, this.valueToCompare);
+class GreaterThanStringWithUserValuesTest extends ModelForm {
+  GreaterThanStringWithUserValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  String _value;
+  String _valueToCompare;
+
+  // getters
   @GreaterThanString(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final String value;
-  final String valueToCompare;
+  String get value => this._value;
+  String get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(String value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class GreaterThanStringWithDeveloperValuesTest {
-  GreaterThanStringWithDeveloperValuesTest(this.value);
+class GreaterThanStringWithDeveloperValuesTest extends ModelForm {
+  GreaterThanStringWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  String _value;
+
+  // getters
   @GreaterThanString(
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final String value;
+  String get value => this._value;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region ImageSize
 @flutterModelFormValidator
-class ImageSizeTest {
-  ImageSizeTest(this.value);
+class ImageSizeTest extends ModelForm {
+  ImageSizeTest(
+    this._value,
+  );
 
+  // private properties
+  List<int> _value;
+
+  // getters
   @ImageSize(
     minWidth: 500,
     minHeight: 500,
     maxWidth: 1000,
     maxHeight: 1000,
-    error: 'Taille d\'image incorrecte',
+    error: 'error message here',
   )
-  final List<int> value;
+  List<int> get value => this._value;
+
+  // setters
+  set value(List<int> value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region InText
 @flutterModelFormValidator
-class InTextTest {
-  InTextTest(this.value, this.text);
+class InTextTest extends ModelForm {
+  InTextTest(
+    this._value,
+    this._text,
+  );
 
+  // private properties
+  String _value;
+  String _text;
+
+  // getters
   @InText(
     textOnProperty: 'text',
-    error: 'Keyword is not in the string',
+    error: 'error message here',
   )
-  final String value;
-  final String text;
+  String get value => this._value;
+  String get text => this._text;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set text(String value) {
+    this._text = value;
+    this.notifyModelState('text');
+  }
 }
 
 @flutterModelFormValidator
-class InTextWithUserAndDeveloperValuesTest {
-  InTextWithUserAndDeveloperValuesTest(this.value, this.text);
+class InTextWithUserAndDeveloperValuesTest extends ModelForm {
+  InTextWithUserAndDeveloperValuesTest(
+    this._value,
+    this._text,
+  );
 
+  // private properties
+  String _value;
+  String _text;
+
+  // getters
   @InText(
     textOnProperty: 'text',
     text:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    error: 'Keyword is not in the string',
+    error: 'error message here',
   )
-  final String value;
-  final String text;
+  String get value => this._value;
+  String get text => this._text;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set text(String value) {
+    this._text = value;
+    this.notifyModelState('text');
+  }
 }
 
 @flutterModelFormValidator
-class InTextWithUserValuesTest {
-  InTextWithUserValuesTest(this.value, this.text);
+class InTextWithUserValuesTest extends ModelForm {
+  InTextWithUserValuesTest(
+    this._value,
+    this._text,
+  );
 
+  // private properties
+  String _value;
+  String _text;
+
+  // getters
   @InText(
     textOnProperty: 'text',
-    error: 'Keyword is not in the string',
+    error: 'error message here',
   )
-  final String value;
-  final String text;
+  String get value => this._value;
+  String get text => this._text;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set text(String value) {
+    this._text = value;
+    this.notifyModelState('text');
+  }
 }
 
 @flutterModelFormValidator
-class InTextWithDeveloperValuesTest {
-  InTextWithDeveloperValuesTest(this.value);
+class InTextWithDeveloperValuesTest extends ModelForm {
+  InTextWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  String _value;
+
+  // getters
   @InText(
     text:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    error: 'Keyword is not in the string',
+    error: 'error message here',
   )
-  final String value;
+  String get value => this._value;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region MembershipPassword
 @flutterModelFormValidator
-class MembershipPasswordTest {
-  MembershipPasswordTest(this.value);
+class MembershipPasswordTest extends ModelForm {
+  MembershipPasswordTest(
+    this._value,
+  );
 
+  // private properties
+  String _value;
+
+  // getters
   @MembershipPassword(
     minLength: 8,
     maxLength: 16,
@@ -680,694 +1659,1774 @@ class MembershipPasswordTest {
     includesUppercaseCharacters: true,
     includesNumericalCharacters: true,
     includesSpecialCharacters: true,
-    error: 'Invalid password',
+    error: 'error message here',
   )
-  final String value;
+  String get value => this._value;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+}
+//#endregion
+
+//#region NbItems
+@flutterModelFormValidator
+class NbItemsTest extends ModelForm {
+  NbItemsTest(
+    this._value,
+    this._min,
+    this._max,
+  );
+
+  // private properties
+  List<String> _value;
+  int _min;
+  int _max;
+
+  // getters
+  @NbItems(
+    minOnProperty: 'min',
+    maxOnProperty: 'max',
+    error: 'error message here',
+  )
+  List<String> get value => this._value;
+  int get min => this._min;
+  int get max => this._max;
+
+  // setters
+  set value(List<String> value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set min(int value) {
+    this._min = value;
+    this.notifyModelState('min');
+  }
+
+  set max(int value) {
+    this._max = value;
+    this.notifyModelState('max');
+  }
+}
+
+@flutterModelFormValidator
+class NbItemsWithUserAndDeveloperValuesTest extends ModelForm {
+  NbItemsWithUserAndDeveloperValuesTest(
+    this._value,
+    this._min,
+    this._max,
+  );
+
+  // private properties
+  List<String> _value;
+  int _min;
+  int _max;
+
+  // getters
+  @NbItems(
+    minOnProperty: 'min',
+    maxOnProperty: 'max',
+    min: 1,
+    max: 3,
+    error: 'error message here',
+  )
+  List<String> get value => this._value;
+  int get min => this._min;
+  int get max => this._max;
+
+  // setters
+  set value(List<String> value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set min(int min) {
+    this._min = min;
+    this.notifyModelState('min');
+  }
+
+  set max(int max) {
+    this._max = max;
+    this.notifyModelState('max');
+  }
+}
+
+@flutterModelFormValidator
+class NbItemsWithUserValuesTest extends ModelForm {
+  NbItemsWithUserValuesTest(
+    this._value,
+    this._min,
+    this._max,
+  );
+
+  // private properties
+  @NbItems(
+    minOnProperty: 'min',
+    maxOnProperty: 'max',
+    error: 'error message here',
+  )
+  List<String> _value;
+  int _min;
+  int _max;
+
+  // getters
+  List<String> get value => this._value;
+  int get min => this._min;
+  int get max => this._max;
+
+  // setters
+  set value(List<String> value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set min(int min) {
+    this._min = min;
+    this.notifyModelState('min');
+  }
+
+  set max(int max) {
+    this._max = max;
+    this.notifyModelState('max');
+  }
+}
+
+@flutterModelFormValidator
+class NbItemsWithDeveloperValuesTest extends ModelForm {
+  NbItemsWithDeveloperValuesTest(
+    this._value,
+  );
+
+  // private properties
+  List<String> _value;
+
+  // getters
+  @NbItems(
+    min: 1,
+    max: 3,
+    error: 'error message here',
+  )
+  List<String> get value => this._value;
+
+  // setters
+  set value(List<String> value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region NotEqualToDatetime
 @flutterModelFormValidator
-class NotEqualToDatetimeTest {
-  NotEqualToDatetimeTest(this.value, this.valueToCompare);
+class NotEqualToDatetimeTest extends ModelForm {
+  NotEqualToDatetimeTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _valueToCompare;
+
+  // getters
   @NotEqualToDateTime(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime get value => this._value;
+  DateTime get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(DateTime value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class NotEqualToDatetimeWithUserAndDeveloperValuesTest {
+class NotEqualToDatetimeWithUserAndDeveloperValuesTest extends ModelForm {
   NotEqualToDatetimeWithUserAndDeveloperValuesTest(
-      this.value, this.valueToCompare);
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _valueToCompare;
+
+  // getters
   @NotEqualToDateTime(
-    valueToCompareOnProperty: 'valueToCompare',
+    valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime get value => this._value;
+  DateTime get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(DateTime value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class NotEqualToDatetimeWithUserValuesTest {
-  NotEqualToDatetimeWithUserValuesTest(this.value, this.valueToCompare);
+class NotEqualToDatetimeWithUserValuesTest extends ModelForm {
+  NotEqualToDatetimeWithUserValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _valueToCompare;
+
+  // getters
   @NotEqualToDateTime(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime get value => this._value;
+  DateTime get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(DateTime value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class NotEqualToDatetimeWithDeveloperValuesTest {
-  NotEqualToDatetimeWithDeveloperValuesTest(this.value);
+class NotEqualToDatetimeWithDeveloperValuesTest extends ModelForm {
+  NotEqualToDatetimeWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  DateTime _value;
+
+  // getters
   @NotEqualToDateTime(
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final DateTime value;
+  DateTime get value => this._value;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region NotEqualToNumber
 @flutterModelFormValidator
-class NotEqualToNumberTest {
-  NotEqualToNumberTest(this.value, this.valueToCompare);
+class NotEqualToNumberTest extends ModelForm {
+  NotEqualToNumberTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  num _value;
+  num _valueToCompare;
+
+  // getters
   @NotEqualToNumber(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final num value;
-  final num valueToCompare;
+  num get value => this._value;
+  num get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(num value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class NotEqualToNumberWithUserAndDeveloperValuesTest {
+class NotEqualToNumberWithUserAndDeveloperValuesTest extends ModelForm {
   NotEqualToNumberWithUserAndDeveloperValuesTest(
-      this.value, this.valueToCompare);
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  num _value;
+  num _valueToCompare;
+
+  // getters
   @NotEqualToNumber(
-    valueToCompareOnProperty: 'valueToCompare',
+    valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final num value;
-  final num valueToCompare;
+  num get value => this._value;
+  num get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(num value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class NotEqualToNumberWithUserValuesTest {
-  NotEqualToNumberWithUserValuesTest(this.value, this.valueToCompare);
+class NotEqualToNumberWithUserValuesTest extends ModelForm {
+  NotEqualToNumberWithUserValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  num _value;
+  num _valueToCompare;
+
+  // getters
   @NotEqualToNumber(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final num value;
-  final num valueToCompare;
+  num get value => this._value;
+  num get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(num value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class NotEqualToNumberWithDeveloperValuesTest {
-  NotEqualToNumberWithDeveloperValuesTest(this.value);
+class NotEqualToNumberWithDeveloperValuesTest extends ModelForm {
+  NotEqualToNumberWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  num _value;
+
+  // getters
   @NotEqualToNumber(
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final num value;
+  num get value => this._value;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region NotEqualToString
 @flutterModelFormValidator
-class NotEqualToStringTest {
-  NotEqualToStringTest(this.value, this.valueToCompare);
+class NotEqualToStringTest extends ModelForm {
+  NotEqualToStringTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  String _value;
+  String _valueToCompare;
+
+  // getters
   @NotEqualToString(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final String value;
-  final String valueToCompare;
+  String get value => this._value;
+  String get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(String value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class NotEqualToStringWithUserAndDeveloperValuesTest {
+class NotEqualToStringWithUserAndDeveloperValuesTest extends ModelForm {
   NotEqualToStringWithUserAndDeveloperValuesTest(
-      this.value, this.valueToCompare);
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  String _value;
+  String _valueToCompare;
+
+  // getters
   @NotEqualToString(
-    valueToCompareOnProperty: 'valueToCompare',
+    valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final String value;
-  final String valueToCompare;
+  String get value => this._value;
+  String get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(String value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class NotEqualToStringWithUserValuesTest {
-  NotEqualToStringWithUserValuesTest(this.value, this.valueToCompare);
+class NotEqualToStringWithUserValuesTest extends ModelForm {
+  NotEqualToStringWithUserValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  String _value;
+  String _valueToCompare;
+
+  // getters
   @NotEqualToString(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final String value;
-  final String valueToCompare;
+  String get value => this._value;
+  String get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(String value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class NotEqualToStringWithDeveloperValuesTest {
-  NotEqualToStringWithDeveloperValuesTest(this.value);
+class NotEqualToStringWithDeveloperValuesTest extends ModelForm {
+  NotEqualToStringWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  String _value;
+
+  // getters
   @NotEqualToString(
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final String value;
+  String get value => this._value;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region NumberRange
 @flutterModelFormValidator
-class NumberRangeTest {
-  NumberRangeTest(this.value, this.min, this.max);
+class NumberRangeTest extends ModelForm {
+  NumberRangeTest(
+    this._value,
+    this._min,
+    this._max,
+  );
 
+  // private properties
+  num _value;
+  num _min;
+  num _max;
+
+  // getters
   @NumberRange(
     minOnProperty: 'min',
     maxOnProperty: 'max',
-    error: 'This Number is not in the range',
+    error: 'error message here',
   )
-  final num value;
-  final num min;
-  final num max;
+  num get value => this._value;
+  num get min => this._min;
+  num get max => this._max;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set min(num value) {
+    this._min = value;
+    this.notifyModelState('min');
+  }
+
+  set max(num value) {
+    this._max = value;
+    this.notifyModelState('max');
+  }
 }
 
 @flutterModelFormValidator
-class NumberRangeWithUserAndDeveloperValuesTest {
-  NumberRangeWithUserAndDeveloperValuesTest(this.value, this.min, this.max);
+class NumberRangeWithUserAndDeveloperValuesTest extends ModelForm {
+  NumberRangeWithUserAndDeveloperValuesTest(
+    this._value,
+    this._min,
+    this._max,
+  );
 
+  // private properties
+  num _value;
+  num _min;
+  num _max;
+
+  // getters
   @NumberRange(
     minOnProperty: 'min',
     maxOnProperty: 'max',
     min: -10,
     max: -1,
-    error: 'This Number is not in the range',
+    error: 'error message here',
   )
-  final num value;
-  final num min;
-  final num max;
+  num get value => this._value;
+  num get min => this._min;
+  num get max => this._max;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set min(num value) {
+    this._min = value;
+    this.notifyModelState('min');
+  }
+
+  set max(num value) {
+    this._max = value;
+    this.notifyModelState('max');
+  }
 }
 
 @flutterModelFormValidator
-class NumberRangeWithUserValuesTest {
-  NumberRangeWithUserValuesTest(this.value, this.min, this.max);
+class NumberRangeWithUserValuesTest extends ModelForm {
+  NumberRangeWithUserValuesTest(
+    this._value,
+    this._min,
+    this._max,
+  );
 
+  // private properties
+  num _value;
+  num _min;
+  num _max;
+
+  // getters
   @NumberRange(
     minOnProperty: 'min',
     maxOnProperty: 'max',
-    error: 'This Number is not in the range',
+    error: 'error message here',
   )
-  final num value;
-  final num min;
-  final num max;
+  num get value => this._value;
+  num get min => this._min;
+  num get max => this._max;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set min(num value) {
+    this._min = value;
+    this.notifyModelState('min');
+  }
+
+  set max(num value) {
+    this._max = value;
+    this.notifyModelState('max');
+  }
 }
 
 @flutterModelFormValidator
-class NumberRangeWithDeveloperValuesTest {
-  NumberRangeWithDeveloperValuesTest(this.value);
+class NumberRangeWithDeveloperValuesTest extends ModelForm {
+  NumberRangeWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  num _value;
+
+  // getters
   @NumberRange(
     min: -10,
     max: -1,
-    error: 'This Number is not in the range',
+    error: 'error message here',
   )
-  final num value;
+  num get value => this._value;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region PhoneNumber
 @flutterModelFormValidator
-class PhoneNumberTest {
-  PhoneNumberTest(this.value, this.countryCode, this.phoneNumberType);
+class PhoneNumberTest extends ModelForm {
+  PhoneNumberTest(
+    this._value,
+    this._countryCode,
+    this._phoneNumberType,
+  );
 
+  // private properties
+  String _value;
+  String _countryCode;
+  String _phoneNumberType;
+
+  // getters
   @PhoneNumber(
     phoneNumberTypeOnProperty: 'phoneNumberType',
     countryCodeOnProperty: 'countryCode',
-    error: 'Invalid phone number',
+    error: 'error message here',
   )
-  final String value;
-  final String countryCode;
-  final PhoneNumberType phoneNumberType;
+  String get value => this._value;
+  String get countryCode => this._countryCode;
+  String get phoneNumberType => this._phoneNumberType;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set countryCode(String value) {
+    this._countryCode = value;
+    this.notifyModelState('countryCode');
+  }
+
+  set phoneNumberType(String value) {
+    this._phoneNumberType = value;
+    this.notifyModelState('phoneNumberType');
+  }
 }
 
 @flutterModelFormValidator
-class PhoneNumberWithUserAndDeveloperValuesTest {
+class PhoneNumberWithUserAndDeveloperValuesTest extends ModelForm {
   PhoneNumberWithUserAndDeveloperValuesTest(
-      this.value, this.countryCode, this.phoneNumberType);
+    this._value,
+    this._countryCode,
+    this._phoneNumberType,
+  );
 
+  // private properties
+  String _value;
+  String _countryCode;
+  String _phoneNumberType;
+
+  // getters
   @PhoneNumber(
     countryCodeOnProperty: 'countryCode',
     phoneNumberTypeOnProperty: 'phoneNumberType',
     countryCode: 'US',
     phoneNumberType: PhoneNumberType.mobile,
-    error: 'Invalid phone number',
+    error: 'error message here',
   )
-  final String value;
-  final String countryCode;
-  final PhoneNumberType phoneNumberType;
+  String get value => this._value;
+  String get countryCode => this._countryCode;
+  String get phoneNumberType => this._phoneNumberType;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set countryCode(String value) {
+    this._countryCode = value;
+    this.notifyModelState('countryCode');
+  }
+
+  set phoneNumberType(String value) {
+    this._phoneNumberType = value;
+    this.notifyModelState('phoneNumberType');
+  }
 }
 
 @flutterModelFormValidator
-class PhoneNumberWithUserValuesTest {
+class PhoneNumberWithUserValuesTest extends ModelForm {
   PhoneNumberWithUserValuesTest(
-      this.value, this.countryCode, this.phoneNumberType);
+    this._value,
+    this._countryCode,
+    this._phoneNumberType,
+  );
 
+  // private properties
+  String _value;
+  String _countryCode;
+  String _phoneNumberType;
+
+  // getters
   @PhoneNumber(
     countryCodeOnProperty: 'countryCode',
     phoneNumberTypeOnProperty: 'phoneNumberType',
-    error: 'Invalid phone number',
+    error: 'error message here',
   )
-  final String value;
-  final String countryCode;
-  final PhoneNumberType phoneNumberType;
+  String get value => this._value;
+  String get countryCode => this._countryCode;
+  String get phoneNumberType => this._phoneNumberType;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set countryCode(String value) {
+    this._countryCode = value;
+    this.notifyModelState('countryCode');
+  }
+
+  set phoneNumberType(String value) {
+    this._phoneNumberType = value;
+    this.notifyModelState('phoneNumberType');
+  }
 }
 
 @flutterModelFormValidator
-class PhoneNumberWithDeveloperValuesTest {
-  PhoneNumberWithDeveloperValuesTest(this.value);
+class PhoneNumberWithDeveloperValuesTest extends ModelForm {
+  PhoneNumberWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  String _value;
+
+  // getters
   @PhoneNumber(
     countryCode: 'US',
     phoneNumberType: PhoneNumberType.mobile,
-    error: 'Invalid phone number',
+    error: 'error message here',
   )
-  final String value;
+  String get value => this._value;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region RegularExpression
 @flutterModelFormValidator
-class RegularExpressionTest {
-  RegularExpressionTest(this.value);
+class RegularExpressionTest extends ModelForm {
+  RegularExpressionTest(
+    this._value,
+  );
 
+  // private properties
+  String _value;
+
+  // getters
   @RegularExpression(
     expression: r'^Hello|Bye$',
-    error: 'Invalid regular expression',
+    error: 'error message here',
   )
-  final String value;
+  String get value => this._value;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region Required
 @flutterModelFormValidator
-class RequiredTest {
-  RequiredTest(this.value);
+class RequiredTest extends ModelForm {
+  RequiredTest(
+    this._value,
+  );
 
-  @Required(
-    error: 'Value is required',
-  )
-  final String value;
+  // private properties
+  String _value;
+
+  // getters
+  @Required(error: 'error message here')
+  String get value => this._value;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region SmallerOrEqualToDatetime
 @flutterModelFormValidator
-class SmallerOrEqualToDatetimeTest {
-  SmallerOrEqualToDatetimeTest(this.value, this.valueToCompare);
+class SmallerOrEqualToDatetimeTest extends ModelForm {
+  SmallerOrEqualToDatetimeTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _valueToCompare;
+
+  // getters
   @SmallerOrEqualToDateTime(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime get value => this._value;
+  DateTime get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(DateTime value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToDatetimeWithUserAndDeveloperValuesTest {
+class SmallerOrEqualToDatetimeWithUserAndDeveloperValuesTest extends ModelForm {
   SmallerOrEqualToDatetimeWithUserAndDeveloperValuesTest(
-      this.value, this.valueToCompare);
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _valueToCompare;
+
+  // getters
   @SmallerOrEqualToDateTime(
-    valueToCompareOnProperty: 'valueToCompare',
+    valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime get value => this._value;
+  DateTime get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(DateTime value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToDatetimeWithUserValuesTest {
-  SmallerOrEqualToDatetimeWithUserValuesTest(this.value, this.valueToCompare);
+class SmallerOrEqualToDatetimeWithUserValuesTest extends ModelForm {
+  SmallerOrEqualToDatetimeWithUserValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _valueToCompare;
+
+  // getters
   @SmallerOrEqualToDateTime(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime get value => this._value;
+  DateTime get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(DateTime value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToDatetimeWithDeveloperValuesTest {
-  SmallerOrEqualToDatetimeWithDeveloperValuesTest(this.value);
+class SmallerOrEqualToDatetimeWithDeveloperValuesTest extends ModelForm {
+  SmallerOrEqualToDatetimeWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  DateTime _value;
+
+  // getters
   @SmallerOrEqualToDateTime(
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final DateTime value;
+  DateTime get value => this._value;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region SmallerOrEqualToNumber
 @flutterModelFormValidator
-class SmallerOrEqualToNumberTest {
-  SmallerOrEqualToNumberTest(this.value, this.valueToCompare);
+class SmallerOrEqualToNumberTest extends ModelForm {
+  SmallerOrEqualToNumberTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  num _value;
+  num _valueToCompare;
+
+  // getters
   @SmallerOrEqualToNumber(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final num value;
-  final num valueToCompare;
+  num get value => this._value;
+  num get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(num value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToNumberWithUserAndDeveloperValuesTest {
+class SmallerOrEqualToNumberWithUserAndDeveloperValuesTest extends ModelForm {
   SmallerOrEqualToNumberWithUserAndDeveloperValuesTest(
-      this.value, this.valueToCompare);
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  num _value;
+  num _valueToCompare;
+
+  // getters
   @SmallerOrEqualToNumber(
-    valueToCompareOnProperty: 'valueToCompare',
+    valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final num value;
-  final num valueToCompare;
+  num get value => this._value;
+  num get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(num value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToNumberWithUserValuesTest {
-  SmallerOrEqualToNumberWithUserValuesTest(this.value, this.valueToCompare);
+class SmallerOrEqualToNumberWithUserValuesTest extends ModelForm {
+  SmallerOrEqualToNumberWithUserValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  num _value;
+  num _valueToCompare;
+
+  // getters
   @SmallerOrEqualToNumber(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final num value;
-  final num valueToCompare;
+  num get value => this._value;
+  num get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(num value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToNumberWithDeveloperValuesTest {
-  SmallerOrEqualToNumberWithDeveloperValuesTest(this.value);
+class SmallerOrEqualToNumberWithDeveloperValuesTest extends ModelForm {
+  SmallerOrEqualToNumberWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  num _value;
+
+  // getters
   @SmallerOrEqualToNumber(
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final num value;
+  num get value => this._value;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region SmallerOrEqualToString
 @flutterModelFormValidator
-class SmallerOrEqualToStringTest {
-  SmallerOrEqualToStringTest(this.value, this.valueToCompare);
+class SmallerOrEqualToStringTest extends ModelForm {
+  SmallerOrEqualToStringTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  String _value;
+  String _valueToCompare;
+
+  // getters
   @SmallerOrEqualToString(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final String value;
-  final String valueToCompare;
+  String get value => this._value;
+  String get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(String value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToStringWithUserAndDeveloperValuesTest {
+class SmallerOrEqualToStringWithUserAndDeveloperValuesTest extends ModelForm {
   SmallerOrEqualToStringWithUserAndDeveloperValuesTest(
-      this.value, this.valueToCompare);
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  String _value;
+  String _valueToCompare;
+
+  // getters
   @SmallerOrEqualToString(
-    valueToCompareOnProperty: 'valueToCompare',
+    valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final String value;
-  final String valueToCompare;
+  String get value => this._value;
+  String get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(String value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToStringWithUserValuesTest {
-  SmallerOrEqualToStringWithUserValuesTest(this.value, this.valueToCompare);
+class SmallerOrEqualToStringWithUserValuesTest extends ModelForm {
+  SmallerOrEqualToStringWithUserValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  String _value;
+  String _valueToCompare;
+
+  // getters
   @SmallerOrEqualToString(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final String value;
-  final String valueToCompare;
+  String get value => this._value;
+  String get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(String value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToStringWithDeveloperValuesTest {
-  SmallerOrEqualToStringWithDeveloperValuesTest(this.value);
+class SmallerOrEqualToStringWithDeveloperValuesTest extends ModelForm {
+  SmallerOrEqualToStringWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  String _value;
+
+  // getters
   @SmallerOrEqualToString(
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final String value;
+  String get value => this._value;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region SmallerThanDatetime
 @flutterModelFormValidator
-class SmallerThanDatetimeTest {
-  SmallerThanDatetimeTest(this.value, this.valueToCompare);
+class SmallerThanDatetimeTest extends ModelForm {
+  SmallerThanDatetimeTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _valueToCompare;
+
+  // getters
   @SmallerThanDateTime(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime get value => this._value;
+  DateTime get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(DateTime value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class SmallerThanDatetimeWithUserAndDeveloperValuesTest {
+class SmallerThanDatetimeWithUserAndDeveloperValuesTest extends ModelForm {
   SmallerThanDatetimeWithUserAndDeveloperValuesTest(
-      this.value, this.valueToCompare);
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _valueToCompare;
+
+  // getters
   @SmallerThanDateTime(
-    valueToCompareOnProperty: 'valueToCompare',
+    valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime get value => this._value;
+  DateTime get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(DateTime value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class SmallerThanDatetimeWithUserValuesTest {
-  SmallerThanDatetimeWithUserValuesTest(this.value, this.valueToCompare);
+class SmallerThanDatetimeWithUserValuesTest extends ModelForm {
+  SmallerThanDatetimeWithUserValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  DateTime _value;
+  DateTime _valueToCompare;
+
+  // getters
   @SmallerThanDateTime(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final DateTime value;
-  final DateTime valueToCompare;
+  DateTime get value => this._value;
+  DateTime get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(DateTime value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class SmallerThanDatetimeWithDeveloperValuesTest {
-  SmallerThanDatetimeWithDeveloperValuesTest(this.value);
+class SmallerThanDatetimeWithDeveloperValuesTest extends ModelForm {
+  SmallerThanDatetimeWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  DateTime _value;
+
+  // getters
   @SmallerThanDateTime(
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final DateTime value;
+  DateTime get value => this._value;
+
+  // setters
+  set value(DateTime value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region SmallerThanNumber
 @flutterModelFormValidator
-class SmallerThanNumberTest {
-  SmallerThanNumberTest(this.value, this.valueToCompare);
+class SmallerThanNumberTest extends ModelForm {
+  SmallerThanNumberTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  num _value;
+  num _valueToCompare;
+
+  // getters
   @SmallerThanNumber(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final num value;
-  final num valueToCompare;
+  num get value => this._value;
+  num get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(num value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class SmallerThanNumberWithUserAndDeveloperValuesTest {
+class SmallerThanNumberWithUserAndDeveloperValuesTest extends ModelForm {
   SmallerThanNumberWithUserAndDeveloperValuesTest(
-      this.value, this.valueToCompare);
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  num _value;
+  num _valueToCompare;
+
+  // getters
   @SmallerThanNumber(
-    valueToCompareOnProperty: 'valueToCompare',
+    valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final num value;
-  final num valueToCompare;
+  num get value => this._value;
+  num get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(num value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class SmallerThanNumberWithUserValuesTest {
-  SmallerThanNumberWithUserValuesTest(this.value, this.valueToCompare);
+class SmallerThanNumberWithUserValuesTest extends ModelForm {
+  SmallerThanNumberWithUserValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  num _value;
+  num _valueToCompare;
+
+  // getters
   @SmallerThanNumber(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final num value;
-  final num valueToCompare;
+  num get value => this._value;
+  num get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(num value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class SmallerThanNumberWithDeveloperValuesTest {
-  SmallerThanNumberWithDeveloperValuesTest(this.value);
+class SmallerThanNumberWithDeveloperValuesTest extends ModelForm {
+  SmallerThanNumberWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  num _value;
+
+  // getters
   @SmallerThanNumber(
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final num value;
+  num get value => this._value;
+
+  // setters
+  set value(num value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region SmallerThanString
 @flutterModelFormValidator
-class SmallerThanStringTest {
-  SmallerThanStringTest(this.value, this.valueToCompare);
+class SmallerThanStringTest extends ModelForm {
+  SmallerThanStringTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  String _value;
+  String _valueToCompare;
+
+  // getters
   @SmallerThanString(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final String value;
-  final String valueToCompare;
+  String get value => this._value;
+  String get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(String value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class SmallerThanStringWithUserAndDeveloperValuesTest {
+class SmallerThanStringWithUserAndDeveloperValuesTest extends ModelForm {
   SmallerThanStringWithUserAndDeveloperValuesTest(
-      this.value, this.valueToCompare);
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  String _value;
+  String _valueToCompare;
+
+  // getters
   @SmallerThanString(
-    valueToCompareOnProperty: 'valueToCompare',
+    valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final String value;
-  final String valueToCompare;
+  String get value => this._value;
+  String get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(String value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class SmallerThanStringWithUserValuesTest {
-  SmallerThanStringWithUserValuesTest(this.value, this.valueToCompare);
+class SmallerThanStringWithUserValuesTest extends ModelForm {
+  SmallerThanStringWithUserValuesTest(
+    this._value,
+    this._valueToCompare,
+  );
 
+  // private properties
+  String _value;
+  String _valueToCompare;
+
+  // getters
   @SmallerThanString(
-    valueToCompareOnProperty: 'valueToCompare',
-    error: 'Value is not equal to the value to compare',
+    valueToCompareOnProperty: 'value_to_compare',
+    error: 'error message here',
   )
-  final String value;
-  final String valueToCompare;
+  String get value => this._value;
+  String get value_to_compare => this._valueToCompare;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set value_to_compare(String value) {
+    this._valueToCompare = value;
+    this.notifyModelState('value_to_compare');
+  }
 }
 
 @flutterModelFormValidator
-class SmallerThanStringWithDeveloperValuesTest {
-  SmallerThanStringWithDeveloperValuesTest(this.value);
+class SmallerThanStringWithDeveloperValuesTest extends ModelForm {
+  SmallerThanStringWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  String _value;
+
+  // getters
   @SmallerThanString(
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
-  final String value;
+  String get value => this._value;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region StringLength
 @flutterModelFormValidator
-class StringLengthTest {
-  StringLengthTest(this.value);
+class StringLengthTest extends ModelForm {
+  StringLengthTest(
+    this._value,
+  );
 
+  // private properties
+  String _value;
+
+  // getters
   @StringLength(
     min: 10,
     max: 20,
-    error: '"value" property must have between 10 and 20 characters',
+    error: 'error message here',
   )
-  final String value;
+  String get value => this._value;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region StringRange
 @flutterModelFormValidator
-class StringRangeTest {
-  StringRangeTest(this.value, this.min, this.max);
+class StringRangeTest extends ModelForm {
+  StringRangeTest(
+    this._value,
+    this._min,
+    this._max,
+  );
 
+  // private properties
+  String _value;
+  String _min;
+  String _max;
+
+  // getters
   @StringRange(
     minOnProperty: 'min',
     maxOnProperty: 'max',
-    error: 'This string is not in the range',
+    error: 'error message here',
   )
-  final String value;
-  final String min;
-  final String max;
+  String get value => this._value;
+  String get min => this._min;
+  String get max => this._max;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set min(String value) {
+    this._min = value;
+    this.notifyModelState('min');
+  }
+
+  set max(String value) {
+    this._max = value;
+    this.notifyModelState('max');
+  }
 }
 
 @flutterModelFormValidator
-class StringRangeWithUserAndDeveloperValuesTest {
-  StringRangeWithUserAndDeveloperValuesTest(this.value, this.min, this.max);
+class StringRangeWithUserAndDeveloperValuesTest extends ModelForm {
+  StringRangeWithUserAndDeveloperValuesTest(
+    this._value,
+    this._min,
+    this._max,
+  );
 
+  // private properties
+  String _value;
+  String _min;
+  String _max;
+
+  // getters
   @StringRange(
     minOnProperty: 'min',
     maxOnProperty: 'max',
     min: 'a',
     max: 'd',
-    error: 'This String is not in the range',
+    error: 'error message here',
   )
-  final String value;
-  final String min;
-  final String max;
+  String get value => this._value;
+  String get min => this._min;
+  String get max => this._max;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set min(String value) {
+    this._min = value;
+    this.notifyModelState('min');
+  }
+
+  set max(String value) {
+    this._max = value;
+    this.notifyModelState('max');
+  }
 }
 
 @flutterModelFormValidator
-class StringRangeWithUserValuesTest {
-  StringRangeWithUserValuesTest(this.value, this.min, this.max);
+class StringRangeWithUserValuesTest extends ModelForm {
+  StringRangeWithUserValuesTest(
+    this._value,
+    this._min,
+    this._max,
+  );
 
+  // private properties
+  String _value;
+  String _min;
+  String _max;
+
+  // getters
   @StringRange(
     minOnProperty: 'min',
     maxOnProperty: 'max',
-    error: 'This String is not in the range',
+    error: 'error message here',
   )
-  final String value;
-  final String min;
-  final String max;
+  String get value => this._value;
+  String get min => this._min;
+  String get max => this._max;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set min(String value) {
+    this._min = value;
+    this.notifyModelState('min');
+  }
+
+  set max(String value) {
+    this._max = value;
+    this.notifyModelState('max');
+  }
 }
 
 @flutterModelFormValidator
-class StringRangeWithDeveloperValuesTest {
-  StringRangeWithDeveloperValuesTest(this.value);
+class StringRangeWithDeveloperValuesTest extends ModelForm {
+  StringRangeWithDeveloperValuesTest(
+    this._value,
+  );
 
+  // private properties
+  String _value;
+
+  // getters
   @StringRange(
     min: 'a',
     max: 'd',
-    error: 'This String is not in the range',
+    error: 'error message here',
   )
-  final String value;
+  String get value => this._value;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion
 
 //#region URL
 @flutterModelFormValidator
-class UrlTest {
-  UrlTest(this.value);
+class UrlTest extends ModelForm {
+  UrlTest(
+    this._value,
+  );
 
+  // private properties
+  String _value;
+
+  // getters
   @URL(
-    error: 'Invalid URL',
+    error: 'error message here',
   )
-  final String value;
+  String get value => this._value;
+
+  // setters
+  set value(String value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
 }
 //#endregion

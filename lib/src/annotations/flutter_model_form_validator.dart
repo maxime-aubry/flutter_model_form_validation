@@ -7,9 +7,11 @@ import 'package:reflectable/reflectable.dart';
 class FlutterModelFormValidator extends Reflectable {
   const FlutterModelFormValidator()
       : super(
-          metadataCapability,
-          instanceInvokeCapability,
           declarationsCapability,
+          instanceInvokeCapability,
+          metadataCapability,
+          reflectedTypeCapability,
+          typeCapability,
         );
 }
 

@@ -113,13 +113,13 @@ import 'package:*.reflectable.dart';
 
 initializeReflectable();
 
-MyModel tester = new MyModel('Maxime', 'AUBRY', 'M', DateTime.parse('1986-12-22'), null);
+MyModel model = new MyModel('Maxime', 'AUBRY', 'M', DateTime.parse('1986-12-22'), null);
 bool isValid = ModelState.isValid<MyModel>(tester);
 
 if (isValid) {
   // do stuff...
 } else {
-  print(ModelState.errors);
+  // print(ModelState.errors);
 }
 ```
 
@@ -131,7 +131,7 @@ import 'package:example/blocs/login_form_bloc.dart';
 import 'package:example/blocs/login_form_event.dart';
 import 'package:example/blocs/login_form_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
