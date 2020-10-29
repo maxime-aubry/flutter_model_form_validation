@@ -47,15 +47,16 @@ class FormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     }
   }
 
-  EFormDeclarer _getFormDeclarer(MethodMirror childDeclaration) {
-    if (childDeclaration.dynamicReflectedReturnType == DateTime ||
-        childDeclaration.dynamicReflectedReturnType == bool ||
-        childDeclaration.dynamicReflectedReturnType == num ||
-        childDeclaration.dynamicReflectedReturnType == String)
+  EFormDeclarer _getFormDeclarer(Object value) {
+    if (value is DateTime || value is bool || value is num || value is String)
       return EFormDeclarer.FormControl;
 
-    if (childDeclaration.dynamicReflectedReturnType == List)
-      return EFormDeclarer.FormArray;
+    if (value is List<DateTime> ||
+        value is List<bool> ||
+        value is List<num> ||
+        value is List<String>) return EFormDeclarer.FormControl;
+
+    if (value is List) return EFormDeclarer.FormArray;
 
     return EFormDeclarer.FormGroup;
   }
@@ -134,8 +135,8 @@ class FormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     this.controls = new Map<String, AbstractControl>();
 
     for (MapEntry<String, DeclarationMirror> formControl in formControls) {
-      EFormDeclarer formDeclarer =
-          this._getFormDeclarer(formControl.value as MethodMirror);
+      Object value = this._getSubObject(instanceMirror, formControl.key);
+      EFormDeclarer formDeclarer = this._getFormDeclarer(value);
 
       if (formDeclarer == EFormDeclarer.FormGroup)
         this._addChildFormGroup(instanceMirror, formControl.key);
