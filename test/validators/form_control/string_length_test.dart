@@ -1,33 +1,38 @@
-// import 'models/models.dart';
-// import 'models/models.reflectable.dart';
-// import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-// import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-// void main() {
-//   initializeReflectable();
+import '../../models/models.dart';
+import '../../models/models.reflectable.dart';
 
-//   group('StringLength.', () {
-//     group('Test the validation > success.', () {
-//       test('String has between 10 and 20 characetrs.', () async {
-//         StringLengthTest model = new StringLengthTest('Hello everybody');
-//         ModelState modelState = new ModelState<StringLengthTest>(model);
+void main() {
+  initializeReflectable();
 
-//         expect(await modelState.validateForm(), true);
-//         expect(modelState.errors.isEmpty, true);
-//       });
-//     });
+  group('StringLength.', () {
+    group('Test the validation > success.', () {
+      test('String has between 10 and 20 characetrs.', () async {
+        StringLengthTest model = new StringLengthTest('Hello everybody');
+        ModelState modelState = new ModelState<StringLengthTest>(model);
 
-//     group('Test the validation > failure.', () {
-//       test('String has not between 10 and 20 characters.', () async {
-//         StringLengthTest model = new StringLengthTest('No, I am your father !');
-//         ModelState modelState = new ModelState<StringLengthTest>(model);
+        expect(await modelState.validateForm(), true);
+        expect(modelState.status, EFormStatus.valid);
+        ValidationError error = modelState.getValidationError(model, 'value');
+        expect(error, isNull);
+      });
+    });
 
-//         expect(await modelState.validateForm(), false);
-//         expect(modelState.errors['value'].validatorType, StringLength);
-//         expect(modelState.errors['value'].propertyName, 'value');
-//         expect(modelState.errors['value'].error,
-//             '"value" property must have between 10 and 20 characters');
-//       });
-//     });
-//   });
-// }
+    group('Test the validation > failure.', () {
+      test('String has not between 10 and 20 characters.', () async {
+        StringLengthTest model = new StringLengthTest('No, I am your father !');
+        ModelState modelState = new ModelState<StringLengthTest>(model);
+
+        expect(await modelState.validateForm(), false);
+        expect(modelState.status, EFormStatus.invalid);
+        ValidationError error = modelState.getValidationError(model, 'value');
+        expect(error, isNotNull);
+        expect(error.propertyName, 'value');
+        expect(error.validatorType, StringLength);
+        expect(error.message, 'error message here');
+      });
+    });
+  });
+}

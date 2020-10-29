@@ -10,16 +10,16 @@ void main() {
   group('FormBuilder.', () {
     test('Unable to generate a form using by a null model.', () {
       expect(() {
-        ModelState<ComplexFormTest> modelState =
-            new ModelState<ComplexFormTest>(null);
+        ModelState<FormBuilderTest> modelState =
+            new ModelState<FormBuilderTest>(null);
         expect(modelState, isNotNull);
       }, throwsA(isA<AssertionError>()));
     });
 
     test('Generates a form using by a new model.', () {
-      ComplexFormTest model = new ComplexFormTest(null, null, null, null);
-      ModelState<ComplexFormTest> modelState =
-          new ModelState<ComplexFormTest>(model);
+      FormBuilderTest model = new FormBuilderTest(null, null, null, null);
+      ModelState<FormBuilderTest> modelState =
+          new ModelState<FormBuilderTest>(model);
 
       FormGroup fg = modelState.formBuilder.group;
       FormArray fa;
@@ -93,7 +93,7 @@ void main() {
     });
 
     test('Generates a form using by a model with pre-entered data.', () {
-      ComplexFormTest model = new ComplexFormTest(
+      FormBuilderTest model = new FormBuilderTest(
         'Edouard',
         'Elric',
         new DateTime(1980, 12, 15),
@@ -118,8 +118,8 @@ void main() {
       ];
       model.favorite_book = model.books[1];
 
-      ModelState<ComplexFormTest> modelState =
-          new ModelState<ComplexFormTest>(model);
+      ModelState<FormBuilderTest> modelState =
+          new ModelState<FormBuilderTest>(model);
 
       FormGroup fg = modelState.formBuilder.group;
       FormArray fa;
@@ -314,9 +314,9 @@ void main() {
     });
 
     test('Form is updated and validated when setting a value.', () async {
-      ComplexFormTest model = new ComplexFormTest(null, null, null, null);
-      ModelState<ComplexFormTest> modelState =
-          new ModelState<ComplexFormTest>(model);
+      FormBuilderTest model = new FormBuilderTest(null, null, null, null);
+      ModelState<FormBuilderTest> modelState =
+          new ModelState<FormBuilderTest>(model);
 
       // FormGroup fg;
       // FormArray fa;
@@ -397,14 +397,14 @@ void main() {
     });
 
     test('Add sub-object. Actualize the form group.', () async {
-      ComplexFormTest model = new ComplexFormTest(
+      FormBuilderTest model = new FormBuilderTest(
         'Edouard',
         'Elric',
         new DateTime(1980, 12, 15),
         new DateTime(2019, 06, 01),
       );
-      ModelState<ComplexFormTest> modelState =
-          new ModelState<ComplexFormTest>(model);
+      ModelState<FormBuilderTest> modelState =
+          new ModelState<FormBuilderTest>(model);
 
       FormGroup fg =
           modelState.formBuilder.group.controls['favorite_book'] as FormGroup;
@@ -450,14 +450,14 @@ void main() {
     });
 
     test('Add item on collection. Actualize the form array.', () async {
-      ComplexFormTest model = new ComplexFormTest(
+      FormBuilderTest model = new FormBuilderTest(
         'Edouard',
         'Elric',
         new DateTime(1980, 12, 15),
         new DateTime(2019, 06, 01),
       );
-      ModelState<ComplexFormTest> modelState =
-          new ModelState<ComplexFormTest>(model);
+      ModelState<FormBuilderTest> modelState =
+          new ModelState<FormBuilderTest>(model);
 
       // FormGroup fg;
       FormArray fa =

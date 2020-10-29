@@ -7,15 +7,19 @@ import '../../models/models.reflectable.dart';
 void main() {
   initializeReflectable();
 
-  group('StringRange.', () {
+  group('NbItems.', () {
     group('Test the priority between user and developer static data.', () {
       test(
           '"Min" and "max" are provided by user and developer. User data has priority.',
           () async {
-        StringRangeWithUserAndDeveloperValuesTest model =
-            new StringRangeWithUserAndDeveloperValuesTest('m', 'g', 'o');
-        ModelState modelState =
-            new ModelState<StringRangeWithUserAndDeveloperValuesTest>(model);
+        NbItemsWithUserAndDeveloperValuesTest model =
+            new NbItemsWithUserAndDeveloperValuesTest(
+          ["azerty", "ytreza"],
+          2,
+          4,
+        );
+        ModelState<NbItemsWithUserAndDeveloperValuesTest> modelState =
+            new ModelState<NbItemsWithUserAndDeveloperValuesTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -24,10 +28,13 @@ void main() {
       });
 
       test('"Min" and "max" are provided by user only.', () async {
-        StringRangeWithUserValuesTest model =
-            new StringRangeWithUserValuesTest('m', 'g', 'o');
-        ModelState modelState =
-            new ModelState<StringRangeWithUserValuesTest>(model);
+        NbItemsWithUserValuesTest model = new NbItemsWithUserValuesTest(
+          ["azerty", "ytreza"],
+          2,
+          4,
+        );
+        ModelState<NbItemsWithUserValuesTest> modelState =
+            new ModelState<NbItemsWithUserValuesTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -36,10 +43,12 @@ void main() {
       });
 
       test('"Min" and "max" are provided by developer only.', () async {
-        StringRangeWithDeveloperValuesTest model =
-            new StringRangeWithDeveloperValuesTest('c');
-        ModelState modelState =
-            new ModelState<StringRangeWithDeveloperValuesTest>(model);
+        NbItemsWithDeveloperValuesTest model =
+            new NbItemsWithDeveloperValuesTest(
+          ["azerty", "ytreza"],
+        );
+        ModelState<NbItemsWithDeveloperValuesTest> modelState =
+            new ModelState<NbItemsWithDeveloperValuesTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -49,9 +58,13 @@ void main() {
     });
 
     group('Test the validation > success.', () {
-      test('The value is equal to "min".', () async {
-        StringRangeTest model = new StringRangeTest('g', 'g', 'o');
-        ModelState modelState = new ModelState<StringRangeTest>(model);
+      test('The list length is equal to "min".', () async {
+        NbItemsTest model = new NbItemsTest(
+          ["azerty", "ytreza"],
+          2,
+          4,
+        );
+        ModelState<NbItemsTest> modelState = new ModelState<NbItemsTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -59,9 +72,13 @@ void main() {
         expect(error, isNull);
       });
 
-      test('The value is between "min" and "max".', () async {
-        StringRangeTest model = new StringRangeTest('m', 'g', 'o');
-        ModelState modelState = new ModelState<StringRangeTest>(model);
+      test('The list length is between "min" and "max".', () async {
+        NbItemsTest model = new NbItemsTest(
+          ["azerty", "ytreza", "lorem"],
+          2,
+          4,
+        );
+        ModelState<NbItemsTest> modelState = new ModelState<NbItemsTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -69,9 +86,13 @@ void main() {
         expect(error, isNull);
       });
 
-      test('The value is equal to "max".', () async {
-        StringRangeTest model = new StringRangeTest('o', 'g', 'o');
-        ModelState modelState = new ModelState<StringRangeTest>(model);
+      test('The list length is equal to "max".', () async {
+        NbItemsTest model = new NbItemsTest(
+          ["azerty", "ytreza", "lorem", "ipsum"],
+          2,
+          4,
+        );
+        ModelState<NbItemsTest> modelState = new ModelState<NbItemsTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -81,29 +102,37 @@ void main() {
     });
 
     group('Test the validation > failure.', () {
-      test('The value is smaller than "min".', () async {
-        StringRangeTest model = new StringRangeTest('f', 'g', 'o');
-        ModelState modelState = new ModelState<StringRangeTest>(model);
+      test('The list length is smaller than "min".', () async {
+        NbItemsTest model = new NbItemsTest(
+          ["azerty"],
+          2,
+          4,
+        );
+        ModelState<NbItemsTest> modelState = new ModelState<NbItemsTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);
         ValidationError error = modelState.getValidationError(model, 'value');
         expect(error, isNotNull);
         expect(error.propertyName, 'value');
-        expect(error.validatorType, StringRange);
+        expect(error.validatorType, NbItems);
         expect(error.message, 'error message here');
       });
 
-      test('The value is greater than "max".', () async {
-        StringRangeTest model = new StringRangeTest('p', 'g', 'o');
-        ModelState modelState = new ModelState<StringRangeTest>(model);
+      test('The list length is greater than "max".', () async {
+        NbItemsTest model = new NbItemsTest(
+          ["azerty", "ytreza", "lorem", "ipsum", "dolor"],
+          2,
+          4,
+        );
+        ModelState<NbItemsTest> modelState = new ModelState<NbItemsTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);
         ValidationError error = modelState.getValidationError(model, 'value');
         expect(error, isNotNull);
         expect(error.propertyName, 'value');
-        expect(error.validatorType, StringRange);
+        expect(error.validatorType, NbItems);
         expect(error.message, 'error message here');
       });
     });

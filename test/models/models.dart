@@ -4,8 +4,8 @@ void main() {}
 
 //#region ComplexFormTest
 @flutterModelFormValidator
-class ComplexFormTest extends ModelForm {
-  ComplexFormTest(
+class FormBuilderTest extends ModelForm {
+  FormBuilderTest(
     this._firstName,
     this._lastName,
     this._birthDay,
@@ -1671,6 +1671,154 @@ class MembershipPasswordTest extends ModelForm {
 }
 //#endregion
 
+//#region NbItems
+@flutterModelFormValidator
+class NbItemsTest extends ModelForm {
+  NbItemsTest(
+    this._value,
+    this._min,
+    this._max,
+  );
+
+  // private properties
+  List<String> _value;
+  int _min;
+  int _max;
+
+  // getters
+  @NbItems(
+    minOnProperty: 'min',
+    maxOnProperty: 'max',
+    error: 'error message here',
+  )
+  List<String> get value => this._value;
+  int get min => this._min;
+  int get max => this._max;
+
+  // setters
+  set value(List<String> value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set min(int value) {
+    this._min = value;
+    this.notifyModelState('min');
+  }
+
+  set max(int value) {
+    this._max = value;
+    this.notifyModelState('max');
+  }
+}
+
+@flutterModelFormValidator
+class NbItemsWithUserAndDeveloperValuesTest extends ModelForm {
+  NbItemsWithUserAndDeveloperValuesTest(
+    this._value,
+    this._min,
+    this._max,
+  );
+
+  // private properties
+  List<String> _value;
+  int _min;
+  int _max;
+
+  // getters
+  @NbItems(
+    minOnProperty: 'min',
+    maxOnProperty: 'max',
+    min: 1,
+    max: 3,
+    error: 'error message here',
+  )
+  List<String> get value => this._value;
+  int get min => this._min;
+  int get max => this._max;
+
+  // setters
+  set value(List<String> value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set min(int min) {
+    this._min = min;
+    this.notifyModelState('min');
+  }
+
+  set max(int max) {
+    this._max = max;
+    this.notifyModelState('max');
+  }
+}
+
+@flutterModelFormValidator
+class NbItemsWithUserValuesTest extends ModelForm {
+  NbItemsWithUserValuesTest(
+    this._value,
+    this._min,
+    this._max,
+  );
+
+  // private properties
+  @NbItems(
+    minOnProperty: 'min',
+    maxOnProperty: 'max',
+    error: 'error message here',
+  )
+  List<String> _value;
+  int _min;
+  int _max;
+
+  // getters
+  List<String> get value => this._value;
+  int get min => this._min;
+  int get max => this._max;
+
+  // setters
+  set value(List<String> value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+
+  set min(int min) {
+    this._min = min;
+    this.notifyModelState('min');
+  }
+
+  set max(int max) {
+    this._max = max;
+    this.notifyModelState('max');
+  }
+}
+
+@flutterModelFormValidator
+class NbItemsWithDeveloperValuesTest extends ModelForm {
+  NbItemsWithDeveloperValuesTest(
+    this._value,
+  );
+
+  // private properties
+  List<String> _value;
+
+  // getters
+  @NbItems(
+    min: 1,
+    max: 3,
+    error: 'error message here',
+  )
+  List<String> get value => this._value;
+
+  // setters
+  set value(List<String> value) {
+    this._value = value;
+    this.notifyModelState('value');
+  }
+}
+//#endregion
+
 //#region NotEqualToDatetime
 @flutterModelFormValidator
 class NotEqualToDatetimeTest extends ModelForm {
@@ -3271,7 +3419,7 @@ class UrlTest extends ModelForm {
 
   // getters
   @URL(
-    error: 'Invalid URL',
+    error: 'error message here',
   )
   String get value => this._value;
 
