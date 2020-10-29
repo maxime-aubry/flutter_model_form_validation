@@ -1,8 +1,7 @@
-import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-import 'package:flutter_model_form_validation/src/form_builder/form_group.dart';
-import 'package:property_change_notifier/property_change_notifier.dart';
+import 'package:flutter_model_form_validation/src/form_builder/index.dart';
+import 'package:flutter_model_form_validation/src/index.dart';
 
-class FormBuilder<TModel extends PropertyChangeNotifier<String>> {
+class FormBuilder<TModel extends ModelForm> {
   FormBuilder(ModelState<TModel> modelState) : assert(modelState != null) {
     this._modelState = modelState;
     if (modelState != null) this._init();

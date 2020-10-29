@@ -1,21 +1,16 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-import 'package:property_change_notifier/property_change_notifier.dart';
 
 void main() {}
 
 //#region ComplexFormTest
 @flutterModelFormValidator
-class ComplexFormTest with PropertyChangeNotifier<String> {
+class ComplexFormTest extends ModelForm {
   ComplexFormTest(
     this._firstName,
     this._lastName,
     this._birthDay,
     this._subscriptionDate,
-  ) {
-    // this.books = new List<Book>();
-    this.books = null;
-    this.favorite_book = null;
-  }
+  );
 
   // private properties
   String _firstName;
@@ -26,77 +21,75 @@ class ComplexFormTest with PropertyChangeNotifier<String> {
   Book _favoriteBook;
 
   // getters
-  @Required(error: 'firstname is required')
-  @StringLength(min: 3, max: 50, error: 'Invalid string length')
+  @Required(error: 'error message here')
+  @StringLength(min: 3, max: 50, error: 'error message here')
   String get first_name => this._firstName;
 
-  @Required(error: 'lastname is required')
-  @StringLength(min: 3, max: 50, error: 'Invalid string length')
+  @Required(error: 'error message here')
+  @StringLength(min: 3, max: 50, error: 'error message here')
   String get last_name => this._lastName;
 
-  @Required(error: 'birthday is required')
+  @Required(error: 'error message here')
   DateTime get birth_day => this._birthDay;
 
-  @Required(error: 'subscription date is required')
+  @Required(error: 'error message here')
   @GreaterOrEqualToDateTime(
-      valueToCompareOnProperty: 'birth_day',
-      error: 'date of death must be greater or equal to birthday')
+      valueToCompareOnProperty: 'birth_day', error: 'error message here')
   @SmallerOrEqualToDateTime(
-      valueToCompare: '2020-01-01',
-      error: 'date of death must be smaller or equal than 2020-01-01')
+      valueToCompare: '2020-01-01', error: 'error message here')
   DateTime get subscription_date => this._subscriptionDate;
 
-  @NbItems(min: 1, max: 3, error: 'Invalid number of items in the array')
+  @NbItems(min: 1, max: 3, error: 'error message here')
   List<Book> get books => this._books;
 
-  @Required(error: 'Favorite book is required')
+  @Required(error: 'error message here')
   Book get favorite_book => this._favoriteBook;
 
   // setters
   set first_name(String value) {
     this._firstName = value;
-    this.notifyListeners(ModelState.getListenerName(this, 'first_name'));
+    this.notifyModelState('first_name');
   }
 
   set last_name(String value) {
     this._lastName = value;
-    this.notifyListeners(ModelState.getListenerName(this, 'last_name'));
+    this.notifyModelState('last_name');
   }
 
   set birth_day(DateTime value) {
     this._birthDay = value;
-    this.notifyListeners(ModelState.getListenerName(this, 'birth_day'));
+    this.notifyModelState('birth_day');
   }
 
   set subscription_date(DateTime value) {
     this._subscriptionDate = value;
-    this.notifyListeners(ModelState.getListenerName(this, 'subscription_date'));
+    this.notifyModelState('subscription_date');
   }
 
   set books(List<Book> value) {
     this._books = value;
-    this.notifyListeners(ModelState.getListenerName(this, 'books'));
+    this.notifyModelState('books');
   }
 
   set favorite_book(Book value) {
     this._favoriteBook = value;
-    this.notifyListeners(ModelState.getListenerName(this, 'favorite_book'));
+    this.notifyModelState('favorite_book');
   }
 
   void addItemOnBooks(Book item) {
     if (this._books == null) this._books = new List<Book>();
     this._books.add(item);
-    this.notifyListeners(ModelState.getListenerName(this, 'books'));
+    this.notifyModelState('books');
   }
 
   void removeItemOnBook(Book item) {
     if (this._books.contains(item)) this._books.remove(item);
-    this.notifyListeners(ModelState.getListenerName(this, 'books'));
+    this.notifyModelState('books');
   }
 }
 
 @flutterModelFormValidator
-class Book with PropertyChangeNotifier<String> {
+class Book extends ModelForm {
   Book(this._name, this._price, this._loanDate);
 
   // private properties
@@ -105,39 +98,38 @@ class Book with PropertyChangeNotifier<String> {
   DateTime _loanDate;
 
   // getters
-  @Required(error: 'name is required')
-  @StringLength(min: 3, max: 100, error: 'Book name need at least 3 letters')
+  @Required(error: 'error message here')
+  @StringLength(min: 3, max: 100, error: 'error message here')
   String get name => this._name;
 
   @Required(error: 'price is required')
-  @GreaterThanNumber(
-      valueToCompare: 0, error: 'Book price must be greater than 0')
+  @GreaterThanNumber(valueToCompare: 0, error: 'error message here')
   num get price => this._price;
 
-  @Required(error: 'loan date is required')
+  @Required(error: 'error message here')
   DateTime get loan_date => this._loanDate;
 
   // setters
   set name(String value) {
     this._name = value;
-    this.notifyListeners(ModelState.getListenerName(this, 'name'));
+    this.notifyModelState('name');
   }
 
   set price(num value) {
     this._price = value;
-    this.notifyListeners(ModelState.getListenerName(this, 'price'));
+    this.notifyModelState('price');
   }
 
   set loan_date(DateTime value) {
     this._loanDate = value;
-    this.notifyListeners(ModelState.getListenerName(this, 'loan_date'));
+    this.notifyModelState('loan_date');
   }
 }
 //#endregion
 
 //#region ContainsDateTime
 @flutterModelFormValidator
-class ContainsDateTimeTest with PropertyChangeNotifier<String> {
+class ContainsDateTimeTest extends ModelForm {
   ContainsDateTimeTest(
     this._value,
   );
@@ -148,21 +140,21 @@ class ContainsDateTimeTest with PropertyChangeNotifier<String> {
   // getters
   @ContainsDateTime(
     items: ['2020-01-01', '2020-06-01', '2020-12-31'],
-    error: 'Invalid datetime',
+    error: 'error message here',
   )
   DateTime get value => this._value;
 
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region ContainsNumber
 @flutterModelFormValidator
-class ContainsNumberTest with PropertyChangeNotifier<String> {
+class ContainsNumberTest extends ModelForm {
   ContainsNumberTest(
     this._value,
   );
@@ -173,21 +165,21 @@ class ContainsNumberTest with PropertyChangeNotifier<String> {
   // getters
   @ContainsNumber(
     items: [1, 2, 3],
-    error: 'Invalid number',
+    error: 'error message here',
   )
   num get value => this._value;
 
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region ContainsString
 @flutterModelFormValidator
-class ContainsStringTest with PropertyChangeNotifier<String> {
+class ContainsStringTest extends ModelForm {
   ContainsStringTest(
     this._value,
   );
@@ -198,21 +190,21 @@ class ContainsStringTest with PropertyChangeNotifier<String> {
   // getters
   @ContainsString(
     items: ['lorem', 'ipsum', 'dolor', 'sit', 'amet'],
-    error: 'Invalid keyword',
+    error: 'error message here',
   )
   String get value => this._value;
 
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region DateTimeRange
 @flutterModelFormValidator
-class DateTimeRangeTest with PropertyChangeNotifier<String> {
+class DateTimeRangeTest extends ModelForm {
   DateTimeRangeTest(
     this._value,
     this._min,
@@ -228,7 +220,7 @@ class DateTimeRangeTest with PropertyChangeNotifier<String> {
   @DateTimeRange(
     minOnProperty: 'min',
     maxOnProperty: 'max',
-    error: 'This datetime is not in the range',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get min => this._min;
@@ -237,23 +229,22 @@ class DateTimeRangeTest with PropertyChangeNotifier<String> {
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set min(DateTime value) {
     this._min = value;
-    this.notifyListeners('min');
+    this.notifyModelState('min');
   }
 
   set max(DateTime value) {
     this._max = value;
-    this.notifyListeners('max');
+    this.notifyModelState('max');
   }
 }
 
 @flutterModelFormValidator
-class DateTimeRangeWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class DateTimeRangeWithUserAndDeveloperValuesTest extends ModelForm {
   DateTimeRangeWithUserAndDeveloperValuesTest(
     this._value,
     this._min,
@@ -271,7 +262,7 @@ class DateTimeRangeWithUserAndDeveloperValuesTest
     maxOnProperty: 'max',
     min: '2019-01-01',
     max: '2019-12-31',
-    error: 'This datetime is not in the range',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get min => this._min;
@@ -280,22 +271,22 @@ class DateTimeRangeWithUserAndDeveloperValuesTest
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set min(DateTime min) {
     this._min = min;
-    this.notifyListeners('min');
+    this.notifyModelState('min');
   }
 
   set max(DateTime max) {
     this._max = max;
-    this.notifyListeners('max');
+    this.notifyModelState('max');
   }
 }
 
 @flutterModelFormValidator
-class DateTimeRangeWithUserValuesTest with PropertyChangeNotifier<String> {
+class DateTimeRangeWithUserValuesTest extends ModelForm {
   DateTimeRangeWithUserValuesTest(
     this._value,
     this._min,
@@ -306,7 +297,7 @@ class DateTimeRangeWithUserValuesTest with PropertyChangeNotifier<String> {
   @DateTimeRange(
     minOnProperty: 'min',
     maxOnProperty: 'max',
-    error: 'This datetime is not in the range',
+    error: 'error message here',
   )
   DateTime _value;
   DateTime _min;
@@ -320,22 +311,22 @@ class DateTimeRangeWithUserValuesTest with PropertyChangeNotifier<String> {
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set min(DateTime min) {
     this._min = min;
-    this.notifyListeners('min');
+    this.notifyModelState('min');
   }
 
   set max(DateTime max) {
     this._max = max;
-    this.notifyListeners('max');
+    this.notifyModelState('max');
   }
 }
 
 @flutterModelFormValidator
-class DateTimeRangeWithDeveloperValuesTest with PropertyChangeNotifier<String> {
+class DateTimeRangeWithDeveloperValuesTest extends ModelForm {
   DateTimeRangeWithDeveloperValuesTest(
     this._value,
   );
@@ -347,21 +338,21 @@ class DateTimeRangeWithDeveloperValuesTest with PropertyChangeNotifier<String> {
   @DateTimeRange(
     min: '2019-01-01',
     max: '2019-12-31',
-    error: 'This datetime is not in the range',
+    error: 'error message here',
   )
   DateTime get value => this._value;
 
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region Email
 @flutterModelFormValidator
-class EmailTest with PropertyChangeNotifier<String> {
+class EmailTest extends ModelForm {
   EmailTest(
     this._value,
   );
@@ -370,22 +361,20 @@ class EmailTest with PropertyChangeNotifier<String> {
   String _value;
 
   // getters
-  @Email(
-    error: 'Invalid email',
-  )
+  @Email(error: 'error message here')
   String get value => this._value;
 
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region EqualToDatetime
 @flutterModelFormValidator
-class EqualToDatetimeTest with PropertyChangeNotifier<String> {
+class EqualToDatetimeTest extends ModelForm {
   EqualToDatetimeTest(
     this._value,
     this._valueToCompare,
@@ -398,7 +387,7 @@ class EqualToDatetimeTest with PropertyChangeNotifier<String> {
   // getters
   @EqualToDateTime(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get value_to_compare => this._valueToCompare;
@@ -406,18 +395,17 @@ class EqualToDatetimeTest with PropertyChangeNotifier<String> {
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(DateTime value) {
     this._valueToCompare = value;
-    this.notifyListeners('valueToCompare');
+    this.notifyModelState('valueToCompare');
   }
 }
 
 @flutterModelFormValidator
-class EqualToDatetimeWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class EqualToDatetimeWithUserAndDeveloperValuesTest extends ModelForm {
   EqualToDatetimeWithUserAndDeveloperValuesTest(
     this._value,
     this._valueToCompare,
@@ -431,7 +419,7 @@ class EqualToDatetimeWithUserAndDeveloperValuesTest
   @EqualToDateTime(
     valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get value_to_compare => this._valueToCompare;
@@ -439,17 +427,17 @@ class EqualToDatetimeWithUserAndDeveloperValuesTest
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(DateTime value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class EqualToDatetimeWithUserValuesTest with PropertyChangeNotifier<String> {
+class EqualToDatetimeWithUserValuesTest extends ModelForm {
   EqualToDatetimeWithUserValuesTest(
     this._value,
     this._valueToCompare,
@@ -462,7 +450,7 @@ class EqualToDatetimeWithUserValuesTest with PropertyChangeNotifier<String> {
   // getters
   @EqualToDateTime(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get value_to_compare => this._valueToCompare;
@@ -470,18 +458,17 @@ class EqualToDatetimeWithUserValuesTest with PropertyChangeNotifier<String> {
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(DateTime value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class EqualToDatetimeWithDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class EqualToDatetimeWithDeveloperValuesTest extends ModelForm {
   EqualToDatetimeWithDeveloperValuesTest(
     this._value,
   );
@@ -492,21 +479,21 @@ class EqualToDatetimeWithDeveloperValuesTest
   // getters
   @EqualToDateTime(
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
 
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region EqualToNumber
 @flutterModelFormValidator
-class EqualToNumberTest with PropertyChangeNotifier<String> {
+class EqualToNumberTest extends ModelForm {
   EqualToNumberTest(
     this._value,
     this._valueToCompare,
@@ -519,7 +506,7 @@ class EqualToNumberTest with PropertyChangeNotifier<String> {
   // getters
   @EqualToNumber(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
   num get value_to_compare => this._valueToCompare;
@@ -527,18 +514,17 @@ class EqualToNumberTest with PropertyChangeNotifier<String> {
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(num value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class EqualToNumberWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class EqualToNumberWithUserAndDeveloperValuesTest extends ModelForm {
   EqualToNumberWithUserAndDeveloperValuesTest(
     this._value,
     this._valueToCompare,
@@ -552,7 +538,7 @@ class EqualToNumberWithUserAndDeveloperValuesTest
   @EqualToNumber(
     valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
   num get value_to_compare => this._valueToCompare;
@@ -560,17 +546,17 @@ class EqualToNumberWithUserAndDeveloperValuesTest
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(num value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class EqualToNumberWithUserValuesTest with PropertyChangeNotifier<String> {
+class EqualToNumberWithUserValuesTest extends ModelForm {
   EqualToNumberWithUserValuesTest(
     this._value,
     this._valueToCompare,
@@ -583,7 +569,7 @@ class EqualToNumberWithUserValuesTest with PropertyChangeNotifier<String> {
   // getters
   @EqualToNumber(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
   num get value_to_compare => this._valueToCompare;
@@ -591,17 +577,17 @@ class EqualToNumberWithUserValuesTest with PropertyChangeNotifier<String> {
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(num value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class EqualToNumberWithDeveloperValuesTest with PropertyChangeNotifier<String> {
+class EqualToNumberWithDeveloperValuesTest extends ModelForm {
   EqualToNumberWithDeveloperValuesTest(
     this._value,
   );
@@ -612,21 +598,21 @@ class EqualToNumberWithDeveloperValuesTest with PropertyChangeNotifier<String> {
   // getters
   @EqualToNumber(
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
 
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region EqualToString
 @flutterModelFormValidator
-class EqualToStringTest with PropertyChangeNotifier<String> {
+class EqualToStringTest extends ModelForm {
   EqualToStringTest(
     this._value,
     this._valueToCompare,
@@ -639,7 +625,7 @@ class EqualToStringTest with PropertyChangeNotifier<String> {
   // getters
   @EqualToString(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
   String get value_to_compare => this._valueToCompare;
@@ -647,18 +633,17 @@ class EqualToStringTest with PropertyChangeNotifier<String> {
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(String value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class EqualToStringWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class EqualToStringWithUserAndDeveloperValuesTest extends ModelForm {
   EqualToStringWithUserAndDeveloperValuesTest(
     this._value,
     this._valueToCompare,
@@ -671,7 +656,7 @@ class EqualToStringWithUserAndDeveloperValuesTest
   // getters
   @EqualToString(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
   String get value_to_compare => this._valueToCompare;
@@ -679,17 +664,17 @@ class EqualToStringWithUserAndDeveloperValuesTest
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(String value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class EqualToStringWithUserValuesTest with PropertyChangeNotifier<String> {
+class EqualToStringWithUserValuesTest extends ModelForm {
   EqualToStringWithUserValuesTest(
     this._value,
     this._valueToCompare,
@@ -702,7 +687,7 @@ class EqualToStringWithUserValuesTest with PropertyChangeNotifier<String> {
   // getters
   @EqualToString(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
   String get value_to_compare => this._valueToCompare;
@@ -710,17 +695,17 @@ class EqualToStringWithUserValuesTest with PropertyChangeNotifier<String> {
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(String value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class EqualToStringWithDeveloperValuesTest with PropertyChangeNotifier<String> {
+class EqualToStringWithDeveloperValuesTest extends ModelForm {
   EqualToStringWithDeveloperValuesTest(
     this._value,
   );
@@ -731,21 +716,21 @@ class EqualToStringWithDeveloperValuesTest with PropertyChangeNotifier<String> {
   // getters
   @EqualToString(
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
 
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region FileMimeType
 @flutterModelFormValidator
-class FileMimeTypeTest with PropertyChangeNotifier<String> {
+class FileMimeTypeTest extends ModelForm {
   FileMimeTypeTest(
     this._value,
   );
@@ -756,21 +741,21 @@ class FileMimeTypeTest with PropertyChangeNotifier<String> {
   // getters
   @FileMimeType(
     mimeTypes: ['image/jpeg', 'image/bmp'],
-    error: 'Invalid mime type',
+    error: 'error message here',
   )
   List<int> get value => this._value;
 
   // setters
   set value(List<int> value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region FileSize
 @flutterModelFormValidator
-class FileSizeTest with PropertyChangeNotifier<String> {
+class FileSizeTest extends ModelForm {
   FileSizeTest(
     this._value,
   );
@@ -781,21 +766,21 @@ class FileSizeTest with PropertyChangeNotifier<String> {
   // getters
   @FileSize(
     size: 1048576,
-    error: 'Invalid file size',
+    error: 'error message here',
   )
   List<int> get value => this._value;
 
   // setters
   set value(List<int> value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region GreaterOrEqualToDatetime
 @flutterModelFormValidator
-class GreaterOrEqualToDatetimeTest with PropertyChangeNotifier<String> {
+class GreaterOrEqualToDatetimeTest extends ModelForm {
   GreaterOrEqualToDatetimeTest(
     this._value,
     this._valueToCompare,
@@ -808,7 +793,7 @@ class GreaterOrEqualToDatetimeTest with PropertyChangeNotifier<String> {
   // getters
   @GreaterOrEqualToDateTime(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get value_to_compare => this._valueToCompare;
@@ -816,18 +801,17 @@ class GreaterOrEqualToDatetimeTest with PropertyChangeNotifier<String> {
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(DateTime value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToDatetimeWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class GreaterOrEqualToDatetimeWithUserAndDeveloperValuesTest extends ModelForm {
   GreaterOrEqualToDatetimeWithUserAndDeveloperValuesTest(
     this._value,
     this._valueToCompare,
@@ -841,7 +825,7 @@ class GreaterOrEqualToDatetimeWithUserAndDeveloperValuesTest
   @GreaterOrEqualToDateTime(
     valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get value_to_compare => this._valueToCompare;
@@ -849,18 +833,17 @@ class GreaterOrEqualToDatetimeWithUserAndDeveloperValuesTest
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(DateTime value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToDatetimeWithUserValuesTest
-    with PropertyChangeNotifier<String> {
+class GreaterOrEqualToDatetimeWithUserValuesTest extends ModelForm {
   GreaterOrEqualToDatetimeWithUserValuesTest(
     this._value,
     this._valueToCompare,
@@ -873,7 +856,7 @@ class GreaterOrEqualToDatetimeWithUserValuesTest
   // getters
   @GreaterOrEqualToDateTime(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get value_to_compare => this._valueToCompare;
@@ -881,18 +864,17 @@ class GreaterOrEqualToDatetimeWithUserValuesTest
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(DateTime value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToDatetimeWithDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class GreaterOrEqualToDatetimeWithDeveloperValuesTest extends ModelForm {
   GreaterOrEqualToDatetimeWithDeveloperValuesTest(
     this._value,
   );
@@ -903,21 +885,21 @@ class GreaterOrEqualToDatetimeWithDeveloperValuesTest
   // getters
   @GreaterOrEqualToDateTime(
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
 
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region GreaterOrEqualToNumber
 @flutterModelFormValidator
-class GreaterOrEqualToNumberTest with PropertyChangeNotifier<String> {
+class GreaterOrEqualToNumberTest extends ModelForm {
   GreaterOrEqualToNumberTest(
     this._value,
     this._valueToCompare,
@@ -930,7 +912,7 @@ class GreaterOrEqualToNumberTest with PropertyChangeNotifier<String> {
   // getters
   @GreaterOrEqualToNumber(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
   num get value_to_compare => this._valueToCompare;
@@ -938,18 +920,17 @@ class GreaterOrEqualToNumberTest with PropertyChangeNotifier<String> {
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(num value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToNumberWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class GreaterOrEqualToNumberWithUserAndDeveloperValuesTest extends ModelForm {
   GreaterOrEqualToNumberWithUserAndDeveloperValuesTest(
     this._value,
     this._valueToCompare,
@@ -963,7 +944,7 @@ class GreaterOrEqualToNumberWithUserAndDeveloperValuesTest
   @GreaterOrEqualToNumber(
     valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
   num get value_to_compare => this._valueToCompare;
@@ -971,18 +952,17 @@ class GreaterOrEqualToNumberWithUserAndDeveloperValuesTest
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(num value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToNumberWithUserValuesTest
-    with PropertyChangeNotifier<String> {
+class GreaterOrEqualToNumberWithUserValuesTest extends ModelForm {
   GreaterOrEqualToNumberWithUserValuesTest(
     this._value,
     this._valueToCompare,
@@ -995,7 +975,7 @@ class GreaterOrEqualToNumberWithUserValuesTest
   // getters
   @GreaterOrEqualToNumber(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
   num get value_to_compare => this._valueToCompare;
@@ -1003,18 +983,17 @@ class GreaterOrEqualToNumberWithUserValuesTest
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(num value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToNumberWithDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class GreaterOrEqualToNumberWithDeveloperValuesTest extends ModelForm {
   GreaterOrEqualToNumberWithDeveloperValuesTest(
     this._value,
   );
@@ -1025,21 +1004,21 @@ class GreaterOrEqualToNumberWithDeveloperValuesTest
   // getters
   @GreaterOrEqualToNumber(
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
 
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region GreaterOrEqualToString
 @flutterModelFormValidator
-class GreaterOrEqualToStringTest with PropertyChangeNotifier<String> {
+class GreaterOrEqualToStringTest extends ModelForm {
   GreaterOrEqualToStringTest(
     this._value,
     this._valueToCompare,
@@ -1052,7 +1031,7 @@ class GreaterOrEqualToStringTest with PropertyChangeNotifier<String> {
   // getters
   @GreaterOrEqualToString(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
   String get value_to_compare => this._valueToCompare;
@@ -1060,18 +1039,17 @@ class GreaterOrEqualToStringTest with PropertyChangeNotifier<String> {
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(String value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToStringWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class GreaterOrEqualToStringWithUserAndDeveloperValuesTest extends ModelForm {
   GreaterOrEqualToStringWithUserAndDeveloperValuesTest(
     this._value,
     this._valueToCompare,
@@ -1085,7 +1063,7 @@ class GreaterOrEqualToStringWithUserAndDeveloperValuesTest
   @GreaterOrEqualToString(
     valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
   String get value_to_compare => this._valueToCompare;
@@ -1093,18 +1071,17 @@ class GreaterOrEqualToStringWithUserAndDeveloperValuesTest
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(String value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToStringWithUserValuesTest
-    with PropertyChangeNotifier<String> {
+class GreaterOrEqualToStringWithUserValuesTest extends ModelForm {
   GreaterOrEqualToStringWithUserValuesTest(
     this._value,
     this._valueToCompare,
@@ -1117,7 +1094,7 @@ class GreaterOrEqualToStringWithUserValuesTest
   // getters
   @GreaterOrEqualToString(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
   String get value_to_compare => this._valueToCompare;
@@ -1125,18 +1102,17 @@ class GreaterOrEqualToStringWithUserValuesTest
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(String value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class GreaterOrEqualToStringWithDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class GreaterOrEqualToStringWithDeveloperValuesTest extends ModelForm {
   GreaterOrEqualToStringWithDeveloperValuesTest(
     this._value,
   );
@@ -1147,21 +1123,21 @@ class GreaterOrEqualToStringWithDeveloperValuesTest
   // getters
   @GreaterOrEqualToString(
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
 
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region GreaterThanDatetime
 @flutterModelFormValidator
-class GreaterThanDatetimeTest with PropertyChangeNotifier<String> {
+class GreaterThanDatetimeTest extends ModelForm {
   GreaterThanDatetimeTest(
     this._value,
     this._valueToCompare,
@@ -1174,7 +1150,7 @@ class GreaterThanDatetimeTest with PropertyChangeNotifier<String> {
   // getters
   @GreaterThanDateTime(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get value_to_compare => this._valueToCompare;
@@ -1182,18 +1158,17 @@ class GreaterThanDatetimeTest with PropertyChangeNotifier<String> {
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(DateTime value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class GreaterThanDatetimeWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class GreaterThanDatetimeWithUserAndDeveloperValuesTest extends ModelForm {
   GreaterThanDatetimeWithUserAndDeveloperValuesTest(
     this._value,
     this._valueToCompare,
@@ -1207,7 +1182,7 @@ class GreaterThanDatetimeWithUserAndDeveloperValuesTest
   @GreaterThanDateTime(
     valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get value_to_compare => this._valueToCompare;
@@ -1215,18 +1190,17 @@ class GreaterThanDatetimeWithUserAndDeveloperValuesTest
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(DateTime value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class GreaterThanDatetimeWithUserValuesTest
-    with PropertyChangeNotifier<String> {
+class GreaterThanDatetimeWithUserValuesTest extends ModelForm {
   GreaterThanDatetimeWithUserValuesTest(
     this._value,
     this._valueToCompare,
@@ -1239,7 +1213,7 @@ class GreaterThanDatetimeWithUserValuesTest
   // getters
   @GreaterThanDateTime(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get value_to_compare => this._valueToCompare;
@@ -1247,18 +1221,17 @@ class GreaterThanDatetimeWithUserValuesTest
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(DateTime value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class GreaterThanDatetimeWithDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class GreaterThanDatetimeWithDeveloperValuesTest extends ModelForm {
   GreaterThanDatetimeWithDeveloperValuesTest(
     this._value,
   );
@@ -1269,21 +1242,21 @@ class GreaterThanDatetimeWithDeveloperValuesTest
   // getters
   @GreaterThanDateTime(
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
 
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region GreaterThanNumber
 @flutterModelFormValidator
-class GreaterThanNumberTest with PropertyChangeNotifier<String> {
+class GreaterThanNumberTest extends ModelForm {
   GreaterThanNumberTest(
     this._value,
     this._valueToCompare,
@@ -1296,7 +1269,7 @@ class GreaterThanNumberTest with PropertyChangeNotifier<String> {
   // getters
   @GreaterThanNumber(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
   num get value_to_compare => this._valueToCompare;
@@ -1304,18 +1277,17 @@ class GreaterThanNumberTest with PropertyChangeNotifier<String> {
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(num value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class GreaterThanNumberWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class GreaterThanNumberWithUserAndDeveloperValuesTest extends ModelForm {
   GreaterThanNumberWithUserAndDeveloperValuesTest(
     this._value,
     this._valueToCompare,
@@ -1329,7 +1301,7 @@ class GreaterThanNumberWithUserAndDeveloperValuesTest
   @GreaterThanNumber(
     valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
   num get value_to_compare => this._valueToCompare;
@@ -1337,17 +1309,17 @@ class GreaterThanNumberWithUserAndDeveloperValuesTest
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(num value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class GreaterThanNumberWithUserValuesTest with PropertyChangeNotifier<String> {
+class GreaterThanNumberWithUserValuesTest extends ModelForm {
   GreaterThanNumberWithUserValuesTest(
     this._value,
     this._valueToCompare,
@@ -1360,7 +1332,7 @@ class GreaterThanNumberWithUserValuesTest with PropertyChangeNotifier<String> {
   // getters
   @GreaterThanNumber(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
   num get value_to_compare => this._valueToCompare;
@@ -1368,18 +1340,17 @@ class GreaterThanNumberWithUserValuesTest with PropertyChangeNotifier<String> {
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(num value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class GreaterThanNumberWithDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class GreaterThanNumberWithDeveloperValuesTest extends ModelForm {
   GreaterThanNumberWithDeveloperValuesTest(
     this._value,
   );
@@ -1390,21 +1361,21 @@ class GreaterThanNumberWithDeveloperValuesTest
   // getters
   @GreaterThanNumber(
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
 
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region GreaterThanString
 @flutterModelFormValidator
-class GreaterThanStringTest with PropertyChangeNotifier<String> {
+class GreaterThanStringTest extends ModelForm {
   GreaterThanStringTest(
     this._value,
     this._valueToCompare,
@@ -1417,7 +1388,7 @@ class GreaterThanStringTest with PropertyChangeNotifier<String> {
   // getters
   @GreaterThanString(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
   String get value_to_compare => this._valueToCompare;
@@ -1425,18 +1396,17 @@ class GreaterThanStringTest with PropertyChangeNotifier<String> {
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(String value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class GreaterThanStringWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class GreaterThanStringWithUserAndDeveloperValuesTest extends ModelForm {
   GreaterThanStringWithUserAndDeveloperValuesTest(
     this._value,
     this._valueToCompare,
@@ -1450,7 +1420,7 @@ class GreaterThanStringWithUserAndDeveloperValuesTest
   @GreaterThanString(
     valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
   String get value_to_compare => this._valueToCompare;
@@ -1458,17 +1428,17 @@ class GreaterThanStringWithUserAndDeveloperValuesTest
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(String value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class GreaterThanStringWithUserValuesTest with PropertyChangeNotifier<String> {
+class GreaterThanStringWithUserValuesTest extends ModelForm {
   GreaterThanStringWithUserValuesTest(
     this._value,
     this._valueToCompare,
@@ -1481,7 +1451,7 @@ class GreaterThanStringWithUserValuesTest with PropertyChangeNotifier<String> {
   // getters
   @GreaterThanString(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
   String get value_to_compare => this._valueToCompare;
@@ -1489,18 +1459,17 @@ class GreaterThanStringWithUserValuesTest with PropertyChangeNotifier<String> {
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(String value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class GreaterThanStringWithDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class GreaterThanStringWithDeveloperValuesTest extends ModelForm {
   GreaterThanStringWithDeveloperValuesTest(
     this._value,
   );
@@ -1511,21 +1480,21 @@ class GreaterThanStringWithDeveloperValuesTest
   // getters
   @GreaterThanString(
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
 
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region ImageSize
 @flutterModelFormValidator
-class ImageSizeTest with PropertyChangeNotifier<String> {
+class ImageSizeTest extends ModelForm {
   ImageSizeTest(
     this._value,
   );
@@ -1539,21 +1508,21 @@ class ImageSizeTest with PropertyChangeNotifier<String> {
     minHeight: 500,
     maxWidth: 1000,
     maxHeight: 1000,
-    error: 'Taille d\'image incorrecte',
+    error: 'error message here',
   )
   List<int> get value => this._value;
 
   // setters
   set value(List<int> value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region InText
 @flutterModelFormValidator
-class InTextTest with PropertyChangeNotifier<String> {
+class InTextTest extends ModelForm {
   InTextTest(
     this._value,
     this._text,
@@ -1566,7 +1535,7 @@ class InTextTest with PropertyChangeNotifier<String> {
   // getters
   @InText(
     textOnProperty: 'text',
-    error: 'Keyword is not in the string',
+    error: 'error message here',
   )
   String get value => this._value;
   String get text => this._text;
@@ -1574,17 +1543,17 @@ class InTextTest with PropertyChangeNotifier<String> {
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set text(String value) {
     this._text = value;
-    this.notifyListeners('text');
+    this.notifyModelState('text');
   }
 }
 
 @flutterModelFormValidator
-class InTextWithUserAndDeveloperValuesTest with PropertyChangeNotifier<String> {
+class InTextWithUserAndDeveloperValuesTest extends ModelForm {
   InTextWithUserAndDeveloperValuesTest(
     this._value,
     this._text,
@@ -1599,7 +1568,7 @@ class InTextWithUserAndDeveloperValuesTest with PropertyChangeNotifier<String> {
     textOnProperty: 'text',
     text:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    error: 'Keyword is not in the string',
+    error: 'error message here',
   )
   String get value => this._value;
   String get text => this._text;
@@ -1607,17 +1576,17 @@ class InTextWithUserAndDeveloperValuesTest with PropertyChangeNotifier<String> {
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set text(String value) {
     this._text = value;
-    this.notifyListeners('text');
+    this.notifyModelState('text');
   }
 }
 
 @flutterModelFormValidator
-class InTextWithUserValuesTest with PropertyChangeNotifier<String> {
+class InTextWithUserValuesTest extends ModelForm {
   InTextWithUserValuesTest(
     this._value,
     this._text,
@@ -1630,7 +1599,7 @@ class InTextWithUserValuesTest with PropertyChangeNotifier<String> {
   // getters
   @InText(
     textOnProperty: 'text',
-    error: 'Keyword is not in the string',
+    error: 'error message here',
   )
   String get value => this._value;
   String get text => this._text;
@@ -1638,17 +1607,17 @@ class InTextWithUserValuesTest with PropertyChangeNotifier<String> {
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set text(String value) {
     this._text = value;
-    this.notifyListeners('text');
+    this.notifyModelState('text');
   }
 }
 
 @flutterModelFormValidator
-class InTextWithDeveloperValuesTest with PropertyChangeNotifier<String> {
+class InTextWithDeveloperValuesTest extends ModelForm {
   InTextWithDeveloperValuesTest(
     this._value,
   );
@@ -1660,21 +1629,21 @@ class InTextWithDeveloperValuesTest with PropertyChangeNotifier<String> {
   @InText(
     text:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    error: 'Keyword is not in the string',
+    error: 'error message here',
   )
   String get value => this._value;
 
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region MembershipPassword
 @flutterModelFormValidator
-class MembershipPasswordTest with PropertyChangeNotifier<String> {
+class MembershipPasswordTest extends ModelForm {
   MembershipPasswordTest(
     this._value,
   );
@@ -1690,21 +1659,21 @@ class MembershipPasswordTest with PropertyChangeNotifier<String> {
     includesUppercaseCharacters: true,
     includesNumericalCharacters: true,
     includesSpecialCharacters: true,
-    error: 'Invalid password',
+    error: 'error message here',
   )
   String get value => this._value;
 
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region NotEqualToDatetime
 @flutterModelFormValidator
-class NotEqualToDatetimeTest with PropertyChangeNotifier<String> {
+class NotEqualToDatetimeTest extends ModelForm {
   NotEqualToDatetimeTest(
     this._value,
     this._valueToCompare,
@@ -1717,7 +1686,7 @@ class NotEqualToDatetimeTest with PropertyChangeNotifier<String> {
   // getters
   @NotEqualToDateTime(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get value_to_compare => this._valueToCompare;
@@ -1725,18 +1694,17 @@ class NotEqualToDatetimeTest with PropertyChangeNotifier<String> {
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(DateTime value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class NotEqualToDatetimeWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class NotEqualToDatetimeWithUserAndDeveloperValuesTest extends ModelForm {
   NotEqualToDatetimeWithUserAndDeveloperValuesTest(
     this._value,
     this._valueToCompare,
@@ -1750,7 +1718,7 @@ class NotEqualToDatetimeWithUserAndDeveloperValuesTest
   @NotEqualToDateTime(
     valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get value_to_compare => this._valueToCompare;
@@ -1758,17 +1726,17 @@ class NotEqualToDatetimeWithUserAndDeveloperValuesTest
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(DateTime value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class NotEqualToDatetimeWithUserValuesTest with PropertyChangeNotifier<String> {
+class NotEqualToDatetimeWithUserValuesTest extends ModelForm {
   NotEqualToDatetimeWithUserValuesTest(
     this._value,
     this._valueToCompare,
@@ -1781,7 +1749,7 @@ class NotEqualToDatetimeWithUserValuesTest with PropertyChangeNotifier<String> {
   // getters
   @NotEqualToDateTime(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get value_to_compare => this._valueToCompare;
@@ -1789,18 +1757,17 @@ class NotEqualToDatetimeWithUserValuesTest with PropertyChangeNotifier<String> {
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(DateTime value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class NotEqualToDatetimeWithDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class NotEqualToDatetimeWithDeveloperValuesTest extends ModelForm {
   NotEqualToDatetimeWithDeveloperValuesTest(
     this._value,
   );
@@ -1811,21 +1778,21 @@ class NotEqualToDatetimeWithDeveloperValuesTest
   // getters
   @NotEqualToDateTime(
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
 
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region NotEqualToNumber
 @flutterModelFormValidator
-class NotEqualToNumberTest with PropertyChangeNotifier<String> {
+class NotEqualToNumberTest extends ModelForm {
   NotEqualToNumberTest(
     this._value,
     this._valueToCompare,
@@ -1838,7 +1805,7 @@ class NotEqualToNumberTest with PropertyChangeNotifier<String> {
   // getters
   @NotEqualToNumber(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
   num get value_to_compare => this._valueToCompare;
@@ -1846,18 +1813,17 @@ class NotEqualToNumberTest with PropertyChangeNotifier<String> {
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(num value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class NotEqualToNumberWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class NotEqualToNumberWithUserAndDeveloperValuesTest extends ModelForm {
   NotEqualToNumberWithUserAndDeveloperValuesTest(
     this._value,
     this._valueToCompare,
@@ -1871,7 +1837,7 @@ class NotEqualToNumberWithUserAndDeveloperValuesTest
   @NotEqualToNumber(
     valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
   num get value_to_compare => this._valueToCompare;
@@ -1879,17 +1845,17 @@ class NotEqualToNumberWithUserAndDeveloperValuesTest
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(num value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class NotEqualToNumberWithUserValuesTest with PropertyChangeNotifier<String> {
+class NotEqualToNumberWithUserValuesTest extends ModelForm {
   NotEqualToNumberWithUserValuesTest(
     this._value,
     this._valueToCompare,
@@ -1902,7 +1868,7 @@ class NotEqualToNumberWithUserValuesTest with PropertyChangeNotifier<String> {
   // getters
   @NotEqualToNumber(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
   num get value_to_compare => this._valueToCompare;
@@ -1910,18 +1876,17 @@ class NotEqualToNumberWithUserValuesTest with PropertyChangeNotifier<String> {
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(num value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class NotEqualToNumberWithDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class NotEqualToNumberWithDeveloperValuesTest extends ModelForm {
   NotEqualToNumberWithDeveloperValuesTest(
     this._value,
   );
@@ -1932,21 +1897,21 @@ class NotEqualToNumberWithDeveloperValuesTest
   // getters
   @NotEqualToNumber(
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
 
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region NotEqualToString
 @flutterModelFormValidator
-class NotEqualToStringTest with PropertyChangeNotifier<String> {
+class NotEqualToStringTest extends ModelForm {
   NotEqualToStringTest(
     this._value,
     this._valueToCompare,
@@ -1959,7 +1924,7 @@ class NotEqualToStringTest with PropertyChangeNotifier<String> {
   // getters
   @NotEqualToString(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
   String get value_to_compare => this._valueToCompare;
@@ -1967,18 +1932,17 @@ class NotEqualToStringTest with PropertyChangeNotifier<String> {
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(String value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class NotEqualToStringWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class NotEqualToStringWithUserAndDeveloperValuesTest extends ModelForm {
   NotEqualToStringWithUserAndDeveloperValuesTest(
     this._value,
     this._valueToCompare,
@@ -1992,7 +1956,7 @@ class NotEqualToStringWithUserAndDeveloperValuesTest
   @NotEqualToString(
     valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
   String get value_to_compare => this._valueToCompare;
@@ -2000,17 +1964,17 @@ class NotEqualToStringWithUserAndDeveloperValuesTest
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(String value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class NotEqualToStringWithUserValuesTest with PropertyChangeNotifier<String> {
+class NotEqualToStringWithUserValuesTest extends ModelForm {
   NotEqualToStringWithUserValuesTest(
     this._value,
     this._valueToCompare,
@@ -2023,7 +1987,7 @@ class NotEqualToStringWithUserValuesTest with PropertyChangeNotifier<String> {
   // getters
   @NotEqualToString(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
   String get value_to_compare => this._valueToCompare;
@@ -2031,18 +1995,17 @@ class NotEqualToStringWithUserValuesTest with PropertyChangeNotifier<String> {
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(String value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class NotEqualToStringWithDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class NotEqualToStringWithDeveloperValuesTest extends ModelForm {
   NotEqualToStringWithDeveloperValuesTest(
     this._value,
   );
@@ -2053,21 +2016,21 @@ class NotEqualToStringWithDeveloperValuesTest
   // getters
   @NotEqualToString(
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
 
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region NumberRange
 @flutterModelFormValidator
-class NumberRangeTest with PropertyChangeNotifier<String> {
+class NumberRangeTest extends ModelForm {
   NumberRangeTest(
     this._value,
     this._min,
@@ -2083,7 +2046,7 @@ class NumberRangeTest with PropertyChangeNotifier<String> {
   @NumberRange(
     minOnProperty: 'min',
     maxOnProperty: 'max',
-    error: 'This Number is not in the range',
+    error: 'error message here',
   )
   num get value => this._value;
   num get min => this._min;
@@ -2092,23 +2055,22 @@ class NumberRangeTest with PropertyChangeNotifier<String> {
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set min(num value) {
     this._min = value;
-    this.notifyListeners('min');
+    this.notifyModelState('min');
   }
 
   set max(num value) {
     this._max = value;
-    this.notifyListeners('max');
+    this.notifyModelState('max');
   }
 }
 
 @flutterModelFormValidator
-class NumberRangeWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class NumberRangeWithUserAndDeveloperValuesTest extends ModelForm {
   NumberRangeWithUserAndDeveloperValuesTest(
     this._value,
     this._min,
@@ -2126,7 +2088,7 @@ class NumberRangeWithUserAndDeveloperValuesTest
     maxOnProperty: 'max',
     min: -10,
     max: -1,
-    error: 'This Number is not in the range',
+    error: 'error message here',
   )
   num get value => this._value;
   num get min => this._min;
@@ -2135,22 +2097,22 @@ class NumberRangeWithUserAndDeveloperValuesTest
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set min(num value) {
     this._min = value;
-    this.notifyListeners('min');
+    this.notifyModelState('min');
   }
 
   set max(num value) {
     this._max = value;
-    this.notifyListeners('max');
+    this.notifyModelState('max');
   }
 }
 
 @flutterModelFormValidator
-class NumberRangeWithUserValuesTest with PropertyChangeNotifier<String> {
+class NumberRangeWithUserValuesTest extends ModelForm {
   NumberRangeWithUserValuesTest(
     this._value,
     this._min,
@@ -2166,7 +2128,7 @@ class NumberRangeWithUserValuesTest with PropertyChangeNotifier<String> {
   @NumberRange(
     minOnProperty: 'min',
     maxOnProperty: 'max',
-    error: 'This Number is not in the range',
+    error: 'error message here',
   )
   num get value => this._value;
   num get min => this._min;
@@ -2175,22 +2137,22 @@ class NumberRangeWithUserValuesTest with PropertyChangeNotifier<String> {
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set min(num value) {
     this._min = value;
-    this.notifyListeners('min');
+    this.notifyModelState('min');
   }
 
   set max(num value) {
     this._max = value;
-    this.notifyListeners('max');
+    this.notifyModelState('max');
   }
 }
 
 @flutterModelFormValidator
-class NumberRangeWithDeveloperValuesTest with PropertyChangeNotifier<String> {
+class NumberRangeWithDeveloperValuesTest extends ModelForm {
   NumberRangeWithDeveloperValuesTest(
     this._value,
   );
@@ -2202,21 +2164,21 @@ class NumberRangeWithDeveloperValuesTest with PropertyChangeNotifier<String> {
   @NumberRange(
     min: -10,
     max: -1,
-    error: 'This Number is not in the range',
+    error: 'error message here',
   )
   num get value => this._value;
 
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region PhoneNumber
 @flutterModelFormValidator
-class PhoneNumberTest with PropertyChangeNotifier<String> {
+class PhoneNumberTest extends ModelForm {
   PhoneNumberTest(
     this._value,
     this._countryCode,
@@ -2232,7 +2194,7 @@ class PhoneNumberTest with PropertyChangeNotifier<String> {
   @PhoneNumber(
     phoneNumberTypeOnProperty: 'phoneNumberType',
     countryCodeOnProperty: 'countryCode',
-    error: 'Invalid phone number',
+    error: 'error message here',
   )
   String get value => this._value;
   String get countryCode => this._countryCode;
@@ -2241,23 +2203,22 @@ class PhoneNumberTest with PropertyChangeNotifier<String> {
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set countryCode(String value) {
     this._countryCode = value;
-    this.notifyListeners('countryCode');
+    this.notifyModelState('countryCode');
   }
 
   set phoneNumberType(String value) {
     this._phoneNumberType = value;
-    this.notifyListeners('phoneNumberType');
+    this.notifyModelState('phoneNumberType');
   }
 }
 
 @flutterModelFormValidator
-class PhoneNumberWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class PhoneNumberWithUserAndDeveloperValuesTest extends ModelForm {
   PhoneNumberWithUserAndDeveloperValuesTest(
     this._value,
     this._countryCode,
@@ -2275,7 +2236,7 @@ class PhoneNumberWithUserAndDeveloperValuesTest
     phoneNumberTypeOnProperty: 'phoneNumberType',
     countryCode: 'US',
     phoneNumberType: PhoneNumberType.mobile,
-    error: 'Invalid phone number',
+    error: 'error message here',
   )
   String get value => this._value;
   String get countryCode => this._countryCode;
@@ -2284,22 +2245,22 @@ class PhoneNumberWithUserAndDeveloperValuesTest
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set countryCode(String value) {
     this._countryCode = value;
-    this.notifyListeners('countryCode');
+    this.notifyModelState('countryCode');
   }
 
   set phoneNumberType(String value) {
     this._phoneNumberType = value;
-    this.notifyListeners('phoneNumberType');
+    this.notifyModelState('phoneNumberType');
   }
 }
 
 @flutterModelFormValidator
-class PhoneNumberWithUserValuesTest with PropertyChangeNotifier<String> {
+class PhoneNumberWithUserValuesTest extends ModelForm {
   PhoneNumberWithUserValuesTest(
     this._value,
     this._countryCode,
@@ -2315,7 +2276,7 @@ class PhoneNumberWithUserValuesTest with PropertyChangeNotifier<String> {
   @PhoneNumber(
     countryCodeOnProperty: 'countryCode',
     phoneNumberTypeOnProperty: 'phoneNumberType',
-    error: 'Invalid phone number',
+    error: 'error message here',
   )
   String get value => this._value;
   String get countryCode => this._countryCode;
@@ -2324,22 +2285,22 @@ class PhoneNumberWithUserValuesTest with PropertyChangeNotifier<String> {
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set countryCode(String value) {
     this._countryCode = value;
-    this.notifyListeners('countryCode');
+    this.notifyModelState('countryCode');
   }
 
   set phoneNumberType(String value) {
     this._phoneNumberType = value;
-    this.notifyListeners('phoneNumberType');
+    this.notifyModelState('phoneNumberType');
   }
 }
 
 @flutterModelFormValidator
-class PhoneNumberWithDeveloperValuesTest with PropertyChangeNotifier<String> {
+class PhoneNumberWithDeveloperValuesTest extends ModelForm {
   PhoneNumberWithDeveloperValuesTest(
     this._value,
   );
@@ -2351,21 +2312,21 @@ class PhoneNumberWithDeveloperValuesTest with PropertyChangeNotifier<String> {
   @PhoneNumber(
     countryCode: 'US',
     phoneNumberType: PhoneNumberType.mobile,
-    error: 'Invalid phone number',
+    error: 'error message here',
   )
   String get value => this._value;
 
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region RegularExpression
 @flutterModelFormValidator
-class RegularExpressionTest with PropertyChangeNotifier<String> {
+class RegularExpressionTest extends ModelForm {
   RegularExpressionTest(
     this._value,
   );
@@ -2376,21 +2337,21 @@ class RegularExpressionTest with PropertyChangeNotifier<String> {
   // getters
   @RegularExpression(
     expression: r'^Hello|Bye$',
-    error: 'Invalid regular expression',
+    error: 'error message here',
   )
   String get value => this._value;
 
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region Required
 @flutterModelFormValidator
-class RequiredTest with PropertyChangeNotifier<String> {
+class RequiredTest extends ModelForm {
   RequiredTest(
     this._value,
   );
@@ -2399,22 +2360,20 @@ class RequiredTest with PropertyChangeNotifier<String> {
   String _value;
 
   // getters
-  @Required(
-    error: 'Value is required',
-  )
+  @Required(error: 'error message here')
   String get value => this._value;
 
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region SmallerOrEqualToDatetime
 @flutterModelFormValidator
-class SmallerOrEqualToDatetimeTest with PropertyChangeNotifier<String> {
+class SmallerOrEqualToDatetimeTest extends ModelForm {
   SmallerOrEqualToDatetimeTest(
     this._value,
     this._valueToCompare,
@@ -2427,7 +2386,7 @@ class SmallerOrEqualToDatetimeTest with PropertyChangeNotifier<String> {
   // getters
   @SmallerOrEqualToDateTime(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get value_to_compare => this._valueToCompare;
@@ -2435,18 +2394,17 @@ class SmallerOrEqualToDatetimeTest with PropertyChangeNotifier<String> {
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(DateTime value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToDatetimeWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class SmallerOrEqualToDatetimeWithUserAndDeveloperValuesTest extends ModelForm {
   SmallerOrEqualToDatetimeWithUserAndDeveloperValuesTest(
     this._value,
     this._valueToCompare,
@@ -2460,7 +2418,7 @@ class SmallerOrEqualToDatetimeWithUserAndDeveloperValuesTest
   @SmallerOrEqualToDateTime(
     valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get value_to_compare => this._valueToCompare;
@@ -2468,18 +2426,17 @@ class SmallerOrEqualToDatetimeWithUserAndDeveloperValuesTest
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(DateTime value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToDatetimeWithUserValuesTest
-    with PropertyChangeNotifier<String> {
+class SmallerOrEqualToDatetimeWithUserValuesTest extends ModelForm {
   SmallerOrEqualToDatetimeWithUserValuesTest(
     this._value,
     this._valueToCompare,
@@ -2492,7 +2449,7 @@ class SmallerOrEqualToDatetimeWithUserValuesTest
   // getters
   @SmallerOrEqualToDateTime(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get value_to_compare => this._valueToCompare;
@@ -2500,18 +2457,17 @@ class SmallerOrEqualToDatetimeWithUserValuesTest
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(DateTime value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToDatetimeWithDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class SmallerOrEqualToDatetimeWithDeveloperValuesTest extends ModelForm {
   SmallerOrEqualToDatetimeWithDeveloperValuesTest(
     this._value,
   );
@@ -2522,21 +2478,21 @@ class SmallerOrEqualToDatetimeWithDeveloperValuesTest
   // getters
   @SmallerOrEqualToDateTime(
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
 
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region SmallerOrEqualToNumber
 @flutterModelFormValidator
-class SmallerOrEqualToNumberTest with PropertyChangeNotifier<String> {
+class SmallerOrEqualToNumberTest extends ModelForm {
   SmallerOrEqualToNumberTest(
     this._value,
     this._valueToCompare,
@@ -2549,7 +2505,7 @@ class SmallerOrEqualToNumberTest with PropertyChangeNotifier<String> {
   // getters
   @SmallerOrEqualToNumber(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
   num get value_to_compare => this._valueToCompare;
@@ -2557,18 +2513,17 @@ class SmallerOrEqualToNumberTest with PropertyChangeNotifier<String> {
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(num value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToNumberWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class SmallerOrEqualToNumberWithUserAndDeveloperValuesTest extends ModelForm {
   SmallerOrEqualToNumberWithUserAndDeveloperValuesTest(
     this._value,
     this._valueToCompare,
@@ -2582,7 +2537,7 @@ class SmallerOrEqualToNumberWithUserAndDeveloperValuesTest
   @SmallerOrEqualToNumber(
     valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
   num get value_to_compare => this._valueToCompare;
@@ -2590,18 +2545,17 @@ class SmallerOrEqualToNumberWithUserAndDeveloperValuesTest
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(num value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToNumberWithUserValuesTest
-    with PropertyChangeNotifier<String> {
+class SmallerOrEqualToNumberWithUserValuesTest extends ModelForm {
   SmallerOrEqualToNumberWithUserValuesTest(
     this._value,
     this._valueToCompare,
@@ -2614,7 +2568,7 @@ class SmallerOrEqualToNumberWithUserValuesTest
   // getters
   @SmallerOrEqualToNumber(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
   num get value_to_compare => this._valueToCompare;
@@ -2622,18 +2576,17 @@ class SmallerOrEqualToNumberWithUserValuesTest
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(num value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToNumberWithDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class SmallerOrEqualToNumberWithDeveloperValuesTest extends ModelForm {
   SmallerOrEqualToNumberWithDeveloperValuesTest(
     this._value,
   );
@@ -2644,21 +2597,21 @@ class SmallerOrEqualToNumberWithDeveloperValuesTest
   // getters
   @SmallerOrEqualToNumber(
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
 
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region SmallerOrEqualToString
 @flutterModelFormValidator
-class SmallerOrEqualToStringTest with PropertyChangeNotifier<String> {
+class SmallerOrEqualToStringTest extends ModelForm {
   SmallerOrEqualToStringTest(
     this._value,
     this._valueToCompare,
@@ -2671,7 +2624,7 @@ class SmallerOrEqualToStringTest with PropertyChangeNotifier<String> {
   // getters
   @SmallerOrEqualToString(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
   String get value_to_compare => this._valueToCompare;
@@ -2679,18 +2632,17 @@ class SmallerOrEqualToStringTest with PropertyChangeNotifier<String> {
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(String value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToStringWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class SmallerOrEqualToStringWithUserAndDeveloperValuesTest extends ModelForm {
   SmallerOrEqualToStringWithUserAndDeveloperValuesTest(
     this._value,
     this._valueToCompare,
@@ -2704,7 +2656,7 @@ class SmallerOrEqualToStringWithUserAndDeveloperValuesTest
   @SmallerOrEqualToString(
     valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
   String get value_to_compare => this._valueToCompare;
@@ -2712,18 +2664,17 @@ class SmallerOrEqualToStringWithUserAndDeveloperValuesTest
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(String value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToStringWithUserValuesTest
-    with PropertyChangeNotifier<String> {
+class SmallerOrEqualToStringWithUserValuesTest extends ModelForm {
   SmallerOrEqualToStringWithUserValuesTest(
     this._value,
     this._valueToCompare,
@@ -2736,7 +2687,7 @@ class SmallerOrEqualToStringWithUserValuesTest
   // getters
   @SmallerOrEqualToString(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
   String get value_to_compare => this._valueToCompare;
@@ -2744,18 +2695,17 @@ class SmallerOrEqualToStringWithUserValuesTest
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(String value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class SmallerOrEqualToStringWithDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class SmallerOrEqualToStringWithDeveloperValuesTest extends ModelForm {
   SmallerOrEqualToStringWithDeveloperValuesTest(
     this._value,
   );
@@ -2766,21 +2716,21 @@ class SmallerOrEqualToStringWithDeveloperValuesTest
   // getters
   @SmallerOrEqualToString(
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
 
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region SmallerThanDatetime
 @flutterModelFormValidator
-class SmallerThanDatetimeTest with PropertyChangeNotifier<String> {
+class SmallerThanDatetimeTest extends ModelForm {
   SmallerThanDatetimeTest(
     this._value,
     this._valueToCompare,
@@ -2793,7 +2743,7 @@ class SmallerThanDatetimeTest with PropertyChangeNotifier<String> {
   // getters
   @SmallerThanDateTime(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get value_to_compare => this._valueToCompare;
@@ -2801,18 +2751,17 @@ class SmallerThanDatetimeTest with PropertyChangeNotifier<String> {
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(DateTime value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class SmallerThanDatetimeWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class SmallerThanDatetimeWithUserAndDeveloperValuesTest extends ModelForm {
   SmallerThanDatetimeWithUserAndDeveloperValuesTest(
     this._value,
     this._valueToCompare,
@@ -2826,7 +2775,7 @@ class SmallerThanDatetimeWithUserAndDeveloperValuesTest
   @SmallerThanDateTime(
     valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get value_to_compare => this._valueToCompare;
@@ -2834,18 +2783,17 @@ class SmallerThanDatetimeWithUserAndDeveloperValuesTest
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(DateTime value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class SmallerThanDatetimeWithUserValuesTest
-    with PropertyChangeNotifier<String> {
+class SmallerThanDatetimeWithUserValuesTest extends ModelForm {
   SmallerThanDatetimeWithUserValuesTest(
     this._value,
     this._valueToCompare,
@@ -2858,7 +2806,7 @@ class SmallerThanDatetimeWithUserValuesTest
   // getters
   @SmallerThanDateTime(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
   DateTime get value_to_compare => this._valueToCompare;
@@ -2866,18 +2814,17 @@ class SmallerThanDatetimeWithUserValuesTest
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(DateTime value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class SmallerThanDatetimeWithDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class SmallerThanDatetimeWithDeveloperValuesTest extends ModelForm {
   SmallerThanDatetimeWithDeveloperValuesTest(
     this._value,
   );
@@ -2888,21 +2835,21 @@ class SmallerThanDatetimeWithDeveloperValuesTest
   // getters
   @SmallerThanDateTime(
     valueToCompare: '2019-01-01T00:00:00',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   DateTime get value => this._value;
 
   // setters
   set value(DateTime value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region SmallerThanNumber
 @flutterModelFormValidator
-class SmallerThanNumberTest with PropertyChangeNotifier<String> {
+class SmallerThanNumberTest extends ModelForm {
   SmallerThanNumberTest(
     this._value,
     this._valueToCompare,
@@ -2915,7 +2862,7 @@ class SmallerThanNumberTest with PropertyChangeNotifier<String> {
   // getters
   @SmallerThanNumber(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
   num get value_to_compare => this._valueToCompare;
@@ -2923,18 +2870,17 @@ class SmallerThanNumberTest with PropertyChangeNotifier<String> {
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(num value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class SmallerThanNumberWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class SmallerThanNumberWithUserAndDeveloperValuesTest extends ModelForm {
   SmallerThanNumberWithUserAndDeveloperValuesTest(
     this._value,
     this._valueToCompare,
@@ -2948,7 +2894,7 @@ class SmallerThanNumberWithUserAndDeveloperValuesTest
   @SmallerThanNumber(
     valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
   num get value_to_compare => this._valueToCompare;
@@ -2956,17 +2902,17 @@ class SmallerThanNumberWithUserAndDeveloperValuesTest
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(num value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class SmallerThanNumberWithUserValuesTest with PropertyChangeNotifier<String> {
+class SmallerThanNumberWithUserValuesTest extends ModelForm {
   SmallerThanNumberWithUserValuesTest(
     this._value,
     this._valueToCompare,
@@ -2979,7 +2925,7 @@ class SmallerThanNumberWithUserValuesTest with PropertyChangeNotifier<String> {
   // getters
   @SmallerThanNumber(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
   num get value_to_compare => this._valueToCompare;
@@ -2987,18 +2933,17 @@ class SmallerThanNumberWithUserValuesTest with PropertyChangeNotifier<String> {
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(num value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class SmallerThanNumberWithDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class SmallerThanNumberWithDeveloperValuesTest extends ModelForm {
   SmallerThanNumberWithDeveloperValuesTest(
     this._value,
   );
@@ -3009,21 +2954,21 @@ class SmallerThanNumberWithDeveloperValuesTest
   // getters
   @SmallerThanNumber(
     valueToCompare: 1,
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   num get value => this._value;
 
   // setters
   set value(num value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region SmallerThanString
 @flutterModelFormValidator
-class SmallerThanStringTest with PropertyChangeNotifier<String> {
+class SmallerThanStringTest extends ModelForm {
   SmallerThanStringTest(
     this._value,
     this._valueToCompare,
@@ -3036,7 +2981,7 @@ class SmallerThanStringTest with PropertyChangeNotifier<String> {
   // getters
   @SmallerThanString(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
   String get value_to_compare => this._valueToCompare;
@@ -3044,18 +2989,17 @@ class SmallerThanStringTest with PropertyChangeNotifier<String> {
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(String value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class SmallerThanStringWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class SmallerThanStringWithUserAndDeveloperValuesTest extends ModelForm {
   SmallerThanStringWithUserAndDeveloperValuesTest(
     this._value,
     this._valueToCompare,
@@ -3069,7 +3013,7 @@ class SmallerThanStringWithUserAndDeveloperValuesTest
   @SmallerThanString(
     valueToCompareOnProperty: 'value_to_compare',
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
   String get value_to_compare => this._valueToCompare;
@@ -3077,17 +3021,17 @@ class SmallerThanStringWithUserAndDeveloperValuesTest
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(String value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class SmallerThanStringWithUserValuesTest with PropertyChangeNotifier<String> {
+class SmallerThanStringWithUserValuesTest extends ModelForm {
   SmallerThanStringWithUserValuesTest(
     this._value,
     this._valueToCompare,
@@ -3100,7 +3044,7 @@ class SmallerThanStringWithUserValuesTest with PropertyChangeNotifier<String> {
   // getters
   @SmallerThanString(
     valueToCompareOnProperty: 'value_to_compare',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
   String get value_to_compare => this._valueToCompare;
@@ -3108,18 +3052,17 @@ class SmallerThanStringWithUserValuesTest with PropertyChangeNotifier<String> {
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set value_to_compare(String value) {
     this._valueToCompare = value;
-    this.notifyListeners('value_to_compare');
+    this.notifyModelState('value_to_compare');
   }
 }
 
 @flutterModelFormValidator
-class SmallerThanStringWithDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class SmallerThanStringWithDeveloperValuesTest extends ModelForm {
   SmallerThanStringWithDeveloperValuesTest(
     this._value,
   );
@@ -3130,21 +3073,21 @@ class SmallerThanStringWithDeveloperValuesTest
   // getters
   @SmallerThanString(
     valueToCompare: 'b',
-    error: 'Value is not equal to the value to compare',
+    error: 'error message here',
   )
   String get value => this._value;
 
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region StringLength
 @flutterModelFormValidator
-class StringLengthTest with PropertyChangeNotifier<String> {
+class StringLengthTest extends ModelForm {
   StringLengthTest(
     this._value,
   );
@@ -3156,21 +3099,21 @@ class StringLengthTest with PropertyChangeNotifier<String> {
   @StringLength(
     min: 10,
     max: 20,
-    error: '"value" property must have between 10 and 20 characters',
+    error: 'error message here',
   )
   String get value => this._value;
 
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region StringRange
 @flutterModelFormValidator
-class StringRangeTest with PropertyChangeNotifier<String> {
+class StringRangeTest extends ModelForm {
   StringRangeTest(
     this._value,
     this._min,
@@ -3186,7 +3129,7 @@ class StringRangeTest with PropertyChangeNotifier<String> {
   @StringRange(
     minOnProperty: 'min',
     maxOnProperty: 'max',
-    error: 'This string is not in the range',
+    error: 'error message here',
   )
   String get value => this._value;
   String get min => this._min;
@@ -3195,23 +3138,22 @@ class StringRangeTest with PropertyChangeNotifier<String> {
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set min(String value) {
     this._min = value;
-    this.notifyListeners('min');
+    this.notifyModelState('min');
   }
 
   set max(String value) {
     this._max = value;
-    this.notifyListeners('max');
+    this.notifyModelState('max');
   }
 }
 
 @flutterModelFormValidator
-class StringRangeWithUserAndDeveloperValuesTest
-    with PropertyChangeNotifier<String> {
+class StringRangeWithUserAndDeveloperValuesTest extends ModelForm {
   StringRangeWithUserAndDeveloperValuesTest(
     this._value,
     this._min,
@@ -3229,7 +3171,7 @@ class StringRangeWithUserAndDeveloperValuesTest
     maxOnProperty: 'max',
     min: 'a',
     max: 'd',
-    error: 'This String is not in the range',
+    error: 'error message here',
   )
   String get value => this._value;
   String get min => this._min;
@@ -3238,22 +3180,22 @@ class StringRangeWithUserAndDeveloperValuesTest
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set min(String value) {
     this._min = value;
-    this.notifyListeners('min');
+    this.notifyModelState('min');
   }
 
   set max(String value) {
     this._max = value;
-    this.notifyListeners('max');
+    this.notifyModelState('max');
   }
 }
 
 @flutterModelFormValidator
-class StringRangeWithUserValuesTest with PropertyChangeNotifier<String> {
+class StringRangeWithUserValuesTest extends ModelForm {
   StringRangeWithUserValuesTest(
     this._value,
     this._min,
@@ -3269,7 +3211,7 @@ class StringRangeWithUserValuesTest with PropertyChangeNotifier<String> {
   @StringRange(
     minOnProperty: 'min',
     maxOnProperty: 'max',
-    error: 'This String is not in the range',
+    error: 'error message here',
   )
   String get value => this._value;
   String get min => this._min;
@@ -3278,22 +3220,22 @@ class StringRangeWithUserValuesTest with PropertyChangeNotifier<String> {
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 
   set min(String value) {
     this._min = value;
-    this.notifyListeners('min');
+    this.notifyModelState('min');
   }
 
   set max(String value) {
     this._max = value;
-    this.notifyListeners('max');
+    this.notifyModelState('max');
   }
 }
 
 @flutterModelFormValidator
-class StringRangeWithDeveloperValuesTest with PropertyChangeNotifier<String> {
+class StringRangeWithDeveloperValuesTest extends ModelForm {
   StringRangeWithDeveloperValuesTest(
     this._value,
   );
@@ -3305,21 +3247,21 @@ class StringRangeWithDeveloperValuesTest with PropertyChangeNotifier<String> {
   @StringRange(
     min: 'a',
     max: 'd',
-    error: 'This String is not in the range',
+    error: 'error message here',
   )
   String get value => this._value;
 
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion
 
 //#region URL
 @flutterModelFormValidator
-class UrlTest with PropertyChangeNotifier<String> {
+class UrlTest extends ModelForm {
   UrlTest(
     this._value,
   );
@@ -3336,7 +3278,7 @@ class UrlTest with PropertyChangeNotifier<String> {
   // setters
   set value(String value) {
     this._value = value;
-    this.notifyListeners('value');
+    this.notifyModelState('value');
   }
 }
 //#endregion

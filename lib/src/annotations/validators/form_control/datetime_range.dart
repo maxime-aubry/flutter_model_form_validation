@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/index.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:property_change_notifier/src/property_change_notifier.dart';
+import 'package:flutter_model_form_validation/src/index.dart';
+import 'package:flutter_model_form_validation/src/utils/index.dart';
 
 /// [DateTimeRange] validator permits you to check that a datetime using by declared settings.
 /// {@category Metadata}
@@ -33,10 +33,9 @@ class DateTimeRange extends FormValidator<DateTime> {
   final String error;
 
   @override
-  Future<bool> isValid<TModel extends PropertyChangeNotifier<String>>(
+  Future<bool> isValid<TModel extends ModelForm>(
     FormBuilder<TModel> formBuilder,
-    FormGroup<PropertyChangeNotifier<String>, PropertyChangeNotifier<String>>
-        formGroup,
+    FormGroup<ModelForm, ModelForm> formGroup,
     DateTime value,
   ) async {
     try {
@@ -55,7 +54,7 @@ class DateTimeRange extends FormValidator<DateTime> {
       return isValid;
     } catch (e) {
       throw new ValidationException(
-          'An error occurend with validator on from control with validator of type');
+          'An error occured with validator on form element with validator of type');
     }
   }
 

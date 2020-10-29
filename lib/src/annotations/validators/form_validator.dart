@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/flutter_model_form_validator.dart';
+import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:property_change_notifier/property_change_notifier.dart';
+import 'package:flutter_model_form_validation/src/index.dart';
 import 'package:reflectable/reflectable.dart';
 
 /// [FormValidator] is the parent class for every validators you will create and use.
@@ -23,7 +23,7 @@ abstract class FormValidator<TValue> {
   /// [model] parameter is also required, even if your custom validator won't use it.
   /// It reprensents your full object model with all values.
   /// Maybe you would validate a property in comparison to others.
-  Future<bool> isValid<TModel extends PropertyChangeNotifier<String>>(
+  Future<bool> isValid<TModel extends ModelForm>(
     FormBuilder<TModel> formBuilder,
     FormGroup formGroup,
     TValue value,
@@ -31,8 +31,7 @@ abstract class FormValidator<TValue> {
 
   /// Gets the linked property referenced into a validator.
   /// For example, GreaterThan validator must accept a String argument to target another property in the model.
-  Object
-      getLinkedProperty<TModel extends PropertyChangeNotifier<String>, TValue>(
+  Object getLinkedProperty<TModel extends ModelForm, TValue>(
     TModel model,
     TValue defaultValue,
     String propertyName,

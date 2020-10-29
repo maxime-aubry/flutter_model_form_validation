@@ -334,7 +334,7 @@ void main() {
       );
 
       model.first_name = 'xx';
-      await Future.delayed(const Duration(microseconds: 100), () {});
+      await Future.delayed(const Duration(microseconds: 1), () {});
 
       _checkFormControl(
         fc,
@@ -343,7 +343,7 @@ void main() {
         new ValidationError(
           propertyName: 'first_name',
           validatorType: StringLength,
-          message: 'Invalid string length',
+          message: 'error message here',
         ),
         [Required, StringLength],
         'xx',
@@ -352,7 +352,7 @@ void main() {
       // last_name
       fc = modelState.formBuilder.group.controls['last_name'];
       model.last_name = 'Elric';
-      await Future.delayed(const Duration(microseconds: 100), () {});
+      await Future.delayed(const Duration(microseconds: 1), () {});
 
       _checkFormControl(
         fc,
@@ -366,7 +366,7 @@ void main() {
       // birth_day
       fc = modelState.formBuilder.group.controls['birth_day'];
       model.birth_day = new DateTime(1980, 12, 15);
-      await Future.delayed(const Duration(microseconds: 100), () {});
+      await Future.delayed(const Duration(microseconds: 1), () {});
 
       _checkFormControl(
         fc,
@@ -380,7 +380,7 @@ void main() {
       // subscription_date
       fc = modelState.formBuilder.group.controls['subscription_date'];
       model.subscription_date = new DateTime(2020, 06, 01);
-      await Future.delayed(const Duration(microseconds: 100), () {});
+      await Future.delayed(const Duration(microseconds: 1), () {});
 
       _checkFormControl(
         fc,
@@ -389,7 +389,7 @@ void main() {
         new ValidationError(
           propertyName: 'subscription_date',
           validatorType: SmallerOrEqualToDateTime,
-          message: 'date of death must be smaller or equal than 2020-01-01',
+          message: 'error message here',
         ),
         [Required, GreaterOrEqualToDateTime, SmallerOrEqualToDateTime],
         new DateTime(2020, 06, 01),
@@ -425,7 +425,7 @@ void main() {
         10,
         new DateTime(2020, 10, 26),
       );
-      await Future.delayed(const Duration(microseconds: 100), () {});
+      await Future.delayed(const Duration(microseconds: 1), () {});
 
       // favorite_book
       _checkFormGroup(
@@ -476,14 +476,14 @@ void main() {
 
       // add book
       model.books = new List<Book>();
-      await Future.delayed(const Duration(microseconds: 100), () {});
+      await Future.delayed(const Duration(microseconds: 1), () {});
 
       model.addItemOnBooks(new Book(
         'Le seigneur des anneaux 1',
         10,
         new DateTime(2020, 10, 26),
       ));
-      await Future.delayed(const Duration(microseconds: 100), () {});
+      await Future.delayed(const Duration(microseconds: 1), () {});
 
       // books
       _checkFormArray(

@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/index.dart';
+import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
+import 'package:flutter_model_form_validation/src/index.dart';
 import 'package:mime/mime.dart';
-import 'package:property_change_notifier/property_change_notifier.dart';
 
 /// [FileMimeType] validator permits you to check that a string value is a valid mime type.
 /// {@category Metadata}
@@ -21,10 +21,9 @@ class FileMimeType extends FormValidator<List<int>> {
   final String error;
 
   @override
-  Future<bool> isValid<TModel extends PropertyChangeNotifier<String>>(
+  Future<bool> isValid<TModel extends ModelForm>(
     FormBuilder<TModel> formBuilder,
-    FormGroup<PropertyChangeNotifier<String>, PropertyChangeNotifier<String>>
-        formGroup,
+    FormGroup<ModelForm, ModelForm> formGroup,
     List<int> value,
   ) async {
     try {

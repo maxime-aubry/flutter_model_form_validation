@@ -1,10 +1,8 @@
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:flutter_model_form_validation/src/model_state.dart';
-import 'package:property_change_notifier/property_change_notifier.dart';
+import 'package:flutter_model_form_validation/src/index.dart';
 import 'package:reflectable/reflectable.dart';
 
-class FormGroup<TModel extends PropertyChangeNotifier<String>,
-        TCurrentModel extends PropertyChangeNotifier<String>>
+class FormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     extends AbstractControl<TModel> {
   FormGroup(
     ModelState<TModel> modelState,
@@ -39,7 +37,7 @@ class FormGroup<TModel extends PropertyChangeNotifier<String>,
 
       // add empty error record to model state
       this.modelState.actualizeAbstractControlState(
-            '${this.parentGroup.current.hashCode}.${this.name}',
+            super.getListenerName(),
             null,
             this.status,
           );
@@ -105,7 +103,7 @@ class FormGroup<TModel extends PropertyChangeNotifier<String>,
       () async {
         await _setValue();
       },
-      ['${this.parentGroup.current.hashCode}.${this.name}'],
+      [super.getListenerName()],
     );
   }
 

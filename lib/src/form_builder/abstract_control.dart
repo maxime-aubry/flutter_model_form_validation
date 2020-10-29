@@ -1,9 +1,10 @@
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/index.dart';
-import 'package:flutter_model_form_validation/src/annotations/validators/validation_error.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_model_form_validation/src/annotations/index.dart';
+import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:flutter_model_form_validation/src/model_state.dart';
-import 'package:property_change_notifier/property_change_notifier.dart';
+import 'package:flutter_model_form_validation/src/index.dart';
+import 'package:flutter_model_form_validation/src/utils/index.dart';
 import 'package:queries/collections.dart';
 import 'package:reflectable/reflectable.dart';
 
@@ -14,7 +15,7 @@ enum EAbstractControlStatus {
   validationInProgress,
 }
 
-class AbstractControl<TModel extends PropertyChangeNotifier<String>> {
+class AbstractControl<TModel extends ModelForm> {
   AbstractControl(this.name, this.parentGroup) {
     this.validators = new List<FormValidator>();
     this.status = EAbstractControlStatus.pure;
@@ -28,12 +29,14 @@ class AbstractControl<TModel extends PropertyChangeNotifier<String>> {
   EAbstractControlStatus status;
 
   // public methods
+  @protected
   InstanceMirror getInstanceMirror(Object value) {
     InstanceMirror instanceMirror = flutterModelFormValidator.reflect(value);
     return instanceMirror;
   }
 
   /// [getValidators] gets all validators for form element.
+  @protected
   List<FormValidator> getValidators<FormValidatorType>(
     MethodMirror declaration,
   ) {
@@ -54,12 +57,13 @@ class AbstractControl<TModel extends PropertyChangeNotifier<String>> {
     bool isValid = true;
     this.error = null;
 
-    print('Validating object "${name}" with status ${this.status}...');
+    print(
+        'Validating form element "${this.getListenerName()}" with status ${this.status}...');
 
     // before validation
     this.status = EAbstractControlStatus.validationInProgress;
     modelState.actualizeAbstractControlState(
-      '${this.parentGroup.current.hashCode}.${this.name}',
+      this.getListenerName(),
       null,
       this.status,
     );
@@ -72,7 +76,9 @@ class AbstractControl<TModel extends PropertyChangeNotifier<String>> {
           this.parentGroup,
           value,
         );
+
         print('Validator @${validator.runtimeType} returns ${isValid}.');
+
         if (!isValid) {
           this.error = ValidationError(
             propertyName: this.name,
@@ -85,7 +91,7 @@ class AbstractControl<TModel extends PropertyChangeNotifier<String>> {
         print('Unable to validate form control using by an improper validator');
         isValid = false;
       } on ValidationException catch (e) {
-        print(e);
+        print(e.message);
         isValid = false;
       }
     }
@@ -94,9 +100,14 @@ class AbstractControl<TModel extends PropertyChangeNotifier<String>> {
     this.status =
         isValid ? EAbstractControlStatus.valid : EAbstractControlStatus.invalid;
     modelState.actualizeAbstractControlState(
-      '${this.parentGroup.current.hashCode}.${this.name}',
+      this.getListenerName(),
       this.error,
       this.status,
     );
+  }
+
+  String getListenerName() {
+    String listenerName = '${this.parentGroup.current.hashCode}.${this.name}';
+    return listenerName;
   }
 }

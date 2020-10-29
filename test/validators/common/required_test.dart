@@ -14,7 +14,9 @@ void main() {
         ModelState modelState = new ModelState<RequiredTest>(model);
 
         expect(await modelState.validateForm(), true);
-        expect(modelState.errors.isEmpty, true);
+        expect(modelState.status, EFormStatus.valid);
+        ValidationError error = modelState.getValidationError(model, 'value');
+        expect(error, isNull);
       });
     });
     group('Test the validation > failure.', () {
@@ -23,9 +25,12 @@ void main() {
         ModelState modelState = new ModelState<RequiredTest>(model);
 
         expect(await modelState.validateForm(), false);
-        expect(modelState.errors['value'].validatorType, Required);
-        expect(modelState.errors['value'].propertyName, 'value');
-        expect(modelState.errors['value'].error, 'Value is required');
+        expect(modelState.status, EFormStatus.invalid);
+        ValidationError error = modelState.getValidationError(model, 'value');
+        expect(error, isNotNull);
+        expect(error.propertyName, 'value');
+        expect(error.validatorType, Required);
+        expect(error.message, 'error message here');
       });
 
       test('Data is null.', () async {
@@ -33,9 +38,12 @@ void main() {
         ModelState modelState = new ModelState<RequiredTest>(model);
 
         expect(await modelState.validateForm(), false);
-        expect(modelState.errors['value'].validatorType, Required);
-        expect(modelState.errors['value'].propertyName, 'value');
-        expect(modelState.errors['value'].error, 'Value is required');
+        expect(modelState.status, EFormStatus.invalid);
+        ValidationError error = modelState.getValidationError(model, 'value');
+        expect(error, isNotNull);
+        expect(error.propertyName, 'value');
+        expect(error.validatorType, Required);
+        expect(error.message, 'error message here');
       });
     });
   });
