@@ -1,19 +1,13 @@
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
+import 'package:flutter_model_form_validation/src/form_builder/model_form/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
 import 'package:flutter_model_form_validation/src/utils/index.dart';
-import 'package:queries/collections.dart';
 
-enum EFormStatus {
-  pure,
-  valid,
-  invalid,
-}
-
-class ModelState<TModel extends ModelForm> {
-  ModelState(TModel model) : assert(model != null) {
+class ModelFormState<TModel extends ModelForm> extends FormState {
+  ModelFormState(TModel model)
+      : assert(model != null),
+        super() {
     this.model = model;
-    this.status = EFormStatus.pure;
-    this._formControlStates = new Map<String, AbstractControlState>();
     this._init();
   }
 
@@ -23,38 +17,48 @@ class ModelState<TModel extends ModelForm> {
   // public properties
   TModel model;
   EFormStatus status;
-  FormBuilder formBuilder;
+  // ModelFormBuilder formBuilder;
 
   // private methods
   void _init() {
-    this.formBuilder = new FormBuilder<TModel>(this);
+    this.formBuilder = new ModelFormBuilder<TModel>(this);
   }
 
-  Future _validateFormGroup(FormGroup formGroup) async {
-    print('Validating form group "${formGroup.getListenerName()}".');
+  Future _validateFormGroup(ModelFormGroup formGroup) async {
+    String listenerName = formGroup.getListenerName(
+      formGroup.parentGroup as ModelFormGroup,
+      formGroup.name,
+    );
+    print('Validating form group "$listenerName".');
 
-    await formGroup.validate(
-      formGroup.modelState,
+    await formGroup.validateModelForm(
+      this,
+      formGroup,
       formGroup.name,
       formGroup.current,
     );
 
     for (MapEntry<String, AbstractControl> control
         in formGroup.controls.entries) {
-      if (control.value is FormGroup)
+      if (control.value is ModelFormGroup)
         await this._validateFormGroup(control.value);
-      if (control.value is FormArray)
+      if (control.value is ModelFormArray)
         await this._validateFormArray(control.value);
-      if (control.value is FormControl)
+      if (control.value is ModelFormControl)
         await this._validateFormControl(control.value);
     }
   }
 
-  Future _validateFormArray(FormArray formArray) async {
-    print('Validating form group "${formArray.getListenerName()}".');
+  Future _validateFormArray(ModelFormArray formArray) async {
+    String listenerName = formArray.getListenerName(
+      formArray.parentGroup as ModelFormGroup,
+      formArray.name,
+    );
+    print('Validating form group "$listenerName".');
 
-    await formArray.validate(
-      formArray.modelState,
+    await formArray.validateModelForm(
+      this,
+      formArray.parentGroup as ModelFormGroup,
       formArray.name,
       formArray.items,
     );
@@ -63,44 +67,22 @@ class ModelState<TModel extends ModelForm> {
       await _validateFormGroup(formGroup);
   }
 
-  Future _validateFormControl(FormControl formControl) async {
-    print('Validating form group "${formControl.getListenerName()}".');
+  Future _validateFormControl(ModelFormControl formControl) async {
+    String listenerName = formControl.getListenerName(
+      formControl.parentGroup as ModelFormGroup,
+      formControl.name,
+    );
+    print('Validating form group "$listenerName".');
 
-    await formControl.validate(
-      formControl.modelState,
+    await formControl.validateModelForm(
+      this,
+      formControl.parentGroup as ModelFormGroup,
       formControl.name,
       formControl.value,
     );
   }
 
-  bool _actualizeModelState() {
-    bool isValid = !Dictionary.fromMap(this._formControlStates)
-        .where((arg1) =>
-            arg1.value != null &&
-            arg1.value.status == EAbstractControlStatus.invalid)
-        .any();
-    this.status = isValid ? EFormStatus.valid : EFormStatus.invalid;
-    return isValid;
-  }
-
   // public methods
-  void actualizeAbstractControlState(
-    String key,
-    ValidationError error,
-    EAbstractControlStatus status,
-  ) {
-    print('Actualizing form element "$key" with status "$status".');
-
-    this._formControlStates[key] = new AbstractControlState(
-      key,
-      error,
-      status,
-    );
-    this._actualizeModelState();
-    // this.model.notifyModelState('formControlStates');
-    // this.model.notifyModelState('status');
-  }
-
   Future<bool> validateForm() async {
     print('Validating form from user.');
 

@@ -1,0 +1,3 @@
+class FormGroupDeclarer {
+  const FormGroupDeclarer();
+}

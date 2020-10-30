@@ -2,12 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:flutter_model_form_validation/src/index.dart';
 
 /// [NbItems] validator permits you to check quantity of items into an array.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class NbItems extends FormValidator<List> {
+class NbItems extends FormValidatorAnnotation<List> {
   const NbItems({
     this.min,
     this.max,
@@ -32,28 +31,30 @@ class NbItems extends FormValidator<List> {
   final String error;
 
   @override
-  Future<bool> isValid<TModel extends ModelForm>(
-    FormBuilder<TModel> formBuilder,
-    FormGroup<ModelForm, ModelForm> formGroup,
+  Future<bool> isValid(
+    FormBuilder formBuilder,
+    FormGroup formGroup,
     List value,
   ) async {
     try {
-      int _min = this.getLinkedProperty<TModel, int>(
-        formBuilder.group.modelState.model,
-        this.min,
+      int _min = this.getLinkedProperty<int>(
+        formGroup,
         this.minOnProperty,
+        this.min,
       );
-      int _max = this.getLinkedProperty<TModel, int>(
-        formBuilder.group.modelState.model,
-        this.max,
+      int _max = this.getLinkedProperty<int>(
+        formGroup,
         this.maxOnProperty,
+        this.max,
       );
 
       bool isValid = _validate(value, _min, _max);
       return isValid;
+    } on RemotePropertyException catch (e) {
+      throw e;
     } catch (e) {
       throw new ValidationException(
-          'An error occurend with validator on from control with validator of type');
+          'An error occured with validator on form element with validator of type');
     }
   }
 

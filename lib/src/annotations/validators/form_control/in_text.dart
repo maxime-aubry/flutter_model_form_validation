@@ -4,12 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:flutter_model_form_validation/src/index.dart';
 
 /// [InText] validator permits you to check that a string value is into a text.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class InText extends FormValidator<String> {
+class InText extends FormValidatorAnnotation<String> {
   const InText({
     this.text,
     this.textOnProperty,
@@ -26,23 +25,25 @@ class InText extends FormValidator<String> {
   final String error;
 
   @override
-  Future<bool> isValid<TModel extends ModelForm>(
-    FormBuilder<TModel> formBuilder,
-    FormGroup<ModelForm, ModelForm> formGroup,
+  Future<bool> isValid(
+    FormBuilder formBuilder,
+    FormGroup formGroup,
     String value,
   ) async {
     try {
-      String _text = this.getLinkedProperty<TModel, String>(
-        formBuilder.group.modelState.model,
-        this.text,
+      String _text = this.getLinkedProperty<String>(
+        formGroup,
         this.textOnProperty,
+        this.text,
       );
 
       bool isValid = _validate(value.toLowerCase(), _text.toLowerCase());
       return isValid;
+    } on RemotePropertyException catch (e) {
+      throw e;
     } catch (e) {
       throw new ValidationException(
-          'An error occurend with validator on from control with validator of type');
+          'An error occured with validator on form element with validator of type');
     }
   }
 

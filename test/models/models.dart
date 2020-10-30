@@ -21,17 +21,21 @@ class FormBuilderTest extends ModelForm {
   Book _favoriteBook;
 
   // getters
+  @FormControlDeclarer()
   @Required(error: 'error message here')
   @StringLength(min: 3, max: 50, error: 'error message here')
   String get first_name => this._firstName;
 
+  @FormControlDeclarer()
   @Required(error: 'error message here')
   @StringLength(min: 3, max: 50, error: 'error message here')
   String get last_name => this._lastName;
 
+  @FormControlDeclarer()
   @Required(error: 'error message here')
   DateTime get birth_day => this._birthDay;
 
+  @FormControlDeclarer()
   @Required(error: 'error message here')
   @GreaterOrEqualToDateTime(
       valueToCompareOnProperty: 'birth_day', error: 'error message here')
@@ -39,9 +43,11 @@ class FormBuilderTest extends ModelForm {
       valueToCompare: '2020-01-01', error: 'error message here')
   DateTime get subscription_date => this._subscriptionDate;
 
+  @FormArrayDeclarer()
   @NbItems(min: 1, max: 3, error: 'error message here')
   List<Book> get books => this._books;
 
+  @FormGroupDeclarer()
   @Required(error: 'error message here')
   Book get favorite_book => this._favoriteBook;
 
@@ -98,14 +104,17 @@ class Book extends ModelForm {
   DateTime _loanDate;
 
   // getters
+  @FormControlDeclarer()
   @Required(error: 'error message here')
   @StringLength(min: 3, max: 100, error: 'error message here')
   String get name => this._name;
 
+  @FormControlDeclarer()
   @Required(error: 'price is required')
   @GreaterThanNumber(valueToCompare: 0, error: 'error message here')
   num get price => this._price;
 
+  @FormControlDeclarer()
   @Required(error: 'error message here')
   DateTime get loan_date => this._loanDate;
 

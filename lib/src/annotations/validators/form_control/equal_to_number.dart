@@ -2,12 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:flutter_model_form_validation/src/index.dart';
 
 /// [EqualToNumber] validator permits you to check that a value is equal to the value of another property.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class EqualToNumber extends FormValidator<num> {
+class EqualToNumber extends FormValidatorAnnotation<num> {
   const EqualToNumber({
     this.valueToCompare,
     this.valueToCompareOnProperty,
@@ -24,23 +23,25 @@ class EqualToNumber extends FormValidator<num> {
   final String error;
 
   @override
-  Future<bool> isValid<TModel extends ModelForm>(
-    FormBuilder<TModel> formBuilder,
-    FormGroup<ModelForm, ModelForm> formGroup,
+  Future<bool> isValid(
+    FormBuilder formBuilder,
+    FormGroup formGroup,
     num value,
   ) async {
     try {
-      num _valueToCompare = this.getLinkedProperty<TModel, num>(
-        formBuilder.group.modelState.model,
-        this.valueToCompare,
+      num _valueToCompare = this.getLinkedProperty<num>(
+        formGroup,
         this.valueToCompareOnProperty,
+        this.valueToCompare,
       );
 
       bool isValid = _validate(value, _valueToCompare);
       return isValid;
+    } on RemotePropertyException catch (e) {
+      throw e;
     } catch (e) {
       throw new ValidationException(
-          'An error occurend with validator on from control with validator of type');
+          'An error occured with validator on form element with validator of type');
     }
   }
 

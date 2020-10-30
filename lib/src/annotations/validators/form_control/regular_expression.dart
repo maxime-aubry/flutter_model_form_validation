@@ -2,12 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:flutter_model_form_validation/src/index.dart';
 
 /// [RegularExpression] validator permits you to check that a string value is accordance with provided regular expression.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class RegularExpression extends FormValidator<String> {
+class RegularExpression extends FormValidatorAnnotation<String> {
   const RegularExpression({
     @required this.expression,
     @required this.error,
@@ -20,9 +19,9 @@ class RegularExpression extends FormValidator<String> {
   final String error;
 
   @override
-  Future<bool> isValid<TModel extends ModelForm>(
-    FormBuilder<TModel> formBuilder,
-    FormGroup<ModelForm, ModelForm> formGroup,
+  Future<bool> isValid(
+    FormBuilder formBuilder,
+    FormGroup formGroup,
     String value,
   ) async {
     try {

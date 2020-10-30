@@ -11,8 +11,8 @@ void main() {
     group('Test the validation > success.', () {
       test('"lorem" is in array.', () async {
         ContainsStringTest model = new ContainsStringTest('lorem');
-        ModelState<ContainsStringTest> modelState =
-            new ModelState<ContainsStringTest>(model);
+        ModelFormState<ContainsStringTest> modelState =
+            new ModelFormState<ContainsStringTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -24,8 +24,8 @@ void main() {
     group('Test the validation > failure.', () {
       test('"lorem" is not in array.', () async {
         ContainsStringTest model = new ContainsStringTest('consectetur');
-        ModelState<ContainsStringTest> modelState =
-            new ModelState<ContainsStringTest>(model);
+        ModelFormState<ContainsStringTest> modelState =
+            new ModelFormState<ContainsStringTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);

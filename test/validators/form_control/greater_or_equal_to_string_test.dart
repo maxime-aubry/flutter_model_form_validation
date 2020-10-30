@@ -14,8 +14,8 @@ void main() {
           () async {
         GreaterOrEqualToStringWithUserAndDeveloperValuesTest model =
             new GreaterOrEqualToStringWithUserAndDeveloperValuesTest('c', 'c');
-        ModelState<GreaterOrEqualToStringWithUserAndDeveloperValuesTest>
-            modelState = new ModelState<
+        ModelFormState<GreaterOrEqualToStringWithUserAndDeveloperValuesTest>
+            modelState = new ModelFormState<
                 GreaterOrEqualToStringWithUserAndDeveloperValuesTest>(model);
 
         expect(await modelState.validateForm(), true);
@@ -27,8 +27,8 @@ void main() {
       test('"valueToCompare" is provided by user only.', () async {
         GreaterOrEqualToStringWithUserValuesTest model =
             new GreaterOrEqualToStringWithUserValuesTest('c', 'c');
-        ModelState<GreaterOrEqualToStringWithUserValuesTest> modelState =
-            new ModelState<GreaterOrEqualToStringWithUserValuesTest>(model);
+        ModelFormState<GreaterOrEqualToStringWithUserValuesTest> modelState =
+            new ModelFormState<GreaterOrEqualToStringWithUserValuesTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -39,8 +39,9 @@ void main() {
       test('"valueToCompare" is provided by developer only.', () async {
         GreaterOrEqualToStringWithDeveloperValuesTest model =
             new GreaterOrEqualToStringWithDeveloperValuesTest('b');
-        ModelState<GreaterOrEqualToStringWithDeveloperValuesTest> modelState =
-            new ModelState<GreaterOrEqualToStringWithDeveloperValuesTest>(
+        ModelFormState<GreaterOrEqualToStringWithDeveloperValuesTest>
+            modelState =
+            new ModelFormState<GreaterOrEqualToStringWithDeveloperValuesTest>(
                 model);
 
         expect(await modelState.validateForm(), true);
@@ -54,8 +55,8 @@ void main() {
       test('The value is greater than value to compare.', () async {
         GreaterOrEqualToStringTest model =
             new GreaterOrEqualToStringTest('c', 'b');
-        ModelState<GreaterOrEqualToStringTest> modelState =
-            new ModelState<GreaterOrEqualToStringTest>(model);
+        ModelFormState<GreaterOrEqualToStringTest> modelState =
+            new ModelFormState<GreaterOrEqualToStringTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -66,8 +67,8 @@ void main() {
       test('The value is equal to value to compare.', () async {
         GreaterOrEqualToStringTest model =
             new GreaterOrEqualToStringTest('b', 'b');
-        ModelState<GreaterOrEqualToStringTest> modelState =
-            new ModelState<GreaterOrEqualToStringTest>(model);
+        ModelFormState<GreaterOrEqualToStringTest> modelState =
+            new ModelFormState<GreaterOrEqualToStringTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -80,8 +81,8 @@ void main() {
       test('The value is smaller than value to compare.', () async {
         GreaterOrEqualToStringTest model =
             new GreaterOrEqualToStringTest('a', 'b');
-        ModelState<GreaterOrEqualToStringTest> modelState =
-            new ModelState<GreaterOrEqualToStringTest>(model);
+        ModelFormState<GreaterOrEqualToStringTest> modelState =
+            new ModelFormState<GreaterOrEqualToStringTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);

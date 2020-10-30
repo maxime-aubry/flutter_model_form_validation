@@ -2,12 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:flutter_model_form_validation/src/index.dart';
 
 /// [NumberRange] validator permits you to check that a number using by declared settings.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class NumberRange extends FormValidator<num> {
+class NumberRange extends FormValidatorAnnotation<num> {
   const NumberRange({
     this.min,
     this.max,
@@ -32,28 +31,30 @@ class NumberRange extends FormValidator<num> {
   final String error;
 
   @override
-  Future<bool> isValid<TModel extends ModelForm>(
-    FormBuilder<TModel> formBuilder,
-    FormGroup<ModelForm, ModelForm> formGroup,
+  Future<bool> isValid(
+    FormBuilder formBuilder,
+    FormGroup formGroup,
     num value,
   ) async {
     try {
-      num _min = this.getLinkedProperty<TModel, num>(
-        formBuilder.group.modelState.model,
-        this.min,
+      num _min = this.getLinkedProperty<num>(
+        formGroup,
         this.minOnProperty,
+        this.min,
       );
-      num _max = this.getLinkedProperty<TModel, num>(
-        formBuilder.group.modelState.model,
-        this.max,
+      num _max = this.getLinkedProperty<num>(
+        formGroup,
         this.maxOnProperty,
+        this.max,
       );
 
       bool isValid = _validate(value, _min, _max);
       return isValid;
+    } on RemotePropertyException catch (e) {
+      throw e;
     } catch (e) {
       throw new ValidationException(
-          'An error occurend with validator on from control with validator of type');
+          'An error occured with validator on form element with validator of type');
     }
   }
 

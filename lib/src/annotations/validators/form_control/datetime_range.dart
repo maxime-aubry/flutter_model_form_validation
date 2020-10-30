@@ -2,13 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:flutter_model_form_validation/src/index.dart';
-import 'package:flutter_model_form_validation/src/utils/index.dart';
 
 /// [DateTimeRange] validator permits you to check that a datetime using by declared settings.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class DateTimeRange extends FormValidator<DateTime> {
+class DateTimeRange extends FormValidatorAnnotation<DateTime> {
   const DateTimeRange({
     this.min,
     this.max,
@@ -33,25 +31,27 @@ class DateTimeRange extends FormValidator<DateTime> {
   final String error;
 
   @override
-  Future<bool> isValid<TModel extends ModelForm>(
-    FormBuilder<TModel> formBuilder,
-    FormGroup<ModelForm, ModelForm> formGroup,
+  Future<bool> isValid(
+    FormBuilder formBuilder,
+    FormGroup formGroup,
     DateTime value,
   ) async {
     try {
-      DateTime _min = this.getLinkedProperty<TModel, DateTime>(
-        formBuilder.group.modelState.model,
-        this.min.toDateTime(),
+      DateTime _min = this.getLinkedProperty<DateTime>(
+        formGroup,
         this.minOnProperty,
+        this.min,
       );
-      DateTime _max = this.getLinkedProperty<TModel, DateTime>(
-        formBuilder.group.modelState.model,
-        this.max.toDateTime(),
+      DateTime _max = this.getLinkedProperty<DateTime>(
+        formGroup,
         this.maxOnProperty,
+        this.max,
       );
 
       bool isValid = _validate(value, _min, _max);
       return isValid;
+    } on RemotePropertyException catch (e) {
+      throw e;
     } catch (e) {
       throw new ValidationException(
           'An error occured with validator on form element with validator of type');

@@ -2,13 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:flutter_model_form_validation/src/index.dart';
 import 'package:flutter_model_form_validation/src/utils/index.dart';
+
+enum PhoneNumberType { landline, mobile }
 
 /// [PhoneNumber] validator permits you to check that a string value is a valid phone number.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class PhoneNumber extends FormValidator<String> {
+class PhoneNumber extends FormValidatorAnnotation<String> {
   const PhoneNumber({
     this.countryCode,
     this.phoneNumberType,
@@ -33,30 +34,32 @@ class PhoneNumber extends FormValidator<String> {
   final String error;
 
   @override
-  Future<bool> isValid<TModel extends ModelForm>(
-    FormBuilder<TModel> formBuilder,
-    FormGroup<ModelForm, ModelForm> formGroup,
+  Future<bool> isValid(
+    FormBuilder formBuilder,
+    FormGroup formGroup,
     String value,
   ) async {
     try {
-      String _countryCode = this.getLinkedProperty<TModel, String>(
-        formBuilder.group.modelState.model,
-        this.countryCode,
+      String _countryCode = this.getLinkedProperty<String>(
+        formGroup,
         this.countryCodeOnProperty,
+        this.countryCode,
       );
       PhoneNumberType _phoneNumberType =
-          this.getLinkedProperty<TModel, PhoneNumberType>(
-        formBuilder.group.modelState.model,
-        this.phoneNumberType,
+          this.getLinkedProperty<PhoneNumberType>(
+        formGroup,
         this.phoneNumberTypeOnProperty,
+        this.phoneNumberType,
       );
 
       bool isValid = _validate(value, _countryCode?.toUpperCase(),
           _phoneNumberType?.toString()?.split('.')[1]);
       return isValid;
+    } on RemotePropertyException catch (e) {
+      throw e;
     } catch (e) {
       throw new ValidationException(
-          'An error occurend with validator on from control with validator of type');
+          'An error occured with validator on form element with validator of type');
     }
   }
 

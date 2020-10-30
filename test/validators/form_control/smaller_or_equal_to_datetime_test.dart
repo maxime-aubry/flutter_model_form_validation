@@ -17,7 +17,7 @@ void main() {
           new DateTime(2020, 1, 1),
           new DateTime(2020, 1, 1),
         );
-        ModelState modelState = new ModelState<
+        ModelFormState modelState = new ModelFormState<
             SmallerOrEqualToDatetimeWithUserAndDeveloperValuesTest>(model);
 
         expect(await modelState.validateForm(), true);
@@ -32,8 +32,9 @@ void main() {
           new DateTime(2020, 1, 1),
           new DateTime(2020, 1, 1),
         );
-        ModelState modelState =
-            new ModelState<SmallerOrEqualToDatetimeWithUserValuesTest>(model);
+        ModelFormState modelState =
+            new ModelFormState<SmallerOrEqualToDatetimeWithUserValuesTest>(
+                model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -46,8 +47,8 @@ void main() {
             new SmallerOrEqualToDatetimeWithDeveloperValuesTest(
           new DateTime(2019, 1, 1),
         );
-        ModelState modelState =
-            new ModelState<SmallerOrEqualToDatetimeWithDeveloperValuesTest>(
+        ModelFormState modelState =
+            new ModelFormState<SmallerOrEqualToDatetimeWithDeveloperValuesTest>(
                 model);
 
         expect(await modelState.validateForm(), true);
@@ -63,8 +64,8 @@ void main() {
           new DateTime(2019, 12, 31),
           new DateTime(2020, 1, 1),
         );
-        ModelState modelState =
-            new ModelState<SmallerOrEqualToDatetimeTest>(model);
+        ModelFormState modelState =
+            new ModelFormState<SmallerOrEqualToDatetimeTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -77,8 +78,8 @@ void main() {
           new DateTime(2020, 1, 1),
           new DateTime(2020, 1, 1),
         );
-        ModelState modelState =
-            new ModelState<SmallerOrEqualToDatetimeTest>(model);
+        ModelFormState modelState =
+            new ModelFormState<SmallerOrEqualToDatetimeTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -93,8 +94,8 @@ void main() {
           new DateTime(2020, 1, 2),
           new DateTime(2020, 1, 1),
         );
-        ModelState modelState =
-            new ModelState<SmallerOrEqualToDatetimeTest>(model);
+        ModelFormState modelState =
+            new ModelFormState<SmallerOrEqualToDatetimeTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);

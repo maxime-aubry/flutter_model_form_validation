@@ -15,8 +15,8 @@ void main() {
         File file =
             new File('${Directory.current.path}\\test\\assets\\glycine.jpg');
         FileMimeTypeTest model = new FileMimeTypeTest(file.readAsBytesSync());
-        ModelState<FileMimeTypeTest> modelState =
-            new ModelState<FileMimeTypeTest>(model);
+        ModelFormState<FileMimeTypeTest> modelState =
+            new ModelFormState<FileMimeTypeTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -30,8 +30,8 @@ void main() {
         File file = new File(
             '${Directory.current.path}\\test\\assets\\erable-japonais.png');
         FileMimeTypeTest model = new FileMimeTypeTest(file.readAsBytesSync());
-        ModelState<FileMimeTypeTest> modelState =
-            new ModelState<FileMimeTypeTest>(model);
+        ModelFormState<FileMimeTypeTest> modelState =
+            new ModelFormState<FileMimeTypeTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);

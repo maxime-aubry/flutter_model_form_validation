@@ -17,9 +17,8 @@ void main() {
           new DateTime(2020, 1, 2),
           new DateTime(2020, 1, 1),
         );
-        ModelState modelState =
-            new ModelState<NotEqualToDatetimeWithUserAndDeveloperValuesTest>(
-                model);
+        ModelFormState modelState = new ModelFormState<
+            NotEqualToDatetimeWithUserAndDeveloperValuesTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -33,8 +32,8 @@ void main() {
           new DateTime(2020, 1, 2),
           new DateTime(2020, 1, 1),
         );
-        ModelState modelState =
-            new ModelState<NotEqualToDatetimeWithUserValuesTest>(model);
+        ModelFormState modelState =
+            new ModelFormState<NotEqualToDatetimeWithUserValuesTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -47,8 +46,9 @@ void main() {
             new NotEqualToDatetimeWithDeveloperValuesTest(
           new DateTime(2019, 1, 2),
         );
-        ModelState modelState =
-            new ModelState<NotEqualToDatetimeWithDeveloperValuesTest>(model);
+        ModelFormState modelState =
+            new ModelFormState<NotEqualToDatetimeWithDeveloperValuesTest>(
+                model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -63,7 +63,8 @@ void main() {
           new DateTime(2020, 1, 2),
           new DateTime(2020, 1, 1),
         );
-        ModelState modelState = new ModelState<NotEqualToDatetimeTest>(model);
+        ModelFormState modelState =
+            new ModelFormState<NotEqualToDatetimeTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -78,7 +79,8 @@ void main() {
           new DateTime(2020, 1, 1),
           new DateTime(2020, 1, 1),
         );
-        ModelState modelState = new ModelState<NotEqualToDatetimeTest>(model);
+        ModelFormState modelState =
+            new ModelFormState<NotEqualToDatetimeTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);

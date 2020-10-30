@@ -1,0 +1,3 @@
+class FormArrayDeclarer {
+  const FormArrayDeclarer();
+}

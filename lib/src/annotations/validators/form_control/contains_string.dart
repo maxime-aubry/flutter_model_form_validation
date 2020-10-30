@@ -4,12 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:flutter_model_form_validation/src/index.dart';
 
 /// [ContainsString] validator permits you to check that a string value is into an array.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class ContainsString extends FormValidator<String> {
+class ContainsString extends FormValidatorAnnotation<String> {
   const ContainsString({
     @required this.items,
     @required this.error,
@@ -22,9 +21,9 @@ class ContainsString extends FormValidator<String> {
   final String error;
 
   @override
-  Future<bool> isValid<TModel extends ModelForm>(
-    FormBuilder<TModel> formBuilder,
-    FormGroup<ModelForm, ModelForm> formGroup,
+  Future<bool> isValid(
+    FormBuilder formBuilder,
+    FormGroup formGroup,
     String value,
   ) async {
     try {

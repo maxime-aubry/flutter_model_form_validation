@@ -2,12 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:flutter_model_form_validation/src/index.dart';
 
 /// [GreaterOrEqualToString] validator permits you to check that a value is greater or equal to the value of another property.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class GreaterOrEqualToString extends FormValidator<String> {
+class GreaterOrEqualToString extends FormValidatorAnnotation<String> {
   const GreaterOrEqualToString({
     this.valueToCompare,
     this.valueToCompareOnProperty,
@@ -24,23 +23,25 @@ class GreaterOrEqualToString extends FormValidator<String> {
   final String error;
 
   @override
-  Future<bool> isValid<TModel extends ModelForm>(
-    FormBuilder<TModel> formBuilder,
-    FormGroup<ModelForm, ModelForm> formGroup,
+  Future<bool> isValid(
+    FormBuilder formBuilder,
+    FormGroup formGroup,
     String value,
   ) async {
     try {
-      String _valueToCompare = this.getLinkedProperty<TModel, String>(
-        formBuilder.group.modelState.model,
-        this.valueToCompare,
+      String _valueToCompare = this.getLinkedProperty<String>(
+        formGroup,
         this.valueToCompareOnProperty,
+        this.valueToCompare,
       );
 
       bool isValid = _validate(value, _valueToCompare);
       return isValid;
+    } on RemotePropertyException catch (e) {
+      throw e;
     } catch (e) {
       throw new ValidationException(
-          'An error occurend with validator on from control with validator of type');
+          'An error occured with validator on form element with validator of type');
     }
   }
 

@@ -11,7 +11,8 @@ void main() {
     group('Test the validation > success.', () {
       test('Valid regular expression.', () async {
         RegularExpressionTest model = new RegularExpressionTest('Hello');
-        ModelState modelState = new ModelState<RegularExpressionTest>(model);
+        ModelFormState modelState =
+            new ModelFormState<RegularExpressionTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -23,7 +24,8 @@ void main() {
     group('Test the validation > failure.', () {
       test('Invalid regular expression.', () async {
         RegularExpressionTest model = new RegularExpressionTest('Good morning');
-        ModelState modelState = new ModelState<RegularExpressionTest>(model);
+        ModelFormState modelState =
+            new ModelFormState<RegularExpressionTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);

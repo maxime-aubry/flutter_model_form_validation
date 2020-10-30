@@ -2,12 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:flutter_model_form_validation/src/index.dart';
 
 /// [StringRange] validator permits you to check that a string using by declared settings.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class StringRange extends FormValidator<String> {
+class StringRange extends FormValidatorAnnotation<String> {
   const StringRange({
     this.min,
     this.max,
@@ -32,28 +31,30 @@ class StringRange extends FormValidator<String> {
   final String error;
 
   @override
-  Future<bool> isValid<TModel extends ModelForm>(
-    FormBuilder<TModel> formBuilder,
-    FormGroup<ModelForm, ModelForm> formGroup,
+  Future<bool> isValid(
+    FormBuilder formBuilder,
+    FormGroup formGroup,
     String value,
   ) async {
     try {
-      String _min = this.getLinkedProperty<TModel, String>(
-        formBuilder.group.modelState.model,
-        this.min,
+      String _min = this.getLinkedProperty<String>(
+        formGroup,
         this.minOnProperty,
+        this.min,
       );
-      String _max = this.getLinkedProperty<TModel, String>(
-        formBuilder.group.modelState.model,
-        this.max,
+      String _max = this.getLinkedProperty<String>(
+        formGroup,
         this.maxOnProperty,
+        this.max,
       );
 
       bool isValid = _validate(value, _min, _max);
       return isValid;
+    } on RemotePropertyException catch (e) {
+      throw e;
     } catch (e) {
       throw new ValidationException(
-          'An error occurend with validator on from control with validator of type');
+          'An error occured with validator on form element with validator of type');
     }
   }
 

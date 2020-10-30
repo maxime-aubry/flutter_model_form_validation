@@ -4,12 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:flutter_model_form_validation/src/index.dart';
 
 /// [ContainsNumber] validator permits you to check that a number value is into an array.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class ContainsNumber extends FormValidator<num> {
+class ContainsNumber extends FormValidatorAnnotation<num> {
   const ContainsNumber({
     @required this.items,
     @required this.error,
@@ -22,9 +21,9 @@ class ContainsNumber extends FormValidator<num> {
   final String error;
 
   @override
-  Future<bool> isValid<TModel extends ModelForm>(
-    FormBuilder<TModel> formBuilder,
-    FormGroup<ModelForm, ModelForm> formGroup,
+  Future<bool> isValid(
+    FormBuilder formBuilder,
+    FormGroup formGroup,
     num value,
   ) async {
     try {

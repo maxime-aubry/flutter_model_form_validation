@@ -14,8 +14,9 @@ void main() {
           () async {
         EqualToStringWithUserAndDeveloperValuesTest model =
             new EqualToStringWithUserAndDeveloperValuesTest('a', 'a');
-        ModelState<EqualToStringWithUserAndDeveloperValuesTest> modelState =
-            new ModelState<EqualToStringWithUserAndDeveloperValuesTest>(model);
+        ModelFormState<EqualToStringWithUserAndDeveloperValuesTest> modelState =
+            new ModelFormState<EqualToStringWithUserAndDeveloperValuesTest>(
+                model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -26,8 +27,8 @@ void main() {
       test('"valueToCompare" is provided by user only.', () async {
         EqualToStringWithUserValuesTest model =
             new EqualToStringWithUserValuesTest('a', 'a');
-        ModelState<EqualToStringWithUserValuesTest> modelState =
-            new ModelState<EqualToStringWithUserValuesTest>(model);
+        ModelFormState<EqualToStringWithUserValuesTest> modelState =
+            new ModelFormState<EqualToStringWithUserValuesTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -38,8 +39,8 @@ void main() {
       test('"valueToCompare" is provided by developer only.', () async {
         EqualToStringWithDeveloperValuesTest model =
             new EqualToStringWithDeveloperValuesTest('b');
-        ModelState<EqualToStringWithDeveloperValuesTest> modelState =
-            new ModelState<EqualToStringWithDeveloperValuesTest>(model);
+        ModelFormState<EqualToStringWithDeveloperValuesTest> modelState =
+            new ModelFormState<EqualToStringWithDeveloperValuesTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -51,8 +52,8 @@ void main() {
     group('Test the validation > success.', () {
       test('The value is equal to value to compare.', () async {
         EqualToStringTest model = new EqualToStringTest('a', 'a');
-        ModelState<EqualToStringTest> modelState =
-            new ModelState<EqualToStringTest>(model);
+        ModelFormState<EqualToStringTest> modelState =
+            new ModelFormState<EqualToStringTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -64,8 +65,8 @@ void main() {
     group('Test the validation > failure.', () {
       test('The value is not equal to value to compare.', () async {
         EqualToStringTest model = new EqualToStringTest('a', 'b');
-        ModelState<EqualToStringTest> modelState =
-            new ModelState<EqualToStringTest>(model);
+        ModelFormState<EqualToStringTest> modelState =
+            new ModelFormState<EqualToStringTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);

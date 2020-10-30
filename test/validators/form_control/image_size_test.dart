@@ -16,8 +16,8 @@ void main() {
         File file =
             new File('${Directory.current.path}\\test\\assets\\glycine.jpg');
         ImageSizeTest model = new ImageSizeTest(file.readAsBytesSync());
-        ModelState<ImageSizeTest> modelState =
-            new ModelState<ImageSizeTest>(model);
+        ModelFormState<ImageSizeTest> modelState =
+            new ModelFormState<ImageSizeTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -33,8 +33,8 @@ void main() {
         File file = new File(
             '${Directory.current.path}\\test\\assets\\erable-japonais.png');
         ImageSizeTest model = new ImageSizeTest(file.readAsBytesSync());
-        ModelState<ImageSizeTest> modelState =
-            new ModelState<ImageSizeTest>(model);
+        ModelFormState<ImageSizeTest> modelState =
+            new ModelFormState<ImageSizeTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);

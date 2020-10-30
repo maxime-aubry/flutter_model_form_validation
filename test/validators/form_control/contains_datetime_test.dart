@@ -13,8 +13,8 @@ void main() {
         ContainsDateTimeTest model = new ContainsDateTimeTest(
           new DateTime(2020, 6, 1),
         );
-        ModelState<ContainsDateTimeTest> modelState =
-            new ModelState<ContainsDateTimeTest>(model);
+        ModelFormState<ContainsDateTimeTest> modelState =
+            new ModelFormState<ContainsDateTimeTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -28,8 +28,8 @@ void main() {
         ContainsDateTimeTest model = new ContainsDateTimeTest(
           new DateTime(2020, 6, 2),
         );
-        ModelState<ContainsDateTimeTest> modelState =
-            new ModelState<ContainsDateTimeTest>(model);
+        ModelFormState<ContainsDateTimeTest> modelState =
+            new ModelFormState<ContainsDateTimeTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);

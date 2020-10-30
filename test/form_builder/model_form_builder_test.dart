@@ -7,23 +7,23 @@ import '../models/models.reflectable.dart';
 void main() {
   initializeReflectable();
 
-  group('FormBuilder.', () {
+  group('ModelFormBuilder.', () {
     test('Unable to generate a form using by a null model.', () {
       expect(() {
-        ModelState<FormBuilderTest> modelState =
-            new ModelState<FormBuilderTest>(null);
+        ModelFormState<FormBuilderTest> modelState =
+            new ModelFormState<FormBuilderTest>(null);
         expect(modelState, isNotNull);
       }, throwsA(isA<AssertionError>()));
     });
 
     test('Generates a form using by a new model.', () {
       FormBuilderTest model = new FormBuilderTest(null, null, null, null);
-      ModelState<FormBuilderTest> modelState =
-          new ModelState<FormBuilderTest>(model);
+      ModelFormState<FormBuilderTest> modelState =
+          new ModelFormState<FormBuilderTest>(model);
 
-      FormGroup fg = modelState.formBuilder.group;
-      FormArray fa;
-      FormControl fc;
+      ModelFormGroup fg = modelState.formBuilder.group;
+      ModelFormArray fa;
+      ModelFormControl fc;
 
       // first_name
       fc = fg.controls['first_name'];
@@ -118,12 +118,12 @@ void main() {
       ];
       model.favorite_book = model.books[1];
 
-      ModelState<FormBuilderTest> modelState =
-          new ModelState<FormBuilderTest>(model);
+      ModelFormState<FormBuilderTest> modelState =
+          new ModelFormState<FormBuilderTest>(model);
 
-      FormGroup fg = modelState.formBuilder.group;
-      FormArray fa;
-      FormControl fc;
+      ModelFormGroup fg = modelState.formBuilder.group;
+      ModelFormArray fa;
+      ModelFormControl fc;
 
       // first_name
       fc = fg.controls['first_name'];
@@ -315,12 +315,12 @@ void main() {
 
     test('Form is updated and validated when setting a value.', () async {
       FormBuilderTest model = new FormBuilderTest(null, null, null, null);
-      ModelState<FormBuilderTest> modelState =
-          new ModelState<FormBuilderTest>(model);
+      ModelFormState<FormBuilderTest> modelState =
+          new ModelFormState<FormBuilderTest>(model);
 
-      // FormGroup fg;
-      // FormArray fa;
-      FormControl fc;
+      // ModelFormGroup fg;
+      // ModelFormArray fa;
+      ModelFormControl fc;
 
       // first_name
       fc = modelState.formBuilder.group.controls['first_name'];
@@ -403,12 +403,12 @@ void main() {
         new DateTime(1980, 12, 15),
         new DateTime(2019, 06, 01),
       );
-      ModelState<FormBuilderTest> modelState =
-          new ModelState<FormBuilderTest>(model);
+      ModelFormState<FormBuilderTest> modelState =
+          new ModelFormState<FormBuilderTest>(model);
 
-      FormGroup fg =
-          modelState.formBuilder.group.controls['favorite_book'] as FormGroup;
-      FormControl fc;
+      ModelFormGroup fg = modelState.formBuilder.group.controls['favorite_book']
+          as ModelFormGroup;
+      ModelFormControl fc;
 
       // favorite_book
       _checkFormGroup(
@@ -438,7 +438,7 @@ void main() {
       );
 
       // favorite_book.name
-      fc = fg.controls['name'] as FormControl;
+      fc = fg.controls['name'] as ModelFormControl;
       _checkFormControl(
         fc,
         'name',
@@ -456,13 +456,13 @@ void main() {
         new DateTime(1980, 12, 15),
         new DateTime(2019, 06, 01),
       );
-      ModelState<FormBuilderTest> modelState =
-          new ModelState<FormBuilderTest>(model);
+      ModelFormState<FormBuilderTest> modelState =
+          new ModelFormState<FormBuilderTest>(model);
 
-      // FormGroup fg;
-      FormArray fa =
-          modelState.formBuilder.group.controls['books'] as FormArray;
-      // FormControl fc;
+      // ModelFormGroup fg;
+      ModelFormArray fa =
+          modelState.formBuilder.group.controls['books'] as ModelFormArray;
+      // ModelFormControl fc;
 
       // books
       _checkFormArray(
@@ -499,7 +499,7 @@ void main() {
 }
 
 void _checkFormGroup(
-  FormGroup fg,
+  ModelFormGroup fg,
   String name,
   EAbstractControlStatus status,
   ValidationError error,
@@ -542,7 +542,7 @@ void _checkFormGroup(
 }
 
 void _checkFormArray(
-  FormArray fa,
+  ModelFormArray fa,
   String name,
   EAbstractControlStatus status,
   ValidationError error,
@@ -585,7 +585,7 @@ void _checkFormArray(
 }
 
 void _checkFormControl(
-  FormControl fc,
+  ModelFormControl fc,
   String name,
   EAbstractControlStatus status,
   ValidationError error,

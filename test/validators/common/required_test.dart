@@ -11,7 +11,7 @@ void main() {
     group('Test the validation > success.', () {
       test('Data is provided.', () async {
         RequiredTest model = new RequiredTest('a');
-        ModelState modelState = new ModelState<RequiredTest>(model);
+        ModelFormState modelState = new ModelFormState<RequiredTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -22,7 +22,7 @@ void main() {
     group('Test the validation > failure.', () {
       test('Data is empty string.', () async {
         RequiredTest model = new RequiredTest('');
-        ModelState modelState = new ModelState<RequiredTest>(model);
+        ModelFormState modelState = new ModelFormState<RequiredTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);
@@ -35,7 +35,7 @@ void main() {
 
       test('Data is null.', () async {
         RequiredTest model = new RequiredTest(null);
-        ModelState modelState = new ModelState<RequiredTest>(model);
+        ModelFormState modelState = new ModelFormState<RequiredTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);

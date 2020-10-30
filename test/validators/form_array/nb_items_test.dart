@@ -18,8 +18,8 @@ void main() {
           2,
           4,
         );
-        ModelState<NbItemsWithUserAndDeveloperValuesTest> modelState =
-            new ModelState<NbItemsWithUserAndDeveloperValuesTest>(model);
+        ModelFormState<NbItemsWithUserAndDeveloperValuesTest> modelState =
+            new ModelFormState<NbItemsWithUserAndDeveloperValuesTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -33,8 +33,8 @@ void main() {
           2,
           4,
         );
-        ModelState<NbItemsWithUserValuesTest> modelState =
-            new ModelState<NbItemsWithUserValuesTest>(model);
+        ModelFormState<NbItemsWithUserValuesTest> modelState =
+            new ModelFormState<NbItemsWithUserValuesTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -47,8 +47,8 @@ void main() {
             new NbItemsWithDeveloperValuesTest(
           ["azerty", "ytreza"],
         );
-        ModelState<NbItemsWithDeveloperValuesTest> modelState =
-            new ModelState<NbItemsWithDeveloperValuesTest>(model);
+        ModelFormState<NbItemsWithDeveloperValuesTest> modelState =
+            new ModelFormState<NbItemsWithDeveloperValuesTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -64,7 +64,8 @@ void main() {
           2,
           4,
         );
-        ModelState<NbItemsTest> modelState = new ModelState<NbItemsTest>(model);
+        ModelFormState<NbItemsTest> modelState =
+            new ModelFormState<NbItemsTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -78,7 +79,8 @@ void main() {
           2,
           4,
         );
-        ModelState<NbItemsTest> modelState = new ModelState<NbItemsTest>(model);
+        ModelFormState<NbItemsTest> modelState =
+            new ModelFormState<NbItemsTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -92,7 +94,8 @@ void main() {
           2,
           4,
         );
-        ModelState<NbItemsTest> modelState = new ModelState<NbItemsTest>(model);
+        ModelFormState<NbItemsTest> modelState =
+            new ModelFormState<NbItemsTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -108,7 +111,8 @@ void main() {
           2,
           4,
         );
-        ModelState<NbItemsTest> modelState = new ModelState<NbItemsTest>(model);
+        ModelFormState<NbItemsTest> modelState =
+            new ModelFormState<NbItemsTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);
@@ -125,7 +129,8 @@ void main() {
           2,
           4,
         );
-        ModelState<NbItemsTest> modelState = new ModelState<NbItemsTest>(model);
+        ModelFormState<NbItemsTest> modelState =
+            new ModelFormState<NbItemsTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);

@@ -14,8 +14,8 @@ void main() {
         InTextWithUserAndDeveloperValuesTest model =
             new InTextWithUserAndDeveloperValuesTest(
                 'father', 'I am your father !');
-        ModelState<InTextWithUserAndDeveloperValuesTest> modelState =
-            new ModelState<InTextWithUserAndDeveloperValuesTest>(model);
+        ModelFormState<InTextWithUserAndDeveloperValuesTest> modelState =
+            new ModelFormState<InTextWithUserAndDeveloperValuesTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -26,8 +26,8 @@ void main() {
       test('"Text" is provided by user only.', () async {
         InTextWithUserValuesTest model =
             new InTextWithUserValuesTest('father', 'I am your father !');
-        ModelState<InTextWithUserValuesTest> modelState =
-            new ModelState<InTextWithUserValuesTest>(model);
+        ModelFormState<InTextWithUserValuesTest> modelState =
+            new ModelFormState<InTextWithUserValuesTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -38,8 +38,8 @@ void main() {
       test('"Text" is provided by developer only.', () async {
         InTextWithDeveloperValuesTest model =
             new InTextWithDeveloperValuesTest('lorem');
-        ModelState<InTextWithDeveloperValuesTest> modelState =
-            new ModelState<InTextWithDeveloperValuesTest>(model);
+        ModelFormState<InTextWithDeveloperValuesTest> modelState =
+            new ModelFormState<InTextWithDeveloperValuesTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -51,7 +51,8 @@ void main() {
     group('Test the validation > success.', () {
       test('The value is contained into "text".', () async {
         InTextTest model = new InTextTest('father', 'I am your father !');
-        ModelState<InTextTest> modelState = new ModelState<InTextTest>(model);
+        ModelFormState<InTextTest> modelState =
+            new ModelFormState<InTextTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -63,7 +64,8 @@ void main() {
     group('Test the validation > failure.', () {
       test('The value is not contained into "text".', () async {
         InTextTest model = new InTextTest('luke', 'I am your father !');
-        ModelState<InTextTest> modelState = new ModelState<InTextTest>(model);
+        ModelFormState<InTextTest> modelState =
+            new ModelFormState<InTextTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);

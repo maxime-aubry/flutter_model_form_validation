@@ -2,13 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:flutter_model_form_validation/src/index.dart';
 
 /// [MembershipPassword] validator permits you to check that a string value is accordance with declared settings.
 /// You must set to true at least one options. In the other case, your validator will always return false.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class MembershipPassword extends FormValidator<String> {
+class MembershipPassword extends FormValidatorAnnotation<String> {
   const MembershipPassword({
     @required this.minLength,
     @required this.maxLength,
@@ -41,9 +40,9 @@ class MembershipPassword extends FormValidator<String> {
   final String error;
 
   @override
-  Future<bool> isValid<TModel extends ModelForm>(
-    FormBuilder<TModel> formBuilder,
-    FormGroup<ModelForm, ModelForm> formGroup,
+  Future<bool> isValid(
+    FormBuilder formBuilder,
+    FormGroup formGroup,
     String value,
   ) async {
     try {

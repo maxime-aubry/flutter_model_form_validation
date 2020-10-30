@@ -2,12 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:flutter_model_form_validation/src/index.dart';
 
 /// [FileSize] validator permits you to check that a string value is a valid size.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class FileSize extends FormValidator<List<int>> {
+class FileSize extends FormValidatorAnnotation<List<int>> {
   const FileSize({
     @required this.size,
     @required this.error,
@@ -20,9 +19,9 @@ class FileSize extends FormValidator<List<int>> {
   final String error;
 
   @override
-  Future<bool> isValid<TModel extends ModelForm>(
-    FormBuilder<TModel> formBuilder,
-    FormGroup<ModelForm, ModelForm> formGroup,
+  Future<bool> isValid(
+    FormBuilder formBuilder,
+    FormGroup formGroup,
     List<int> value,
   ) async {
     try {

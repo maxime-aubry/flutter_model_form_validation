@@ -14,8 +14,9 @@ void main() {
           () async {
         NumberRangeWithUserAndDeveloperValuesTest model =
             new NumberRangeWithUserAndDeveloperValuesTest(5, 1, 10);
-        ModelState modelState =
-            new ModelState<NumberRangeWithUserAndDeveloperValuesTest>(model);
+        ModelFormState modelState =
+            new ModelFormState<NumberRangeWithUserAndDeveloperValuesTest>(
+                model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -26,8 +27,8 @@ void main() {
       test('"Min" and "max" are provided by user only.', () async {
         NumberRangeWithUserValuesTest model =
             new NumberRangeWithUserValuesTest(5, 1, 10);
-        ModelState modelState =
-            new ModelState<NumberRangeWithUserValuesTest>(model);
+        ModelFormState modelState =
+            new ModelFormState<NumberRangeWithUserValuesTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -38,8 +39,8 @@ void main() {
       test('"Min" and "max" are provided by developer only.', () async {
         NumberRangeWithDeveloperValuesTest model =
             new NumberRangeWithDeveloperValuesTest(-5);
-        ModelState modelState =
-            new ModelState<NumberRangeWithDeveloperValuesTest>(model);
+        ModelFormState modelState =
+            new ModelFormState<NumberRangeWithDeveloperValuesTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -51,7 +52,7 @@ void main() {
     group('Test the validation > success.', () {
       test('The value is equal to "min".', () async {
         NumberRangeTest model = new NumberRangeTest(1, 1, 10);
-        ModelState modelState = new ModelState<NumberRangeTest>(model);
+        ModelFormState modelState = new ModelFormState<NumberRangeTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -61,7 +62,7 @@ void main() {
 
       test('The value is between "min" and "max".', () async {
         NumberRangeTest model = new NumberRangeTest(5, 1, 10);
-        ModelState modelState = new ModelState<NumberRangeTest>(model);
+        ModelFormState modelState = new ModelFormState<NumberRangeTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -71,7 +72,7 @@ void main() {
 
       test('The value is equal to "max".', () async {
         NumberRangeTest model = new NumberRangeTest(10, 1, 10);
-        ModelState modelState = new ModelState<NumberRangeTest>(model);
+        ModelFormState modelState = new ModelFormState<NumberRangeTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
@@ -83,7 +84,7 @@ void main() {
     group('Test the validation > failure.', () {
       test('The value is smaller than "min".', () async {
         NumberRangeTest model = new NumberRangeTest(0, 1, 10);
-        ModelState modelState = new ModelState<NumberRangeTest>(model);
+        ModelFormState modelState = new ModelFormState<NumberRangeTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);
@@ -96,7 +97,7 @@ void main() {
 
       test('The value is greater than "max".', () async {
         NumberRangeTest model = new NumberRangeTest(11, 1, 10);
-        ModelState modelState = new ModelState<NumberRangeTest>(model);
+        ModelFormState modelState = new ModelFormState<NumberRangeTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);
