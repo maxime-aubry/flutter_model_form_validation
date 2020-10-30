@@ -3,13 +3,13 @@ import 'package:flutter_model_form_validation/src/form_builder/model_form/index.
 import 'package:flutter_model_form_validation/src/index.dart';
 import 'package:reflectable/reflectable.dart';
 
-class ModelFormControl<TModel extends ModelForm> extends FormControl
+class ModelFormControl<TModel extends ModelForm> extends FormControlBase
     with ModelFormValidator {
   ModelFormControl(
     ModelFormState<TModel> modelState,
     Object value,
     String name,
-    FormGroup parentGroup,
+    FormGroupBase parentGroup,
   )   : assert(modelState != null),
         super(value, name, parentGroup) {
     this.modelState = modelState;

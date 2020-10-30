@@ -3,10 +3,10 @@ import 'package:flutter_model_form_validation/src/form_builder/model_form/index.
 import 'package:flutter_model_form_validation/src/index.dart';
 import 'package:flutter_model_form_validation/src/utils/index.dart';
 
-class ModelFormState<TModel extends ModelForm> extends FormState {
+class ModelFormState<TModel extends ModelForm> extends FormStateBase {
   ModelFormState(TModel model)
       : assert(model != null),
-        super() {
+        super(null) {
     this.model = model;
     this._init();
   }
@@ -63,7 +63,7 @@ class ModelFormState<TModel extends ModelForm> extends FormState {
       formArray.items,
     );
 
-    for (FormGroup formGroup in formArray.groups)
+    for (FormGroupBase formGroup in formArray.groups)
       await _validateFormGroup(formGroup);
   }
 
@@ -88,11 +88,11 @@ class ModelFormState<TModel extends ModelForm> extends FormState {
 
     for (MapEntry<String, AbstractControl> control
         in this.formBuilder.group.controls.entries) {
-      if (control.value is FormGroup)
+      if (control.value is FormGroupBase)
         await this._validateFormGroup(control.value);
-      if (control.value is FormArray)
+      if (control.value is FormArrayBase)
         await this._validateFormArray(control.value);
-      if (control.value is FormControl)
+      if (control.value is FormControlBase)
         await this._validateFormControl(control.value);
     }
 

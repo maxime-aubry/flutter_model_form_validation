@@ -24,8 +24,8 @@ class EqualToNumber extends FormValidatorAnnotation<num> {
 
   @override
   Future<bool> isValid(
-    FormBuilder formBuilder,
-    FormGroup formGroup,
+    FormBuilderBase formBuilder,
+    FormGroupBase formGroup,
     num value,
   ) async {
     try {

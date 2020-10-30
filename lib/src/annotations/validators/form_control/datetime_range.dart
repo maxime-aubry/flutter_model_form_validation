@@ -32,8 +32,8 @@ class DateTimeRange extends FormValidatorAnnotation<DateTime> {
 
   @override
   Future<bool> isValid(
-    FormBuilder formBuilder,
-    FormGroup formGroup,
+    FormBuilderBase formBuilder,
+    FormGroupBase formGroup,
     DateTime value,
   ) async {
     try {

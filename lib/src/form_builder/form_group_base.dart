@@ -1,11 +1,12 @@
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 
-class FormGroup extends AbstractControl {
-  FormGroup(
+class FormGroupBase extends AbstractControl {
+  FormGroupBase(
     String name,
-    FormGroup parentGroup,
+    FormGroupBase parentGroup,
+    Map<String, AbstractControl> controls,
   ) : super(name, parentGroup) {
-    this.controls = {};
+    this.controls = (controls == null) ? {} : controls;
   }
 
   // public properties

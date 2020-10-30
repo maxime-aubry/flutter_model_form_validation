@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/model_form/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
@@ -5,13 +7,13 @@ import 'package:queries/collections.dart';
 import 'package:reflectable/reflectable.dart';
 
 class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
-    extends FormArray with ModelFormValidator {
+    extends FormArrayBase with ModelFormValidator {
   ModelFormArray(
     ModelFormState<TModel> modelState,
     List items,
     String name,
     ModelFormGroup parentGroup,
-  ) : super(name, parentGroup) {
+  ) : super(name, parentGroup, null) {
     this.modelState = modelState;
     this.items = (items == null) ? null : items as List<TCurrentModel>;
     this.status = EAbstractControlStatus.pure;

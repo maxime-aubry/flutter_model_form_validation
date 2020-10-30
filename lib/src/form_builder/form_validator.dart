@@ -25,8 +25,8 @@ mixin FormValidator {
 
   /// [validate] method validate current value, update the status (pure, valid, invalid) and the model state.
   Future validateModelForm(
-    FormState modelState,
-    FormGroup parentGroup,
+    FormStateBase modelState,
+    FormGroupBase parentGroup,
     String listenerName,
     String name,
     Object value,

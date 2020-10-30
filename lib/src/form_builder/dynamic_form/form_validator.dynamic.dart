@@ -12,8 +12,8 @@ mixin DynamicFormValidator {
 
   /// [validate] method validate current value, update the status (pure, valid, invalid) and the model state.
   Future validateModelForm(
-    FormState modelState,
-    DynamicFormGroup parentGroup,
+    FormStateBase modelState,
+    FormGroup parentGroup,
     String name,
     Object value,
   ) async {
@@ -72,8 +72,7 @@ mixin DynamicFormValidator {
   }
 
   String getListenerName(AbstractControl abstractControl) {
-    DynamicFormGroup parentGroup =
-        abstractControl.parentGroup as DynamicFormGroup;
+    FormGroup parentGroup = abstractControl.parentGroup as FormGroup;
     String listenerName = '${parentGroup.hashCode}.${abstractControl.name}';
     return listenerName;
   }

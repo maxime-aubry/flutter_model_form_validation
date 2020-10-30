@@ -5,5 +5,5 @@ class AbstractControl {
 
   // public properties
   String name;
-  FormGroup parentGroup;
+  FormGroupBase parentGroup;
 }

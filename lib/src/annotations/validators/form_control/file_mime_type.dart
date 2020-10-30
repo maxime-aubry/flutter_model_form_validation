@@ -21,8 +21,8 @@ class FileMimeType extends FormValidatorAnnotation<List<int>> {
 
   @override
   Future<bool> isValid(
-    FormBuilder formBuilder,
-    FormGroup formGroup,
+    FormBuilderBase formBuilder,
+    FormGroupBase formGroup,
     List<int> value,
   ) async {
     try {

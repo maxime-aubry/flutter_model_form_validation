@@ -23,13 +23,13 @@ abstract class FormValidatorAnnotation<TValue> {
   /// It reprensents your full object model with all values.
   /// Maybe you would validate a property in comparison to others.
   Future<bool> isValid(
-    FormBuilder formBuilder,
-    FormGroup formGroup,
+    FormBuilderBase formBuilder,
+    FormGroupBase formGroup,
     TValue value,
   );
 
   Object getLinkedProperty<TValue>(
-    FormGroup formGroup,
+    FormGroupBase formGroup,
     String propertyName,
     Object defaultValue,
   ) {
@@ -42,9 +42,10 @@ abstract class FormValidatorAnnotation<TValue> {
 
       if (!formGroup.controls.containsKey(propertyName))
         return dtValue ?? defaultValue;
-      if (formGroup.controls[propertyName] is! FormControl)
+      if (formGroup.controls[propertyName] is! FormControlBase)
         return dtValue ?? defaultValue;
-      FormControl formControl = formGroup.controls[propertyName] as FormControl;
+      FormControlBase formControl =
+          formGroup.controls[propertyName] as FormControlBase;
       TValue value = formControl.value as TValue;
       return value;
     } catch (e) {

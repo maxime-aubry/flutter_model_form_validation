@@ -32,8 +32,8 @@ class NbItems extends FormValidatorAnnotation<List> {
 
   @override
   Future<bool> isValid(
-    FormBuilder formBuilder,
-    FormGroup formGroup,
+    FormBuilderBase formBuilder,
+    FormGroupBase formGroup,
     List value,
   ) async {
     try {

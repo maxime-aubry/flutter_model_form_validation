@@ -12,14 +12,14 @@ enum EFormDeclarer {
 }
 
 class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
-    extends FormGroup with ModelFormValidator {
+    extends FormGroupBase with ModelFormValidator {
   ModelFormGroup(
     ModelFormState<TModel> modelState,
     Object current,
     String name,
-    FormGroup parentGroup,
+    FormGroupBase parentGroup,
   )   : assert(modelState != null),
-        super(name, parentGroup) {
+        super(name, parentGroup, null) {
     this.modelState = modelState;
     this.current = current as TCurrentModel;
     this.controls = (current == null) ? null : {};

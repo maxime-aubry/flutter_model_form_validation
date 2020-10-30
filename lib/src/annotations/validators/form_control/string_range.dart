@@ -32,8 +32,8 @@ class StringRange extends FormValidatorAnnotation<String> {
 
   @override
   Future<bool> isValid(
-    FormBuilder formBuilder,
-    FormGroup formGroup,
+    FormBuilderBase formBuilder,
+    FormGroupBase formGroup,
     String value,
   ) async {
     try {

@@ -16,8 +16,8 @@ class Required extends FormValidatorAnnotation {
 
   @override
   Future<bool> isValid(
-    FormBuilder formBuilder,
-    FormGroup formGroup,
+    FormBuilderBase formBuilder,
+    FormGroupBase formGroup,
     Object value,
   ) async {
     try {
