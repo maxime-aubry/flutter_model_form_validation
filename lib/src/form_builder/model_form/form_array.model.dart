@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/model_form/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
@@ -25,90 +23,82 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
   List<TCurrentModel> items;
 
   void _init() {
-    this._actualize();
-
-    // add validators
     if (this.parentGroup != null && this.parentGroup is ModelFormGroup) {
-      ModelFormGroup modelFormGroup = this.parentGroup as ModelFormGroup;
-      InstanceMirror instanceMirror =
-          this.getInstanceMirror(modelFormGroup.current);
-      MethodMirror methodMirror =
-          instanceMirror.type.declarations[this.name] as MethodMirror;
-      this.validators = this.getModelFormValidators(methodMirror);
+      this._actualizeChildren(this.parentGroup as ModelFormGroup);
 
-      // add empty error record to model state
-      String listenerName = this.getListenerName(
+      // set listener name
+      this.listenerName = this.getListenerName(
         this.parentGroup as ModelFormGroup,
         this.name,
       );
+
+      // set validators
+      this.validators = this.getModelFormValidators(
+        this.parentGroup as ModelFormGroup,
+        this.name,
+      );
+
+      // add empty error record to model state
       this.modelState.actualizeAbstractControlState(
-            listenerName,
+            this.listenerName,
             null,
             this.status,
           );
 
       // add listener, triggered when an item is added or removed, or the list is erased by form user
-      this._addListener();
+      this._addListener(this.parentGroup as ModelFormGroup);
     }
   }
 
   /// [_addListener] method adds a listener on this form array.
   /// Each time an item will be added or removed, this one will be notified here.
-  void _addListener() {
-    if (this.parentGroup != null && this.parentGroup is ModelFormGroup) {
-      ModelFormGroup modelFormGroup = this.parentGroup as ModelFormGroup;
-      String listenerName = this.getListenerName(
-        this.parentGroup as ModelFormGroup,
-        this.name,
-      );
-      modelFormGroup.current.addListener(
-        () async {
-          await _setValue();
-        },
-        [listenerName],
-      );
-    }
+  void _addListener(ModelFormGroup parentGroup) {
+    assert(parentGroup != null);
+
+    parentGroup.current.addListener(
+      () async {
+        await _setValue(parentGroup);
+      },
+      [this.listenerName],
+    );
   }
 
   /// [_setValue] method set this form control with the new value from form.
   /// Next, this value is validated, and the model state too.
-  Future _setValue() async {
-    if (this.parentGroup != null && this.parentGroup is ModelFormGroup) {
-      ModelFormGroup modelFormGroup = this.parentGroup as ModelFormGroup;
-      this._actualize();
-      await this.validateModelForm(
-        this.modelState,
-        modelFormGroup,
-        this.name,
-        this.items,
-      );
-    }
+  Future _setValue(ModelFormGroup parentGroup) async {
+    assert(parentGroup != null);
+
+    this._actualizeChildren(parentGroup);
+    await this.validateModelForm(
+      this.modelState,
+      parentGroup,
+      this.name,
+      this.items,
+    );
   }
 
-  /// [_actualize] method actualize [items] and [groups] collections of form array.
-  void _actualize() {
-    if (this.parentGroup != null && this.parentGroup is ModelFormGroup) {
-      ModelFormGroup modelFormGroup = this.parentGroup as ModelFormGroup;
-      InstanceMirror instanceMirror =
-          this.getInstanceMirror(modelFormGroup.current);
-      this.items = instanceMirror.invokeGetter(this.name);
+  /// [_actualizeChildren] method actualize [items] and [groups] collections of form array.
+  void _actualizeChildren(ModelFormGroup parentGroup) {
+    assert(parentGroup != null);
 
-      if (this.items == null) this.items = new List<TCurrentModel>();
-      if (this.groups == null) this.groups = new List<ModelFormGroup>();
+    InstanceMirror instanceMirror = this.getInstanceMirror(parentGroup.current);
+    this.items = this.getSubObject(instanceMirror, this.name);
 
-      // add new items
-      for (TCurrentModel item in this.items) {
-        bool isInGroup = Collection(this.groups)
-            .where((arg1) => (arg1 as ModelFormGroup).current == item)
-            .any();
-        if (!isInGroup) {
-          this.groups.add(new ModelFormGroup(
-                this.modelState,
-                item,
-                this.name,
-                this.parentGroup,
-              ));
-        }
+    if (this.items == null) this.items = new List<TCurrentModel>();
+    if (this.groups == null) this.groups = new List<ModelFormGroup>();
+
+    // add new items
+    for (TCurrentModel item in this.items) {
+      bool isInGroup = Collection(this.groups)
+          .where((arg1) => (arg1 as ModelFormGroup).current == item)
+          .any();
+      if (!isInGroup) {
+        this.groups.add(new ModelFormGroup(
+              this.modelState,
+              item,
+              this.name,
+              this.parentGroup,
+            ));
       }
     }
 

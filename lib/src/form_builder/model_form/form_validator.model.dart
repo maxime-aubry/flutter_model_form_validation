@@ -9,6 +9,7 @@ import 'package:queries/collections.dart';
 import 'package:reflectable/reflectable.dart';
 
 mixin ModelFormValidator<TModel extends ModelForm> {
+  String listenerName;
   List<FormValidatorAnnotation> validators;
   ValidationError error;
   EAbstractControlStatus status;
@@ -18,11 +19,21 @@ mixin ModelFormValidator<TModel extends ModelForm> {
     return instanceMirror;
   }
 
+  Object getSubObject(InstanceMirror instanceMirror, String property) {
+    Object child = instanceMirror.invokeGetter(property);
+    return child;
+  }
+
   /// [getValidators] gets all validators for form element.
   List<FormValidatorAnnotation> getModelFormValidators<FormValidatorType>(
-    MethodMirror declaration,
+    ModelFormGroup parentGroup,
+    String property,
   ) {
-    List<FormValidatorAnnotation> validators = Collection(declaration.metadata)
+    InstanceMirror instanceMirror = this.getInstanceMirror(parentGroup.current);
+    MethodMirror methodMirror =
+        instanceMirror.type.declarations[property] as MethodMirror;
+
+    List<FormValidatorAnnotation> validators = Collection(methodMirror.metadata)
         .where((arg1) => arg1 is FormValidatorAnnotation)
         .select((arg1) => arg1 as FormValidatorAnnotation)
         .orderBy((arg1) => arg1.criticityLevel)
@@ -34,21 +45,19 @@ mixin ModelFormValidator<TModel extends ModelForm> {
   Future validateModelForm(
     ModelFormState<TModel> modelState,
     ModelFormGroup parentGroup,
-    String name,
+    String property,
     Object value,
   ) async {
     bool isValid = true;
     this.error = null;
 
-    String listenerName = this.getListenerName(parentGroup, name);
-
     print(
-        'Validating form element "${listenerName}" with status ${this.status}...');
+        'Validating form element "${this.listenerName}" with status ${this.status}...');
 
     // before validation
     this.status = EAbstractControlStatus.validationInProgress;
     modelState.actualizeAbstractControlState(
-      listenerName,
+      this.listenerName,
       null,
       this.status,
     );
@@ -66,7 +75,7 @@ mixin ModelFormValidator<TModel extends ModelForm> {
 
         if (!isValid) {
           this.error = ValidationError(
-            propertyName: name,
+            propertyName: property,
             validatorType: validator.runtimeType,
             message: validator.error,
           );
@@ -85,7 +94,7 @@ mixin ModelFormValidator<TModel extends ModelForm> {
     this.status =
         isValid ? EAbstractControlStatus.valid : EAbstractControlStatus.invalid;
     modelState.actualizeAbstractControlState(
-      listenerName,
+      this.listenerName,
       this.error,
       this.status,
     );
