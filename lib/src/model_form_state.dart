@@ -17,7 +17,6 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
   // public properties
   TModel model;
   EFormStatus status;
-  // ModelFormBuilder formBuilder;
 
   // private methods
   void _init() {
@@ -25,11 +24,7 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
   }
 
   Future _validateFormGroup(ModelFormGroup formGroup) async {
-    String listenerName = formGroup.getListenerName(
-      formGroup.parentGroup as ModelFormGroup,
-      formGroup.name,
-    );
-    print('Validating form group "$listenerName".');
+    print('Validating form group "${formGroup.listenerName}".');
 
     await formGroup.validateModelForm(
       this,
@@ -50,11 +45,7 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
   }
 
   Future _validateFormArray(ModelFormArray formArray) async {
-    String listenerName = formArray.getListenerName(
-      formArray.parentGroup as ModelFormGroup,
-      formArray.name,
-    );
-    print('Validating form group "$listenerName".');
+    print('Validating form group "${formArray.listenerName}".');
 
     await formArray.validateModelForm(
       this,
@@ -68,11 +59,7 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
   }
 
   Future _validateFormControl(ModelFormControl formControl) async {
-    String listenerName = formControl.getListenerName(
-      formControl.parentGroup as ModelFormGroup,
-      formControl.name,
-    );
-    print('Validating form group "$listenerName".');
+    print('Validating form group "${formControl.listenerName}".');
 
     await formControl.validateModelForm(
       this,

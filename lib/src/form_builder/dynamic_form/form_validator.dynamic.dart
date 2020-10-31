@@ -4,11 +4,21 @@ import 'package:flutter_model_form_validation/src/form_builder/dynamic_form/inde
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
 import 'package:flutter_model_form_validation/src/utils/index.dart';
+import 'package:queries/collections.dart';
 
 mixin DynamicFormValidator {
+  String listenerName;
   List<FormValidatorAnnotation> validators;
   ValidationError error;
   EAbstractControlStatus status;
+
+  /// [getValidators] gets all validators for form element.
+  List<FormValidatorAnnotation> _getFormValidators<FormValidatorType>() {
+    List<FormValidatorAnnotation> validators = Collection(this.validators)
+        .orderBy((arg1) => arg1.criticityLevel)
+        .toList();
+    return validators;
+  }
 
   /// [validate] method validate current value, update the status (pure, valid, invalid) and the model state.
   Future validateModelForm(
@@ -20,21 +30,19 @@ mixin DynamicFormValidator {
     bool isValid = true;
     this.error = null;
 
-    String listenerName = this.getListenerName(parentGroup);
-
     print(
-        'Validating form element "${listenerName}" with status ${this.status}...');
+        'Validating form element "${this.listenerName}" with status ${this.status}...');
 
     // before validation
     this.status = EAbstractControlStatus.validationInProgress;
     modelState.actualizeAbstractControlState(
-      listenerName,
+      this.listenerName,
       null,
       this.status,
     );
 
     // validation
-    for (FormValidatorAnnotation validator in this.validators) {
+    for (FormValidatorAnnotation validator in this._getFormValidators()) {
       try {
         isValid = await validator.isValid(
           modelState.formBuilder,
@@ -65,15 +73,14 @@ mixin DynamicFormValidator {
     this.status =
         isValid ? EAbstractControlStatus.valid : EAbstractControlStatus.invalid;
     modelState.actualizeAbstractControlState(
-      listenerName,
+      this.listenerName,
       this.error,
       this.status,
     );
   }
 
-  String getListenerName(AbstractControl abstractControl) {
-    FormGroup parentGroup = abstractControl.parentGroup as FormGroup;
-    String listenerName = '${parentGroup.hashCode}.${abstractControl.name}';
+  String getListenerName(FormGroup parentGroup, String property) {
+    String listenerName = '${parentGroup.hashCode}.${property}';
     return listenerName;
   }
 }
