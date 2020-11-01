@@ -13,4 +13,27 @@ class FormArrayBase extends AbstractControl {
 
   // public properties
   List<FormGroupBase> groups;
+
+  // getters
+  String get formPath {
+    return this.getFormPath(parts: new List<String>());
+  }
+
+  String get modelPath {
+    return this.getModelPath(parts: new List<String>());
+  }
+
+  String getFormPath({
+    List<String> parts,
+  }) {
+    parts.insert(0, 'controls[\'${this.name}\']');
+    return this.parentGroup.getFormPath(parts: parts);
+  }
+
+  String getModelPath({
+    List<String> parts,
+  }) {
+    parts.insert(0, this.name);
+    return this.parentGroup.getModelPath(parts: parts);
+  }
 }

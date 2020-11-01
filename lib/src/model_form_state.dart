@@ -31,6 +31,8 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
       formGroup,
       formGroup.name,
       formGroup.current,
+      formGroup.formPath,
+      formGroup.modelPath,
     );
 
     for (MapEntry<String, AbstractControl> control
@@ -52,6 +54,8 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
       formArray.parentGroup as ModelFormGroup,
       formArray.name,
       formArray.items,
+      formArray.formPath,
+      formArray.modelPath,
     );
 
     for (FormGroupBase formGroup in formArray.groups)
@@ -66,6 +70,8 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
       formControl.parentGroup as ModelFormGroup,
       formControl.name,
       formControl.value,
+      formControl.formPath,
+      formControl.modelPath,
     );
   }
 

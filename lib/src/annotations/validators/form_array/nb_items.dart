@@ -35,6 +35,8 @@ class NbItems extends FormValidatorAnnotation<List> {
     FormBuilderBase formBuilder,
     FormGroupBase formGroup,
     List value,
+    String formPath,
+    String modelFormPath,
   ) async {
     try {
       int _min = this.getLinkedProperty<int>(

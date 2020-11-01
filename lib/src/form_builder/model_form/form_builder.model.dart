@@ -18,7 +18,7 @@ class ModelFormBuilder<TModel extends ModelForm> extends FormBuilderBase {
     this.group = new ModelFormGroup(
       this._modelState,
       this._modelState.model,
-      null,
+      'root',
       null,
     );
   }

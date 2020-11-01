@@ -74,6 +74,8 @@ class ModelFormControl<TModel extends ModelForm> extends FormControlBase
       parentGroup,
       this.name,
       this.value,
+      this.formPath,
+      this.modelPath,
     );
   }
 }

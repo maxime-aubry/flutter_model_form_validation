@@ -74,6 +74,8 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
       parentGroup,
       this.name,
       this.items,
+      this.formPath,
+      this.modelPath,
     );
   }
 
@@ -98,6 +100,7 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
               item,
               this.name,
               this.parentGroup,
+              true,
             ));
       }
     }

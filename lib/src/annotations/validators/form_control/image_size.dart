@@ -36,6 +36,8 @@ class ImageSize extends FormValidatorAnnotation<List<int>> {
     FormBuilderBase formBuilder,
     FormGroupBase formGroup,
     List<int> value,
+    String formPath,
+    String modelFormPath,
   ) async {
     try {
       imageDecoder.Image image = imageDecoder.decodeImage(value);

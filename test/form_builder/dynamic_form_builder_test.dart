@@ -57,7 +57,10 @@ void main() {
         ),
       );
       FormState formState = new FormState(formBuilder: formBuilder);
-      String a = 'test';
+
+      FormGroup fg;
+      FormArray fa;
+      FormControl fc;
     });
   });
 }

@@ -495,6 +495,75 @@ void main() {
         1,
       );
     });
+
+    test('Get pathes from abstract controls.', () {
+      FormBuilderTest model = new FormBuilderTest(
+        'Edouard',
+        'Elric',
+        new DateTime(1980, 12, 15),
+        new DateTime(2019, 06, 01),
+      );
+      model.books = [
+        new Book(
+          'Voyage au centre de la terre',
+          8.9,
+          new DateTime(2020, 04, 08),
+        ),
+        new Book(
+          'De la Terre à la Lune',
+          8.9,
+          new DateTime(2020, 04, 17),
+        ),
+        new Book(
+          'Le Tour du monde en quatre-vingts jours',
+          8.9,
+          new DateTime(2020, 04, 26),
+        ),
+      ];
+      model.favorite_book = model.books[1];
+
+      ModelFormState<FormBuilderTest> modelState =
+          new ModelFormState<FormBuilderTest>(model);
+
+      ModelFormGroup fg;
+      ModelFormArray fa;
+      ModelFormControl fc;
+
+      // first_name
+      fc = modelState.formBuilder.group.controls['first_name']
+          as ModelFormControl;
+      expect(fc.formPath, 'root.controls[\'first_name\']');
+      expect(fc.modelPath, 'root.first_name');
+
+      // books
+      fa = modelState.formBuilder.group.controls['books'] as ModelFormArray;
+      expect(fa.formPath, 'root.controls[\'books\']');
+      expect(fa.modelPath, 'root.books');
+
+      // books[1]
+      fa = modelState.formBuilder.group.controls['books'] as ModelFormArray;
+      fg = fa.groups[1] as ModelFormGroup;
+      expect(fg.formPath, 'root.controls[\'books\'].groups[1]');
+      expect(fg.modelPath, 'root.books[1]');
+
+      // books[1].price
+      fa = modelState.formBuilder.group.controls['books'] as ModelFormArray;
+      fg = fa.groups[1] as ModelFormGroup;
+      fc = fg.controls['price'] as ModelFormControl;
+      expect(fc.formPath,
+          'root.controls[\'books\'].groups[1].controls[\'price\']');
+      expect(fc.modelPath, 'root.books[1].price');
+
+      // favorite_book.loan_date
+      fg = modelState.formBuilder.group.controls['favorite_book']
+          as ModelFormGroup;
+      fc = fg.controls['loan_date'] as ModelFormControl;
+      expect(
+        fc.formPath,
+        'root.controls[\'favorite_book\'].controls[\'loan_date\']',
+      );
+      expect(fc.modelPath, 'root.favorite_book.loan_date');
+    });
   });
 }
 

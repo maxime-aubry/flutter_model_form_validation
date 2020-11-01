@@ -27,6 +27,8 @@ class EqualToString extends FormValidatorAnnotation<String> {
     FormBuilderBase formBuilder,
     FormGroupBase formGroup,
     String value,
+    String formPath,
+    String modelFormPath,
   ) async {
     try {
       String _valueToCompare = this.getLinkedProperty<String>(

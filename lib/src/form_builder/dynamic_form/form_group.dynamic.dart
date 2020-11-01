@@ -7,7 +7,7 @@ class FormGroup extends FormGroupBase with DynamicFormValidator {
   FormGroup({
     @required Map<String, AbstractControl> controls,
     @required List<FormValidatorAnnotation> validators,
-  }) : super('', null, controls) {
+  }) : super('', null, controls, false) {
     this.validators = validators;
   }
 }

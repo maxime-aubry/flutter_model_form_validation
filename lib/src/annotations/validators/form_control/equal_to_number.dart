@@ -27,6 +27,8 @@ class EqualToNumber extends FormValidatorAnnotation<num> {
     FormBuilderBase formBuilder,
     FormGroupBase formGroup,
     num value,
+    String formPath,
+    String modelFormPath,
   ) async {
     try {
       num _valueToCompare = this.getLinkedProperty<num>(

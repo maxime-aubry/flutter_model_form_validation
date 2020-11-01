@@ -17,9 +17,10 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     ModelFormState<TModel> modelState,
     Object current,
     String name,
-    FormGroupBase parentGroup,
-  )   : assert(modelState != null),
-        super(name, parentGroup, null) {
+    FormGroupBase parentGroup, [
+    bool isArrayItem = false,
+  ])  : assert(modelState != null),
+        super(name, parentGroup, null, isArrayItem) {
     this.modelState = modelState;
     this.current = current as TCurrentModel;
     this.controls = (current == null) ? null : {};
@@ -183,6 +184,8 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
         this.parentGroup,
         this.name,
         this.current,
+        this.formPath,
+        this.modelPath,
       );
     }
   }

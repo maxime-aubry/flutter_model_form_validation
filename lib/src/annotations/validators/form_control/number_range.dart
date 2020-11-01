@@ -35,6 +35,8 @@ class NumberRange extends FormValidatorAnnotation<num> {
     FormBuilderBase formBuilder,
     FormGroupBase formGroup,
     num value,
+    String formPath,
+    String modelFormPath,
   ) async {
     try {
       num _min = this.getLinkedProperty<num>(
