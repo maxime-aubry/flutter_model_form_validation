@@ -8,27 +8,20 @@ class FormControlBase extends AbstractControl {
     FormGroupBase parentGroup,
   )   : assert(name != null),
         super(name, parentGroup) {
-    this._value = value;
+    this.value = value;
   }
 
   // public properties
-  Object _value;
+  @protected
+  Object value;
 
   // getters
-  Object get value => this._value;
-
   String get formPath {
     return this.getFormPath(parts: new List<String>());
   }
 
   String get modelPath {
     return this.getModelPath(parts: new List<String>());
-  }
-
-  // setters
-  @protected
-  set value(Object value) {
-    this._value = value;
   }
 
   // public methods

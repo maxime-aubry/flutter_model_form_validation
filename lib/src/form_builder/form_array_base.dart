@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 
 class FormArrayBase extends AbstractControl {
@@ -8,10 +9,11 @@ class FormArrayBase extends AbstractControl {
   )   : assert(name != null),
         // assert(parentGroup != null),
         super(name, parentGroup) {
-    this.groups = (groups == null) ? [] : groups;
+    this.groups = groups ?? new List<FormGroupBase>();
   }
 
   // public properties
+  @protected
   List<FormGroupBase> groups;
 
   // getters

@@ -43,13 +43,15 @@ class ModelFormControl<TModel extends ModelForm> extends FormControlBase
       this.name,
     );
 
-    await super.validate(
-      this.formState,
-      parentGroup,
-      this.name,
-      this.value,
-      this.formPath,
-      this.modelPath,
-    );
+    await this.validate();
   }
+
+  Future validate() async => await super.validate$1(
+        this.formState,
+        this.parentGroup as ModelFormGroup,
+        this.name,
+        this.value,
+        this.formPath,
+        this.modelPath,
+      );
 }

@@ -20,13 +20,16 @@ class FormControl<TCurrentModel> extends FormControlBase
   }
 
   Future setValue(Object value) async {
-    await super.validate(
-      this.formState,
-      this.parentGroup as FormGroup,
-      this.name,
-      this.value,
-      this.formPath,
-      this.modelPath,
-    );
+    this.value = value;
+    await this.validate();
   }
+
+  Future validate() async => await super.validate$1(
+        this.formState,
+        this.parentGroup as FormGroup,
+        this.name,
+        this.value,
+        this.formPath,
+        this.modelPath,
+      );
 }

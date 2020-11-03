@@ -10,4 +10,15 @@ class FormState extends FormStateBase {
         assert(formBuilder.isInitialized == true,
             'Form builder must be initialized before to be attached to the form state.'),
         super(formBuilder);
+
+  Future _validateFormGroup(ModelFormGroup formGroup) async {}
+
+  Future _validateFormArray(ModelFormArray formArray) async {}
+
+  Future _validateFormControl(ModelFormControl formControl) async {}
+
+  // public methods
+  Future<bool> validateForm() async {}
+
+  ValidationError getValidationError(ModelForm value, String property) {}
 }

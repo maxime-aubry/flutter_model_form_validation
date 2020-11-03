@@ -12,9 +12,11 @@ import 'package:reflectable/reflectable.dart';
 mixin ModelFormValidator<TModel extends ModelForm> {
   // private properties
   String _listenerName;
-  EAbstractControlStatus _status;
 
   // public properties
+  @protected
+  EAbstractControlStatus status;
+
   @protected
   ModelFormState<TModel> formState;
   List<FormValidatorAnnotation> validators;
@@ -22,13 +24,8 @@ mixin ModelFormValidator<TModel extends ModelForm> {
 
   // getters
   String get listenerName => this._listenerName;
-  EAbstractControlStatus get status => this._status;
 
-  // setters
-  set status(EAbstractControlStatus value) {
-    this._status = value;
-  }
-
+  @protected
   void initialize(ModelFormGroup parentGroup, String name, Function setValue) {
     assert(parentGroup != null);
     assert(name != null);
@@ -83,9 +80,10 @@ mixin ModelFormValidator<TModel extends ModelForm> {
   }
 
   // public methods
-  /// [validate] method validate current value, update the status (pure, valid, invalid) and the model state.
-  Future validate(
-    ModelFormState<TModel> modelState,
+  /// [validate$1] method validate current value, update the status (pure, valid, invalid) and the model state.
+  @protected
+  Future validate$1(
+    ModelFormState<TModel> formState,
     ModelFormGroup parentGroup,
     String property,
     Object value,
@@ -100,7 +98,7 @@ mixin ModelFormValidator<TModel extends ModelForm> {
 
     // before validation
     this.status = EAbstractControlStatus.validationInProgress;
-    modelState.update(
+    formState.update(
       this._listenerName,
       null,
       this.status,
@@ -110,7 +108,7 @@ mixin ModelFormValidator<TModel extends ModelForm> {
     for (FormValidatorAnnotation validator in this.validators) {
       try {
         isValid = await validator.isValid(
-          modelState.formBuilder,
+          formState.formBuilder,
           parentGroup,
           value,
           formPath,
@@ -139,7 +137,7 @@ mixin ModelFormValidator<TModel extends ModelForm> {
     // after validation
     this.status =
         isValid ? EAbstractControlStatus.valid : EAbstractControlStatus.invalid;
-    modelState.update(
+    formState.update(
       this._listenerName,
       this.error,
       this.status,

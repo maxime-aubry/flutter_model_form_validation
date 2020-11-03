@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 
 class FormGroupBase extends AbstractControl {
@@ -7,7 +8,7 @@ class FormGroupBase extends AbstractControl {
     Map<String, AbstractControl> controls,
     bool isArrayitem,
   ) : super(name, parentGroup) {
-    this.controls = (controls == null) ? {} : controls;
+    this.controls = controls ?? new Map<String, AbstractControl>();
     this._isArrayItem = isArrayitem;
   }
 
@@ -15,6 +16,7 @@ class FormGroupBase extends AbstractControl {
   bool _isArrayItem;
 
   // public properties
+  @protected
   Map<String, AbstractControl> controls;
 
   // getters
@@ -26,6 +28,33 @@ class FormGroupBase extends AbstractControl {
     return this.getModelPath(parts: new List<String>());
   }
 
+  // private methods
+  bool containsControl(String name) {
+    assert(name != null);
+    assert(name != '');
+
+    bool hasKey = this.controls.containsKey(name);
+    return hasKey;
+  }
+
+  void addControl(String name, AbstractControl control) {
+    assert(name != null);
+    assert(name != '');
+    assert(control != null);
+    assert(!this.controls.containsKey(name));
+
+    this.controls[name] = control;
+  }
+
+  void removeControl(String name) {
+    assert(name != null);
+    assert(name != '');
+    assert(!this.controls.containsKey(name));
+
+    this.controls.remove(name);
+  }
+
+  // public methods
   String getFormPath({
     List<String> parts,
   }) {

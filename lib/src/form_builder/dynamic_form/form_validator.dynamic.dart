@@ -10,9 +10,11 @@ import 'package:queries/collections.dart';
 mixin DynamicFormValidator {
   // private properties
   String _listenerName;
-  EAbstractControlStatus _status;
 
   // public properties
+  @protected
+  EAbstractControlStatus status;
+
   @protected
   FormState formState;
   List<FormValidatorAnnotation> validators;
@@ -20,12 +22,6 @@ mixin DynamicFormValidator {
 
   // getters
   String get listenerName => this._listenerName;
-  EAbstractControlStatus get status => this._status;
-
-  // setters
-  set status(EAbstractControlStatus value) {
-    this._status = value;
-  }
 
   // private methods
   List<FormValidatorAnnotation> _getValidators<FormValidatorType>() {
@@ -36,6 +32,7 @@ mixin DynamicFormValidator {
   }
 
   // public methods
+  @protected
   void initialize(FormGroup parentGroup, String name) {
     assert(parentGroup != null);
     assert(name != null);
@@ -52,7 +49,8 @@ mixin DynamicFormValidator {
   }
 
   /// [validate] method validate current value, update the status (pure, valid, invalid) and the model state.
-  Future validate(
+  @protected
+  Future validate$1(
     FormStateBase formState,
     FormGroup parentGroup,
     String name,
@@ -64,10 +62,10 @@ mixin DynamicFormValidator {
     this.error = null;
 
     print(
-        'Validating form element "${this._listenerName}" with status ${this._status}...');
+        'Validating form element "${this._listenerName}" with status ${this.status}...');
 
     // before validation
-    this._status = EAbstractControlStatus.validationInProgress;
+    this.status = EAbstractControlStatus.validationInProgress;
     formState.update(
       this._listenerName,
       null,
@@ -105,7 +103,7 @@ mixin DynamicFormValidator {
     }
 
     // after validation
-    this._status =
+    this.status =
         isValid ? EAbstractControlStatus.valid : EAbstractControlStatus.invalid;
     formState.update(
       this._listenerName,

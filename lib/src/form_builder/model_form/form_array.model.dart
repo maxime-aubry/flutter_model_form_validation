@@ -41,14 +41,7 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
     assert(parentGroup != null);
 
     this._actualizeChildren(parentGroup);
-    await super.validate(
-      this.formState,
-      parentGroup,
-      this.name,
-      this.items,
-      this.formPath,
-      this.modelPath,
-    );
+    await this.validate();
   }
 
   /// [_actualizeChildren] method actualize [items] and [groups] collections of form array.
@@ -86,4 +79,13 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
     }
     for (ModelFormGroup group in groupsToRemove) this.groups.remove(group);
   }
+
+  Future validate() async => await super.validate$1(
+        this.formState,
+        this.parentGroup as ModelFormGroup,
+        this.name,
+        this.items,
+        this.formPath,
+        this.modelPath,
+      );
 }

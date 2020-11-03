@@ -23,7 +23,6 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
         super(name, parentGroup, null, isArrayItem) {
     this.formState = formState;
     this.current = current as TCurrentModel;
-    this.controls = new Map<String, AbstractControl>();
     this.status = EAbstractControlStatus.pure;
     this._initialize();
   }
@@ -51,7 +50,6 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
             !element.key.endsWith('=') &&
             (element.value as MethodMirror).isGetter)
         .toList();
-    this.controls = new Map<String, AbstractControl>();
 
     for (MapEntry<String, DeclarationMirror> formControl in formControls) {
       EFormDeclarer formDeclarer = this._getFormDeclarer(
@@ -94,46 +92,40 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
 
   void _addChildFormGroup(
     InstanceMirror instanceMirror,
-    String propertyName,
+    String name,
   ) {
-    print('Add ${this.name}.$propertyName form group.');
+    print('Add ${this.name}.$name form group.');
 
-    Object child = this.getSubObject(instanceMirror, propertyName);
-    this.controls[propertyName] = new ModelFormGroup(
-      this.formState,
-      child,
-      propertyName,
-      this,
+    Object child = this.getSubObject(instanceMirror, name);
+    this.addControl(
+      name,
+      new ModelFormGroup(this.formState, child, name, this),
     );
   }
 
   void _addChildFormArray(
     InstanceMirror instanceMirror,
-    String propertyName,
+    String name,
   ) {
-    print('Add ${this.name}.$propertyName form array.');
+    print('Add ${this.name}.$name form array.');
 
-    List children = this.getSubObject(instanceMirror, propertyName);
-    this.controls[propertyName] = new ModelFormArray(
-      this.formState,
-      children,
-      propertyName,
-      this,
+    List children = this.getSubObject(instanceMirror, name);
+    this.addControl(
+      name,
+      new ModelFormArray(this.formState, children, name, this),
     );
   }
 
   void _addChildFormControl(
     InstanceMirror instanceMirror,
-    String propertyName,
+    String name,
   ) {
-    print('Add ${this.name}.$propertyName form control.');
+    print('Add ${this.name}.$name form control.');
 
-    Object child = this.getSubObject(instanceMirror, propertyName);
-    this.controls[propertyName] = new ModelFormControl(
-      this.formState,
-      child,
-      propertyName,
-      this,
+    Object child = this.getSubObject(instanceMirror, name);
+    this.addControl(
+      name,
+      new ModelFormControl(this.formState, child, name, this),
     );
   }
 
@@ -148,14 +140,16 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
 
     if (this.current != null) {
       this._actualizeChildren();
-      await this.validate(
+      await this.validate();
+    }
+  }
+
+  Future validate() async => await super.validate$1(
         this.formState,
-        this.parentGroup,
+        this.parentGroup as ModelFormGroup,
         this.name,
         this.current,
         this.formPath,
         this.modelPath,
       );
-    }
-  }
 }

@@ -27,14 +27,7 @@ class FormArray extends FormArrayBase with DynamicFormValidator {
     this.groups.add(item);
 
     // validate list of form groups
-    await super.validate(
-      this.formState,
-      parentGroup,
-      this.name,
-      this.groups,
-      this.formPath,
-      this.modelPath,
-    );
+    await this.validate();
   }
 
   Future removeItem(FormGroup item) async {
@@ -46,13 +39,15 @@ class FormArray extends FormArrayBase with DynamicFormValidator {
     this.groups.remove(item);
 
     // validate list of form groups
-    await super.validate(
-      this.formState,
-      parentGroup,
-      this.name,
-      this.groups,
-      this.formPath,
-      this.modelPath,
-    );
+    await this.validate();
   }
+
+  Future validate() async => await super.validate$1(
+        this.formState,
+        this.parentGroup as FormGroup,
+        this.name,
+        this.groups,
+        this.formPath,
+        this.modelPath,
+      );
 }
