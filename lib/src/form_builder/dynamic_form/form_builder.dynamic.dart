@@ -28,6 +28,9 @@ class FormBuilder extends FormBuilderBase {
     current.parentGroup = parent;
     current.name = name;
 
+    // if (name != 'root')
+    //   current.listenerName = current.getListenerName(current.parentGroup, name);
+
     for (MapEntry<String, AbstractControl> child in current.controls.entries) {
       if (child.value is FormGroup) {
         this._initializeFormGroup(
@@ -61,8 +64,12 @@ class FormBuilder extends FormBuilderBase {
     formArray.parentGroup = parent;
     formArray.name = name;
 
+    // if (name != 'root')
+    //   formArray.listenerName =
+    //       formArray.getListenerName(formArray.parentGroup, name);
+
     for (FormGroup formGroup in formArray.groups)
-      this._initializeFormGroup(formGroup, parent, null);
+      this._initializeFormGroup(formGroup, parent, name);
   }
 
   void _initializeFormControl(
@@ -72,5 +79,9 @@ class FormBuilder extends FormBuilderBase {
   ) {
     formControl.parentGroup = parent;
     formControl.name = name;
+
+    // if (name != 'root')
+    //   formControl.listenerName =
+    //       formControl.getListenerName(formControl.parentGroup, name);
   }
 }

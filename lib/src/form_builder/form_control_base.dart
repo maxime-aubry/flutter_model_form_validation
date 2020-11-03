@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 
 class FormControlBase extends AbstractControl {
@@ -6,21 +7,28 @@ class FormControlBase extends AbstractControl {
     String name,
     FormGroupBase parentGroup,
   )   : assert(name != null),
-        // assert(parentGroup != null),
         super(name, parentGroup) {
-    this.value = value;
+    this._value = value;
   }
 
   // public properties
-  Object value;
+  Object _value;
 
   // getters
+  Object get value => this._value;
+
   String get formPath {
     return this.getFormPath(parts: new List<String>());
   }
 
   String get modelPath {
     return this.getModelPath(parts: new List<String>());
+  }
+
+  // setters
+  @protected
+  set value(Object value) {
+    this._value = value;
   }
 
   // public methods

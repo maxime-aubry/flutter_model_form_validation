@@ -9,6 +9,24 @@ class FormControl<TCurrentModel> extends FormControlBase
     @required TCurrentModel value,
     @required List<FormValidatorAnnotation> validators,
   }) : super(value, '', null) {
-    this.validators = validators;
+    this.status = EAbstractControlStatus.pure;
+    this.validators = validators ?? new List<FormValidatorAnnotation>();
+    this._initialize();
+  }
+
+  void _initialize() {
+    if (this.parentGroup != null && this.parentGroup is FormGroup)
+      super.initialize(this.parentGroup, this.name);
+  }
+
+  Future setValue(Object value) async {
+    await super.validate(
+      this.formState,
+      this.parentGroup as FormGroup,
+      this.name,
+      this.value,
+      this.formPath,
+      this.modelPath,
+    );
   }
 }

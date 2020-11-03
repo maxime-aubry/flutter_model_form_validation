@@ -7,60 +7,32 @@ import 'package:reflectable/reflectable.dart';
 class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
     extends FormArrayBase with ModelFormValidator {
   ModelFormArray(
-    ModelFormState<TModel> modelState,
+    ModelFormState<TModel> formState,
     List items,
     String name,
     ModelFormGroup parentGroup,
   ) : super(name, parentGroup, null) {
-    this.modelState = modelState;
-    this.items = (items == null) ? null : items as List<TCurrentModel>;
+    this.formState = formState;
+    this.items = items as List<TCurrentModel>;
     this.status = EAbstractControlStatus.pure;
-    this._init();
+    this._initialize();
   }
 
   // public properties
-  ModelFormState<TModel> modelState;
   List<TCurrentModel> items;
 
-  void _init() {
+  // getters
+  String get listenerName => super.listenerName;
+  EAbstractControlStatus get status => super.status;
+
+  // private methods
+  void _initialize() {
     if (this.parentGroup != null && this.parentGroup is ModelFormGroup) {
+      super.initialize(parentGroup as ModelFormGroup, name, () async {
+        this._setValue(parentGroup as ModelFormGroup);
+      });
       this._actualizeChildren(this.parentGroup as ModelFormGroup);
-
-      // set listener name
-      this.listenerName = this.getListenerName(
-        this.parentGroup as ModelFormGroup,
-        this.name,
-      );
-
-      // set validators
-      this.validators = this.getModelFormValidators(
-        this.parentGroup as ModelFormGroup,
-        this.name,
-      );
-
-      // add empty error record to model state
-      this.modelState.actualizeAbstractControlState(
-            this.listenerName,
-            null,
-            this.status,
-          );
-
-      // add listener, triggered when an item is added or removed, or the list is erased by form user
-      this._addListener(this.parentGroup as ModelFormGroup);
     }
-  }
-
-  /// [_addListener] method adds a listener on this form array.
-  /// Each time an item will be added or removed, this one will be notified here.
-  void _addListener(ModelFormGroup parentGroup) {
-    assert(parentGroup != null);
-
-    parentGroup.current.addListener(
-      () async {
-        await _setValue(parentGroup);
-      },
-      [this.listenerName],
-    );
   }
 
   /// [_setValue] method set this form control with the new value from form.
@@ -69,8 +41,8 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
     assert(parentGroup != null);
 
     this._actualizeChildren(parentGroup);
-    await this.validateModelForm(
-      this.modelState,
+    await super.validate(
+      this.formState,
       parentGroup,
       this.name,
       this.items,
@@ -96,7 +68,7 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
           .any();
       if (!isInGroup) {
         this.groups.add(new ModelFormGroup(
-              this.modelState,
+              this.formState,
               item,
               this.name,
               this.parentGroup,

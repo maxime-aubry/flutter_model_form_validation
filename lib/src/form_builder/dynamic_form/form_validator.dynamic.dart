@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/dynamic_form/index.dart';
@@ -7,22 +8,52 @@ import 'package:flutter_model_form_validation/src/utils/index.dart';
 import 'package:queries/collections.dart';
 
 mixin DynamicFormValidator {
-  String listenerName;
+  // private properties
+  String _listenerName;
+  EAbstractControlStatus _status;
+
+  // public properties
+  @protected
+  FormState formState;
   List<FormValidatorAnnotation> validators;
   ValidationError error;
-  EAbstractControlStatus status;
 
-  /// [getValidators] gets all validators for form element.
-  List<FormValidatorAnnotation> _getFormValidators<FormValidatorType>() {
+  // getters
+  String get listenerName => this._listenerName;
+  EAbstractControlStatus get status => this._status;
+
+  // setters
+  set status(EAbstractControlStatus value) {
+    this._status = value;
+  }
+
+  // private methods
+  List<FormValidatorAnnotation> _getValidators<FormValidatorType>() {
     List<FormValidatorAnnotation> validators = Collection(this.validators)
         .orderBy((arg1) => arg1.criticityLevel)
         .toList();
     return validators;
   }
 
+  // public methods
+  void initialize(FormGroup parentGroup, String name) {
+    assert(parentGroup != null);
+    assert(name != null);
+    assert(name != '');
+
+    this._listenerName = '${parentGroup.hashCode}.${name}';
+
+    // add empty error record to model state
+    this.formState.update(
+          this._listenerName,
+          null,
+          this.status,
+        );
+  }
+
   /// [validate] method validate current value, update the status (pure, valid, invalid) and the model state.
-  Future validateModelForm(
-    FormStateBase modelState,
+  Future validate(
+    FormStateBase formState,
     FormGroup parentGroup,
     String name,
     Object value,
@@ -33,21 +64,21 @@ mixin DynamicFormValidator {
     this.error = null;
 
     print(
-        'Validating form element "${this.listenerName}" with status ${this.status}...');
+        'Validating form element "${this._listenerName}" with status ${this._status}...');
 
     // before validation
-    this.status = EAbstractControlStatus.validationInProgress;
-    modelState.actualizeAbstractControlState(
-      this.listenerName,
+    this._status = EAbstractControlStatus.validationInProgress;
+    formState.update(
+      this._listenerName,
       null,
       this.status,
     );
 
     // validation
-    for (FormValidatorAnnotation validator in this._getFormValidators()) {
+    for (FormValidatorAnnotation validator in this._getValidators()) {
       try {
         isValid = await validator.isValid(
-          modelState.formBuilder,
+          formState.formBuilder,
           parentGroup,
           value,
           formPath,
@@ -74,17 +105,12 @@ mixin DynamicFormValidator {
     }
 
     // after validation
-    this.status =
+    this._status =
         isValid ? EAbstractControlStatus.valid : EAbstractControlStatus.invalid;
-    modelState.actualizeAbstractControlState(
-      this.listenerName,
+    formState.update(
+      this._listenerName,
       this.error,
       this.status,
     );
-  }
-
-  String getListenerName(FormGroup parentGroup, String property) {
-    String listenerName = '${parentGroup.hashCode}.${property}';
-    return listenerName;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/utils/index.dart';
 import 'package:queries/collections.dart';
@@ -13,11 +14,16 @@ class FormStateBase {
     this.formBuilder,
   ) {
     this.status = EFormStatus.pure;
-    this._formControlStates = new Map<String, AbstractControlState>();
+    this.statuses = new Map<String, EAbstractControlStatus>();
+    this.errors = new Map<String, ValidationError>();
   }
 
   // private properties
-  Map<String, AbstractControlState> _formControlStates;
+  @protected
+  Map<String, EAbstractControlStatus> statuses;
+
+  @protected
+  Map<String, ValidationError> errors;
 
   // public properties
   EFormStatus status;
@@ -25,28 +31,24 @@ class FormStateBase {
 
   // private methods
   bool _actualizeModelState() {
-    bool isValid = !Dictionary.fromMap(this._formControlStates)
+    bool isValid = !Dictionary.fromMap(this.statuses)
         .where((arg1) =>
-            arg1.value != null &&
-            arg1.value.status == EAbstractControlStatus.invalid)
+            arg1.value != null && arg1.value == EAbstractControlStatus.invalid)
         .any();
     this.status = isValid ? EFormStatus.valid : EFormStatus.invalid;
     return isValid;
   }
 
   // public methods
-  void actualizeAbstractControlState(
-    String key,
+  void update(
+    String listenerName,
     ValidationError error,
     EAbstractControlStatus status,
   ) {
-    print('Actualizing form element "$key" with status "$status".');
+    print('Actualizing form element "$listenerName" with status "$status".');
 
-    this._formControlStates[key] = new AbstractControlState(
-      key,
-      error,
-      status,
-    );
+    this.statuses[listenerName] = status;
+    this.errors[listenerName] = error;
     this._actualizeModelState();
   }
 }

@@ -6,59 +6,28 @@ import 'package:reflectable/reflectable.dart';
 class ModelFormControl<TModel extends ModelForm> extends FormControlBase
     with ModelFormValidator {
   ModelFormControl(
-    ModelFormState<TModel> modelState,
+    ModelFormState<TModel> formState,
     Object value,
     String name,
     FormGroupBase parentGroup,
-  )   : assert(modelState != null),
+  )   : assert(formState != null),
         super(value, name, parentGroup) {
-    this.modelState = modelState;
+    this.formState = formState;
     this.status = EAbstractControlStatus.pure;
-    this._init(value);
+    this._initialize(value);
   }
 
-  // public propreties
-  ModelFormState<TModel> modelState;
+  // getters
+  String get listenerName => super.listenerName;
+  EAbstractControlStatus get status => super.status;
+  Object get value => super.value;
 
-  /// [_init] mehtod initialize this form control.
-  /// It adds validators, add default status into the model state, and adds a listener.
-  void _init(Object value) {
-    if (this.parentGroup != null && this.parentGroup is ModelFormGroup) {
-      // set listener name
-      this.listenerName = this.getListenerName(
-        this.parentGroup as ModelFormGroup,
-        this.name,
-      );
-
-      // set validators
-      this.validators = this.getModelFormValidators(
-        this.parentGroup as ModelFormGroup,
-        this.name,
-      );
-
-      // add empty error record to model state
-      this.modelState.actualizeAbstractControlState(
-            this.listenerName,
-            null,
-            this.status,
-          );
-
-      // add listener, triggered when a value is changed by form user
-      this._addListener(this.parentGroup as ModelFormGroup);
-    }
-  }
-
-  /// [_addListener] method adds a listener on this form control.
-  /// Each time a value is changed into the form, this one is notified here.
-  void _addListener(ModelFormGroup parentGroup) {
-    assert(parentGroup != null);
-
-    parentGroup.current.addListener(
-      () async {
-        await _setValue(parentGroup);
-      },
-      [this.listenerName],
-    );
+  // private methods
+  void _initialize(Object value) {
+    if (this.parentGroup != null && this.parentGroup is ModelFormGroup)
+      super.initialize(parentGroup as ModelFormGroup, name, () async {
+        await this._setValue(this.parentGroup as ModelFormGroup);
+      });
   }
 
   /// [_setValue] method set this form control with the new value from form.
@@ -66,11 +35,16 @@ class ModelFormControl<TModel extends ModelForm> extends FormControlBase
   Future _setValue(ModelFormGroup parentGroup) async {
     assert(parentGroup != null);
 
-    InstanceMirror instanceMirror = this.getInstanceMirror(parentGroup.current);
-    this.value = this.getSubObject(instanceMirror, this.name);
+    InstanceMirror instanceMirror = super.getInstanceMirror(
+      parentGroup.current,
+    );
+    this.value = super.getSubObject(
+      instanceMirror,
+      this.name,
+    );
 
-    await this.validateModelForm(
-      this.modelState,
+    await super.validate(
+      this.formState,
       parentGroup,
       this.name,
       this.value,

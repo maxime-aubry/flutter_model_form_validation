@@ -27,7 +27,7 @@ void main() {
 
       // first_name
       fc = fg.controls['first_name'];
-      _checkFormControl(
+      checkFormControl(
         fc,
         'first_name',
         EAbstractControlStatus.pure,
@@ -38,7 +38,7 @@ void main() {
 
       // last_name
       fc = fg.controls['last_name'];
-      _checkFormControl(
+      checkFormControl(
         fc,
         'last_name',
         EAbstractControlStatus.pure,
@@ -49,7 +49,7 @@ void main() {
 
       // birth_day
       fc = fg.controls['birth_day'];
-      _checkFormControl(
+      checkFormControl(
         fc,
         'birth_day',
         EAbstractControlStatus.pure,
@@ -60,7 +60,7 @@ void main() {
 
       // subscription_date
       fc = fg.controls['subscription_date'];
-      _checkFormControl(
+      checkFormControl(
         fc,
         'subscription_date',
         EAbstractControlStatus.pure,
@@ -71,7 +71,7 @@ void main() {
 
       // books
       fa = fg.controls['books'];
-      _checkFormArray(
+      checkFormArray(
         fa,
         'books',
         EAbstractControlStatus.pure,
@@ -82,7 +82,7 @@ void main() {
 
       // favorite_book
       fg = fg.controls['favorite_book'];
-      _checkFormGroup(
+      checkFormGroup(
         fg,
         'favorite_book',
         EAbstractControlStatus.pure,
@@ -127,7 +127,7 @@ void main() {
 
       // first_name
       fc = fg.controls['first_name'];
-      _checkFormControl(
+      checkFormControl(
         fc,
         'first_name',
         EAbstractControlStatus.pure,
@@ -138,7 +138,7 @@ void main() {
 
       // last_name
       fc = fg.controls['last_name'];
-      _checkFormControl(
+      checkFormControl(
         fc,
         'last_name',
         EAbstractControlStatus.pure,
@@ -149,7 +149,7 @@ void main() {
 
       // birth_day
       fc = fg.controls['birth_day'];
-      _checkFormControl(
+      checkFormControl(
         fc,
         'birth_day',
         EAbstractControlStatus.pure,
@@ -160,7 +160,7 @@ void main() {
 
       // subscription_date
       fc = fg.controls['subscription_date'];
-      _checkFormControl(
+      checkFormControl(
         fc,
         'subscription_date',
         EAbstractControlStatus.pure,
@@ -171,7 +171,7 @@ void main() {
 
       // books
       fa = fg.controls['books'];
-      _checkFormArray(
+      checkFormArray(
         fa,
         'books',
         EAbstractControlStatus.pure,
@@ -182,7 +182,7 @@ void main() {
 
       // books[0]
       fg = fa.groups[0];
-      _checkFormGroup(
+      checkFormGroup(
         fg,
         'books',
         EAbstractControlStatus.pure,
@@ -193,7 +193,7 @@ void main() {
 
       // books[0].name
       fc = fg.controls['name'];
-      _checkFormControl(
+      checkFormControl(
         fc,
         'name',
         EAbstractControlStatus.pure,
@@ -204,7 +204,7 @@ void main() {
 
       // books[0].price
       fc = fg.controls['price'];
-      _checkFormControl(
+      checkFormControl(
         fc,
         'price',
         EAbstractControlStatus.pure,
@@ -215,7 +215,7 @@ void main() {
 
       // books[0].loan_date
       fc = fg.controls['loan_date'];
-      _checkFormControl(
+      checkFormControl(
         fc,
         'loan_date',
         EAbstractControlStatus.pure,
@@ -226,7 +226,7 @@ void main() {
 
       // books[1]
       fg = fa.groups[1];
-      _checkFormGroup(
+      checkFormGroup(
         fg,
         'books',
         EAbstractControlStatus.pure,
@@ -237,7 +237,7 @@ void main() {
 
       // books[1].name
       fc = fg.controls['name'];
-      _checkFormControl(
+      checkFormControl(
         fc,
         'name',
         EAbstractControlStatus.pure,
@@ -248,7 +248,7 @@ void main() {
 
       // books[1].price
       fc = fg.controls['price'];
-      _checkFormControl(
+      checkFormControl(
         fc,
         'price',
         EAbstractControlStatus.pure,
@@ -259,7 +259,7 @@ void main() {
 
       // books[1].loan_date
       fc = fg.controls['loan_date'];
-      _checkFormControl(
+      checkFormControl(
         fc,
         'loan_date',
         EAbstractControlStatus.pure,
@@ -270,7 +270,7 @@ void main() {
 
       // books[2]
       fg = fa.groups[2];
-      _checkFormGroup(
+      checkFormGroup(
         fg,
         'books',
         EAbstractControlStatus.pure,
@@ -281,7 +281,7 @@ void main() {
 
       // books[2].name
       fc = fg.controls['name'];
-      _checkFormControl(
+      checkFormControl(
         fc,
         'name',
         EAbstractControlStatus.pure,
@@ -292,7 +292,7 @@ void main() {
 
       // books[2].price
       fc = fg.controls['price'];
-      _checkFormControl(
+      checkFormControl(
         fc,
         'price',
         EAbstractControlStatus.pure,
@@ -303,7 +303,7 @@ void main() {
 
       // books[2].loan_date
       fc = fg.controls['loan_date'];
-      _checkFormControl(
+      checkFormControl(
         fc,
         'loan_date',
         EAbstractControlStatus.pure,
@@ -324,7 +324,7 @@ void main() {
 
       // first_name
       fc = modelState.formBuilder.group.controls['first_name'];
-      _checkFormControl(
+      checkFormControl(
         fc,
         'first_name',
         EAbstractControlStatus.pure,
@@ -336,7 +336,7 @@ void main() {
       model.first_name = 'xx';
       await Future.delayed(const Duration(microseconds: 1), () {});
 
-      _checkFormControl(
+      checkFormControl(
         fc,
         'first_name',
         EAbstractControlStatus.invalid,
@@ -354,7 +354,7 @@ void main() {
       model.last_name = 'Elric';
       await Future.delayed(const Duration(microseconds: 1), () {});
 
-      _checkFormControl(
+      checkFormControl(
         fc,
         'last_name',
         EAbstractControlStatus.valid,
@@ -368,7 +368,7 @@ void main() {
       model.birth_day = new DateTime(1980, 12, 15);
       await Future.delayed(const Duration(microseconds: 1), () {});
 
-      _checkFormControl(
+      checkFormControl(
         fc,
         'birth_day',
         EAbstractControlStatus.valid,
@@ -382,7 +382,7 @@ void main() {
       model.subscription_date = new DateTime(2020, 06, 01);
       await Future.delayed(const Duration(microseconds: 1), () {});
 
-      _checkFormControl(
+      checkFormControl(
         fc,
         'subscription_date',
         EAbstractControlStatus.invalid,
@@ -411,7 +411,7 @@ void main() {
       ModelFormControl fc;
 
       // favorite_book
-      _checkFormGroup(
+      checkFormGroup(
         fg,
         'favorite_book',
         EAbstractControlStatus.pure,
@@ -428,7 +428,7 @@ void main() {
       await Future.delayed(const Duration(microseconds: 1), () {});
 
       // favorite_book
-      _checkFormGroup(
+      checkFormGroup(
         fg,
         'favorite_book',
         EAbstractControlStatus.valid,
@@ -439,7 +439,7 @@ void main() {
 
       // favorite_book.name
       fc = fg.controls['name'] as ModelFormControl;
-      _checkFormControl(
+      checkFormControl(
         fc,
         'name',
         EAbstractControlStatus.pure,
@@ -465,7 +465,7 @@ void main() {
       // ModelFormControl fc;
 
       // books
-      _checkFormArray(
+      checkFormArray(
         fa,
         'books',
         EAbstractControlStatus.pure,
@@ -486,7 +486,7 @@ void main() {
       await Future.delayed(const Duration(microseconds: 1), () {});
 
       // books
-      _checkFormArray(
+      checkFormArray(
         fa,
         'books',
         EAbstractControlStatus.valid,
@@ -567,7 +567,7 @@ void main() {
   });
 }
 
-void _checkFormGroup(
+void checkFormGroup(
   ModelFormGroup fg,
   String name,
   EAbstractControlStatus status,
@@ -583,7 +583,7 @@ void _checkFormGroup(
 
   // controls
   if (areControlsNull)
-    expect(fg.controls, isNull);
+    expect(fg.controls, {});
   else
     expect(fg.controls, isNotNull);
 
@@ -610,7 +610,7 @@ void _checkFormGroup(
   }
 }
 
-void _checkFormArray(
+void checkFormArray(
   ModelFormArray fa,
   String name,
   EAbstractControlStatus status,
@@ -626,9 +626,9 @@ void _checkFormArray(
 
   // nbItems
   if (nbItems == null)
-    expect(fa.items, isNull);
+    expect(fa.groups, {});
   else
-    expect(fa.items.length, nbItems);
+    expect(fa.groups.length, nbItems);
 
   // status
   expect(fa.status, status);
@@ -653,7 +653,7 @@ void _checkFormArray(
   }
 }
 
-void _checkFormControl(
+void checkFormControl(
   ModelFormControl fc,
   String name,
   EAbstractControlStatus status,

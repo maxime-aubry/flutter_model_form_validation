@@ -14,51 +14,33 @@ enum EFormDeclarer {
 class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     extends FormGroupBase with ModelFormValidator {
   ModelFormGroup(
-    ModelFormState<TModel> modelState,
+    ModelFormState<TModel> formState,
     Object current,
     String name,
     FormGroupBase parentGroup, [
     bool isArrayItem = false,
-  ])  : assert(modelState != null),
+  ])  : assert(formState != null),
         super(name, parentGroup, null, isArrayItem) {
-    this.modelState = modelState;
+    this.formState = formState;
     this.current = current as TCurrentModel;
-    this.controls = (current == null) ? null : {};
+    this.controls = new Map<String, AbstractControl>();
     this.status = EAbstractControlStatus.pure;
-    this._init();
+    this._initialize();
   }
 
   // public properties
-  ModelFormState<TModel> modelState;
   TCurrentModel current;
 
-  void _init() {
+  // private methods
+  void _initialize() {
+    if (this.parentGroup != null && this.parentGroup is ModelFormGroup) {
+      super.initialize(parentGroup as ModelFormGroup, name, () async {
+        await _setValue(parentGroup as ModelFormGroup);
+      });
+    }
+
     // create sub-object if it is not null
     if (this.current != null) this._actualizeChildren();
-
-    if (this.parentGroup != null && this.parentGroup is ModelFormGroup) {
-      // set listener name
-      this.listenerName = this.getListenerName(
-        this.parentGroup as ModelFormGroup,
-        this.name,
-      );
-
-      // set validators
-      this.validators = this.getModelFormValidators(
-        this.parentGroup as ModelFormGroup,
-        this.name,
-      );
-
-      // add empty error record to model state
-      this.modelState.actualizeAbstractControlState(
-            this.listenerName,
-            null,
-            this.status,
-          );
-
-      // add listener, triggered when a sub-object is added or removed by form user
-      this._addListener(this.parentGroup as ModelFormGroup);
-    }
   }
 
   void _actualizeChildren() {
@@ -118,7 +100,7 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
 
     Object child = this.getSubObject(instanceMirror, propertyName);
     this.controls[propertyName] = new ModelFormGroup(
-      this.modelState,
+      this.formState,
       child,
       propertyName,
       this,
@@ -133,7 +115,7 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
 
     List children = this.getSubObject(instanceMirror, propertyName);
     this.controls[propertyName] = new ModelFormArray(
-      this.modelState,
+      this.formState,
       children,
       propertyName,
       this,
@@ -148,23 +130,10 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
 
     Object child = this.getSubObject(instanceMirror, propertyName);
     this.controls[propertyName] = new ModelFormControl(
-      this.modelState,
+      this.formState,
       child,
       propertyName,
       this,
-    );
-  }
-
-  /// [_addListener] method adds a listener on this form array.
-  /// Each time an item will be added or removed, this one will be notified here.
-  void _addListener(ModelFormGroup parentGroup) {
-    assert(parentGroup != null);
-
-    parentGroup.current.addListener(
-      () async {
-        await _setValue(parentGroup);
-      },
-      [this.listenerName],
     );
   }
 
@@ -179,8 +148,8 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
 
     if (this.current != null) {
       this._actualizeChildren();
-      await this.validateModelForm(
-        this.modelState,
+      await this.validate(
+        this.formState,
         this.parentGroup,
         this.name,
         this.current,

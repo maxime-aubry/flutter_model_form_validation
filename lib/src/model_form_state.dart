@@ -8,25 +8,22 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
       : assert(model != null),
         super(null) {
     this.model = model;
-    this._init();
+    this._initialize();
   }
-
-  // private properties
-  Map<String, AbstractControlState> _formControlStates;
 
   // public properties
   TModel model;
   EFormStatus status;
 
   // private methods
-  void _init() {
+  void _initialize() {
     this.formBuilder = new ModelFormBuilder<TModel>(this);
   }
 
   Future _validateFormGroup(ModelFormGroup formGroup) async {
     print('Validating form group "${formGroup.listenerName}".');
 
-    await formGroup.validateModelForm(
+    await formGroup.validate(
       this,
       formGroup,
       formGroup.name,
@@ -49,7 +46,7 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
   Future _validateFormArray(ModelFormArray formArray) async {
     print('Validating form group "${formArray.listenerName}".');
 
-    await formArray.validateModelForm(
+    await formArray.validate(
       this,
       formArray.parentGroup as ModelFormGroup,
       formArray.name,
@@ -65,7 +62,7 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
   Future _validateFormControl(ModelFormControl formControl) async {
     print('Validating form group "${formControl.listenerName}".');
 
-    await formControl.validateModelForm(
+    await formControl.validate(
       this,
       formControl.parentGroup as ModelFormGroup,
       formControl.name,
@@ -99,9 +96,9 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
 
   ValidationError getValidationError(ModelForm value, String property) {
     String listenerName = value.getListenerName(property);
-    if (!this._formControlStates.containsKey(listenerName))
-      throw new Exception('Form property status not found');
-    ValidationError error = this._formControlStates[listenerName].error;
+    if (!super.errors.containsKey(listenerName))
+      throw new Exception('Form property error not found');
+    ValidationError error = super.errors[listenerName];
     return error;
   }
 }

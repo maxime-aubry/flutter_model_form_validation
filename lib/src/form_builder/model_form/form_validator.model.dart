@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
@@ -9,23 +10,63 @@ import 'package:queries/collections.dart';
 import 'package:reflectable/reflectable.dart';
 
 mixin ModelFormValidator<TModel extends ModelForm> {
-  String listenerName;
+  // private properties
+  String _listenerName;
+  EAbstractControlStatus _status;
+
+  // public properties
+  @protected
+  ModelFormState<TModel> formState;
   List<FormValidatorAnnotation> validators;
   ValidationError error;
-  EAbstractControlStatus status;
 
-  InstanceMirror getInstanceMirror(Object value) {
-    InstanceMirror instanceMirror = flutterModelFormValidator.reflect(value);
-    return instanceMirror;
+  // getters
+  String get listenerName => this._listenerName;
+  EAbstractControlStatus get status => this._status;
+
+  // setters
+  set status(EAbstractControlStatus value) {
+    this._status = value;
   }
 
-  Object getSubObject(InstanceMirror instanceMirror, String property) {
-    Object child = instanceMirror.invokeGetter(property);
-    return child;
+  void initialize(ModelFormGroup parentGroup, String name, Function setValue) {
+    assert(parentGroup != null);
+    assert(name != null);
+    assert(name != '');
+    assert(setValue != null);
+
+    this._listenerName = '${parentGroup.current.hashCode}.$name';
+
+    // set validators
+    this.validators = this._getValidators(parentGroup, name);
+
+    // add empty error record to model state
+    this.formState.update(
+          this._listenerName,
+          null,
+          this.status,
+        );
+
+    // add listener, triggered when a sub-object is added or removed by form user
+    this._addListener(parentGroup, setValue);
   }
 
-  /// [getValidators] gets all validators for form element.
-  List<FormValidatorAnnotation> getModelFormValidators<FormValidatorType>(
+  /// [_addListener] method adds a listener on this form control.
+  /// Each time a value is changed into the form, this one is notified here.
+  void _addListener(ModelFormGroup parentGroup, Function setValue) {
+    assert(parentGroup != null);
+    assert(setValue != null);
+
+    parentGroup.current.addListener(
+      () async {
+        await setValue();
+      },
+      [this._listenerName],
+    );
+  }
+
+  /// [_getValidators] gets all validators for form element.
+  List<FormValidatorAnnotation> _getValidators<FormValidatorType>(
     ModelFormGroup parentGroup,
     String property,
   ) {
@@ -41,8 +82,9 @@ mixin ModelFormValidator<TModel extends ModelForm> {
     return validators;
   }
 
+  // public methods
   /// [validate] method validate current value, update the status (pure, valid, invalid) and the model state.
-  Future validateModelForm(
+  Future validate(
     ModelFormState<TModel> modelState,
     ModelFormGroup parentGroup,
     String property,
@@ -54,12 +96,12 @@ mixin ModelFormValidator<TModel extends ModelForm> {
     this.error = null;
 
     print(
-        'Validating form element "${this.listenerName}" with status ${this.status}...');
+        'Validating form element "${this._listenerName}" with status ${this.status}...');
 
     // before validation
     this.status = EAbstractControlStatus.validationInProgress;
-    modelState.actualizeAbstractControlState(
-      this.listenerName,
+    modelState.update(
+      this._listenerName,
       null,
       this.status,
     );
@@ -97,15 +139,20 @@ mixin ModelFormValidator<TModel extends ModelForm> {
     // after validation
     this.status =
         isValid ? EAbstractControlStatus.valid : EAbstractControlStatus.invalid;
-    modelState.actualizeAbstractControlState(
-      this.listenerName,
+    modelState.update(
+      this._listenerName,
       this.error,
       this.status,
     );
   }
 
-  String getListenerName(ModelFormGroup parentGroup, String property) {
-    String listenerName = '${parentGroup.current.hashCode}.$property';
-    return listenerName;
+  InstanceMirror getInstanceMirror(Object value) {
+    InstanceMirror instanceMirror = flutterModelFormValidator.reflect(value);
+    return instanceMirror;
+  }
+
+  Object getSubObject(InstanceMirror instanceMirror, String property) {
+    Object child = instanceMirror.invokeGetter(property);
+    return child;
   }
 }
