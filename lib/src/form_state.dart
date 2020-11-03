@@ -7,9 +7,9 @@ class FormState extends FormStateBase {
   FormState({
     @required FormBuilder formBuilder,
   })  : assert(formBuilder != null, 'Form builder must be provided.'),
-        assert(formBuilder.isInitialized == true,
+        assert(formBuilder.isInitialized == false,
             'Form builder must be initialized before to be attached to the form state.'),
-        assert(formBuilder.isAttachedToFormState == true,
+        assert(formBuilder.isAttachedToFormState == false,
             'Form builder must not to be attached yet.'),
         super(formBuilder);
 
