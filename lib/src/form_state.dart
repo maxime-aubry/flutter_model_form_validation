@@ -9,7 +9,21 @@ class FormState extends FormStateBase {
   })  : assert(formBuilder != null, 'Form builder must be provided.'),
         assert(formBuilder.isInitialized == true,
             'Form builder must be initialized before to be attached to the form state.'),
+        assert(formBuilder.isAttachedToFormState == true,
+            'Form builder must not to be attached yet.'),
         super(formBuilder);
+
+  void attach(FormBuilder formBuilder) {
+    assert(formBuilder != null);
+
+    print('Attaching form builder to form state.');
+
+    this.formBuilder = formBuilder;
+
+    // intialize form builder (provide form group parent for each abstract control).
+    // attach form builder to form state.
+    formBuilder.initialize(this);
+  }
 
   Future _validateFormGroup(ModelFormGroup formGroup) async {}
 

@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_model_form_validation/src/form_builder/dynamic_form/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 
@@ -7,15 +8,23 @@ class FormBuilder extends FormBuilderBase {
     @required FormGroup group,
   }) : super(group) {
     this._isInitialized = false;
+    this._isAttachedToFormState = false;
   }
 
   // private properties
+  FormState _formState;
   bool _isInitialized;
+  bool _isAttachedToFormState;
 
   // getters
   bool get isInitialized => this._isInitialized;
+  bool get isAttachedToFormState => this._isAttachedToFormState;
 
-  void initialize() {
+  void initialize(FormState formState) {
+    assert(formState != null);
+    assert(this._isInitialized == false);
+    assert(this._isAttachedToFormState == false);
+
     this._initializeFormGroup(this.group, null, 'root');
     this._isInitialized = true;
   }
@@ -25,11 +34,9 @@ class FormBuilder extends FormBuilderBase {
     FormGroup parent,
     String name,
   ) {
+    current.formState = this._formState;
     current.parentGroup = parent;
     current.name = name;
-
-    // if (name != 'root')
-    //   current.listenerName = current.getListenerName(current.parentGroup, name);
 
     for (MapEntry<String, AbstractControl> child in current.controls.entries) {
       if (child.value is FormGroup) {
@@ -61,12 +68,9 @@ class FormBuilder extends FormBuilderBase {
     FormGroup parent,
     String name,
   ) {
+    formArray.formState = this._formState;
     formArray.parentGroup = parent;
     formArray.name = name;
-
-    // if (name != 'root')
-    //   formArray.listenerName =
-    //       formArray.getListenerName(formArray.parentGroup, name);
 
     for (FormGroup formGroup in formArray.groups)
       this._initializeFormGroup(formGroup, parent, name);
@@ -77,11 +81,8 @@ class FormBuilder extends FormBuilderBase {
     FormGroup parent,
     String name,
   ) {
+    formControl.formState = this._formState;
     formControl.parentGroup = parent;
     formControl.name = name;
-
-    // if (name != 'root')
-    //   formControl.listenerName =
-    //       formControl.getListenerName(formControl.parentGroup, name);
   }
 }

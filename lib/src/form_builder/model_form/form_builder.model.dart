@@ -6,18 +6,18 @@ class ModelFormBuilder<TModel extends ModelForm> extends FormBuilderBase {
   ModelFormBuilder(ModelFormState<TModel> modelState)
       : assert(modelState != null),
         super(null) {
-    this._modelState = modelState;
+    this._formState = modelState;
     if (modelState != null) this._initialize();
   }
 
   // private properties
-  ModelFormState<TModel> _modelState;
+  ModelFormState<TModel> _formState;
 
   // private methods
   void _initialize() {
     this.group = new ModelFormGroup(
-      this._modelState,
-      this._modelState.model,
+      this._formState,
+      this._formState.model,
       'root',
       null,
     );
