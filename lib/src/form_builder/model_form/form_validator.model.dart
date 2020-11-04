@@ -27,22 +27,20 @@ mixin ModelFormValidator<TModel extends ModelForm> {
     ModelFormState<TModel> formState,
     Function setValue,
   ) {
-    this._listenerName = '${parentGroup.current.hashCode}.$name';
     this._status = EAbstractControlStatus.pure;
-
-    // set validators
-    this.validators = this._getValidators(parentGroup, name);
-
-    // add empty error record to model state
     this.formState = formState;
-    this.formState.update(
-          this._listenerName,
-          null,
-          this._status,
-        );
 
-    // add listener, triggered when a sub-object is added or removed by form user
-    this._addListener(parentGroup, setValue);
+    if (parentGroup != null) {
+      this._listenerName = '${parentGroup.current.hashCode}.$name';
+      this.validators = this._getValidators(parentGroup, name);
+      this.formState.update(
+            this._listenerName,
+            null,
+            this._status,
+          );
+      // add listener, triggered when a sub-object is added or removed by form user
+      this._addListener(parentGroup, setValue);
+    }
   }
 
   /// [_addListener] method adds a listener on this form control.

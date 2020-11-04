@@ -24,6 +24,7 @@ class FormArray extends FormArrayBase with DynamicFormValidator {
     assert(formState != null, '');
     assert(this._isInitialized == false, '');
 
+    this.name = name;
     this.parentGroup = parentGroup;
     super.initialize(this.name, this.parentGroup, formState);
     this._isInitialized = true;

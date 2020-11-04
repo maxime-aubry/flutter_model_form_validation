@@ -19,16 +19,17 @@ mixin DynamicFormValidator {
 
   @protected
   void initialize(String name, FormGroup parentGroup, FormState formState) {
-    this._listenerName = '${parentGroup.hashCode}.${name}';
     this._status = EAbstractControlStatus.pure;
-
-    // add empty error record to model state
     this.formState = formState;
-    this.formState.update(
-          this._listenerName,
-          null,
-          this.status,
-        );
+
+    if (parentGroup != null) {
+      this._listenerName = '${parentGroup.hashCode}.${name}';
+      this.formState.update(
+            this._listenerName,
+            null,
+            this.status,
+          );
+    }
   }
 
   List<FormValidatorAnnotation> _getValidators<FormValidatorType>() {

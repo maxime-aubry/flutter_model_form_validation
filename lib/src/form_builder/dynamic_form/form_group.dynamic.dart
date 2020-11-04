@@ -19,11 +19,12 @@ class FormGroup extends FormGroupBase with DynamicFormValidator {
   void initialize(String name, FormGroup parentGroup, FormState formState) {
     assert(name != null, '');
     assert(name != '', '');
-    assert(parentGroup != null, '');
-    assert(parentGroup is FormGroup, '');
+    // assert(parentGroup != null, '');
+    // assert(parentGroup is FormGroup, '');
     assert(formState != null, '');
     assert(this._isInitialized == false, '');
 
+    this.name = name;
     this.parentGroup = parentGroup;
     super.initialize(this.name, this.parentGroup, formState);
     this._isInitialized = true;

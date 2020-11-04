@@ -10,21 +10,6 @@ void main() {
       }, throwsA(isA<AssertionError>()));
     });
 
-    test(
-        'Unable to generate a form state if the form builder is not initialized.',
-        () {
-      expect(() {
-        FormBuilder formBuilder = new FormBuilder(
-          group: new FormGroup(
-            controls: {},
-            validators: [],
-          ),
-        );
-        FormState modelState = new FormState(formBuilder: formBuilder);
-        expect(modelState, isNotNull);
-      }, throwsA(isA<AssertionError>()));
-    });
-
     test('Initialize form builder.', () async {
       FormBuilder formBuilder = new FormBuilder(
         group: new FormGroup(

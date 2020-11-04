@@ -22,6 +22,7 @@ class FormBuilder extends FormBuilderBase {
     assert(this._isInitialized == false, '');
     assert(this._isAttachedToFormState == false, '');
 
+    this._formState = formState;
     this._initializeFormGroup(this.group, null, 'root');
     this._isInitialized = true;
   }
