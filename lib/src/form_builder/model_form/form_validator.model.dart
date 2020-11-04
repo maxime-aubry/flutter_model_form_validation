@@ -10,38 +10,35 @@ import 'package:queries/collections.dart';
 import 'package:reflectable/reflectable.dart';
 
 mixin ModelFormValidator<TModel extends ModelForm> {
-  // private properties
   String _listenerName;
-
-  // public properties
-  @protected
-  EAbstractControlStatus status;
-
+  EAbstractControlStatus _status;
   @protected
   ModelFormState<TModel> formState;
   List<FormValidatorAnnotation> validators;
   ValidationError error;
-
-  // getters
   String get listenerName => this._listenerName;
+  EAbstractControlStatus get status => this._status;
 
+  // private methods
   @protected
-  void initialize(ModelFormGroup parentGroup, String name, Function setValue) {
-    assert(parentGroup != null);
-    assert(name != null);
-    assert(name != '');
-    assert(setValue != null);
-
+  void initialize(
+    String name,
+    ModelFormGroup parentGroup,
+    ModelFormState<TModel> formState,
+    Function setValue,
+  ) {
     this._listenerName = '${parentGroup.current.hashCode}.$name';
+    this._status = EAbstractControlStatus.pure;
 
     // set validators
     this.validators = this._getValidators(parentGroup, name);
 
     // add empty error record to model state
+    this.formState = formState;
     this.formState.update(
           this._listenerName,
           null,
-          this.status,
+          this._status,
         );
 
     // add listener, triggered when a sub-object is added or removed by form user
@@ -51,9 +48,6 @@ mixin ModelFormValidator<TModel extends ModelForm> {
   /// [_addListener] method adds a listener on this form control.
   /// Each time a value is changed into the form, this one is notified here.
   void _addListener(ModelFormGroup parentGroup, Function setValue) {
-    assert(parentGroup != null);
-    assert(setValue != null);
-
     parentGroup.current.addListener(
       () async {
         await setValue();
@@ -83,7 +77,6 @@ mixin ModelFormValidator<TModel extends ModelForm> {
   /// [validate$1] method validate current value, update the status (pure, valid, invalid) and the model state.
   @protected
   Future validate$1(
-    ModelFormState<TModel> formState,
     ModelFormGroup parentGroup,
     String property,
     Object value,
@@ -97,18 +90,18 @@ mixin ModelFormValidator<TModel extends ModelForm> {
         'Validating form element "${this._listenerName}" with status ${this.status}...');
 
     // before validation
-    this.status = EAbstractControlStatus.validationInProgress;
-    formState.update(
-      this._listenerName,
-      null,
-      this.status,
-    );
+    this._status = EAbstractControlStatus.validationInProgress;
+    this.formState.update(
+          this._listenerName,
+          null,
+          this._status,
+        );
 
     // validation
     for (FormValidatorAnnotation validator in this.validators) {
       try {
         isValid = await validator.isValid(
-          formState.formBuilder,
+          this.formState.formBuilder,
           parentGroup,
           value,
           formPath,
@@ -135,13 +128,13 @@ mixin ModelFormValidator<TModel extends ModelForm> {
     }
 
     // after validation
-    this.status =
+    this._status =
         isValid ? EAbstractControlStatus.valid : EAbstractControlStatus.invalid;
-    formState.update(
-      this._listenerName,
-      this.error,
-      this.status,
-    );
+    this.formState.update(
+          this._listenerName,
+          this.error,
+          this._status,
+        );
   }
 
   InstanceMirror getInstanceMirror(Object value) {

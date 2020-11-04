@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 
 class FormControlBase extends AbstractControl {
@@ -12,7 +11,6 @@ class FormControlBase extends AbstractControl {
   }
 
   // public properties
-  @protected
   Object value;
 
   // getters

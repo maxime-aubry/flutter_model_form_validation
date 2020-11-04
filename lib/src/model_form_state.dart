@@ -5,7 +5,7 @@ import 'package:flutter_model_form_validation/src/utils/index.dart';
 
 class ModelFormState<TModel extends ModelForm> extends FormStateBase {
   ModelFormState(TModel model)
-      : assert(model != null),
+      : assert(model != null, 'Model must be provided.'),
         super(null) {
     this.model = model;
     this._initialize();
@@ -13,11 +13,12 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
 
   // public properties
   TModel model;
-  EFormStatus status;
 
   // private methods
   void _initialize() {
-    this.formBuilder = new ModelFormBuilder<TModel>(this);
+    ModelFormBuilder<TModel> formBuilder = new ModelFormBuilder<TModel>();
+    this.formBuilder = formBuilder;
+    formBuilder.initialize(this);
   }
 
   Future _validateFormGroup(ModelFormGroup formGroup) async {
@@ -57,11 +58,11 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
 
     for (MapEntry<String, AbstractControl> control
         in this.formBuilder.group.controls.entries) {
-      if (control.value is FormGroupBase)
+      if (control.value is ModelFormGroup)
         await this._validateFormGroup(control.value);
-      if (control.value is FormArrayBase)
+      if (control.value is ModelFormArray)
         await this._validateFormArray(control.value);
-      if (control.value is FormControlBase)
+      if (control.value is ModelFormControl)
         await this._validateFormControl(control.value);
     }
 

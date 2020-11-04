@@ -78,7 +78,6 @@ void main() {
           validators: [],
         ),
       );
-      formBuilder.initialize();
       FormState formState = new FormState(formBuilder: formBuilder);
 
       FormGroup fg;

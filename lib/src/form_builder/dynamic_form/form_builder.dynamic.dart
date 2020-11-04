@@ -11,19 +11,16 @@ class FormBuilder extends FormBuilderBase {
     this._isAttachedToFormState = false;
   }
 
-  // private properties
   FormState _formState;
   bool _isInitialized;
   bool _isAttachedToFormState;
-
-  // getters
   bool get isInitialized => this._isInitialized;
   bool get isAttachedToFormState => this._isAttachedToFormState;
 
   void initialize(FormState formState) {
-    assert(formState != null);
-    assert(this._isInitialized == false);
-    assert(this._isAttachedToFormState == false);
+    assert(formState != null, '');
+    assert(this._isInitialized == false, '');
+    assert(this._isAttachedToFormState == false, '');
 
     this._initializeFormGroup(this.group, null, 'root');
     this._isInitialized = true;
@@ -31,12 +28,10 @@ class FormBuilder extends FormBuilderBase {
 
   void _initializeFormGroup(
     FormGroup current,
-    FormGroup parent,
+    FormGroup parentGroup,
     String name,
   ) {
-    current.formState = this._formState;
-    current.parentGroup = parent;
-    current.name = name;
+    current.initialize(name, parentGroup, this._formState);
 
     for (MapEntry<String, AbstractControl> child in current.controls.entries) {
       if (child.value is FormGroup) {
@@ -65,24 +60,20 @@ class FormBuilder extends FormBuilderBase {
 
   void _initializeFormArray(
     FormArray formArray,
-    FormGroup parent,
+    FormGroup parentGroup,
     String name,
   ) {
-    formArray.formState = this._formState;
-    formArray.parentGroup = parent;
-    formArray.name = name;
+    formArray.initialize(name, parentGroup, this._formState);
 
     for (FormGroup formGroup in formArray.groups)
-      this._initializeFormGroup(formGroup, parent, name);
+      this._initializeFormGroup(formGroup, parentGroup, name);
   }
 
   void _initializeFormControl(
     FormControl formControl,
-    FormGroup parent,
+    FormGroup parentGroup,
     String name,
   ) {
-    formControl.formState = this._formState;
-    formControl.parentGroup = parent;
-    formControl.name = name;
+    formControl.initialize(name, parentGroup, this._formState);
   }
 }

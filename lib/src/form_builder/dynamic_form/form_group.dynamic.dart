@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/dynamic_form/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
@@ -9,25 +10,33 @@ class FormGroup extends FormGroupBase with DynamicFormValidator {
     @required List<FormValidatorAnnotation> validators,
   }) : super('', null, controls, false) {
     this.validators = validators ?? new List<FormValidatorAnnotation>();
-    this.status = EAbstractControlStatus.pure;
-    this._initialize();
+    this._isInitialized = false;
   }
 
-  void _initialize() {
-    if (this.parentGroup != null && this.parentGroup is FormGroup)
-      super.initialize(this.parentGroup, this.name);
+  bool _isInitialized;
+
+  @override
+  void initialize(String name, FormGroup parentGroup, FormState formState) {
+    assert(name != null, '');
+    assert(name != '', '');
+    assert(parentGroup != null, '');
+    assert(parentGroup is FormGroup, '');
+    assert(formState != null, '');
+    assert(this._isInitialized == false, '');
+
+    this.parentGroup = parentGroup;
+    super.initialize(this.name, this.parentGroup, formState);
+    this._isInitialized = true;
   }
 
   Future addItem(String name, AbstractControl item) async {
-    assert(name != null);
-    assert(name != '');
-    assert(item != null);
-    assert(item is FormGroup || item is FormArray || item is FormControl);
-    assert(!this.containsControl(name));
+    assert(name != null, '');
+    assert(name != '', '');
+    assert(item != null, '');
+    assert(item is FormGroup || item is FormArray || item is FormControl, '');
+    assert(!this.containsControl(name), '');
 
     // add form group in the list
-    if (this.controls == null)
-      this.controls = new Map<String, AbstractControl>();
     this.addControl(name, item);
 
     // validate all controls
@@ -42,9 +51,9 @@ class FormGroup extends FormGroupBase with DynamicFormValidator {
   }
 
   Future removeItem(String name) async {
-    assert(name != null);
-    assert(name != '');
-    assert(this.containsControl(name));
+    assert(name != null, '');
+    assert(name != '', '');
+    assert(this.containsControl(name), '');
 
     this.removeControl(name);
 
@@ -60,7 +69,6 @@ class FormGroup extends FormGroupBase with DynamicFormValidator {
   }
 
   Future validate() async => await super.validate$1(
-        this.formState,
         this.parentGroup as FormGroup,
         this.name,
         this,

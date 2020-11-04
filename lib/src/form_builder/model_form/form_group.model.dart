@@ -19,24 +19,22 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     String name,
     FormGroupBase parentGroup, [
     bool isArrayItem = false,
-  ])  : assert(formState != null),
-        super(name, parentGroup, null, isArrayItem) {
-    this.formState = formState;
+  ]) : super(name, parentGroup, null, isArrayItem) {
     this.current = current as TCurrentModel;
-    this.status = EAbstractControlStatus.pure;
-    this._initialize();
+    this._initializeFormGroup(formState);
   }
 
   // public properties
   TCurrentModel current;
 
   // private methods
-  void _initialize() {
-    if (this.parentGroup != null && this.parentGroup is ModelFormGroup) {
-      super.initialize(parentGroup as ModelFormGroup, name, () async {
-        await _setValue(parentGroup as ModelFormGroup);
-      });
-    }
+  void _initializeFormGroup(ModelFormState<TModel> formState) {
+    assert(formState != null, '');
+
+    this.initialize(this.name, this.parentGroup as ModelFormGroup, formState,
+        () async {
+      await this._setValue(this.parentGroup as ModelFormGroup);
+    });
 
     // create sub-object if it is not null
     if (this.current != null) this._actualizeChildren();
@@ -132,8 +130,6 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
   /// [_setValue] method set this form control with the new value from form.
   /// Next, this value is validated, and the model state too.
   Future _setValue(ModelFormGroup parentGroup) async {
-    assert(parentGroup != null);
-
     // set new sub-object
     InstanceMirror instanceMirror = this.getInstanceMirror(parentGroup.current);
     this.current = this.getSubObject(instanceMirror, this.name);
@@ -145,7 +141,6 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
   }
 
   Future validate() async => await super.validate$1(
-        this.formState,
         this.parentGroup as ModelFormGroup,
         this.name,
         this.current,

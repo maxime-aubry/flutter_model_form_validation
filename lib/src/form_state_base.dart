@@ -27,8 +27,6 @@ class FormStateBase {
 
   // public properties
   EFormStatus status;
-
-  @protected
   FormBuilderBase formBuilder;
 
   // private methods

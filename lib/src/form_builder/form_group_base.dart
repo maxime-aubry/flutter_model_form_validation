@@ -1,4 +1,5 @@
-import 'package:flutter/foundation.dart';
+import 'dart:collection';
+
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 
 class FormGroupBase extends AbstractControl {
@@ -8,7 +9,7 @@ class FormGroupBase extends AbstractControl {
     Map<String, AbstractControl> controls,
     bool isArrayitem,
   ) : super(name, parentGroup) {
-    this.controls = controls ?? new Map<String, AbstractControl>();
+    this._controls = controls ?? new Map<String, AbstractControl>();
     this._isArrayItem = isArrayitem;
   }
 
@@ -16,10 +17,15 @@ class FormGroupBase extends AbstractControl {
   bool _isArrayItem;
 
   // public properties
-  @protected
-  Map<String, AbstractControl> controls;
+  Map<String, AbstractControl> _controls;
 
   // getters
+  UnmodifiableMapView<String, AbstractControl> get controls {
+    UnmodifiableMapView<String, AbstractControl> value =
+        UnmodifiableMapView<String, AbstractControl>(this._controls);
+    return value;
+  }
+
   String get formPath {
     return this.getFormPath(parts: new List<String>());
   }
@@ -28,42 +34,41 @@ class FormGroupBase extends AbstractControl {
     return this.getModelPath(parts: new List<String>());
   }
 
-  // private methods
+  // public methods
   bool containsControl(String name) {
-    assert(name != null);
-    assert(name != '');
+    assert(name != null, '');
+    assert(name != '', '');
 
-    bool hasKey = this.controls.containsKey(name);
+    bool hasKey = this._controls.containsKey(name);
     return hasKey;
   }
 
   void addControl(String name, AbstractControl control) {
-    assert(name != null);
-    assert(name != '');
-    assert(control != null);
-    assert(!this.controls.containsKey(name));
+    assert(name != null, '');
+    assert(name != '', '');
+    assert(control != null, '');
+    assert(!this._controls.containsKey(name));
 
-    this.controls[name] = control;
+    this._controls[name] = control;
   }
 
   void removeControl(String name) {
-    assert(name != null);
-    assert(name != '');
-    assert(!this.controls.containsKey(name));
+    assert(name != null, '');
+    assert(name != '', '');
+    assert(this._controls.containsKey(name), '');
 
-    this.controls.remove(name);
+    this._controls.remove(name);
   }
 
-  // public methods
   String getFormPath({
     List<String> parts,
   }) {
     // if there is a parent
     if (this.parentGroup != null) {
       if (this._isArrayItem &&
-          this.parentGroup.controls[this.name] is FormArrayBase) {
+          this.parentGroup._controls[this.name] is FormArrayBase) {
         FormArrayBase formArray =
-            this.parentGroup.controls[this.name] as FormArrayBase;
+            this.parentGroup._controls[this.name] as FormArrayBase;
         int index = formArray.groups.indexOf(this);
         parts.insert(0, 'controls[\'${this.name}\'].groups[$index]');
       } else {
@@ -84,9 +89,9 @@ class FormGroupBase extends AbstractControl {
     // if there is a parent
     if (this.parentGroup != null) {
       if (this._isArrayItem &&
-          this.parentGroup.controls[this.name] is FormArrayBase) {
+          this.parentGroup._controls[this.name] is FormArrayBase) {
         FormArrayBase formArray =
-            this.parentGroup.controls[this.name] as FormArrayBase;
+            this.parentGroup._controls[this.name] as FormArrayBase;
         int index = formArray.groups.indexOf(this);
         parts.insert(0, '${this.name}[$index]');
       } else {
