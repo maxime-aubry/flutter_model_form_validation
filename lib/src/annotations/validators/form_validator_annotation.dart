@@ -42,6 +42,8 @@ abstract class FormValidatorAnnotation<TValue> {
         dtValue = (defaultValue as String).toDateTime();
       }
 
+      if (propertyName == null || propertyName.isEmpty)
+        return dtValue ?? defaultValue;
       if (!formGroup.containsControl(propertyName))
         return dtValue ?? defaultValue;
       if (formGroup.controls[propertyName] is! FormControlBase)

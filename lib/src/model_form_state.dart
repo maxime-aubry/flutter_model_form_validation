@@ -22,8 +22,6 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
   }
 
   Future _validateFormGroup(ModelFormGroup formGroup) async {
-    print('Validating form group "${formGroup.listenerName}".');
-
     await formGroup.validate();
 
     for (MapEntry<String, AbstractControl> control
@@ -38,8 +36,6 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
   }
 
   Future _validateFormArray(ModelFormArray formArray) async {
-    print('Validating form group "${formArray.listenerName}".');
-
     await formArray.validate();
 
     for (FormGroupBase formGroup in formArray.groups)
@@ -47,15 +43,11 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
   }
 
   Future _validateFormControl(ModelFormControl formControl) async {
-    print('Validating form group "${formControl.listenerName}".');
-
     await formControl.validate();
   }
 
   // public methods
   Future<bool> validateForm() async {
-    print('Validating form from user.');
-
     for (MapEntry<String, AbstractControl> control
         in this.formBuilder.group.controls.entries) {
       if (control.value is ModelFormGroup)
@@ -65,11 +57,7 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
       if (control.value is ModelFormControl)
         await this._validateFormControl(control.value);
     }
-
-    if (this.status == EFormStatus.valid)
-      print('Form is valid');
-    else
-      print('Form is invalid');
+    
 
     return this.status == EFormStatus.valid;
   }

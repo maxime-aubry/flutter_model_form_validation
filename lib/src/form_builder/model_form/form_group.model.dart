@@ -92,8 +92,6 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     InstanceMirror instanceMirror,
     String name,
   ) {
-    print('Add ${this.name}.$name form group.');
-
     Object child = this.getSubObject(instanceMirror, name);
     this.addControl(
       name,
@@ -105,8 +103,6 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     InstanceMirror instanceMirror,
     String name,
   ) {
-    print('Add ${this.name}.$name form array.');
-
     List children = this.getSubObject(instanceMirror, name);
     this.addControl(
       name,
@@ -118,8 +114,6 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     InstanceMirror instanceMirror,
     String name,
   ) {
-    print('Add ${this.name}.$name form control.');
-
     Object child = this.getSubObject(instanceMirror, name);
     this.addControl(
       name,

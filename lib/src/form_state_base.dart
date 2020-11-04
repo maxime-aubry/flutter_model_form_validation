@@ -45,8 +45,6 @@ class FormStateBase {
     ValidationError error,
     EAbstractControlStatus status,
   ) {
-    print('Actualizing form element "$listenerName" with status "$status".');
-
     this.statuses[listenerName] = status;
     this.errors[listenerName] = error;
     this._actualizeModelState();

@@ -22,8 +22,6 @@ class FormState extends FormStateBase {
     assert(formBuilder.isAttachedToFormState == false,
         'Form builder must not be attached when calling attach method.');
 
-    print('Attaching form builder to form state.');
-
     this.formBuilder = formBuilder;
 
     // intialize form builder (provide form group parent for each abstract control).
@@ -32,8 +30,6 @@ class FormState extends FormStateBase {
   }
 
   Future _validateFormGroup(FormGroup formGroup) async {
-    print('Validating form group "${formGroup.listenerName}".');
-
     await formGroup.validate();
 
     for (MapEntry<String, AbstractControl> control
@@ -48,8 +44,6 @@ class FormState extends FormStateBase {
   }
 
   Future _validateFormArray(FormArray formArray) async {
-    print('Validating form group "${formArray.listenerName}".');
-
     await formArray.validate();
 
     for (FormGroupBase formGroup in formArray.groups)
@@ -57,15 +51,11 @@ class FormState extends FormStateBase {
   }
 
   Future _validateFormControl(FormControl formControl) async {
-    print('Validating form group "${formControl.listenerName}".');
-
     await formControl.validate();
   }
 
   // public methods
   Future<bool> validateForm() async {
-    print('Validating form from user.');
-
     for (MapEntry<String, AbstractControl> control
         in this.formBuilder.group.controls.entries) {
       if (control.value is FormGroup)
@@ -75,11 +65,6 @@ class FormState extends FormStateBase {
       if (control.value is FormControl)
         await this._validateFormControl(control.value);
     }
-
-    if (this.status == EFormStatus.valid)
-      print('Form is valid');
-    else
-      print('Form is invalid');
 
     return this.status == EFormStatus.valid;
   }
