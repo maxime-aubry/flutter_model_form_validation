@@ -49,4 +49,24 @@ class FormStateBase with PropertyChangeNotifier<String> {
     this._actualizeModelState();
     super.notifyListeners('status');
   }
+
+  ValidationError getError(String name) {
+    assert(name != null, '');
+    assert(name != '', '');
+
+    if (!this.errors.containsKey(name))
+      throw new Exception('Form property error not found');
+    ValidationError error = this.errors[name];
+    return error;
+  }
+
+  EAbstractControlStatus getStatus(String name) {
+    assert(name != null, '');
+    assert(name != '', '');
+
+    if (!this.errors.containsKey(name))
+      throw new Exception('Form property status not found');
+    EAbstractControlStatus status = this.statuses[name];
+    return status;
+  }
 }

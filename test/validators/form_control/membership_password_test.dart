@@ -19,7 +19,7 @@ void main() {
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
-        ValidationError error = modelState.getValidationError(model, 'value');
+        ValidationError error = modelState.getError(model.getListenerName('value'));
         expect(error, isNull);
         expect(details['includesAlphabeticalCharacters'], true);
         expect(details['includesUppercaseCharacters'], true);
@@ -41,7 +41,7 @@ void main() {
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);
-        ValidationError error = modelState.getValidationError(model, 'value');
+        ValidationError error = modelState.getError(model.getListenerName('value'));
         expect(error, isNotNull);
         expect(error.propertyName, 'value');
         expect(error.validatorType, MembershipPassword);

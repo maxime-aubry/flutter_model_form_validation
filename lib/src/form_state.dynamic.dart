@@ -69,24 +69,4 @@ class FormState extends FormStateBase {
 
     return this.status == EFormStatus.valid;
   }
-
-  ValidationError getError(String name) {
-    assert(name != null, '');
-    assert(name != '', '');
-
-    if (!super.errors.containsKey(name))
-      throw new Exception('Form property error not found');
-    ValidationError error = super.errors[name];
-    return error;
-  }
-
-  EAbstractControlStatus getStatus(String name) {
-    assert(name != null, '');
-    assert(name != '', '');
-
-    if (!super.errors.containsKey(name))
-      throw new Exception('Form property status not found');
-    EAbstractControlStatus status = super.statuses[name];
-    return status;
-  }
 }

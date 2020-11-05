@@ -1,7 +1,6 @@
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/model_form/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
-import 'package:flutter_model_form_validation/src/utils/index.dart';
 
 class ModelFormState<TModel extends ModelForm> extends FormStateBase {
   ModelFormState(TModel model)
@@ -57,13 +56,5 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
     }
 
     return this.status == EFormStatus.valid;
-  }
-
-  ValidationError getValidationError(ModelForm value, String property) {
-    String listenerName = value.getListenerName(property);
-    if (!super.errors.containsKey(listenerName))
-      throw new Exception('Form property error not found');
-    ValidationError error = super.errors[listenerName];
-    return error;
   }
 }
