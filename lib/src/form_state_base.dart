@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/utils/index.dart';
+import 'package:property_change_notifier/property_change_notifier.dart';
 import 'package:queries/collections.dart';
 
 enum EFormStatus {
@@ -9,7 +10,7 @@ enum EFormStatus {
   invalid,
 }
 
-class FormStateBase {
+class FormStateBase with PropertyChangeNotifier<String> {
   FormStateBase(
     this.formBuilder,
   ) {
@@ -20,10 +21,13 @@ class FormStateBase {
 
   @protected
   Map<String, EAbstractControlStatus> statuses;
+
   @protected
   Map<String, ValidationError> errors;
+
   @protected
   EFormStatus status;
+
   FormBuilderBase formBuilder;
 
   bool _actualizeModelState() {
@@ -43,5 +47,6 @@ class FormStateBase {
     this.statuses[listenerName] = status;
     this.errors[listenerName] = error;
     this._actualizeModelState();
+    super.notifyListeners('status');
   }
 }
