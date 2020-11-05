@@ -21,75 +21,71 @@ void main() {
       ModelFormState<FormBuilderTest> modelState =
           new ModelFormState<FormBuilderTest>(model);
 
-      ModelFormGroup fg = modelState.formBuilder.group;
-      ModelFormArray fa;
-      ModelFormControl fc;
-
       // first_name
-      fc = fg.controls['first_name'];
-      checkFormControl(
-        fc,
-        'first_name',
-        EAbstractControlStatus.pure,
-        null,
-        [Required, StringLength],
-        null,
-      );
+      {
+        ModelFormControl fc = modelState.formBuilder.group.controls['first_name'] as ModelFormControl;
+        checkFormControl(
+          fc,
+          'first_name',
+          EAbstractControlStatus.pure,
+          null,
+        );
+      }
 
       // last_name
-      fc = fg.controls['last_name'];
-      checkFormControl(
-        fc,
-        'last_name',
-        EAbstractControlStatus.pure,
-        null,
-        [Required, StringLength],
-        null,
-      );
+      {
+        ModelFormControl fc = modelState.formBuilder.group.controls['last_name'] as ModelFormControl;
+        checkFormControl(
+          fc,
+          'last_name',
+          EAbstractControlStatus.pure,
+          null,
+        );
+      }
 
       // birth_day
-      fc = fg.controls['birth_day'];
-      checkFormControl(
-        fc,
-        'birth_day',
-        EAbstractControlStatus.pure,
-        null,
-        [Required],
-        null,
-      );
+      {
+        ModelFormControl fc = modelState.formBuilder.group.controls['birth_day'] as ModelFormControl;
+        checkFormControl(
+          fc,
+          'birth_day',
+          EAbstractControlStatus.pure,
+          null,
+        );
+      }
 
       // subscription_date
-      fc = fg.controls['subscription_date'];
-      checkFormControl(
-        fc,
-        'subscription_date',
-        EAbstractControlStatus.pure,
-        null,
-        [Required, GreaterOrEqualToDateTime, SmallerOrEqualToDateTime],
-        null,
-      );
+      {
+        ModelFormControl fc = modelState.formBuilder.group.controls['subscription_date'] as ModelFormControl;
+        checkFormControl(
+          fc,
+          'subscription_date',
+          EAbstractControlStatus.pure,
+          null,
+        );
+      }
 
       // books
-      fa = fg.controls['books'];
-      checkFormArray(
-        fa,
-        'books',
-        EAbstractControlStatus.pure,
-        null,
-        [NbItems],
-        0,
-      );
+      {
+        ModelFormArray fa = modelState.formBuilder.group.controls['books'] as ModelFormArray;
+        checkFormArray(
+          fa,
+          'books',
+          EAbstractControlStatus.pure,
+          0,
+        );
+      }
 
       // favorite_book
-      fg = fg.controls['favorite_book'];
-      checkFormGroup(
-        fg,
-        'favorite_book',
-        EAbstractControlStatus.pure,
-        null,
-        [Required],
-        true,
-      );
+      {
+        ModelFormGroup fg = modelState.formBuilder.group.controls['favorite_book'] as ModelFormGroup;
+        checkFormGroup(
+          fg,
+          'favorite_book',
+          EAbstractControlStatus.pure,
+          true,
+        );
+      }
     });
 
     test('Generates a form using by a model with pre-entered data.', () {
@@ -121,196 +117,230 @@ void main() {
       ModelFormState<FormBuilderTest> modelState =
           new ModelFormState<FormBuilderTest>(model);
 
-      ModelFormGroup fg = modelState.formBuilder.group;
-      ModelFormArray fa;
-      ModelFormControl fc;
-
       // first_name
-      fc = fg.controls['first_name'];
-      checkFormControl(
-        fc,
-        'first_name',
-        EAbstractControlStatus.pure,
-        null,
-        [Required, StringLength],
-        'Edouard',
-      );
+      {
+        ModelFormControl fc = modelState
+            .formBuilder.group.controls['first_name'] as ModelFormControl;
+        checkFormControl(
+          fc,
+          'first_name',
+          EAbstractControlStatus.pure,
+          'Edouard',
+        );
+      }
 
       // last_name
-      fc = fg.controls['last_name'];
-      checkFormControl(
-        fc,
-        'last_name',
-        EAbstractControlStatus.pure,
-        null,
-        [Required, StringLength],
-        'Elric',
-      );
+      {
+        ModelFormControl fc = modelState.formBuilder.group.controls['last_name']
+            as ModelFormControl;
+        checkFormControl(
+          fc,
+          'last_name',
+          EAbstractControlStatus.pure,
+          'Elric',
+        );
+      }
 
       // birth_day
-      fc = fg.controls['birth_day'];
-      checkFormControl(
-        fc,
-        'birth_day',
-        EAbstractControlStatus.pure,
-        null,
-        [Required],
-        new DateTime(1980, 12, 15),
-      );
+      {
+        ModelFormControl fc = modelState.formBuilder.group.controls['birth_day']
+            as ModelFormControl;
+        checkFormControl(
+          fc,
+          'birth_day',
+          EAbstractControlStatus.pure,
+          new DateTime(1980, 12, 15),
+        );
+      }
 
       // subscription_date
-      fc = fg.controls['subscription_date'];
-      checkFormControl(
-        fc,
-        'subscription_date',
-        EAbstractControlStatus.pure,
-        null,
-        [Required, GreaterOrEqualToDateTime, SmallerOrEqualToDateTime],
-        new DateTime(2019, 06, 01),
-      );
+      {
+        ModelFormControl fc = modelState.formBuilder.group
+            .controls['subscription_date'] as ModelFormControl;
+        checkFormControl(
+          fc,
+          'subscription_date',
+          EAbstractControlStatus.pure,
+          new DateTime(2019, 06, 01),
+        );
+      }
 
       // books
-      fa = fg.controls['books'];
-      checkFormArray(
-        fa,
-        'books',
-        EAbstractControlStatus.pure,
-        null,
-        [NbItems],
-        3,
-      );
+      {
+        ModelFormArray fa =
+            modelState.formBuilder.group.controls['books'] as ModelFormArray;
+        checkFormArray(
+          fa,
+          'books',
+          EAbstractControlStatus.pure,
+          3,
+        );
+      }
 
       // books[0]
-      fg = fa.groups[0];
-      checkFormGroup(
-        fg,
-        'books',
-        EAbstractControlStatus.pure,
-        null,
-        [],
-        false,
-      );
+      {
+        ModelFormArray fa =
+            modelState.formBuilder.group.controls['books'] as ModelFormArray;
+        ModelFormGroup fg = fa.groups[0] as ModelFormGroup;
+        checkFormGroup(
+          fg,
+          'books',
+          EAbstractControlStatus.pure,
+          false,
+        );
+      }
 
       // books[0].name
-      fc = fg.controls['name'];
-      checkFormControl(
-        fc,
-        'name',
-        EAbstractControlStatus.pure,
-        null,
-        [Required, StringLength],
-        'Voyage au centre de la terre',
-      );
+      {
+        ModelFormArray fa =
+            modelState.formBuilder.group.controls['books'] as ModelFormArray;
+        ModelFormGroup fg = fa.groups[0] as ModelFormGroup;
+        ModelFormControl fc = fg.controls['name'] as ModelFormControl;
+        checkFormControl(
+          fc,
+          'name',
+          EAbstractControlStatus.pure,
+          'Voyage au centre de la terre',
+        );
+      }
 
       // books[0].price
-      fc = fg.controls['price'];
-      checkFormControl(
-        fc,
-        'price',
-        EAbstractControlStatus.pure,
-        null,
-        [Required, GreaterThanNumber],
-        8.9,
-      );
+      {
+        ModelFormArray fa =
+            modelState.formBuilder.group.controls['books'] as ModelFormArray;
+        ModelFormGroup fg = fa.groups[0] as ModelFormGroup;
+        ModelFormControl fc = fg.controls['price'] as ModelFormControl;
+        checkFormControl(
+          fc,
+          'price',
+          EAbstractControlStatus.pure,
+          8.9,
+        );
+      }
 
       // books[0].loan_date
-      fc = fg.controls['loan_date'];
-      checkFormControl(
-        fc,
-        'loan_date',
-        EAbstractControlStatus.pure,
-        null,
-        [Required],
-        new DateTime(2020, 04, 08),
-      );
+      {
+        ModelFormArray fa =
+            modelState.formBuilder.group.controls['books'] as ModelFormArray;
+        ModelFormGroup fg = fa.groups[0] as ModelFormGroup;
+        ModelFormControl fc = fg.controls['loan_date'] as ModelFormControl;
+        checkFormControl(
+          fc,
+          'loan_date',
+          EAbstractControlStatus.pure,
+          new DateTime(2020, 04, 08),
+        );
+      }
 
       // books[1]
-      fg = fa.groups[1];
-      checkFormGroup(
-        fg,
-        'books',
-        EAbstractControlStatus.pure,
-        null,
-        [],
-        false,
-      );
+      {
+        ModelFormArray fa =
+            modelState.formBuilder.group.controls['books'] as ModelFormArray;
+        ModelFormGroup fg = fa.groups[1] as ModelFormGroup;
+        checkFormGroup(
+          fg,
+          'books',
+          EAbstractControlStatus.pure,
+          false,
+        );
+      }
 
       // books[1].name
-      fc = fg.controls['name'];
-      checkFormControl(
-        fc,
-        'name',
-        EAbstractControlStatus.pure,
-        null,
-        [Required, StringLength],
-        'De la Terre à la Lune',
-      );
+      {
+        ModelFormArray fa =
+            modelState.formBuilder.group.controls['books'] as ModelFormArray;
+        ModelFormGroup fg = fa.groups[1] as ModelFormGroup;
+        ModelFormControl fc = fg.controls['name'] as ModelFormControl;
+        checkFormControl(
+          fc,
+          'name',
+          EAbstractControlStatus.pure,
+          'De la Terre à la Lune',
+        );
+      }
 
       // books[1].price
-      fc = fg.controls['price'];
-      checkFormControl(
-        fc,
-        'price',
-        EAbstractControlStatus.pure,
-        null,
-        [Required, GreaterThanNumber],
-        8.9,
-      );
+      {
+        ModelFormArray fa =
+            modelState.formBuilder.group.controls['books'] as ModelFormArray;
+        ModelFormGroup fg = fa.groups[1] as ModelFormGroup;
+        ModelFormControl fc = fg.controls['price'] as ModelFormControl;
+        checkFormControl(
+          fc,
+          'price',
+          EAbstractControlStatus.pure,
+          8.9,
+        );
+      }
 
       // books[1].loan_date
-      fc = fg.controls['loan_date'];
-      checkFormControl(
-        fc,
-        'loan_date',
-        EAbstractControlStatus.pure,
-        null,
-        [Required],
-        new DateTime(2020, 04, 17),
-      );
+      {
+        ModelFormArray fa =
+            modelState.formBuilder.group.controls['books'] as ModelFormArray;
+        ModelFormGroup fg = fa.groups[1] as ModelFormGroup;
+        ModelFormControl fc = fg.controls['loan_date'] as ModelFormControl;
+        checkFormControl(
+          fc,
+          'loan_date',
+          EAbstractControlStatus.pure,
+          new DateTime(2020, 04, 17),
+        );
+      }
 
       // books[2]
-      fg = fa.groups[2];
-      checkFormGroup(
-        fg,
-        'books',
-        EAbstractControlStatus.pure,
-        null,
-        [],
-        false,
-      );
+      {
+        ModelFormArray fa =
+            modelState.formBuilder.group.controls['books'] as ModelFormArray;
+        ModelFormGroup fg = fa.groups[2] as ModelFormGroup;
+        checkFormGroup(
+          fg,
+          'books',
+          EAbstractControlStatus.pure,
+          false,
+        );
+      }
 
       // books[2].name
-      fc = fg.controls['name'];
-      checkFormControl(
-        fc,
-        'name',
-        EAbstractControlStatus.pure,
-        null,
-        [Required, StringLength],
-        'Le Tour du monde en quatre-vingts jours',
-      );
+      {
+        ModelFormArray fa =
+            modelState.formBuilder.group.controls['books'] as ModelFormArray;
+        ModelFormGroup fg = fa.groups[2] as ModelFormGroup;
+        ModelFormControl fc = fg.controls['name'] as ModelFormControl;
+        checkFormControl(
+          fc,
+          'name',
+          EAbstractControlStatus.pure,
+          'Le Tour du monde en quatre-vingts jours',
+        );
+      }
 
       // books[2].price
-      fc = fg.controls['price'];
-      checkFormControl(
-        fc,
-        'price',
-        EAbstractControlStatus.pure,
-        null,
-        [Required, GreaterThanNumber],
-        8.9,
-      );
+      {
+        ModelFormArray fa =
+            modelState.formBuilder.group.controls['books'] as ModelFormArray;
+        ModelFormGroup fg = fa.groups[2] as ModelFormGroup;
+        ModelFormControl fc = fg.controls['price'] as ModelFormControl;
+        checkFormControl(
+          fc,
+          'price',
+          EAbstractControlStatus.pure,
+          8.9,
+        );
+      }
 
       // books[2].loan_date
-      fc = fg.controls['loan_date'];
-      checkFormControl(
-        fc,
-        'loan_date',
-        EAbstractControlStatus.pure,
-        null,
-        [Required],
-        new DateTime(2020, 04, 26),
-      );
+      {
+        ModelFormArray fa =
+            modelState.formBuilder.group.controls['books'] as ModelFormArray;
+        ModelFormGroup fg = fa.groups[2] as ModelFormGroup;
+        ModelFormControl fc = fg.controls['loan_date'] as ModelFormControl;
+        checkFormControl(
+          fc,
+          'loan_date',
+          EAbstractControlStatus.pure,
+          new DateTime(2020, 04, 26),
+        );
+      }
     });
 
     test('Form is updated and validated when setting a value.', () async {
@@ -318,82 +348,76 @@ void main() {
       ModelFormState<FormBuilderTest> modelState =
           new ModelFormState<FormBuilderTest>(model);
 
-      // ModelFormGroup fg;
-      // ModelFormArray fa;
-      ModelFormControl fc;
-
       // first_name
-      fc = modelState.formBuilder.group.controls['first_name'];
-      checkFormControl(
-        fc,
-        'first_name',
-        EAbstractControlStatus.pure,
-        null,
-        [Required, StringLength],
-        null,
-      );
+      {
+        ModelFormControl fc = modelState
+            .formBuilder.group.controls['first_name'] as ModelFormControl;
+        checkFormControl(
+          fc,
+          'first_name',
+          EAbstractControlStatus.pure,
+          null,
+        );
+      }
 
       model.first_name = 'xx';
       await Future.delayed(const Duration(microseconds: 1), () {});
 
-      checkFormControl(
-        fc,
-        'first_name',
-        EAbstractControlStatus.invalid,
-        new ValidationError(
-          propertyName: 'first_name',
-          validatorType: StringLength,
-          message: 'error message here',
-        ),
-        [Required, StringLength],
-        'xx',
-      );
+      {
+        ModelFormControl fc = modelState
+            .formBuilder.group.controls['first_name'] as ModelFormControl;
+        checkFormControl(
+          fc,
+          'first_name',
+          EAbstractControlStatus.invalid,
+          'xx',
+        );
+      }
 
-      // last_name
-      fc = modelState.formBuilder.group.controls['last_name'];
       model.last_name = 'Elric';
       await Future.delayed(const Duration(microseconds: 1), () {});
 
-      checkFormControl(
-        fc,
-        'last_name',
-        EAbstractControlStatus.valid,
-        null,
-        [Required, StringLength],
-        'Elric',
-      );
+      // last_name
+      {
+        ModelFormControl fc = modelState.formBuilder.group.controls['last_name']
+            as ModelFormControl;
+        checkFormControl(
+          fc,
+          'last_name',
+          EAbstractControlStatus.valid,
+          'Elric',
+        );
+      }
 
-      // birth_day
-      fc = modelState.formBuilder.group.controls['birth_day'];
       model.birth_day = new DateTime(1980, 12, 15);
       await Future.delayed(const Duration(microseconds: 1), () {});
 
-      checkFormControl(
-        fc,
-        'birth_day',
-        EAbstractControlStatus.valid,
-        null,
-        [Required],
-        new DateTime(1980, 12, 15),
-      );
+      // birth_day
+      {
+        ModelFormControl fc = modelState.formBuilder.group.controls['birth_day']
+            as ModelFormControl;
+        checkFormControl(
+          fc,
+          'birth_day',
+          EAbstractControlStatus.valid,
+          new DateTime(1980, 12, 15),
+        );
+      }
 
-      // subscription_date
-      fc = modelState.formBuilder.group.controls['subscription_date'];
       model.subscription_date = new DateTime(2020, 06, 01);
       await Future.delayed(const Duration(microseconds: 1), () {});
 
-      checkFormControl(
-        fc,
-        'subscription_date',
-        EAbstractControlStatus.invalid,
-        new ValidationError(
-          propertyName: 'subscription_date',
-          validatorType: SmallerOrEqualToDateTime,
-          message: 'error message here',
-        ),
-        [Required, GreaterOrEqualToDateTime, SmallerOrEqualToDateTime],
-        new DateTime(2020, 06, 01),
-      );
+      // subscription_date
+      {
+        ModelFormControl fc = modelState.formBuilder.group
+            .controls['subscription_date'] as ModelFormControl;
+        checkFormControl(
+          fc,
+          'subscription_date',
+          EAbstractControlStatus.invalid,
+          new DateTime(2020, 06, 01),
+        );
+      }
     });
 
     test('Add sub-object. Actualize the form group.', () async {
@@ -406,19 +430,17 @@ void main() {
       ModelFormState<FormBuilderTest> modelState =
           new ModelFormState<FormBuilderTest>(model);
 
-      ModelFormGroup fg = modelState.formBuilder.group.controls['favorite_book']
-          as ModelFormGroup;
-      ModelFormControl fc;
-
       // favorite_book
-      checkFormGroup(
-        fg,
-        'favorite_book',
-        EAbstractControlStatus.pure,
-        null,
-        [Required],
-        true,
-      );
+      {
+        ModelFormGroup fg = modelState
+            .formBuilder.group.controls['favorite_book'] as ModelFormGroup;
+        checkFormGroup(
+          fg,
+          'favorite_book',
+          EAbstractControlStatus.pure,
+          true,
+        );
+      }
 
       model.favorite_book = new Book(
         'Le seigneur des anneaux 1',
@@ -428,25 +450,29 @@ void main() {
       await Future.delayed(const Duration(microseconds: 1), () {});
 
       // favorite_book
-      checkFormGroup(
-        fg,
-        'favorite_book',
-        EAbstractControlStatus.valid,
-        null,
-        [Required],
-        false,
-      );
+      {
+        ModelFormGroup fg = modelState
+            .formBuilder.group.controls['favorite_book'] as ModelFormGroup;
+        checkFormGroup(
+          fg,
+          'favorite_book',
+          EAbstractControlStatus.valid,
+          false,
+        );
+      }
 
       // favorite_book.name
-      fc = fg.controls['name'] as ModelFormControl;
-      checkFormControl(
-        fc,
-        'name',
-        EAbstractControlStatus.pure,
-        null,
-        [Required, StringLength],
-        fc.value,
-      );
+      {
+        ModelFormGroup fg = modelState
+            .formBuilder.group.controls['favorite_book'] as ModelFormGroup;
+        ModelFormControl fc = fg.controls['name'] as ModelFormControl;
+        checkFormControl(
+          fc,
+          'name',
+          EAbstractControlStatus.pure,
+          fc.getValue(),
+        );
+      }
     });
 
     test('Add item on collection. Actualize the form array.', () async {
@@ -459,20 +485,17 @@ void main() {
       ModelFormState<FormBuilderTest> modelState =
           new ModelFormState<FormBuilderTest>(model);
 
-      // ModelFormGroup fg;
-      ModelFormArray fa =
-          modelState.formBuilder.group.controls['books'] as ModelFormArray;
-      // ModelFormControl fc;
-
       // books
-      checkFormArray(
-        fa,
-        'books',
-        EAbstractControlStatus.pure,
-        null,
-        [NbItems],
-        0,
-      );
+      {
+        ModelFormArray fa =
+            modelState.formBuilder.group.controls['books'] as ModelFormArray;
+        checkFormArray(
+          fa,
+          'books',
+          EAbstractControlStatus.pure,
+          0,
+        );
+      }
 
       // add book
       model.books = new List<Book>();
@@ -486,14 +509,16 @@ void main() {
       await Future.delayed(const Duration(microseconds: 1), () {});
 
       // books
-      checkFormArray(
-        fa,
-        'books',
-        EAbstractControlStatus.valid,
-        null,
-        [NbItems],
-        1,
-      );
+      {
+        ModelFormArray fa =
+            modelState.formBuilder.group.controls['books'] as ModelFormArray;
+        checkFormArray(
+          fa,
+          'books',
+          EAbstractControlStatus.valid,
+          1,
+        );
+      }
     });
 
     test('Get pathes from abstract controls.', () {
@@ -525,44 +550,53 @@ void main() {
       ModelFormState<FormBuilderTest> modelState =
           new ModelFormState<FormBuilderTest>(model);
 
-      ModelFormGroup fg;
-      ModelFormArray fa;
-      ModelFormControl fc;
-
       // first_name
-      fc = modelState.formBuilder.group.controls['first_name']
-          as ModelFormControl;
-      expect(fc.formPath, 'root.controls[\'first_name\']');
-      expect(fc.modelPath, 'root.first_name');
+      {
+        ModelFormControl fc = modelState
+            .formBuilder.group.controls['first_name'] as ModelFormControl;
+        expect(fc.formPath, 'root.controls[\'first_name\']');
+        expect(fc.modelPath, 'root.first_name');
+      }
 
       // books
-      fa = modelState.formBuilder.group.controls['books'] as ModelFormArray;
-      expect(fa.formPath, 'root.controls[\'books\']');
-      expect(fa.modelPath, 'root.books');
+      {
+        ModelFormArray fa =
+            modelState.formBuilder.group.controls['books'] as ModelFormArray;
+        expect(fa.formPath, 'root.controls[\'books\']');
+        expect(fa.modelPath, 'root.books');
+      }
 
       // books[1]
-      fa = modelState.formBuilder.group.controls['books'] as ModelFormArray;
-      fg = fa.groups[1] as ModelFormGroup;
-      expect(fg.formPath, 'root.controls[\'books\'].groups[1]');
-      expect(fg.modelPath, 'root.books[1]');
+      {
+        ModelFormArray fa =
+            modelState.formBuilder.group.controls['books'] as ModelFormArray;
+        ModelFormGroup fg = fa.groups[1] as ModelFormGroup;
+        expect(fg.formPath, 'root.controls[\'books\'].groups[1]');
+        expect(fg.modelPath, 'root.books[1]');
+      }
 
       // books[1].price
-      fa = modelState.formBuilder.group.controls['books'] as ModelFormArray;
-      fg = fa.groups[1] as ModelFormGroup;
-      fc = fg.controls['price'] as ModelFormControl;
-      expect(fc.formPath,
-          'root.controls[\'books\'].groups[1].controls[\'price\']');
-      expect(fc.modelPath, 'root.books[1].price');
+      {
+        ModelFormArray fa =
+            modelState.formBuilder.group.controls['books'] as ModelFormArray;
+        ModelFormGroup fg = fa.groups[1] as ModelFormGroup;
+        ModelFormControl fc = fg.controls['price'] as ModelFormControl;
+        expect(fc.formPath,
+            'root.controls[\'books\'].groups[1].controls[\'price\']');
+        expect(fc.modelPath, 'root.books[1].price');
+      }
 
       // favorite_book.loan_date
-      fg = modelState.formBuilder.group.controls['favorite_book']
-          as ModelFormGroup;
-      fc = fg.controls['loan_date'] as ModelFormControl;
-      expect(
-        fc.formPath,
-        'root.controls[\'favorite_book\'].controls[\'loan_date\']',
-      );
-      expect(fc.modelPath, 'root.favorite_book.loan_date');
+      {
+        ModelFormGroup fg = modelState
+            .formBuilder.group.controls['favorite_book'] as ModelFormGroup;
+        ModelFormControl fc = fg.controls['loan_date'] as ModelFormControl;
+        expect(
+          fc.formPath,
+          'root.controls[\'favorite_book\'].controls[\'loan_date\']',
+        );
+        expect(fc.modelPath, 'root.favorite_book.loan_date');
+      }
     });
   });
 }
@@ -571,8 +605,6 @@ void checkFormGroup(
   ModelFormGroup fg,
   String name,
   EAbstractControlStatus status,
-  ValidationError error,
-  List<Type> validators,
   bool areControlsNull,
 ) {
   // name
@@ -589,33 +621,12 @@ void checkFormGroup(
 
   // status
   expect(fg.status, status);
-
-  // error
-  if (error == null) {
-    expect(fg.error, isNull);
-  } else {
-    expect(fg.error, isNotNull);
-    expect(fg.error.propertyName, name);
-    expect(fg.error.validatorType, error.validatorType);
-    expect(fg.error.message, error.message);
-  }
-
-  // validators
-  if (validators != null && validators.length > 0) {
-    expect(fg.validators.length, validators.length);
-    for (Type type in validators) {
-      int index = validators.indexOf(type);
-      expect(fg.validators[index].runtimeType, type);
-    }
-  }
 }
 
 void checkFormArray(
   ModelFormArray fa,
   String name,
   EAbstractControlStatus status,
-  ValidationError error,
-  List<Type> validators,
   int nbItems,
 ) {
   // name
@@ -632,33 +643,12 @@ void checkFormArray(
 
   // status
   expect(fa.status, status);
-
-  // error
-  if (error == null) {
-    expect(fa.error, isNull);
-  } else {
-    expect(fa.error, isNotNull);
-    expect(fa.error.propertyName, name);
-    expect(fa.error.validatorType, error.validatorType);
-    expect(fa.error.message, error.message);
-  }
-
-  // validators
-  if (validators != null && validators.length > 0) {
-    expect(fa.validators.length, validators.length);
-    for (Type type in validators) {
-      int index = validators.indexOf(type);
-      expect(fa.validators[index].runtimeType, type);
-    }
-  }
 }
 
 void checkFormControl(
   ModelFormControl fc,
   String name,
   EAbstractControlStatus status,
-  ValidationError error,
-  List<Type> validators,
   Object value,
 ) {
   // name
@@ -669,29 +659,10 @@ void checkFormControl(
 
   // value
   if (value == null)
-    expect(fc.value, isNull);
+    expect(fc.getValue(), isNull);
   else
-    expect(fc.value, value);
+    expect(fc.getValue(), value);
 
   // status
   expect(fc.status, status);
-
-  // error
-  if (error == null) {
-    expect(fc.error, isNull);
-  } else {
-    expect(fc.error, isNotNull);
-    expect(fc.error.propertyName, name);
-    expect(fc.error.validatorType, error.validatorType);
-    expect(fc.error.message, error.message);
-  }
-
-  // validators
-  if (validators != null && validators.length > 0) {
-    expect(fc.validators.length, validators.length);
-    for (Type type in validators) {
-      int index = validators.indexOf(type);
-      expect(fc.validators[index].runtimeType, type);
-    }
-  }
 }

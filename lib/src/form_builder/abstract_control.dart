@@ -1,9 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 
 class AbstractControl {
-  AbstractControl(this.name, this.parentGroup);
+  AbstractControl(this.controlName, this.parentGroup);
 
-  // public properties
-  String name;
+  @protected
+  String controlName;
   FormGroupBase parentGroup;
 }

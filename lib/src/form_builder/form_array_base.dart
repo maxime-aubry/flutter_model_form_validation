@@ -13,31 +13,32 @@ class FormArrayBase extends AbstractControl {
     this._groups = groups ?? new List<FormGroupBase>();
   }
 
-  // public properties
   @protected
   List<FormGroupBase> _groups;
 
-  // getters
-  UnmodifiableListView<FormGroupBase> get groups {
-    UnmodifiableListView<FormGroupBase> value =
-        UnmodifiableListView<FormGroupBase>(this._groups);
-    return value;
-  }
-
   String get formPath {
-    return this.getFormPath(parts: new List<String>());
+    String part =
+        (this.parentGroup != null) ? '${this.parentGroup.formPath}' : null;
+    part += '.controls[\'${this.controlName}\']';
+    return part;
   }
 
   String get modelPath {
-    return this.getModelPath(parts: new List<String>());
+    String part =
+        (this.parentGroup != null) ? '${this.parentGroup.modelPath}' : null;
+    part += '.${this.controlName}';
+    return part;
   }
 
-  // public methods
+  UnmodifiableListView<FormGroupBase> get groups =>
+      UnmodifiableListView<FormGroupBase>(this._groups);
+
   @protected
   void initializeGroups() {
     this._groups = new List<FormGroupBase>();
   }
 
+  @protected
   void addGroup(FormGroupBase formGroup) {
     assert(formGroup != null, '');
     assert(!this._groups.contains(formGroup), '');
@@ -45,24 +46,11 @@ class FormArrayBase extends AbstractControl {
     this._groups.add(formGroup);
   }
 
+  @protected
   void removeGroup(FormGroupBase formGroup) {
     assert(formGroup != null, '');
     assert(this._groups.contains(formGroup), '');
 
     this._groups.remove(formGroup);
-  }
-
-  String getFormPath({
-    List<String> parts,
-  }) {
-    parts.insert(0, 'controls[\'${this.name}\']');
-    return this.parentGroup.getFormPath(parts: parts);
-  }
-
-  String getModelPath({
-    List<String> parts,
-  }) {
-    parts.insert(0, this.name);
-    return this.parentGroup.getModelPath(parts: parts);
   }
 }

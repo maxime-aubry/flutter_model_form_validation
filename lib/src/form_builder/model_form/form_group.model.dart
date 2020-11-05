@@ -24,14 +24,15 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     this._initializeFormGroup(formState);
   }
 
-  // public properties
   TCurrentModel current;
 
-  // private methods
+  String get name => this.controlName;
+
   void _initializeFormGroup(ModelFormState<TModel> formState) {
     assert(formState != null, '');
 
-    this.initialize(this.name, this.parentGroup as ModelFormGroup, formState,
+    this.initialize(
+        this.controlName, this.parentGroup as ModelFormGroup, formState,
         () async {
       await this._setValue(this.parentGroup as ModelFormGroup);
     });
@@ -126,7 +127,7 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
   Future _setValue(ModelFormGroup parentGroup) async {
     // set new sub-object
     InstanceMirror instanceMirror = this.getInstanceMirror(parentGroup.current);
-    this.current = this.getSubObject(instanceMirror, this.name);
+    this.current = this.getSubObject(instanceMirror, this.controlName);
 
     if (this.current != null) {
       this._actualizeChildren();
@@ -136,7 +137,7 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
 
   Future validate() async => await super.validate$1(
         this.parentGroup as ModelFormGroup,
-        this.name,
+        this.controlName,
         this.current,
         this.formPath,
         this.modelPath,

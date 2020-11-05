@@ -11,10 +11,9 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
     this._initialize();
   }
 
-  // public properties
   TModel model;
+  EFormStatus get status => super.status;
 
-  // private methods
   void _initialize() {
     ModelFormBuilder<TModel> formBuilder = new ModelFormBuilder<TModel>();
     this.formBuilder = formBuilder;
@@ -46,7 +45,6 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
     await formControl.validate();
   }
 
-  // public methods
   Future<bool> validateForm() async {
     for (MapEntry<String, AbstractControl> control
         in this.formBuilder.group.controls.entries) {
@@ -57,7 +55,6 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
       if (control.value is ModelFormControl)
         await this._validateFormControl(control.value);
     }
-    
 
     return this.status == EFormStatus.valid;
   }

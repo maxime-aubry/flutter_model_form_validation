@@ -16,14 +16,15 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
     this._initializeFormArray(formState);
   }
 
-  // public properties
   List<TCurrentModel> items;
 
-  // private methods
+  String get name => this.controlName;
+
   void _initializeFormArray(ModelFormState<TModel> formState) {
     assert(formState != null, '');
 
-    this.initialize(this.name, this.parentGroup as ModelFormGroup, formState,
+    this.initialize(
+        this.controlName, this.parentGroup as ModelFormGroup, formState,
         () async {
       await this._setValue(this.parentGroup as ModelFormGroup);
     });
@@ -44,7 +45,7 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
   /// [_actualizeChildren] method actualize [items] and [groups] collections of form array.
   void _actualizeChildren(ModelFormGroup parentGroup) {
     InstanceMirror instanceMirror = this.getInstanceMirror(parentGroup.current);
-    this.items = this.getSubObject(instanceMirror, this.name);
+    this.items = this.getSubObject(instanceMirror, this.controlName);
 
     if (this.items == null) this.items = new List<TCurrentModel>();
     if (this.groups == null) this.initializeGroups();
@@ -58,7 +59,7 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
         this.addGroup(new ModelFormGroup(
           this.formState,
           item,
-          this.name,
+          this.controlName,
           this.parentGroup,
           true,
         ));
@@ -76,7 +77,7 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
 
   Future validate() async => await super.validate$1(
         this.parentGroup as ModelFormGroup,
-        this.name,
+        this.controlName,
         this.items,
         this.formPath,
         this.modelPath,

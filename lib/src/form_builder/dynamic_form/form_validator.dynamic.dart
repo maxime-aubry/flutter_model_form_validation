@@ -12,10 +12,12 @@ mixin DynamicFormValidator {
   EAbstractControlStatus _status;
   @protected
   FormState formState;
+  @protected
   List<FormValidatorAnnotation> validators;
-  ValidationError error;
+
   String get listenerName => this._listenerName;
   EAbstractControlStatus get status => this._status;
+  // UnmodifiableListView<FormValidatorAnnotation> get validators => UnmodifiableListView<FormValidatorAnnotation>(this._validators);
 
   @protected
   void initialize(String name, FormGroup parentGroup, FormState formState) {
@@ -49,7 +51,7 @@ mixin DynamicFormValidator {
     String modelPath,
   ) async {
     bool isValid = true;
-    this.error = null;
+    ValidationError error = null;
 
     // before validation
     this._status = EAbstractControlStatus.validationInProgress;
@@ -71,16 +73,12 @@ mixin DynamicFormValidator {
         );
 
         if (!isValid) {
-          this.error = ValidationError(
-            propertyName: name,
-            validatorType: validator.runtimeType,
-            message: validator.error,
-          );
+          error = ValidationError(name, validator.runtimeType, validator.error);
           break;
         }
       } on TypeError catch (_) {
         isValid = false;
-      } on ValidationException catch (e) {
+      } on ValidationException catch (_) {
         isValid = false;
       }
     }
@@ -90,7 +88,7 @@ mixin DynamicFormValidator {
         isValid ? EAbstractControlStatus.valid : EAbstractControlStatus.invalid;
     this.formState.update(
           this._listenerName,
-          this.error,
+          error,
           this.status,
         );
   }

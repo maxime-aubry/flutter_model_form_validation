@@ -18,18 +18,14 @@ class FormStateBase {
     this.errors = new Map<String, ValidationError>();
   }
 
-  // private properties
   @protected
   Map<String, EAbstractControlStatus> statuses;
-
   @protected
   Map<String, ValidationError> errors;
-
-  // public properties
+  @protected
   EFormStatus status;
   FormBuilderBase formBuilder;
 
-  // private methods
   bool _actualizeModelState() {
     bool isValid = !Dictionary.fromMap(this.statuses)
         .where((arg1) =>
@@ -39,7 +35,6 @@ class FormStateBase {
     return isValid;
   }
 
-  // public methods
   void update(
     String listenerName,
     ValidationError error,

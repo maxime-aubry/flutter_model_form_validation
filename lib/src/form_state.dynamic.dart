@@ -15,6 +15,8 @@ class FormState extends FormStateBase {
     this._initialize(formBuilder);
   }
 
+  EFormStatus get status => super.status;
+
   void _initialize(FormBuilder formBuilder) {
     assert(formBuilder != null, 'Form builder must be provided.');
     assert(formBuilder.isInitialized == false,
@@ -54,7 +56,6 @@ class FormState extends FormStateBase {
     await formControl.validate();
   }
 
-  // public methods
   Future<bool> validateForm() async {
     for (MapEntry<String, AbstractControl> control
         in this.formBuilder.group.controls.entries) {
@@ -69,23 +70,23 @@ class FormState extends FormStateBase {
     return this.status == EFormStatus.valid;
   }
 
-  ValidationError getValidationError(AbstractControl control, String property) {
-    assert(control != null, '');
-    assert(
-        control is FormGroup || control is FormArray || control is FormControl,
-        '');
-    assert(property != null, '');
-    assert(property != '', '');
+  ValidationError getError(String name) {
+    assert(name != null, '');
+    assert(name != '', '');
 
-    String listenerName = null;
-    listenerName = (control is FormGroup) ? control.listenerName : listenerName;
-    listenerName = (control is FormArray) ? control.listenerName : listenerName;
-    listenerName =
-        (control is FormControl) ? control.listenerName : listenerName;
-
-    if (!super.errors.containsKey(listenerName))
+    if (!super.errors.containsKey(name))
       throw new Exception('Form property error not found');
-    ValidationError error = super.errors[listenerName];
+    ValidationError error = super.errors[name];
     return error;
+  }
+
+  EAbstractControlStatus getStatus(String name) {
+    assert(name != null, '');
+    assert(name != '', '');
+
+    if (!super.errors.containsKey(name))
+      throw new Exception('Form property status not found');
+    EAbstractControlStatus status = super.statuses[name];
+    return status;
   }
 }

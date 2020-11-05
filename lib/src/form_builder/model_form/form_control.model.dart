@@ -14,33 +14,32 @@ class ModelFormControl<TModel extends ModelForm> extends FormControlBase
     this._initializeFormControl(formState);
   }
 
+  String get name => this.controlName;
+
   void _initializeFormControl(ModelFormState<TModel> formState) {
     assert(formState != null, '');
 
-    this.initialize(this.name, this.parentGroup as ModelFormGroup, formState,
+    this.initialize(
+        this.controlName, this.parentGroup as ModelFormGroup, formState,
         () async {
       await this._setValue(this.parentGroup as ModelFormGroup);
     });
   }
 
-  // private methods
   /// [_setValue] method set this form control with the new value from form.
   /// Next, this value is validated, and the model state too.
   Future _setValue(ModelFormGroup parentGroup) async {
     InstanceMirror instanceMirror = super.getInstanceMirror(
       parentGroup.current,
     );
-    this.value = super.getSubObject(
-      instanceMirror,
-      this.name,
-    );
+    this.value = super.getSubObject(instanceMirror, this.controlName);
 
     await this.validate();
   }
 
   Future validate() async => await super.validate$1(
         this.parentGroup as ModelFormGroup,
-        this.name,
+        this.controlName,
         this.value,
         this.formPath,
         this.modelPath,

@@ -14,6 +14,7 @@ class FormGroup extends FormGroupBase with DynamicFormValidator {
   }
 
   bool _isInitialized;
+  String get name => super.controlName;
 
   @override
   void initialize(String name, FormGroup parentGroup, FormState formState) {
@@ -24,9 +25,9 @@ class FormGroup extends FormGroupBase with DynamicFormValidator {
     assert(formState != null, '');
     assert(this._isInitialized == false, '');
 
-    this.name = name;
+    this.controlName = name;
     this.parentGroup = parentGroup;
-    super.initialize(this.name, this.parentGroup, formState);
+    super.initialize(this.controlName, this.parentGroup, formState);
     this._isInitialized = true;
   }
 
@@ -71,7 +72,7 @@ class FormGroup extends FormGroupBase with DynamicFormValidator {
 
   Future validate() async => await super.validate$1(
         this.parentGroup as FormGroup,
-        this.name,
+        this.controlName,
         this,
         this.formPath,
         this.modelPath,

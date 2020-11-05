@@ -4,10 +4,9 @@ import 'package:flutter_model_form_validation/src/form_builder/dynamic_form/inde
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
 
-class FormControl<TCurrentModel> extends FormControlBase
-    with DynamicFormValidator {
+class FormControl<TField> extends FormControlBase with DynamicFormValidator {
   FormControl({
-    @required TCurrentModel value,
+    @required TField value,
     @required List<FormValidatorAnnotation> validators,
   }) : super(value, '', null) {
     this.validators = validators ?? new List<FormValidatorAnnotation>();
@@ -15,6 +14,7 @@ class FormControl<TCurrentModel> extends FormControlBase
   }
 
   bool _isInitialized;
+  String get name => super.controlName;
 
   @override
   void initialize(String name, FormGroup parentGroup, FormState formState) {
@@ -25,20 +25,23 @@ class FormControl<TCurrentModel> extends FormControlBase
     assert(formState != null, '');
     assert(this._isInitialized == false, '');
 
-    this.name = name;
+    this.controlName = name;
     this.parentGroup = parentGroup;
-    super.initialize(this.name, this.parentGroup, formState);
+    super.initialize(this.controlName, this.parentGroup, formState);
     this._isInitialized = true;
   }
 
-  Future setValue(Object value) async {
+  @override
+  TField getValue() => this.value;
+
+  Future setValue(TField value) async {
     this.value = value;
     await this.validate();
   }
 
   Future validate() async => await super.validate$1(
         this.parentGroup as FormGroup,
-        this.name,
+        this.controlName,
         this.value,
         this.formPath,
         this.modelPath,

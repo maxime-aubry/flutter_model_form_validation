@@ -14,12 +14,12 @@ mixin ModelFormValidator<TModel extends ModelForm> {
   EAbstractControlStatus _status;
   @protected
   ModelFormState<TModel> formState;
+  @protected
   List<FormValidatorAnnotation> validators;
-  ValidationError error;
+
   String get listenerName => this._listenerName;
   EAbstractControlStatus get status => this._status;
 
-  // private methods
   @protected
   void initialize(
     String name,
@@ -71,18 +71,17 @@ mixin ModelFormValidator<TModel extends ModelForm> {
     return validators;
   }
 
-  // public methods
   /// [validate$1] method validate current value, update the status (pure, valid, invalid) and the model state.
   @protected
   Future validate$1(
     ModelFormGroup parentGroup,
-    String property,
+    String name,
     Object value,
     String formPath,
     String modelPath,
   ) async {
     bool isValid = true;
-    this.error = null;
+    ValidationError error = null;
 
     // before validation
     this._status = EAbstractControlStatus.validationInProgress;
@@ -104,16 +103,12 @@ mixin ModelFormValidator<TModel extends ModelForm> {
         );
 
         if (!isValid) {
-          this.error = ValidationError(
-            propertyName: property,
-            validatorType: validator.runtimeType,
-            message: validator.error,
-          );
+          error = ValidationError(name, validator.runtimeType, validator.error);
           break;
         }
       } on TypeError catch (_) {
         isValid = false;
-      } on ValidationException catch (e) {
+      } on ValidationException catch (_) {
         isValid = false;
       }
     }
@@ -123,7 +118,7 @@ mixin ModelFormValidator<TModel extends ModelForm> {
         isValid ? EAbstractControlStatus.valid : EAbstractControlStatus.invalid;
     this.formState.update(
           this._listenerName,
-          this.error,
+          error,
           this._status,
         );
   }

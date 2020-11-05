@@ -14,6 +14,7 @@ class FormArray extends FormArrayBase with DynamicFormValidator {
   }
 
   bool _isInitialized;
+  String get name => super.controlName;
 
   @override
   void initialize(String name, FormGroup parentGroup, FormState formState) {
@@ -24,9 +25,9 @@ class FormArray extends FormArrayBase with DynamicFormValidator {
     assert(formState != null, '');
     assert(this._isInitialized == false, '');
 
-    this.name = name;
+    this.controlName = name;
     this.parentGroup = parentGroup;
-    super.initialize(this.name, this.parentGroup, formState);
+    super.initialize(this.controlName, this.parentGroup, formState);
     this._isInitialized = true;
   }
 
@@ -56,7 +57,7 @@ class FormArray extends FormArrayBase with DynamicFormValidator {
 
   Future validate() async => await super.validate$1(
         this.parentGroup as FormGroup,
-        this.name,
+        this.controlName,
         this.groups,
         this.formPath,
         this.modelPath,

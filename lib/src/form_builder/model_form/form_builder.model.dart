@@ -8,12 +8,10 @@ class ModelFormBuilder<TModel extends ModelForm> extends FormBuilderBase {
     this._isAttachedToFormState = false;
   }
 
-  // private properties
   ModelFormState<TModel> _formState;
   bool _isInitialized;
   bool _isAttachedToFormState;
 
-  // private methods
   void initialize(ModelFormState<TModel> formState) {
     assert(formState != null, 'Form state must be provided.');
     assert(this._isInitialized == false,

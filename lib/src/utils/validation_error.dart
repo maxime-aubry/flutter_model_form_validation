@@ -1,13 +1,11 @@
-import 'package:flutter/foundation.dart';
-
 /// This class provides a error report in case of no-validation of the current model or property.
 /// {@category Validation error}
 class ValidationError {
-  ValidationError({
-    @required this.propertyName,
-    @required this.validatorType,
-    @required this.message,
-  });
+  ValidationError(
+    this.propertyName,
+    this.validatorType,
+    this.message,
+  );
 
   /// This is the name of current property to validate.
   final String propertyName;

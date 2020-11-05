@@ -50,7 +50,7 @@ abstract class FormValidatorAnnotation<TValue> {
         return dtValue ?? defaultValue;
       FormControlBase formControl =
           formGroup.controls[propertyName] as FormControlBase;
-      TValue value = formControl.value as TValue;
+      TValue value = formControl.getValue() as TValue;
       return value;
     } catch (e) {
       throw new RemotePropertyException(
