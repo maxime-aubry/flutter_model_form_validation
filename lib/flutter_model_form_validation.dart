@@ -2,10 +2,6 @@ library flutter_model_form_validation;
 
 export 'src/annotations/index.dart';
 export 'src/annotations/form_declarers/index.dart';
-export 'src/annotations/validators/collections/index.dart';
-export 'src/annotations/validators/common/index.dart';
-export 'src/annotations/validators/fields/index.dart';
-export 'src/annotations/validators/sub_objects/index.dart';
 export 'src/annotations/validators/index.dart';
 export 'src/exceptions/index.dart';
 export 'src/form_builder/index.dart';

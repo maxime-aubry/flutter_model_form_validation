@@ -8,7 +8,7 @@ extension DateTimeParsing on String {
 
   num toNumber() {
     if (this == null) return null;
-    return double.tryParse(this) ?? null;
+    return num.tryParse(this) ?? null;
   }
 }
 

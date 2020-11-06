@@ -2,139 +2,139 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 
 void main() {}
 
-// //#region ComplexFormTest
-// @flutterModelFormValidator
-// class FormBuilderTest extends ModelForm {
-//   FormBuilderTest(
-//     this._firstName,
-//     this._lastName,
-//     this._birthDay,
-//     this._subscriptionDate,
-//   );
+//#region ComplexFormTest
+@flutterModelFormValidator
+class FormBuilderTest extends ModelForm {
+  FormBuilderTest(
+    this._firstName,
+    this._lastName,
+    this._birthDay,
+    this._subscriptionDate,
+  );
 
-//   // private properties
-//   String _firstName;
-//   String _lastName;
-//   DateTime _birthDay;
-//   DateTime _subscriptionDate;
-//   List<Book> _books;
-//   Book _favoriteBook;
+  // private properties
+  String _firstName;
+  String _lastName;
+  DateTime _birthDay;
+  DateTime _subscriptionDate;
+  List<Book> _books;
+  Book _favoriteBook;
 
-//   // getters
-//   @FormControlDeclarer()
-//   @Required(error: 'error message here')
-//   @StringLength(min: 3, max: 50, error: 'error message here')
-//   String get first_name => this._firstName;
+  // getters
+  @FormControlDeclarer()
+  @Required(error: 'error message here')
+  @StringLength(min: 3, max: 50, error: 'error message here')
+  String get first_name => this._firstName;
 
-//   @FormControlDeclarer()
-//   @Required(error: 'error message here')
-//   @StringLength(min: 3, max: 50, error: 'error message here')
-//   String get last_name => this._lastName;
+  @FormControlDeclarer()
+  @Required(error: 'error message here')
+  @StringLength(min: 3, max: 50, error: 'error message here')
+  String get last_name => this._lastName;
 
-//   @FormControlDeclarer()
-//   @Required(error: 'error message here')
-//   DateTime get birth_day => this._birthDay;
+  @FormControlDeclarer()
+  @Required(error: 'error message here')
+  DateTime get birth_day => this._birthDay;
 
-//   @FormControlDeclarer()
-//   @Required(error: 'error message here')
-//   @GreaterOrEqualToDateTime(
-//       valueToCompareOnProperty: 'birth_day', error: 'error message here')
-//   @SmallerOrEqualToDateTime(
-//       valueToCompare: '2020-01-01', error: 'error message here')
-//   DateTime get subscription_date => this._subscriptionDate;
+  @FormControlDeclarer()
+  @Required(error: 'error message here')
+  @GreaterOrEqualTo(
+      valueToCompareOnProperty: 'birth_day', error: 'error message here')
+  @SmallerOrEqualTo(
+      valueToCompare: '2020-01-01', error: 'error message here')
+  DateTime get subscription_date => this._subscriptionDate;
 
-//   @FormArrayDeclarer()
-//   @NbItems(min: 1, max: 3, error: 'error message here')
-//   List<Book> get books => this._books;
+  @FormArrayDeclarer()
+  @NbItems(min: '1', max: '3', error: 'error message here')
+  List<Book> get books => this._books;
 
-//   @FormGroupDeclarer()
-//   @Required(error: 'error message here')
-//   Book get favorite_book => this._favoriteBook;
+  @FormGroupDeclarer()
+  @Required(error: 'error message here')
+  Book get favorite_book => this._favoriteBook;
 
-//   // setters
-//   set first_name(String value) {
-//     this._firstName = value;
-//     this.notifyModelState('first_name');
-//   }
+  // setters
+  set first_name(String value) {
+    this._firstName = value;
+    this.notifyModelState('first_name');
+  }
 
-//   set last_name(String value) {
-//     this._lastName = value;
-//     this.notifyModelState('last_name');
-//   }
+  set last_name(String value) {
+    this._lastName = value;
+    this.notifyModelState('last_name');
+  }
 
-//   set birth_day(DateTime value) {
-//     this._birthDay = value;
-//     this.notifyModelState('birth_day');
-//   }
+  set birth_day(DateTime value) {
+    this._birthDay = value;
+    this.notifyModelState('birth_day');
+  }
 
-//   set subscription_date(DateTime value) {
-//     this._subscriptionDate = value;
-//     this.notifyModelState('subscription_date');
-//   }
+  set subscription_date(DateTime value) {
+    this._subscriptionDate = value;
+    this.notifyModelState('subscription_date');
+  }
 
-//   set books(List<Book> value) {
-//     this._books = value;
-//     this.notifyModelState('books');
-//   }
+  set books(List<Book> value) {
+    this._books = value;
+    this.notifyModelState('books');
+  }
 
-//   set favorite_book(Book value) {
-//     this._favoriteBook = value;
-//     this.notifyModelState('favorite_book');
-//   }
+  set favorite_book(Book value) {
+    this._favoriteBook = value;
+    this.notifyModelState('favorite_book');
+  }
 
-//   void addItemOnBooks(Book item) {
-//     if (this._books == null) this._books = new List<Book>();
-//     this._books.add(item);
-//     this.notifyModelState('books');
-//   }
+  void addItemOnBooks(Book item) {
+    if (this._books == null) this._books = new List<Book>();
+    this._books.add(item);
+    this.notifyModelState('books');
+  }
 
-//   void removeItemOnBook(Book item) {
-//     if (this._books.contains(item)) this._books.remove(item);
-//     this.notifyModelState('books');
-//   }
-// }
+  void removeItemOnBook(Book item) {
+    if (this._books.contains(item)) this._books.remove(item);
+    this.notifyModelState('books');
+  }
+}
 
-// @flutterModelFormValidator
-// class Book extends ModelForm {
-//   Book(this._name, this._price, this._loanDate);
+@flutterModelFormValidator
+class Book extends ModelForm {
+  Book(this._name, this._price, this._loanDate);
 
-//   // private properties
-//   String _name;
-//   num _price;
-//   DateTime _loanDate;
+  // private properties
+  String _name;
+  num _price;
+  DateTime _loanDate;
 
-//   // getters
-//   @FormControlDeclarer()
-//   @Required(error: 'error message here')
-//   @StringLength(min: 3, max: 100, error: 'error message here')
-//   String get name => this._name;
+  // getters
+  @FormControlDeclarer()
+  @Required(error: 'error message here')
+  @StringLength(min: 3, max: 100, error: 'error message here')
+  String get name => this._name;
 
-//   @FormControlDeclarer()
-//   @Required(error: 'price is required')
-//   @GreaterThanNumber(valueToCompare: 0, error: 'error message here')
-//   num get price => this._price;
+  @FormControlDeclarer()
+  @Required(error: 'price is required')
+  @GreaterThan(valueToCompare: '0', error: 'error message here')
+  num get price => this._price;
 
-//   @FormControlDeclarer()
-//   @Required(error: 'error message here')
-//   DateTime get loan_date => this._loanDate;
+  @FormControlDeclarer()
+  @Required(error: 'error message here')
+  DateTime get loan_date => this._loanDate;
 
-//   // setters
-//   set name(String value) {
-//     this._name = value;
-//     this.notifyModelState('name');
-//   }
+  // setters
+  set name(String value) {
+    this._name = value;
+    this.notifyModelState('name');
+  }
 
-//   set price(num value) {
-//     this._price = value;
-//     this.notifyModelState('price');
-//   }
+  set price(num value) {
+    this._price = value;
+    this.notifyModelState('price');
+  }
 
-//   set loan_date(DateTime value) {
-//     this._loanDate = value;
-//     this.notifyModelState('loan_date');
-//   }
-// }
-// //#endregion
+  set loan_date(DateTime value) {
+    this._loanDate = value;
+    this.notifyModelState('loan_date');
+  }
+}
+//#endregion
 
 //#region ContainsDateTime
 @flutterModelFormValidator
@@ -796,11 +796,7 @@ class MembershipPasswordTest extends ModelForm {
 //#region NbItems
 @flutterModelFormValidator
 class NbItemsTest extends ModelForm {
-  NbItemsTest(
-    this._value,
-    this._min,
-    this._max,
-  );
+  NbItemsTest(this._value, [this._min, this._max]);
 
   // private properties
   List<String> _value;
@@ -809,6 +805,8 @@ class NbItemsTest extends ModelForm {
 
   // getters
   @NbItems(
+    min: '1',
+    max: '3',
     minOnProperty: 'min',
     maxOnProperty: 'max',
     error: 'error message here',
