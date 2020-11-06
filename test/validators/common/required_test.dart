@@ -11,22 +11,24 @@ void main() {
     group('Test the validation > success.', () {
       test('Data is provided.', () async {
         RequiredTest model = new RequiredTest('a');
-        ModelFormState modelState = new ModelFormState<RequiredTest>(model);
+        ModelFormState<RequiredTest> modelState = new ModelFormState<RequiredTest>(model);
 
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
-        ValidationError error = modelState.getError(model.getListenerName('value'));
+        ValidationError error =
+            modelState.getError(model.getListenerName('value'));
         expect(error, isNull);
       });
     });
     group('Test the validation > failure.', () {
       test('Data is empty string.', () async {
         RequiredTest model = new RequiredTest('');
-        ModelFormState modelState = new ModelFormState<RequiredTest>(model);
+        ModelFormState<RequiredTest> modelState = new ModelFormState<RequiredTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);
-        ValidationError error = modelState.getError(model.getListenerName('value'));
+        ValidationError error =
+            modelState.getError(model.getListenerName('value'));
         expect(error, isNotNull);
         expect(error.propertyName, 'value');
         expect(error.validatorType, Required);
@@ -35,11 +37,12 @@ void main() {
 
       test('Data is null.', () async {
         RequiredTest model = new RequiredTest(null);
-        ModelFormState modelState = new ModelFormState<RequiredTest>(model);
+        ModelFormState<RequiredTest> modelState = new ModelFormState<RequiredTest>(model);
 
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);
-        ValidationError error = modelState.getError(model.getListenerName('value'));
+        ValidationError error =
+            modelState.getError(model.getListenerName('value'));
         expect(error, isNotNull);
         expect(error.propertyName, 'value');
         expect(error.validatorType, Required);
