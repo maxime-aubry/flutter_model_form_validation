@@ -36,8 +36,13 @@ abstract class FormValidatorAnnotation {
     String developerValue,
   ) {
     try {
-      assert(TValue == DateTime || TValue == num || TValue == String,
-          'field type must be a datetime, a number or a string');
+      if (TValue != DateTime &&
+          TValue != num &&
+          TValue != int &&
+          TValue != double &&
+          TValue != String)
+        throw new Exception(
+            'field type must be a datetime, a number or a string');
 
       if (TValue == DateTime)
         return this._getDatetimeValue(formGroup, propertyName, developerValue)
@@ -65,8 +70,13 @@ abstract class FormValidatorAnnotation {
     List<String> developerValues,
   ) {
     try {
-      assert(TValue == DateTime || TValue == num || TValue == String,
-          'field type must be a datetime, a number or a string');
+      if (TValue != DateTime &&
+          TValue != num &&
+          TValue != int &&
+          TValue != double &&
+          TValue != String)
+        throw new Exception(
+            'field type must be a datetime, a number or a string');
 
       if (TValue == DateTime)
         return this._getDatetimeValues(formGroup, propertyName, developerValues)

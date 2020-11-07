@@ -2,23 +2,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
+import 'package:flutter_model_form_validation/src/utils/index.dart';
 import 'package:queries/collections.dart';
 
 /// [SingleSelect] validator permits you to check that items are into an array of DateTime, Number or String values.
 /// {@category Metadata}
 /// {@subCategory Validators}
-class SingleSelect<TValue> extends FormValidatorAnnotation {
+class SingleSelect extends FormValidatorAnnotation {
   const SingleSelect({
-    this.items,
-    this.itemsOnProperty,
+    @required this.serviceName,
     @required this.error,
   }) : super(criticityLevel: 2, error: error);
 
-  /// [items] is the list of items to compare.
-  final List<String> items;
-
-  /// [itemsOnProperty] is the name of targeted property that user uses to provide a list of items to compare. This one has priority on [items] value.
-  final String itemsOnProperty;
+  /// [serviceName] is the service name that provides items for validators.
+  final String serviceName;
 
   /// [error] is the custom error to return in case of invalidation.
   final String error;
@@ -34,37 +31,67 @@ class SingleSelect<TValue> extends FormValidatorAnnotation {
     try {
       if (value == null) return true;
 
-      assert(value is DateTime || value is num || value is String,
-          'field type must be a list of datetime, number or string');
+      if (this.serviceName == null || this.serviceName.isEmpty)
+        throw new Exception('Service name is not provided');
 
-      if (value is DateTime) {
-        bool isValid = this._validateDatetime(
+      if (value is! DateTime &&
+          value is! num &&
+          value is! int &&
+          value is! double &&
+          value is! String)
+        throw new Exception('field type must be a datetime, number or string');
+
+      Function f = ServiceProvider.get(this.serviceName);
+      List<SelectListItem> items = await f() as List<SelectListItem>;
+
+      if (value is List<SelectListItem<DateTime>> ||
+          value is List<SelectListItem<num>> ||
+          value is List<SelectListItem<int>> ||
+          value is List<SelectListItem<double>> ||
+          value is List<SelectListItem<String>>)
+        throw new Exception('items type must be a datetime, number or string');
+
+      if (value is DateTime && items is List<SelectListItem<DateTime>>) {
+        bool isValid = this._validate<DateTime>(
           value: value,
-          items: this
-              .getRemoteValues<DateTime>(fg, this.itemsOnProperty, this.items),
+          items: items,
         );
         return isValid;
       }
 
-      if (value is num) {
-        bool isValid = this._validateNumber(
+      if (value is num && items is List<SelectListItem<num>>) {
+        bool isValid = this._validate<num>(
           value: value,
-          items:
-              this.getRemoteValues<num>(fg, this.itemsOnProperty, this.items),
+          items: items,
         );
         return isValid;
       }
 
-      if (value is String) {
-        bool isValid = this._validateString(
+      if (value is int && items is List<SelectListItem<int>>) {
+        bool isValid = this._validate<int>(
           value: value,
-          items: this
-              .getRemoteValues<String>(fg, this.itemsOnProperty, this.items),
+          items: items,
         );
         return isValid;
       }
 
-      return false;
+      if (value is double && items is List<SelectListItem<double>>) {
+        bool isValid = this._validate<double>(
+          value: value,
+          items: items,
+        );
+        return isValid;
+      }
+
+      if (value is String && items is List<SelectListItem<String>>) {
+        bool isValid = this._validate<String>(
+          value: value,
+          items: items,
+        );
+        return isValid;
+      }
+
+      throw Exception('Value type and items type are different');
     } on RemotePropertyException catch (e) {
       throw e;
     } catch (e) {
@@ -73,27 +100,12 @@ class SingleSelect<TValue> extends FormValidatorAnnotation {
     }
   }
 
-  bool _validateDatetime({
-    @required DateTime value,
-    @required List<DateTime> items,
+  bool _validate<TValue extends Comparable>({
+    @required TValue value,
+    @required List<SelectListItem<TValue>> items,
   }) {
-    bool isValid = Collection(items).any((item) => item.compareTo(value) == 0);
-    return isValid;
-  }
-
-  bool _validateNumber({
-    @required num value,
-    @required List<num> items,
-  }) {
-    bool isValid = Collection(items).any((item) => item.compareTo(value) == 0);
-    return isValid;
-  }
-
-  bool _validateString({
-    @required String value,
-    @required List<String> items,
-  }) {
-    bool isValid = Collection(items).any((item) => item.compareTo(value) == 0);
+    bool isValid =
+        Collection(items).any((item) => item.value.compareTo(value) == 0);
     return isValid;
   }
 }

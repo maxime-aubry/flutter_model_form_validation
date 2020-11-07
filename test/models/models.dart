@@ -39,8 +39,7 @@ class FormBuilderTest extends ModelForm {
   @Required(error: 'error message here')
   @GreaterOrEqualTo(
       valueToCompareOnProperty: 'birth_day', error: 'error message here')
-  @SmallerOrEqualTo(
-      valueToCompare: '2020-01-01', error: 'error message here')
+  @SmallerOrEqualTo(valueToCompare: '2020-01-01', error: 'error message here')
   DateTime get subscription_date => this._subscriptionDate;
 
   @FormArrayDeclarer()
@@ -675,30 +674,22 @@ class InTextTest extends ModelForm {
 //#region MultiSelectDatetime
 @flutterModelFormValidator
 class MultiSelectDatetimeTest extends ModelForm {
-  MultiSelectDatetimeTest(this._value, [this._items]);
+  MultiSelectDatetimeTest(this._value);
 
   // private properties
   List<DateTime> _value;
-  List<DateTime> _items;
 
   // getters
   @MultiSelect(
-    items: ['2020-01-01', '2020-01-02', '2020-01-03'],
-    itemsOnProperty: 'items',
+    serviceName: 'getItems',
     error: 'error message here',
   )
   List<DateTime> get value => this._value;
-  List<DateTime> get items => this._items;
 
   // setters
   set value(List<DateTime> value) {
     this._value = value;
     this.notifyModelState('value');
-  }
-
-  set items(List<DateTime> value) {
-    this._items = value;
-    this.notifyModelState('items');
   }
 }
 //#endregion
@@ -706,30 +697,22 @@ class MultiSelectDatetimeTest extends ModelForm {
 //#region MultiSelectNumber
 @flutterModelFormValidator
 class MultiSelectNumberTest extends ModelForm {
-  MultiSelectNumberTest(this._value, [this._items]);
+  MultiSelectNumberTest(this._value);
 
   // private properties
   List<num> _value;
-  List<num> _items;
 
   // getters
   @MultiSelect(
-    items: ['1', '2', '3'],
-    itemsOnProperty: 'items',
+    serviceName: 'getItems',
     error: 'error message here',
   )
   List<num> get value => this._value;
-  List<num> get items => this._items;
 
   // setters
   set value(List<num> value) {
     this._value = value;
     this.notifyModelState('value');
-  }
-
-  set items(List<num> value) {
-    this._items = value;
-    this.notifyModelState('items');
   }
 }
 //#region
@@ -737,30 +720,22 @@ class MultiSelectNumberTest extends ModelForm {
 //#region MultiSelectString
 @flutterModelFormValidator
 class MultiSelectStringTest extends ModelForm {
-  MultiSelectStringTest(this._value, [this._items]);
+  MultiSelectStringTest(this._value);
 
   // private properties
   List<String> _value;
-  List<String> _items;
 
   // getters
   @MultiSelect(
-    items: ['lorem', 'ipsum', 'dolor'],
-    itemsOnProperty: 'items',
+    serviceName: 'getItems',
     error: 'error message here',
   )
   List<String> get value => this._value;
-  List<String> get items => this._items;
 
   // setters
   set value(List<String> value) {
     this._value = value;
     this.notifyModelState('value');
-  }
-
-  set items(List<String> value) {
-    this._items = value;
-    this.notifyModelState('items');
   }
 }
 //#endregion
@@ -1050,30 +1025,22 @@ class RequiredTest extends ModelForm {
 //#region SingleSelectDateTime
 @flutterModelFormValidator
 class SingleSelectDatetimeTest extends ModelForm {
-  SingleSelectDatetimeTest(this._value, [this._items]);
+  SingleSelectDatetimeTest(this._value);
 
   // private properties
   DateTime _value;
-  List<DateTime> _items;
 
   // getters
   @SingleSelect(
-    items: ['2020-01-01', '2020-01-02', '2020-01-03'],
-    itemsOnProperty: 'items',
+    serviceName: 'getItems',
     error: 'error message here',
   )
   DateTime get value => this._value;
-  List<DateTime> get items => this._items;
 
   // setters
   set value(DateTime value) {
     this._value = value;
     this.notifyModelState('value');
-  }
-
-  set items(List<DateTime> value) {
-    this._items = value;
-    this.notifyModelState('items');
   }
 }
 //#endregion
@@ -1081,30 +1048,22 @@ class SingleSelectDatetimeTest extends ModelForm {
 //#region SingleSelectNumber
 @flutterModelFormValidator
 class SingleSelectNumberTest extends ModelForm {
-  SingleSelectNumberTest(this._value, [this._items]);
+  SingleSelectNumberTest(this._value);
 
   // private properties
   num _value;
-  List<num> _items;
 
   // getters
   @SingleSelect(
-    items: ['1', '2', '3'],
-    itemsOnProperty: 'items',
+    serviceName: 'getItems',
     error: 'error message here',
   )
   num get value => this._value;
-  List<num> get items => this._items;
 
   // setters
   set value(num value) {
     this._value = value;
     this.notifyModelState('value');
-  }
-
-  set items(List<num> value) {
-    this._items = value;
-    this.notifyModelState('items');
   }
 }
 //#region
@@ -1112,30 +1071,22 @@ class SingleSelectNumberTest extends ModelForm {
 //#region SingleSelectString
 @flutterModelFormValidator
 class SingleSelectStringTest extends ModelForm {
-  SingleSelectStringTest(this._value, [this._items]);
+  SingleSelectStringTest(this._value);
 
   // private properties
   String _value;
-  List<String> _items;
 
   // getters
   @SingleSelect(
-    items: ['lorem', 'ipsum', 'dolor'],
-    itemsOnProperty: 'items',
+    serviceName: 'getItems',
     error: 'error message here',
   )
   String get value => this._value;
-  List<String> get items => this._items;
 
   // setters
   set value(String value) {
     this._value = value;
     this.notifyModelState('value');
-  }
-
-  set items(List<String> value) {
-    this._items = value;
-    this.notifyModelState('items');
   }
 }
 //#endregion

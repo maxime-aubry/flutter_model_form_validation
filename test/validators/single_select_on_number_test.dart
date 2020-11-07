@@ -7,46 +7,16 @@ import '../models/models.reflectable.dart';
 void main() {
   initializeReflectable();
 
+  ServiceProvider.register('getItems', () {
+    List<SelectListItem<num>> items = [
+      new SelectListItem<num>(1, 'Number 1'),
+      new SelectListItem<num>(2, 'Number 2'),
+      new SelectListItem<num>(3, 'Number 3'),
+    ];
+    return items;
+  });
+
   group('SingleSelectNumber.', () {
-    group('Test the priority between user and developer static data.', () {
-      test('"Items" is provided by user and developer. User data has priority.',
-          () async {
-        SingleSelectNumberTest model = new SingleSelectNumberTest(4, [4, 5, 6]);
-        ModelFormState<SingleSelectNumberTest> modelState =
-            new ModelFormState<SingleSelectNumberTest>(model);
-
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getListenerName('value'));
-        expect(error, isNull);
-      });
-
-      test('"Items" is provided by user only.', () async {
-        SingleSelectNumberTest model = new SingleSelectNumberTest(4, [4, 5, 6]);
-        ModelFormState<SingleSelectNumberTest> modelState =
-            new ModelFormState<SingleSelectNumberTest>(model);
-
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getListenerName('value'));
-        expect(error, isNull);
-      });
-
-      test('"Items" is provided by developer only.', () async {
-        SingleSelectNumberTest model = new SingleSelectNumberTest(2);
-        ModelFormState<SingleSelectNumberTest> modelState =
-            new ModelFormState<SingleSelectNumberTest>(model);
-
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getListenerName('value'));
-        expect(error, isNull);
-      });
-    });
-
     group('Test the validation > success.', () {
       test('Select item is into the list.', () async {
         SingleSelectNumberTest model = new SingleSelectNumberTest(2);

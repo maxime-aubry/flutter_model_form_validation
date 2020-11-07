@@ -7,62 +7,16 @@ import '../models/models.reflectable.dart';
 void main() {
   initializeReflectable();
 
+  ServiceProvider.register('getItems', () {
+    List<SelectListItem<DateTime>> items = [
+      new SelectListItem<DateTime>(new DateTime(2020, 01, 01), '2020-01-01'),
+      new SelectListItem<DateTime>(new DateTime(2020, 01, 02), '2020-01-02'),
+      new SelectListItem<DateTime>(new DateTime(2020, 01, 03), '2020-01-03'),
+    ];
+    return items;
+  });
+
   group('SingleSelectDateTime.', () {
-    group('Test the priority between user and developer static data.', () {
-      test('"Items" is provided by user and developer. User data has priority.',
-          () async {
-        SingleSelectDatetimeTest model = new SingleSelectDatetimeTest(
-          new DateTime(2020, 02, 02),
-          [
-            new DateTime(2020, 02, 01),
-            new DateTime(2020, 02, 02),
-            new DateTime(2020, 02, 02),
-          ],
-        );
-        ModelFormState<SingleSelectDatetimeTest> modelState =
-            new ModelFormState<SingleSelectDatetimeTest>(model);
-
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getListenerName('value'));
-        expect(error, isNull);
-      });
-
-      test('"Items" is provided by user only.', () async {
-        SingleSelectDatetimeTest model = new SingleSelectDatetimeTest(
-          new DateTime(2020, 02, 02),
-          [
-            new DateTime(2020, 02, 01),
-            new DateTime(2020, 02, 02),
-            new DateTime(2020, 02, 02),
-          ],
-        );
-        ModelFormState<SingleSelectDatetimeTest> modelState =
-            new ModelFormState<SingleSelectDatetimeTest>(model);
-
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getListenerName('value'));
-        expect(error, isNull);
-      });
-
-      test('"Items" is provided by developer only.', () async {
-        SingleSelectDatetimeTest model = new SingleSelectDatetimeTest(
-          new DateTime(2020, 01, 01),
-        );
-        ModelFormState<SingleSelectDatetimeTest> modelState =
-            new ModelFormState<SingleSelectDatetimeTest>(model);
-
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getListenerName('value'));
-        expect(error, isNull);
-      });
-    });
-
     group('Test the validation > success.', () {
       test('Select item is into the list.', () async {
         SingleSelectDatetimeTest model = new SingleSelectDatetimeTest(
