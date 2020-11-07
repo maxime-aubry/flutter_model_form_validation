@@ -34,22 +34,22 @@ class MultiSelect<TValue> extends FormValidatorAnnotation {
       if (this.serviceName == null || this.serviceName.isEmpty)
         throw new Exception('Service name is not provided');
 
-      if (value is! DateTime &&
-          value is! num &&
-          value is! int &&
-          value is! double &&
-          value is! String)
+      if (value is! List<DateTime> &&
+          value is! List<num> &&
+          value is! List<int> &&
+          value is! List<double> &&
+          value is! List<String>)
         throw new Exception(
             'field type must be a datetime, a number or a string');
 
       Function f = ServiceProvider.get(this.serviceName);
       List<SelectListItem> items = await f() as List<SelectListItem>;
 
-      if (value is List<SelectListItem<DateTime>> ||
-          value is List<SelectListItem<num>> ||
-          value is List<SelectListItem<int>> ||
-          value is List<SelectListItem<double>> ||
-          value is List<SelectListItem<String>>)
+      if (items is! List<SelectListItem<DateTime>> &&
+          items is! List<SelectListItem<num>> &&
+          items is! List<SelectListItem<int>> &&
+          items is! List<SelectListItem<double>> &&
+          items is! List<SelectListItem<String>>)
         throw new Exception(
             'items type must be a list of datetime, number or string');
 

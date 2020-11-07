@@ -45,11 +45,11 @@ class SingleSelect extends FormValidatorAnnotation {
       Function f = ServiceProvider.get(this.serviceName);
       List<SelectListItem> items = await f() as List<SelectListItem>;
 
-      if (value is List<SelectListItem<DateTime>> ||
-          value is List<SelectListItem<num>> ||
-          value is List<SelectListItem<int>> ||
-          value is List<SelectListItem<double>> ||
-          value is List<SelectListItem<String>>)
+      if (items is! List<SelectListItem<DateTime>> &&
+          items is! List<SelectListItem<num>> &&
+          items is! List<SelectListItem<int>> &&
+          items is! List<SelectListItem<double>> &&
+          items is! List<SelectListItem<String>>)
         throw new Exception(
             'items type must be a list of datetime, number or string');
 
