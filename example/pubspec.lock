@@ -348,7 +348,7 @@ packages:
     source: hosted
     version: "1.4.0"
   property_change_notifier:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: property_change_notifier
       url: "https://pub.dartlang.org"
