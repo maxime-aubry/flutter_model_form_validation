@@ -41,7 +41,7 @@ class NbItems extends FormValidatorAnnotation {
     try {
       if (value == null) return true;
 
-      assert(value is List, 'field type must be a list');
+      if (value is! List) throw new Exception('field type must be a list');
 
       bool isValid = this._validate(
         value: value,

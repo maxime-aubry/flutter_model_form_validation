@@ -39,7 +39,8 @@ class MultiSelect<TValue> extends FormValidatorAnnotation {
           value is! int &&
           value is! double &&
           value is! String)
-        throw new Exception('field type must be a datetime, number or string');
+        throw new Exception(
+            'field type must be a datetime, a number or a string');
 
       Function f = ServiceProvider.get(this.serviceName);
       List<SelectListItem> items = await f() as List<SelectListItem>;
@@ -49,7 +50,8 @@ class MultiSelect<TValue> extends FormValidatorAnnotation {
           value is List<SelectListItem<int>> ||
           value is List<SelectListItem<double>> ||
           value is List<SelectListItem<String>>)
-        throw new Exception('items type must be a datetime, number or string');
+        throw new Exception(
+            'items type must be a list of datetime, number or string');
 
       if (value is List<DateTime> && items is List<SelectListItem<DateTime>>) {
         bool isValid = this._validate<DateTime>(

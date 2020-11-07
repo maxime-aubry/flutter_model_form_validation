@@ -40,7 +40,8 @@ class Contains extends FormValidatorAnnotation {
           value is! int &&
           value is! double &&
           value is! String)
-        throw new Exception('field type must be a datetime, number or string');
+        throw new Exception(
+            'field type must be a datetime, a number or a string');
 
       Function f = ServiceProvider.get(this.serviceName);
       List items = await f() as List;
@@ -50,7 +51,8 @@ class Contains extends FormValidatorAnnotation {
           value is List<int> ||
           value is List<double> ||
           value is List<String>)
-        throw new Exception('items type must be a datetime, number or string');
+        throw new Exception(
+            'items type must be a list of datetime, number or string');
 
       if (value is DateTime && items is List<DateTime>) {
         bool isValid = this._validate<DateTime>(

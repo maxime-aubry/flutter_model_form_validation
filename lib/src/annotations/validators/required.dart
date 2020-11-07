@@ -16,8 +16,8 @@ class Required extends FormValidatorAnnotation {
 
   @override
   Future<bool> isValid(
-    FormBuilderBase formBuilder,
-    FormGroupBase formGroup,
+    FormBuilderBase fb,
+    FormGroupBase fg,
     Object value,
     String formPath,
     String modelFormPath,

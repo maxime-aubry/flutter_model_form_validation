@@ -38,7 +38,8 @@ class GreaterOrEqualTo extends FormValidatorAnnotation {
           value is! int &&
           value is! double &&
           value is! String)
-        throw new Exception('field type must be a datetime, number or string');
+        throw new Exception(
+            'field type must be a datetime, a number or a string');
 
       if (value is DateTime) {
         bool isValid = this._validate<DateTime>(

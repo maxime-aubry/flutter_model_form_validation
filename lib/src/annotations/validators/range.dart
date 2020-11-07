@@ -41,11 +41,16 @@ class Range extends FormValidatorAnnotation {
     try {
       if (value == null) return true;
 
-      assert(value is DateTime || value is num || value is String,
-          'field type must be a datetime, a number or a string');
+      if (value is! DateTime &&
+          value is! num &&
+          value is! int &&
+          value is! double &&
+          value is! String)
+        throw new Exception(
+            'field type must be a datetime, a number or a string');
 
       if (value is DateTime) {
-        bool isValid = this._validateDatetime(
+        bool isValid = this._validate<DateTime>(
           value: value,
           minValue:
               this.getRemoteValue<DateTime>(fg, this.minOnProperty, this.min),
@@ -56,7 +61,7 @@ class Range extends FormValidatorAnnotation {
       }
 
       if (value is num) {
-        bool isValid = this._validateNumber(
+        bool isValid = this._validate<num>(
           value: value,
           minValue: this.getRemoteValue<num>(fg, this.minOnProperty, this.min),
           maxValue: this.getRemoteValue<num>(fg, this.maxOnProperty, this.max),
@@ -65,7 +70,7 @@ class Range extends FormValidatorAnnotation {
       }
 
       if (value is String) {
-        bool isValid = this._validateString(
+        bool isValid = this._validate<String>(
           value: value,
           minValue:
               this.getRemoteValue<String>(fg, this.minOnProperty, this.min),
@@ -84,36 +89,16 @@ class Range extends FormValidatorAnnotation {
     }
   }
 
-  bool _validateDatetime({
-    @required DateTime value,
-    @required DateTime minValue,
-    @required DateTime maxValue,
+  bool _validate<TValue extends Comparable>({
+    @required TValue value,
+    @required TValue minValue,
+    @required TValue maxValue,
   }) {
     if (value == null) return true;
     if (minValue == null || maxValue == null) return false;
-    return ((value.isAfter(minValue) || (value.compareTo(minValue) == 0)) &&
-        (value.isBefore(maxValue) || (value.compareTo(maxValue) == 0)));
-  }
-
-  bool _validateNumber({
-    @required num value,
-    @required num minValue,
-    @required num maxValue,
-  }) {
-    if (value == null) return true;
-    if (minValue == null || maxValue == null) return false;
-    return (value >= minValue && value <= maxValue);
-  }
-
-  bool _validateString({
-    @required String value,
-    @required String minValue,
-    @required String maxValue,
-  }) {
-    if (value == null) return true;
-    if (minValue == null || maxValue == null) return false;
-    return ((value.compareTo(minValue) == 0 ||
-            value.compareTo(minValue) == 1) &&
-        (value.compareTo(maxValue) == 0 || value.compareTo(maxValue) == -1));
+    int comparison_of_min = value.compareTo(minValue);
+    int comparison_of_max = value.compareTo(maxValue);
+    bool isValid = (comparison_of_min >= 0 && comparison_of_max <= 0);
+    return isValid;
   }
 }

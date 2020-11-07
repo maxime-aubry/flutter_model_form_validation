@@ -20,8 +20,8 @@ class RegularExpression extends FormValidatorAnnotation {
 
   @override
   Future<bool> isValid(
-    FormBuilderBase formBuilder,
-    FormGroupBase formGroup,
+    FormBuilderBase fb,
+    FormGroupBase fg,
     Object value,
     String formPath,
     String modelFormPath,
@@ -29,7 +29,7 @@ class RegularExpression extends FormValidatorAnnotation {
     try {
       if (value == null) return true;
 
-      assert(value is String, 'field type must be a string');
+      if (value is! String) throw new Exception('field type must be a string');
 
       bool isValid = _validate(value);
       return isValid;

@@ -33,11 +33,16 @@ class SmallerThan extends FormValidatorAnnotation {
     try {
       if (value == null) return true;
 
-      assert(value is DateTime || value is num || value is String,
-          'field type must be a datetime, a number or a string');
+      if (value is! DateTime &&
+          value is! num &&
+          value is! int &&
+          value is! double &&
+          value is! String)
+        throw new Exception(
+            'field type must be a datetime, a number or a string');
 
       if (value is DateTime) {
-        bool isValid = this._validateDatetime(
+        bool isValid = this._validate<DateTime>(
           value: value,
           valueToCompare: this.getRemoteValue<DateTime>(
               fg, this.valueToCompareOnProperty, this.valueToCompare),
@@ -46,7 +51,7 @@ class SmallerThan extends FormValidatorAnnotation {
       }
 
       if (value is num) {
-        bool isValid = this._validateNumber(
+        bool isValid = this._validate<num>(
           value: value,
           valueToCompare: this.getRemoteValue<num>(
               fg, this.valueToCompareOnProperty, this.valueToCompare),
@@ -54,8 +59,26 @@ class SmallerThan extends FormValidatorAnnotation {
         return isValid;
       }
 
+      if (value is int) {
+        bool isValid = this._validate<int>(
+          value: value,
+          valueToCompare: this.getRemoteValue<int>(
+              fg, this.valueToCompareOnProperty, this.valueToCompare),
+        );
+        return isValid;
+      }
+
+      if (value is double) {
+        bool isValid = this._validate<double>(
+          value: value,
+          valueToCompare: this.getRemoteValue<double>(
+              fg, this.valueToCompareOnProperty, this.valueToCompare),
+        );
+        return isValid;
+      }
+
       if (value is String) {
-        bool isValid = this._validateString(
+        bool isValid = this._validate<String>(
           value: value,
           valueToCompare: this.getRemoteValue<String>(
               fg, this.valueToCompareOnProperty, this.valueToCompare),
@@ -63,7 +86,7 @@ class SmallerThan extends FormValidatorAnnotation {
         return isValid;
       }
 
-      return false;
+      throw Exception('Value type and items type are different');
     } on RemotePropertyException catch (e) {
       throw e;
     } catch (e) {
@@ -72,30 +95,14 @@ class SmallerThan extends FormValidatorAnnotation {
     }
   }
 
-  bool _validateDatetime({
-    @required DateTime value,
-    @required DateTime valueToCompare,
+  bool _validate<TValue extends Comparable>({
+    @required TValue value,
+    @required TValue valueToCompare,
   }) {
     if (value == null) return true;
     if (valueToCompare == null) return false;
-    return (value.isBefore(valueToCompare));
-  }
-
-  bool _validateNumber({
-    @required num value,
-    @required num valueToCompare,
-  }) {
-    if (value == null) return true;
-    if (valueToCompare == null) return false;
-    return (value < valueToCompare);
-  }
-
-  bool _validateString({
-    @required String value,
-    @required String valueToCompare,
-  }) {
-    if (value == null) return true;
-    if (valueToCompare == null) return false;
-    return (value.compareTo(valueToCompare) == -1);
+    int comparison = value.compareTo(valueToCompare);
+    bool isValid = (comparison < 0);
+    return isValid;
   }
 }
