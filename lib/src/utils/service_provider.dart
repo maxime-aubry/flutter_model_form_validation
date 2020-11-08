@@ -1,3 +1,5 @@
+/// [ServiceProvider] provides data to validators, as dropdown, autocomplete...
+/// Items are provided from local or global data, or using by a HTTP request.
 class ServiceProvider {
   static Map<String, Function> _services;
 
