@@ -42,7 +42,7 @@ class MultiSelect<TValue> extends FormValidatorAnnotation {
         throw new Exception(
             'field type must be a datetime, a number or a string');
 
-      Function f = ServiceProvider.get(this.serviceName);
+      Function f = ListItemsProvider.get(this.serviceName);
       List<SelectListItem> items = await f() as List<SelectListItem>;
 
       if (items is! List<SelectListItem<DateTime>> &&

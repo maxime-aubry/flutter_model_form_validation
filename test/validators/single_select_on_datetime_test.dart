@@ -7,7 +7,7 @@ import '../models/models.reflectable.dart';
 void main() {
   initializeReflectable();
 
-  ServiceProvider.register('getItems', () {
+  ListItemsProvider.register('getItems', () {
     List<SelectListItem<DateTime>> items = [
       new SelectListItem<DateTime>(new DateTime(2020, 01, 01), '2020-01-01'),
       new SelectListItem<DateTime>(new DateTime(2020, 01, 02), '2020-01-02'),

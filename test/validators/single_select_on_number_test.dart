@@ -7,7 +7,7 @@ import '../models/models.reflectable.dart';
 void main() {
   initializeReflectable();
 
-  ServiceProvider.register('getItems', () {
+  ListItemsProvider.register('getItems', () {
     List<SelectListItem<num>> items = [
       new SelectListItem<num>(1, 'Number 1'),
       new SelectListItem<num>(2, 'Number 2'),
