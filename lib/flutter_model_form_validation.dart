@@ -9,3 +9,4 @@ export 'src/form_builder/dynamic_form/index.dart';
 export 'src/form_builder/model_form/index.dart';
 export 'src/index.dart';
 export 'src/utils/index.dart';
+export 'src/widget/index.dart';

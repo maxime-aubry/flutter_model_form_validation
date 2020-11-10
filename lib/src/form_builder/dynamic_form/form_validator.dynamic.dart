@@ -11,16 +11,15 @@ mixin DynamicFormValidator {
   String _listenerName;
   EAbstractControlStatus _status;
   @protected
-  FormState formState;
+  DyanmicFormState formState;
   @protected
   List<FormValidatorAnnotation> validators;
 
   String get listenerName => this._listenerName;
   EAbstractControlStatus get status => this._status;
-  // UnmodifiableListView<FormValidatorAnnotation> get validators => UnmodifiableListView<FormValidatorAnnotation>(this._validators);
 
   @protected
-  void initialize(String name, FormGroup parentGroup, FormState formState) {
+  void initialize(String name, FormGroup parentGroup, DyanmicFormState formState) {
     this._status = EAbstractControlStatus.pure;
     this.formState = formState;
 
@@ -31,7 +30,13 @@ mixin DynamicFormValidator {
             null,
             this.status,
           );
+      this.formState.addFormStateListener(this._listenerName);
     }
+  }
+
+  @protected
+  void destroy() {
+    this.formState.removeFormStateListener(this._listenerName);
   }
 
   List<FormValidatorAnnotation> _getValidators<FormValidatorType>() {

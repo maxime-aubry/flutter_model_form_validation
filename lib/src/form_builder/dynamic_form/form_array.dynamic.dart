@@ -17,7 +17,7 @@ class FormArray extends FormArrayBase with DynamicFormValidator {
   String get name => super.controlName;
 
   @override
-  void initialize(String name, FormGroup parentGroup, FormState formState) {
+  void initialize(String name, FormGroup parentGroup, DyanmicFormState formState) {
     assert(name != null, '');
     assert(name != '', '');
     assert(parentGroup != null, '');
@@ -50,6 +50,7 @@ class FormArray extends FormArrayBase with DynamicFormValidator {
     // remove form group from the list
     if (this.groups == null) this.initializeGroups();
     this.removeGroup(item);
+    super.destroy();
 
     // validate list of form groups
     await this.validate();

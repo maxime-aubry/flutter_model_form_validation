@@ -11,13 +11,13 @@ class FormBuilder extends FormBuilderBase {
     this._isAttachedToFormState = false;
   }
 
-  FormState _formState;
+  DyanmicFormState _formState;
   bool _isInitialized;
   bool _isAttachedToFormState;
   bool get isInitialized => this._isInitialized;
   bool get isAttachedToFormState => this._isAttachedToFormState;
 
-  void initialize(FormState formState) {
+  void initialize(DyanmicFormState formState) {
     assert(formState != null, '');
     assert(this._isInitialized == false, '');
     assert(this._isAttachedToFormState == false, '');

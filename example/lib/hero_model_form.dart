@@ -13,21 +13,25 @@ class HeroModelForm extends ModelForm {
   List<String> _powers;
 
   // getters
+  @FormControlDeclarer()
   @Required(error: 'name is required')
   @StringLength(
-      min: 1, max: 50, error: 'name must have between 1 and 50 characters')
+      min: 3, max: 50, error: 'name must have between 1 and 50 characters')
   String get name => this._name;
 
+  @FormControlDeclarer()
   @Required(error: 'gender is required')
   @SingleSelect(serviceName: 'getGenderItems', error: 'invalid gender')
   String get gender => this._gender;
 
+  @FormControlDeclarer()
   @Required(error: 'birthday is required')
   @SmallerThan(
       valueToCompareOnProperty: 'today',
       error: 'hero must be born before today')
   DateTime get birth_day => this._birthDay;
 
+  @FormControlDeclarer()
   @Required(error: 'powers are required')
   @MultiSelect(
     serviceName: 'getPowerItems',

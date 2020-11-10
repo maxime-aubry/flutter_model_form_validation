@@ -10,7 +10,8 @@ enum EFormStatus {
   invalid,
 }
 
-class FormStateBase with PropertyChangeNotifier<String> {
+class FormStateBase with PropertyChangeNotifier<String>
+{
   FormStateBase(
     this.formBuilder,
   ) {
@@ -47,7 +48,23 @@ class FormStateBase with PropertyChangeNotifier<String> {
     this.statuses[listenerName] = status;
     this.errors[listenerName] = error;
     this._actualizeModelState();
-    super.notifyListeners('status');
+    // super.notifyListeners('statuses');
+    // notify the targeted form input instead of notify every one
+    super.notifyListeners(listenerName);
+  }
+
+  void addFormStateListener(String listenerName) {
+    super.addListener(() {
+      String a = 'test';
+      a.toLowerCase();
+    }, [listenerName]);
+  }
+
+  void removeFormStateListener(String listenerName) {
+    super.removeListener(() {
+      String a = 'test';
+      a.toLowerCase();
+    }, [listenerName]);
   }
 
   ValidationError getError(String name) {

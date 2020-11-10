@@ -3,8 +3,8 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 import 'package:flutter_model_form_validation/src/form_builder/dynamic_form/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
 
-class FormState extends FormStateBase {
-  FormState({
+class DyanmicFormState extends FormStateBase {
+  DyanmicFormState({
     @required FormBuilder formBuilder,
   })  : assert(formBuilder != null, 'Form builder must be provided.'),
         assert(formBuilder.isInitialized == false,

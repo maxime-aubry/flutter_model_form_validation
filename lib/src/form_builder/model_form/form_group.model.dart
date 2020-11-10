@@ -29,7 +29,7 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
   String get name => this.controlName;
 
   void _initializeFormGroup(ModelFormState<TModel> formState) {
-    assert(formState != null, '');
+    assert(formState != null, 'FormState is required to initialize form group');
 
     this.initialize(
         this.controlName, this.parentGroup as ModelFormGroup, formState,

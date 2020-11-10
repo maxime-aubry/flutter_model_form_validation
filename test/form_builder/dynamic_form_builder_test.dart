@@ -5,7 +5,7 @@ void main() {
   group('DynamicFormBuilder.', () {
     test('Unable to generate a form using by a null model.', () {
       expect(() {
-        FormState modelState = new FormState(formBuilder: null);
+        DyanmicFormState modelState = new DyanmicFormState(formBuilder: null);
         expect(modelState, isNotNull);
       }, throwsA(isA<AssertionError>()));
     });
@@ -73,7 +73,7 @@ void main() {
           validators: [],
         ),
       );
-      FormState formState = new FormState(formBuilder: formBuilder);
+      DyanmicFormState formState = new DyanmicFormState(formBuilder: formBuilder);
 
       // first_name
       {

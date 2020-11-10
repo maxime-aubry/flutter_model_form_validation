@@ -40,10 +40,16 @@ mixin ModelFormValidator<TModel extends ModelForm> {
           );
       // add listener, triggered when a sub-object is added or removed by form user
       this._addListener(parentGroup, setValue);
+      this.formState.addFormStateListener(this._listenerName);
     }
   }
 
-  /// [_addListener] method adds a listener on this form control.
+  @protected
+  void destroy(ModelFormGroup parentGroup) {
+    this._removeListener(parentGroup);
+  }
+
+  /// [_addListener] method adds a listener on this form group, form array or form control.
   /// Each time a value is changed into the form, this one is notified here.
   void _addListener(ModelFormGroup parentGroup, Function setValue) {
     parentGroup.current.addListener(
@@ -52,6 +58,11 @@ mixin ModelFormValidator<TModel extends ModelForm> {
       },
       [this._listenerName],
     );
+  }
+
+  /// [_removeListener] method removes a listener on this form group.
+  void _removeListener(ModelFormGroup parentGroup) {
+    parentGroup.current.removeListener(() async {}, [this._listenerName]);
   }
 
   /// [_getValidators] gets all validators for form element.

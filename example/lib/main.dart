@@ -1,8 +1,10 @@
+import 'package:example/main.reflectable.dart';
 import 'package:flutter/material.dart';
 
 import 'hero_form.dart';
 
 void main() {
+  initializeReflectable();
   runApp(MyApp());
 }
 

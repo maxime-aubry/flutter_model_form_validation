@@ -17,11 +17,9 @@ class FormGroup extends FormGroupBase with DynamicFormValidator {
   String get name => super.controlName;
 
   @override
-  void initialize(String name, FormGroup parentGroup, FormState formState) {
+  void initialize(String name, FormGroup parentGroup, DyanmicFormState formState) {
     assert(name != null, '');
     assert(name != '', '');
-    // assert(parentGroup != null, '');
-    // assert(parentGroup is FormGroup, '');
     assert(formState != null, '');
     assert(this._isInitialized == false, '');
 

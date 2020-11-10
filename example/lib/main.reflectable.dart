@@ -5,17 +5,19 @@ import 'dart:core';
 import 'package:example/hero_model_form.dart' as prefix1;
 import 'package:flutter_model_form_validation/src/annotations/flutter_model_form_validator.dart'
     as prefix0;
-import 'package:flutter_model_form_validation/src/annotations/validators/multi_select.dart'
-    as prefix6;
-import 'package:flutter_model_form_validation/src/annotations/validators/required.dart'
+import 'package:flutter_model_form_validation/src/annotations/form_declarers/form_control_declarer.dart'
     as prefix2;
-import 'package:flutter_model_form_validation/src/annotations/validators/single_select.dart'
-    as prefix4;
-import 'package:flutter_model_form_validation/src/annotations/validators/smaller_than.dart'
-    as prefix5;
-import 'package:flutter_model_form_validation/src/annotations/validators/string_length.dart'
+import 'package:flutter_model_form_validation/src/annotations/validators/multi_select.dart'
+    as prefix7;
+import 'package:flutter_model_form_validation/src/annotations/validators/required.dart'
     as prefix3;
-import 'package:meta/meta.dart' as prefix7;
+import 'package:flutter_model_form_validation/src/annotations/validators/single_select.dart'
+    as prefix5;
+import 'package:flutter_model_form_validation/src/annotations/validators/smaller_than.dart'
+    as prefix6;
+import 'package:flutter_model_form_validation/src/annotations/validators/string_length.dart'
+    as prefix4;
+import 'package:meta/meta.dart' as prefix8;
 
 // ignore_for_file: prefer_adjacent_string_concatenation
 // ignore_for_file: prefer_collection_literals
@@ -108,9 +110,10 @@ final _data = <r.Reflectable, r.ReflectorData>{
             const <int>[],
             const prefix0.FlutterModelFormValidator(),
             const <Object>[
-              const prefix2.Required(error: 'name is required'),
-              const prefix3.StringLength(
-                  min: 1,
+              const prefix2.FormControlDeclarer(),
+              const prefix3.Required(error: 'name is required'),
+              const prefix4.StringLength(
+                  min: 3,
                   max: 50,
                   error: 'name must have between 1 and 50 characters')
             ]),
@@ -125,8 +128,9 @@ final _data = <r.Reflectable, r.ReflectorData>{
             const <int>[],
             const prefix0.FlutterModelFormValidator(),
             const <Object>[
-              const prefix2.Required(error: 'gender is required'),
-              const prefix4.SingleSelect(
+              const prefix2.FormControlDeclarer(),
+              const prefix3.Required(error: 'gender is required'),
+              const prefix5.SingleSelect(
                   serviceName: 'getGenderItems', error: 'invalid gender')
             ]),
         r.MethodMirrorImpl(
@@ -140,8 +144,9 @@ final _data = <r.Reflectable, r.ReflectorData>{
             const <int>[],
             const prefix0.FlutterModelFormValidator(),
             const <Object>[
-              const prefix2.Required(error: 'birthday is required'),
-              const prefix5.SmallerThan(
+              const prefix2.FormControlDeclarer(),
+              const prefix3.Required(error: 'birthday is required'),
+              const prefix6.SmallerThan(
                   valueToCompareOnProperty: 'today',
                   error: 'hero must be born before today')
             ]),
@@ -156,8 +161,9 @@ final _data = <r.Reflectable, r.ReflectorData>{
             const <int>[],
             const prefix0.FlutterModelFormValidator(),
             const <Object>[
-              const prefix2.Required(error: 'powers are required'),
-              const prefix6.MultiSelect(
+              const prefix2.FormControlDeclarer(),
+              const prefix3.Required(error: 'powers are required'),
+              const prefix7.MultiSelect(
                   serviceName: 'getPowerItems',
                   error: 'item is not int he list of powers')
             ]),
@@ -247,7 +253,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             null,
             const <int>[],
             const prefix0.FlutterModelFormValidator(),
-            const <Object>[override, prefix7.mustCallSuper]),
+            const <Object>[override, prefix8.mustCallSuper]),
         r.MethodMirrorImpl(
             r'notifyListeners',
             262146,
@@ -260,8 +266,8 @@ final _data = <r.Reflectable, r.ReflectorData>{
             const prefix0.FlutterModelFormValidator(),
             const <Object>[
               override,
-              prefix7.protected,
-              prefix7.visibleForTesting
+              prefix8.protected,
+              prefix8.visibleForTesting
             ]),
         r.MethodMirrorImpl(
             r'hasListeners',
@@ -275,8 +281,8 @@ final _data = <r.Reflectable, r.ReflectorData>{
             const prefix0.FlutterModelFormValidator(),
             const <Object>[
               override,
-              prefix7.protected,
-              prefix7.visibleForTesting
+              prefix8.protected,
+              prefix8.visibleForTesting
             ]),
         r.MethodMirrorImpl(
             r'notifyModelState',
@@ -288,7 +294,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             null,
             const <int>[12],
             const prefix0.FlutterModelFormValidator(),
-            const <Object>[prefix7.protected]),
+            const <Object>[prefix8.protected]),
         r.MethodMirrorImpl(
             r'getListenerName',
             131074,

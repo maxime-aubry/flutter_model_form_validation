@@ -1,5 +1,3 @@
-import 'package:flutter/widgets.dart';
-
 class SelectListItem<TValue extends Comparable> {
   SelectListItem(this.value, this.text)
       : assert(value != null),

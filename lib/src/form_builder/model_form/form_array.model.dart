@@ -21,7 +21,7 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
   String get name => this.controlName;
 
   void _initializeFormArray(ModelFormState<TModel> formState) {
-    assert(formState != null, '');
+    assert(formState != null, 'FormState is required to initialize form array');
 
     this.initialize(
         this.controlName, this.parentGroup as ModelFormGroup, formState,
@@ -60,7 +60,7 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
           this.formState,
           item,
           this.controlName,
-          this.parentGroup,
+          this.parentGroup as ModelFormGroup,
           true,
         ));
     }
@@ -72,7 +72,10 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
           Collection(this.items).where((arg1) => arg1 == group.current).any();
       if (!isInItems) groupsToRemove.add(group);
     }
-    for (ModelFormGroup group in groupsToRemove) this.removeGroup(group);
+    for (ModelFormGroup group in groupsToRemove) {
+      this.removeGroup(group);
+      super.destroy(this.parentGroup as ModelFormGroup);
+    }
   }
 
   Future validate() async => await super.validate$1(

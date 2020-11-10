@@ -17,7 +17,8 @@ class ModelFormControl<TModel extends ModelForm> extends FormControlBase
   String get name => this.controlName;
 
   void _initializeFormControl(ModelFormState<TModel> formState) {
-    assert(formState != null, '');
+    assert(
+        formState != null, 'FormState is required to initialize form control');
 
     this.initialize(
         this.controlName, this.parentGroup as ModelFormGroup, formState,
