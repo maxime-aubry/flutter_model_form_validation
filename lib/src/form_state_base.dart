@@ -77,6 +77,11 @@ class FormStateBase with PropertyChangeNotifier<String>
     return error;
   }
 
+  String getErrorMessage(String name) {
+    ValidationError error = this.getError(name);
+    return error?.message;
+  }
+
   EAbstractControlStatus getStatus(String name) {
     assert(name != null, '');
     assert(name != '', '');

@@ -19,7 +19,11 @@ mixin DynamicFormValidator {
   EAbstractControlStatus get status => this._status;
 
   @protected
-  void initialize(String name, FormGroup parentGroup, DyanmicFormState formState) {
+  void initialize(
+    String name,
+    FormGroup parentGroup,
+    DyanmicFormState formState,
+  ) {
     this._status = EAbstractControlStatus.pure;
     this.formState = formState;
 
