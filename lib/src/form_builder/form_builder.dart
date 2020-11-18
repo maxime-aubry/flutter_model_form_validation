@@ -1,38 +1,46 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-import 'package:flutter_model_form_validation/src/form_builder/dynamic_form/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
+import 'package:flutter_model_form_validation/src/index.dart';
 
-class FormBuilder extends FormBuilderBase {
+class FormBuilder {
   FormBuilder({
     @required FormGroup group,
-  }) : super(group) {
+  }) : assert(group != null,
+            'Cannot instanciate form builder if main form group is not provided.') {
+    this.group = group;
     this._isInitialized = false;
     this._isAttachedToFormState = false;
   }
 
-  DyanmicFormState _formState;
+  FormGroup group;
+  FormStateBase formState;
   bool _isInitialized;
   bool _isAttachedToFormState;
   bool get isInitialized => this._isInitialized;
   bool get isAttachedToFormState => this._isAttachedToFormState;
 
-  void initialize(DyanmicFormState formState) {
-    assert(formState != null, '');
-    assert(this._isInitialized == false, '');
-    assert(this._isAttachedToFormState == false, '');
+  void initialize(FormStateBase formState) {
+    assert(formState != null,
+        'Cannot initialize form builder if form state is not provided.');
+    assert(!this._isInitialized,
+        'Cannot initialize form builder if this one is already initialized.');
+    assert(!this._isAttachedToFormState,
+        'Cannot attach form builder to form styate if this one is already attached.');
 
-    this._formState = formState;
+    this.formState = formState;
+    this.group.formBuilder = this;
     this._initializeFormGroup(this.group, null, 'root');
     this._isInitialized = true;
+    this._isAttachedToFormState = true;
   }
 
   void _initializeFormGroup(
     FormGroup current,
     FormGroup parentGroup,
-    String name,
-  ) {
-    current.initialize(name, parentGroup, this._formState);
+    String name, [
+    bool isArrayItem = false,
+  ]) {
+    current.initialize(name, parentGroup, isArrayItem);
 
     for (MapEntry<String, AbstractControl> child in current.controls.entries) {
       if (child.value is FormGroup) {
@@ -64,10 +72,15 @@ class FormBuilder extends FormBuilderBase {
     FormGroup parentGroup,
     String name,
   ) {
-    formArray.initialize(name, parentGroup, this._formState);
+    formArray.initialize(name, parentGroup);
 
     for (FormGroup formGroup in formArray.groups)
-      this._initializeFormGroup(formGroup, parentGroup, name);
+      this._initializeFormGroup(
+        formGroup,
+        parentGroup,
+        '$name[${formArray.groups.indexOf(formGroup)}]',
+        true,
+      );
   }
 
   void _initializeFormControl(
@@ -75,6 +88,6 @@ class FormBuilder extends FormBuilderBase {
     FormGroup parentGroup,
     String name,
   ) {
-    formControl.initialize(name, parentGroup, this._formState);
+    formControl.initialize(name, parentGroup);
   }
 }

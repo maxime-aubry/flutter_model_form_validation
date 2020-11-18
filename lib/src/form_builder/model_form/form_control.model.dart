@@ -1,48 +1,63 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/model_form/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
-import 'package:reflectable/reflectable.dart';
 
-class ModelFormControl<TModel extends ModelForm> extends FormControlBase
+class ModelFormControl<TModel extends ModelForm> extends FormControl
     with ModelFormValidator {
   ModelFormControl(
-    ModelFormState<TModel> formState,
     Object value,
     String name,
-    FormGroupBase parentGroup,
-  ) : super(value, name, parentGroup) {
-    this._initializeFormControl(formState);
+    FormGroup parentGroup,
+  ) : super(
+          value: value,
+          name: name,
+          parentGroup: parentGroup,
+          validators: new List<FormValidatorAnnotation>(),
+        ) {
+    this.initialize(name, parentGroup);
   }
 
-  String get name => this.controlName;
+  @override
+  @protected
+  void initialize(
+    String name,
+    FormGroup parentGroup,
+  ) {
+    if (name == null || name.isEmpty)
+      throw new Exception(
+          'Cannot initialize form array if its name is not provided.');
 
-  void _initializeFormControl(ModelFormState<TModel> formState) {
-    assert(
-        formState != null, 'FormState is required to initialize form control');
+    if (parentGroup == null)
+      throw new Exception(
+          'Cannot initialize form array if its parent form group is not provided.');
 
-    this.initialize(
-        this.controlName, this.parentGroup as ModelFormGroup, formState,
-        () async {
-      await this._setValue(this.parentGroup as ModelFormGroup);
-    });
-  }
+    if (super.isInitialized)
+      throw new Exception(
+          'Cannot initialize form group if this one is already initialized.');
 
-  /// [_setValue] method set this form control with the new value from form.
-  /// Next, this value is validated, and the model state too.
-  Future _setValue(ModelFormGroup parentGroup) async {
-    InstanceMirror instanceMirror = super.getInstanceMirror(
-      parentGroup.current,
+    ModelFormState<TModel> formState =
+        super.getFormState() as ModelFormState<TModel>;
+    ModelFormGroup parentGroup2 = this.parentGroup as ModelFormGroup;
+
+    super.controlName = name;
+
+    super.validators = super.getValidators(
+      parentGroup2.current,
+      super.controlName,
     );
-    this.value = super.getSubObject(instanceMirror, this.controlName);
 
-    await this.validate();
+    formState.update(
+      super.fullname,
+      null,
+      super.status,
+    );
+
+    super.isInitialized = true;
   }
 
-  Future validate() async => await super.validate$1(
-        this.parentGroup as ModelFormGroup,
-        this.controlName,
-        this.value,
-        this.formPath,
-        this.modelPath,
-      );
+  @override
+  Future validate() async =>
+      await super.validateControl(this.value, super.formPath, super.modelPath);
 }

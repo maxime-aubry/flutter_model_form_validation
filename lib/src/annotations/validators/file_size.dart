@@ -20,8 +20,8 @@ class FileSize extends FormValidatorAnnotation {
 
   @override
   Future<bool> isValid(
-    FormBuilderBase fb,
-    FormGroupBase fg,
+    FormBuilder fb,
+    FormGroup fg,
     Object value,
     String formPath,
     String modelFormPath,

@@ -26,7 +26,7 @@ void main() {
         expect(await modelState.validateForm(), true);
         expect(modelState.status, EFormStatus.valid);
         ValidationError error =
-            modelState.getError(model.getListenerName('value'));
+            modelState.getError(model.getPropertyFullname('value'));
         expect(error, isNull);
       });
     });
@@ -40,7 +40,7 @@ void main() {
         expect(await modelState.validateForm(), false);
         expect(modelState.status, EFormStatus.invalid);
         ValidationError error =
-            modelState.getError(model.getListenerName('value'));
+            modelState.getError(model.getPropertyFullname('value'));
         expect(error, isNotNull);
         expect(error.propertyName, 'value');
         expect(error.validatorType, MultiSelect);

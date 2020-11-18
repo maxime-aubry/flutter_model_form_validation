@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/form_declarers/index.dart';
+import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/model_form/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
@@ -12,47 +14,74 @@ enum EFormDeclarer {
 }
 
 class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
-    extends FormGroupBase with ModelFormValidator {
+    extends FormGroup with ModelFormValidator {
   ModelFormGroup(
-    ModelFormState<TModel> formState,
-    Object current,
     String name,
-    FormGroupBase parentGroup, [
+    ModelFormGroup parentGroup,
+    Object current, [
     bool isArrayItem = false,
-  ]) : super(name, parentGroup, null, isArrayItem) {
+    ModelFormBuilder<TModel> formBuilder,
+  ]) : super(
+          name: null,
+          parentGroup: null,
+          formBuilder: formBuilder,
+          validators: new List<FormValidatorAnnotation>(),
+          controls: new Map<String, AbstractControl>(),
+        ) {
     this.current = current as TCurrentModel;
-    this._initializeFormGroup(formState);
+    this.initialize(name, parentGroup, isArrayItem);
   }
 
   TCurrentModel current;
 
-  String get name => this.controlName;
+  @override
+  @protected
+  void initialize(
+    String name,
+    FormGroup parentGroup,
+    bool isArrayItem,
+  ) {
+    assert(name != null && !name.isEmpty,
+        'Cannot initialize form group if its name is not provided.');
+    assert(!super.isInitialized,
+        'Cannot initialize form group if this one is already initialized.');
 
-  void _initializeFormGroup(ModelFormState<TModel> formState) {
-    assert(formState != null, 'FormState is required to initialize form group');
+    ModelFormState<TModel> formState =
+        super.getFormState() as ModelFormState<TModel>;
+    ModelFormGroup parentGroup2 = parentGroup as ModelFormGroup;
 
-    this.initialize(
-        this.controlName, this.parentGroup as ModelFormGroup, formState,
-        () async {
-      await this._setValue(this.parentGroup as ModelFormGroup);
-    });
+    super.controlName = name;
+    super.parentGroup = parentGroup;
+    super.isArrayItem = isArrayItem;
 
-    // create sub-object if it is not null
+    if (super.controlName != 'root' && super.parentGroup != null) {
+      super.validators = super.getValidators(
+        parentGroup2.current,
+        super.controlName,
+      );
+
+      formState.update(
+        super.fullname,
+        null,
+        super.status,
+      );
+    }
+
     if (this.current != null) this._actualizeChildren();
+
+    super.isInitialized = true;
   }
 
   void _actualizeChildren() {
-    InstanceMirror instanceMirror = this.getInstanceMirror(this.current);
+    InstanceMirror instanceMirror = super.getInstanceMirror(this.current);
     Iterable<MapEntry<String, DeclarationMirror>> formControls = instanceMirror
         .type.declarations.entries
-        .where((element) =>
-            !element.key.endsWith('=') &&
-            (element.value as MethodMirror).isGetter)
+        .where((element) => element.value is VariableMirror)
         .toList();
 
     for (MapEntry<String, DeclarationMirror> formControl in formControls) {
       EFormDeclarer formDeclarer = this._getFormDeclarer(
-        formControl.value as MethodMirror,
+        formControl.value as VariableMirror,
       );
 
       if (formDeclarer == EFormDeclarer.FormGroup)
@@ -66,7 +95,7 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     }
   }
 
-  EFormDeclarer _getFormDeclarer(MethodMirror declarationMirror) {
+  EFormDeclarer _getFormDeclarer(VariableMirror declarationMirror) {
     bool isFormGroup = Collection(declarationMirror.metadata)
         .any((arg1) => arg1 is FormGroupDeclarer);
     bool isFormArray = Collection(declarationMirror.metadata)
@@ -93,10 +122,10 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     InstanceMirror instanceMirror,
     String name,
   ) {
-    Object child = this.getSubObject(instanceMirror, name);
-    this.addControl(
+    Object child = super.getSubObject(instanceMirror, name);
+    super.addControl(
       name,
-      new ModelFormGroup(this.formState, child, name, this),
+      new ModelFormGroup(child),
     );
   }
 
@@ -104,10 +133,10 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     InstanceMirror instanceMirror,
     String name,
   ) {
-    List children = this.getSubObject(instanceMirror, name);
-    this.addControl(
+    List children = super.getSubObject(instanceMirror, name);
+    super.addControl(
       name,
-      new ModelFormArray(this.formState, children, name, this),
+      new ModelFormArray(children, name, this),
     );
   }
 
@@ -115,31 +144,14 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     InstanceMirror instanceMirror,
     String name,
   ) {
-    Object child = this.getSubObject(instanceMirror, name);
-    this.addControl(
+    Object child = super.getSubObject(instanceMirror, name);
+    super.addControl(
       name,
-      new ModelFormControl(this.formState, child, name, this),
+      new ModelFormControl(child, name, this),
     );
   }
 
-  /// [_setValue] method set this form control with the new value from form.
-  /// Next, this value is validated, and the model state too.
-  Future _setValue(ModelFormGroup parentGroup) async {
-    // set new sub-object
-    InstanceMirror instanceMirror = this.getInstanceMirror(parentGroup.current);
-    this.current = this.getSubObject(instanceMirror, this.controlName);
-
-    if (this.current != null) {
-      this._actualizeChildren();
-      await this.validate();
-    }
-  }
-
-  Future validate() async => await super.validate$1(
-        this.parentGroup as ModelFormGroup,
-        this.controlName,
-        this.current,
-        this.formPath,
-        this.modelPath,
-      );
+  @override
+  Future validate() async => await super
+      .validateControl(this.current, super.formPath, super.modelPath);
 }

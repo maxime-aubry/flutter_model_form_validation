@@ -1,32 +1,34 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'test_utils.dart';
+
 void main() {
   group('DynamicFormBuilder.', () {
-    test('Unable to generate a form using by a null model.', () {
-      expect(() {
-        DyanmicFormState modelState = new DyanmicFormState(formBuilder: null);
-        expect(modelState, isNotNull);
-      }, throwsA(isA<AssertionError>()));
-    });
+    // test('Unable to generate a form using by a null model.', () {
+    //   expect(() {
+    //     FormStateBase modelState = new FormStateBase(formBuilder: null);
+    //     expect(modelState, isNotNull);
+    //   }, throwsA(isA<AssertionError>()));
+    // });
 
     test('Initialize form builder.', () async {
       FormBuilder formBuilder = new FormBuilder(
         group: new FormGroup(
           controls: {
-            'first_name': new FormControl<String>(
+            'firstName': new FormControl<String>(
               value: null,
               validators: [Required(error: 'error message here')],
             ),
-            'last_name': new FormControl<String>(
+            'lastName': new FormControl<String>(
               value: null,
               validators: [Required(error: 'error message here')],
             ),
-            'birth_day': new FormControl<DateTime>(
+            'birthDay': new FormControl<DateTime>(
               value: null,
               validators: [Required(error: 'error message here')],
             ),
-            'subscription_date': new FormControl<DateTime>(
+            'subscriptionDate': new FormControl<DateTime>(
               value: null,
               validators: [Required(error: 'error message here')],
             ),
@@ -42,7 +44,7 @@ void main() {
                       value: null,
                       validators: [Required(error: 'error message here')],
                     ),
-                    'loan_date': new FormControl<DateTime>(
+                    'loanDate': new FormControl<DateTime>(
                       value: null,
                       validators: [Required(error: 'error message here')],
                     ),
@@ -52,7 +54,7 @@ void main() {
               ],
               validators: [Required(error: 'error message here')],
             ),
-            'favorite_book': new FormGroup(
+            'favoriteBook': new FormGroup(
               controls: {
                 'name': new FormControl<String>(
                   value: null,
@@ -62,7 +64,7 @@ void main() {
                   value: null,
                   validators: [Required(error: 'error message here')],
                 ),
-                'loan_date': new FormControl<DateTime>(
+                'loanDate': new FormControl<DateTime>(
                   value: null,
                   validators: [Required(error: 'error message here')],
                 ),
@@ -73,221 +75,165 @@ void main() {
           validators: [],
         ),
       );
-      DyanmicFormState formState = new DyanmicFormState(formBuilder: formBuilder);
+      FormStateBase formState = new FormStateBase(formBuilder: formBuilder);
 
-      // first_name
+      // firstName
       {
         FormControl<String> fc = formState
-            .formBuilder.group.controls['first_name'] as FormControl<String>;
-        EAbstractControlStatus status = formState.getStatus(fc.listenerName);
-        ValidationError error = formState.getError(fc.listenerName);
+            .formBuilder.group.controls['firstName'] as FormControl<String>;
         checkFormControl<String>(
-          fc,
-          'first_name',
-          EAbstractControlStatus.pure,
-          null,
+          fc: fc,
+          formState: formState,
+          name: 'firstName',
+          fullname: '${fc.hashCode}.firstName',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: null,
         );
-        expect((fc.parentGroup as FormGroup).name, 'root');
-        expect(status, EAbstractControlStatus.pure);
-        expect(error, isNull);
       }
 
-      // last_name
+      // lastName
       {
         FormControl<String> fc = formState
-            .formBuilder.group.controls['last_name'] as FormControl<String>;
-        EAbstractControlStatus status = formState.getStatus(fc.listenerName);
-        ValidationError error = formState.getError(fc.listenerName);
+            .formBuilder.group.controls['lastName'] as FormControl<String>;
         checkFormControl<String>(
-          fc,
-          'last_name',
-          EAbstractControlStatus.pure,
-          null,
+          fc: fc,
+          formState: formState,
+          name: 'lastName',
+          fullname: '${fc.hashCode}.lastName',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: null,
         );
-        expect((fc.parentGroup as FormGroup).name, 'root');
-        expect(status, EAbstractControlStatus.pure);
-        expect(error, isNull);
       }
 
-      // birth_day
+      // birthDay
       {
         FormControl<DateTime> fc = formState
-            .formBuilder.group.controls['birth_day'] as FormControl<DateTime>;
-        EAbstractControlStatus status = formState.getStatus(fc.listenerName);
-        ValidationError error = formState.getError(fc.listenerName);
+            .formBuilder.group.controls['birthDay'] as FormControl<DateTime>;
         checkFormControl<DateTime>(
-          fc,
-          'birth_day',
-          EAbstractControlStatus.pure,
-          null,
+          fc: fc,
+          formState: formState,
+          name: 'birthDay',
+          fullname: '${fc.hashCode}.birthDay',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: null,
         );
-        expect((fc.parentGroup as FormGroup).name, 'root');
-        expect(status, EAbstractControlStatus.pure);
-        expect(error, isNull);
       }
 
-      // subscription_date
+      // subscriptionDate
       {
         FormControl<DateTime> fc = formState.formBuilder.group
-            .controls['subscription_date'] as FormControl<DateTime>;
-        EAbstractControlStatus status = formState.getStatus(fc.listenerName);
-        ValidationError error = formState.getError(fc.listenerName);
-        checkFormControl(
-          fc,
-          'subscription_date',
-          EAbstractControlStatus.pure,
-          null,
+            .controls['subscriptionDate'] as FormControl<DateTime>;
+        checkFormControl<DateTime>(
+          fc: fc,
+          formState: formState,
+          name: 'subscriptionDate',
+          fullname: '${fc.hashCode}.subscriptionDate',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: null,
         );
-        expect((fc.parentGroup as FormGroup).name, 'root');
-        expect(status, EAbstractControlStatus.pure);
-        expect(error, isNull);
       }
 
       // books
       {
         FormArray fa =
             formState.formBuilder.group.controls['books'] as FormArray;
-        EAbstractControlStatus status = formState.getStatus(fa.listenerName);
-        ValidationError error = formState.getError(fa.listenerName);
-        checkFormArray(fa, 'books', EAbstractControlStatus.pure, 1);
-        expect((fa.parentGroup as FormGroup).name, 'root');
-        expect(status, EAbstractControlStatus.pure);
-        expect(error, isNull);
+        checkFormArray(
+          fa: fa,
+          formState: formState,
+          name: 'books',
+          fullname: '${fa.hashCode}.books',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          nbItems: 1,
+        );
       }
 
       // books[0]
       {
         FormArray fa =
             formState.formBuilder.group.controls['books'] as FormArray;
-        FormGroup fg = fa.groups[0] as FormGroup;
-        EAbstractControlStatus status = formState.getStatus(fg.listenerName);
-        ValidationError error = formState.getError(fg.listenerName);
-        checkFormGroup(fg, 'books', EAbstractControlStatus.pure, false);
-        expect((fg.parentGroup as FormGroup).name, 'root');
-        expect(status, EAbstractControlStatus.pure);
-        expect(error, isNull);
+        FormGroup fg = fa.groups[0];
+        checkFormGroup(
+          fg: fg,
+          formState: formState,
+          name: 'books[0]',
+          fullname: '${fg.hashCode}.books[0]',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          areControlsNull: false,
+        );
       }
 
       // books[0].name
       {
         FormArray fa =
             formState.formBuilder.group.controls['books'] as FormArray;
-        FormGroup fg = fa.groups[0] as FormGroup;
+        FormGroup fg = fa.groups[0];
         FormControl<String> fc = fg.controls['name'] as FormControl<String>;
-        EAbstractControlStatus status = formState.getStatus(fc.listenerName);
-        ValidationError error = formState.getError(fc.listenerName);
-        checkFormControl(fc, 'name', EAbstractControlStatus.pure, null);
-        expect((fc.parentGroup as FormGroup).name, 'books');
-        expect(status, EAbstractControlStatus.pure);
-        expect(error, isNull);
+        checkFormControl(
+          fc: fc,
+          formState: formState,
+          name: 'name',
+          fullname: '${fc.hashCode}.name',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: null,
+        );
       }
 
       // books[0].price
       {
         FormArray fa =
             formState.formBuilder.group.controls['books'] as FormArray;
-        FormGroup fg = fa.groups[0] as FormGroup;
+        FormGroup fg = fa.groups[0];
         FormControl<num> fc = fg.controls['price'] as FormControl<num>;
-        EAbstractControlStatus status = formState.getStatus(fc.listenerName);
-        ValidationError error = formState.getError(fc.listenerName);
-        checkFormControl<num>(fc, 'price', EAbstractControlStatus.pure, null);
-        expect((fc.parentGroup as FormGroup).name, 'books');
-        expect(status, EAbstractControlStatus.pure);
-        expect(error, isNull);
+        checkFormControl(
+          fc: fc,
+          formState: formState,
+          name: 'price',
+          fullname: '${fc.hashCode}.price',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: null,
+        );
       }
 
-      // books[0].loan_date
+      // books[0].loanDate
       {
         FormArray fa =
             formState.formBuilder.group.controls['books'] as FormArray;
-        FormGroup fg = fa.groups[0] as FormGroup;
+        FormGroup fg = fa.groups[0];
         FormControl<DateTime> fc =
-            fg.controls['loan_date'] as FormControl<DateTime>;
-        EAbstractControlStatus status = formState.getStatus(fc.listenerName);
-        ValidationError error = formState.getError(fc.listenerName);
-        checkFormControl(fc, 'loan_date', EAbstractControlStatus.pure, null);
-        expect((fc.parentGroup as FormGroup).name, 'books');
-        expect(status, EAbstractControlStatus.pure);
-        expect(error, isNull);
+            fg.controls['loanDate'] as FormControl<DateTime>;
+        checkFormControl(
+          fc: fc,
+          formState: formState,
+          name: 'loanDate',
+          fullname: '${fc.hashCode}.loanDate',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: null,
+        );
       }
 
-      // favorite_book
+      // favoriteBook
       {
         FormGroup fg =
-            formState.formBuilder.group.controls['favorite_book'] as FormGroup;
-        EAbstractControlStatus status = formState.getStatus(fg.listenerName);
-        ValidationError error = formState.getError(fg.listenerName);
-        checkFormGroup(fg, 'favorite_book', EAbstractControlStatus.pure, false);
-        expect((fg.parentGroup as FormGroup).name, 'root');
-        expect(status, EAbstractControlStatus.pure);
-        expect(error, isNull);
+            formState.formBuilder.group.controls['favoriteBook'] as FormGroup;
+        checkFormGroup(
+          fg: fg,
+          formState: formState,
+          name: 'favoriteBook',
+          fullname: '${fg.hashCode}.favoriteBook',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          areControlsNull: false,
+        );
       }
     });
   });
-}
-
-void checkFormGroup(
-  FormGroup fg,
-  String name,
-  EAbstractControlStatus status,
-  bool areControlsNull,
-) {
-  // name
-  if (name == null)
-    expect(fg.name, isNull);
-  else
-    expect(fg.name, name);
-
-  // controls
-  if (areControlsNull)
-    expect(fg.controls, {});
-  else
-    expect(fg.controls, isNotNull);
-
-  // status
-  expect(fg.status, status);
-}
-
-void checkFormArray(
-  FormArray fa,
-  String name,
-  EAbstractControlStatus status,
-  int nbItems,
-) {
-  // name
-  if (name == null)
-    expect(fa.name, isNull);
-  else
-    expect(fa.name, name);
-
-  // nbItems
-  if (nbItems == null)
-    expect(fa.groups, []);
-  else
-    expect(fa.groups.length, nbItems);
-
-  // status
-  expect(fa.status, status);
-}
-
-void checkFormControl<T>(
-  FormControl<T> fc,
-  String name,
-  EAbstractControlStatus status,
-  Object value,
-) {
-  // name
-  if (name == null)
-    expect(fc.name, isNull);
-  else
-    expect(fc.name, name);
-
-  // value
-  if (value == null)
-    expect(fc.getValue(), isNull);
-  else
-    expect(fc.getValue(), value);
-
-  // status
-  expect(fc.status, status);
 }

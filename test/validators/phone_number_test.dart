@@ -4,7 +4,7 @@
 // import 'models/models.dart';
 // import 'models/models.reflectable.dart';
 
-// void main() {
+void main() {
 //   initializeReflectable();
 
 // //   group('PhoneNumber.', () {
@@ -1927,4 +1927,4 @@
 // //       //#endregion
 // //     });
 // //   });
-// }
+}

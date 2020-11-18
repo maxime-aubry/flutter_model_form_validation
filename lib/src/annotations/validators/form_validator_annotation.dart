@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/utils/index.dart';
+import 'package:queries/collections.dart';
 
 /// [FormValidatorAnnotation] is the parent class for every validators you will create and use.
 /// {@category Metadata}
@@ -23,15 +24,15 @@ abstract class FormValidatorAnnotation {
   /// It reprensents your full object model with all values.
   /// Maybe you would validate a property in comparison to others.
   Future<bool> isValid(
-    FormBuilderBase fb,
-    FormGroupBase fg,
+    FormBuilder fb,
+    FormGroup fg,
     Object value,
     String formPath,
     String modelFormPath,
   );
 
   TValue getRemoteValue<TValue>(
-    FormGroupBase formGroup,
+    FormGroup formGroup,
     String propertyName,
     String developerValue,
   ) {
@@ -65,7 +66,7 @@ abstract class FormValidatorAnnotation {
   }
 
   List<TValue> getRemoteValues<TValue>(
-    FormGroupBase formGroup,
+    FormGroup formGroup,
     String propertyName,
     List<String> developerValues,
   ) {
@@ -97,7 +98,7 @@ abstract class FormValidatorAnnotation {
   }
 
   DateTime _getDatetimeValue(
-    FormGroupBase formGroup,
+    FormGroup formGroup,
     String propertyName,
     String developerValue,
   ) {
@@ -111,11 +112,10 @@ abstract class FormValidatorAnnotation {
       if (!formGroup.containsControl(propertyName))
         return developerValue.toDateTime();
       // if targeted property is not a form control, throw an exception
-      if (formGroup.controls[propertyName] is! FormControlBase)
+      if (formGroup.controls[propertyName] is! FormControl)
         throw new Exception('Targeted property must be a form control');
       // else, get the value from form control, cast it as wanted type and return it
-      FormControlBase formControl =
-          formGroup.controls[propertyName] as FormControlBase;
+      FormControl formControl = formGroup.controls[propertyName] as FormControl;
       DateTime value = formControl.getValue() as DateTime;
       // if there is no value from user, so return the developer one, or null
       return value ?? developerValue.toDateTime() ?? null;
@@ -123,7 +123,7 @@ abstract class FormValidatorAnnotation {
   }
 
   num _getNumberValue(
-    FormGroupBase formGroup,
+    FormGroup formGroup,
     String propertyName,
     String developerValue,
   ) {
@@ -137,18 +137,17 @@ abstract class FormValidatorAnnotation {
       if (!formGroup.containsControl(propertyName))
         return developerValue.toNumber();
       // if targeted property is not a form control, throw an exception
-      if (formGroup.controls[propertyName] is! FormControlBase)
+      if (formGroup.controls[propertyName] is! FormControl)
         throw new Exception('Targeted property must be a form control');
       // else, get the value from form control, cast it as wanted type and return it
-      FormControlBase formControl =
-          formGroup.controls[propertyName] as FormControlBase;
+      FormControl formControl = formGroup.controls[propertyName] as FormControl;
       num value = formControl.getValue() as num;
       return value ?? developerValue.toNumber() ?? null;
     }
   }
 
   String _getStringValue(
-    FormGroupBase formGroup,
+    FormGroup formGroup,
     String propertyName,
     String developerValue,
   ) {
@@ -161,18 +160,17 @@ abstract class FormValidatorAnnotation {
       // if current form group does not contain the property name, return the develop value
       if (!formGroup.containsControl(propertyName)) return developerValue;
       // if targeted property is not a form control, throw an exception
-      if (formGroup.controls[propertyName] is! FormControlBase)
+      if (formGroup.controls[propertyName] is! FormControl)
         throw new Exception('Targeted property must be a form control');
       // else, get the value from form control, cast it as wanted type and return it
-      FormControlBase formControl =
-          formGroup.controls[propertyName] as FormControlBase;
+      FormControl formControl = formGroup.controls[propertyName] as FormControl;
       String value = formControl.getValue() as String;
       return value ?? developerValue ?? null;
     }
   }
 
   List<DateTime> _getDatetimeValues(
-    FormGroupBase formGroup,
+    FormGroup formGroup,
     String propertyName,
     List<String> developerValues,
   ) {
@@ -187,18 +185,17 @@ abstract class FormValidatorAnnotation {
         return developerValues.toDateTimeList();
       }
       // if targeted property is not a form control, throw an exception
-      if (formGroup.controls[propertyName] is! FormControlBase)
+      if (formGroup.controls[propertyName] is! FormControl)
         throw new Exception('Targeted property must be a form control');
       // else, get the value from form control, cast it as wanted type and return it
-      FormControlBase formControl =
-          formGroup.controls[propertyName] as FormControlBase;
+      FormControl formControl = formGroup.controls[propertyName] as FormControl;
       List<DateTime> value = formControl.getValue() as List<DateTime>;
       return value ?? developerValues.toDateTimeList() ?? null;
     }
   }
 
   List<num> _getNumberValues(
-    FormGroupBase formGroup,
+    FormGroup formGroup,
     String propertyName,
     List<String> developerValues,
   ) {
@@ -213,18 +210,17 @@ abstract class FormValidatorAnnotation {
         return developerValues.toNumberList();
       }
       // if targeted property is not a form control, throw an exception
-      if (formGroup.controls[propertyName] is! FormControlBase)
+      if (formGroup.controls[propertyName] is! FormControl)
         throw new Exception('Targeted property must be a form control');
       // else, get the value from form control, cast it as wanted type and return it
-      FormControlBase formControl =
-          formGroup.controls[propertyName] as FormControlBase;
+      FormControl formControl = formGroup.controls[propertyName] as FormControl;
       List<num> value = formControl.getValue() as List<num>;
       return value ?? developerValues.toNumberList() ?? null;
     }
   }
 
   List<String> _getStringValues(
-    FormGroupBase formGroup,
+    FormGroup formGroup,
     String propertyName,
     List<String> developerValues,
   ) {
@@ -237,13 +233,20 @@ abstract class FormValidatorAnnotation {
       // if current form group does not contain the property name, return the develop value
       if (!formGroup.containsControl(propertyName)) return developerValues;
       // if targeted property is not a form control, throw an exception
-      if (formGroup.controls[propertyName] is! FormControlBase)
+      if (formGroup.controls[propertyName] is! FormControl)
         throw new Exception('Targeted property must be a form control');
       // else, get the value from form control, cast it as wanted type and return it
-      FormControlBase formControl =
-          formGroup.controls[propertyName] as FormControlBase;
+      FormControl formControl = formGroup.controls[propertyName] as FormControl;
       List<String> value = formControl.getValue() as List<String>;
       return value ?? developerValues ?? null;
     }
+  }
+}
+
+extension FormValidatorAnnotationParsing on List<FormValidatorAnnotation> {
+  List<FormValidatorAnnotation> reorder() {
+    List<FormValidatorAnnotation> validators =
+        Collection(this).orderBy((arg1) => arg1.criticityLevel).toList();
+    return validators;
   }
 }
