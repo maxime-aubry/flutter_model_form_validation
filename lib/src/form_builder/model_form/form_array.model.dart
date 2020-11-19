@@ -4,15 +4,14 @@ import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/model_form/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
 import 'package:queries/collections.dart';
-import 'package:reflectable/reflectable.dart';
 
 class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
     extends FormArray with ModelFormValidator {
-  ModelFormArray(
-    String name,
-    ModelFormGroup parentGroup,
-    List items,
-  ) : super(
+  ModelFormArray({
+    @required String name,
+    @required ModelFormGroup parentGroup,
+    @required List<TCurrentModel> items,
+  }) : super(
           validators: new List<FormValidatorAnnotation>(),
           groups: new List<FormGroup>(),
         ) {
@@ -62,14 +61,17 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
 
   /// [_actualizeChildren] method actualize [items] and [groups] collections of form array.
   void _actualizeChildren(ModelFormGroup parentGroup) {
-    InstanceMirror instanceMirror =
-        super.getInstanceMirror(parentGroup.current);
-    this.items = super.getSubObject(instanceMirror, super.controlName)
-        as List<TCurrentModel>;
-
     if (this.items == null) this.items = new List<TCurrentModel>();
 
-    for (TCurrentModel item in this.items) this.addItem(item);
+    for (TCurrentModel item in this.items) {
+      super.addGroup(new ModelFormGroup(
+        name: '${super.controlName}[${super.groups.length}]',
+        parentGroup: super.parentGroup,
+        current: item,
+        isArrayItem: true,
+        formBuilder: null,
+      ));
+    }
   }
 
   void addItem(TCurrentModel item) {
@@ -83,9 +85,11 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
 
     this.items.add(item);
     super.addGroup(new ModelFormGroup(
-      '${super.controlName}[${super.groups.length}]',
-      super.parentGroup as ModelFormGroup,
-      true,
+      name: '${super.controlName}[${super.groups.length}]',
+      parentGroup: super.parentGroup,
+      current: item,
+      isArrayItem: true,
+      formBuilder: null,
     ));
   }
 

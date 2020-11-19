@@ -6,11 +6,11 @@ import 'package:flutter_model_form_validation/src/index.dart';
 
 class ModelFormControl<TModel extends ModelForm> extends FormControl
     with ModelFormValidator {
-  ModelFormControl(
-    String name,
-    FormGroup parentGroup,
-    Object value,
-  ) : super(
+  ModelFormControl({
+    @required String name,
+    @required FormGroup parentGroup,
+    @required Object value,
+  }) : super(
           value: value,
           validators: new List<FormValidatorAnnotation>(),
         ) {

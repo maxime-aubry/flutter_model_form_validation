@@ -15,13 +15,13 @@ enum EFormDeclarer {
 
 class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     extends FormGroup with ModelFormValidator {
-  ModelFormGroup(
-    String name,
-    ModelFormGroup parentGroup,
-    Object current, [
+  ModelFormGroup({
+    @required String name,
+    @required ModelFormGroup parentGroup,
+    @required Object current,
     bool isArrayItem = false,
     ModelFormBuilder<TModel> formBuilder,
-  ]) : super(
+  }) : super(
           name: null,
           parentGroup: null,
           formBuilder: formBuilder,
@@ -50,7 +50,9 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     super.parentGroup = parentGroup;
     super.isArrayItem = isArrayItem;
 
-    if (super.controlName != 'root' && super.parentGroup != null) {
+    if (super.controlName != 'root' &&
+        super.parentGroup != null &&
+        !isArrayItem) {
       ModelFormState<TModel> formState =
           super.getFormState() as ModelFormState<TModel>;
       ModelFormGroup parentGroup2 = parentGroup as ModelFormGroup;
@@ -125,7 +127,11 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     Object child = super.getSubObject(instanceMirror, name);
     super.addControl(
       name,
-      new ModelFormGroup(name, this, child),
+      new ModelFormGroup(
+        name: name,
+        parentGroup: this,
+        current: child,
+      ),
     );
   }
 
@@ -133,10 +139,16 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     InstanceMirror instanceMirror,
     String name,
   ) {
-    List children = super.getSubObject(instanceMirror, name);
+    List<ModelForm> children =
+        super.getSubObject(instanceMirror, name) as List<ModelForm>;
+
     super.addControl(
       name,
-      new ModelFormArray(name, this, children),
+      new ModelFormArray(
+        name: name,
+        parentGroup: this,
+        items: children,
+      ),
     );
   }
 
@@ -147,7 +159,11 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     Object child = super.getSubObject(instanceMirror, name);
     super.addControl(
       name,
-      new ModelFormControl(name, this, child),
+      new ModelFormControl(
+        name: name,
+        parentGroup: this,
+        value: child,
+      ),
     );
   }
 

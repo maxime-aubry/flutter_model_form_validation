@@ -28,11 +28,11 @@ class ModelFormBuilder<TModel extends ModelForm> extends FormBuilder {
     super.formState = modelFormState;
 
     this.group = new ModelFormGroup(
-      'root',
-      null,
-      modelFormState.model,
-      false,
-      this,
+      name: 'root',
+      parentGroup: null,
+      current: modelFormState.model,
+      isArrayItem: false,
+      formBuilder: this,
     );
 
     this._isInitialized = true;

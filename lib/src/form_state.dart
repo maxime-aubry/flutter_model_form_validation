@@ -104,8 +104,7 @@ class FormStateBase {
       throw new Exception(
           'Cannot get a form control status if control name is not provided.');
 
-    if (!this._errors.containsKey(name))
-      throw new Exception('Form property error not found');
+    if (!this._errors.containsKey(name)) return null;
 
     ValidationError error = this._errors[name];
     return error;
@@ -121,8 +120,7 @@ class FormStateBase {
       throw new Exception(
           'Cannot get a form control status if control name is not provided.');
 
-    if (!this._errors.containsKey(name))
-      throw new Exception('Form property status not found');
+    if (!this._errors.containsKey(name)) return null;
 
     EAbstractControlStatus status = this._statuses[name];
     return status;
