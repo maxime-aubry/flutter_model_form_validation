@@ -7,13 +7,11 @@ import 'package:flutter_model_form_validation/src/index.dart';
 class ModelFormControl<TModel extends ModelForm> extends FormControl
     with ModelFormValidator {
   ModelFormControl(
-    Object value,
     String name,
     FormGroup parentGroup,
+    Object value,
   ) : super(
           value: value,
-          name: name,
-          parentGroup: parentGroup,
           validators: new List<FormValidatorAnnotation>(),
         ) {
     this.initialize(name, parentGroup);
@@ -25,23 +23,19 @@ class ModelFormControl<TModel extends ModelForm> extends FormControl
     String name,
     FormGroup parentGroup,
   ) {
-    if (name == null || name.isEmpty)
-      throw new Exception(
-          'Cannot initialize form array if its name is not provided.');
+    assert(name != null && !name.isEmpty,
+        'Cannot initialize form array if its name is not provided.');
+    assert(parentGroup != null,
+        'Cannot initialize form array if its parent form group is not provided.');
+    assert(!super.isInitialized,
+        'Cannot initialize form group if this one is already initialized.');
 
-    if (parentGroup == null)
-      throw new Exception(
-          'Cannot initialize form array if its parent form group is not provided.');
-
-    if (super.isInitialized)
-      throw new Exception(
-          'Cannot initialize form group if this one is already initialized.');
+    super.controlName = name;
+    super.parentGroup = parentGroup;
 
     ModelFormState<TModel> formState =
         super.getFormState() as ModelFormState<TModel>;
     ModelFormGroup parentGroup2 = this.parentGroup as ModelFormGroup;
-
-    super.controlName = name;
 
     super.validators = super.getValidators(
       parentGroup2.current,

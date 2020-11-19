@@ -9,9 +9,9 @@ import 'package:reflectable/reflectable.dart';
 class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
     extends FormArray with ModelFormValidator {
   ModelFormArray(
-    List items,
     String name,
     ModelFormGroup parentGroup,
+    List items,
   ) : super(
           validators: new List<FormValidatorAnnotation>(),
           groups: new List<FormGroup>(),
@@ -28,24 +28,19 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
     String name,
     FormGroup parentGroup,
   ) {
-    if (name == null || name.isEmpty)
-      throw new Exception(
-          'Cannot initialize form array if its name is not provided.');
+    assert(name != null && !name.isEmpty,
+        'Cannot initialize form array if its name is not provided.');
+    assert(parentGroup != null,
+        'Cannot initialize form array if its parent form group is not provided.');
+    assert(!super.isInitialized,
+        'Cannot initialize form group if this one is already initialized.');
 
-    if (parentGroup == null)
-      throw new Exception(
-          'Cannot initialize form array if its parent form group is not provided.');
-
-    if (super.isInitialized)
-      throw new Exception(
-          'Cannot initialize form group if this one is already initialized.');
+    super.controlName = name;
+    super.parentGroup = parentGroup;
 
     ModelFormState<TModel> formState =
         super.getFormState() as ModelFormState<TModel>;
     ModelFormGroup parentGroup2 = parentGroup as ModelFormGroup;
-
-    super.controlName = name;
-    super.parentGroup = parentGroup2;
 
     super.validators = super.getValidators(
       parentGroup2.current,
@@ -72,24 +67,22 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
     this.items = super.getSubObject(instanceMirror, super.controlName)
         as List<TCurrentModel>;
 
+    if (this.items == null) this.items = new List<TCurrentModel>();
+
     for (TCurrentModel item in this.items) this.addItem(item);
   }
 
   void addItem(TCurrentModel item) {
-    if (this.items == null)
-      throw new Exception('Cannot add item to a null list.');
-
-    if (this.items.contains(item))
-      throw new Exception('Cannot add an item if this one is already added.');
-
-    if (Collection(super.groups)
-        .any((arg1) => (arg1 as ModelFormGroup).current == item))
-      throw new Exception(
-          'Cannot add an item if this one is already contained into a child form group.');
+    assert(this.items != null, 'Cannot add item to a null list.');
+    assert(!this.items.contains(item),
+        'Cannot add an item if this one is already added.');
+    assert(
+        !Collection(super.groups)
+            .any((arg1) => (arg1 as ModelFormGroup).current == item),
+        'Cannot add an item if this one is already contained into a child form group.');
 
     this.items.add(item);
     super.addGroup(new ModelFormGroup(
-      item,
       '${super.controlName}[${super.groups.length}]',
       super.parentGroup as ModelFormGroup,
       true,
@@ -97,17 +90,13 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
   }
 
   void removeItem(TCurrentModel item) {
-    if (this.items == null)
-      throw new Exception('Cannot add item to a null list.');
-
-    if (!this.items.contains(item))
-      throw new Exception(
-          'Cannot remove an item if this one is not already added.');
-
-    if (!Collection(super.groups)
-        .any((arg1) => (arg1 as ModelFormGroup).current == item))
-      throw new Exception(
-          'Cannot remove an item if this one is not already contained into a child form group.');
+    assert(this.items != null, 'Cannot add item to a null list.');
+    assert(this.items.contains(item),
+        'Cannot remove an item if this one is not already added.');
+    assert(
+        Collection(super.groups)
+            .any((arg1) => (arg1 as ModelFormGroup).current == item),
+        'Cannot remove an item if this one is not already contained into a child form group.');
 
     ModelFormGroup formGroup = Collection(super.groups)
         .where((arg1) => (arg1 as ModelFormGroup).current == item)

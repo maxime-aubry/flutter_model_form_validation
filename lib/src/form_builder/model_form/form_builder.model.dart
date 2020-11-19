@@ -3,7 +3,7 @@ import 'package:flutter_model_form_validation/src/form_builder/model_form/index.
 import 'package:flutter_model_form_validation/src/index.dart';
 
 class ModelFormBuilder<TModel extends ModelForm> extends FormBuilder {
-  ModelFormBuilder() : super(group: null) {
+  ModelFormBuilder() : super.modelFormBuilder() {
     this._isInitialized = false;
     this._isAttachedToFormState = false;
   }

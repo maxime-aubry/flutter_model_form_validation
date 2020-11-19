@@ -6,8 +6,6 @@ import 'package:flutter_model_form_validation/src/index.dart';
 class FormControl<TField> extends AbstractControl {
   FormControl({
     Object value,
-    String name,
-    FormGroup parentGroup,
     @required List<FormValidatorAnnotation> validators,
   }) : super(validators) {
     this.value = value;

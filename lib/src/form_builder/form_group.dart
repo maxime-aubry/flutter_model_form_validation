@@ -37,9 +37,9 @@ class FormGroup extends AbstractControl {
       if (this.isArrayItem && this.parentGroup.controls[key] is FormArray) {
         FormArray formArray = this.parentGroup.controls[key] as FormArray;
         int index = formArray.groups.indexOf(this);
-        part += '.controls[\'$key\'].groups[$index]1';
+        part += '.controls[\'$key\'].groups[$index]';
       } else {
-        part += '.controls[\'${this.controlName}\']2';
+        part += '.controls[\'${this.controlName}\']';
       }
     }
 

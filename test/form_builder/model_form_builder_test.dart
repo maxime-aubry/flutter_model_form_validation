@@ -22,60 +22,60 @@ void main() {
       ModelFormState<FormBuilderTest> formState =
           new ModelFormState<FormBuilderTest>(model);
 
-      // first_name
+      // firstName
       {
-        ModelFormControl fc = formState.formBuilder.group.controls['first_name']
+        ModelFormControl fc = formState.formBuilder.group.controls['firstName']
             as ModelFormControl;
         checkFormControl(
           fc: fc,
           formState: formState,
-          name: 'first_name',
-          fullname: '${fc.hashCode}.first_name',
+          name: 'firstName',
+          fullname: '${fc.hashCode}.firstName',
           status: EAbstractControlStatus.pure,
           error: null,
           value: null,
         );
       }
 
-      // last_name
+      // lastName
       {
-        ModelFormControl fc = formState.formBuilder.group.controls['last_name']
+        ModelFormControl fc = formState.formBuilder.group.controls['lastName']
             as ModelFormControl;
         checkFormControl(
           fc: fc,
           formState: formState,
-          name: 'last_name',
-          fullname: '${fc.hashCode}.last_name',
+          name: 'lastName',
+          fullname: '${fc.hashCode}.lastName',
           status: EAbstractControlStatus.pure,
           error: null,
           value: null,
         );
       }
 
-      // birth_day
+      // birthDay
       {
-        ModelFormControl fc = formState.formBuilder.group.controls['birth_day']
+        ModelFormControl fc = formState.formBuilder.group.controls['birthDay']
             as ModelFormControl;
         checkFormControl(
           fc: fc,
           formState: formState,
-          name: 'birth_day',
-          fullname: '${fc.hashCode}.birth_day',
+          name: 'birthDay',
+          fullname: '${fc.hashCode}.birthDay',
           status: EAbstractControlStatus.pure,
           error: null,
           value: null,
         );
       }
 
-      // subscription_date
+      // subscriptionDate
       {
-        ModelFormControl fc = formState.formBuilder.group
-            .controls['subscription_date'] as ModelFormControl;
+        ModelFormControl fc = formState
+            .formBuilder.group.controls['subscriptionDate'] as ModelFormControl;
         checkFormControl(
           fc: fc,
           formState: formState,
-          name: 'subscription_date',
-          fullname: '${fc.hashCode}.subscription_date',
+          name: 'subscriptionDate',
+          fullname: '${fc.hashCode}.subscriptionDate',
           status: EAbstractControlStatus.pure,
           error: null,
           value: null,
@@ -97,15 +97,15 @@ void main() {
         );
       }
 
-      // favorite_book
+      // favoriteBook
       {
-        ModelFormGroup fg = formState
-            .formBuilder.group.controls['favorite_book'] as ModelFormGroup;
+        ModelFormGroup fg = formState.formBuilder.group.controls['favoriteBook']
+            as ModelFormGroup;
         checkFormGroup(
-          fg: null,
+          fg: fg,
           formState: formState,
-          name: 'favorite_book',
-          fullname: '${fg.hashCode}.favorite_book',
+          name: 'favoriteBook',
+          fullname: '${fg.hashCode}.favoriteBook',
           status: EAbstractControlStatus.pure,
           error: null,
           areControlsNull: false,
@@ -137,54 +137,54 @@ void main() {
     //       new DateTime(2020, 04, 26),
     //     ),
     //   ];
-    //   model.favorite_book = model.books[1];
+    //   model.favoriteBook = model.books[1];
 
     //   ModelFormState<FormBuilderTest> modelState =
     //       new ModelFormState<FormBuilderTest>(model);
 
-    //   // first_name
+    //   // firstName
     //   {
     //     ModelFormControl fc = modelState
-    //         .formBuilder.group.controls['first_name'] as ModelFormControl;
+    //         .formBuilder.group.controls['firstName'] as ModelFormControl;
     //     checkFormControl(
     //       fc,
-    //       'first_name',
+    //       'firstName',
     //       EAbstractControlStatus.pure,
     //       'Edouard',
     //     );
     //   }
 
-    //   // last_name
+    //   // lastName
     //   {
-    //     ModelFormControl fc = modelState.formBuilder.group.controls['last_name']
+    //     ModelFormControl fc = modelState.formBuilder.group.controls['lastName']
     //         as ModelFormControl;
     //     checkFormControl(
     //       fc,
-    //       'last_name',
+    //       'lastName',
     //       EAbstractControlStatus.pure,
     //       'Elric',
     //     );
     //   }
 
-    //   // birth_day
+    //   // birthDay
     //   {
-    //     ModelFormControl fc = modelState.formBuilder.group.controls['birth_day']
+    //     ModelFormControl fc = modelState.formBuilder.group.controls['birthDay']
     //         as ModelFormControl;
     //     checkFormControl(
     //       fc,
-    //       'birth_day',
+    //       'birthDay',
     //       EAbstractControlStatus.pure,
     //       new DateTime(1980, 12, 15),
     //     );
     //   }
 
-    //   // subscription_date
+    //   // subscriptionDate
     //   {
     //     ModelFormControl fc = modelState.formBuilder.group
-    //         .controls['subscription_date'] as ModelFormControl;
+    //         .controls['subscriptionDate'] as ModelFormControl;
     //     checkFormControl(
     //       fc,
-    //       'subscription_date',
+    //       'subscriptionDate',
     //       EAbstractControlStatus.pure,
     //       new DateTime(2019, 06, 01),
     //     );
@@ -373,72 +373,72 @@ void main() {
     //   ModelFormState<FormBuilderTest> modelState =
     //       new ModelFormState<FormBuilderTest>(model);
 
-    //   // first_name
+    //   // firstName
     //   {
     //     ModelFormControl fc = modelState
-    //         .formBuilder.group.controls['first_name'] as ModelFormControl;
+    //         .formBuilder.group.controls['firstName'] as ModelFormControl;
     //     checkFormControl(
     //       fc,
-    //       'first_name',
+    //       'firstName',
     //       EAbstractControlStatus.pure,
     //       null,
     //     );
     //   }
 
-    //   model.first_name = 'xx';
+    //   model.firstName = 'xx';
     //   await Future.delayed(const Duration(microseconds: 1), () {});
 
     //   {
     //     ModelFormControl fc = modelState
-    //         .formBuilder.group.controls['first_name'] as ModelFormControl;
+    //         .formBuilder.group.controls['firstName'] as ModelFormControl;
     //     checkFormControl(
     //       fc,
-    //       'first_name',
+    //       'firstName',
     //       EAbstractControlStatus.invalid,
     //       'xx',
     //     );
     //   }
 
-    //   model.last_name = 'Elric';
+    //   model.lastName = 'Elric';
     //   await Future.delayed(const Duration(microseconds: 1), () {});
 
-    //   // last_name
+    //   // lastName
     //   {
-    //     ModelFormControl fc = modelState.formBuilder.group.controls['last_name']
+    //     ModelFormControl fc = modelState.formBuilder.group.controls['lastName']
     //         as ModelFormControl;
     //     checkFormControl(
     //       fc,
-    //       'last_name',
+    //       'lastName',
     //       EAbstractControlStatus.valid,
     //       'Elric',
     //     );
     //   }
 
-    //   model.birth_day = new DateTime(1980, 12, 15);
+    //   model.birthDay = new DateTime(1980, 12, 15);
     //   await Future.delayed(const Duration(microseconds: 1), () {});
 
-    //   // birth_day
+    //   // birthDay
     //   {
-    //     ModelFormControl fc = modelState.formBuilder.group.controls['birth_day']
+    //     ModelFormControl fc = modelState.formBuilder.group.controls['birthDay']
     //         as ModelFormControl;
     //     checkFormControl(
     //       fc,
-    //       'birth_day',
+    //       'birthDay',
     //       EAbstractControlStatus.valid,
     //       new DateTime(1980, 12, 15),
     //     );
     //   }
 
-    //   model.subscription_date = new DateTime(2020, 06, 01);
+    //   model.subscriptionDate = new DateTime(2020, 06, 01);
     //   await Future.delayed(const Duration(microseconds: 1), () {});
 
-    //   // subscription_date
+    //   // subscriptionDate
     //   {
     //     ModelFormControl fc = modelState.formBuilder.group
-    //         .controls['subscription_date'] as ModelFormControl;
+    //         .controls['subscriptionDate'] as ModelFormControl;
     //     checkFormControl(
     //       fc,
-    //       'subscription_date',
+    //       'subscriptionDate',
     //       EAbstractControlStatus.invalid,
     //       new DateTime(2020, 06, 01),
     //     );
@@ -455,41 +455,41 @@ void main() {
     //   ModelFormState<FormBuilderTest> modelState =
     //       new ModelFormState<FormBuilderTest>(model);
 
-    //   // favorite_book
+    //   // favoriteBook
     //   {
     //     ModelFormGroup fg = modelState
-    //         .formBuilder.group.controls['favorite_book'] as ModelFormGroup;
+    //         .formBuilder.group.controls['favoriteBook'] as ModelFormGroup;
     //     checkFormGroup(
     //       fg,
-    //       'favorite_book',
+    //       'favoriteBook',
     //       EAbstractControlStatus.pure,
     //       true,
     //     );
     //   }
 
-    //   model.favorite_book = new Book(
+    //   model.favoriteBook = new Book(
     //     'Le seigneur des anneaux 1',
     //     10,
     //     new DateTime(2020, 10, 26),
     //   );
     //   await Future.delayed(const Duration(microseconds: 1), () {});
 
-    //   // favorite_book
+    //   // favoriteBook
     //   {
     //     ModelFormGroup fg = modelState
-    //         .formBuilder.group.controls['favorite_book'] as ModelFormGroup;
+    //         .formBuilder.group.controls['favoriteBook'] as ModelFormGroup;
     //     checkFormGroup(
     //       fg,
-    //       'favorite_book',
+    //       'favoriteBook',
     //       EAbstractControlStatus.valid,
     //       false,
     //     );
     //   }
 
-    //   // favorite_book.name
+    //   // favoriteBook.name
     //   {
     //     ModelFormGroup fg = modelState
-    //         .formBuilder.group.controls['favorite_book'] as ModelFormGroup;
+    //         .formBuilder.group.controls['favoriteBook'] as ModelFormGroup;
     //     ModelFormControl fc = fg.controls['name'] as ModelFormControl;
     //     checkFormControl(
     //       fc,
@@ -570,17 +570,17 @@ void main() {
     //       new DateTime(2020, 04, 26),
     //     ),
     //   ];
-    //   model.favorite_book = model.books[1];
+    //   model.favoriteBook = model.books[1];
 
     //   ModelFormState<FormBuilderTest> modelState =
     //       new ModelFormState<FormBuilderTest>(model);
 
-    //   // first_name
+    //   // firstName
     //   {
     //     ModelFormControl fc = modelState
-    //         .formBuilder.group.controls['first_name'] as ModelFormControl;
-    //     expect(fc.formPath, 'root.controls[\'first_name\']');
-    //     expect(fc.modelPath, 'root.first_name');
+    //         .formBuilder.group.controls['firstName'] as ModelFormControl;
+    //     expect(fc.formPath, 'root.controls[\'firstName\']');
+    //     expect(fc.modelPath, 'root.firstName');
     //   }
 
     //   // books
@@ -611,16 +611,16 @@ void main() {
     //     expect(fc.modelPath, 'root.books[1].price');
     //   }
 
-    //   // favorite_book.loan_date
+    //   // favoriteBook.loan_date
     //   {
     //     ModelFormGroup fg = modelState
-    //         .formBuilder.group.controls['favorite_book'] as ModelFormGroup;
+    //         .formBuilder.group.controls['favoriteBook'] as ModelFormGroup;
     //     ModelFormControl fc = fg.controls['loan_date'] as ModelFormControl;
     //     expect(
     //       fc.formPath,
-    //       'root.controls[\'favorite_book\'].controls[\'loan_date\']',
+    //       'root.controls[\'favoriteBook\'].controls[\'loan_date\']',
     //     );
-    //     expect(fc.modelPath, 'root.favorite_book.loan_date');
+    //     expect(fc.modelPath, 'root.favoriteBook.loan_date');
     //   }
     // });
   });

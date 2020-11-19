@@ -46,15 +46,15 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     assert(!super.isInitialized,
         'Cannot initialize form group if this one is already initialized.');
 
-    ModelFormState<TModel> formState =
-        super.getFormState() as ModelFormState<TModel>;
-    ModelFormGroup parentGroup2 = parentGroup as ModelFormGroup;
-
     super.controlName = name;
     super.parentGroup = parentGroup;
     super.isArrayItem = isArrayItem;
 
     if (super.controlName != 'root' && super.parentGroup != null) {
+      ModelFormState<TModel> formState =
+          super.getFormState() as ModelFormState<TModel>;
+      ModelFormGroup parentGroup2 = parentGroup as ModelFormGroup;
+
       super.validators = super.getValidators(
         parentGroup2.current,
         super.controlName,
@@ -125,7 +125,7 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     Object child = super.getSubObject(instanceMirror, name);
     super.addControl(
       name,
-      new ModelFormGroup(child),
+      new ModelFormGroup(name, this, child),
     );
   }
 
@@ -136,7 +136,7 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     List children = super.getSubObject(instanceMirror, name);
     super.addControl(
       name,
-      new ModelFormArray(children, name, this),
+      new ModelFormArray(name, this, children),
     );
   }
 
@@ -147,7 +147,7 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
     Object child = super.getSubObject(instanceMirror, name);
     super.addControl(
       name,
-      new ModelFormControl(child, name, this),
+      new ModelFormControl(name, this, child),
     );
   }
 

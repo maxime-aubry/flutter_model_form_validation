@@ -12,6 +12,12 @@ class FormBuilder {
     this._isAttachedToFormState = false;
   }
 
+  FormBuilder.modelFormBuilder() {
+    this.group = null;
+    this._isInitialized = false;
+    this._isAttachedToFormState = false;
+  }
+
   FormGroup group;
   FormStateBase formState;
   bool _isInitialized;
