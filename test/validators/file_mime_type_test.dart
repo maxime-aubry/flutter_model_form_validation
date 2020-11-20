@@ -15,13 +15,14 @@ void main() {
         File file =
             new File('${Directory.current.path}\\test\\assets\\glycine.jpg');
         FileMimeTypeTest model = new FileMimeTypeTest(file.readAsBytesSync());
-        ModelFormState<FileMimeTypeTest> modelState =
+        ModelFormState<FileMimeTypeTest> formState =
             new ModelFormState<FileMimeTypeTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), true);
+        expect(formState.status, EFormStatus.valid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNull);
       });
     });
@@ -31,13 +32,14 @@ void main() {
         File file = new File(
             '${Directory.current.path}\\test\\assets\\erable-japonais.png');
         FileMimeTypeTest model = new FileMimeTypeTest(file.readAsBytesSync());
-        ModelFormState<FileMimeTypeTest> modelState =
+        ModelFormState<FileMimeTypeTest> formState =
             new ModelFormState<FileMimeTypeTest>(model);
 
-        expect(await modelState.validateForm(), false);
-        expect(modelState.status, EFormStatus.invalid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), false);
+        expect(formState.status, EFormStatus.invalid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNotNull);
         expect(error.propertyName, 'value');
         expect(error.validatorType, FileMimeType);
