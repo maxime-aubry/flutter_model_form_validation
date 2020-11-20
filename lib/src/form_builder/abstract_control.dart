@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:flutter_model_form_validation/src/index.dart';
 import 'package:flutter_model_form_validation/src/utils/index.dart';
 
 class AbstractControl {
@@ -10,30 +9,41 @@ class AbstractControl {
     this.controlName = null;
     this.parentGroup = null;
     this.validators = validators;
-    this.status = EAbstractControlStatus.pure;
+    this.validation_status = EAbstractControlStatus.pure;
     this.isInitialized = false;
   }
+
+  FormGroup parentGroup;
 
   @protected
   String controlName;
 
   @protected
-  FormGroup parentGroup;
-
-  @protected
   List<FormValidatorAnnotation> validators;
 
   @protected
-  EAbstractControlStatus status;
+  EAbstractControlStatus validation_status;
+
+  @protected
+  ValidationError validation_error;
 
   @protected
   bool isInitialized;
 
   String get name => this.controlName;
+  EAbstractControlStatus get status => this.validation_status;
+  ValidationError get error {
+    return this.validation_error.copyWith(
+          propertyName: this.validation_error.propertyName,
+          validatorType: this.validation_error.validatorType,
+          message: this.validation_error.message,
+        );
+  }
+
   String get fullname {
     if (this.controlName == null || this.controlName.isEmpty) return null;
     if (this.controlName == 'root' && this.parentGroup == null) return null;
-    return '${this.hashCode}.${this.controlName}';
+    return '${this.parentGroup.hashCode}.${this.controlName}';
   }
 
   @protected
@@ -44,21 +54,21 @@ class AbstractControl {
   ) async {
     bool isValid = true;
     ValidationError error = null;
-    FormStateBase formState = this.getFormState();
+    FormBuilder formBuilder = this.getFormBuilder();
 
     // before validation
-    this.status = EAbstractControlStatus.validationInProgress;
-    formState.update(
+    this.validation_status = EAbstractControlStatus.validationInProgress;
+    formBuilder.formState.update(
       this.fullname,
       null,
-      this.status,
+      this.validation_status,
     );
 
     // validation
     for (FormValidatorAnnotation validator in this.validators.reorder()) {
       try {
         isValid = await validator.isValid(
-          formState.formBuilder,
+          formBuilder.formState.formBuilder,
           parentGroup,
           value,
           formPath,
@@ -77,17 +87,17 @@ class AbstractControl {
     }
 
     // after validation
-    this.status =
+    this.validation_status =
         isValid ? EAbstractControlStatus.valid : EAbstractControlStatus.invalid;
-    formState.update(
+    formBuilder.formState.update(
       this.fullname,
       error,
-      this.status,
+      this.validation_status,
     );
   }
 
   @protected
-  FormStateBase getFormState() {
+  FormBuilder getFormBuilder() {
     FormGroup firstFormGroup;
 
     if (this.parentGroup != null) {
@@ -104,10 +114,7 @@ class AbstractControl {
     if (firstFormGroup.formBuilder == null)
       throw new Exception('Form builder is not located.');
 
-    if (firstFormGroup.formBuilder.formState == null)
-      throw new Exception('Form state is not located.');
-
-    return firstFormGroup.formBuilder.formState;
+    return firstFormGroup.formBuilder;
   }
 
   FormGroup _getParentGroup(

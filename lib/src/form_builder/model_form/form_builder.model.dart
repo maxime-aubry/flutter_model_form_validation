@@ -1,4 +1,5 @@
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
+import 'package:flutter_model_form_validation/src/form_builder/model_form/correspondence_handler.dart';
 import 'package:flutter_model_form_validation/src/form_builder/model_form/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
 
@@ -6,10 +7,13 @@ class ModelFormBuilder<TModel extends ModelForm> extends FormBuilder {
   ModelFormBuilder() : super.modelFormBuilder() {
     this._isInitialized = false;
     this._isAttachedToFormState = false;
+    this._correspondenceHandler = new ModelCorrespondenceHandler();
   }
 
   bool _isInitialized;
   bool _isAttachedToFormState;
+  ModelCorrespondenceHandler _correspondenceHandler;
+
   bool get isInitialized => this._isInitialized;
   bool get isAttachedToFormState => this._isAttachedToFormState;
 
@@ -38,4 +42,13 @@ class ModelFormBuilder<TModel extends ModelForm> extends FormBuilder {
     this._isInitialized = true;
     this._isAttachedToFormState = true;
   }
+
+  void addCorrespondence(String fpFullname, AbstractControl abstractControl) =>
+      this._correspondenceHandler.add(fpFullname, abstractControl);
+
+  void removeCorrespondence(String fpFullname) =>
+      this._correspondenceHandler.remove(fpFullname);
+
+  T getFormElement<T extends AbstractControl>(String fpFullname) =>
+      this._correspondenceHandler.getFormElement<T>(fpFullname);
 }

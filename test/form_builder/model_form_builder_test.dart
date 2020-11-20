@@ -9,20 +9,48 @@ void main() {
   initializeReflectable();
 
   group('ModelFormBuilder.', () {
+    test('Get form element from element full name.', () {
+      FormBuilderTest model = new FormBuilderTest(null, null, null, null);
+      ModelFormState<FormBuilderTest> formState =
+          new ModelFormState<FormBuilderTest>(model);
+      ModelFormBuilder<FormBuilderTest> fb =
+          formState.formBuilder as ModelFormBuilder<FormBuilderTest>;
+
+      {
+        String formElementFullname =
+            formState.formBuilder.group.controls['firstName'].fullname;
+        String propertyModelFullname = model.getPropertyFullname('firstName');
+
+        expect(formElementFullname, isNotNull);
+        expect(propertyModelFullname, isNotNull);
+
+        ModelFormControl fc = fb.getFormElement<ModelFormControl>(
+          propertyModelFullname,
+        );
+
+        expect(fc, isNotNull);
+        expect(fc.fullname, formElementFullname);
+        expect(fc.modelPartfullname, propertyModelFullname);
+      }
+    });
+
     test('Generates a form using by a new model.', () {
       FormBuilderTest model = new FormBuilderTest(null, null, null, null);
       ModelFormState<FormBuilderTest> formState =
           new ModelFormState<FormBuilderTest>(model);
+      ModelFormBuilder<FormBuilderTest> fb =
+          formState.formBuilder as ModelFormBuilder<FormBuilderTest>;
 
       // firstName
       {
-        ModelFormControl fc = formState.formBuilder.group.controls['firstName']
-            as ModelFormControl;
+        ModelFormControl fc = fb.getFormElement<ModelFormControl>(
+          model.getPropertyFullname('firstName'),
+        );
         checkFormControl(
           fc: fc,
           formState: formState,
           name: 'firstName',
-          fullname: '${fc.hashCode}.firstName',
+          fullname: '${fc.parentGroup.hashCode}.firstName',
           status: EAbstractControlStatus.pure,
           error: null,
           value: null,
@@ -31,13 +59,14 @@ void main() {
 
       // lastName
       {
-        ModelFormControl fc = formState.formBuilder.group.controls['lastName']
-            as ModelFormControl;
+        ModelFormControl fc = fb.getFormElement<ModelFormControl>(
+          model.getPropertyFullname('lastName'),
+        );
         checkFormControl(
           fc: fc,
           formState: formState,
           name: 'lastName',
-          fullname: '${fc.hashCode}.lastName',
+          fullname: '${fc.parentGroup.hashCode}.lastName',
           status: EAbstractControlStatus.pure,
           error: null,
           value: null,
@@ -46,13 +75,14 @@ void main() {
 
       // birthDay
       {
-        ModelFormControl fc = formState.formBuilder.group.controls['birthDay']
-            as ModelFormControl;
+        ModelFormControl fc = fb.getFormElement<ModelFormControl>(
+          model.getPropertyFullname('birthDay'),
+        );
         checkFormControl(
           fc: fc,
           formState: formState,
           name: 'birthDay',
-          fullname: '${fc.hashCode}.birthDay',
+          fullname: '${fc.parentGroup.hashCode}.birthDay',
           status: EAbstractControlStatus.pure,
           error: null,
           value: null,
@@ -61,13 +91,14 @@ void main() {
 
       // subscriptionDate
       {
-        ModelFormControl fc = formState
-            .formBuilder.group.controls['subscriptionDate'] as ModelFormControl;
+        ModelFormControl fc = fb.getFormElement<ModelFormControl>(
+          model.getPropertyFullname('subscriptionDate'),
+        );
         checkFormControl(
           fc: fc,
           formState: formState,
           name: 'subscriptionDate',
-          fullname: '${fc.hashCode}.subscriptionDate',
+          fullname: '${fc.parentGroup.hashCode}.subscriptionDate',
           status: EAbstractControlStatus.pure,
           error: null,
           value: null,
@@ -76,13 +107,14 @@ void main() {
 
       // books
       {
-        ModelFormArray fa =
-            formState.formBuilder.group.controls['books'] as ModelFormArray;
+        ModelFormArray fa = fb.getFormElement<ModelFormArray>(
+          model.getPropertyFullname('books'),
+        );
         checkFormArray(
           fa: fa,
           formState: formState,
           name: 'books',
-          fullname: '${fa.hashCode}.books',
+          fullname: '${fa.parentGroup.hashCode}.books',
           status: EAbstractControlStatus.pure,
           error: null,
           nbItems: 0,
@@ -91,13 +123,14 @@ void main() {
 
       // favoriteBook
       {
-        ModelFormGroup fg = formState.formBuilder.group.controls['favoriteBook']
-            as ModelFormGroup;
+        ModelFormGroup fg = fb.getFormElement<ModelFormGroup>(
+          model.getPropertyFullname('favoriteBook'),
+        );
         checkFormGroup(
           fg: fg,
           formState: formState,
           name: 'favoriteBook',
-          fullname: '${fg.hashCode}.favoriteBook',
+          fullname: '${fg.parentGroup.hashCode}.favoriteBook',
           status: EAbstractControlStatus.pure,
           error: null,
           areControlsNull: false,
@@ -142,7 +175,7 @@ void main() {
           fc: fc,
           formState: formState,
           name: 'firstName',
-          fullname: '${fc.hashCode}.firstName',
+          fullname: '${fc.parentGroup.hashCode}.firstName',
           status: EAbstractControlStatus.pure,
           error: null,
           value: 'Edouard',
@@ -157,7 +190,7 @@ void main() {
           fc: fc,
           formState: formState,
           name: 'lastName',
-          fullname: '${fc.hashCode}.lastName',
+          fullname: '${fc.parentGroup.hashCode}.lastName',
           status: EAbstractControlStatus.pure,
           error: null,
           value: 'Elric',
@@ -172,7 +205,7 @@ void main() {
           fc: fc,
           formState: formState,
           name: 'birthDay',
-          fullname: '${fc.hashCode}.birthDay',
+          fullname: '${fc.parentGroup.hashCode}.birthDay',
           status: EAbstractControlStatus.pure,
           error: null,
           value: new DateTime(1980, 12, 15),
@@ -187,7 +220,7 @@ void main() {
           fc: fc,
           formState: formState,
           name: 'subscriptionDate',
-          fullname: '${fc.hashCode}.subscriptionDate',
+          fullname: '${fc.parentGroup.hashCode}.subscriptionDate',
           status: EAbstractControlStatus.pure,
           error: null,
           value: new DateTime(2019, 06, 01),
@@ -202,7 +235,7 @@ void main() {
           fa: fa,
           formState: formState,
           name: 'books',
-          fullname: '${fa.hashCode}.books',
+          fullname: '${fa.parentGroup.hashCode}.books',
           status: EAbstractControlStatus.pure,
           error: null,
           nbItems: 3,
@@ -218,7 +251,7 @@ void main() {
           fg: fg,
           formState: formState,
           name: 'books[0]',
-          fullname: '${fg.hashCode}.books[0]',
+          fullname: '${fg.parentGroup.hashCode}.books[0]',
           status: null,
           error: null,
           areControlsNull: false,
@@ -235,7 +268,7 @@ void main() {
           fc: fc,
           formState: formState,
           name: 'name',
-          fullname: '${fc.hashCode}.name',
+          fullname: '${fc.parentGroup.hashCode}.name',
           status: EAbstractControlStatus.pure,
           error: null,
           value: 'Voyage au centre de la terre',
@@ -252,7 +285,7 @@ void main() {
           fc: fc,
           formState: formState,
           name: 'price',
-          fullname: '${fc.hashCode}.price',
+          fullname: '${fc.parentGroup.hashCode}.price',
           status: EAbstractControlStatus.pure,
           error: null,
           value: 8.9,
@@ -269,7 +302,7 @@ void main() {
           fc: fc,
           formState: formState,
           name: 'loanDate',
-          fullname: '${fc.hashCode}.loanDate',
+          fullname: '${fc.parentGroup.hashCode}.loanDate',
           status: EAbstractControlStatus.pure,
           error: null,
           value: new DateTime(2020, 04, 08),
@@ -285,7 +318,7 @@ void main() {
           fg: fg,
           formState: formState,
           name: 'books[1]',
-          fullname: '${fg.hashCode}.books[1]',
+          fullname: '${fg.parentGroup.hashCode}.books[1]',
           status: null,
           error: null,
           areControlsNull: false,
@@ -302,7 +335,7 @@ void main() {
           fc: fc,
           formState: formState,
           name: 'name',
-          fullname: '${fc.hashCode}.name',
+          fullname: '${fc.parentGroup.hashCode}.name',
           status: EAbstractControlStatus.pure,
           error: null,
           value: 'De la Terre à la Lune',
@@ -319,7 +352,7 @@ void main() {
           fc: fc,
           formState: formState,
           name: 'price',
-          fullname: '${fc.hashCode}.price',
+          fullname: '${fc.parentGroup.hashCode}.price',
           status: EAbstractControlStatus.pure,
           error: null,
           value: 8.9,
@@ -336,7 +369,7 @@ void main() {
           fc: fc,
           formState: formState,
           name: 'loanDate',
-          fullname: '${fc.hashCode}.loanDate',
+          fullname: '${fc.parentGroup.hashCode}.loanDate',
           status: EAbstractControlStatus.pure,
           error: null,
           value: new DateTime(2020, 04, 17),
@@ -352,7 +385,7 @@ void main() {
           fg: fg,
           formState: formState,
           name: 'books[2]',
-          fullname: '${fg.hashCode}.books[2]',
+          fullname: '${fg.parentGroup.hashCode}.books[2]',
           status: null,
           error: null,
           areControlsNull: false,
@@ -369,7 +402,7 @@ void main() {
           fc: fc,
           formState: formState,
           name: 'name',
-          fullname: '${fc.hashCode}.name',
+          fullname: '${fc.parentGroup.hashCode}.name',
           status: EAbstractControlStatus.pure,
           error: null,
           value: 'Le Tour du monde en quatre-vingts jours',
@@ -386,7 +419,7 @@ void main() {
           fc: fc,
           formState: formState,
           name: 'price',
-          fullname: '${fc.hashCode}.price',
+          fullname: '${fc.parentGroup.hashCode}.price',
           status: EAbstractControlStatus.pure,
           error: null,
           value: 8.9,
@@ -403,7 +436,7 @@ void main() {
           fc: fc,
           formState: formState,
           name: 'loanDate',
-          fullname: '${fc.hashCode}.loanDate',
+          fullname: '${fc.parentGroup.hashCode}.loanDate',
           status: EAbstractControlStatus.pure,
           error: null,
           value: new DateTime(2020, 04, 26),
@@ -418,7 +451,7 @@ void main() {
           fg: fg,
           formState: formState,
           name: 'favoriteBook',
-          fullname: '${fg.hashCode}.favoriteBook',
+          fullname: '${fg.parentGroup.hashCode}.favoriteBook',
           status: EAbstractControlStatus.pure,
           error: null,
           areControlsNull: false,

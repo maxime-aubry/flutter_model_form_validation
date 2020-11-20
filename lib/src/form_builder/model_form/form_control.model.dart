@@ -17,6 +17,13 @@ class ModelFormControl<TModel extends ModelForm> extends FormControl
     this.initialize(name, parentGroup);
   }
 
+  String get modelPartfullname {
+    if (this.controlName == null || this.controlName.isEmpty) return null;
+    if (this.controlName == 'root' && this.parentGroup == null) return null;
+    ModelFormGroup parentGroup2 = this.parentGroup as ModelFormGroup;
+    return '${parentGroup2.current.hashCode}.${this.controlName}';
+  }
+
   @override
   @protected
   void initialize(
@@ -33,19 +40,24 @@ class ModelFormControl<TModel extends ModelForm> extends FormControl
     super.controlName = name;
     super.parentGroup = parentGroup;
 
-    ModelFormState<TModel> formState =
-        super.getFormState() as ModelFormState<TModel>;
     ModelFormGroup parentGroup2 = this.parentGroup as ModelFormGroup;
+    ModelFormBuilder<TModel> formBuilder =
+        super.getFormBuilder() as ModelFormBuilder<TModel>;
+
+    formBuilder.addCorrespondence(
+      this.modelPartfullname,
+      this,
+    );
 
     super.validators = super.getValidators(
       parentGroup2.current,
       super.controlName,
     );
 
-    formState.update(
+    formBuilder.formState.update(
       super.fullname,
       null,
-      super.status,
+      super.validation_status,
     );
 
     super.isInitialized = true;

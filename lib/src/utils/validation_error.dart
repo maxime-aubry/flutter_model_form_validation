@@ -1,3 +1,5 @@
+// import 'package:equatable/equatable.dart';
+
 /// This class provides a error report in case of no-validation of the current model or property.
 /// {@category Validation error}
 class ValidationError {
@@ -15,4 +17,16 @@ class ValidationError {
 
   /// This is the error to display (provided by developers).
   final String message;
+
+  ValidationError copyWith({
+    String propertyName,
+    Type validatorType,
+    String message,
+  }) {
+    return ValidationError(
+      propertyName ?? this.propertyName,
+      validatorType ?? this.validatorType,
+      message ?? this.message,
+    );
+  }
 }

@@ -3,7 +3,6 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:flutter_model_form_validation/src/index.dart';
 
 class FormGroup extends AbstractControl {
   FormGroup({
@@ -80,11 +79,11 @@ class FormGroup extends AbstractControl {
     this.isArrayItem = isArrayItem;
 
     if (super.controlName != 'root' && super.parentGroup != null) {
-      FormStateBase formState = super.getFormState();
-      formState.update(
+      FormBuilder formBuilder = this.getFormBuilder();
+      formBuilder.formState.update(
         super.fullname,
         null,
-        super.status,
+        super.validation_status,
       );
     }
 
