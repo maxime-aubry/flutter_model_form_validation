@@ -13,24 +13,20 @@ void main() {
       FormBuilderTest model = new FormBuilderTest(null, null, null, null);
       ModelFormState<FormBuilderTest> formState =
           new ModelFormState<FormBuilderTest>(model);
-      ModelFormBuilder<FormBuilderTest> fb =
-          formState.formBuilder as ModelFormBuilder<FormBuilderTest>;
 
       {
-        String formElementFullname =
-            formState.formBuilder.group.controls['firstName'].fullname;
-        String propertyModelFullname = model.getPropertyFullname('firstName');
-
-        expect(formElementFullname, isNotNull);
-        expect(propertyModelFullname, isNotNull);
-
-        ModelFormControl fc = fb.getFormElement<ModelFormControl>(
-          propertyModelFullname,
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model,
+          'firstName',
         );
 
         expect(fc, isNotNull);
-        expect(fc.fullname, formElementFullname);
-        expect(fc.modelPartfullname, propertyModelFullname);
+        expect(
+          fc.fullname,
+          formState.formBuilder.group.controls['firstName'].fullname,
+        );
+        expect(fc.modelPartfullname, '${model.hashCode}.firstName');
       }
     });
 
@@ -38,17 +34,16 @@ void main() {
       FormBuilderTest model = new FormBuilderTest(null, null, null, null);
       ModelFormState<FormBuilderTest> formState =
           new ModelFormState<FormBuilderTest>(model);
-      ModelFormBuilder<FormBuilderTest> fb =
-          formState.formBuilder as ModelFormBuilder<FormBuilderTest>;
 
       // firstName
       {
-        ModelFormControl fc = fb.getFormElement<ModelFormControl>(
-          model.getPropertyFullname('firstName'),
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model,
+          'firstName',
         );
         checkFormControl(
           fc: fc,
-          formState: formState,
           name: 'firstName',
           fullname: '${fc.parentGroup.hashCode}.firstName',
           status: EAbstractControlStatus.pure,
@@ -59,12 +54,13 @@ void main() {
 
       // lastName
       {
-        ModelFormControl fc = fb.getFormElement<ModelFormControl>(
-          model.getPropertyFullname('lastName'),
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model,
+          'lastName',
         );
         checkFormControl(
           fc: fc,
-          formState: formState,
           name: 'lastName',
           fullname: '${fc.parentGroup.hashCode}.lastName',
           status: EAbstractControlStatus.pure,
@@ -75,12 +71,13 @@ void main() {
 
       // birthDay
       {
-        ModelFormControl fc = fb.getFormElement<ModelFormControl>(
-          model.getPropertyFullname('birthDay'),
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model,
+          'birthDay',
         );
         checkFormControl(
           fc: fc,
-          formState: formState,
           name: 'birthDay',
           fullname: '${fc.parentGroup.hashCode}.birthDay',
           status: EAbstractControlStatus.pure,
@@ -91,12 +88,13 @@ void main() {
 
       // subscriptionDate
       {
-        ModelFormControl fc = fb.getFormElement<ModelFormControl>(
-          model.getPropertyFullname('subscriptionDate'),
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model,
+          'subscriptionDate',
         );
         checkFormControl(
           fc: fc,
-          formState: formState,
           name: 'subscriptionDate',
           fullname: '${fc.parentGroup.hashCode}.subscriptionDate',
           status: EAbstractControlStatus.pure,
@@ -107,12 +105,13 @@ void main() {
 
       // books
       {
-        ModelFormArray fa = fb.getFormElement<ModelFormArray>(
-          model.getPropertyFullname('books'),
+        ModelFormArray fa =
+            formState.formBuilder.getFormElement<ModelFormArray>(
+          model,
+          'books',
         );
         checkFormArray(
           fa: fa,
-          formState: formState,
           name: 'books',
           fullname: '${fa.parentGroup.hashCode}.books',
           status: EAbstractControlStatus.pure,
@@ -123,12 +122,13 @@ void main() {
 
       // favoriteBook
       {
-        ModelFormGroup fg = fb.getFormElement<ModelFormGroup>(
-          model.getPropertyFullname('favoriteBook'),
+        ModelFormGroup fg =
+            formState.formBuilder.getFormElement<ModelFormGroup>(
+          model,
+          'favoriteBook',
         );
         checkFormGroup(
           fg: fg,
-          formState: formState,
           name: 'favoriteBook',
           fullname: '${fg.parentGroup.hashCode}.favoriteBook',
           status: EAbstractControlStatus.pure,
@@ -162,18 +162,24 @@ void main() {
           new DateTime(2020, 04, 26),
         ),
       ];
-      model.favoriteBook = model.books[1];
+      model.favoriteBook = new Book(
+        'De la Terre à la Lune',
+        8.9,
+        new DateTime(2020, 04, 17),
+      );
 
       ModelFormState<FormBuilderTest> formState =
           new ModelFormState<FormBuilderTest>(model);
 
       // firstName
       {
-        ModelFormControl fc = formState.formBuilder.group.controls['firstName']
-            as ModelFormControl;
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model,
+          'firstName',
+        );
         checkFormControl(
           fc: fc,
-          formState: formState,
           name: 'firstName',
           fullname: '${fc.parentGroup.hashCode}.firstName',
           status: EAbstractControlStatus.pure,
@@ -184,11 +190,13 @@ void main() {
 
       // lastName
       {
-        ModelFormControl fc = formState.formBuilder.group.controls['lastName']
-            as ModelFormControl;
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model,
+          'lastName',
+        );
         checkFormControl(
           fc: fc,
-          formState: formState,
           name: 'lastName',
           fullname: '${fc.parentGroup.hashCode}.lastName',
           status: EAbstractControlStatus.pure,
@@ -199,11 +207,13 @@ void main() {
 
       // birthDay
       {
-        ModelFormControl fc = formState.formBuilder.group.controls['birthDay']
-            as ModelFormControl;
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model,
+          'birthDay',
+        );
         checkFormControl(
           fc: fc,
-          formState: formState,
           name: 'birthDay',
           fullname: '${fc.parentGroup.hashCode}.birthDay',
           status: EAbstractControlStatus.pure,
@@ -214,11 +224,13 @@ void main() {
 
       // subscriptionDate
       {
-        ModelFormControl fc = formState
-            .formBuilder.group.controls['subscriptionDate'] as ModelFormControl;
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model,
+          'subscriptionDate',
+        );
         checkFormControl(
           fc: fc,
-          formState: formState,
           name: 'subscriptionDate',
           fullname: '${fc.parentGroup.hashCode}.subscriptionDate',
           status: EAbstractControlStatus.pure,
@@ -230,10 +242,12 @@ void main() {
       // books
       {
         ModelFormArray fa =
-            formState.formBuilder.group.controls['books'] as ModelFormArray;
+            formState.formBuilder.getFormElement<ModelFormArray>(
+          model,
+          'books',
+        );
         checkFormArray(
           fa: fa,
-          formState: formState,
           name: 'books',
           fullname: '${fa.parentGroup.hashCode}.books',
           status: EAbstractControlStatus.pure,
@@ -242,31 +256,15 @@ void main() {
         );
       }
 
-      // books[0]
-      {
-        ModelFormArray fa =
-            formState.formBuilder.group.controls['books'] as ModelFormArray;
-        ModelFormGroup fg = fa.groups[0] as ModelFormGroup;
-        checkFormGroup(
-          fg: fg,
-          formState: formState,
-          name: 'books[0]',
-          fullname: '${fg.parentGroup.hashCode}.books[0]',
-          status: null,
-          error: null,
-          areControlsNull: false,
-        );
-      }
-
       // books[0].name
       {
-        ModelFormArray fa =
-            formState.formBuilder.group.controls['books'] as ModelFormArray;
-        ModelFormGroup fg = fa.groups[0] as ModelFormGroup;
-        ModelFormControl fc = fg.controls['name'] as ModelFormControl;
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.books[0],
+          'name',
+        );
         checkFormControl(
           fc: fc,
-          formState: formState,
           name: 'name',
           fullname: '${fc.parentGroup.hashCode}.name',
           status: EAbstractControlStatus.pure,
@@ -277,13 +275,13 @@ void main() {
 
       // books[0].price
       {
-        ModelFormArray fa =
-            formState.formBuilder.group.controls['books'] as ModelFormArray;
-        ModelFormGroup fg = fa.groups[0] as ModelFormGroup;
-        ModelFormControl fc = fg.controls['price'] as ModelFormControl;
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.books[0],
+          'price',
+        );
         checkFormControl(
           fc: fc,
-          formState: formState,
           name: 'price',
           fullname: '${fc.parentGroup.hashCode}.price',
           status: EAbstractControlStatus.pure,
@@ -294,13 +292,13 @@ void main() {
 
       // books[0].loanDate
       {
-        ModelFormArray fa =
-            formState.formBuilder.group.controls['books'] as ModelFormArray;
-        ModelFormGroup fg = fa.groups[0] as ModelFormGroup;
-        ModelFormControl fc = fg.controls['loanDate'] as ModelFormControl;
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.books[0],
+          'loanDate',
+        );
         checkFormControl(
           fc: fc,
-          formState: formState,
           name: 'loanDate',
           fullname: '${fc.parentGroup.hashCode}.loanDate',
           status: EAbstractControlStatus.pure,
@@ -309,31 +307,15 @@ void main() {
         );
       }
 
-      // books[1]
-      {
-        ModelFormArray fa =
-            formState.formBuilder.group.controls['books'] as ModelFormArray;
-        ModelFormGroup fg = fa.groups[1] as ModelFormGroup;
-        checkFormGroup(
-          fg: fg,
-          formState: formState,
-          name: 'books[1]',
-          fullname: '${fg.parentGroup.hashCode}.books[1]',
-          status: null,
-          error: null,
-          areControlsNull: false,
-        );
-      }
-
       // books[1].name
       {
-        ModelFormArray fa =
-            formState.formBuilder.group.controls['books'] as ModelFormArray;
-        ModelFormGroup fg = fa.groups[1] as ModelFormGroup;
-        ModelFormControl fc = fg.controls['name'] as ModelFormControl;
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.books[1],
+          'name',
+        );
         checkFormControl(
           fc: fc,
-          formState: formState,
           name: 'name',
           fullname: '${fc.parentGroup.hashCode}.name',
           status: EAbstractControlStatus.pure,
@@ -344,13 +326,13 @@ void main() {
 
       // books[1].price
       {
-        ModelFormArray fa =
-            formState.formBuilder.group.controls['books'] as ModelFormArray;
-        ModelFormGroup fg = fa.groups[1] as ModelFormGroup;
-        ModelFormControl fc = fg.controls['price'] as ModelFormControl;
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.books[1],
+          'price',
+        );
         checkFormControl(
           fc: fc,
-          formState: formState,
           name: 'price',
           fullname: '${fc.parentGroup.hashCode}.price',
           status: EAbstractControlStatus.pure,
@@ -361,13 +343,13 @@ void main() {
 
       // books[1].loanDate
       {
-        ModelFormArray fa =
-            formState.formBuilder.group.controls['books'] as ModelFormArray;
-        ModelFormGroup fg = fa.groups[1] as ModelFormGroup;
-        ModelFormControl fc = fg.controls['loanDate'] as ModelFormControl;
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.books[1],
+          'loanDate',
+        );
         checkFormControl(
           fc: fc,
-          formState: formState,
           name: 'loanDate',
           fullname: '${fc.parentGroup.hashCode}.loanDate',
           status: EAbstractControlStatus.pure,
@@ -376,31 +358,15 @@ void main() {
         );
       }
 
-      // books[2]
-      {
-        ModelFormArray fa =
-            formState.formBuilder.group.controls['books'] as ModelFormArray;
-        ModelFormGroup fg = fa.groups[2] as ModelFormGroup;
-        checkFormGroup(
-          fg: fg,
-          formState: formState,
-          name: 'books[2]',
-          fullname: '${fg.parentGroup.hashCode}.books[2]',
-          status: null,
-          error: null,
-          areControlsNull: false,
-        );
-      }
-
       // books[2].name
       {
-        ModelFormArray fa =
-            formState.formBuilder.group.controls['books'] as ModelFormArray;
-        ModelFormGroup fg = fa.groups[2] as ModelFormGroup;
-        ModelFormControl fc = fg.controls['name'] as ModelFormControl;
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.books[2],
+          'name',
+        );
         checkFormControl(
           fc: fc,
-          formState: formState,
           name: 'name',
           fullname: '${fc.parentGroup.hashCode}.name',
           status: EAbstractControlStatus.pure,
@@ -411,13 +377,13 @@ void main() {
 
       // books[2].price
       {
-        ModelFormArray fa =
-            formState.formBuilder.group.controls['books'] as ModelFormArray;
-        ModelFormGroup fg = fa.groups[2] as ModelFormGroup;
-        ModelFormControl fc = fg.controls['price'] as ModelFormControl;
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.books[2],
+          'price',
+        );
         checkFormControl(
           fc: fc,
-          formState: formState,
           name: 'price',
           fullname: '${fc.parentGroup.hashCode}.price',
           status: EAbstractControlStatus.pure,
@@ -428,13 +394,13 @@ void main() {
 
       // books[2].loanDate
       {
-        ModelFormArray fa =
-            formState.formBuilder.group.controls['books'] as ModelFormArray;
-        ModelFormGroup fg = fa.groups[2] as ModelFormGroup;
-        ModelFormControl fc = fg.controls['loanDate'] as ModelFormControl;
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.books[2],
+          'loanDate',
+        );
         checkFormControl(
           fc: fc,
-          formState: formState,
           name: 'loanDate',
           fullname: '${fc.parentGroup.hashCode}.loanDate',
           status: EAbstractControlStatus.pure,
@@ -445,16 +411,69 @@ void main() {
 
       // favoriteBook
       {
-        ModelFormGroup fg = formState.formBuilder.group.controls['favoriteBook']
-            as ModelFormGroup;
+        ModelFormGroup fg =
+            formState.formBuilder.getFormElement<ModelFormGroup>(
+          model,
+          'favoriteBook',
+        );
         checkFormGroup(
           fg: fg,
-          formState: formState,
           name: 'favoriteBook',
           fullname: '${fg.parentGroup.hashCode}.favoriteBook',
           status: EAbstractControlStatus.pure,
           error: null,
           areControlsNull: false,
+        );
+      }
+
+      // favoriteBook.name
+      {
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.favoriteBook,
+          'name',
+        );
+        checkFormControl(
+          fc: fc,
+          name: 'name',
+          fullname: '${fc.parentGroup.hashCode}.name',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: 'De la Terre à la Lune',
+        );
+      }
+
+      // favoriteBook.price
+      {
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.favoriteBook,
+          'price',
+        );
+        checkFormControl(
+          fc: fc,
+          name: 'price',
+          fullname: '${fc.parentGroup.hashCode}.price',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: 8.9,
+        );
+      }
+
+      // favoriteBook.loanDate
+      {
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.favoriteBook,
+          'loanDate',
+        );
+        checkFormControl(
+          fc: fc,
+          name: 'loanDate',
+          fullname: '${fc.parentGroup.hashCode}.loanDate',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: new DateTime(2020, 04, 17),
         );
       }
     });
@@ -661,15 +680,22 @@ void main() {
           new DateTime(2020, 04, 26),
         ),
       ];
-      model.favoriteBook = model.books[1];
+      model.favoriteBook = new Book(
+        'De la Terre à la Lune',
+        8.9,
+        new DateTime(2020, 04, 17),
+      );
 
-      ModelFormState<FormBuilderTest> modelState =
+      ModelFormState<FormBuilderTest> formState =
           new ModelFormState<FormBuilderTest>(model);
 
       // firstName
       {
-        ModelFormControl fc = modelState.formBuilder.group.controls['firstName']
-            as ModelFormControl;
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model,
+          'firstName',
+        );
         expect(fc.formPath, 'root.controls[\'firstName\']');
         expect(fc.modelPath, 'root.firstName');
       }
@@ -677,26 +703,21 @@ void main() {
       // books
       {
         ModelFormArray fa =
-            modelState.formBuilder.group.controls['books'] as ModelFormArray;
+            formState.formBuilder.getFormElement<ModelFormArray>(
+          model,
+          'books',
+        );
         expect(fa.formPath, 'root.controls[\'books\']');
         expect(fa.modelPath, 'root.books');
       }
 
-      // books[1]
-      {
-        ModelFormArray fa =
-            modelState.formBuilder.group.controls['books'] as ModelFormArray;
-        ModelFormGroup fg = fa.groups[1] as ModelFormGroup;
-        expect(fg.formPath, 'root.controls[\'books\'].groups[1]');
-        expect(fg.modelPath, 'root.books[1]');
-      }
-
       // books[1].price
       {
-        ModelFormArray fa =
-            modelState.formBuilder.group.controls['books'] as ModelFormArray;
-        ModelFormGroup fg = fa.groups[1] as ModelFormGroup;
-        ModelFormControl fc = fg.controls['price'] as ModelFormControl;
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.books[1],
+          'price',
+        );
         expect(fc.formPath,
             'root.controls[\'books\'].groups[1].controls[\'price\']');
         expect(fc.modelPath, 'root.books[1].price');
@@ -704,9 +725,11 @@ void main() {
 
       // favoriteBook.loanDate
       {
-        ModelFormGroup fg = modelState
-            .formBuilder.group.controls['favoriteBook'] as ModelFormGroup;
-        ModelFormControl fc = fg.controls['loanDate'] as ModelFormControl;
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.favoriteBook,
+          'loanDate',
+        );
         expect(
           fc.formPath,
           'root.controls[\'favoriteBook\'].controls[\'loanDate\']',

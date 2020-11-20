@@ -6,7 +6,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 void checkFormGroup({
   @required FormGroup fg,
-  @required FormStateBase formState,
   @required String name,
   @required String fullname,
   @required EAbstractControlStatus status,
@@ -33,24 +32,22 @@ void checkFormGroup({
 
   if (!fg.isArrayItem) {
     // status
-    expect(formState.getStatus(fullname), status);
+    expect(fg.status, status);
 
     // error
     if (error == null) {
-      expect(formState.getError(fullname), isNull);
+      expect(fg.error, isNull);
     } else {
-      ValidationError fgError = formState.getError(fullname);
-      expect(fgError, isNotNull);
-      expect(fgError.message, error.message);
-      expect(fgError.propertyName, error.propertyName);
-      expect(fgError.validatorType, error.validatorType);
+      expect(fg.error, isNotNull);
+      expect(fg.error.message, error.message);
+      expect(fg.error.propertyName, error.propertyName);
+      expect(fg.error.validatorType, error.validatorType);
     }
   }
 }
 
 void checkFormArray({
   @required FormArray fa,
-  @required FormStateBase formState,
   @required String name,
   @required String fullname,
   @required EAbstractControlStatus status,
@@ -76,23 +73,21 @@ void checkFormArray({
     expect(fa.groups.length, nbItems);
 
   // status
-  expect(formState.getStatus(fullname), status);
+  expect(fa.status, status);
 
   // error
   if (error == null) {
-    expect(formState.getError(fullname), isNull);
+    expect(fa.error, isNull);
   } else {
-    ValidationError faError = formState.getError(fullname);
-    expect(faError, isNotNull);
-    expect(faError.message, error.message);
-    expect(faError.propertyName, error.propertyName);
-    expect(faError.validatorType, error.validatorType);
+    expect(fa.error, isNotNull);
+    expect(fa.error.message, error.message);
+    expect(fa.error.propertyName, error.propertyName);
+    expect(fa.error.validatorType, error.validatorType);
   }
 }
 
 void checkFormControl<T>({
   @required FormControl<T> fc,
-  @required FormStateBase formState,
   @required String name,
   @required String fullname,
   @required EAbstractControlStatus status,
@@ -117,25 +112,22 @@ void checkFormControl<T>({
   else
     expect(fc.getValue(), value);
 
-  // // status
-  // expect(formState.getStatus(fullname), status);
+  // status
+  expect(fc.status, status);
 
-  // // error
-  // if (error != null) {
-  //   ValidationError fcError = formState.getError(fullname);
-  //   expect(fcError, isNull);
-  // } else {
-  //   ValidationError fcError = formState.getError(fullname);
-  //   expect(fcError, isNotNull);
-  //   expect(fcError.message, error.message);
-  //   expect(fcError.propertyName, error.propertyName);
-  //   expect(fcError.validatorType, error.validatorType);
-  // }
+  // error
+  if (error == null) {
+    expect(fc.error, isNull);
+  } else {
+    expect(fc.error, isNotNull);
+    expect(fc.error.message, error.message);
+    expect(fc.error.propertyName, error.propertyName);
+    expect(fc.error.validatorType, error.validatorType);
+  }
 }
 
 void checkModelFormGroup({
   @required ModelFormGroup fg,
-  @required ModelFormState formState,
   @required String name,
   @required String fullname,
   @required EAbstractControlStatus status,
@@ -160,26 +152,24 @@ void checkModelFormGroup({
   else
     expect(fg.controls, isNotNull);
 
-  // if (!fg.isArrayItem) {
-  //   // status
-  //   expect(formState.getStatus(fullname), status);
+  if (!fg.isArrayItem) {
+    // status
+    expect(fg.status, status);
 
-  //   // error
-  //   if (error == null) {
-  //     expect(formState.getError(fullname), isNull);
-  //   } else {
-  //     ValidationError fgError = formState.getError(fullname);
-  //     expect(fgError, isNotNull);
-  //     expect(fgError.message, error.message);
-  //     expect(fgError.propertyName, error.propertyName);
-  //     expect(fgError.validatorType, error.validatorType);
-  //   }
-  // }
+    // error
+    if (error == null) {
+      expect(fg.error, isNull);
+    } else {
+      expect(fg.error, isNotNull);
+      expect(fg.error.message, error.message);
+      expect(fg.error.propertyName, error.propertyName);
+      expect(fg.error.validatorType, error.validatorType);
+    }
+  }
 }
 
 void checkModelFormArray({
   @required ModelFormArray fa,
-  @required ModelFormState formState,
   @required String name,
   @required String fullname,
   @required EAbstractControlStatus status,
@@ -204,25 +194,23 @@ void checkModelFormArray({
   else
     expect(fa.groups.length, nbItems);
 
-  // // status
-  // expect(formState.getStatus(fullname), status);
+  // status
+  expect(fa.status, status);
 
-  // // error
-  // if (error == null) {
-  //   expect(formState.getError(fullname), isNull);
-  // } else {
-  //   ValidationError faError = formState.getError(fullname);
-  //   expect(faError, isNotNull);
-  //   expect(faError.message, error.message);
-  //   expect(faError.propertyName, error.propertyName);
-  //   expect(faError.validatorType, error.validatorType);
-  // }
+  // error
+  if (error == null) {
+    expect(fa.error, isNull);
+  } else {
+    expect(fa.error, isNotNull);
+    expect(fa.error.message, error.message);
+    expect(fa.error.propertyName, error.propertyName);
+    expect(fa.error.validatorType, error.validatorType);
+  }
 }
 
 void checkModelFormControl<TModel extends ModelForm>({
   @required ModelFormControl fc,
   @required TModel model,
-  @required ModelFormState formState,
   @required String name,
   @required String fullname,
   @required EAbstractControlStatus status,
@@ -248,16 +236,15 @@ void checkModelFormControl<TModel extends ModelForm>({
     expect(fc.getValue(), value);
 
   // status
-  expect(formState.getStatus(fullname), status);
+  expect(fc.status, status);
 
   // error
   if (error == null) {
-    expect(formState.getError(fullname), isNull);
+    expect(fc.error, isNull);
   } else {
-    ValidationError fcError = formState.getError(fullname);
-    expect(fcError, isNotNull);
-    expect(fcError.message, error.message);
-    expect(fcError.propertyName, error.propertyName);
-    expect(fcError.validatorType, error.validatorType);
+    expect(fc.error, isNotNull);
+    expect(fc.error.message, error.message);
+    expect(fc.error.propertyName, error.propertyName);
+    expect(fc.error.validatorType, error.validatorType);
   }
 }

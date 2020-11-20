@@ -11,26 +11,28 @@ void main() {
     group('Test the validation > success.', () {
       test('Valid email.', () async {
         EmailTest model = new EmailTest('azerty@test.com');
-        ModelFormState<EmailTest> modelState =
+        ModelFormState<EmailTest> formState =
             new ModelFormState<EmailTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), true);
+        expect(formState.status, EFormStatus.valid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNull);
       });
     });
     group('Test the validation > failure.', () {
       test('Invalid email.', () async {
         EmailTest model = new EmailTest('azerty@.com');
-        ModelFormState<EmailTest> modelState =
+        ModelFormState<EmailTest> formState =
             new ModelFormState<EmailTest>(model);
 
-        expect(await modelState.validateForm(), false);
-        expect(modelState.status, EFormStatus.invalid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), false);
+        expect(formState.status, EFormStatus.invalid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNotNull);
         expect(error.propertyName, 'value');
         expect(error.validatorType, Email);

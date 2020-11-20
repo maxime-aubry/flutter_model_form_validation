@@ -9,44 +9,12 @@ class ModelFormState<TModel extends ModelForm> extends FormStateBase {
 
   TModel model;
 
+  ModelFormBuilder<TModel> get formBuilder {
+    return super.formBuilder as ModelFormBuilder<TModel>;
+  }
+
   void _initialize() {
     super.formBuilder = new ModelFormBuilder<TModel>();
     super.formBuilder.initialize(this);
   }
-
-  // @override
-  // EAbstractControlStatus getStatus(String name) {
-  //   ModelFormBuilder<TModel> modelFormBuilder =
-  //       this.formBuilder as ModelFormBuilder<TModel>;
-
-  //   String fullname = modelFormBuilder.correspondenceHandler
-  //       .getAbstractControl(name)
-  //       ?.fullname;
-
-  //   if (fullname == null || fullname.isEmpty)
-  //     throw new Exception('Cannot get correspondence for this object.');
-
-  //   return super.getStatus(fullname);
-  // }
-
-  // @override
-  // ValidationError getError(String name) {
-  //   ModelFormBuilder<TModel> modelFormBuilder =
-  //       this.formBuilder as ModelFormBuilder<TModel>;
-
-  //   String fullname = modelFormBuilder.correspondenceHandler
-  //       .getAbstractControl(name)
-  //       ?.fullname;
-
-  //   if (fullname == null || fullname.isEmpty)
-  //     throw new Exception('Cannot get correspondence for this object.');
-
-  //   return super.getError(fullname);
-  // }
-
-  // @override
-  // String getErrorMessage(String name) {
-  //   ValidationError error = this.getError(name);
-  //   return error?.message;
-  // }
 }

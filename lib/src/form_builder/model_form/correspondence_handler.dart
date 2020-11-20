@@ -1,5 +1,6 @@
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/model_form/index.dart';
+import 'package:flutter_model_form_validation/src/index.dart';
 
 class ModelCorrespondenceHandler {
   ModelCorrespondenceHandler() {
@@ -34,17 +35,22 @@ class ModelCorrespondenceHandler {
   }
 
   T getFormElement<T extends AbstractControl>(
-    String fpFullname,
+    ModelForm model,
+    String property,
   ) {
+    assert(model != null,
+        'Cannot get the targetted form element if the model is not provided.');
     assert(T == ModelFormGroup || T == ModelFormArray || T == ModelFormControl,
-        'Cannot get the targetted abstract control with type \'${T}\'.');
-    assert(this._correspondences.containsKey(fpFullname),
-        'Cannot get an inexisting form control. Please check the target name.');
-    assert(
-        this._correspondences[fpFullname].abstractControl is ModelFormControl,
-        'Targetted abstract control is not a form control.');
+        'Cannot get the targetted form element with type \'$T\'.');
 
-    T control = this._correspondences[fpFullname].abstractControl as T;
+    String fullname = model.getPropertyFullname(property);
+
+    assert(this._correspondences.containsKey(fullname),
+        'Cannot get an inexisting form element with type \'$T\'. Please check the target name.');
+    assert(this._correspondences[fullname].abstractControl is T,
+        'Targetted form element is not of type \'$T\'.');
+
+    T control = this._correspondences[fullname].abstractControl as T;
     return control;
   }
 }

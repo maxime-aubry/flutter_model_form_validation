@@ -33,6 +33,8 @@ class AbstractControl {
   String get name => this.controlName;
   EAbstractControlStatus get status => this.validation_status;
   ValidationError get error {
+    if (this.validation_error == null) return null;
+
     return this.validation_error.copyWith(
           propertyName: this.validation_error.propertyName,
           validatorType: this.validation_error.validatorType,
@@ -53,7 +55,7 @@ class AbstractControl {
     String modelPath,
   ) async {
     bool isValid = true;
-    ValidationError error = null;
+    this.validation_error = null;
     FormBuilder formBuilder = this.getFormBuilder();
 
     // before validation
@@ -76,7 +78,11 @@ class AbstractControl {
         );
 
         if (!isValid) {
-          error = ValidationError(name, validator.runtimeType, validator.error);
+          this.validation_error = ValidationError(
+            name,
+            validator.runtimeType,
+            validator.error,
+          );
           break;
         }
       } on TypeError catch (_) {
@@ -91,7 +97,7 @@ class AbstractControl {
         isValid ? EAbstractControlStatus.valid : EAbstractControlStatus.invalid;
     formBuilder.formState.update(
       this.fullname,
-      error,
+      this.error, // error is an immutable copy of validation_error
       this.validation_status,
     );
   }

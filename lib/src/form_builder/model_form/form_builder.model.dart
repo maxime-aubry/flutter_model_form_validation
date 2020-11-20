@@ -49,6 +49,12 @@ class ModelFormBuilder<TModel extends ModelForm> extends FormBuilder {
   void removeCorrespondence(String fpFullname) =>
       this._correspondenceHandler.remove(fpFullname);
 
-  T getFormElement<T extends AbstractControl>(String fpFullname) =>
-      this._correspondenceHandler.getFormElement<T>(fpFullname);
+  T getFormElement<T extends AbstractControl>(
+    ModelForm model,
+    String property,
+  ) =>
+      this._correspondenceHandler.getFormElement<T>(
+            model,
+            property,
+          );
 }

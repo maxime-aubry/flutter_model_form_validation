@@ -99,30 +99,30 @@ class FormStateBase {
     this._actualizeFormState();
   }
 
-  // EAbstractControlStatus getStatus(String name) {
-  //   if (name == null || name.isEmpty)
-  //     throw new Exception(
-  //         'Cannot get a form control status if control name is not provided.');
+  EAbstractControlStatus getStatus(String name) {
+    if (name == null || name.isEmpty)
+      throw new Exception(
+          'Cannot get a form control status if control name is not provided.');
 
-  //   if (!this._errors.containsKey(name)) return null;
+    if (!this._errors.containsKey(name)) return null;
 
-  //   EAbstractControlStatus status = this._statuses[name];
-  //   return status;
-  // }
+    EAbstractControlStatus status = this._statuses[name];
+    return status;
+  }
 
-  // ValidationError getError(String name) {
-  //   if (name == null || name.isEmpty)
-  //     throw new Exception(
-  //         'Cannot get a form control status if control name is not provided.');
+  ValidationError getError(String name) {
+    if (name == null || name.isEmpty)
+      throw new Exception(
+          'Cannot get a form control status if control name is not provided.');
 
-  //   if (!this._errors.containsKey(name)) return null;
+    if (!this._errors.containsKey(name)) return null;
 
-  //   ValidationError error = this._errors[name];
-  //   return error;
-  // }
+    ValidationError error = this._errors[name];
+    return error;
+  }
 
-  // String getErrorMessage(String name) {
-  //   ValidationError error = this.getError(name);
-  //   return error?.message;
-  // }
+  String getErrorMessage(String name) {
+    ValidationError error = this.getError(name);
+    return error?.message;
+  }
 }
