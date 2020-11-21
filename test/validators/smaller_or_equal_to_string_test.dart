@@ -14,38 +14,41 @@ void main() {
           () async {
         SmallerOrEqualToStringTest model =
             new SmallerOrEqualToStringTest('c', 'c');
-        ModelFormState<SmallerOrEqualToStringTest> modelState =
+        ModelFormState<SmallerOrEqualToStringTest> formState =
             new ModelFormState<SmallerOrEqualToStringTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), true);
+        expect(formState.status, EFormStatus.valid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNull);
       });
 
       test('"valueToCompare" is provided by user only.', () async {
         SmallerOrEqualToStringTest model =
             new SmallerOrEqualToStringTest('c', 'c');
-        ModelFormState<SmallerOrEqualToStringTest> modelState =
+        ModelFormState<SmallerOrEqualToStringTest> formState =
             new ModelFormState<SmallerOrEqualToStringTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), true);
+        expect(formState.status, EFormStatus.valid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNull);
       });
 
       test('"valueToCompare" is provided by developer only.', () async {
         SmallerOrEqualToStringTest model = new SmallerOrEqualToStringTest('b');
-        ModelFormState<SmallerOrEqualToStringTest> modelState =
+        ModelFormState<SmallerOrEqualToStringTest> formState =
             new ModelFormState<SmallerOrEqualToStringTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), true);
+        expect(formState.status, EFormStatus.valid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNull);
       });
     });
@@ -54,26 +57,28 @@ void main() {
       test('The value is smaller than value to compare.', () async {
         SmallerOrEqualToStringTest model =
             new SmallerOrEqualToStringTest('b', 'c');
-        ModelFormState<SmallerOrEqualToStringTest> modelState =
+        ModelFormState<SmallerOrEqualToStringTest> formState =
             new ModelFormState<SmallerOrEqualToStringTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), true);
+        expect(formState.status, EFormStatus.valid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNull);
       });
 
       test('The value is equal to value to compare.', () async {
         SmallerOrEqualToStringTest model =
             new SmallerOrEqualToStringTest('b', 'b');
-        ModelFormState<SmallerOrEqualToStringTest> modelState =
+        ModelFormState<SmallerOrEqualToStringTest> formState =
             new ModelFormState<SmallerOrEqualToStringTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), true);
+        expect(formState.status, EFormStatus.valid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNull);
       });
     });
@@ -82,13 +87,14 @@ void main() {
       test('The value is greater than value to compare.', () async {
         SmallerOrEqualToStringTest model =
             new SmallerOrEqualToStringTest('b', 'a');
-        ModelFormState<SmallerOrEqualToStringTest> modelState =
+        ModelFormState<SmallerOrEqualToStringTest> formState =
             new ModelFormState<SmallerOrEqualToStringTest>(model);
 
-        expect(await modelState.validateForm(), false);
-        expect(modelState.status, EFormStatus.invalid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), false);
+        expect(formState.status, EFormStatus.invalid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNotNull);
         expect(error.propertyName, 'value');
         expect(error.validatorType, SmallerOrEqualTo);

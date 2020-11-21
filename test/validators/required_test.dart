@@ -11,26 +11,28 @@ void main() {
     group('Test the validation > success.', () {
       test('Data is provided.', () async {
         RequiredTest model = new RequiredTest('a');
-        ModelFormState<RequiredTest> modelState =
+        ModelFormState<RequiredTest> formState =
             new ModelFormState<RequiredTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), true);
+        expect(formState.status, EFormStatus.valid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNull);
       });
     });
     group('Test the validation > failure.', () {
       test('Data is empty string.', () async {
         RequiredTest model = new RequiredTest('');
-        ModelFormState<RequiredTest> modelState =
+        ModelFormState<RequiredTest> formState =
             new ModelFormState<RequiredTest>(model);
 
-        expect(await modelState.validateForm(), false);
-        expect(modelState.status, EFormStatus.invalid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), false);
+        expect(formState.status, EFormStatus.invalid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNotNull);
         expect(error.propertyName, 'value');
         expect(error.validatorType, Required);
@@ -39,13 +41,14 @@ void main() {
 
       test('Data is null.', () async {
         RequiredTest model = new RequiredTest(null);
-        ModelFormState<RequiredTest> modelState =
+        ModelFormState<RequiredTest> formState =
             new ModelFormState<RequiredTest>(model);
 
-        expect(await modelState.validateForm(), false);
-        expect(modelState.status, EFormStatus.invalid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), false);
+        expect(formState.status, EFormStatus.invalid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNotNull);
         expect(error.propertyName, 'value');
         expect(error.validatorType, Required);

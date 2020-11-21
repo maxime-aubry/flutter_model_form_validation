@@ -13,37 +13,40 @@ void main() {
           '"valueToCompare" is provided by user and developer. User data has priority.',
           () async {
         NotEqualToStringTest model = new NotEqualToStringTest('a', 'b');
-        ModelFormState<NotEqualToStringTest> modelState =
+        ModelFormState<NotEqualToStringTest> formState =
             new ModelFormState<NotEqualToStringTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), true);
+        expect(formState.status, EFormStatus.valid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNull);
       });
 
       test('"valueToCompare" is provided by user only.', () async {
         NotEqualToStringTest model = new NotEqualToStringTest('a', 'b');
-        ModelFormState<NotEqualToStringTest> modelState =
+        ModelFormState<NotEqualToStringTest> formState =
             new ModelFormState<NotEqualToStringTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), true);
+        expect(formState.status, EFormStatus.valid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNull);
       });
 
       test('"valueToCompare" is provided by developer only.', () async {
         NotEqualToStringTest model = new NotEqualToStringTest('c');
-        ModelFormState<NotEqualToStringTest> modelState =
+        ModelFormState<NotEqualToStringTest> formState =
             new ModelFormState<NotEqualToStringTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), true);
+        expect(formState.status, EFormStatus.valid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNull);
       });
     });
@@ -51,13 +54,14 @@ void main() {
     group('Test the validation > success.', () {
       test('The value is equal to value to compare.', () async {
         NotEqualToStringTest model = new NotEqualToStringTest('a', 'b');
-        ModelFormState<NotEqualToStringTest> modelState =
+        ModelFormState<NotEqualToStringTest> formState =
             new ModelFormState<NotEqualToStringTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), true);
+        expect(formState.status, EFormStatus.valid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNull);
       });
     });
@@ -65,13 +69,14 @@ void main() {
     group('Test the validation > failure.', () {
       test('The value is not equal to value to compare.', () async {
         NotEqualToStringTest model = new NotEqualToStringTest('a', 'a');
-        ModelFormState<NotEqualToStringTest> modelState =
+        ModelFormState<NotEqualToStringTest> formState =
             new ModelFormState<NotEqualToStringTest>(model);
 
-        expect(await modelState.validateForm(), false);
-        expect(modelState.status, EFormStatus.invalid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), false);
+        expect(formState.status, EFormStatus.invalid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNotNull);
         expect(error.propertyName, 'value');
         expect(error.validatorType, NotEqualTo);

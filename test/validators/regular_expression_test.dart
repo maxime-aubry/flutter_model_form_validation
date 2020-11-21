@@ -11,13 +11,14 @@ void main() {
     group('Test the validation > success.', () {
       test('Valid regular expression.', () async {
         RegularExpressionTest model = new RegularExpressionTest('Hello');
-        ModelFormState<RegularExpressionTest> modelState =
+        ModelFormState<RegularExpressionTest> formState =
             new ModelFormState<RegularExpressionTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), true);
+        expect(formState.status, EFormStatus.valid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNull);
       });
     });
@@ -25,13 +26,14 @@ void main() {
     group('Test the validation > failure.', () {
       test('Invalid regular expression.', () async {
         RegularExpressionTest model = new RegularExpressionTest('Good morning');
-        ModelFormState<RegularExpressionTest> modelState =
+        ModelFormState<RegularExpressionTest> formState =
             new ModelFormState<RegularExpressionTest>(model);
 
-        expect(await modelState.validateForm(), false);
-        expect(modelState.status, EFormStatus.invalid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), false);
+        expect(formState.status, EFormStatus.invalid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNotNull);
         expect(error.propertyName, 'value');
         expect(error.validatorType, RegularExpression);

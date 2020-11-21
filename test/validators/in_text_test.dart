@@ -12,37 +12,40 @@ void main() {
       test('"Text" is provided by user and developer. User data has priority.',
           () async {
         InTextTest model = new InTextTest('father', 'I am your father !');
-        ModelFormState<InTextTest> modelState =
+        ModelFormState<InTextTest> formState =
             new ModelFormState<InTextTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), true);
+        expect(formState.status, EFormStatus.valid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNull);
       });
 
       test('"Text" is provided by user only.', () async {
         InTextTest model = new InTextTest('father', 'I am your father !');
-        ModelFormState<InTextTest> modelState =
+        ModelFormState<InTextTest> formState =
             new ModelFormState<InTextTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), true);
+        expect(formState.status, EFormStatus.valid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNull);
       });
 
       test('"Text" is provided by developer only.', () async {
         InTextTest model = new InTextTest('lorem');
-        ModelFormState<InTextTest> modelState =
+        ModelFormState<InTextTest> formState =
             new ModelFormState<InTextTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), true);
+        expect(formState.status, EFormStatus.valid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNull);
       });
     });
@@ -50,13 +53,14 @@ void main() {
     group('Test the validation > success.', () {
       test('The value is contained into "text".', () async {
         InTextTest model = new InTextTest('father', 'I am your father !');
-        ModelFormState<InTextTest> modelState =
+        ModelFormState<InTextTest> formState =
             new ModelFormState<InTextTest>(model);
 
-        expect(await modelState.validateForm(), true);
-        expect(modelState.status, EFormStatus.valid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), true);
+        expect(formState.status, EFormStatus.valid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNull);
       });
     });
@@ -64,13 +68,14 @@ void main() {
     group('Test the validation > failure.', () {
       test('The value is not contained into "text".', () async {
         InTextTest model = new InTextTest('luke', 'I am your father !');
-        ModelFormState<InTextTest> modelState =
+        ModelFormState<InTextTest> formState =
             new ModelFormState<InTextTest>(model);
 
-        expect(await modelState.validateForm(), false);
-        expect(modelState.status, EFormStatus.invalid);
-        ValidationError error =
-            modelState.getError(model.getPropertyFullname('value'));
+        expect(await formState.validateForm(), false);
+        expect(formState.status, EFormStatus.invalid);
+        ValidationError error = formState.formBuilder
+            .getFormElement<ModelFormControl>(model, 'value')
+            ?.error;
         expect(error, isNotNull);
         expect(error.propertyName, 'value');
         expect(error.validatorType, InText);
