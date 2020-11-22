@@ -20,8 +20,7 @@ void main() {
     group('Test the validation > success.', () {
       test('Select item is into the list.', () async {
         SingleSelectNumberTest model = new SingleSelectNumberTest(2);
-        ModelFormState<SingleSelectNumberTest> formState =
-            new ModelFormState<SingleSelectNumberTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -35,8 +34,7 @@ void main() {
     group('Test the validation > failure.', () {
       test('Select item is not into the list.', () async {
         SingleSelectNumberTest model = new SingleSelectNumberTest(4);
-        ModelFormState<SingleSelectNumberTest> formState =
-            new ModelFormState<SingleSelectNumberTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);

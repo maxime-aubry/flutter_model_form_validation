@@ -1,10 +1,9 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_model_form_validation/src/annotations/form_declarers/index.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
+import 'package:flutter_model_form_validation/src/form_builder/form_declarers/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/model_form/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
-import 'package:queries/collections.dart';
 import 'package:reflectable/reflectable.dart';
 
 enum EFormDeclarer {
@@ -13,14 +12,13 @@ enum EFormDeclarer {
   FormControl,
 }
 
-class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
-    extends FormGroup with ModelFormValidator {
+class ModelFormGroup extends FormGroup with ModelFormValidator {
   ModelFormGroup({
     @required String name,
     @required ModelFormGroup parentGroup,
-    @required Object current,
+    @required ModelForm current,
     bool isArrayItem = false,
-    ModelFormBuilder<TModel> formBuilder,
+    ModelFormBuilder formBuilder,
   }) : super(
           name: null,
           parentGroup: null,
@@ -28,11 +26,11 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
           validators: new List<FormValidatorAnnotation>(),
           controls: new Map<String, AbstractControl>(),
         ) {
-    this.current = current as TCurrentModel;
+    this.current = current;
     this.initialize(name, parentGroup, isArrayItem);
   }
 
-  TCurrentModel current;
+  ModelForm current;
 
   String get modelPartfullname {
     if (this.controlName == null || this.controlName.isEmpty) return null;
@@ -61,8 +59,7 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
         super.parentGroup != null &&
         !isArrayItem) {
       ModelFormGroup parentGroup2 = parentGroup as ModelFormGroup;
-      ModelFormBuilder<TModel> formBuilder =
-          super.getFormBuilder() as ModelFormBuilder<TModel>;
+      ModelFormBuilder formBuilder = super.getFormBuilder() as ModelFormBuilder;
 
       formBuilder.addCorrespondence(
         this.modelPartfullname,
@@ -94,89 +91,68 @@ class ModelFormGroup<TModel extends ModelForm, TCurrentModel extends ModelForm>
         .toList();
 
     for (MapEntry<String, DeclarationMirror> formControl in formControls) {
-      EFormDeclarer formDeclarer = this._getFormDeclarer(
-        formControl.value as VariableMirror,
-      );
+      VariableMirror variableMirror = formControl.value as VariableMirror;
 
-      if (formDeclarer == EFormDeclarer.FormGroup)
+      if (variableMirror.dynamicReflectedType == FormGroupElement) {
         this._addChildFormGroup(instanceMirror, formControl.key);
+        continue;
+      }
 
-      if (formDeclarer == EFormDeclarer.FormArray)
+      if (variableMirror.dynamicReflectedType == FormArrayElement) {
         this._addChildFormArray(instanceMirror, formControl.key);
+        continue;
+      }
 
-      if (formDeclarer == EFormDeclarer.FormControl)
+      if (variableMirror.dynamicReflectedType == FormControlElement) {
         this._addChildFormControl(instanceMirror, formControl.key);
+        continue;
+      }
     }
-  }
-
-  EFormDeclarer _getFormDeclarer(VariableMirror declarationMirror) {
-    bool isFormGroup = Collection(declarationMirror.metadata)
-        .any((arg1) => arg1 is FormGroupDeclarer);
-    bool isFormArray = Collection(declarationMirror.metadata)
-        .any((arg1) => arg1 is FormArrayDeclarer);
-    bool isFormControl = Collection(declarationMirror.metadata)
-        .any((arg1) => arg1 is FormControlDeclarer);
-
-    int nbPropertyTypes = Collection([isFormGroup, isFormArray, isFormControl])
-        .count((arg1) => arg1 == true);
-
-    if (nbPropertyTypes > 1)
-      throw new Exception(
-          'More than one property type has been declared on this class member.');
-    if (isFormGroup) return EFormDeclarer.FormGroup;
-    if (isFormArray) return EFormDeclarer.FormArray;
-    if (isFormControl) return EFormDeclarer.FormControl;
-
-    // In the case of a collection item, there is not @FormInput annotation
-    // so, let's return Input response
-    return EFormDeclarer.FormControl;
   }
 
   void _addChildFormGroup(
     InstanceMirror instanceMirror,
     String name,
   ) {
-    Object child = super.getSubObject(instanceMirror, name);
-    super.addControl(
-      name,
-      new ModelFormGroup(
-        name: name,
-        parentGroup: this,
-        current: child,
-      ),
+    FormGroupElement<ModelForm> element =
+        super.getModelPart<FormGroupElement<ModelForm>>(this.current, name);
+
+    ModelFormGroup formGroup = new ModelFormGroup(
+      name: name,
+      parentGroup: this,
+      current: element.value,
     );
+    super.addControl(name, formGroup);
   }
 
   void _addChildFormArray(
     InstanceMirror instanceMirror,
     String name,
   ) {
-    List<ModelForm> children =
-        super.getSubObject(instanceMirror, name) as List<ModelForm>;
+    FormArrayElement<ModelForm> element =
+        super.getModelPart<FormArrayElement<ModelForm>>(this.current, name);
 
-    super.addControl(
-      name,
-      new ModelFormArray(
-        name: name,
-        parentGroup: this,
-        items: children,
-      ),
+    ModelFormArray formArray = new ModelFormArray(
+      name: name,
+      parentGroup: this,
+      items: element.value,
     );
+    super.addControl(name, formArray);
   }
 
   void _addChildFormControl(
     InstanceMirror instanceMirror,
     String name,
   ) {
-    Object child = super.getSubObject(instanceMirror, name);
-    super.addControl(
-      name,
-      new ModelFormControl(
-        name: name,
-        parentGroup: this,
-        value: child,
-      ),
+    FormControlElement element =
+        super.getModelPart<FormControlElement>(this.current, name);
+
+    ModelFormControl formControl = new ModelFormControl(
+      name: name,
+      parentGroup: this,
+      value: element.value,
     );
+    super.addControl(name, formControl);
   }
 
   @override

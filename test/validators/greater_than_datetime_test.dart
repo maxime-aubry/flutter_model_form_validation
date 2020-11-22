@@ -16,8 +16,7 @@ void main() {
           new DateTime(2020, 1, 2),
           new DateTime(2020, 1, 1),
         );
-        ModelFormState<GreaterThanDatetimeTest> formState =
-            new ModelFormState<GreaterThanDatetimeTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -32,8 +31,7 @@ void main() {
           new DateTime(2020, 1, 2),
           new DateTime(2020, 1, 1),
         );
-        ModelFormState<GreaterThanDatetimeTest> formState =
-            new ModelFormState<GreaterThanDatetimeTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -47,8 +45,7 @@ void main() {
         GreaterThanDatetimeTest model = new GreaterThanDatetimeTest(
           new DateTime(2019, 1, 2),
         );
-        ModelFormState<GreaterThanDatetimeTest> formState =
-            new ModelFormState<GreaterThanDatetimeTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -65,8 +62,7 @@ void main() {
           new DateTime(2020, 1, 2),
           new DateTime(2020, 1, 1),
         );
-        ModelFormState<GreaterThanDatetimeTest> formState =
-            new ModelFormState<GreaterThanDatetimeTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -83,8 +79,7 @@ void main() {
           new DateTime(2020, 1, 1),
           new DateTime(2020, 1, 1),
         );
-        ModelFormState<GreaterThanDatetimeTest> formState =
-            new ModelFormState<GreaterThanDatetimeTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -102,8 +97,7 @@ void main() {
           new DateTime(2019, 12, 31),
           new DateTime(2020, 1, 1),
         );
-        ModelFormState<GreaterThanDatetimeTest> formState =
-            new ModelFormState<GreaterThanDatetimeTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);

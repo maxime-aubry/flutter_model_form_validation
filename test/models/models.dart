@@ -6,70 +6,76 @@ void main() {}
 @flutterModelFormValidator
 class FormBuilderTest extends ModelForm {
   FormBuilderTest(
-    this.firstName,
-    this.lastName,
-    this.birthDay,
-    this.subscriptionDate,
-  );
+    String firstName,
+    String lastName,
+    DateTime birthDay,
+    DateTime subscriptionDate,
+  ) {
+    this.firstName = new FormControlElement<String>(firstName);
+    this.lastName = new FormControlElement<String>(lastName);
+    this.birthDay = new FormControlElement<DateTime>(birthDay);
+    this.subscriptionDate = new FormControlElement<DateTime>(subscriptionDate);
+    this.books = new FormArrayElement(null);
+    this.favoriteBook = new FormGroupElement<Book>(null);
+  }
 
-  @FormControlDeclarer()
   @Required(error: 'error message here')
   @StringLength(min: 3, max: 50, error: 'error message here')
-  String firstName;
+  FormControlElement<String> firstName;
 
-  @FormControlDeclarer()
   @Required(error: 'error message here')
   @StringLength(min: 3, max: 50, error: 'error message here')
-  String lastName;
+  FormControlElement<String> lastName;
 
-  @FormControlDeclarer()
   @Required(error: 'error message here')
-  DateTime birthDay;
+  FormControlElement<DateTime> birthDay;
 
-  @FormControlDeclarer()
   @Required(error: 'error message here')
   @GreaterOrEqualTo(
     valueToCompareOnProperty: 'birthDay',
     error: 'error message here',
   )
   @SmallerOrEqualTo(valueToCompare: '2020-01-01', error: 'error message here')
-  DateTime subscriptionDate;
+  FormControlElement<DateTime> subscriptionDate;
 
-  @FormArrayDeclarer()
   @NbItems(min: '1', max: '3', error: 'error message here')
-  List<Book> books;
+  FormArrayElement<Book> books;
 
-  @FormGroupDeclarer()
   @Required(error: 'error message here')
-  Book favoriteBook;
+  FormGroupElement<Book> favoriteBook;
 
-  void addItemOnBooks(Book item) {
-    if (this.books == null) this.books = new List<Book>();
-    this.books.add(item);
-  }
+  // void addItemOnBooks(Book item) {
+  //   if (this.books == null) this.books = new List<Book>();
+  //   this.books.add(item);
+  // }
 
-  void removeItemOnBook(Book item) {
-    if (this.books.contains(item)) this.books.remove(item);
-  }
+  // void removeItemOnBook(Book item) {
+  //   if (this.books.contains(item)) this.books.remove(item);
+  // }
 }
 
 @flutterModelFormValidator
 class Book extends ModelForm {
-  Book(this.name, this.price, this.loanDate);
+  Book(
+    String name,
+    num price,
+    DateTime loanDate,
+  ) {
+    this.name = FormControlElement<String>(name);
+    this.price = FormControlElement<num>(price);
+    this.loanDate = FormControlElement<DateTime>(loanDate);
+  }
 
-  @FormControlDeclarer()
   @Required(error: 'error message here')
   @StringLength(min: 3, max: 100, error: 'error message here')
-  String name;
+  FormControlElement<String> name;
 
-  @FormControlDeclarer()
   @Required(error: 'price is required')
   @GreaterThan(valueToCompare: '0', error: 'error message here')
-  num price;
+  FormControlElement<num> price;
 
-  @FormControlDeclarer()
   @Required(error: 'error message here')
-  DateTime loanDate;
+  FormControlElement<DateTime> loanDate;
 }
 //#endregion
 

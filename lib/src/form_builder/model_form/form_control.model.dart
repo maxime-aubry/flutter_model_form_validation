@@ -1,19 +1,20 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/model_form/index.dart';
-import 'package:flutter_model_form_validation/src/index.dart';
 
-class ModelFormControl<TModel extends ModelForm> extends FormControl
+class ModelFormControl<TField> extends FormControl<TField>
     with ModelFormValidator {
   ModelFormControl({
     @required String name,
     @required FormGroup parentGroup,
-    @required Object value,
+    @required TField value,
   }) : super(
-          value: value,
+          value: null,
           validators: new List<FormValidatorAnnotation>(),
         ) {
+    super.value = value;
     this.initialize(name, parentGroup);
   }
 
@@ -41,8 +42,7 @@ class ModelFormControl<TModel extends ModelForm> extends FormControl
     super.parentGroup = parentGroup;
 
     ModelFormGroup parentGroup2 = this.parentGroup as ModelFormGroup;
-    ModelFormBuilder<TModel> formBuilder =
-        super.getFormBuilder() as ModelFormBuilder<TModel>;
+    ModelFormBuilder formBuilder = super.getFormBuilder() as ModelFormBuilder;
 
     formBuilder.addCorrespondence(
       this.modelPartfullname,

@@ -13,8 +13,7 @@ void main() {
           '"valueToCompare" is provided by user and developer. User data has priority.',
           () async {
         GreaterThanStringTest model = new GreaterThanStringTest('d', 'c');
-        ModelFormState<GreaterThanStringTest> formState =
-            new ModelFormState<GreaterThanStringTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -26,8 +25,7 @@ void main() {
 
       test('"valueToCompare" is provided by user only.', () async {
         GreaterThanStringTest model = new GreaterThanStringTest('d', 'c');
-        ModelFormState<GreaterThanStringTest> formState =
-            new ModelFormState<GreaterThanStringTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -39,8 +37,7 @@ void main() {
 
       test('"valueToCompare" is provided by developer only.', () async {
         GreaterThanStringTest model = new GreaterThanStringTest('c');
-        ModelFormState<GreaterThanStringTest> formState =
-            new ModelFormState<GreaterThanStringTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -54,8 +51,7 @@ void main() {
     group('Test the validation > success.', () {
       test('The value is greater than value to compare.', () async {
         GreaterThanStringTest model = new GreaterThanStringTest('c', 'b');
-        ModelFormState<GreaterThanStringTest> formState =
-            new ModelFormState<GreaterThanStringTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -69,8 +65,7 @@ void main() {
     group('Test the validation > failure.', () {
       test('The value is equal to value to compare.', () async {
         GreaterThanStringTest model = new GreaterThanStringTest('b', 'b');
-        ModelFormState<GreaterThanStringTest> formState =
-            new ModelFormState<GreaterThanStringTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -85,8 +80,7 @@ void main() {
 
       test('The value is not equal to value to compare.', () async {
         GreaterThanStringTest model = new GreaterThanStringTest('a', 'b');
-        ModelFormState<GreaterThanStringTest> formState =
-            new ModelFormState<GreaterThanStringTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);

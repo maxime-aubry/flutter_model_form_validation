@@ -11,8 +11,7 @@ void main() {
     group('Test the validation > success.', () {
       test('String has between 10 and 20 characetrs.', () async {
         StringLengthTest model = new StringLengthTest('Hello everybody');
-        ModelFormState<StringLengthTest> formState =
-            new ModelFormState<StringLengthTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -26,8 +25,7 @@ void main() {
     group('Test the validation > failure.', () {
       test('String has not between 10 and 20 characters.', () async {
         StringLengthTest model = new StringLengthTest('No, I am your father !');
-        ModelFormState<StringLengthTest> formState =
-            new ModelFormState<StringLengthTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);

@@ -12,8 +12,7 @@ void main() {
       test('Valid password.', () async {
         MembershipPasswordTest model =
             new MembershipPasswordTest('M@xime!20200101');
-        ModelFormState<MembershipPasswordTest> formState =
-            new ModelFormState<MembershipPasswordTest>(model);
+        ModelFormState formState = new ModelFormState(model);
         Map<String, bool> details = MembershipPassword.getErrorDetails(
             '0Siatis@0719', 8, 16, true, true, true, true);
 
@@ -36,8 +35,7 @@ void main() {
       test('Invalid password.', () async {
         MembershipPasswordTest model =
             new MembershipPasswordTest('Maxime20200101');
-        ModelFormState<MembershipPasswordTest> formState =
-            new ModelFormState<MembershipPasswordTest>(model);
+        ModelFormState formState = new ModelFormState(model);
         Map<String, bool> details = MembershipPassword.getErrorDetails(
             '0Siatis0719', 8, 16, true, true, true, true);
 

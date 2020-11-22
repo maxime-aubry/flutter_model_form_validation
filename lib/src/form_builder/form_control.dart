@@ -10,7 +10,7 @@ class FormControl<TField> extends AbstractControl {
     this.value = value;
   }
 
-  @protected
+  // @protected
   TField value;
 
   TField getValue() => this.value;

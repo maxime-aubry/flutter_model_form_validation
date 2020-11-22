@@ -20,8 +20,7 @@ void main() {
     group('Test the validation > success.', () {
       test('Select item is into the list.', () async {
         MultiSelectNumberTest model = new MultiSelectNumberTest([1, 2]);
-        ModelFormState<MultiSelectNumberTest> formState =
-            new ModelFormState<MultiSelectNumberTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -35,8 +34,7 @@ void main() {
     group('Test the validation > failure.', () {
       test('Select item is not into the list.', () async {
         MultiSelectNumberTest model = new MultiSelectNumberTest([4, 5]);
-        ModelFormState<MultiSelectNumberTest> formState =
-            new ModelFormState<MultiSelectNumberTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);

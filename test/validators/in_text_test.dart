@@ -12,8 +12,7 @@ void main() {
       test('"Text" is provided by user and developer. User data has priority.',
           () async {
         InTextTest model = new InTextTest('father', 'I am your father !');
-        ModelFormState<InTextTest> formState =
-            new ModelFormState<InTextTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -25,8 +24,7 @@ void main() {
 
       test('"Text" is provided by user only.', () async {
         InTextTest model = new InTextTest('father', 'I am your father !');
-        ModelFormState<InTextTest> formState =
-            new ModelFormState<InTextTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -38,8 +36,7 @@ void main() {
 
       test('"Text" is provided by developer only.', () async {
         InTextTest model = new InTextTest('lorem');
-        ModelFormState<InTextTest> formState =
-            new ModelFormState<InTextTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -53,8 +50,7 @@ void main() {
     group('Test the validation > success.', () {
       test('The value is contained into "text".', () async {
         InTextTest model = new InTextTest('father', 'I am your father !');
-        ModelFormState<InTextTest> formState =
-            new ModelFormState<InTextTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -68,8 +64,7 @@ void main() {
     group('Test the validation > failure.', () {
       test('The value is not contained into "text".', () async {
         InTextTest model = new InTextTest('luke', 'I am your father !');
-        ModelFormState<InTextTest> formState =
-            new ModelFormState<InTextTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);

@@ -11,7 +11,7 @@ void main() {
     group('Test the validation > success.', () {
       test('http://foo.com/blah_blah is a valid URL.', () async {
         UrlTest model = new UrlTest('http://foo.com/blah_blah');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -23,7 +23,7 @@ void main() {
 
       test('http://foo.com/blah_blah/ is a valid URL.', () async {
         UrlTest model = new UrlTest('http://foo.com/blah_blah/');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -35,7 +35,7 @@ void main() {
 
       test('http://foo.com/blah_blah_(wikipedia) is a valid URL.', () async {
         UrlTest model = new UrlTest('http://foo.com/blah_blah_(wikipedia)');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -49,7 +49,7 @@ void main() {
           () async {
         UrlTest model =
             new UrlTest('http://foo.com/blah_blah_(wikipedia)_(again)');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -61,7 +61,7 @@ void main() {
 
       test('http://www.example.com/wpstyle/?p=364 is a valid URL.', () async {
         UrlTest model = new UrlTest('http://www.example.com/wpstyle/?p=364');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -75,7 +75,7 @@ void main() {
           () async {
         UrlTest model =
             new UrlTest('https://www.example.com/foo/?bar=baz&inga=42&quux');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -87,7 +87,7 @@ void main() {
 
       test('http://✪df.ws/123 is a valid URL.', () async {
         UrlTest model = new UrlTest('http://✪df.ws/123');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -99,7 +99,7 @@ void main() {
 
       test('http://userid:password@example.com:8080 is a valid URL.', () async {
         UrlTest model = new UrlTest('http://userid:password@example.com:8080');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -112,7 +112,7 @@ void main() {
       test('http://userid:password@example.com:8080/ is a valid URL.',
           () async {
         UrlTest model = new UrlTest('http://userid:password@example.com:8080/');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -124,7 +124,7 @@ void main() {
 
       test('http://userid@example.com is a valid URL.', () async {
         UrlTest model = new UrlTest('http://userid@example.com');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -136,7 +136,7 @@ void main() {
 
       test('http://userid@example.com/ is a valid URL.', () async {
         UrlTest model = new UrlTest('http://userid@example.com/');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -148,7 +148,7 @@ void main() {
 
       test('http://userid@example.com:8080 is a valid URL.', () async {
         UrlTest model = new UrlTest('http://userid@example.com:8080');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -160,7 +160,7 @@ void main() {
 
       test('http://userid@example.com:8080/ is a valid URL.', () async {
         UrlTest model = new UrlTest('http://userid@example.com:8080/');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -172,7 +172,7 @@ void main() {
 
       test('http://userid:password@example.com is a valid URL.', () async {
         UrlTest model = new UrlTest('http://userid:password@example.com');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -184,7 +184,7 @@ void main() {
 
       test('http://userid:password@example.com/ is a valid URL.', () async {
         UrlTest model = new UrlTest('http://userid:password@example.com/');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -196,7 +196,7 @@ void main() {
 
       test('http://142.42.1.1/ is a valid URL.', () async {
         UrlTest model = new UrlTest('http://142.42.1.1/');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -208,7 +208,7 @@ void main() {
 
       test('http://142.42.1.1:8080/ is a valid URL.', () async {
         UrlTest model = new UrlTest('http://142.42.1.1:8080/');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -220,7 +220,7 @@ void main() {
 
       test('http://➡.ws/䨹 is a valid URL.', () async {
         UrlTest model = new UrlTest('http://➡.ws/䨹');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -232,7 +232,7 @@ void main() {
 
       test('http://⌘.ws is a valid URL.', () async {
         UrlTest model = new UrlTest('http://⌘.ws');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -244,7 +244,7 @@ void main() {
 
       test('http://⌘.ws/ is a valid URL.', () async {
         UrlTest model = new UrlTest('http://⌘.ws/');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -256,7 +256,7 @@ void main() {
 
       test('http://foo.com/blah_(wikipedia)#cite-1 is a valid URL.', () async {
         UrlTest model = new UrlTest('http://foo.com/blah_(wikipedia)#cite-1');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -270,7 +270,7 @@ void main() {
           () async {
         UrlTest model =
             new UrlTest('http://foo.com/blah_(wikipedia)_blah#cite-1');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -282,7 +282,7 @@ void main() {
 
       test('http://foo.com/unicode_(✪)_in_parens is a valid URL.', () async {
         UrlTest model = new UrlTest('http://foo.com/unicode_(✪)_in_parens');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -294,7 +294,7 @@ void main() {
 
       test('http://foo.com/(something)?after=parens is a valid URL.', () async {
         UrlTest model = new UrlTest('http://foo.com/(something)?after=parens');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -306,7 +306,7 @@ void main() {
 
       test('http://☺.damowmow.com/ is a valid URL.', () async {
         UrlTest model = new UrlTest('http://☺.damowmow.com/');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -320,7 +320,7 @@ void main() {
           () async {
         UrlTest model =
             new UrlTest('http://code.google.com/events/#&product=browser');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -332,7 +332,7 @@ void main() {
 
       test('http://j.mp is a valid URL.', () async {
         UrlTest model = new UrlTest('http://j.mp');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -344,7 +344,7 @@ void main() {
 
       test('ftp://foo.bar/baz is a valid URL.', () async {
         UrlTest model = new UrlTest('ftp://foo.bar/baz');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -358,7 +358,7 @@ void main() {
           () async {
         UrlTest model =
             new UrlTest('http://foo.bar/?q=Test%20URL-encoded%20stuff');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -370,7 +370,7 @@ void main() {
 
       test('http://مثال.إختبار is a valid URL.', () async {
         UrlTest model = new UrlTest('http://مثال.إختبار');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -382,7 +382,7 @@ void main() {
 
       test('http://例子.测试 is a valid URL.', () async {
         UrlTest model = new UrlTest('http://例子.测试');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -394,7 +394,7 @@ void main() {
 
       test('http://उदाहरण.परीक्षा is a valid URL.', () async {
         UrlTest model = new UrlTest('http://उदाहरण.परीक्षा');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -409,7 +409,7 @@ void main() {
           () async {
         UrlTest model =
             new UrlTest(r"http://-.~_!$&'()*+,;=:%40:80%2f::::::@example.com");
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -421,7 +421,7 @@ void main() {
 
       test('http://1337.net is a valid URL.', () async {
         UrlTest model = new UrlTest('http://1337.net');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -433,7 +433,7 @@ void main() {
 
       test('http://a.b-c.de is a valid URL.', () async {
         UrlTest model = new UrlTest('http://a.b-c.de');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -445,7 +445,7 @@ void main() {
 
       test('http://223.255.255.254 is a valid URL.', () async {
         UrlTest model = new UrlTest('http://223.255.255.254');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -467,7 +467,7 @@ void main() {
     group('Test the validation > failure.', () {
       test('http:// is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -482,7 +482,7 @@ void main() {
 
       test('http://. is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://.');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -497,7 +497,7 @@ void main() {
 
       test('http://.. is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://..');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -512,7 +512,7 @@ void main() {
 
       test('http://../ is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://../');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -527,7 +527,7 @@ void main() {
 
       test('http://? is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://?');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -542,7 +542,7 @@ void main() {
 
       test('http://?? is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://??');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -557,7 +557,7 @@ void main() {
 
       test('http://??/ is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://??/');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -572,7 +572,7 @@ void main() {
 
       test('http://# is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://#');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -587,7 +587,7 @@ void main() {
 
       test('http://## is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://##');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -602,7 +602,7 @@ void main() {
 
       test('http://##/ is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://##/');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -619,7 +619,7 @@ void main() {
           () async {
         UrlTest model =
             new UrlTest('http://foo.bar?q=Spaces should be encoded');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -634,7 +634,7 @@ void main() {
 
       test('// is not a valid URL.', () async {
         UrlTest model = new UrlTest('//');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -649,7 +649,7 @@ void main() {
 
       test('//a is not a valid URL.', () async {
         UrlTest model = new UrlTest('//a');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -664,7 +664,7 @@ void main() {
 
       test('///a is not a valid URL.', () async {
         UrlTest model = new UrlTest('///a');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -679,7 +679,7 @@ void main() {
 
       test('/// is not a valid URL.', () async {
         UrlTest model = new UrlTest('///');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -694,7 +694,7 @@ void main() {
 
       test('http:///a is not a valid URL.', () async {
         UrlTest model = new UrlTest('http:///a');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -709,7 +709,7 @@ void main() {
 
       test('foo.com is not a valid URL.', () async {
         UrlTest model = new UrlTest('foo.com');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -724,7 +724,7 @@ void main() {
 
       test('rdar://1234 is not a valid URL.', () async {
         UrlTest model = new UrlTest('rdar://1234');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -739,7 +739,7 @@ void main() {
 
       test('h://test is not a valid URL.', () async {
         UrlTest model = new UrlTest('h://test');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -754,7 +754,7 @@ void main() {
 
       test('http:// shouldfail.com is not a valid URL.', () async {
         UrlTest model = new UrlTest('http:// shouldfail.com');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -769,7 +769,7 @@ void main() {
 
       test(':// should fail is not a valid URL.', () async {
         UrlTest model = new UrlTest(':// should fail');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -784,7 +784,7 @@ void main() {
 
       test('http://foo.bar/foo(bar)baz quux is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://foo.bar/foo(bar)baz quux');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -799,7 +799,7 @@ void main() {
 
       test('ftps://foo.bar/ is not a valid URL.', () async {
         UrlTest model = new UrlTest('ftps://foo.bar/');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -814,7 +814,7 @@ void main() {
 
       test('http://-error-.invalid/ is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://-error-.invalid/');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -839,7 +839,7 @@ void main() {
 
       test('http://-a.b.co is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://-a.b.co');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -854,7 +854,7 @@ void main() {
 
       test('http://a.b-.co is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://a.b-.co');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -869,7 +869,7 @@ void main() {
 
       test('http://0.0.0.0 is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://0.0.0.0');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -884,7 +884,7 @@ void main() {
 
       test('http://10.1.1.0 is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://10.1.1.0');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -899,7 +899,7 @@ void main() {
 
       test('http://10.1.1.255 is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://10.1.1.255');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -914,7 +914,7 @@ void main() {
 
       test('http://224.1.1.1 is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://224.1.1.1');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -929,7 +929,7 @@ void main() {
 
       test('http://1.1.1.1.1 is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://1.1.1.1.1');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -944,7 +944,7 @@ void main() {
 
       test('http://123.123.123 is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://123.123.123');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -959,7 +959,7 @@ void main() {
 
       test('http://3628126748 is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://3628126748');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -974,7 +974,7 @@ void main() {
 
       test('http://.www.foo.bar/ is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://.www.foo.bar/');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -989,7 +989,7 @@ void main() {
 
       test('http://www.foo.bar./ is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://www.foo.bar./');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -1004,7 +1004,7 @@ void main() {
 
       test('http://.www.foo.bar./ is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://.www.foo.bar./');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -1019,7 +1019,7 @@ void main() {
 
       test('http://10.1.1.1 is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://10.1.1.1');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -1034,7 +1034,7 @@ void main() {
 
       test('http://10.1.1.254 is not a valid URL.', () async {
         UrlTest model = new UrlTest('http://10.1.1.254');
-        ModelFormState<UrlTest> formState = new ModelFormState<UrlTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);

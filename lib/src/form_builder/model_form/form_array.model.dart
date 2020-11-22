@@ -1,25 +1,25 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/model_form/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
 import 'package:queries/collections.dart';
 
-class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
-    extends FormArray with ModelFormValidator {
+class ModelFormArray extends FormArray with ModelFormValidator {
   ModelFormArray({
     @required String name,
     @required ModelFormGroup parentGroup,
-    @required List<TCurrentModel> items,
+    @required List<ModelForm> items,
   }) : super(
           validators: new List<FormValidatorAnnotation>(),
           groups: new List<FormGroup>(),
         ) {
-    this.items = items ?? new List<TCurrentModel>();
+    this.items = items ?? new List<ModelForm>();
     this.initialize(name, parentGroup);
   }
 
-  List<TCurrentModel> items;
+  List<ModelForm> items;
 
   String get modelPartfullname {
     if (this.controlName == null || this.controlName.isEmpty) return null;
@@ -45,8 +45,7 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
     super.parentGroup = parentGroup;
 
     ModelFormGroup parentGroup2 = parentGroup as ModelFormGroup;
-    ModelFormBuilder<TModel> formBuilder =
-        super.getFormBuilder() as ModelFormBuilder<TModel>;
+    ModelFormBuilder formBuilder = super.getFormBuilder() as ModelFormBuilder;
 
     formBuilder.addCorrespondence(
       this.modelPartfullname,
@@ -65,7 +64,7 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
     );
 
     this._actualizeChildren(
-      super.parentGroup as ModelFormGroup<TModel, TCurrentModel>,
+      super.parentGroup as ModelFormGroup,
     );
 
     super.isInitialized = true;
@@ -73,9 +72,9 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
 
   /// [_actualizeChildren] method actualize [items] and [groups] collections of form array.
   void _actualizeChildren(ModelFormGroup parentGroup) {
-    if (this.items == null) this.items = new List<TCurrentModel>();
+    if (this.items == null) this.items = new List<ModelForm>();
 
-    for (TCurrentModel item in this.items) {
+    for (ModelForm item in this.items) {
       super.addGroup(new ModelFormGroup(
         name: '${super.controlName}[${super.groups.length}]',
         parentGroup: super.parentGroup,
@@ -86,7 +85,7 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
     }
   }
 
-  void addItem(TCurrentModel item) {
+  void addItem(ModelForm item) {
     assert(this.items != null, 'Cannot add item to a null list.');
     assert(!this.items.contains(item),
         'Cannot add an item if this one is already added.');
@@ -105,7 +104,7 @@ class ModelFormArray<TModel extends ModelForm, TCurrentModel extends ModelForm>
     ));
   }
 
-  void removeItem(TCurrentModel item) {
+  void removeItem(ModelForm item) {
     assert(this.items != null, 'Cannot add item to a null list.');
     assert(this.items.contains(item),
         'Cannot remove an item if this one is not already added.');

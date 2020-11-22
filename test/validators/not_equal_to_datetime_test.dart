@@ -16,8 +16,7 @@ void main() {
           new DateTime(2020, 1, 2),
           new DateTime(2020, 1, 1),
         );
-        ModelFormState<NotEqualToDatetimeTest> formState =
-            new ModelFormState<NotEqualToDatetimeTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -32,8 +31,7 @@ void main() {
           new DateTime(2020, 1, 2),
           new DateTime(2020, 1, 1),
         );
-        ModelFormState<NotEqualToDatetimeTest> formState =
-            new ModelFormState<NotEqualToDatetimeTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -47,8 +45,7 @@ void main() {
         NotEqualToDatetimeTest model = new NotEqualToDatetimeTest(
           new DateTime(2019, 1, 2),
         );
-        ModelFormState<NotEqualToDatetimeTest> formState =
-            new ModelFormState<NotEqualToDatetimeTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -65,8 +62,7 @@ void main() {
           new DateTime(2020, 1, 2),
           new DateTime(2020, 1, 1),
         );
-        ModelFormState<NotEqualToDatetimeTest> formState =
-            new ModelFormState<NotEqualToDatetimeTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -83,8 +79,7 @@ void main() {
           new DateTime(2020, 1, 1),
           new DateTime(2020, 1, 1),
         );
-        ModelFormState<NotEqualToDatetimeTest> formState =
-            new ModelFormState<NotEqualToDatetimeTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);

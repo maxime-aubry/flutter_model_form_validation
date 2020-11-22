@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
+import 'package:flutter_model_form_validation/src/form_builder/form_declarers/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
 import 'package:queries/collections.dart';
 import 'package:reflectable/reflectable.dart';
@@ -13,9 +15,21 @@ mixin ModelFormValidator<TModel extends ModelForm> {
   }
 
   @protected
-  Object getSubObject(InstanceMirror instanceMirror, String property) {
-    Object child = instanceMirror.invokeGetter(property);
-    return child;
+  TFormElement getModelPart<TFormElement extends FormElementNotifier>(
+    ModelForm model,
+    String property,
+  ) {
+    assert(
+        TFormElement == FormGroupElement ||
+            TFormElement == FormArrayElement ||
+            TFormElement == FormControlElement,
+        'Cannot get a model part that is not an object of type FormGroupElement, FormArrayElement, or FormControlElement.');
+
+    InstanceMirror instanceMirror = this.getInstanceMirror(model);
+    Object formElement = instanceMirror.invokeGetter(property);
+    if (formElement is! TFormElement)
+      throw new Exception('Cannot get a model part of $TFormElement type.');
+    return formElement as TFormElement;
   }
 
   @protected

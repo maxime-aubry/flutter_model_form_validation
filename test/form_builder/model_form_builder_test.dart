@@ -11,8 +11,7 @@ void main() {
   group('ModelFormBuilder.', () {
     test('Get form element from element full name.', () {
       FormBuilderTest model = new FormBuilderTest(null, null, null, null);
-      ModelFormState<FormBuilderTest> formState =
-          new ModelFormState<FormBuilderTest>(model);
+      ModelFormState formState = new ModelFormState(model);
 
       {
         ModelFormControl fc =
@@ -32,8 +31,7 @@ void main() {
 
     test('Generates a form using by a new model.', () {
       FormBuilderTest model = new FormBuilderTest(null, null, null, null);
-      ModelFormState<FormBuilderTest> formState =
-          new ModelFormState<FormBuilderTest>(model);
+      ModelFormState formState = new ModelFormState(model);
 
       // firstName
       {
@@ -145,7 +143,7 @@ void main() {
         new DateTime(1980, 12, 15),
         new DateTime(2019, 06, 01),
       );
-      model.books = [
+      model.books.value = [
         new Book(
           'Voyage au centre de la terre',
           8.9,
@@ -162,14 +160,13 @@ void main() {
           new DateTime(2020, 04, 26),
         ),
       ];
-      model.favoriteBook = new Book(
+      model.favoriteBook.value = new Book(
         'De la Terre à la Lune',
         8.9,
         new DateTime(2020, 04, 17),
       );
 
-      ModelFormState<FormBuilderTest> formState =
-          new ModelFormState<FormBuilderTest>(model);
+      ModelFormState formState = new ModelFormState(model);
 
       // firstName
       {
@@ -260,7 +257,7 @@ void main() {
       {
         ModelFormControl fc =
             formState.formBuilder.getFormElement<ModelFormControl>(
-          model.books[0],
+          model.books.value[0],
           'name',
         );
         checkFormControl(
@@ -277,7 +274,7 @@ void main() {
       {
         ModelFormControl fc =
             formState.formBuilder.getFormElement<ModelFormControl>(
-          model.books[0],
+          model.books.value[0],
           'price',
         );
         checkFormControl(
@@ -294,7 +291,7 @@ void main() {
       {
         ModelFormControl fc =
             formState.formBuilder.getFormElement<ModelFormControl>(
-          model.books[0],
+          model.books.value[0],
           'loanDate',
         );
         checkFormControl(
@@ -311,7 +308,7 @@ void main() {
       {
         ModelFormControl fc =
             formState.formBuilder.getFormElement<ModelFormControl>(
-          model.books[1],
+          model.books.value[1],
           'name',
         );
         checkFormControl(
@@ -328,7 +325,7 @@ void main() {
       {
         ModelFormControl fc =
             formState.formBuilder.getFormElement<ModelFormControl>(
-          model.books[1],
+          model.books.value[1],
           'price',
         );
         checkFormControl(
@@ -345,7 +342,7 @@ void main() {
       {
         ModelFormControl fc =
             formState.formBuilder.getFormElement<ModelFormControl>(
-          model.books[1],
+          model.books.value[1],
           'loanDate',
         );
         checkFormControl(
@@ -362,7 +359,7 @@ void main() {
       {
         ModelFormControl fc =
             formState.formBuilder.getFormElement<ModelFormControl>(
-          model.books[2],
+          model.books.value[2],
           'name',
         );
         checkFormControl(
@@ -379,7 +376,7 @@ void main() {
       {
         ModelFormControl fc =
             formState.formBuilder.getFormElement<ModelFormControl>(
-          model.books[2],
+          model.books.value[2],
           'price',
         );
         checkFormControl(
@@ -396,7 +393,7 @@ void main() {
       {
         ModelFormControl fc =
             formState.formBuilder.getFormElement<ModelFormControl>(
-          model.books[2],
+          model.books.value[2],
           'loanDate',
         );
         checkFormControl(
@@ -430,7 +427,7 @@ void main() {
       {
         ModelFormControl fc =
             formState.formBuilder.getFormElement<ModelFormControl>(
-          model.favoriteBook,
+          model.favoriteBook.value,
           'name',
         );
         checkFormControl(
@@ -447,7 +444,7 @@ void main() {
       {
         ModelFormControl fc =
             formState.formBuilder.getFormElement<ModelFormControl>(
-          model.favoriteBook,
+          model.favoriteBook.value,
           'price',
         );
         checkFormControl(
@@ -464,7 +461,7 @@ void main() {
       {
         ModelFormControl fc =
             formState.formBuilder.getFormElement<ModelFormControl>(
-          model.favoriteBook,
+          model.favoriteBook.value,
           'loanDate',
         );
         checkFormControl(
@@ -480,8 +477,8 @@ void main() {
 
     // test('Form is updated and validated when setting a value.', () async {
     //   FormBuilderTest model = new FormBuilderTest(null, null, null, null);
-    //   ModelFormState<FormBuilderTest> modelState =
-    //       new ModelFormState<FormBuilderTest>(model);
+    //   ModelFormState modelState =
+    //       new ModelFormState(model);
 
     //   // firstName
     //   {
@@ -562,8 +559,8 @@ void main() {
     //     new DateTime(1980, 12, 15),
     //     new DateTime(2019, 06, 01),
     //   );
-    //   ModelFormState<FormBuilderTest> modelState =
-    //       new ModelFormState<FormBuilderTest>(model);
+    //   ModelFormState modelState =
+    //       new ModelFormState(model);
 
     //   // favoriteBook
     //   {
@@ -617,8 +614,8 @@ void main() {
     //     new DateTime(1980, 12, 15),
     //     new DateTime(2019, 06, 01),
     //   );
-    //   ModelFormState<FormBuilderTest> modelState =
-    //       new ModelFormState<FormBuilderTest>(model);
+    //   ModelFormState modelState =
+    //       new ModelFormState(model);
 
     //   // books
     //   {
@@ -663,7 +660,7 @@ void main() {
         new DateTime(1980, 12, 15),
         new DateTime(2019, 06, 01),
       );
-      model.books = [
+      model.books.value = [
         new Book(
           'Voyage au centre de la terre',
           8.9,
@@ -680,14 +677,13 @@ void main() {
           new DateTime(2020, 04, 26),
         ),
       ];
-      model.favoriteBook = new Book(
+      model.favoriteBook.value = new Book(
         'De la Terre à la Lune',
         8.9,
         new DateTime(2020, 04, 17),
       );
 
-      ModelFormState<FormBuilderTest> formState =
-          new ModelFormState<FormBuilderTest>(model);
+      ModelFormState formState = new ModelFormState(model);
 
       // firstName
       {
@@ -715,7 +711,7 @@ void main() {
       {
         ModelFormControl fc =
             formState.formBuilder.getFormElement<ModelFormControl>(
-          model.books[1],
+          model.books.value[1],
           'price',
         );
         expect(fc.formPath,
@@ -727,7 +723,7 @@ void main() {
       {
         ModelFormControl fc =
             formState.formBuilder.getFormElement<ModelFormControl>(
-          model.favoriteBook,
+          model.favoriteBook.value,
           'loanDate',
         );
         expect(

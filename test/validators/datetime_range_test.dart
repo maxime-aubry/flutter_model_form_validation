@@ -17,8 +17,7 @@ void main() {
           new DateTime(2020, 1, 1),
           new DateTime(2020, 12, 31),
         );
-        ModelFormState<DateTimeRangeTest> formState =
-            new ModelFormState<DateTimeRangeTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -34,8 +33,7 @@ void main() {
           new DateTime(2020, 1, 1),
           new DateTime(2020, 12, 31),
         );
-        ModelFormState<DateTimeRangeTest> formState =
-            new ModelFormState<DateTimeRangeTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -49,8 +47,7 @@ void main() {
         DateTimeRangeTest model = new DateTimeRangeTest(
           new DateTime(2019, 3, 15),
         );
-        ModelFormState<DateTimeRangeTest> formState =
-            new ModelFormState<DateTimeRangeTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -68,8 +65,7 @@ void main() {
           new DateTime(2020, 1, 1),
           new DateTime(2020, 12, 31),
         );
-        ModelFormState<DateTimeRangeTest> formState =
-            new ModelFormState<DateTimeRangeTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -85,8 +81,7 @@ void main() {
           new DateTime(2020, 1, 1),
           new DateTime(2020, 12, 31),
         );
-        ModelFormState<DateTimeRangeTest> formState =
-            new ModelFormState<DateTimeRangeTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -102,8 +97,7 @@ void main() {
           new DateTime(2020, 1, 1),
           new DateTime(2020, 12, 31),
         );
-        ModelFormState<DateTimeRangeTest> formState =
-            new ModelFormState<DateTimeRangeTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -121,8 +115,7 @@ void main() {
           new DateTime(2020, 1, 1),
           new DateTime(2020, 12, 31),
         );
-        ModelFormState<DateTimeRangeTest> formState =
-            new ModelFormState<DateTimeRangeTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -141,8 +134,7 @@ void main() {
           new DateTime(2020, 1, 1),
           new DateTime(2020, 12, 31),
         );
-        ModelFormState<DateTimeRangeTest> formState =
-            new ModelFormState<DateTimeRangeTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);

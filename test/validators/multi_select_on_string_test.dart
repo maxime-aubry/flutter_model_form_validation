@@ -25,8 +25,7 @@ void main() {
             'ipsum',
           ],
         );
-        ModelFormState<MultiSelectStringTest> formState =
-            new ModelFormState<MultiSelectStringTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -45,8 +44,7 @@ void main() {
             'consectetur',
           ],
         );
-        ModelFormState<MultiSelectStringTest> formState =
-            new ModelFormState<MultiSelectStringTest>(model);
+        ModelFormState formState = new ModelFormState(model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
