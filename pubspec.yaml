@@ -11,9 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
   build_runner: ^1.10.3
+  collection: ^1.14.13
   image: ^2.1.18
   mime: ^0.9.7
-  # property_change_notifier: ^0.2.0
   queries: ^0.1.14
   reflectable: ^2.2.8
 

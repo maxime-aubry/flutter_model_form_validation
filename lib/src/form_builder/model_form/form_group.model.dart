@@ -31,6 +31,7 @@ class ModelFormGroup extends FormGroup with ModelFormValidator {
   }
 
   ModelForm current;
+  ModelForm oldValue;
 
   String get modelPartfullname {
     if (this.controlName == null || this.controlName.isEmpty) return null;
@@ -76,6 +77,13 @@ class ModelFormGroup extends FormGroup with ModelFormValidator {
         null,
         super.validation_status,
       );
+
+      FormGroupElement<ModelForm> formElement =
+          super.getModelPart<FormGroupElement<ModelForm>>(
+        parentGroup2.current,
+        this.controlName,
+      );
+      formElement.addListener(() async {});
     }
 
     if (this.current != null) this._actualizeChildren();
@@ -112,47 +120,47 @@ class ModelFormGroup extends FormGroup with ModelFormValidator {
 
   void _addChildFormGroup(
     InstanceMirror instanceMirror,
-    String name,
+    String property,
   ) {
     FormGroupElement<ModelForm> element =
-        super.getModelPart<FormGroupElement<ModelForm>>(this.current, name);
+        super.getModelPart<FormGroupElement<ModelForm>>(this.current, property);
 
     ModelFormGroup formGroup = new ModelFormGroup(
-      name: name,
+      name: property,
       parentGroup: this,
       current: element.value,
     );
-    super.addControl(name, formGroup);
+    super.addControl(property, formGroup);
   }
 
   void _addChildFormArray(
     InstanceMirror instanceMirror,
-    String name,
+    String property,
   ) {
     FormArrayElement<ModelForm> element =
-        super.getModelPart<FormArrayElement<ModelForm>>(this.current, name);
+        super.getModelPart<FormArrayElement<ModelForm>>(this.current, property);
 
     ModelFormArray formArray = new ModelFormArray(
-      name: name,
+      name: property,
       parentGroup: this,
       items: element.value,
     );
-    super.addControl(name, formArray);
+    super.addControl(property, formArray);
   }
 
   void _addChildFormControl(
     InstanceMirror instanceMirror,
-    String name,
+    String property,
   ) {
     FormControlElement element =
-        super.getModelPart<FormControlElement>(this.current, name);
+        super.getModelPart<FormControlElement>(this.current, property);
 
     ModelFormControl formControl = new ModelFormControl(
-      name: name,
+      name: property,
       parentGroup: this,
       value: element.value,
     );
-    super.addControl(name, formControl);
+    super.addControl(property, formControl);
   }
 
   @override
