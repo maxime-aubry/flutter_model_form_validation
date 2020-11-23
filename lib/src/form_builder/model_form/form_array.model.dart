@@ -10,16 +10,16 @@ class ModelFormArray extends FormArray with ModelFormValidator {
   ModelFormArray({
     @required String name,
     @required ModelFormGroup parentGroup,
-    @required List<ModelForm> items,
+    @required FormArratItems<ModelForm> items,
   }) : super(
           validators: new List<FormValidatorAnnotation>(),
           groups: new List<FormGroup>(),
         ) {
-    this.items = items ?? new List<ModelForm>();
+    this.items = items ?? new FormArratItems<ModelForm>([]);
     this.initialize(name, parentGroup);
   }
 
-  List<ModelForm> items;
+  FormArratItems<ModelForm> items;
 
   String get modelPartfullname {
     if (this.controlName == null || this.controlName.isEmpty) return null;
@@ -67,14 +67,33 @@ class ModelFormArray extends FormArray with ModelFormValidator {
       super.parentGroup as ModelFormGroup,
     );
 
+    FormArrayElement<ModelForm> formElement =
+        super.getModelPart<FormArrayElement<ModelForm>>(
+      parentGroup2.current,
+      this.controlName,
+    );
+    formElement.addListener(() async {
+      // each time a new item is added or removed from the list, groups are updated and the form array is validated
+      this._actualizeChildren(
+        super.parentGroup as ModelFormGroup,
+      );
+      await this.validate();
+    });
+
     super.isInitialized = true;
   }
 
   /// [_actualizeChildren] method actualize [items] and [groups] collections of form array.
   void _actualizeChildren(ModelFormGroup parentGroup) {
-    if (this.items == null) this.items = new List<ModelForm>();
+    if (this.items == null) this.items = new FormArratItems<ModelForm>([]);
 
-    for (ModelForm item in this.items) {
+    // add new groups
+    List<ModelForm> itemsToAdd = Collection(this.items)
+        .except(Collection(this.groups)
+            .select((arg1) => (arg1 as ModelFormGroup).current))
+        .toList();
+
+    for (ModelForm item in itemsToAdd)
       super.addGroup(new ModelFormGroup(
         name: '${super.controlName}[${super.groups.length}]',
         parentGroup: super.parentGroup,
@@ -82,44 +101,58 @@ class ModelFormArray extends FormArray with ModelFormValidator {
         isArrayItem: true,
         formBuilder: null,
       ));
+
+    // remove existing groups
+    List<FormGroup> groupsToRemove = Collection(this.groups)
+        .where((arg1) => !this.items.contains((arg1 as ModelFormGroup).current))
+        .toList();
+
+    if (groupsToRemove.length > 0) {
+      for (ModelFormGroup group in groupsToRemove) super.removeGroup(group);
+
+      // rename children's control names
+      for (FormGroup group in this.groups) group.updateName();
     }
+
+    itemsToAdd.clear();
+    groupsToRemove.clear();
   }
 
-  void addItem(ModelForm item) {
-    assert(this.items != null, 'Cannot add item to a null list.');
-    assert(!this.items.contains(item),
-        'Cannot add an item if this one is already added.');
-    assert(
-        !Collection(super.groups)
-            .any((arg1) => (arg1 as ModelFormGroup).current == item),
-        'Cannot add an item if this one is already contained into a child form group.');
+  // void addItem(ModelForm item) {
+  //   assert(this.items != null, 'Cannot add item to a null list.');
+  //   assert(!this.items.contains(item),
+  //       'Cannot add an item if this one is already added.');
+  //   assert(
+  //       !Collection(super.groups)
+  //           .any((arg1) => (arg1 as ModelFormGroup).current == item),
+  //       'Cannot add an item if this one is already contained into a child form group.');
 
-    this.items.add(item);
-    super.addGroup(new ModelFormGroup(
-      name: '${super.controlName}[${super.groups.length}]',
-      parentGroup: super.parentGroup,
-      current: item,
-      isArrayItem: true,
-      formBuilder: null,
-    ));
-  }
+  //   this.items.add(item);
+  //   super.addGroup(new ModelFormGroup(
+  //     name: '${super.controlName}[${super.groups.length}]',
+  //     parentGroup: super.parentGroup,
+  //     current: item,
+  //     isArrayItem: true,
+  //     formBuilder: null,
+  //   ));
+  // }
 
-  void removeItem(ModelForm item) {
-    assert(this.items != null, 'Cannot add item to a null list.');
-    assert(this.items.contains(item),
-        'Cannot remove an item if this one is not already added.');
-    assert(
-        Collection(super.groups)
-            .any((arg1) => (arg1 as ModelFormGroup).current == item),
-        'Cannot remove an item if this one is not already contained into a child form group.');
+  // void removeItem(ModelForm item) {
+  //   assert(this.items != null, 'Cannot add item to a null list.');
+  //   assert(this.items.contains(item),
+  //       'Cannot remove an item if this one is not already added.');
+  //   assert(
+  //       Collection(super.groups)
+  //           .any((arg1) => (arg1 as ModelFormGroup).current == item),
+  //       'Cannot remove an item if this one is not already contained into a child form group.');
 
-    ModelFormGroup formGroup = Collection(super.groups)
-        .where((arg1) => (arg1 as ModelFormGroup).current == item)
-        .single() as ModelFormGroup;
+  //   ModelFormGroup formGroup = Collection(super.groups)
+  //       .where((arg1) => (arg1 as ModelFormGroup).current == item)
+  //       .single() as ModelFormGroup;
 
-    this.items.remove(item);
-    super.removeGroup(formGroup);
-  }
+  //   this.items.remove(item);
+  //   super.removeGroup(formGroup);
+  // }
 
   @override
   Future validate() async =>

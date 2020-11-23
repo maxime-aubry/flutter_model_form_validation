@@ -90,6 +90,15 @@ class FormGroup extends AbstractControl {
     super.isInitialized = true;
   }
 
+  void updateName() {
+    if (this.isArrayItem) {
+      String controlName = super.controlName.split('[')[0];
+      FormArray formArray = this.parentGroup.controls[controlName] as FormArray;
+      int index = formArray.groups.indexOf(this);
+      super.controlName = '$controlName[$index]';
+    }
+  }
+
   bool containsControl(
     String name,
   ) {

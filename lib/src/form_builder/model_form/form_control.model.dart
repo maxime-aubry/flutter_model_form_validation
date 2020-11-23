@@ -60,6 +60,15 @@ class ModelFormControl<TField> extends FormControl<TField>
       super.validation_status,
     );
 
+    FormControlElement formElement = super.getModelPart<FormControlElement>(
+      parentGroup2.current,
+      this.controlName,
+    );
+    formElement.addListener(() async {
+      // each time a new value is setted, form control is validated
+      await this.validate();
+    });
+
     super.isInitialized = true;
   }
 

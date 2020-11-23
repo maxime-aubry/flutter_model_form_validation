@@ -1,3 +1,0 @@
-class FormControlDeclarer {
-  const FormControlDeclarer();
-}

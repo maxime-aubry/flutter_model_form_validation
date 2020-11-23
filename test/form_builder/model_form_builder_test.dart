@@ -607,51 +607,338 @@ void main() {
     //   }
     // });
 
-    // test('Add item on collection. Actualize the form array.', () async {
-    //   FormBuilderTest model = new FormBuilderTest(
-    //     'Edouard',
-    //     'Elric',
-    //     new DateTime(1980, 12, 15),
-    //     new DateTime(2019, 06, 01),
-    //   );
-    //   ModelFormState modelState =
-    //       new ModelFormState(model);
+    test('Add item on collection. Actualize the form array.', () async {
+      FormBuilderTest model = new FormBuilderTest(
+        'Edouard',
+        'Elric',
+        new DateTime(1980, 12, 15),
+        new DateTime(2019, 06, 01),
+      );
+      ModelFormState formState = new ModelFormState(model);
 
-    //   // books
-    //   {
-    //     ModelFormArray fa =
-    //         modelState.formBuilder.group.controls['books'] as ModelFormArray;
-    //     checkFormArray(
-    //       fa,
-    //       'books',
-    //       EAbstractControlStatus.pure,
-    //       0,
-    //     );
-    //   }
+      {
+        ModelFormArray fa =
+            formState.formBuilder.getFormElement<ModelFormArray>(
+          model,
+          'books',
+        );
+        checkFormArray(
+          fa: fa,
+          name: 'books',
+          fullname: '${fa.parentGroup.hashCode}.books',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          nbItems: 0,
+        );
+      }
 
-    //   // add book
-    //   model.books = new List<Book>();
-    //   await Future.delayed(const Duration(microseconds: 1), () {});
+      // instanciate books collection
+      model.books.value = new List<Book>();
+      await Future.delayed(const Duration(microseconds: 1), () {});
 
-    //   model.addItemOnBooks(new Book(
-    //     'Le seigneur des anneaux 1',
-    //     10,
-    //     new DateTime(2020, 10, 26),
-    //   ));
-    //   await Future.delayed(const Duration(microseconds: 1), () {});
+      {
+        ModelFormArray fa =
+            formState.formBuilder.getFormElement<ModelFormArray>(
+          model,
+          'books',
+        );
+        checkFormArray(
+          fa: fa,
+          name: 'books',
+          fullname: '${fa.parentGroup.hashCode}.books',
+          status: EAbstractControlStatus.invalid,
+          error: new ValidationError('books', NbItems, "error message here"),
+          nbItems: 0,
+        );
+      }
 
-    //   // books
-    //   {
-    //     ModelFormArray fa =
-    //         modelState.formBuilder.group.controls['books'] as ModelFormArray;
-    //     checkFormArray(
-    //       fa,
-    //       'books',
-    //       EAbstractControlStatus.valid,
-    //       1,
-    //     );
-    //   }
-    // });
+      // add book
+      model.books.value.add(new Book(
+        'Le seigneur des anneaux 1',
+        10,
+        new DateTime(2020, 10, 26),
+      ));
+      await Future.delayed(const Duration(microseconds: 1), () {});
+
+      // books
+      {
+        ModelFormArray fa =
+            formState.formBuilder.getFormElement<ModelFormArray>(
+          model,
+          'books',
+        );
+        checkFormArray(
+          fa: fa,
+          name: 'books',
+          fullname: '${fa.parentGroup.hashCode}.books',
+          status: EAbstractControlStatus.valid,
+          error: null,
+          nbItems: 1,
+        );
+      }
+
+      // books[0].name
+      {
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.books.value[0],
+          'name',
+        );
+        checkFormControl(
+          fc: fc,
+          name: 'name',
+          fullname: '${fc.parentGroup.hashCode}.name',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: 'Le seigneur des anneaux 1',
+        );
+        expect(
+          fc.formPath,
+          'root.controls[\'books\'].groups[0].controls[\'name\']',
+        );
+        expect(fc.modelPath, 'root.books[0].name');
+      }
+
+      // books[0].price
+      {
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.books.value[0],
+          'price',
+        );
+        checkFormControl(
+          fc: fc,
+          name: 'price',
+          fullname: '${fc.parentGroup.hashCode}.price',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: 10,
+        );
+        expect(
+          fc.formPath,
+          'root.controls[\'books\'].groups[0].controls[\'price\']',
+        );
+        expect(fc.modelPath, 'root.books[0].price');
+      }
+
+      // books[0].loanDate
+      {
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.books.value[0],
+          'loanDate',
+        );
+        checkFormControl(
+          fc: fc,
+          name: 'loanDate',
+          fullname: '${fc.parentGroup.hashCode}.loanDate',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: new DateTime(2020, 10, 26),
+        );
+        expect(
+          fc.formPath,
+          'root.controls[\'books\'].groups[0].controls[\'loanDate\']',
+        );
+        expect(fc.modelPath, 'root.books[0].loanDate');
+      }
+    });
+
+    test('Remove item on collection. Actualize the form array.', () async {
+      FormBuilderTest model = new FormBuilderTest(
+        'Edouard',
+        'Elric',
+        new DateTime(1980, 12, 15),
+        new DateTime(2019, 06, 01),
+      );
+      model.books.value = [
+        new Book(
+          'Voyage au centre de la terre',
+          8.9,
+          new DateTime(2020, 04, 08),
+        ),
+        new Book(
+          'De la Terre à la Lune',
+          8.9,
+          new DateTime(2020, 04, 17),
+        ),
+        new Book(
+          'Le Tour du monde en quatre-vingts jours',
+          8.9,
+          new DateTime(2020, 04, 26),
+        ),
+      ];
+      ModelFormState formState = new ModelFormState(model);
+
+      {
+        ModelFormArray fa =
+            formState.formBuilder.getFormElement<ModelFormArray>(
+          model,
+          'books',
+        );
+        checkFormArray(
+          fa: fa,
+          name: 'books',
+          fullname: '${fa.parentGroup.hashCode}.books',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          nbItems: 3,
+        );
+      }
+
+      // remove book
+      model.books.value.remove(model.books.value[1]);
+      await Future.delayed(const Duration(microseconds: 1), () {});
+
+      // books
+      {
+        ModelFormArray fa =
+            formState.formBuilder.getFormElement<ModelFormArray>(
+          model,
+          'books',
+        );
+        checkFormArray(
+          fa: fa,
+          name: 'books',
+          fullname: '${fa.parentGroup.hashCode}.books',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          nbItems: 2,
+        );
+      }
+
+      // books[0].name
+      {
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.books.value[0],
+          'name',
+        );
+        checkFormControl(
+          fc: fc,
+          name: 'name',
+          fullname: '${fc.parentGroup.hashCode}.name',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: 'Voyage au centre de la terre',
+        );
+        expect(
+          fc.formPath,
+          'root.controls[\'books\'].groups[0].controls[\'name\']',
+        );
+        expect(fc.modelPath, 'root.books[0].name');
+      }
+
+      // books[0].price
+      {
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.books.value[0],
+          'price',
+        );
+        checkFormControl(
+          fc: fc,
+          name: 'price',
+          fullname: '${fc.parentGroup.hashCode}.price',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: 8.9,
+        );
+        expect(
+          fc.formPath,
+          'root.controls[\'books\'].groups[0].controls[\'price\']',
+        );
+        expect(fc.modelPath, 'root.books[0].price');
+      }
+
+      // books[0].loanDate
+      {
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.books.value[0],
+          'loanDate',
+        );
+        checkFormControl(
+          fc: fc,
+          name: 'loanDate',
+          fullname: '${fc.parentGroup.hashCode}.loanDate',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: new DateTime(2020, 04, 08),
+        );
+        expect(
+          fc.formPath,
+          'root.controls[\'books\'].groups[0].controls[\'loanDate\']',
+        );
+        expect(fc.modelPath, 'root.books[0].loanDate');
+      }
+
+      // books[1].name
+      {
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.books.value[1],
+          'name',
+        );
+        checkFormControl(
+          fc: fc,
+          name: 'name',
+          fullname: '${fc.parentGroup.hashCode}.name',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: 'Le Tour du monde en quatre-vingts jours',
+        );
+        expect(
+          fc.formPath,
+          'root.controls[\'books\'].groups[1].controls[\'name\']',
+        );
+        expect(fc.modelPath, 'root.books[1].name');
+      }
+
+      // books[1].price
+      {
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.books.value[1],
+          'price',
+        );
+        checkFormControl(
+          fc: fc,
+          name: 'price',
+          fullname: '${fc.parentGroup.hashCode}.price',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: 8.9,
+        );
+        expect(
+          fc.formPath,
+          'root.controls[\'books\'].groups[1].controls[\'price\']',
+        );
+        expect(fc.modelPath, 'root.books[1].price');
+      }
+
+      // books[1].loanDate
+      {
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.books.value[1],
+          'loanDate',
+        );
+        checkFormControl(
+          fc: fc,
+          name: 'loanDate',
+          fullname: '${fc.parentGroup.hashCode}.loanDate',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: new DateTime(2020, 04, 26),
+        );
+        expect(
+          fc.formPath,
+          'root.controls[\'books\'].groups[1].controls[\'loanDate\']',
+        );
+        expect(fc.modelPath, 'root.books[1].loanDate');
+      }
+    });
 
     test('Get pathes from abstract controls.', () {
       FormBuilderTest model = new FormBuilderTest(

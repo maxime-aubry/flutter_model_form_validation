@@ -31,7 +31,6 @@ class ModelFormGroup extends FormGroup with ModelFormValidator {
   }
 
   ModelForm current;
-  ModelForm oldValue;
 
   String get modelPartfullname {
     if (this.controlName == null || this.controlName.isEmpty) return null;
@@ -83,7 +82,11 @@ class ModelFormGroup extends FormGroup with ModelFormValidator {
         parentGroup2.current,
         this.controlName,
       );
-      formElement.addListener(() async {});
+      formElement.addListener(() async {
+        // each time a new sub-object is instanciated, controls are updated and the form group is validated
+        this._actualizeChildren();
+        await this.validate();
+      });
     }
 
     if (this.current != null) this._actualizeChildren();
@@ -131,6 +134,10 @@ class ModelFormGroup extends FormGroup with ModelFormValidator {
       current: element.value,
     );
     super.addControl(property, formGroup);
+
+    // element.addListener(() async {
+    //   print('add listener 1');
+    // });
   }
 
   void _addChildFormArray(
@@ -146,6 +153,10 @@ class ModelFormGroup extends FormGroup with ModelFormValidator {
       items: element.value,
     );
     super.addControl(property, formArray);
+
+    // element.addListener(() async {
+    //   print('add listener 2');
+    // });
   }
 
   void _addChildFormControl(
@@ -161,6 +172,10 @@ class ModelFormGroup extends FormGroup with ModelFormValidator {
       value: element.value,
     );
     super.addControl(property, formControl);
+
+    // element.addListener(() async {
+    //   print('add listener 3');
+    // });
   }
 
   @override
