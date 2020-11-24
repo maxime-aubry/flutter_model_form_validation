@@ -12,8 +12,7 @@ void main() {
   group('FileSize.', () {
     group('Test the validation > success.', () {
       test('Loaded image is lighter or equal to 1MO.', () async {
-        File file =
-            new File('${Directory.current.path}\\test\\assets\\glycine.jpg');
+        File file = new File('.\\assets\\glycine.jpg');
         FileSizeTest model = new FileSizeTest(file.readAsBytesSync());
         ModelFormState formState = new ModelFormState(model);
 
@@ -28,8 +27,7 @@ void main() {
 
     group('Test the validation > failure.', () {
       test('Loaded image is heavier than 1MO.', () async {
-        File file = new File(
-            '${Directory.current.path}\\test\\assets\\erable-japonais.png');
+        File file = new File('.\\assets\\erable-japonais.png');
         FileSizeTest model = new FileSizeTest(file.readAsBytesSync());
         ModelFormState formState = new ModelFormState(model);
 
