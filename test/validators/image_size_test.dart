@@ -13,7 +13,7 @@ void main() {
     group('Test the validation > success.', () {
       test('Loaded file has a valid size (500px/500px min, 1000px/1000px max).',
           () async {
-        File file = new File('${Directory.current.path}.\\assets\\glycine.jpg');
+        File file = new File('${Directory.current.path}/assets/glycine.jpg');
         ImageSizeTest model = new ImageSizeTest(file.readAsBytesSync());
         ModelFormState formState = new ModelFormState(model);
 
@@ -31,7 +31,7 @@ void main() {
           'Loaded file has not a valid size (500px/500px min, 1000px/1000px max).',
           () async {
         File file =
-            new File('${Directory.current.path}.\\assets\\erable-japonais.png');
+            new File('${Directory.current.path}/assets/erable-japonais.png');
         ImageSizeTest model = new ImageSizeTest(file.readAsBytesSync());
         ModelFormState formState = new ModelFormState(model);
 
