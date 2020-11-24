@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
+import 'package:flutter_model_form_validation/src/form_builder/form_declarers/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/model_form/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
@@ -46,6 +46,11 @@ class ModelFormArray extends FormArray with ModelFormValidator {
 
     ModelFormGroup parentGroup2 = parentGroup as ModelFormGroup;
     ModelFormBuilder formBuilder = super.getFormBuilder() as ModelFormBuilder;
+    FormArrayElement<ModelForm> formElement =
+        super.getModelPart<FormArrayElement<ModelForm>>(
+      parentGroup2.current,
+      this.controlName,
+    );
 
     formBuilder.addCorrespondence(
       this.modelPartfullname,
@@ -63,28 +68,18 @@ class ModelFormArray extends FormArray with ModelFormValidator {
       super.validation_status,
     );
 
-    this._actualizeChildren(
-      super.parentGroup as ModelFormGroup,
-    );
+    this._actualizeChildren();
 
-    FormArrayElement<ModelForm> formElement =
-        super.getModelPart<FormArrayElement<ModelForm>>(
-      parentGroup2.current,
-      this.controlName,
-    );
-    formElement.addListener(() async {
-      // each time a new item is added or removed from the list, groups are updated and the form array is validated
-      this._actualizeChildren(
-        super.parentGroup as ModelFormGroup,
-      );
-      await this.validate();
+    formElement.addListener(() {
+      this.items = formElement.value;
+      this._actualizeChildren();
     });
 
     super.isInitialized = true;
   }
 
   /// [_actualizeChildren] method actualize [items] and [groups] collections of form array.
-  void _actualizeChildren(ModelFormGroup parentGroup) {
+  void _actualizeChildren() {
     if (this.items == null) this.items = new FormArratItems<ModelForm>([]);
 
     // add new groups
@@ -117,42 +112,6 @@ class ModelFormArray extends FormArray with ModelFormValidator {
     itemsToAdd.clear();
     groupsToRemove.clear();
   }
-
-  // void addItem(ModelForm item) {
-  //   assert(this.items != null, 'Cannot add item to a null list.');
-  //   assert(!this.items.contains(item),
-  //       'Cannot add an item if this one is already added.');
-  //   assert(
-  //       !Collection(super.groups)
-  //           .any((arg1) => (arg1 as ModelFormGroup).current == item),
-  //       'Cannot add an item if this one is already contained into a child form group.');
-
-  //   this.items.add(item);
-  //   super.addGroup(new ModelFormGroup(
-  //     name: '${super.controlName}[${super.groups.length}]',
-  //     parentGroup: super.parentGroup,
-  //     current: item,
-  //     isArrayItem: true,
-  //     formBuilder: null,
-  //   ));
-  // }
-
-  // void removeItem(ModelForm item) {
-  //   assert(this.items != null, 'Cannot add item to a null list.');
-  //   assert(this.items.contains(item),
-  //       'Cannot remove an item if this one is not already added.');
-  //   assert(
-  //       Collection(super.groups)
-  //           .any((arg1) => (arg1 as ModelFormGroup).current == item),
-  //       'Cannot remove an item if this one is not already contained into a child form group.');
-
-  //   ModelFormGroup formGroup = Collection(super.groups)
-  //       .where((arg1) => (arg1 as ModelFormGroup).current == item)
-  //       .single() as ModelFormGroup;
-
-  //   this.items.remove(item);
-  //   super.removeGroup(formGroup);
-  // }
 
   @override
   Future validate() async =>

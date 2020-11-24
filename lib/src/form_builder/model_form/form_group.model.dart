@@ -60,6 +60,11 @@ class ModelFormGroup extends FormGroup with ModelFormValidator {
         !isArrayItem) {
       ModelFormGroup parentGroup2 = parentGroup as ModelFormGroup;
       ModelFormBuilder formBuilder = super.getFormBuilder() as ModelFormBuilder;
+      FormGroupElement<ModelForm> formElement =
+          super.getModelPart<FormGroupElement<ModelForm>>(
+        parentGroup2.current,
+        this.controlName,
+      );
 
       formBuilder.addCorrespondence(
         this.modelPartfullname,
@@ -77,15 +82,9 @@ class ModelFormGroup extends FormGroup with ModelFormValidator {
         super.validation_status,
       );
 
-      FormGroupElement<ModelForm> formElement =
-          super.getModelPart<FormGroupElement<ModelForm>>(
-        parentGroup2.current,
-        this.controlName,
-      );
-      formElement.addListener(() async {
-        // each time a new sub-object is instanciated, controls are updated and the form group is validated
+      formElement.addListener(() {
+        this.current = formElement.value;
         this._actualizeChildren();
-        await this.validate();
       });
     }
 
@@ -95,6 +94,11 @@ class ModelFormGroup extends FormGroup with ModelFormValidator {
   }
 
   void _actualizeChildren() {
+    if (this.current == null) {
+      super.clearControls();
+      return;
+    }
+
     InstanceMirror instanceMirror = super.getInstanceMirror(this.current);
     Iterable<MapEntry<String, DeclarationMirror>> formControls = instanceMirror
         .type.declarations.entries
@@ -105,77 +109,67 @@ class ModelFormGroup extends FormGroup with ModelFormValidator {
       VariableMirror variableMirror = formControl.value as VariableMirror;
 
       if (variableMirror.dynamicReflectedType == FormGroupElement) {
-        this._addChildFormGroup(instanceMirror, formControl.key);
+        this._addChildFormGroup(formControl.key);
         continue;
       }
 
       if (variableMirror.dynamicReflectedType == FormArrayElement) {
-        this._addChildFormArray(instanceMirror, formControl.key);
+        this._addChildFormArray(formControl.key);
         continue;
       }
 
       if (variableMirror.dynamicReflectedType == FormControlElement) {
-        this._addChildFormControl(instanceMirror, formControl.key);
+        this._addChildFormControl(variableMirror, formControl.key);
         continue;
       }
     }
   }
 
-  void _addChildFormGroup(
-    InstanceMirror instanceMirror,
-    String property,
-  ) {
-    FormGroupElement<ModelForm> element =
-        super.getModelPart<FormGroupElement<ModelForm>>(this.current, property);
+  void _addChildFormGroup(String property) {
+    ModelForm model = super
+        .getModelPart<FormGroupElement<ModelForm>>(this.current, property)
+        .value;
 
-    ModelFormGroup formGroup = new ModelFormGroup(
-      name: property,
-      parentGroup: this,
-      current: element.value,
+    super.addControl(
+      property,
+      new ModelFormGroup(
+        name: property,
+        parentGroup: this,
+        current: model,
+      ),
     );
-    super.addControl(property, formGroup);
-
-    // element.addListener(() async {
-    //   print('add listener 1');
-    // });
   }
 
-  void _addChildFormArray(
-    InstanceMirror instanceMirror,
-    String property,
-  ) {
-    FormArrayElement<ModelForm> element =
-        super.getModelPart<FormArrayElement<ModelForm>>(this.current, property);
+  void _addChildFormArray(String property) {
+    List<ModelForm> model = super
+        .getModelPart<FormArrayElement<ModelForm>>(this.current, property)
+        .value;
 
-    ModelFormArray formArray = new ModelFormArray(
-      name: property,
-      parentGroup: this,
-      items: element.value,
+    super.addControl(
+      property,
+      new ModelFormArray(
+        name: property,
+        parentGroup: this,
+        items: model,
+      ),
     );
-    super.addControl(property, formArray);
-
-    // element.addListener(() async {
-    //   print('add listener 2');
-    // });
   }
 
   void _addChildFormControl(
-    InstanceMirror instanceMirror,
+    VariableMirror variableMirror,
     String property,
   ) {
-    FormControlElement element =
-        super.getModelPart<FormControlElement>(this.current, property);
+    Object value =
+        super.getModelPart<FormControlElement>(this.current, property).value;
 
-    ModelFormControl formControl = new ModelFormControl(
-      name: property,
-      parentGroup: this,
-      value: element.value,
+    super.addControl(
+      property,
+      new ModelFormControl(
+        name: property,
+        parentGroup: this,
+        value: value,
+      ),
     );
-    super.addControl(property, formControl);
-
-    // element.addListener(() async {
-    //   print('add listener 3');
-    // });
   }
 
   @override

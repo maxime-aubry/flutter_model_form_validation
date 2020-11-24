@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/form_declarers/index.dart';
@@ -23,7 +22,7 @@ mixin ModelFormValidator<TModel extends ModelForm> {
         TFormElement == FormGroupElement ||
             TFormElement == FormArrayElement ||
             TFormElement == FormControlElement,
-        'Cannot get a model part that is not an object of type FormGroupElement, FormArrayElement, or FormControlElement.');
+        'Cannot get a model part that is not an object of type FormGroupElement, FormArrayElement, FormControlElement or FormControllistElement.');
 
     InstanceMirror instanceMirror = this.getInstanceMirror(model);
     Object formElement = instanceMirror.invokeGetter(property);

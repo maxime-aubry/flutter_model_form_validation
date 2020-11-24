@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
@@ -29,7 +31,7 @@ class FileSize extends FormValidatorAnnotation {
     try {
       if (value == null) return true;
 
-      if (value is! List<int>)
+      if (value is! Uint8List)
         throw new Exception(
             'field type must be a byte array (list of integer)');
 
@@ -41,7 +43,7 @@ class FileSize extends FormValidatorAnnotation {
     }
   }
 
-  bool _validate(List<int> value) {
+  bool _validate(Uint8List value) {
     if (value == null) return true;
     if (value.length <= this.size) return true;
     return false;

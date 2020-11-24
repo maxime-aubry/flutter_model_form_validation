@@ -42,7 +42,7 @@ class FormStateBase {
   }
 
   Future _validateFormGroup(FormGroup formGroup) async {
-    await formGroup.validate();
+    if (formGroup.isArrayItem) await formGroup.validate();
 
     for (MapEntry<String, AbstractControl> control
         in formGroup.controls.entries) {

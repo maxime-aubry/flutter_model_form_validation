@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 void main() {}
@@ -43,15 +45,6 @@ class FormBuilderTest extends ModelForm {
 
   @Required(error: 'error message here')
   FormGroupElement<Book> favoriteBook;
-
-  // void addItemOnBooks(Book item) {
-  //   if (this.books == null) this.books = new List<Book>();
-  //   this.books.add(item);
-  // }
-
-  // void removeItemOnBook(Book item) {
-  //   if (this.books.contains(item)) this.books.remove(item);
-  // }
 }
 
 @flutterModelFormValidator
@@ -61,9 +54,9 @@ class Book extends ModelForm {
     num price,
     DateTime loanDate,
   ) {
-    this.name = FormControlElement<String>(name);
-    this.price = FormControlElement<num>(price);
-    this.loanDate = FormControlElement<DateTime>(loanDate);
+    this.name = new FormControlElement<String>(name);
+    this.price = new FormControlElement<num>(price);
+    this.loanDate = new FormControlElement<DateTime>(loanDate);
   }
 
   @Required(error: 'error message here')
@@ -83,10 +76,14 @@ class Book extends ModelForm {
 @flutterModelFormValidator
 class DateTimeRangeTest extends ModelForm {
   DateTimeRangeTest(
-    this.value, [
-    this.min,
-    this.max,
-  ]);
+    DateTime value, [
+    DateTime min,
+    DateTime max,
+  ]) {
+    this.value = new FormControlElement<DateTime>(value);
+    this.min = new FormControlElement<DateTime>(min);
+    this.max = new FormControlElement<DateTime>(max);
+  }
 
   @Range(
     min: '2019-01-01',
@@ -95,19 +92,21 @@ class DateTimeRangeTest extends ModelForm {
     maxOnProperty: 'max',
     error: 'error message here',
   )
-  DateTime value;
-  DateTime min;
-  DateTime max;
+  FormControlElement<DateTime> value;
+  FormControlElement<DateTime> min;
+  FormControlElement<DateTime> max;
 }
 //#endregion
 
 //#region Email
 @flutterModelFormValidator
 class EmailTest extends ModelForm {
-  EmailTest(this.value);
+  EmailTest(String value) {
+    this.value = new FormControlElement<String>(value);
+  }
 
   @Email(error: 'error message here')
-  String value;
+  FormControlElement<String> value;
 }
 //#endregion
 
@@ -115,17 +114,20 @@ class EmailTest extends ModelForm {
 @flutterModelFormValidator
 class EqualToDatetimeTest extends ModelForm {
   EqualToDatetimeTest(
-    this.value, [
-    this.valueToCompare = null,
-  ]);
+    DateTime value, [
+    DateTime valueToCompare,
+  ]) {
+    this.value = new FormControlElement<DateTime>(value);
+    this.valueToCompare = new FormControlElement<DateTime>(valueToCompare);
+  }
 
   @EqualTo(
     valueToCompare: '2019-01-01T00:00:00',
     valueToCompareOnProperty: 'valueToCompare',
     error: 'error message here',
   )
-  DateTime value;
-  DateTime valueToCompare;
+  FormControlElement<DateTime> value;
+  FormControlElement<DateTime> valueToCompare;
 }
 //#endregion
 
@@ -133,17 +135,20 @@ class EqualToDatetimeTest extends ModelForm {
 @flutterModelFormValidator
 class EqualToNumberTest extends ModelForm {
   EqualToNumberTest(
-    this.value, [
-    this.valueToCompare = null,
-  ]);
+    num value, [
+    num valueToCompare,
+  ]) {
+    this.value = new FormControlElement<num>(value);
+    this.valueToCompare = new FormControlElement<num>(valueToCompare);
+  }
 
   @EqualTo(
     valueToCompare: '1',
     valueToCompareOnProperty: 'valueToCompare',
     error: 'error message here',
   )
-  num value;
-  num valueToCompare;
+  FormControlElement<num> value;
+  FormControlElement<num> valueToCompare;
 }
 //#endregion
 
@@ -151,43 +156,50 @@ class EqualToNumberTest extends ModelForm {
 @flutterModelFormValidator
 class EqualToStringTest extends ModelForm {
   EqualToStringTest(
-    this.value, [
-    this.valueToCompare = null,
-  ]);
+    String value, [
+    String valueToCompare,
+  ]) {
+    this.value = new FormControlElement<String>(value);
+    this.valueToCompare = new FormControlElement<String>(valueToCompare);
+  }
 
   @EqualTo(
     valueToCompare: 'b',
     valueToCompareOnProperty: 'valueToCompare',
     error: 'error message here',
   )
-  String value;
-  String valueToCompare;
+  FormControlElement<String> value;
+  FormControlElement<String> valueToCompare;
 }
 //#endregion
 
 //#region FileMimeType
 @flutterModelFormValidator
 class FileMimeTypeTest extends ModelForm {
-  FileMimeTypeTest(this.value);
+  FileMimeTypeTest(Uint8List value) {
+    this.value = new FormControlElement<Uint8List>(value);
+  }
 
   @FileMimeType(
     mimeTypes: ['image/jpeg', 'image/bmp'],
     error: 'error message here',
   )
-  List<int> value;
+  FormControlElement<Uint8List> value;
 }
 //#endregion
 
 //#region FileSize
 @flutterModelFormValidator
 class FileSizeTest extends ModelForm {
-  FileSizeTest(this.value);
+  FileSizeTest(Uint8List value) {
+    this.value = new FormControlElement<Uint8List>(value);
+  }
 
   @FileSize(
     size: 1048576,
     error: 'error message here',
   )
-  List<int> value;
+  FormControlElement<Uint8List> value;
 }
 //#endregion
 
@@ -195,17 +207,20 @@ class FileSizeTest extends ModelForm {
 @flutterModelFormValidator
 class GreaterOrEqualToDatetimeTest extends ModelForm {
   GreaterOrEqualToDatetimeTest(
-    this.value, [
-    this.valueToCompare,
-  ]);
+    DateTime value, [
+    DateTime valueToCompare,
+  ]) {
+    this.value = new FormControlElement<DateTime>(value);
+    this.valueToCompare = new FormControlElement<DateTime>(valueToCompare);
+  }
 
   @GreaterOrEqualTo(
     valueToCompareOnProperty: 'valueToCompare',
     valueToCompare: '2019-01-01T00:00:00',
     error: 'error message here',
   )
-  DateTime value;
-  DateTime valueToCompare;
+  FormControlElement<DateTime> value;
+  FormControlElement<DateTime> valueToCompare;
 }
 //#endregion
 
@@ -213,17 +228,20 @@ class GreaterOrEqualToDatetimeTest extends ModelForm {
 @flutterModelFormValidator
 class GreaterOrEqualToNumberTest extends ModelForm {
   GreaterOrEqualToNumberTest(
-    this.value, [
-    this.valueToCompare,
-  ]);
+    num value, [
+    num valueToCompare,
+  ]) {
+    this.value = new FormControlElement<num>(value);
+    this.valueToCompare = new FormControlElement<num>(valueToCompare);
+  }
 
   @GreaterOrEqualTo(
     valueToCompareOnProperty: 'valueToCompare',
     valueToCompare: '1',
     error: 'error message here',
   )
-  num value;
-  num valueToCompare;
+  FormControlElement<num> value;
+  FormControlElement<num> valueToCompare;
 }
 //#endregion
 
@@ -231,17 +249,20 @@ class GreaterOrEqualToNumberTest extends ModelForm {
 @flutterModelFormValidator
 class GreaterOrEqualToStringTest extends ModelForm {
   GreaterOrEqualToStringTest(
-    this.value, [
-    this.valueToCompare,
-  ]);
+    String value, [
+    String valueToCompare,
+  ]) {
+    this.value = new FormControlElement<String>(value);
+    this.valueToCompare = new FormControlElement<String>(valueToCompare);
+  }
 
   @GreaterOrEqualTo(
     valueToCompareOnProperty: 'valueToCompare',
     valueToCompare: 'b',
     error: 'error message here',
   )
-  String value;
-  String valueToCompare;
+  FormControlElement<String> value;
+  FormControlElement<String> valueToCompare;
 }
 //#endregion
 
@@ -249,17 +270,20 @@ class GreaterOrEqualToStringTest extends ModelForm {
 @flutterModelFormValidator
 class GreaterThanDatetimeTest extends ModelForm {
   GreaterThanDatetimeTest(
-    this.value, [
-    this.valueToCompare,
-  ]);
+    DateTime value, [
+    DateTime valueToCompare,
+  ]) {
+    this.value = new FormControlElement<DateTime>(value);
+    this.valueToCompare = new FormControlElement<DateTime>(valueToCompare);
+  }
 
   @GreaterThan(
     valueToCompare: '2019-01-01T00:00:00',
     valueToCompareOnProperty: 'valueToCompare',
     error: 'error message here',
   )
-  DateTime value;
-  DateTime valueToCompare;
+  FormControlElement<DateTime> value;
+  FormControlElement<DateTime> valueToCompare;
 }
 //#endregion
 
@@ -267,17 +291,20 @@ class GreaterThanDatetimeTest extends ModelForm {
 @flutterModelFormValidator
 class GreaterThanNumberTest extends ModelForm {
   GreaterThanNumberTest(
-    this.value, [
-    this.valueToCompare,
-  ]);
+    num value, [
+    num valueToCompare,
+  ]) {
+    this.value = new FormControlElement<num>(value);
+    this.valueToCompare = new FormControlElement<num>(valueToCompare);
+  }
 
   @GreaterThan(
     valueToCompare: '1',
     valueToCompareOnProperty: 'valueToCompare',
     error: 'error message here',
   )
-  num value;
-  num valueToCompare;
+  FormControlElement<num> value;
+  FormControlElement<num> valueToCompare;
 }
 //#endregion
 
@@ -285,24 +312,29 @@ class GreaterThanNumberTest extends ModelForm {
 @flutterModelFormValidator
 class GreaterThanStringTest extends ModelForm {
   GreaterThanStringTest(
-    this.value, [
-    this.valueToCompare,
-  ]);
+    String value, [
+    String valueToCompare,
+  ]) {
+    this.value = new FormControlElement<String>(value);
+    this.valueToCompare = new FormControlElement<String>(valueToCompare);
+  }
 
   @GreaterThan(
     valueToCompare: 'b',
     valueToCompareOnProperty: 'valueToCompare',
     error: 'error message here',
   )
-  String value;
-  String valueToCompare;
+  FormControlElement<String> value;
+  FormControlElement<String> valueToCompare;
 }
 //#endregion
 
 //#region ImageSize
 @flutterModelFormValidator
 class ImageSizeTest extends ModelForm {
-  ImageSizeTest(this.value);
+  ImageSizeTest(Uint8List value) {
+    this.value = new FormControlElement<Uint8List>(value);
+  }
 
   @ImageSize(
     minWidth: 500,
@@ -311,7 +343,7 @@ class ImageSizeTest extends ModelForm {
     maxHeight: 1000,
     error: 'error message here',
   )
-  List<int> value;
+  FormControlElement<Uint8List> value;
 }
 //#endregion
 
@@ -319,9 +351,12 @@ class ImageSizeTest extends ModelForm {
 @flutterModelFormValidator
 class InTextTest extends ModelForm {
   InTextTest(
-    this.value, [
-    this.text,
-  ]);
+    String value, [
+    String text,
+  ]) {
+    this.value = new FormControlElement<String>(value);
+    this.text = new FormControlElement<String>(text);
+  }
 
   @InText(
     text:
@@ -329,54 +364,62 @@ class InTextTest extends ModelForm {
     textOnProperty: 'text',
     error: 'error message here',
   )
-  String value;
-  String text;
+  FormControlElement<String> value;
+  FormControlElement<String> text;
 }
 //#endregion
 
 //#region MultiSelectDatetime
 @flutterModelFormValidator
 class MultiSelectDatetimeTest extends ModelForm {
-  MultiSelectDatetimeTest(this.value);
+  MultiSelectDatetimeTest(List<DateTime> value) {
+    this.value = new FormControlElement<List<DateTime>>(value);
+  }
 
   @MultiSelect(
     serviceName: 'getItems',
     error: 'error message here',
   )
-  List<DateTime> value;
+  FormControlElement<List<DateTime>> value;
 }
 //#endregion
 
 //#region MultiSelectNumber
 @flutterModelFormValidator
 class MultiSelectNumberTest extends ModelForm {
-  MultiSelectNumberTest(this.value);
+  MultiSelectNumberTest(List<num> value) {
+    this.value = new FormControlElement<List<num>>(value);
+  }
 
   @MultiSelect(
     serviceName: 'getItems',
     error: 'error message here',
   )
-  List<num> value;
+  FormControlElement<List<num>> value;
 }
 //#region
 
 //#region MultiSelectString
 @flutterModelFormValidator
 class MultiSelectStringTest extends ModelForm {
-  MultiSelectStringTest(this.value);
+  MultiSelectStringTest(List<String> value) {
+    this.value = new FormControlElement<List<String>>(value);
+  }
 
   @MultiSelect(
     serviceName: 'getItems',
     error: 'error message here',
   )
-  List<String> value;
+  FormControlElement<List<String>> value;
 }
 //#endregion
 
 //#region MembershipPassword
 @flutterModelFormValidator
 class MembershipPasswordTest extends ModelForm {
-  MembershipPasswordTest(this.value);
+  MembershipPasswordTest(String value) {
+    this.value = new FormControlElement<String>(value);
+  }
 
   @MembershipPassword(
     minLength: 8,
@@ -387,7 +430,7 @@ class MembershipPasswordTest extends ModelForm {
     includesSpecialCharacters: true,
     error: 'error message here',
   )
-  String value;
+  FormControlElement<String> value;
 }
 //#endregion
 
@@ -395,10 +438,14 @@ class MembershipPasswordTest extends ModelForm {
 @flutterModelFormValidator
 class NbItemsTest extends ModelForm {
   NbItemsTest(
-    this.value, [
-    this.min,
-    this.max,
-  ]);
+    List<String> value, [
+    int min,
+    int max,
+  ]) {
+    this.value = new FormControlElement<List<String>>(value);
+    this.min = new FormControlElement<int>(min);
+    this.max = new FormControlElement<int>(max);
+  }
 
   @NbItems(
     min: '1',
@@ -407,9 +454,9 @@ class NbItemsTest extends ModelForm {
     maxOnProperty: 'max',
     error: 'error message here',
   )
-  List<String> value;
-  int min;
-  int max;
+  FormControlElement<List<String>> value;
+  FormControlElement<int> min;
+  FormControlElement<int> max;
 }
 //#endregion
 
@@ -417,17 +464,20 @@ class NbItemsTest extends ModelForm {
 @flutterModelFormValidator
 class NotEqualToDatetimeTest extends ModelForm {
   NotEqualToDatetimeTest(
-    this.value, [
-    this.valueToCompare = null,
-  ]);
+    DateTime value, [
+    DateTime valueToCompare,
+  ]) {
+    this.value = new FormControlElement<DateTime>(value);
+    this.valueToCompare = new FormControlElement<DateTime>(valueToCompare);
+  }
 
   @NotEqualTo(
     valueToCompare: '2019-01-01T00:00:00',
     valueToCompareOnProperty: 'valueToCompare',
     error: 'error message here',
   )
-  DateTime value;
-  DateTime valueToCompare;
+  FormControlElement<DateTime> value;
+  FormControlElement<DateTime> valueToCompare;
 }
 //#endregion
 
@@ -435,17 +485,20 @@ class NotEqualToDatetimeTest extends ModelForm {
 @flutterModelFormValidator
 class NotEqualToNumberTest extends ModelForm {
   NotEqualToNumberTest(
-    this.value, [
-    this.valueToCompare = null,
-  ]);
+    num value, [
+    num valueToCompare,
+  ]) {
+    this.value = new FormControlElement<num>(value);
+    this.valueToCompare = new FormControlElement<num>(valueToCompare);
+  }
 
   @NotEqualTo(
     valueToCompare: '1',
     valueToCompareOnProperty: 'valueToCompare',
     error: 'error message here',
   )
-  num value;
-  num valueToCompare;
+  FormControlElement<num> value;
+  FormControlElement<num> valueToCompare;
 }
 //#endregion
 
@@ -453,17 +506,20 @@ class NotEqualToNumberTest extends ModelForm {
 @flutterModelFormValidator
 class NotEqualToStringTest extends ModelForm {
   NotEqualToStringTest(
-    this.value, [
-    this.valueToCompare = null,
-  ]);
+    String value, [
+    String valueToCompare,
+  ]) {
+    this.value = new FormControlElement<String>(value);
+    this.valueToCompare = new FormControlElement<String>(valueToCompare);
+  }
 
   @NotEqualTo(
     valueToCompare: 'b',
     valueToCompareOnProperty: 'valueToCompare',
     error: 'error message here',
   )
-  String value;
-  String valueToCompare;
+  FormControlElement<String> value;
+  FormControlElement<String> valueToCompare;
 }
 //#endregion
 
@@ -471,10 +527,14 @@ class NotEqualToStringTest extends ModelForm {
 @flutterModelFormValidator
 class NumberRangeTest extends ModelForm {
   NumberRangeTest(
-    this.value, [
-    this.min,
-    this.max,
-  ]);
+    num value, [
+    num min,
+    num max,
+  ]) {
+    this.value = new FormControlElement<num>(value);
+    this.min = new FormControlElement<num>(min);
+    this.max = new FormControlElement<num>(max);
+  }
 
   @Range(
     min: '-10',
@@ -483,9 +543,9 @@ class NumberRangeTest extends ModelForm {
     maxOnProperty: 'max',
     error: 'error message here',
   )
-  num value;
-  num min;
-  num max;
+  FormControlElement<num> value;
+  FormControlElement<num> min;
+  FormControlElement<num> max;
 }
 //#endregion
 
@@ -493,81 +553,95 @@ class NumberRangeTest extends ModelForm {
 @flutterModelFormValidator
 class PhoneNumberTest extends ModelForm {
   PhoneNumberTest(
-    this.value, [
-    this.countryCode,
-    this.phoneNumberType,
-  ]);
+    String value, [
+    String countryCode,
+    String phoneNumberType,
+  ]) {
+    this.value = new FormControlElement<String>(value);
+    this.countryCode = new FormControlElement<String>(countryCode);
+    this.phoneNumberType = new FormControlElement<String>(phoneNumberType);
+  }
 
   @PhoneNumber(
     phoneNumberTypeOnProperty: 'phoneNumberType',
     countryCodeOnProperty: 'countryCode',
     error: 'error message here',
   )
-  String value;
-  String countryCode;
-  String phoneNumberType;
+  FormControlElement<String> value;
+  FormControlElement<String> countryCode;
+  FormControlElement<String> phoneNumberType;
 }
 //#endregion
 
 //#region RegularExpression
 @flutterModelFormValidator
 class RegularExpressionTest extends ModelForm {
-  RegularExpressionTest(this.value);
+  RegularExpressionTest(String value) {
+    this.value = new FormControlElement<String>(value);
+  }
 
   @RegularExpression(
     expression: r'^Hello|Bye$',
     error: 'error message here',
   )
-  String value;
+  FormControlElement<String> value;
 }
 //#endregion
 
 //#region Required
 @flutterModelFormValidator
 class RequiredTest extends ModelForm {
-  RequiredTest(this.value);
+  RequiredTest(String value) {
+    this.value = new FormControlElement<String>(value);
+  }
 
   @Required(error: 'error message here')
-  String value;
+  FormControlElement<String> value;
 }
 //#endregion
 
 //#region SingleSelectDateTime
 @flutterModelFormValidator
 class SingleSelectDatetimeTest extends ModelForm {
-  SingleSelectDatetimeTest(this.value);
+  SingleSelectDatetimeTest(DateTime value) {
+    this.value = new FormControlElement<DateTime>(value);
+  }
 
   @SingleSelect(
     serviceName: 'getItems',
     error: 'error message here',
   )
-  DateTime value;
+  FormControlElement<DateTime> value;
 }
 //#endregion
 
 //#region SingleSelectNumber
 @flutterModelFormValidator
 class SingleSelectNumberTest extends ModelForm {
-  SingleSelectNumberTest(this.value);
+  SingleSelectNumberTest(num value) {
+    this.value = new FormControlElement<num>(value);
+  }
 
   @SingleSelect(
     serviceName: 'getItems',
     error: 'error message here',
   )
-  num value;
+  FormControlElement<num> value;
 }
 //#region
 
 //#region SingleSelectString
 @flutterModelFormValidator
 class SingleSelectStringTest extends ModelForm {
-  SingleSelectStringTest(this.value);
+  SingleSelectStringTest(String value) {
+    this.value = new FormControlElement<String>(value);
+  }
 
   @SingleSelect(
     serviceName: 'getItems',
     error: 'error message here',
   )
-  String value;
+  FormControlElement<String> value;
 }
 //#endregion
 
@@ -575,17 +649,20 @@ class SingleSelectStringTest extends ModelForm {
 @flutterModelFormValidator
 class SmallerOrEqualToDatetimeTest extends ModelForm {
   SmallerOrEqualToDatetimeTest(
-    this.value, [
-    this.valueToCompare,
-  ]);
+    DateTime value, [
+    DateTime valueToCompare,
+  ]) {
+    this.value = new FormControlElement<DateTime>(value);
+    this.valueToCompare = new FormControlElement<DateTime>(valueToCompare);
+  }
 
   @SmallerOrEqualTo(
     valueToCompare: '2019-01-01T00:00:00',
     valueToCompareOnProperty: 'valueToCompare',
     error: 'error message here',
   )
-  DateTime value;
-  DateTime valueToCompare;
+  FormControlElement<DateTime> value;
+  FormControlElement<DateTime> valueToCompare;
 }
 //#endregion
 
@@ -593,17 +670,20 @@ class SmallerOrEqualToDatetimeTest extends ModelForm {
 @flutterModelFormValidator
 class SmallerOrEqualToNumberTest extends ModelForm {
   SmallerOrEqualToNumberTest(
-    this.value, [
-    this.valueToCompare,
-  ]);
+    num value, [
+    num valueToCompare,
+  ]) {
+    this.value = new FormControlElement<num>(value);
+    this.valueToCompare = new FormControlElement<num>(valueToCompare);
+  }
 
   @SmallerOrEqualTo(
     valueToCompare: '1',
     valueToCompareOnProperty: 'valueToCompare',
     error: 'error message here',
   )
-  num value;
-  num valueToCompare;
+  FormControlElement<num> value;
+  FormControlElement<num> valueToCompare;
 }
 //#endregion
 
@@ -611,17 +691,20 @@ class SmallerOrEqualToNumberTest extends ModelForm {
 @flutterModelFormValidator
 class SmallerOrEqualToStringTest extends ModelForm {
   SmallerOrEqualToStringTest(
-    this.value, [
-    this.valueToCompare,
-  ]);
+    String value, [
+    String valueToCompare,
+  ]) {
+    this.value = new FormControlElement<String>(value);
+    this.valueToCompare = new FormControlElement<String>(valueToCompare);
+  }
 
   @SmallerOrEqualTo(
     valueToCompare: 'b',
     valueToCompareOnProperty: 'valueToCompare',
     error: 'error message here',
   )
-  String value;
-  String valueToCompare;
+  FormControlElement<String> value;
+  FormControlElement<String> valueToCompare;
 }
 //#endregion
 
@@ -629,17 +712,20 @@ class SmallerOrEqualToStringTest extends ModelForm {
 @flutterModelFormValidator
 class SmallerThanDatetimeTest extends ModelForm {
   SmallerThanDatetimeTest(
-    this.value, [
-    this.valueToCompare,
-  ]);
+    DateTime value, [
+    DateTime valueToCompare,
+  ]) {
+    this.value = new FormControlElement<DateTime>(value);
+    this.valueToCompare = new FormControlElement<DateTime>(valueToCompare);
+  }
 
   @SmallerThan(
     valueToCompare: '2019-01-01T00:00:00',
     valueToCompareOnProperty: 'valueToCompare',
     error: 'error message here',
   )
-  DateTime value;
-  DateTime valueToCompare;
+  FormControlElement<DateTime> value;
+  FormControlElement<DateTime> valueToCompare;
 }
 //#endregion
 
@@ -647,17 +733,20 @@ class SmallerThanDatetimeTest extends ModelForm {
 @flutterModelFormValidator
 class SmallerThanNumberTest extends ModelForm {
   SmallerThanNumberTest(
-    this.value, [
-    this.valueToCompare,
-  ]);
+    num value, [
+    num valueToCompare,
+  ]) {
+    this.value = new FormControlElement<num>(value);
+    this.valueToCompare = new FormControlElement<num>(valueToCompare);
+  }
 
   @SmallerThan(
     valueToCompare: '1',
     valueToCompareOnProperty: 'valueToCompare',
     error: 'error message here',
   )
-  num value;
-  num valueToCompare;
+  FormControlElement<num> value;
+  FormControlElement<num> valueToCompare;
 }
 //#endregion
 
@@ -665,33 +754,36 @@ class SmallerThanNumberTest extends ModelForm {
 @flutterModelFormValidator
 class SmallerThanStringTest extends ModelForm {
   SmallerThanStringTest(
-    this.value, [
-    this.valueToCompare,
-  ]);
+    String value, [
+    String valueToCompare,
+  ]) {
+    this.value = new FormControlElement<String>(value);
+    this.valueToCompare = new FormControlElement<String>(valueToCompare);
+  }
 
   @SmallerThan(
     valueToCompare: 'b',
     valueToCompareOnProperty: 'valueToCompare',
     error: 'error message here',
   )
-  String value;
-  String valueToCompare;
+  FormControlElement<String> value;
+  FormControlElement<String> valueToCompare;
 }
 //#endregion
 
 //#region StringLength
 @flutterModelFormValidator
 class StringLengthTest extends ModelForm {
-  StringLengthTest(
-    this.value,
-  );
+  StringLengthTest(String value) {
+    this.value = new FormControlElement<String>(value);
+  }
 
   @StringLength(
     min: 10,
     max: 20,
     error: 'error message here',
   )
-  String value;
+  FormControlElement<String> value;
 }
 //#endregion
 
@@ -699,10 +791,14 @@ class StringLengthTest extends ModelForm {
 @flutterModelFormValidator
 class StringRangeTest extends ModelForm {
   StringRangeTest(
-    this.value, [
-    this.min,
-    this.max,
-  ]);
+    String value, [
+    String min,
+    String max,
+  ]) {
+    this.value = new FormControlElement<String>(value);
+    this.min = new FormControlElement<String>(min);
+    this.max = new FormControlElement<String>(max);
+  }
 
   @Range(
     min: 'a',
@@ -711,22 +807,22 @@ class StringRangeTest extends ModelForm {
     maxOnProperty: 'max',
     error: 'error message here',
   )
-  String value;
-  String min;
-  String max;
+  FormControlElement<String> value;
+  FormControlElement<String> min;
+  FormControlElement<String> max;
 }
 //#endregion
 
 //#region URL
 @flutterModelFormValidator
 class UrlTest extends ModelForm {
-  UrlTest(
-    this.value,
-  );
+  UrlTest(String value) {
+    this.value = new FormControlElement<String>(value);
+  }
 
   @URL(
     error: 'error message here',
   )
-  String value;
+  FormControlElement<String> value;
 }
 //#endregion

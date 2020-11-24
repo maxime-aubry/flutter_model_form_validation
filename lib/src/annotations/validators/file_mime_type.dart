@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
@@ -30,7 +32,7 @@ class FileMimeType extends FormValidatorAnnotation {
     try {
       if (value == null) return true;
 
-      if (value is! List<int>)
+      if (value is! Uint8List)
         throw new Exception(
             'field type must be a byte array (list of integer)');
 
@@ -42,7 +44,7 @@ class FileMimeType extends FormValidatorAnnotation {
     }
   }
 
-  bool _validate(List<int> value) {
+  bool _validate(Uint8List value) {
     if (value == null) return true;
     String mimeType = lookupMimeType('no-file', headerBytes: value);
     if (this.mimeTypes.contains(mimeType)) return true;

@@ -135,6 +135,11 @@ class FormGroup extends AbstractControl {
     this._controls.remove(name);
   }
 
+  @protected
+  void clearControls() {
+    this._controls.clear();
+  }
+
   Future validate() async =>
       await super.validateControl(this, this.formPath, this.modelPath);
 }

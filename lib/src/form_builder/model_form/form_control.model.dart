@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
+import 'package:flutter_model_form_validation/src/form_builder/form_declarers/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/model_form/index.dart';
 
@@ -43,6 +43,10 @@ class ModelFormControl<TField> extends FormControl<TField>
 
     ModelFormGroup parentGroup2 = this.parentGroup as ModelFormGroup;
     ModelFormBuilder formBuilder = super.getFormBuilder() as ModelFormBuilder;
+    FormControlElement formElement = super.getModelPart<FormControlElement>(
+      parentGroup2.current,
+      this.controlName,
+    );
 
     formBuilder.addCorrespondence(
       this.modelPartfullname,
@@ -60,13 +64,8 @@ class ModelFormControl<TField> extends FormControl<TField>
       super.validation_status,
     );
 
-    FormControlElement formElement = super.getModelPart<FormControlElement>(
-      parentGroup2.current,
-      this.controlName,
-    );
-    formElement.addListener(() async {
-      // each time a new value is setted, form control is validated
-      await this.validate();
+    formElement.addListener(() {
+      this.value = formElement.value;
     });
 
     super.isInitialized = true;

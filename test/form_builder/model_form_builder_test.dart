@@ -475,14 +475,14 @@ void main() {
       }
     });
 
-    // test('Form is updated and validated when setting a value.', () async {
+    // test('Form is updated and pureated when setting a value.', () async {
     //   FormBuilderTest model = new FormBuilderTest(null, null, null, null);
-    //   ModelFormState modelState =
+    //   ModelFormState formState =
     //       new ModelFormState(model);
 
     //   // firstName
     //   {
-    //     ModelFormControl fc = modelState
+    //     ModelFormControl fc = formState
     //         .formBuilder.group.controls['firstName'] as ModelFormControl;
     //     checkFormControl(
     //       fc,
@@ -496,12 +496,12 @@ void main() {
     //   await Future.delayed(const Duration(microseconds: 1), () {});
 
     //   {
-    //     ModelFormControl fc = modelState
+    //     ModelFormControl fc = formState
     //         .formBuilder.group.controls['firstName'] as ModelFormControl;
     //     checkFormControl(
     //       fc,
     //       'firstName',
-    //       EAbstractControlStatus.invalid,
+    //       EAbstractControlStatus.pure,
     //       'xx',
     //     );
     //   }
@@ -511,12 +511,12 @@ void main() {
 
     //   // lastName
     //   {
-    //     ModelFormControl fc = modelState.formBuilder.group.controls['lastName']
+    //     ModelFormControl fc = formState.formBuilder.group.controls['lastName']
     //         as ModelFormControl;
     //     checkFormControl(
     //       fc,
     //       'lastName',
-    //       EAbstractControlStatus.valid,
+    //       EAbstractControlStatus.pure,
     //       'Elric',
     //     );
     //   }
@@ -526,12 +526,12 @@ void main() {
 
     //   // birthDay
     //   {
-    //     ModelFormControl fc = modelState.formBuilder.group.controls['birthDay']
+    //     ModelFormControl fc = formState.formBuilder.group.controls['birthDay']
     //         as ModelFormControl;
     //     checkFormControl(
     //       fc,
     //       'birthDay',
-    //       EAbstractControlStatus.valid,
+    //       EAbstractControlStatus.pure,
     //       new DateTime(1980, 12, 15),
     //     );
     //   }
@@ -541,71 +541,221 @@ void main() {
 
     //   // subscriptionDate
     //   {
-    //     ModelFormControl fc = modelState.formBuilder.group
+    //     ModelFormControl fc = formState.formBuilder.group
     //         .controls['subscriptionDate'] as ModelFormControl;
     //     checkFormControl(
     //       fc,
     //       'subscriptionDate',
-    //       EAbstractControlStatus.invalid,
+    //       EAbstractControlStatus.pure,
     //       new DateTime(2020, 06, 01),
     //     );
     //   }
     // });
 
-    // test('Add sub-object. Actualize the form group.', () async {
-    //   FormBuilderTest model = new FormBuilderTest(
-    //     'Edouard',
-    //     'Elric',
-    //     new DateTime(1980, 12, 15),
-    //     new DateTime(2019, 06, 01),
-    //   );
-    //   ModelFormState modelState =
-    //       new ModelFormState(model);
+    test('Add sub-object. Actualize the form group.', () async {
+      FormBuilderTest model = new FormBuilderTest(
+        'Edouard',
+        'Elric',
+        new DateTime(1980, 12, 15),
+        new DateTime(2019, 06, 01),
+      );
+      ModelFormState formState = new ModelFormState(model);
 
-    //   // favoriteBook
-    //   {
-    //     ModelFormGroup fg = modelState
-    //         .formBuilder.group.controls['favoriteBook'] as ModelFormGroup;
-    //     checkFormGroup(
-    //       fg,
-    //       'favoriteBook',
-    //       EAbstractControlStatus.pure,
-    //       true,
-    //     );
-    //   }
+      // favoriteBook
+      {
+        ModelFormGroup fg =
+            formState.formBuilder.getFormElement<ModelFormGroup>(
+          model,
+          'favoriteBook',
+        );
+        checkFormGroup(
+          fg: fg,
+          name: 'favoriteBook',
+          fullname: '${fg.parentGroup.hashCode}.favoriteBook',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          areControlsNull: true,
+        );
+      }
 
-    //   model.favoriteBook = new Book(
-    //     'Le seigneur des anneaux 1',
-    //     10,
-    //     new DateTime(2020, 10, 26),
-    //   );
-    //   await Future.delayed(const Duration(microseconds: 1), () {});
+      model.favoriteBook.value = new Book(
+        'Le seigneur des anneaux 1',
+        8.9,
+        new DateTime(2020, 10, 26),
+      );
+      await Future.delayed(const Duration(microseconds: 1), () {});
 
-    //   // favoriteBook
-    //   {
-    //     ModelFormGroup fg = modelState
-    //         .formBuilder.group.controls['favoriteBook'] as ModelFormGroup;
-    //     checkFormGroup(
-    //       fg,
-    //       'favoriteBook',
-    //       EAbstractControlStatus.valid,
-    //       false,
-    //     );
-    //   }
+      // favoriteBook
+      {
+        ModelFormGroup fg =
+            formState.formBuilder.getFormElement<ModelFormGroup>(
+          model,
+          'favoriteBook',
+        );
+        checkFormGroup(
+          fg: fg,
+          name: 'favoriteBook',
+          fullname: '${fg.parentGroup.hashCode}.favoriteBook',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          areControlsNull: false,
+        );
+      }
 
-    //   // favoriteBook.name
-    //   {
-    //     ModelFormGroup fg = modelState
-    //         .formBuilder.group.controls['favoriteBook'] as ModelFormGroup;
-    //     ModelFormControl fc = fg.controls['name'] as ModelFormControl;
-    //     checkFormControl(
-    //       fc,
-    //       'name',
-    //       EAbstractControlStatus.pure,
-    //       fc.getValue(),
-    //     );
-    //   }
-    // });
+      // favoriteBook.name
+      {
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.favoriteBook.value,
+          'name',
+        );
+        checkFormControl(
+          fc: fc,
+          name: 'name',
+          fullname: '${fc.parentGroup.hashCode}.name',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: 'Le seigneur des anneaux 1',
+        );
+      }
+
+      // favoriteBook.price
+      {
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.favoriteBook.value,
+          'price',
+        );
+        checkFormControl(
+          fc: fc,
+          name: 'price',
+          fullname: '${fc.parentGroup.hashCode}.price',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: 8.9,
+        );
+      }
+
+      // favoriteBook.loanDate
+      {
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.favoriteBook.value,
+          'loanDate',
+        );
+        checkFormControl(
+          fc: fc,
+          name: 'loanDate',
+          fullname: '${fc.parentGroup.hashCode}.loanDate',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: new DateTime(2020, 10, 26),
+        );
+      }
+    });
+
+    test('Remove sub-object. Actualize the form group.', () async {
+      FormBuilderTest model = new FormBuilderTest(
+        'Edouard',
+        'Elric',
+        new DateTime(1980, 12, 15),
+        new DateTime(2019, 06, 01),
+      );
+      model.favoriteBook.value = new Book(
+        'Le seigneur des anneaux 1',
+        8.9,
+        new DateTime(2020, 10, 26),
+      );
+      ModelFormState formState = new ModelFormState(model);
+
+      // favoriteBook
+      {
+        ModelFormGroup fg =
+            formState.formBuilder.getFormElement<ModelFormGroup>(
+          model,
+          'favoriteBook',
+        );
+        checkFormGroup(
+          fg: fg,
+          name: 'favoriteBook',
+          fullname: '${fg.parentGroup.hashCode}.favoriteBook',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          areControlsNull: false,
+        );
+      }
+
+      // favoriteBook.name
+      {
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.favoriteBook.value,
+          'name',
+        );
+        checkFormControl(
+          fc: fc,
+          name: 'name',
+          fullname: '${fc.parentGroup.hashCode}.name',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: 'Le seigneur des anneaux 1',
+        );
+      }
+
+      // favoriteBook.price
+      {
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.favoriteBook.value,
+          'price',
+        );
+        checkFormControl(
+          fc: fc,
+          name: 'price',
+          fullname: '${fc.parentGroup.hashCode}.price',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: 8.9,
+        );
+      }
+
+      // favoriteBook.loanDate
+      {
+        ModelFormControl fc =
+            formState.formBuilder.getFormElement<ModelFormControl>(
+          model.favoriteBook.value,
+          'loanDate',
+        );
+        checkFormControl(
+          fc: fc,
+          name: 'loanDate',
+          fullname: '${fc.parentGroup.hashCode}.loanDate',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          value: new DateTime(2020, 10, 26),
+        );
+      }
+
+      model.favoriteBook.value = null;
+      await Future.delayed(const Duration(microseconds: 1), () {});
+
+      // favoriteBook
+      {
+        ModelFormGroup fg =
+            formState.formBuilder.getFormElement<ModelFormGroup>(
+          model,
+          'favoriteBook',
+        );
+        checkFormGroup(
+          fg: fg,
+          name: 'favoriteBook',
+          fullname: '${fg.parentGroup.hashCode}.favoriteBook',
+          status: EAbstractControlStatus.pure,
+          error: null,
+          areControlsNull: true,
+        );
+      }
+    });
 
     test('Add item on collection. Actualize the form array.', () async {
       FormBuilderTest model = new FormBuilderTest(
@@ -646,8 +796,8 @@ void main() {
           fa: fa,
           name: 'books',
           fullname: '${fa.parentGroup.hashCode}.books',
-          status: EAbstractControlStatus.invalid,
-          error: new ValidationError('books', NbItems, "error message here"),
+          status: EAbstractControlStatus.pure,
+          error: null,
           nbItems: 0,
         );
       }
@@ -655,7 +805,7 @@ void main() {
       // add book
       model.books.value.add(new Book(
         'Le seigneur des anneaux 1',
-        10,
+        8.9,
         new DateTime(2020, 10, 26),
       ));
       await Future.delayed(const Duration(microseconds: 1), () {});
@@ -671,7 +821,7 @@ void main() {
           fa: fa,
           name: 'books',
           fullname: '${fa.parentGroup.hashCode}.books',
-          status: EAbstractControlStatus.valid,
+          status: EAbstractControlStatus.pure,
           error: null,
           nbItems: 1,
         );
@@ -712,7 +862,7 @@ void main() {
           fullname: '${fc.parentGroup.hashCode}.price',
           status: EAbstractControlStatus.pure,
           error: null,
-          value: 10,
+          value: 8.9,
         );
         expect(
           fc.formPath,
