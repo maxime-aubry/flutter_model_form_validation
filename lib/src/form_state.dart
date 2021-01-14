@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/utils/index.dart';
 import 'package:queries/collections.dart';
@@ -10,9 +11,8 @@ enum EFormStatus {
 }
 
 class FormStateBase {
-  FormStateBase({
-    @required FormBuilder formBuilder,
-  }) : assert(formBuilder != null,
+  FormStateBase({@required FormBuilder formBuilder})
+      : assert(formBuilder != null,
             'Cannot instanciate a form state if form builder is not provided.') {
     this._status = EFormStatus.pure;
     this._statuses = new Map<String, EAbstractControlStatus>();

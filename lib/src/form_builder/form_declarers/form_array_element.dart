@@ -6,7 +6,7 @@ class FormArrayElement<TProperty extends ModelForm>
     extends FormElementNotifier<FormArratItems<TProperty>> {
   FormArrayElement(List<TProperty> values)
       : super(new FormArratItems<TProperty>(values ?? [])) {
-    // when updating the list, listeners wil lbe triggered
+    // when updating the list, listeners will lbe triggered
     super.value.onChange = () {
       super.notifyListeners();
     };

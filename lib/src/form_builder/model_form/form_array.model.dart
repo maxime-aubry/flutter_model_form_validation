@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/form_declarers/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/model_form/index.dart';
@@ -12,8 +11,8 @@ class ModelFormArray extends FormArray with ModelFormValidator {
     @required ModelFormGroup parentGroup,
     @required FormArratItems<ModelForm> items,
   }) : super(
-          validators: new List<FormValidatorAnnotation>(),
-          groups: new List<FormGroup>(),
+          validators: [],
+          groups: [],
         ) {
     this.items = items ?? new FormArratItems<ModelForm>([]);
     this.initialize(name, parentGroup);

@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/form_declarers/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/model_form/index.dart';
@@ -23,7 +22,7 @@ class ModelFormGroup extends FormGroup with ModelFormValidator {
           name: null,
           parentGroup: null,
           formBuilder: formBuilder,
-          validators: new List<FormValidatorAnnotation>(),
+          validators: [],
           controls: new Map<String, AbstractControl>(),
         ) {
     this.current = current;

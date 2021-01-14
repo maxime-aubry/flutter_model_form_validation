@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/form_declarers/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/model_form/index.dart';
@@ -12,7 +11,7 @@ class ModelFormControl<TField> extends FormControl<TField>
     @required TField value,
   }) : super(
           value: null,
-          validators: new List<FormValidatorAnnotation>(),
+          validators: [],
         ) {
     super.value = value;
     this.initialize(name, parentGroup);

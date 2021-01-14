@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('ListItemsProvider.', () {
     test('Register, get and close a service.', () async {
-      List<SelectListItem<int>> items = new List<SelectListItem<int>>();
+      List<SelectListItem<int>> items = [];
       ListItemsProvider.register('getItems', () {
         return items;
       });

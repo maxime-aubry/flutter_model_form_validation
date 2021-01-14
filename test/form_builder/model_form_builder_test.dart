@@ -783,7 +783,7 @@ void main() {
       }
 
       // instanciate books collection
-      model.books.value = new List<Book>();
+      model.books.value = [];
       await Future.delayed(const Duration(microseconds: 1), () {});
 
       {

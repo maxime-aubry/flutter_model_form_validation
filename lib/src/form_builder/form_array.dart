@@ -9,7 +9,7 @@ class FormArray extends AbstractControl {
     @required List<FormValidatorAnnotation> validators,
     @required List<FormGroup> groups,
   }) : super(validators) {
-    this._groups = groups ?? new List<FormGroup>();
+    this._groups = groups ?? [];
   }
 
   List<FormGroup> _groups;

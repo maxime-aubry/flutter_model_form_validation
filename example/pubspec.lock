@@ -72,7 +72,7 @@ packages:
     source: hosted
     version: "1.4.3"
   build_runner:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: build_runner
       url: "https://pub.dartlang.org"
@@ -326,6 +326,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.7"
+  multi_select_flutter:
+    dependency: "direct main"
+    description:
+      name: multi_select_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.6"
   node_interop:
     dependency: transitive
     description:
@@ -390,7 +397,7 @@ packages:
     source: hosted
     version: "0.1.5"
   queries:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: queries
       url: "https://pub.dartlang.org"
@@ -404,7 +411,7 @@ packages:
     source: hosted
     version: "2.1.5"
   reflectable:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: reflectable
       url: "https://pub.dartlang.org"

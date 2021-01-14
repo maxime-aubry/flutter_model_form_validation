@@ -1,3 +1,6 @@
+@flutterModelFormValidator
+library example.models;
+
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 /*
@@ -13,19 +16,43 @@ Dart Data Class Generator
 indent-rainbow
 */
 
+void main() {}
+
+@flutterModelFormValidator
+enum EGender { Male, Female }
+
+@flutterModelFormValidator
+enum ELiteraryGenre { Poetry, Drama, Prose, Fiction, NonFiction }
+
+@flutterModelFormValidator
+class StepForm extends ModelForm {
+  StepForm() {
+    this.reader = new FormGroupElement<Reader>(
+      new Reader(null, null, null, null, null),
+    );
+    this.books = new FormArrayElement<Book>([]);
+  }
+
+  FormGroupElement<Reader> reader;
+
+  @NbItems(min: '1', error: 'reader must have at least one book')
+  FormArrayElement<Book> books;
+}
+
 @flutterModelFormValidator
 class Reader extends ModelForm {
   Reader(
     String firstName,
     String lastName,
+    EGender gender,
     DateTime birthDay,
     DateTime subscriptionDate,
   ) {
     this.firstName = new FormControlElement<String>(firstName);
     this.lastName = new FormControlElement<String>(lastName);
+    this.gender = new FormControlElement<EGender>(gender);
     this.birthDay = new FormControlElement<DateTime>(birthDay);
     this.subscriptionDate = new FormControlElement<DateTime>(subscriptionDate);
-    this.books = new FormArrayElement<Book>([]);
   }
 
   @Required(error: 'firstname is required')
@@ -44,6 +71,9 @@ class Reader extends ModelForm {
   )
   FormControlElement<String> lastName;
 
+  @Required(error: 'gender is required')
+  FormControlElement<EGender> gender;
+
   @Required(error: 'birthday is required')
   FormControlElement<DateTime> birthDay;
 
@@ -53,38 +83,39 @@ class Reader extends ModelForm {
     error: 'subscription date must be greater than birthday',
   )
   FormControlElement<DateTime> subscriptionDate;
-
-  @NbItems(min: '1', error: 'reader must have at least one book')
-  FormArrayElement<Book> books;
 }
 
 @flutterModelFormValidator
 class Book extends ModelForm {
   Book(
-    String name,
+    String title,
+    List<ELiteraryGenre> literaryGenres,
+    DateTime releaseDate,
     num price,
-    DateTime loanDate,
   ) {
-    this.name = new FormControlElement<String>(name);
+    this.title = new FormControlElement<String>(title);
+    this.literaryGenres = new FormControlElement<List<ELiteraryGenre>>(
+      literaryGenres,
+    );
+    this.releaseDate = new FormControlElement<DateTime>(releaseDate);
     this.price = new FormControlElement<num>(price);
-    this.loanDate = new FormControlElement<DateTime>(loanDate);
   }
 
-  @Required(error: 'name is required')
+  @Required(error: 'title is required')
   @StringLength(
     min: 3,
     max: 100,
-    error: 'name must have between 3 and 100 characters',
+    error: 'title must have between 3 and 100 characters',
   )
-  FormControlElement<String> name;
+  FormControlElement<String> title;
+
+  @Required(error: 'literaty genre is required')
+  FormControlElement<List<ELiteraryGenre>> literaryGenres;
+
+  @Required(error: 'release date is required')
+  FormControlElement<DateTime> releaseDate;
 
   @Required(error: 'price is required')
   @GreaterThan(valueToCompare: '0', error: 'price must be greater than 0')
   FormControlElement<num> price;
-
-  @Required(error: 'loan date is required')
-  FormControlElement<DateTime> loanDate;
-
-  @Required(error: 'literaty genre is required')
-  FormControlElement<List<int>> literaryGenres;
 }

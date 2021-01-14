@@ -43,7 +43,7 @@ mixin ModelFormValidator<TModel extends ModelForm> {
     VariableMirror variableMirror =
         instanceMirror.type.declarations[property] as VariableMirror;
 
-    if (variableMirror == null) return new List<FormValidatorAnnotation>();
+    if (variableMirror == null) return [];
 
     List<FormValidatorAnnotation> validators =
         Collection(variableMirror.metadata)

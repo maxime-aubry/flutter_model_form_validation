@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter_model_form_validation/src/form_builder/form_declarers/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
+import 'package:flutter_model_form_validation/src/utils/index.dart';
 
 class FormControlElement<TProperty> extends FormElementNotifier<TProperty> {
   FormControlElement(TProperty value)
@@ -23,6 +24,7 @@ class FormControlElement<TProperty> extends FormElementNotifier<TProperty> {
                 TProperty == Int64 ||
                 TProperty == String ||
                 TProperty == bool ||
+                isEnum<TProperty>() ||
                 // allowed lists of type
                 isListOfType<TProperty, DateTime>() ||
                 isListOfType<TProperty, num>() ||
@@ -37,8 +39,9 @@ class FormControlElement<TProperty> extends FormElementNotifier<TProperty> {
                 TProperty == Int32List ||
                 TProperty == Int64List ||
                 isListOfType<TProperty, String>() ||
-                isListOfType<TProperty, bool>(),
-            'Cannot instanciate a form control element if its value is not a datetime, a number, a string or a bool.'),
+                isListOfType<TProperty, bool>() ||
+                isListOfEnum<TProperty>(),
+            'Cannot instanciate a FormControlElement if its value is not a datetime, a number, a string, a bool or an enum.'),
         super(value);
 
   TProperty get value => super.value;
@@ -47,11 +50,4 @@ class FormControlElement<TProperty> extends FormElementNotifier<TProperty> {
   set value(TProperty value) {
     super.value = value;
   }
-}
-
-bool isListOfType<TProperty, TList>() {
-  String listType = (new List<TList>()).runtimeType.toString();
-  String propertyType = TProperty.toString();
-  bool result = (propertyType == listType);
-  return result;
 }
