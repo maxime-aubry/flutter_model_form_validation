@@ -16,7 +16,6 @@ dependencies:
   mime: ^0.9.7
   queries: ^0.1.14
   reflectable: ^2.2.8
-  yaml: ^2.2.1
 
 dev_dependencies:
   flutter_test:

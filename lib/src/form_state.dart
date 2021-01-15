@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/utils/index.dart';
 import 'package:queries/collections.dart';
@@ -11,27 +10,33 @@ enum EFormStatus {
 }
 
 class FormStateBase {
-  FormStateBase({@required FormBuilder formBuilder})
-      : assert(formBuilder != null,
+  FormStateBase({
+    @required FormBuilder formBuilder,
+    bool isMultipleStepsForm = false,
+  }) : assert(formBuilder != null,
             'Cannot instanciate a form state if form builder is not provided.') {
+    this._isMultipleStepsForm = isMultipleStepsForm;
     this._status = EFormStatus.pure;
     this._statuses = new Map<String, EAbstractControlStatus>();
     this._errors = new Map<String, ValidationError>();
     this.initialize(formBuilder);
   }
 
-  FormStateBase.modelFormState() {
+  FormStateBase.modelFormState(bool isMultipleStepsForm) {
+    this._isMultipleStepsForm = isMultipleStepsForm;
     this._status = EFormStatus.pure;
     this._statuses = new Map<String, EAbstractControlStatus>();
     this._errors = new Map<String, ValidationError>();
   }
 
   FormBuilder formBuilder;
+  bool _isMultipleStepsForm;
   Map<String, EAbstractControlStatus> _statuses;
   Map<String, ValidationError> _errors;
   EFormStatus _status;
 
   EFormStatus get status => this._status;
+  bool get isMultipleStepsForm => this._isMultipleStepsForm;
 
   void initialize(FormBuilder formBuilder) {
     this.formBuilder = formBuilder;

@@ -10,7 +10,7 @@ Dart
 Flutter
 Flutter Widget Snippets
 Awesome Flutter Snippets
-Better COmments
+Better Comments
 bloc
 Dart Data Class Generator
 indent-rainbow
@@ -19,10 +19,10 @@ indent-rainbow
 void main() {}
 
 @flutterModelFormValidator
-enum EGender { Male, Female }
+enum EGender { male, female }
 
 @flutterModelFormValidator
-enum ELiteraryGenre { Poetry, Drama, Prose, Fiction, NonFiction }
+enum ELiteraryGenre { poetry, drama, prose, fiction, non_fiction }
 
 @flutterModelFormValidator
 class StepForm extends ModelForm {
@@ -48,11 +48,14 @@ class Reader extends ModelForm {
     DateTime birthDay,
     DateTime subscriptionDate,
   ) {
-    this.firstName = new FormControlElement<String>(firstName);
-    this.lastName = new FormControlElement<String>(lastName);
-    this.gender = new FormControlElement<EGender>(gender);
-    this.birthDay = new FormControlElement<DateTime>(birthDay);
-    this.subscriptionDate = new FormControlElement<DateTime>(subscriptionDate);
+    this.firstName =
+        new FormControlElement<String>(firstName, 'example.models');
+    this.lastName = new FormControlElement<String>(lastName, 'example.models');
+    this.gender = new FormControlElement<EGender>(gender, 'example.models');
+    this.birthDay =
+        new FormControlElement<DateTime>(birthDay, 'example.models');
+    this.subscriptionDate =
+        new FormControlElement<DateTime>(subscriptionDate, 'example.models');
   }
 
   @Required(error: 'firstname is required')
@@ -93,12 +96,12 @@ class Book extends ModelForm {
     DateTime releaseDate,
     num price,
   ) {
-    this.title = new FormControlElement<String>(title);
+    this.title = new FormControlElement<String>(title, 'example.models');
     this.literaryGenres = new FormControlElement<List<ELiteraryGenre>>(
-      literaryGenres,
-    );
-    this.releaseDate = new FormControlElement<DateTime>(releaseDate);
-    this.price = new FormControlElement<num>(price);
+        literaryGenres, 'example.models');
+    this.releaseDate =
+        new FormControlElement<DateTime>(releaseDate, 'example.models');
+    this.price = new FormControlElement<num>(price, 'example.models');
   }
 
   @Required(error: 'title is required')

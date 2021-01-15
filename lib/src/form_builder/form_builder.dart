@@ -36,8 +36,21 @@ class FormBuilder {
     this.formState = formState;
     this.group.formBuilder = this;
     this._initializeFormGroup(this.group, null, 'root');
+    this.checkMultipleStepsForm();
     this._isInitialized = true;
     this._isAttachedToFormState = true;
+  }
+
+  /// If current form is multiple steps form, check if root level contains only form groups.
+  /// If it does not, throw an exception.
+  @protected
+  void checkMultipleStepsForm() {
+    bool isValidMultipleStepsForm =
+        !this.group.controls.values.any((element) => element is! FormGroup);
+
+    if (this.formState.isMultipleStepsForm && !isValidMultipleStepsForm)
+      throw new Exception(
+          'A form with multipe steps must contains form groups only into its root level.');
   }
 
   void _initializeFormGroup(

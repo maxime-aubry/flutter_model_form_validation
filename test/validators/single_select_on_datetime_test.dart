@@ -22,7 +22,7 @@ void main() {
         SingleSelectDatetimeTest model = new SingleSelectDatetimeTest(
           new DateTime(2020, 01, 02),
         );
-        ModelFormState formState = new ModelFormState(model);
+        ModelFormState formState = new ModelFormState(model: model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -38,7 +38,7 @@ void main() {
         SingleSelectDatetimeTest model = new SingleSelectDatetimeTest(
           new DateTime(2020, 01, 04),
         );
-        ModelFormState formState = new ModelFormState(model);
+        ModelFormState formState = new ModelFormState(model: model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);

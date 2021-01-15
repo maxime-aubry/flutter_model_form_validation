@@ -11,7 +11,7 @@ void main() {
     group('Test the validation > success.', () {
       test('Valid email.', () async {
         EmailTest model = new EmailTest('azerty@test.com');
-        ModelFormState formState = new ModelFormState(model);
+        ModelFormState formState = new ModelFormState(model: model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -24,7 +24,7 @@ void main() {
     group('Test the validation > failure.', () {
       test('Invalid email.', () async {
         EmailTest model = new EmailTest('azerty@.com');
-        ModelFormState formState = new ModelFormState(model);
+        ModelFormState formState = new ModelFormState(model: model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);

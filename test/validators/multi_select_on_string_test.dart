@@ -25,7 +25,7 @@ void main() {
             'ipsum',
           ],
         );
-        ModelFormState formState = new ModelFormState(model);
+        ModelFormState formState = new ModelFormState(model: model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -44,7 +44,7 @@ void main() {
             'consectetur',
           ],
         );
-        ModelFormState formState = new ModelFormState(model);
+        ModelFormState formState = new ModelFormState(model: model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);

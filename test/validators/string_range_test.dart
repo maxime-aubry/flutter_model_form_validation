@@ -13,7 +13,7 @@ void main() {
           '"Min" and "max" are provided by user and developer. User data has priority.',
           () async {
         StringRangeTest model = new StringRangeTest('m', 'g', 'o');
-        ModelFormState formState = new ModelFormState(model);
+        ModelFormState formState = new ModelFormState(model: model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -25,7 +25,7 @@ void main() {
 
       test('"Min" and "max" are provided by user only.', () async {
         StringRangeTest model = new StringRangeTest('m', 'g', 'o');
-        ModelFormState formState = new ModelFormState(model);
+        ModelFormState formState = new ModelFormState(model: model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -37,7 +37,7 @@ void main() {
 
       test('"Min" and "max" are provided by developer only.', () async {
         StringRangeTest model = new StringRangeTest('c');
-        ModelFormState formState = new ModelFormState(model);
+        ModelFormState formState = new ModelFormState(model: model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -51,7 +51,7 @@ void main() {
     group('Test the validation > success.', () {
       test('The value is equal to "min".', () async {
         StringRangeTest model = new StringRangeTest('g', 'g', 'o');
-        ModelFormState formState = new ModelFormState(model);
+        ModelFormState formState = new ModelFormState(model: model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -63,7 +63,7 @@ void main() {
 
       test('The value is between "min" and "max".', () async {
         StringRangeTest model = new StringRangeTest('m', 'g', 'o');
-        ModelFormState formState = new ModelFormState(model);
+        ModelFormState formState = new ModelFormState(model: model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -75,7 +75,7 @@ void main() {
 
       test('The value is equal to "max".', () async {
         StringRangeTest model = new StringRangeTest('o', 'g', 'o');
-        ModelFormState formState = new ModelFormState(model);
+        ModelFormState formState = new ModelFormState(model: model);
 
         expect(await formState.validateForm(), true);
         expect(formState.status, EFormStatus.valid);
@@ -89,7 +89,7 @@ void main() {
     group('Test the validation > failure.', () {
       test('The value is smaller than "min".', () async {
         StringRangeTest model = new StringRangeTest('f', 'g', 'o');
-        ModelFormState formState = new ModelFormState(model);
+        ModelFormState formState = new ModelFormState(model: model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);
@@ -104,7 +104,7 @@ void main() {
 
       test('The value is greater than "max".', () async {
         StringRangeTest model = new StringRangeTest('p', 'g', 'o');
-        ModelFormState formState = new ModelFormState(model);
+        ModelFormState formState = new ModelFormState(model: model);
 
         expect(await formState.validateForm(), false);
         expect(formState.status, EFormStatus.invalid);

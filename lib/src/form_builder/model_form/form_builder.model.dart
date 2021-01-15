@@ -38,6 +38,7 @@ class ModelFormBuilder extends FormBuilder {
       formBuilder: this,
     );
 
+    super.checkMultipleStepsForm();
     this._isInitialized = true;
     this._isAttachedToFormState = true;
   }

@@ -1,8 +1,7 @@
-import 'package:date_field/date_field.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:example/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-import 'package:intl/intl.dart';
 
 class AuthorStep extends StatefulWidget {
   final ModelFormState mfs;
@@ -15,8 +14,8 @@ class AuthorStep extends StatefulWidget {
 
 class _AuthorStepState extends State<AuthorStep> {
   final List<SelectListItem<EGender>> genders = [
-    new SelectListItem<EGender>(EGender.Male, 'Male'),
-    new SelectListItem<EGender>(EGender.Female, 'Female'),
+    new SelectListItem<EGender>(EGender.male, 'Male'),
+    new SelectListItem<EGender>(EGender.female, 'Female'),
   ];
 
   Reader reader;
@@ -29,44 +28,52 @@ class _AuthorStepState extends State<AuthorStep> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        getFirstname(),
-        getLastname(),
-        getGender(),
-        getBirtdate(),
-        getSubscriptionDate(),
-      ],
+    return Padding(
+      padding: EdgeInsets.all(5.0),
+      child: Column(
+        children: [
+          getFirstname(),
+          getLastname(),
+          getGender(),
+          getBirtdate(),
+          getSubscriptionDate(),
+        ],
+      ),
     );
   }
 
-  Widget getFirstname() => new TextFormField(
-        decoration: InputDecoration(
-          icon: new Icon(Icons.person),
-          labelText: 'First name',
-          hintText: 'First name',
+  Widget getFirstname() => new Padding(
+        padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
+        child: new TextFormField(
+          decoration: InputDecoration(
+            labelText: 'First name',
+            hintText: 'First name',
+          ),
+          keyboardType: TextInputType.text,
+          onChanged: (String value) {
+            this.reader.firstName.value = value;
+          },
         ),
-        keyboardType: TextInputType.text,
-        onChanged: (String value) {
-          this.reader.firstName.value = value;
-        },
       );
 
-  Widget getLastname() => new TextFormField(
-        decoration: InputDecoration(
-          icon: new Icon(Icons.person),
-          labelText: 'Last name',
-          hintText: 'Last name',
+  Widget getLastname() => new Padding(
+        padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
+        child: new TextFormField(
+          decoration: InputDecoration(
+            labelText: 'Last name',
+            hintText: 'Last name',
+          ),
+          keyboardType: TextInputType.text,
+          onChanged: (String value) {
+            this.reader.lastName.value = value;
+          },
         ),
-        keyboardType: TextInputType.text,
-        onChanged: (String value) {
-          this.reader.lastName.value = value;
-        },
       );
 
-  Widget getGender() => new DropdownButtonFormField(
+  Widget getGender() => new Padding(
+      padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
+      child: new DropdownButtonFormField(
         decoration: InputDecoration(
-          icon: new Icon(Icons.wc),
           labelText: 'Gender',
           hintText: 'Gender',
         ),
@@ -79,33 +86,38 @@ class _AuthorStepState extends State<AuthorStep> {
         onChanged: (EGender value) {
           this.reader.gender.value = value;
         },
-      );
+      ));
 
-  Widget getBirtdate() => new DateTimeFormField(
+  Widget getBirtdate() => new DateTimePicker(
         decoration: InputDecoration(
-          icon: new Icon(Icons.calendar_today),
           labelText: 'Birth date',
-          hintText: 'Birth date',
+          hintText: 'Birth date of the book',
         ),
+        type: DateTimePickerType.date,
+        dateMask: 'd MMM, yyyy',
         firstDate: new DateTime(0),
         lastDate: DateTime.now(),
-        dateFormat: DateFormat('yyyy/dd/MM'),
-        onDateSelected: (DateTime value) {
-          this.reader.birthDay.value = value;
+        icon: Icon(Icons.event),
+        dateLabelText: 'Birth date',
+        onChanged: (String value) {
+          this.reader.birthDay.value = DateFormat('yyyy-M-d').parse(value);
         },
       );
 
-  Widget getSubscriptionDate() => new DateTimeFormField(
+  Widget getSubscriptionDate() => new DateTimePicker(
         decoration: InputDecoration(
-          icon: new Icon(Icons.calendar_today),
           labelText: 'Subscription date',
-          hintText: 'Subscription date',
+          hintText: 'Subscription date of the book',
         ),
+        type: DateTimePickerType.date,
+        dateMask: 'd MMM, yyyy',
         firstDate: new DateTime(0),
         lastDate: DateTime.now(),
-        dateFormat: DateFormat('yyyy/dd/MM'),
-        onDateSelected: (DateTime value) {
-          this.reader.subscriptionDate.value = value;
+        icon: Icon(Icons.event),
+        dateLabelText: 'Subscription date',
+        onChanged: (String value) {
+          this.reader.subscriptionDate.value =
+              DateFormat('yyyy-M-d').parse(value);
         },
       );
 }

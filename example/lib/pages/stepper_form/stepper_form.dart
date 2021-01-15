@@ -1,5 +1,6 @@
 import 'package:example/custom_drawer.dart';
 import 'package:example/models.dart';
+import 'package:example/pages/stepper_form/author_step.dart';
 import 'package:example/pages/stepper_form/book_step.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
@@ -20,15 +21,16 @@ class _StepperFormState extends State<StepperForm> {
   void initState() {
     super.initState();
 
-    this.mfs = new ModelFormState(new StepForm());
+    this.mfs =
+        new ModelFormState(model: new StepForm(), isMultipleStepsForm: true);
 
     this.steps = [
-      /*Step(
+      Step(
         title: const Text('Author'),
         isActive: true,
         state: StepState.editing,
         content: new AuthorStep(mfs: this.mfs),
-      ),*/
+      ),
       Step(
         title: const Text('Books'),
         isActive: true,
@@ -42,15 +44,16 @@ class _StepperFormState extends State<StepperForm> {
   bool complete = false;
 
   next() {
-    currentStep + 1 != steps.length
-        ? goTo(currentStep + 1)
-        : setState(() => complete = true);
+    bool isNotLastPage = (currentStep + 1 != steps.length);
+
+    if (isNotLastPage)
+      goTo(currentStep + 1);
+    else
+      setState(() => complete = true);
   }
 
   cancel() {
-    if (currentStep > 0) {
-      goTo(currentStep - 1);
-    }
+    if (currentStep > 0) goTo(currentStep - 1);
   }
 
   goTo(int step) {

@@ -11,7 +11,7 @@ void main() {
   group('ModelFormBuilder.', () {
     test('Get form element from element full name.', () {
       FormBuilderTest model = new FormBuilderTest(null, null, null, null);
-      ModelFormState formState = new ModelFormState(model);
+      ModelFormState formState = new ModelFormState(model: model);
 
       {
         ModelFormControl fc =
@@ -31,7 +31,7 @@ void main() {
 
     test('Generates a form using by a new model.', () {
       FormBuilderTest model = new FormBuilderTest(null, null, null, null);
-      ModelFormState formState = new ModelFormState(model);
+      ModelFormState formState = new ModelFormState(model: model);
 
       // firstName
       {
@@ -166,7 +166,7 @@ void main() {
         new DateTime(2020, 04, 17),
       );
 
-      ModelFormState formState = new ModelFormState(model);
+      ModelFormState formState = new ModelFormState(model: model);
 
       // firstName
       {
@@ -478,7 +478,7 @@ void main() {
     // test('Form is updated and pureated when setting a value.', () async {
     //   FormBuilderTest model = new FormBuilderTest(null, null, null, null);
     //   ModelFormState formState =
-    //       new ModelFormState(model);
+    //       new ModelFormState(model: model);
 
     //   // firstName
     //   {
@@ -559,7 +559,7 @@ void main() {
         new DateTime(1980, 12, 15),
         new DateTime(2019, 06, 01),
       );
-      ModelFormState formState = new ModelFormState(model);
+      ModelFormState formState = new ModelFormState(model: model);
 
       // favoriteBook
       {
@@ -666,7 +666,7 @@ void main() {
         8.9,
         new DateTime(2020, 10, 26),
       );
-      ModelFormState formState = new ModelFormState(model);
+      ModelFormState formState = new ModelFormState(model: model);
 
       // favoriteBook
       {
@@ -764,7 +764,7 @@ void main() {
         new DateTime(1980, 12, 15),
         new DateTime(2019, 06, 01),
       );
-      ModelFormState formState = new ModelFormState(model);
+      ModelFormState formState = new ModelFormState(model: model);
 
       {
         ModelFormArray fa =
@@ -918,7 +918,7 @@ void main() {
           new DateTime(2020, 04, 26),
         ),
       ];
-      ModelFormState formState = new ModelFormState(model);
+      ModelFormState formState = new ModelFormState(model: model);
 
       {
         ModelFormArray fa =
@@ -1120,7 +1120,7 @@ void main() {
         new DateTime(2020, 04, 17),
       );
 
-      ModelFormState formState = new ModelFormState(model);
+      ModelFormState formState = new ModelFormState(model: model);
 
       // firstName
       {

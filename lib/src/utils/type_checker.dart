@@ -4,36 +4,34 @@ import 'package:reflectable/reflectable.dart';
 bool isEnum<TProperty>() {
   try {
     ClassMirror cm = flutterModelFormValidator.reflectType(TProperty);
-    if (cm == null) return false;
-    return cm.isEnum;
+    return cm?.isEnum ?? false;
   } catch (_) {
     return false;
   }
 }
 
-bool isListOfEnum<TProperty>() {
+bool isListOfEnum<TProperty>(String libraryName) {
   try {
     String listType = TProperty.toString();
 
-    if (!listType.startsWith('List<')) return false;
+    // does the type name is List<T> ?
+    if (!listType.startsWith('List<') && !listType.endsWith('>')) return false;
 
+    // get the enum type name
     final RegExp regexp = RegExp(r'^List<([a-zA-Z]+)>$');
     Iterable<RegExpMatch> matches = regexp.allMatches(listType);
     RegExpMatch match = matches.elementAt(0);
-
     String enumType = match.group(1);
-
     if (enumType.isEmpty || enumType == ' ') return false;
 
-    LibraryMirror lm = flutterModelFormValidator.findLibrary('example.models');
-
+    // get the library definition
+    LibraryMirror lm = flutterModelFormValidator.findLibrary(libraryName);
     if (lm == null) return false;
 
+    // search the type definition
+    // -> is it an enum ?
     ClassMirror dm = lm.declarations[enumType];
-
-    if (dm == null) return false;
-
-    return dm.isEnum;
+    return dm?.isEnum ?? false;
   } catch (_) {
     return false;
   }
