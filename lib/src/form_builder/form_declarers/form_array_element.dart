@@ -3,16 +3,16 @@ import 'package:flutter_model_form_validation/src/form_builder/form_declarers/in
 import 'package:flutter_model_form_validation/src/index.dart';
 
 class FormArrayElement<TProperty extends ModelForm>
-    extends FormElementNotifier<FormArratItems<TProperty>> {
+    extends FormElementNotifier<FormArrayItems<TProperty>> {
   FormArrayElement(List<TProperty> values)
-      : super(new FormArratItems<TProperty>(values ?? [])) {
+      : super(new FormArrayItems<TProperty>(values ?? [])) {
     // when updating the list, listeners will lbe triggered
     super.value.onChange = () {
       super.notifyListeners();
     };
   }
 
-  FormArratItems<TProperty> get value => super.value;
+  FormArrayItems<TProperty> get value => super.value;
 
   set value(List<TProperty> values) {
     super.value.clear();
@@ -20,8 +20,8 @@ class FormArrayElement<TProperty extends ModelForm>
   }
 }
 
-class FormArratItems<TProperty> extends DelegatingList<TProperty> {
-  FormArratItems(List<TProperty> base) : super(base);
+class FormArrayItems<TProperty> extends DelegatingList<TProperty> {
+  FormArrayItems(List<TProperty> base) : super(base);
 
   Function onChange;
 

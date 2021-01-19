@@ -1,22 +1,20 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:example/models.dart';
+import 'package:example/widgets/custom_multidropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-import 'package:queries/collections.dart';
-import 'package:smart_select/smart_select.dart';
 
-class AddBook extends StatefulWidget {
+class AddBookPage extends StatefulWidget {
   static const String routeName = '/addBook';
-  final Book book;
-
-  const AddBook({Key key, this.book}) : super(key: key);
 
   @override
-  _AddBookState createState() => _AddBookState();
+  _AddBookPageState createState() => _AddBookPageState();
 }
 
-class _AddBookState extends State<AddBook> {
+class _AddBookPageState extends State<AddBookPage> {
   Color get primaryColor => Theme.of(context).primaryColor;
+
+  Book book = new Book();
 
   final List<SelectListItem<ELiteraryGenre>> literaryGenres = [
     new SelectListItem<ELiteraryGenre>(ELiteraryGenre.poetry, 'Poetry'),
@@ -41,6 +39,9 @@ class _AddBookState extends State<AddBook> {
             getLiteraryGenres(),
             getRealeaseDate(),
             getPrice(),
+            new FormArrayConsumer<Book>(
+              builder: (context, books, widget) => getButtons(context, books),
+            ),
           ],
         ),
       ),
@@ -52,39 +53,20 @@ class _AddBookState extends State<AddBook> {
       child: new TextFormField(
         decoration: InputDecoration(
           labelText: 'Title',
-          hintText: 'Title of the book',
         ),
         keyboardType: TextInputType.text,
         onChanged: (String value) {
-          widget.book.title.value = value;
+          this.book.title.value = value;
         },
       ));
 
-  Widget getLiteraryGenres() => new Padding(
-        padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
-        child: SmartSelect<ELiteraryGenre>.multiple(
-          title: 'Literary genres',
-          value: widget.book.literaryGenres.value,
-          choiceItems: S2Choice.listFrom<ELiteraryGenre, Map>(
-            source: Collection(this.literaryGenres)
-                .select((arg1) => {'key': arg1.value, 'value': arg1.text})
-                .toList(),
-            value: (index, item) => item['key'],
-            title: (index, item) => item['value'],
-          ),
-          onChange: (state) =>
-              setState(() => widget.book.literaryGenres.value = state.value),
-          modalType: S2ModalType.bottomSheet,
-          modalConfirm: true,
-          modalFilter: true,
-          choiceGrouped: false,
-          tileBuilder: (context, state) {
-            return S2Tile.fromState(
-              state,
-              isTwoLine: true,
-            );
-          },
-        ),
+  Widget getLiteraryGenres() => CustomMultiDropdown<ELiteraryGenre>(
+        label: 'Literary genres',
+        dataSource: this.literaryGenres,
+        value: this.book.literaryGenres.value,
+        onChange: (state) {
+          this.book.literaryGenres.value = state.value;
+        },
       );
 
   Widget getRealeaseDate() => new Padding(
@@ -92,7 +74,6 @@ class _AddBookState extends State<AddBook> {
         child: new DateTimePicker(
           decoration: InputDecoration(
             labelText: 'Release date',
-            hintText: 'Release date of the book',
           ),
           type: DateTimePickerType.date,
           dateMask: 'd MMM, yyyy',
@@ -101,21 +82,38 @@ class _AddBookState extends State<AddBook> {
           icon: Icon(Icons.event),
           dateLabelText: 'Release date',
           onChanged: (String value) {
-            widget.book.releaseDate.value = DateFormat('yyyy-M-d').parse(value);
+            this.book.releaseDate.value = DateFormat('yyyy-M-d').parse(value);
           },
         ),
       );
 
   Widget getPrice() => new Padding(
-      padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
-      child: new TextFormField(
-        decoration: InputDecoration(
-          labelText: 'Price',
-          hintText: 'Price of the book',
+        padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
+        child: new TextFormField(
+          decoration: InputDecoration(
+            labelText: 'Price',
+          ),
+          keyboardType: TextInputType.numberWithOptions(decimal: true),
+          onChanged: (String value) {
+            this.book.title.value = value;
+          },
         ),
-        keyboardType: TextInputType.numberWithOptions(decimal: true),
-        onChanged: (String value) {
-          widget.book.title.value = value;
-        },
-      ));
+      );
+
+  Widget getButtons(BuildContext context, FormArrayItems<Book> books) => Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('CANCEL'),
+          ),
+          TextButton(
+            onPressed: () {
+              books.add(this.book);
+              Navigator.of(context).pop();
+            },
+            child: Text('SAVE'),
+          ),
+        ],
+      );
 }

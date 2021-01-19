@@ -6,19 +6,17 @@ import 'models.dart' as prefix1;
 import 'package:flutter_model_form_validation/src/annotations/flutter_model_form_validator.dart'
     as prefix0;
 import 'package:flutter_model_form_validation/src/annotations/validators/greater_than.dart'
-    as prefix5;
-import 'package:flutter_model_form_validation/src/annotations/validators/nb_items.dart'
-    as prefix2;
-import 'package:flutter_model_form_validation/src/annotations/validators/required.dart'
-    as prefix3;
-import 'package:flutter_model_form_validation/src/annotations/validators/string_length.dart'
     as prefix4;
+import 'package:flutter_model_form_validation/src/annotations/validators/required.dart'
+    as prefix2;
+import 'package:flutter_model_form_validation/src/annotations/validators/string_length.dart'
+    as prefix3;
 import 'package:flutter_model_form_validation/src/form_builder/form_declarers/form_array_element.dart'
     as prefix7;
 import 'package:flutter_model_form_validation/src/form_builder/form_declarers/form_control_element.dart'
-    as prefix8;
-import 'package:flutter_model_form_validation/src/form_builder/form_declarers/form_group_element.dart'
     as prefix6;
+import 'package:flutter_model_form_validation/src/form_builder/form_declarers/form_group_element.dart'
+    as prefix5;
 
 // ignore_for_file: prefer_adjacent_string_concatenation
 // ignore_for_file: prefer_collection_literals
@@ -42,7 +40,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             0,
             const prefix0.FlutterModelFormValidator(),
             const <int>[0, 1],
-            const <int>[17, 18, 19, 20, 21, 22, 13, 14, 15, 16],
+            const <int>[18, 19, 20, 21, 22, 23, 14, 15, 16, 17],
             const <int>[],
             -1,
             {},
@@ -54,14 +52,13 @@ final _data = <r.Reflectable, r.ReflectorData>{
             const <Object>[prefix0.flutterModelFormValidator],
             null),
         r.NonGenericClassMirrorImpl(
-            r'Reader',
-            r'example.models.Reader',
+            r'AuthorStep',
+            r'example.models.AuthorStep',
             7,
             1,
             const prefix0.FlutterModelFormValidator(),
             const <int>[2, 3, 4, 5, 6],
             const <int>[
-              17,
               18,
               19,
               20,
@@ -76,8 +73,27 @@ final _data = <r.Reflectable, r.ReflectorData>{
               29,
               30,
               31,
-              32
+              32,
+              33
             ],
+            const <int>[],
+            -1,
+            {},
+            {},
+            {},
+            0,
+            -1,
+            const <int>[-1],
+            const <Object>[prefix0.flutterModelFormValidator],
+            null),
+        r.NonGenericClassMirrorImpl(
+            r'BooksStep',
+            r'example.models.BooksStep',
+            7,
+            2,
+            const prefix0.FlutterModelFormValidator(),
+            const <int>[7],
+            const <int>[18, 19, 20, 21, 22, 23, 34, 35],
             const <int>[],
             -1,
             {},
@@ -92,10 +108,10 @@ final _data = <r.Reflectable, r.ReflectorData>{
             r'Book',
             r'example.models.Book',
             7,
-            2,
+            3,
             const prefix0.FlutterModelFormValidator(),
-            const <int>[7, 8, 9, 10],
-            const <int>[17, 18, 19, 20, 21, 22, 33, 34, 35, 36, 37, 38, 39, 40],
+            const <int>[8, 9, 10, 11],
+            const <int>[18, 19, 20, 21, 22, 23, 36, 37, 38, 39, 40, 41, 42, 43],
             const <int>[],
             -1,
             {},
@@ -110,10 +126,10 @@ final _data = <r.Reflectable, r.ReflectorData>{
             r'EGender',
             r'example.models.EGender',
             524295,
-            3,
+            4,
             const prefix0.FlutterModelFormValidator(),
-            const <int>[41],
-            const <int>[17, 41, 19, 20, 21, 42],
+            const <int>[44],
+            const <int>[18, 44, 20, 21, 22, 45],
             const <int>[],
             -1,
             {},
@@ -128,10 +144,10 @@ final _data = <r.Reflectable, r.ReflectorData>{
             r'ELiteraryGenre',
             r'example.models.ELiteraryGenre',
             524295,
-            4,
+            5,
             const prefix0.FlutterModelFormValidator(),
-            const <int>[43],
-            const <int>[17, 43, 19, 20, 21, 44],
+            const <int>[46],
+            const <int>[18, 46, 20, 21, 22, 47],
             const <int>[],
             -1,
             {},
@@ -145,13 +161,13 @@ final _data = <r.Reflectable, r.ReflectorData>{
       ],
       <m.DeclarationMirror>[
         r.VariableMirrorImpl(
-            r'reader',
+            r'author',
             2129925,
             0,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            5,
             6,
+            7,
             null, const []),
         r.VariableMirrorImpl(
             r'books',
@@ -159,23 +175,20 @@ final _data = <r.Reflectable, r.ReflectorData>{
             0,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            7,
             8,
-            null, const <Object>[
-          const prefix2.NbItems(
-              min: '1', error: 'reader must have at least one book')
-        ]),
+            9,
+            null, const []),
         r.VariableMirrorImpl(
             r'firstName',
             2129925,
             1,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            9,
             10,
+            11,
             null, const <Object>[
-          const prefix3.Required(error: 'firstname is required'),
-          const prefix4.StringLength(
+          const prefix2.Required(error: 'firstname is required'),
+          const prefix3.StringLength(
               min: 3,
               max: 50,
               error: 'firstname must have between 3 and 50 characters')
@@ -186,11 +199,11 @@ final _data = <r.Reflectable, r.ReflectorData>{
             1,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            9,
             10,
+            11,
             null, const <Object>[
-          const prefix3.Required(error: 'lastname is required'),
-          const prefix4.StringLength(
+          const prefix2.Required(error: 'lastname is required'),
+          const prefix3.StringLength(
               min: 3,
               max: 50,
               error: 'lastname must have between 3 and 50 characters')
@@ -201,10 +214,10 @@ final _data = <r.Reflectable, r.ReflectorData>{
             1,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            11,
             12,
+            13,
             null, const <Object>[
-          const prefix3.Required(error: 'gender is required')
+          const prefix2.Required(error: 'gender is required')
         ]),
         r.VariableMirrorImpl(
             r'birthDay',
@@ -212,10 +225,10 @@ final _data = <r.Reflectable, r.ReflectorData>{
             1,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            13,
             14,
+            15,
             null, const <Object>[
-          const prefix3.Required(error: 'birthday is required')
+          const prefix2.Required(error: 'birthday is required')
         ]),
         r.VariableMirrorImpl(
             r'subscriptionDate',
@@ -223,25 +236,34 @@ final _data = <r.Reflectable, r.ReflectorData>{
             1,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            13,
             14,
+            15,
             null, const <Object>[
-          const prefix3.Required(error: 'subscriptionDate is required'),
-          const prefix5.GreaterThan(
+          const prefix2.Required(error: 'subscriptionDate is required'),
+          const prefix4.GreaterThan(
               valueToCompareOnProperty: 'birthDay',
               error: 'subscription date must be greater than birthday')
         ]),
         r.VariableMirrorImpl(
-            r'title',
+            r'books',
             2129925,
             2,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            9,
+            16,
+            17,
+            null, const []),
+        r.VariableMirrorImpl(
+            r'title',
+            2129925,
+            3,
+            const prefix0.FlutterModelFormValidator(),
+            -1,
             10,
+            11,
             null, const <Object>[
-          const prefix3.Required(error: 'title is required'),
-          const prefix4.StringLength(
+          const prefix2.Required(error: 'title is required'),
+          const prefix3.StringLength(
               min: 3,
               max: 100,
               error: 'title must have between 3 and 100 characters')
@@ -249,76 +271,76 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r.VariableMirrorImpl(
             r'literaryGenres',
             2129925,
-            2,
+            3,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            15,
-            16,
+            18,
+            19,
             null, const <Object>[
-          const prefix3.Required(error: 'literaty genre is required')
+          const prefix2.Required(error: 'literaty genre is required')
         ]),
         r.VariableMirrorImpl(
             r'releaseDate',
             2129925,
-            2,
+            3,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            13,
             14,
+            15,
             null, const <Object>[
-          const prefix3.Required(error: 'release date is required')
+          const prefix2.Required(error: 'release date is required')
         ]),
         r.VariableMirrorImpl(
             r'price',
             2129925,
-            2,
-            const prefix0.FlutterModelFormValidator(),
-            -1,
-            17,
-            18,
-            null, const <Object>[
-          const prefix3.Required(error: 'price is required'),
-          const prefix5.GreaterThan(
-              valueToCompare: '0', error: 'price must be greater than 0')
-        ]),
-        r.VariableMirrorImpl(
-            r'index',
-            33861,
             3,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            19,
-            19,
-            null, const []),
+            20,
+            21,
+            null, const <Object>[
+          const prefix2.Required(error: 'price is required'),
+          const prefix4.GreaterThan(
+              valueToCompare: '0', error: 'price must be greater than 0')
+        ]),
         r.VariableMirrorImpl(
             r'index',
             33861,
             4,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            19,
-            19,
+            22,
+            22,
+            null, const []),
+        r.VariableMirrorImpl(
+            r'index',
+            33861,
+            5,
+            const prefix0.FlutterModelFormValidator(),
+            -1,
+            22,
+            22,
             null, const []),
         r.ImplicitGetterMirrorImpl(
-            const prefix0.FlutterModelFormValidator(), 0, 13),
-        r.ImplicitSetterMirrorImpl(
             const prefix0.FlutterModelFormValidator(), 0, 14),
-        r.ImplicitGetterMirrorImpl(
-            const prefix0.FlutterModelFormValidator(), 1, 15),
         r.ImplicitSetterMirrorImpl(
+            const prefix0.FlutterModelFormValidator(), 0, 15),
+        r.ImplicitGetterMirrorImpl(
             const prefix0.FlutterModelFormValidator(), 1, 16),
+        r.ImplicitSetterMirrorImpl(
+            const prefix0.FlutterModelFormValidator(), 1, 17),
         r.MethodMirrorImpl(
             r'==',
             131074,
             null,
             -1,
-            20,
-            20,
+            23,
+            23,
             null,
             const <int>[2],
             const prefix0.FlutterModelFormValidator(),
             const []),
-        r.MethodMirrorImpl(r'toString', 131074, null, -1, 21, 21, null,
+        r.MethodMirrorImpl(r'toString', 131074, null, -1, 24, 24, null,
             const <int>[], const prefix0.FlutterModelFormValidator(), const []),
         r.MethodMirrorImpl(
             r'noSuchMethod',
@@ -331,75 +353,79 @@ final _data = <r.Reflectable, r.ReflectorData>{
             const <int>[3],
             const prefix0.FlutterModelFormValidator(),
             const []),
-        r.MethodMirrorImpl(r'hashCode', 131075, null, -1, 19, 19, null,
+        r.MethodMirrorImpl(r'hashCode', 131075, null, -1, 22, 22, null,
             const <int>[], const prefix0.FlutterModelFormValidator(), const []),
-        r.MethodMirrorImpl(r'runtimeType', 131075, null, -1, 22, 22, null,
+        r.MethodMirrorImpl(r'runtimeType', 131075, null, -1, 25, 25, null,
             const <int>[], const prefix0.FlutterModelFormValidator(), const []),
         r.MethodMirrorImpl(
             r'getPropertyFullname',
             131074,
             null,
             -1,
-            21,
-            21,
+            24,
+            24,
             null,
             const <int>[4],
             const prefix0.FlutterModelFormValidator(),
             const []),
         r.ImplicitGetterMirrorImpl(
-            const prefix0.FlutterModelFormValidator(), 2, 23),
-        r.ImplicitSetterMirrorImpl(
             const prefix0.FlutterModelFormValidator(), 2, 24),
-        r.ImplicitGetterMirrorImpl(
-            const prefix0.FlutterModelFormValidator(), 3, 25),
         r.ImplicitSetterMirrorImpl(
+            const prefix0.FlutterModelFormValidator(), 2, 25),
+        r.ImplicitGetterMirrorImpl(
             const prefix0.FlutterModelFormValidator(), 3, 26),
-        r.ImplicitGetterMirrorImpl(
-            const prefix0.FlutterModelFormValidator(), 4, 27),
         r.ImplicitSetterMirrorImpl(
+            const prefix0.FlutterModelFormValidator(), 3, 27),
+        r.ImplicitGetterMirrorImpl(
             const prefix0.FlutterModelFormValidator(), 4, 28),
-        r.ImplicitGetterMirrorImpl(
-            const prefix0.FlutterModelFormValidator(), 5, 29),
         r.ImplicitSetterMirrorImpl(
+            const prefix0.FlutterModelFormValidator(), 4, 29),
+        r.ImplicitGetterMirrorImpl(
             const prefix0.FlutterModelFormValidator(), 5, 30),
-        r.ImplicitGetterMirrorImpl(
-            const prefix0.FlutterModelFormValidator(), 6, 31),
         r.ImplicitSetterMirrorImpl(
+            const prefix0.FlutterModelFormValidator(), 5, 31),
+        r.ImplicitGetterMirrorImpl(
             const prefix0.FlutterModelFormValidator(), 6, 32),
-        r.ImplicitGetterMirrorImpl(
-            const prefix0.FlutterModelFormValidator(), 7, 33),
         r.ImplicitSetterMirrorImpl(
+            const prefix0.FlutterModelFormValidator(), 6, 33),
+        r.ImplicitGetterMirrorImpl(
             const prefix0.FlutterModelFormValidator(), 7, 34),
-        r.ImplicitGetterMirrorImpl(
-            const prefix0.FlutterModelFormValidator(), 8, 35),
         r.ImplicitSetterMirrorImpl(
+            const prefix0.FlutterModelFormValidator(), 7, 35),
+        r.ImplicitGetterMirrorImpl(
             const prefix0.FlutterModelFormValidator(), 8, 36),
-        r.ImplicitGetterMirrorImpl(
-            const prefix0.FlutterModelFormValidator(), 9, 37),
         r.ImplicitSetterMirrorImpl(
+            const prefix0.FlutterModelFormValidator(), 8, 37),
+        r.ImplicitGetterMirrorImpl(
             const prefix0.FlutterModelFormValidator(), 9, 38),
-        r.ImplicitGetterMirrorImpl(
-            const prefix0.FlutterModelFormValidator(), 10, 39),
         r.ImplicitSetterMirrorImpl(
+            const prefix0.FlutterModelFormValidator(), 9, 39),
+        r.ImplicitGetterMirrorImpl(
             const prefix0.FlutterModelFormValidator(), 10, 40),
-        r.MethodMirrorImpl(r'toString', 131138, 3, -1, 21, 21, null,
-            const <int>[], const prefix0.FlutterModelFormValidator(), const []),
+        r.ImplicitSetterMirrorImpl(
+            const prefix0.FlutterModelFormValidator(), 10, 41),
         r.ImplicitGetterMirrorImpl(
             const prefix0.FlutterModelFormValidator(), 11, 42),
-        r.MethodMirrorImpl(r'toString', 131138, 4, -1, 21, 21, null,
+        r.ImplicitSetterMirrorImpl(
+            const prefix0.FlutterModelFormValidator(), 11, 43),
+        r.MethodMirrorImpl(r'toString', 131138, 4, -1, 24, 24, null,
             const <int>[], const prefix0.FlutterModelFormValidator(), const []),
         r.ImplicitGetterMirrorImpl(
-            const prefix0.FlutterModelFormValidator(), 12, 44)
+            const prefix0.FlutterModelFormValidator(), 12, 45),
+        r.MethodMirrorImpl(r'toString', 131138, 5, -1, 24, 24, null,
+            const <int>[], const prefix0.FlutterModelFormValidator(), const []),
+        r.ImplicitGetterMirrorImpl(
+            const prefix0.FlutterModelFormValidator(), 13, 47)
       ],
       <m.ParameterMirror>[
         r.ParameterMirrorImpl(
-            r'_reader',
+            r'_author',
             2130022,
-            14,
+            15,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            5,
             6,
+            7,
             null,
             const [],
             null,
@@ -407,11 +433,11 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r.ParameterMirrorImpl(
             r'_books',
             2130022,
-            16,
+            17,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            7,
             8,
+            9,
             null,
             const [],
             null,
@@ -419,11 +445,11 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r.ParameterMirrorImpl(
             r'other',
             32774,
-            17,
+            18,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            23,
-            23,
+            26,
+            26,
             null,
             const [],
             null,
@@ -431,11 +457,11 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r.ParameterMirrorImpl(
             r'invocation',
             32774,
-            19,
+            20,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            24,
-            24,
+            27,
+            27,
             null,
             const [],
             null,
@@ -443,11 +469,11 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r.ParameterMirrorImpl(
             r'property',
             32774,
-            22,
+            23,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            21,
-            21,
+            24,
+            24,
             null,
             const [],
             null,
@@ -455,11 +481,11 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r.ParameterMirrorImpl(
             r'_firstName',
             2130022,
-            24,
+            25,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            9,
             10,
+            11,
             null,
             const [],
             null,
@@ -467,11 +493,11 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r.ParameterMirrorImpl(
             r'_lastName',
             2130022,
-            26,
+            27,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            9,
             10,
+            11,
             null,
             const [],
             null,
@@ -479,11 +505,11 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r.ParameterMirrorImpl(
             r'_gender',
             2130022,
-            28,
+            29,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            11,
             12,
+            13,
             null,
             const [],
             null,
@@ -491,11 +517,11 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r.ParameterMirrorImpl(
             r'_birthDay',
             2130022,
-            30,
+            31,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            13,
             14,
+            15,
             null,
             const [],
             null,
@@ -503,11 +529,23 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r.ParameterMirrorImpl(
             r'_subscriptionDate',
             2130022,
-            32,
+            33,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            13,
             14,
+            15,
+            null,
+            const [],
+            null,
+            null),
+        r.ParameterMirrorImpl(
+            r'_books',
+            2130022,
+            35,
+            const prefix0.FlutterModelFormValidator(),
+            -1,
+            16,
+            17,
             null,
             const [],
             null,
@@ -515,11 +553,11 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r.ParameterMirrorImpl(
             r'_title',
             2130022,
-            34,
+            37,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            9,
             10,
+            11,
             null,
             const [],
             null,
@@ -527,11 +565,11 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r.ParameterMirrorImpl(
             r'_literaryGenres',
             2130022,
-            36,
+            39,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            15,
-            16,
+            18,
+            19,
             null,
             const [],
             null,
@@ -539,11 +577,11 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r.ParameterMirrorImpl(
             r'_releaseDate',
             2130022,
-            38,
+            41,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            13,
             14,
+            15,
             null,
             const [],
             null,
@@ -551,11 +589,11 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r.ParameterMirrorImpl(
             r'_price',
             2130022,
-            40,
+            43,
             const prefix0.FlutterModelFormValidator(),
             -1,
-            17,
-            18,
+            20,
+            21,
             null,
             const [],
             null,
@@ -563,26 +601,29 @@ final _data = <r.Reflectable, r.ReflectorData>{
       ],
       <Type>[
         prefix1.StepForm,
-        prefix1.Reader,
+        prefix1.AuthorStep,
+        prefix1.BooksStep,
         prefix1.Book,
         prefix1.EGender,
         prefix1.ELiteraryGenre,
-        const m.TypeValue<prefix6.FormGroupElement<prefix1.Reader>>().type,
-        prefix6.FormGroupElement,
+        const m.TypeValue<prefix5.FormGroupElement<prefix1.AuthorStep>>().type,
+        prefix5.FormGroupElement,
+        const m.TypeValue<prefix5.FormGroupElement<prefix1.BooksStep>>().type,
+        prefix5.FormGroupElement,
+        const m.TypeValue<prefix6.FormControlElement<String>>().type,
+        prefix6.FormControlElement,
+        const m.TypeValue<prefix6.FormControlElement<prefix1.EGender>>().type,
+        prefix6.FormControlElement,
+        const m.TypeValue<prefix6.FormControlElement<DateTime>>().type,
+        prefix6.FormControlElement,
         const m.TypeValue<prefix7.FormArrayElement<prefix1.Book>>().type,
         prefix7.FormArrayElement,
-        const m.TypeValue<prefix8.FormControlElement<String>>().type,
-        prefix8.FormControlElement,
-        const m.TypeValue<prefix8.FormControlElement<prefix1.EGender>>().type,
-        prefix8.FormControlElement,
-        const m.TypeValue<prefix8.FormControlElement<DateTime>>().type,
-        prefix8.FormControlElement,
         const m.TypeValue<
-                prefix8.FormControlElement<List<prefix1.ELiteraryGenre>>>()
+                prefix6.FormControlElement<List<prefix1.ELiteraryGenre>>>()
             .type,
-        prefix8.FormControlElement,
-        const m.TypeValue<prefix8.FormControlElement<num>>().type,
-        prefix8.FormControlElement,
+        prefix6.FormControlElement,
+        const m.TypeValue<prefix6.FormControlElement<num>>().type,
+        prefix6.FormControlElement,
         int,
         bool,
         String,
@@ -590,7 +631,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
         Object,
         Invocation
       ],
-      5,
+      6,
       {
         r'==': (dynamic instance) => (x) => instance == x,
         r'toString': (dynamic instance) => instance.toString,
@@ -599,7 +640,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r'runtimeType': (dynamic instance) => instance.runtimeType,
         r'getPropertyFullname': (dynamic instance) =>
             instance.getPropertyFullname,
-        r'reader': (dynamic instance) => instance.reader,
+        r'author': (dynamic instance) => instance.author,
         r'books': (dynamic instance) => instance.books,
         r'firstName': (dynamic instance) => instance.firstName,
         r'lastName': (dynamic instance) => instance.lastName,
@@ -613,7 +654,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r'index': (dynamic instance) => instance.index
       },
       {
-        r'reader=': (dynamic instance, value) => instance.reader = value,
+        r'author=': (dynamic instance, value) => instance.author = value,
         r'books=': (dynamic instance, value) => instance.books = value,
         r'firstName=': (dynamic instance, value) => instance.firstName = value,
         r'lastName=': (dynamic instance, value) => instance.lastName = value,

@@ -1,41 +1,48 @@
 import 'package:example/custom_drawer.dart';
 import 'package:example/models.dart';
-import 'package:example/pages/stepper_form/author_step.dart';
-import 'package:example/pages/stepper_form/book_step.dart';
+import 'package:example/pages/stepper_form/author_step_page.dart';
+import 'package:example/pages/stepper_form/book_step_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-class StepperForm extends StatefulWidget {
+class StepperFormPage extends StatefulWidget {
   static const String routeName = '/stepperForm';
 
   @override
-  _StepperFormState createState() => _StepperFormState();
+  _StepperFormPageState createState() => _StepperFormPageState();
 }
 
-class _StepperFormState extends State<StepperForm> {
+class _StepperFormPageState extends State<StepperFormPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  StepForm model = null;
   ModelFormState mfs = null;
   List<Step> steps = null;
 
   void initState() {
     super.initState();
 
-    this.mfs =
-        new ModelFormState(model: new StepForm(), isMultipleStepsForm: true);
+    this.model = new StepForm();
+    this.mfs = new ModelFormState(model: this.model, isMultipleStepsForm: true);
 
     this.steps = [
       Step(
         title: const Text('Author'),
         isActive: true,
         state: StepState.editing,
-        content: new AuthorStep(mfs: this.mfs),
+        content: FormGroupProvider<AuthorStep, FormGroupElement<AuthorStep>>(
+          create: (context) => this.model.author,
+          child: new AuthorStepPage(),
+        ),
       ),
       Step(
         title: const Text('Books'),
         isActive: true,
         state: StepState.disabled,
-        content: new BooksStep(mfs: this.mfs),
+        content: FormGroupProvider<BooksStep, FormGroupElement<BooksStep>>(
+          create: (context) => this.model.books,
+          child: new BooksStepPage(),
+        ),
       ),
     ];
   }

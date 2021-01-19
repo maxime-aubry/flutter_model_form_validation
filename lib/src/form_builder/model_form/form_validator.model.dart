@@ -22,12 +22,13 @@ mixin ModelFormValidator<TModel extends ModelForm> {
         TFormElement == FormGroupElement ||
             TFormElement == FormArrayElement ||
             TFormElement == FormControlElement,
-        'Cannot get a model part that is not an object of type FormGroupElement, FormArrayElement, FormControlElement or FormControllistElement.');
+        'Cannot get a model part that is not an object of type FormGroupElement, FormArrayElement, FormControlElement or FormControllistElement. Application crashed because of model of type ${model.runtimeType} and property nammed $property.');
 
     InstanceMirror instanceMirror = this.getInstanceMirror(model);
     Object formElement = instanceMirror.invokeGetter(property);
     if (formElement is! TFormElement)
-      throw new Exception('Cannot get a model part of $TFormElement type.');
+      throw new Exception(
+          'Cannot get a model part of $TFormElement type. Application crashed because of model of type ${model.runtimeType} and property nammed $property.');
     return formElement as TFormElement;
   }
 

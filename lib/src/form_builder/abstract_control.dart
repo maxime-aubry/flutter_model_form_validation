@@ -70,7 +70,7 @@ class AbstractControl {
     for (FormValidatorAnnotation validator in this.validators.reorder()) {
       try {
         isValid = await validator.isValid(
-          formBuilder.formState.formBuilder,
+          null,
           parentGroup,
           value,
           formPath,

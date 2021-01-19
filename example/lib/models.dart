@@ -27,35 +27,23 @@ enum ELiteraryGenre { poetry, drama, prose, fiction, non_fiction }
 @flutterModelFormValidator
 class StepForm extends ModelForm {
   StepForm() {
-    this.reader = new FormGroupElement<Reader>(
-      new Reader(null, null, null, null, null),
-    );
-    this.books = new FormArrayElement<Book>([]);
+    this.author = new FormGroupElement<AuthorStep>(new AuthorStep());
+    this.books = new FormGroupElement<BooksStep>(new BooksStep());
   }
 
-  FormGroupElement<Reader> reader;
-
-  @NbItems(min: '1', error: 'reader must have at least one book')
-  FormArrayElement<Book> books;
+  FormGroupElement<AuthorStep> author;
+  FormGroupElement<BooksStep> books;
 }
 
 @flutterModelFormValidator
-class Reader extends ModelForm {
-  Reader(
-    String firstName,
-    String lastName,
-    EGender gender,
-    DateTime birthDay,
-    DateTime subscriptionDate,
-  ) {
-    this.firstName =
-        new FormControlElement<String>(firstName, 'example.models');
-    this.lastName = new FormControlElement<String>(lastName, 'example.models');
-    this.gender = new FormControlElement<EGender>(gender, 'example.models');
-    this.birthDay =
-        new FormControlElement<DateTime>(birthDay, 'example.models');
+class AuthorStep extends ModelForm {
+  AuthorStep() {
+    this.firstName = new FormControlElement<String>(null, 'example.models');
+    this.lastName = new FormControlElement<String>(null, 'example.models');
+    this.gender = new FormControlElement<EGender>(null, 'example.models');
+    this.birthDay = new FormControlElement<DateTime>(null, 'example.models');
     this.subscriptionDate =
-        new FormControlElement<DateTime>(subscriptionDate, 'example.models');
+        new FormControlElement<DateTime>(null, 'example.models');
   }
 
   @Required(error: 'firstname is required')
@@ -89,19 +77,22 @@ class Reader extends ModelForm {
 }
 
 @flutterModelFormValidator
+class BooksStep extends ModelForm {
+  BooksStep() {
+    this.books = new FormArrayElement<Book>([]);
+  }
+
+  FormArrayElement<Book> books;
+}
+
+@flutterModelFormValidator
 class Book extends ModelForm {
-  Book(
-    String title,
-    List<ELiteraryGenre> literaryGenres,
-    DateTime releaseDate,
-    num price,
-  ) {
-    this.title = new FormControlElement<String>(title, 'example.models');
-    this.literaryGenres = new FormControlElement<List<ELiteraryGenre>>(
-        literaryGenres, 'example.models');
-    this.releaseDate =
-        new FormControlElement<DateTime>(releaseDate, 'example.models');
-    this.price = new FormControlElement<num>(price, 'example.models');
+  Book() {
+    this.title = new FormControlElement<String>(null, 'example.models');
+    this.literaryGenres =
+        new FormControlElement<List<ELiteraryGenre>>([], 'example.models');
+    this.releaseDate = new FormControlElement<DateTime>(null, 'example.models');
+    this.price = new FormControlElement<num>(null, 'example.models');
   }
 
   @Required(error: 'title is required')

@@ -24,7 +24,7 @@ abstract class FormValidatorAnnotation {
   /// It reprensents your full object model with all values.
   /// Maybe you would validate a property in comparison to others.
   Future<bool> isValid(
-    FormBuilder fb,
+    FormGroup root,
     FormGroup fg,
     Object value,
     String formPath,

@@ -22,7 +22,7 @@ class SingleSelect extends FormValidatorAnnotation {
 
   @override
   Future<bool> isValid(
-    FormBuilder fb,
+    FormGroup root,
     FormGroup fg,
     Object value,
     String formPath,

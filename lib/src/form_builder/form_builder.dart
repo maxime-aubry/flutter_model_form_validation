@@ -45,8 +45,12 @@ class FormBuilder {
   /// If it does not, throw an exception.
   @protected
   void checkMultipleStepsForm() {
-    bool isValidMultipleStepsForm =
-        !this.group.controls.values.any((element) => element is! FormGroup);
+    bool isValidMultipleStepsForm = !this
+        .group
+        .controls
+        .entries
+        .toList()
+        .any((element) => element.value is! FormGroup);
 
     if (this.formState.isMultipleStepsForm && !isValidMultipleStepsForm)
       throw new Exception(

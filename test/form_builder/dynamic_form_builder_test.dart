@@ -77,10 +77,12 @@ void main() {
       );
       FormStateBase formState = new FormStateBase(formBuilder: formBuilder);
 
+      expect(formState.status, EFormStatus.pure);
+
       // firstName
       {
-        FormControl<String> fc = formState
-            .formBuilder.group.controls['firstName'] as FormControl<String>;
+        FormControl<String> fc =
+            formBuilder.group.controls['firstName'] as FormControl<String>;
         checkFormControl<String>(
           fc: fc,
           name: 'firstName',
@@ -93,8 +95,8 @@ void main() {
 
       // lastName
       {
-        FormControl<String> fc = formState
-            .formBuilder.group.controls['lastName'] as FormControl<String>;
+        FormControl<String> fc =
+            formBuilder.group.controls['lastName'] as FormControl<String>;
         checkFormControl<String>(
           fc: fc,
           name: 'lastName',
@@ -107,8 +109,8 @@ void main() {
 
       // birthDay
       {
-        FormControl<DateTime> fc = formState
-            .formBuilder.group.controls['birthDay'] as FormControl<DateTime>;
+        FormControl<DateTime> fc =
+            formBuilder.group.controls['birthDay'] as FormControl<DateTime>;
         checkFormControl<DateTime>(
           fc: fc,
           name: 'birthDay',
@@ -121,8 +123,8 @@ void main() {
 
       // subscriptionDate
       {
-        FormControl<DateTime> fc = formState.formBuilder.group
-            .controls['subscriptionDate'] as FormControl<DateTime>;
+        FormControl<DateTime> fc = formBuilder
+            .group.controls['subscriptionDate'] as FormControl<DateTime>;
         checkFormControl<DateTime>(
           fc: fc,
           name: 'subscriptionDate',
@@ -135,8 +137,7 @@ void main() {
 
       // books
       {
-        FormArray fa =
-            formState.formBuilder.group.controls['books'] as FormArray;
+        FormArray fa = formBuilder.group.controls['books'] as FormArray;
         checkFormArray(
           fa: fa,
           name: 'books',
@@ -149,8 +150,7 @@ void main() {
 
       // books[0]
       {
-        FormArray fa =
-            formState.formBuilder.group.controls['books'] as FormArray;
+        FormArray fa = formBuilder.group.controls['books'] as FormArray;
         FormGroup fg = fa.groups[0];
         checkFormGroup(
           fg: fg,
@@ -164,8 +164,7 @@ void main() {
 
       // books[0].name
       {
-        FormArray fa =
-            formState.formBuilder.group.controls['books'] as FormArray;
+        FormArray fa = formBuilder.group.controls['books'] as FormArray;
         FormGroup fg = fa.groups[0];
         FormControl<String> fc = fg.controls['name'] as FormControl<String>;
         checkFormControl(
@@ -180,8 +179,7 @@ void main() {
 
       // books[0].price
       {
-        FormArray fa =
-            formState.formBuilder.group.controls['books'] as FormArray;
+        FormArray fa = formBuilder.group.controls['books'] as FormArray;
         FormGroup fg = fa.groups[0];
         FormControl<num> fc = fg.controls['price'] as FormControl<num>;
         checkFormControl(
@@ -196,8 +194,7 @@ void main() {
 
       // books[0].loanDate
       {
-        FormArray fa =
-            formState.formBuilder.group.controls['books'] as FormArray;
+        FormArray fa = formBuilder.group.controls['books'] as FormArray;
         FormGroup fg = fa.groups[0];
         FormControl<DateTime> fc =
             fg.controls['loanDate'] as FormControl<DateTime>;
@@ -213,8 +210,7 @@ void main() {
 
       // favoriteBook
       {
-        FormGroup fg =
-            formState.formBuilder.group.controls['favoriteBook'] as FormGroup;
+        FormGroup fg = formBuilder.group.controls['favoriteBook'] as FormGroup;
         checkFormGroup(
           fg: fg,
           name: 'favoriteBook',

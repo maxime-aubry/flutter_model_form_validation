@@ -29,6 +29,7 @@ class FormStateBase {
     this._errors = new Map<String, ValidationError>();
   }
 
+  @protected
   FormBuilder formBuilder;
   bool _isMultipleStepsForm;
   Map<String, EAbstractControlStatus> _statuses;

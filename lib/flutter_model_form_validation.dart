@@ -6,6 +6,7 @@ export 'src/exceptions/index.dart';
 export 'src/form_builder/index.dart';
 export 'src/form_builder/form_declarers/index.dart';
 export 'src/form_builder/model_form/index.dart';
+export 'src/providers/index.dart';
 export 'src/index.dart';
 export 'src/utils/index.dart';
 export 'src/widget/index.dart';

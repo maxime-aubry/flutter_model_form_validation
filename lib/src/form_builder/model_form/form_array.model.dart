@@ -9,16 +9,16 @@ class ModelFormArray extends FormArray with ModelFormValidator {
   ModelFormArray({
     @required String name,
     @required ModelFormGroup parentGroup,
-    @required FormArratItems<ModelForm> items,
+    @required FormArrayItems<ModelForm> items,
   }) : super(
           validators: [],
           groups: [],
         ) {
-    this.items = items ?? new FormArratItems<ModelForm>([]);
+    this.items = items ?? new FormArrayItems<ModelForm>([]);
     this.initialize(name, parentGroup);
   }
 
-  FormArratItems<ModelForm> items;
+  FormArrayItems<ModelForm> items;
 
   String get modelPartfullname {
     if (this.controlName == null || this.controlName.isEmpty) return null;
@@ -79,7 +79,7 @@ class ModelFormArray extends FormArray with ModelFormValidator {
 
   /// [_actualizeChildren] method actualize [items] and [groups] collections of form array.
   void _actualizeChildren() {
-    if (this.items == null) this.items = new FormArratItems<ModelForm>([]);
+    if (this.items == null) this.items = new FormArrayItems<ModelForm>([]);
 
     // add new groups
     List<ModelForm> itemsToAdd = Collection(this.items)
