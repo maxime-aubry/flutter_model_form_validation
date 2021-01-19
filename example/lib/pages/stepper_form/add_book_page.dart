@@ -39,9 +39,7 @@ class _AddBookPageState extends State<AddBookPage> {
             getLiteraryGenres(),
             getRealeaseDate(),
             getPrice(),
-            new FormArrayConsumer<Book>(
-              builder: (context, books, widget) => getButtons(context, books),
-            ),
+            getButtons(),
           ],
         ),
       ),
@@ -100,20 +98,29 @@ class _AddBookPageState extends State<AddBookPage> {
         ),
       );
 
-  Widget getButtons(BuildContext context, FormArrayItems<Book> books) => Row(
+  Widget getButtons() => Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
             child: Text('CANCEL'),
           ),
-          TextButton(
+          new FormArrayConsumer<Book>(
+            builder: (context, books, child) => TextButton(
+              onPressed: () {
+                books.value.add(this.book);
+                Navigator.of(context).pop();
+              },
+              child: Text('SAVE'),
+            ),
+          ),
+          /*TextButton(
             onPressed: () {
-              books.add(this.book);
+              //books.add(this.book);
               Navigator.of(context).pop();
             },
             child: Text('SAVE'),
-          ),
+          ),*/
         ],
       );
 }

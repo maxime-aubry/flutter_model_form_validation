@@ -30,6 +30,21 @@ class FormGroupProvider<TProperty extends ModelForm,
   }
 }
 
+/*class FormArrayProvider<TProperty extends ModelForm,
+        Controller extends FormArrayElement<TProperty>>
+    extends Consumer<Controller> {
+  FormArrayProvider({
+    Key key,
+    @required this.builder,
+    Widget child,
+  }) : super(key: key, builder: builder, child: child);
+
+  @override
+  final Widget Function(
+          BuildContext context, FormArrayElement<TProperty> value, Widget child)
+      builder;
+}*/
+
 class FormArrayProvider<TProperty extends ModelForm,
         Controller extends FormArrayElement<TProperty>>
     extends SingleChildStatelessWidget {
@@ -55,7 +70,7 @@ class FormArrayProvider<TProperty extends ModelForm,
   }
 }
 
-class FormControlProvider<TProperty extends ModelForm,
+class FormControlProvider<TProperty,
         Controller extends FormControlElement<TProperty>>
     extends SingleChildStatelessWidget {
   FormControlProvider({

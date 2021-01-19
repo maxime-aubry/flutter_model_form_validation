@@ -22,6 +22,7 @@ class _AuthorStepPageState extends State<AuthorStepPage> {
   @override
   void dispose() {
     this._firstNameController.dispose();
+    this._lastNameController.dispose();
     super.dispose();
   }
 
@@ -90,8 +91,9 @@ class _AuthorStepPageState extends State<AuthorStepPage> {
 
   Widget getBirtdate(AuthorStep authorStep) {
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
-    String _initialValue =
-        formatter.format(authorStep.birthDay.value ?? DateTime.now());
+    String _initialValue = (authorStep.birthDay.value != null)
+        ? formatter.format(authorStep.birthDay.value)
+        : null;
 
     return new Padding(
       padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
@@ -115,8 +117,9 @@ class _AuthorStepPageState extends State<AuthorStepPage> {
 
   Widget getSubscriptionDate(AuthorStep authorStep) {
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
-    String _initialValue =
-        formatter.format(authorStep.subscriptionDate.value ?? DateTime.now());
+    String _initialValue = (authorStep.subscriptionDate.value != null)
+        ? formatter.format(authorStep.subscriptionDate.value)
+        : null;
 
     return new Padding(
       padding: EdgeInsets.fromLTRB(8, 0, 0, 0),

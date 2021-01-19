@@ -12,16 +12,25 @@ class FormGroupConsumer<TProperty extends ModelForm>
   })  : assert(builder != null),
         super(key: key, builder: builder, child: child);
 
-  final Widget Function(BuildContext context, TProperty value, Widget child)
-      builder;
+  @override
+  final Widget Function(
+    BuildContext context,
+    TProperty value,
+    Widget child,
+  ) builder;
 
   @override
-  Widget buildWithChild(BuildContext context, Widget child) =>
-      super.buildWithChild(context, child);
+  Widget buildWithChild(BuildContext context, Widget child) {
+    return builder(
+      context,
+      Provider.of<TProperty>(context),
+      child,
+    );
+  }
 }
 
 class FormArrayConsumer<TProperty extends ModelForm>
-    extends Consumer<FormArrayItems<TProperty>> {
+    extends Consumer<FormArrayElement<TProperty>> {
   FormArrayConsumer({
     Key key,
     @required this.builder,
@@ -29,17 +38,24 @@ class FormArrayConsumer<TProperty extends ModelForm>
   })  : assert(builder != null),
         super(key: key, builder: builder, child: child);
 
+  @override
   final Widget Function(
-          BuildContext context, FormArrayItems<TProperty> value, Widget child)
-      builder;
+    BuildContext context,
+    FormArrayElement<TProperty> value,
+    Widget child,
+  ) builder;
 
   @override
-  Widget buildWithChild(BuildContext context, Widget child) =>
-      super.buildWithChild(context, child);
+  Widget buildWithChild(BuildContext context, Widget child) {
+    return builder(
+      context,
+      Provider.of<FormArrayElement<TProperty>>(context),
+      child,
+    );
+  }
 }
 
-class FormControlConsumer<TProperty extends ModelForm>
-    extends Consumer<TProperty> {
+class FormControlConsumer<TProperty> extends Consumer<TProperty> {
   FormControlConsumer({
     Key key,
     @required this.builder,
@@ -47,10 +63,19 @@ class FormControlConsumer<TProperty extends ModelForm>
   })  : assert(builder != null),
         super(key: key, builder: builder, child: child);
 
-  final Widget Function(BuildContext context, TProperty value, Widget child)
-      builder;
+  @override
+  final Widget Function(
+    BuildContext context,
+    TProperty value,
+    Widget child,
+  ) builder;
 
   @override
-  Widget buildWithChild(BuildContext context, Widget child) =>
-      super.buildWithChild(context, child);
+  Widget buildWithChild(BuildContext context, Widget child) {
+    return builder(
+      context,
+      Provider.of<TProperty>(context),
+      child,
+    );
+  }
 }

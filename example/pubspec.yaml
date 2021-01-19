@@ -28,7 +28,7 @@ dependencies:
   build_runner: ^1.10.13
   date_time_picker: ^1.1.1
   flutter_slidable: ^0.5.7
-  #provider: ^4.3.3
+  provider: ^4.3.3
   queries: ^0.1.14
   reflectable: ^2.2.9
   smart_select: ^4.3.2

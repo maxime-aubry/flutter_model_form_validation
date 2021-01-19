@@ -50,7 +50,9 @@ class _CustomDropdownState<TValue> extends State<CustomSingleDropdown<TValue>> {
             value: (index, item) => item['key'],
             title: (index, item) => item['value'],
           ),
-          onChange: (state) => widget.onChange,
+          onChange: (state) {
+            widget.onChange(state);
+          },
           modalType: S2ModalType.bottomSheet,
           modalConfirm: true,
           modalFilter: true,

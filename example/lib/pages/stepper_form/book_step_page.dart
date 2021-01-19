@@ -4,6 +4,7 @@ import 'package:example/pages/stepper_form/slidable_book.dart';
 import 'package:example/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+import 'package:provider/provider.dart';
 
 class BooksStepPage extends StatefulWidget {
   @override
@@ -20,19 +21,25 @@ class _BooksStepPageState extends State<BooksStepPage> {
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-              child: new FormArrayProvider<Book, FormArrayElement<Book>>(
-                create: (context) => booksStep.books,
-                child: TextButton.icon(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => AddBookPage()),
-                    );
-                  },
-                  icon: Icon(Icons.add, size: 18),
-                  label: Text("Add book"),
-                ),
+              child: TextButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChangeNotifierProvider.value(
+                        value: booksStep.books,
+                        child: AddBookPage(),
+                      ),
+                    ),
+                  );
+                },
+                icon: Icon(Icons.add, size: 18),
+                label: Text("Add book"),
               ),
+              /*child: new FormArrayProvider<Book, FormArrayElement<Book>>(
+                create: (context) => booksStep.books,
+                child:
+              ),*/
             ),
           ),
           ListView.separated(

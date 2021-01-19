@@ -19,7 +19,7 @@ class CustomMultiDropdown<TValue> extends StatefulWidget {
         assert(onChange != null),
         super(key: key);
 
-  final Function(S2SingleState<List<TValue>> state) onChange;
+  final Function(S2MultiState<TValue> state) onChange;
 
   @override
   _CustomDropdownState<TValue> createState() => _CustomDropdownState<TValue>();
@@ -50,7 +50,9 @@ class _CustomDropdownState<TValue> extends State<CustomMultiDropdown<TValue>> {
             value: (index, item) => item['key'],
             title: (index, item) => item['value'],
           ),
-          onChange: (state) => widget.onChange,
+          onChange: (state) {
+            widget.onChange(state);
+          },
           modalType: S2ModalType.bottomSheet,
           modalConfirm: true,
           modalFilter: true,
