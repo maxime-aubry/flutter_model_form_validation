@@ -16,7 +16,8 @@ class FormArrayElement<TProperty extends ModelForm>
 
   set value(List<TProperty> values) {
     super.value.clear();
-    for (TProperty item in values) super.value.add(item);
+    super.value.addAll(values);
+    //for (TProperty item in values) super.value.add(item);
   }
 }
 

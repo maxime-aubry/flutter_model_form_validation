@@ -35,30 +35,36 @@ class _AddBookPageState extends State<AddBookPage> {
         padding: EdgeInsets.all(5.0),
         child: Column(
           children: [
-            getTitle(),
-            getLiteraryGenres(),
-            getRealeaseDate(),
-            getPrice(),
-            getButtons(),
+            titleInput(),
+            literaryGenresInput(),
+            realeaseDateInput(),
+            priceInput(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                cancelButton(),
+                saveButton(),
+              ],
+            )
           ],
         ),
       ),
     );
   }
 
-  Widget getTitle() => new Padding(
+  Widget titleInput() => new Padding(
       padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
       child: new TextFormField(
         decoration: InputDecoration(
           labelText: 'Title',
         ),
         keyboardType: TextInputType.text,
-        onChanged: (String value) {
+        onChanged: (value) {
           this.book.title.value = value;
         },
       ));
 
-  Widget getLiteraryGenres() => CustomMultiDropdown<ELiteraryGenre>(
+  Widget literaryGenresInput() => CustomMultiDropdown<ELiteraryGenre>(
         label: 'Literary genres',
         dataSource: this.literaryGenres,
         value: this.book.literaryGenres.value,
@@ -67,7 +73,7 @@ class _AddBookPageState extends State<AddBookPage> {
         },
       );
 
-  Widget getRealeaseDate() => new Padding(
+  Widget realeaseDateInput() => new Padding(
         padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
         child: new DateTimePicker(
           decoration: InputDecoration(
@@ -85,42 +91,31 @@ class _AddBookPageState extends State<AddBookPage> {
         ),
       );
 
-  Widget getPrice() => new Padding(
+  Widget priceInput() => new Padding(
         padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
         child: new TextFormField(
           decoration: InputDecoration(
             labelText: 'Price',
           ),
           keyboardType: TextInputType.numberWithOptions(decimal: true),
-          onChanged: (String value) {
-            this.book.title.value = value;
+          onChanged: (value) {
+            this.book.price.value = num.tryParse(value);
           },
         ),
       );
 
-  Widget getButtons() => Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text('CANCEL'),
-          ),
-          new FormArrayConsumer<Book>(
-            builder: (context, books, child) => TextButton(
-              onPressed: () {
-                books.value.add(this.book);
-                Navigator.of(context).pop();
-              },
-              child: Text('SAVE'),
-            ),
-          ),
-          /*TextButton(
-            onPressed: () {
-              //books.add(this.book);
-              Navigator.of(context).pop();
-            },
-            child: Text('SAVE'),
-          ),*/
-        ],
+  Widget cancelButton() => TextButton(
+        onPressed: () => Navigator.of(context).pop(),
+        child: Text('CANCEL'),
+      );
+
+  Widget saveButton() => new FormArrayConsumer<Book>(
+        builder: (context, books, child) => TextButton(
+          onPressed: () {
+            books.value.add(this.book);
+            Navigator.of(context).pop();
+          },
+          child: Text('SAVE'),
+        ),
       );
 }

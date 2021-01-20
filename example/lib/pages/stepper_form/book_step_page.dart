@@ -15,56 +15,65 @@ class _BooksStepPageState extends State<BooksStepPage> {
   @override
   Widget build(BuildContext context) {
     return new FormGroupConsumer<BooksStep>(
-      builder: (context, booksStep, child) => Column(
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-              child: TextButton.icon(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ChangeNotifierProvider.value(
-                        value: booksStep.books,
-                        child: AddBookPage(),
-                      ),
-                    ),
-                  );
-                },
-                icon: Icon(Icons.add, size: 18),
-                label: Text("Add book"),
-              ),
-              /*child: new FormArrayProvider<Book, FormArrayElement<Book>>(
-                create: (context) => booksStep.books,
-                child:
-              ),*/
-            ),
-          ),
-          ListView.separated(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: booksStep.books.value.length,
-            separatorBuilder: (context, index) => Divider(),
-            itemBuilder: (context, index) {
-              final item = booksStep.books.value[index];
-
-              return SlidableBook(
-                child: buildListTile(item),
-                onDismissed: (action) => dismissSlidableItem(
-                  context,
-                  index,
-                  action,
-                  booksStep,
+      builder: (context, booksStep, child) {
+        return new FormArrayProvider<Book, FormArrayElement<Book>>(
+          create: (context) => booksStep.books,
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                  child: addBookButton(),
                 ),
-              );
-            },
+              ),
+              slidableBooks(),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
+
+  Widget addBookButton() => new FormArrayConsumer<Book>(
+        builder: (context, books, child) => TextButton.icon(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChangeNotifierProvider.value(
+                  value: books,
+                  child: AddBookPage(),
+                ),
+              ),
+            );
+          },
+          icon: Icon(Icons.add, size: 18),
+          label: Text("Add book"),
+        ),
+      );
+
+  Widget slidableBooks() => new FormArrayConsumer<Book>(
+        builder: (context, books, child) => ListView.separated(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemCount: books.value.length,
+          separatorBuilder: (context, index) => Divider(),
+          itemBuilder: (context, index) {
+            final item = books.value[index];
+
+            return SlidableBook(
+              child: buildListTile(item),
+              onDismissed: (action) => dismissSlidableItem(
+                context,
+                index,
+                action,
+                books,
+              ),
+            );
+          },
+        ),
+      );
 
   Widget buildListTile(Book item) => ListTile(
         contentPadding: EdgeInsets.symmetric(
@@ -82,10 +91,10 @@ class _BooksStepPageState extends State<BooksStepPage> {
     BuildContext context,
     int index,
     SlidableAction action,
-    BooksStep booksStep,
+    FormArrayElement<Book> books,
   ) {
     setState(() {
-      booksStep.books.value.removeAt(index);
+      books.value.removeAt(index);
     });
 
     switch (action) {
