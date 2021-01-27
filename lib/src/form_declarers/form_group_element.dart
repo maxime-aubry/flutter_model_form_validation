@@ -1,4 +1,4 @@
-import 'package:flutter_model_form_validation/src/form_builder/form_declarers/index.dart';
+import 'package:flutter_model_form_validation/src/form_declarers/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
 
 class FormGroupElement<TProperty extends ModelForm>

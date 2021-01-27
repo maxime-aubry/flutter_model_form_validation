@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_model_form_validation/src/form_builder/form_declarers/index.dart';
+import 'package:flutter_model_form_validation/src/form_declarers/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -29,21 +29,6 @@ class FormGroupProvider<TProperty extends ModelForm,
     );
   }
 }
-
-/*class FormArrayProvider<TProperty extends ModelForm,
-        Controller extends FormArrayElement<TProperty>>
-    extends Consumer<Controller> {
-  FormArrayProvider({
-    Key key,
-    @required this.builder,
-    Widget child,
-  }) : super(key: key, builder: builder, child: child);
-
-  @override
-  final Widget Function(
-          BuildContext context, FormArrayElement<TProperty> value, Widget child)
-      builder;
-}*/
 
 class FormArrayProvider<TProperty extends ModelForm,
         Controller extends FormArrayElement<TProperty>>

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_model_form_validation/src/form_builder/form_declarers/index.dart';
+import 'package:flutter_model_form_validation/src/form_declarers/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
 import 'package:provider/provider.dart';
 
