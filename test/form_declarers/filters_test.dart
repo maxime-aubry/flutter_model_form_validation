@@ -35,12 +35,16 @@ void main() {
         expect(result, false);
       });
 
-      test('isListOfEnum returns true for List<EGender> enum type. Bad library name.', () {
+      test(
+          'isListOfEnum returns true for List<EGender> enum type. Bad library name.',
+          () {
         bool result = isListOfEnum<List<EGender>>('bad.library.name');
         expect(result, false);
       });
 
-      test('isListOfEnum returns false for List<EFakeEnum> enum type. Enum not defined into library.', () {
+      test(
+          'isListOfEnum returns false for List<EFakeEnum> enum type. Enum not defined into library.',
+          () {
         bool result = isListOfEnum<List<EFakeEnum>>('test.models');
         expect(result, false);
       });
@@ -58,9 +62,9 @@ void main() {
   });
 }
 
-      // expect(() {
-      //   FormControlElement<EGender> formControl =
-      //       new FormControlElement<EGender>(EGender.male, 'test.models');
-      // },
-      //     throwsA(isA<FormDeclarerException>()
-      //         .having((error) => error.message, 'description', 'matcher')));
+// expect(() {
+//   FormControlElement<EGender> formControl =
+//       new FormControlElement<EGender>(EGender.male, 'test.models');
+// },
+//     throwsA(isA<FormDeclarerException>()
+//         .having((error) => error.message, 'description', 'matcher')));

@@ -41,7 +41,7 @@ class FormControlElement<TProperty> extends FormElementNotifier<TProperty> {
                 isListOfType<TProperty, String>() ||
                 isListOfType<TProperty, bool>() ||
                 isListOfEnum<TProperty>(libraryName),
-            'Cannot instanciate a FormControlElement if its value is not a datetime, a number, a string, a bool or an enum.'),
+            'Cannot instanciate a FormControlElement with a not allowed type. Allowed types are : DateTime, num, int, double, Uint8, Uint16, Uint32, Uint64, Int8, Int16, Int32, Int64, String, bool, enums, List<DateTime>, List<num>, List<int>, List<double>, Uint8List, Uint16List, Uint32List, Uint64List, Int8List, Int16List, Int32List, Int64List, List<String>, List<bool> and a list of enum.'),
         super(value);
 
   TProperty get value => super.value;

@@ -1,4 +1,1 @@
-enum EFakeEnum {
- value1,
- value2
-}
+enum EFakeEnum { value1, value2 }
