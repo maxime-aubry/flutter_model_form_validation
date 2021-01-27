@@ -2,13 +2,12 @@ import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:flutter_model_form_validation/src/form_declarers/index.dart';
-import 'package:flutter_model_form_validation/src/index.dart';
 
 class FormControlElement<TProperty> extends FormElementNotifier<TProperty> {
   FormControlElement(TProperty value, String libraryName)
-      : assert(libraryName != null, 'Library name must be provided.'),
-        assert(TProperty != ModelForm,
-            'Cannot instanciate a form control element with a ModelForm value.'),
+      : assert(libraryName != null && libraryName.isNotEmpty, 'Library name must be provided.'),
+        // assert(TProperty != ModelForm,
+        //     'Cannot instanciate a form control element with a ModelForm value.'),
         assert(
             TProperty == DateTime ||
                 TProperty == num ||
