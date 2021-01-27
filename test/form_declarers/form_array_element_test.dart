@@ -17,10 +17,41 @@ void main() {
         expect(formArray.value, []);
       });
       
-      test('FormArrayElement object with Book type is safely instanciated. Add an item into FormArrayItems object.', () {
+      test('FormArrayElement object with Book type is safely instanciated. Add an item into FormArrayItems object. Listener updates the copy.', () {
+        Book copy;
         FormArrayElement<Book> formArray = new FormArrayElement<Book>(null);
 
+        formArray.addListener(() {
+          copy = formArray.value[0];
+        });
+
         expect(formArray, isNotNull);
+        expect(formArray.value, []);
+        formArray.value.add(new Book(
+          'Voyage au centre de la terre',
+          8.9,
+          new DateTime(2020, 04, 08),
+        ));
+        expect(formArray.value, isNot([]));
+        expect(formArray.value[0], copy);
+      });
+      
+      test('FormArrayElement object with Book type is safely instanciated. Remove an item from FormArrayItems object. Listener updates the orignal object.', () {
+        Book originalBook = new Book(
+          'Voyage au centre de la terre',
+          8.9,
+          new DateTime(2020, 04, 08),
+        );
+        FormArrayElement<Book> formArray = new FormArrayElement<Book>([originalBook]);
+
+        formArray.addListener(() {
+          if (formArray.value == null || formArray.value == [])
+            originalBook = null;
+        });
+
+        expect(formArray, isNotNull);
+        expect(formArray.value, [originalBook]);
+        formArray.value = null;
         expect(formArray.value, []);
       });
     });

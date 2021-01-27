@@ -10,9 +10,11 @@ void main() {
   group('FormDeclarers.', () {
     group('FormGroupElement.', () {
       test(
-          'FormGroupElement object with FormBuilderTest type is safely instanciated. Values are null.', () {
+          'FormGroupElement object with FormBuilderTest type is safely instanciated. Values are null.',
+          () {
         FormBuilderTest model = new FormBuilderTest(null, null, null, null);
-        FormGroupElement<FormBuilderTest> formGroup = new FormGroupElement<FormBuilderTest>(model);
+        FormGroupElement<FormBuilderTest> formGroup =
+            new FormGroupElement<FormBuilderTest>(model);
 
         expect(formGroup, isNotNull);
         expect(formGroup.value, isNotNull);
@@ -39,16 +41,18 @@ void main() {
         expect(formGroup.value.books.value, []);
         expect(formGroup.value.favoriteBook.value, isNull);
       });
-      
+
       test(
-          'FormGroupElement object with FormBuilderTest type is safely instanciated. Values are provided.', () {
+          'FormGroupElement object with FormBuilderTest type is safely instanciated. Values are provided.',
+          () {
         FormBuilderTest model = new FormBuilderTest(
           'Edouard',
           'Elric',
           new DateTime(1980, 12, 15),
           new DateTime(2019, 06, 01),
         );
-        FormGroupElement<FormBuilderTest> formGroup = new FormGroupElement<FormBuilderTest>(model);
+        FormGroupElement<FormBuilderTest> formGroup =
+            new FormGroupElement<FormBuilderTest>(model);
 
         expect(formGroup, isNotNull);
         expect(formGroup.value, isNotNull);
@@ -71,16 +75,18 @@ void main() {
         expect(formGroup.value.firstName.value, 'Edouard');
         expect(formGroup.value.lastName.value, 'Elric');
         expect(formGroup.value.birthDay.value, new DateTime(1980, 12, 15));
-        expect(formGroup.value.subscriptionDate.value, new DateTime(2019, 06, 01));
+        expect(
+            formGroup.value.subscriptionDate.value, new DateTime(2019, 06, 01));
         expect(formGroup.value.books.value, []);
         expect(formGroup.value.favoriteBook.value, isNull);
       });
-      
+
       test(
-          'FormGroupElement object is safely instanciated. Listener updates the value.',
+          'FormGroupElement object is safely instanciated. Listener updates the copy.',
           () {
         FormBuilderTest copy;
-        FormGroupElement<FormBuilderTest> formGroup = new FormGroupElement<FormBuilderTest>(null);
+        FormGroupElement<FormBuilderTest> formGroup =
+            new FormGroupElement<FormBuilderTest>(null);
 
         formGroup.addListener(() {
           copy = formGroup.value;
