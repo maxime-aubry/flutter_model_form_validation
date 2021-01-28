@@ -116,7 +116,7 @@ abstract class FormValidatorAnnotation {
         throw new Exception('Targeted property must be a form control');
       // else, get the value from form control, cast it as wanted type and return it
       FormControl formControl = formGroup.controls[propertyName] as FormControl;
-      DateTime value = formControl.getValue() as DateTime;
+      DateTime value = formControl.value as DateTime;
       // if there is no value from user, so return the developer one, or null
       return value ?? developerValue.toDateTime() ?? null;
     }
@@ -141,7 +141,7 @@ abstract class FormValidatorAnnotation {
         throw new Exception('Targeted property must be a form control');
       // else, get the value from form control, cast it as wanted type and return it
       FormControl formControl = formGroup.controls[propertyName] as FormControl;
-      num value = formControl.getValue() as num;
+      num value = formControl.value as num;
       return value ?? developerValue.toNumber() ?? null;
     }
   }
@@ -164,7 +164,7 @@ abstract class FormValidatorAnnotation {
         throw new Exception('Targeted property must be a form control');
       // else, get the value from form control, cast it as wanted type and return it
       FormControl formControl = formGroup.controls[propertyName] as FormControl;
-      String value = formControl.getValue() as String;
+      String value = formControl.value as String;
       return value ?? developerValue ?? null;
     }
   }
@@ -189,7 +189,7 @@ abstract class FormValidatorAnnotation {
         throw new Exception('Targeted property must be a form control');
       // else, get the value from form control, cast it as wanted type and return it
       FormControl formControl = formGroup.controls[propertyName] as FormControl;
-      List<DateTime> value = formControl.getValue() as List<DateTime>;
+      List<DateTime> value = formControl.value as List<DateTime>;
       return value ?? developerValues.toDateTimeList() ?? null;
     }
   }
@@ -214,7 +214,7 @@ abstract class FormValidatorAnnotation {
         throw new Exception('Targeted property must be a form control');
       // else, get the value from form control, cast it as wanted type and return it
       FormControl formControl = formGroup.controls[propertyName] as FormControl;
-      List<num> value = formControl.getValue() as List<num>;
+      List<num> value = formControl.value as List<num>;
       return value ?? developerValues.toNumberList() ?? null;
     }
   }
@@ -237,7 +237,7 @@ abstract class FormValidatorAnnotation {
         throw new Exception('Targeted property must be a form control');
       // else, get the value from form control, cast it as wanted type and return it
       FormControl formControl = formGroup.controls[propertyName] as FormControl;
-      List<String> value = formControl.getValue() as List<String>;
+      List<String> value = formControl.value as List<String>;
       return value ?? developerValues ?? null;
     }
   }

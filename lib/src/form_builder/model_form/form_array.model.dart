@@ -21,10 +21,10 @@ class ModelFormArray extends FormArray with ModelFormValidator {
   FormArrayItems<ModelForm> items;
 
   String get modelPartfullname {
-    if (this.controlName == null || this.controlName.isEmpty) return null;
-    if (this.controlName == 'root' && this.parentGroup == null) return null;
+    if (this.name == null || this.name.isEmpty) return null;
+    if (this.name == 'root' && this.parentGroup == null) return null;
     ModelFormGroup parentGroup2 = this.parentGroup as ModelFormGroup;
-    return '${parentGroup2.current.hashCode}.${this.controlName}';
+    return '${parentGroup2.current.hashCode}.${this.name}';
   }
 
   @override
@@ -40,7 +40,7 @@ class ModelFormArray extends FormArray with ModelFormValidator {
     assert(!super.isInitialized,
         'Cannot initialize form group if this one is already initialized.');
 
-    super.controlName = name;
+    super.name = name;
     super.parentGroup = parentGroup;
 
     ModelFormGroup parentGroup2 = parentGroup as ModelFormGroup;
@@ -48,7 +48,7 @@ class ModelFormArray extends FormArray with ModelFormValidator {
     FormArrayElement<ModelForm> formElement =
         super.getModelPart<FormArrayElement<ModelForm>>(
       parentGroup2.current,
-      this.controlName,
+      this.name,
     );
 
     formBuilder.addCorrespondence(
@@ -58,13 +58,13 @@ class ModelFormArray extends FormArray with ModelFormValidator {
 
     super.validators = super.getValidators(
       parentGroup2.current,
-      super.controlName,
+      super.name,
     );
 
     formBuilder.formState.update(
       super.fullname,
       null,
-      super.validation_status,
+      super.status,
     );
 
     this._actualizeChildren();
@@ -89,7 +89,7 @@ class ModelFormArray extends FormArray with ModelFormValidator {
 
     for (ModelForm item in itemsToAdd)
       super.addGroup(new ModelFormGroup(
-        name: '${super.controlName}[${super.groups.length}]',
+        name: '${super.name}[${super.groups.length}]',
         parentGroup: super.parentGroup,
         current: item,
         isArrayItem: true,

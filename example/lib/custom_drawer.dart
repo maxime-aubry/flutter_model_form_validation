@@ -25,21 +25,16 @@ class CustomDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(child: Text('Examples')),
-          /*createDrawerBodyItem(
-            text: 'Home',
-            onTap: () =>
-                Navigator.pushReplacementNamed(context, pageRoutes.home),
-          ),*/
           createDrawerBodyItem(
             text: 'Basic form',
             onTap: () =>
                 Navigator.pushReplacementNamed(context, pageRoutes.basicForm),
           ),
-          createDrawerBodyItem(
-            text: 'Stepper form',
-            onTap: () =>
-                Navigator.pushReplacementNamed(context, pageRoutes.stepperForm),
-          ),
+          // createDrawerBodyItem(
+          //   text: 'Stepper form',
+          //   onTap: () =>
+          //       Navigator.pushReplacementNamed(context, pageRoutes.stepperForm),
+          // ),
         ],
       ),
     );

@@ -107,9 +107,9 @@ void checkFormControl<T>({
 
   // value
   if (value == null)
-    expect(fc.getValue(), isNull);
+    expect(fc.value, isNull);
   else
-    expect(fc.getValue(), value);
+    expect(fc.value, value);
 
   // status
   expect(fc.status, status);

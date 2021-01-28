@@ -20,14 +20,14 @@ class FormArray extends AbstractControl {
   String get formPath {
     String part =
         (this.parentGroup != null) ? '${this.parentGroup.formPath}' : null;
-    part += '.controls[\'${this.controlName}\']';
+    part += '.controls[\'${this.name}\']';
     return part;
   }
 
   String get modelPath {
     String part =
         (this.parentGroup != null) ? '${this.parentGroup.modelPath}' : null;
-    part += '.${this.controlName}';
+    part += '.${this.name}';
     return part;
   }
 
@@ -42,14 +42,14 @@ class FormArray extends AbstractControl {
     assert(!super.isInitialized,
         'Cannot initialize form group if this one is already initialized.');
 
-    super.controlName = name;
+    super.name = name;
     super.parentGroup = parentGroup;
 
     FormBuilder formBuilder = this.getFormBuilder();
     formBuilder.formState.update(
       super.fullname,
       null,
-      super.validation_status,
+      super.status,
     );
 
     super.isInitialized = true;
@@ -62,6 +62,7 @@ class FormArray extends AbstractControl {
         'Cannot add form group if this one is already added.');
 
     this._groups.add(formGroup);
+    this.notifyListeners();
   }
 
   @protected
@@ -71,6 +72,7 @@ class FormArray extends AbstractControl {
         'Cannot remove form group if this one is not added.');
 
     this._groups.remove(formGroup);
+    this.notifyListeners();
   }
 
   Future validate() async =>

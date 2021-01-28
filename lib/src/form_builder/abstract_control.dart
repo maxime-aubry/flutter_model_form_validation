@@ -4,48 +4,42 @@ import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/utils/index.dart';
 
-class AbstractControl {
+class AbstractControl extends ChangeNotifier {
   AbstractControl(List<FormValidatorAnnotation> validators) {
-    this.controlName = null;
+    this.name = null;
     this.parentGroup = null;
     this.validators = validators;
-    this.validation_status = EAbstractControlStatus.pure;
+    this.status = EAbstractControlStatus.pure;
     this.isInitialized = false;
   }
-
-  FormGroup parentGroup;
-
-  @protected
-  String controlName;
-
-  @protected
-  List<FormValidatorAnnotation> validators;
-
-  @protected
-  EAbstractControlStatus validation_status;
-
-  @protected
-  ValidationError validation_error;
 
   @protected
   bool isInitialized;
 
-  String get name => this.controlName;
-  EAbstractControlStatus get status => this.validation_status;
-  ValidationError get error {
-    if (this.validation_error == null) return null;
+  @protected
+  List<FormValidatorAnnotation> validators;
 
-    return this.validation_error.copyWith(
-          propertyName: this.validation_error.propertyName,
-          validatorType: this.validation_error.validatorType,
-          message: this.validation_error.message,
-        );
-  }
+  FormGroup parentGroup;
+  String name;
+  EAbstractControlStatus status;
+  ValidationError error;
+
+  // String get name => this.controlName;
+  // EAbstractControlStatus get status => this.validation_status;
+  // ValidationError get error {
+  //   if (this.validation_error == null) return null;
+
+  //   return this.validation_error.copyWith(
+  //         propertyName: this.validation_error.propertyName,
+  //         validatorType: this.validation_error.validatorType,
+  //         message: this.validation_error.message,
+  //       );
+  // }
 
   String get fullname {
-    if (this.controlName == null || this.controlName.isEmpty) return null;
-    if (this.controlName == 'root' && this.parentGroup == null) return null;
-    return '${this.parentGroup.hashCode}.${this.controlName}';
+    if (this.name == null || this.name.isEmpty) return null;
+    if (this.name == 'root' && this.parentGroup == null) return null;
+    return '${this.parentGroup.hashCode}.${this.name}';
   }
 
   @protected
@@ -55,15 +49,15 @@ class AbstractControl {
     String modelPath,
   ) async {
     bool isValid = true;
-    this.validation_error = null;
+    this.error = null;
     FormBuilder formBuilder = this.getFormBuilder();
 
     // before validation
-    this.validation_status = EAbstractControlStatus.validationInProgress;
+    this.status = EAbstractControlStatus.validationInProgress;
     formBuilder.formState.update(
       this.fullname,
       null,
-      this.validation_status,
+      this.status,
     );
 
     // validation
@@ -78,7 +72,7 @@ class AbstractControl {
         );
 
         if (!isValid) {
-          this.validation_error = ValidationError(
+          this.error = ValidationError(
             name,
             validator.runtimeType,
             validator.error,
@@ -93,12 +87,12 @@ class AbstractControl {
     }
 
     // after validation
-    this.validation_status =
+    this.status =
         isValid ? EAbstractControlStatus.valid : EAbstractControlStatus.invalid;
     formBuilder.formState.update(
       this.fullname,
       this.error, // error is an immutable copy of validation_error
-      this.validation_status,
+      this.status,
     );
   }
 

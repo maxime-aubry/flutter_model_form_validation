@@ -18,10 +18,10 @@ class ModelFormControl<TField> extends FormControl<TField>
   }
 
   String get modelPartfullname {
-    if (this.controlName == null || this.controlName.isEmpty) return null;
-    if (this.controlName == 'root' && this.parentGroup == null) return null;
+    if (this.name == null || this.name.isEmpty) return null;
+    if (this.name == 'root' && this.parentGroup == null) return null;
     ModelFormGroup parentGroup2 = this.parentGroup as ModelFormGroup;
-    return '${parentGroup2.current.hashCode}.${this.controlName}';
+    return '${parentGroup2.current.hashCode}.${this.name}';
   }
 
   @override
@@ -37,14 +37,14 @@ class ModelFormControl<TField> extends FormControl<TField>
     assert(!super.isInitialized,
         'Cannot initialize form group if this one is already initialized.');
 
-    super.controlName = name;
+    super.name = name;
     super.parentGroup = parentGroup;
 
     ModelFormGroup parentGroup2 = this.parentGroup as ModelFormGroup;
     ModelFormBuilder formBuilder = super.getFormBuilder() as ModelFormBuilder;
     FormControlElement formElement = super.getModelPart<FormControlElement>(
       parentGroup2.current,
-      this.controlName,
+      this.name,
     );
 
     formBuilder.addCorrespondence(
@@ -54,13 +54,13 @@ class ModelFormControl<TField> extends FormControl<TField>
 
     super.validators = super.getValidators(
       parentGroup2.current,
-      super.controlName,
+      super.name,
     );
 
     formBuilder.formState.update(
       super.fullname,
       null,
-      super.validation_status,
+      super.status,
     );
 
     formElement.addListener(() {

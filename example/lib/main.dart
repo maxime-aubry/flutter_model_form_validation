@@ -1,7 +1,7 @@
 // import 'package:example/models.reflectable.dart';
 import 'package:example/pages/basic_form/basic_form.dart';
 import 'package:example/pages/home.dart';
-import 'package:example/pages/stepper_form/stepper_form_page.dart';
+// import 'package:example/pages/stepper_form/stepper_form_page.dart';
 import 'package:example/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       routes: {
         pageRoutes.home: (context) => Home(),
         pageRoutes.basicForm: (context) => BasicForm(),
-        pageRoutes.stepperForm: (context) => StepperFormPage(),
+        // pageRoutes.stepperForm: (context) => StepperFormPage(),
         // pageRoutes.addBook: (context) => AddBookPage(),
       },
     );

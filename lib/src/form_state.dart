@@ -19,7 +19,7 @@ class FormStateBase {
     this._status = EFormStatus.pure;
     this._statuses = new Map<String, EAbstractControlStatus>();
     this._errors = new Map<String, ValidationError>();
-    this.initialize(formBuilder);
+    // this.initialize(formBuilder);
   }
 
   FormStateBase.modelFormState(bool isMultipleStepsForm) {
@@ -39,7 +39,7 @@ class FormStateBase {
   EFormStatus get status => this._status;
   bool get isMultipleStepsForm => this._isMultipleStepsForm;
 
-  void initialize(FormBuilder formBuilder) {
+  void initialize() {
     this.formBuilder = formBuilder;
 
     // intialize form builder (provide form group parent for each abstract control).

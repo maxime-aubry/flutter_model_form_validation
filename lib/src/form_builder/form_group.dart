@@ -1,4 +1,4 @@
-import 'dart:collection';
+// import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
@@ -9,36 +9,36 @@ class FormGroup extends AbstractControl {
     String name,
     FormGroup parentGroup,
     FormBuilder formBuilder,
-    @required List<FormValidatorAnnotation> validators,
+    List<FormValidatorAnnotation> validators,
     @required Map<String, AbstractControl> controls,
   }) : super(validators) {
     this.formBuilder = formBuilder;
-    this._controls = controls ?? new Map<String, AbstractControl>();
+    this.controls = controls ?? new Map<String, AbstractControl>();
   }
 
   FormBuilder formBuilder;
   bool isArrayItem;
 
-  Map<String, AbstractControl> _controls;
+  Map<String, AbstractControl> controls;
 
-  UnmodifiableMapView<String, AbstractControl> get controls {
-    UnmodifiableMapView<String, AbstractControl> value =
-        UnmodifiableMapView<String, AbstractControl>(this._controls);
-    return value;
-  }
+  // UnmodifiableMapView<String, AbstractControl> get controls {
+  //   UnmodifiableMapView<String, AbstractControl> value =
+  //       UnmodifiableMapView<String, AbstractControl>(this.controls);
+  //   return value;
+  // }
 
   String get formPath {
     String part =
         (this.parentGroup != null) ? '${this.parentGroup.formPath}' : 'root';
 
     if (this.parentGroup != null) {
-      String key = this.controlName.split('[')[0];
+      String key = this.name.split('[')[0];
       if (this.isArrayItem && this.parentGroup.controls[key] is FormArray) {
         FormArray formArray = this.parentGroup.controls[key] as FormArray;
         int index = formArray.groups.indexOf(this);
         part += '.controls[\'$key\'].groups[$index]';
       } else {
-        part += '.controls[\'${this.controlName}\']';
+        part += '.controls[\'${this.name}\']';
       }
     }
 
@@ -51,13 +51,12 @@ class FormGroup extends AbstractControl {
 
     if (this.parentGroup != null) {
       if (this.isArrayItem &&
-          this.parentGroup.controls[this.controlName] is FormArray) {
-        FormArray formArray =
-            this.parentGroup.controls[this.controlName] as FormArray;
+          this.parentGroup.controls[this.name] is FormArray) {
+        FormArray formArray = this.parentGroup.controls[this.name] as FormArray;
         int index = formArray.groups.indexOf(this);
-        part += '.${this.controlName}[$index]';
+        part += '.${this.name}[$index]';
       } else {
-        part += '.${this.controlName}';
+        part += '.${this.name}';
       }
     }
 
@@ -74,16 +73,16 @@ class FormGroup extends AbstractControl {
     assert(!super.isInitialized,
         'Cannot initialize form group if this one is already initialized.');
 
-    super.controlName = name;
+    super.name = name;
     super.parentGroup = parentGroup;
     this.isArrayItem = isArrayItem;
 
-    if (super.controlName != 'root' && super.parentGroup != null) {
+    if (super.name != 'root' && super.parentGroup != null) {
       FormBuilder formBuilder = this.getFormBuilder();
       formBuilder.formState.update(
         super.fullname,
         null,
-        super.validation_status,
+        super.status,
       );
     }
 
@@ -92,10 +91,11 @@ class FormGroup extends AbstractControl {
 
   void updateName() {
     if (this.isArrayItem) {
-      String controlName = super.controlName.split('[')[0];
-      FormArray formArray = this.parentGroup.controls[controlName] as FormArray;
+      String name = super.name.split('[')[0];
+      FormArray formArray = this.parentGroup.controls[name] as FormArray;
       int index = formArray.groups.indexOf(this);
-      super.controlName = '$controlName[$index]';
+      super.name = '$name[$index]';
+      this.notifyListeners();
     }
   }
 
@@ -105,7 +105,7 @@ class FormGroup extends AbstractControl {
     assert(name != null && !name.isEmpty,
         'Cannot check if control does exist if its name is not provided.');
 
-    bool hasKey = this._controls.containsKey(name);
+    bool hasKey = this.controls.containsKey(name);
     return hasKey;
   }
 
@@ -117,10 +117,11 @@ class FormGroup extends AbstractControl {
     assert(name != null && !name.isEmpty,
         'Cannot add control if its name is not provided.');
     assert(control != null, 'Cannot add control if this one is null.');
-    assert(!this._controls.containsKey(name),
+    assert(!this.controls.containsKey(name),
         'Cannot add control if this one is already added.');
 
-    this._controls[name] = control;
+    this.controls[name] = control;
+    this.notifyListeners();
   }
 
   @protected
@@ -129,15 +130,17 @@ class FormGroup extends AbstractControl {
   ) {
     assert(name != null && !name.isEmpty,
         'Cannot add control if its name is not provided.');
-    assert(this._controls.containsKey(name),
+    assert(this.controls.containsKey(name),
         'Cannot add control if this one is not added.');
 
-    this._controls.remove(name);
+    this.controls.remove(name);
+    this.notifyListeners();
   }
 
   @protected
   void clearControls() {
-    this._controls.clear();
+    this.controls.clear();
+    this.notifyListeners();
   }
 
   Future validate() async =>

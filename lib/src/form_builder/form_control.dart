@@ -4,16 +4,20 @@ import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 
 class FormControl<TField> extends AbstractControl {
   FormControl({
-    Object value,
-    @required List<FormValidatorAnnotation> validators,
+    @required TField value,
+    List<FormValidatorAnnotation> validators,
   }) : super(validators) {
-    this.value = value;
+    this._value = value;
   }
 
-  // @protected
-  TField value;
+  TField _value;
 
-  TField getValue() => this.value;
+  TField get value => this._value;
+
+  void set value(TField value) {
+    this._value = value;
+    this.notifyListeners();
+  }
 
   void initialize(
     String name,
@@ -26,14 +30,14 @@ class FormControl<TField> extends AbstractControl {
     assert(!super.isInitialized,
         'Cannot initialize form control if this one is already initialized.');
 
-    super.controlName = name;
+    super.name = name;
     super.parentGroup = parentGroup;
 
     FormBuilder formBuilder = this.getFormBuilder();
     formBuilder.formState.update(
       super.fullname,
       null,
-      super.validation_status,
+      super.status,
     );
 
     super.isInitialized = true;
@@ -42,14 +46,14 @@ class FormControl<TField> extends AbstractControl {
   String get formPath {
     String part =
         (this.parentGroup != null) ? '${this.parentGroup.formPath}' : null;
-    part += '.controls[\'${this.controlName}\']';
+    part += '.controls[\'${this.name}\']';
     return part;
   }
 
   String get modelPath {
     String part =
         (this.parentGroup != null) ? '${this.parentGroup.modelPath}' : null;
-    part += '.${this.controlName}';
+    part += '.${this.name}';
     return part;
   }
 
