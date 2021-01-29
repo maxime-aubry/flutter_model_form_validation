@@ -2,19 +2,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/utils/index.dart';
-import 'package:queries/collections.dart';
+// import 'package:queries/collections.dart';
 
 /// [FormValidatorAnnotation] is the parent class for every validators you will create and use.
 /// {@category Metadata}
 /// {@subCategory FormDeclarators}
 abstract class FormValidatorAnnotation {
   const FormValidatorAnnotation({
-    @required this.criticityLevel,
     @required this.error,
   });
-
-  /// This reprensents the order of execution for validation. If a validator returns false, the queue will stop on this point. Nexts validators won't be fired.
-  final int criticityLevel;
 
   /// This is the error to display (provided by developers).
   final String error;
@@ -243,10 +239,10 @@ abstract class FormValidatorAnnotation {
   }
 }
 
-extension FormValidatorAnnotationParsing on List<FormValidatorAnnotation> {
-  List<FormValidatorAnnotation> reorder() {
-    List<FormValidatorAnnotation> validators =
-        Collection(this).orderBy((arg1) => arg1.criticityLevel).toList();
-    return validators;
-  }
-}
+// extension FormValidatorAnnotationParsing on List<FormValidatorAnnotation> {
+//   List<FormValidatorAnnotation> reorder() {
+//     List<FormValidatorAnnotation> validators =
+//         Collection(this).orderBy((arg1) => arg1.criticityLevel).toList();
+//     return validators;
+//   }
+// }

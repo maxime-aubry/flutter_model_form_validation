@@ -16,7 +16,7 @@ class ImageSize extends FormValidatorAnnotation {
     @required this.maxWidth,
     @required this.maxHeight,
     @required this.error,
-  }) : super(criticityLevel: 2, error: error);
+  }) : super(error: error);
 
   /// [minWidth] is the allowed min width.
   final int minWidth;

@@ -13,7 +13,7 @@ class NbItems extends FormValidatorAnnotation {
     this.minOnProperty,
     this.maxOnProperty,
     @required this.error,
-  }) : super(criticityLevel: 2, error: error);
+  }) : super(error: error);
 
   /// [min] is minimal quantity of items.
   final String min;

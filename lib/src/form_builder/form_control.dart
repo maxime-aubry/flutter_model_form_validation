@@ -14,9 +14,9 @@ class FormControl<TField> extends AbstractControl {
 
   TField get value => this._value;
 
-  void set value(TField value) {
+  Future<void> setValue(TField value) async {
     this._value = value;
-    this.notifyListeners();
+    await super.validateControl(value, this.formPath, this.modelPath);
   }
 
   void initialize(
@@ -27,20 +27,12 @@ class FormControl<TField> extends AbstractControl {
         'Cannot initialize form control if its name is not provided.');
     assert(parentGroup != null,
         'Cannot initialize form control if its parent form group is not provided.');
-    assert(!super.isInitialized,
-        'Cannot initialize form control if this one is already initialized.');
+    // assert(!super.isInitialized,
+    //     'Cannot initialize form control if this one is already initialized.');
 
     super.name = name;
     super.parentGroup = parentGroup;
-
-    FormBuilder formBuilder = this.getFormBuilder();
-    formBuilder.formState.update(
-      super.fullname,
-      null,
-      super.status,
-    );
-
-    super.isInitialized = true;
+    // super.isInitialized = true;
   }
 
   String get formPath {

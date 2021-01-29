@@ -1,5 +1,3 @@
-// import 'dart:collection';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
@@ -18,14 +16,7 @@ class FormGroup extends AbstractControl {
 
   FormBuilder formBuilder;
   bool isArrayItem;
-
   Map<String, AbstractControl> controls;
-
-  // UnmodifiableMapView<String, AbstractControl> get controls {
-  //   UnmodifiableMapView<String, AbstractControl> value =
-  //       UnmodifiableMapView<String, AbstractControl>(this.controls);
-  //   return value;
-  // }
 
   String get formPath {
     String part =
@@ -70,33 +61,10 @@ class FormGroup extends AbstractControl {
   ) {
     assert(name != null && !name.isEmpty,
         'Cannot initialize form group if its name is not provided.');
-    assert(!super.isInitialized,
-        'Cannot initialize form group if this one is already initialized.');
 
     super.name = name;
     super.parentGroup = parentGroup;
     this.isArrayItem = isArrayItem;
-
-    if (super.name != 'root' && super.parentGroup != null) {
-      FormBuilder formBuilder = this.getFormBuilder();
-      formBuilder.formState.update(
-        super.fullname,
-        null,
-        super.status,
-      );
-    }
-
-    super.isInitialized = true;
-  }
-
-  void updateName() {
-    if (this.isArrayItem) {
-      String name = super.name.split('[')[0];
-      FormArray formArray = this.parentGroup.controls[name] as FormArray;
-      int index = formArray.groups.indexOf(this);
-      super.name = '$name[$index]';
-      this.notifyListeners();
-    }
   }
 
   bool containsControl(
@@ -109,11 +77,9 @@ class FormGroup extends AbstractControl {
     return hasKey;
   }
 
-  @protected
   void addControl(
     String name,
-    AbstractControl control,
-  ) {
+    AbstractControl control) {
     assert(name != null && !name.isEmpty,
         'Cannot add control if its name is not provided.');
     assert(control != null, 'Cannot add control if this one is null.');
@@ -121,10 +87,10 @@ class FormGroup extends AbstractControl {
         'Cannot add control if this one is already added.');
 
     this.controls[name] = control;
+    this._forceInitialization();
     this.notifyListeners();
   }
 
-  @protected
   void removeControl(
     String name,
   ) {
@@ -137,6 +103,14 @@ class FormGroup extends AbstractControl {
     this.notifyListeners();
   }
 
+  /* Private methods */
+  /// Forces the form builder to reinitialize the tree of abstract controls to update itself and add new form groups, form arrays and form controls.
+  void _forceInitialization() {
+    FormBuilder formBuilder = super.getFormBuilder();
+    formBuilder.initialize(formBuilder.formState);
+  }
+
+  /* Protected methods */
   @protected
   void clearControls() {
     this.controls.clear();

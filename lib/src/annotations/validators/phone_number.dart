@@ -14,7 +14,7 @@ class PhoneNumber extends FormValidatorAnnotation {
     this.countryCodeOnProperty,
     this.phoneNumberTypeOnProperty,
     @required this.error,
-  }) : super(criticityLevel: 2, error: error);
+  }) : super(error: error);
 
   /// [countryCode] is the country code.
   final String countryCode;

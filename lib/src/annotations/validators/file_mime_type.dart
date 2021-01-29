@@ -13,7 +13,7 @@ class FileMimeType extends FormValidatorAnnotation {
   const FileMimeType({
     @required this.mimeTypes,
     @required this.error,
-  }) : super(criticityLevel: 2, error: error);
+  }) : super(error: error);
 
   /// [mimeTypes] is the allowed mime types list.
   final List<String> mimeTypes;

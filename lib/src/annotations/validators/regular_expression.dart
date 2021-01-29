@@ -10,7 +10,7 @@ class RegularExpression extends FormValidatorAnnotation {
   const RegularExpression({
     @required this.expression,
     @required this.error,
-  }) : super(criticityLevel: 2, error: error);
+  }) : super(error: error);
 
   /// [expression] is the regular expression to use.
   final String expression;

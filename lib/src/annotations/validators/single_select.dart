@@ -12,7 +12,7 @@ class SingleSelect extends FormValidatorAnnotation {
   const SingleSelect({
     @required this.serviceName,
     @required this.error,
-  }) : super(criticityLevel: 2, error: error);
+  }) : super(error: error);
 
   /// [serviceName] is the service name that provides items for validators.
   final String serviceName;

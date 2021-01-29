@@ -11,7 +11,7 @@ class SmallerThan extends FormValidatorAnnotation {
     this.valueToCompare,
     this.valueToCompareOnProperty,
     @required this.error,
-  }) : super(criticityLevel: 2, error: error);
+  }) : super(error: error);
 
   /// [valueToCompare] is default value to compare.
   final String valueToCompare;

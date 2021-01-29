@@ -16,7 +16,7 @@ class MembershipPassword extends FormValidatorAnnotation {
     @required this.includesNumericalCharacters,
     @required this.includesSpecialCharacters,
     @required this.error,
-  }) : super(criticityLevel: 2, error: error);
+  }) : super(error: error);
 
   /// [minLength] is the minimal string length of your password.
   final int minLength;

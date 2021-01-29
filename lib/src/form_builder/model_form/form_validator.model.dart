@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
+import 'package:flutter_model_form_validation/src/form_builder/model_form/index.dart';
 import 'package:flutter_model_form_validation/src/form_declarers/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
 import 'package:queries/collections.dart';
@@ -34,13 +35,10 @@ mixin ModelFormValidator<TModel extends ModelForm> {
 
   @protected
   List<FormValidatorAnnotation> getValidators(
-    ModelForm modelItem,
+    ModelFormGroup parentGroup,
     String property,
   ) {
-    if (modelItem == null)
-      throw new Exception('Cannot get validators from a null model element.');
-
-    InstanceMirror instanceMirror = this.getInstanceMirror(modelItem);
+    InstanceMirror instanceMirror = this.getInstanceMirror(parentGroup.current);
     VariableMirror variableMirror =
         instanceMirror.type.declarations[property] as VariableMirror;
 
@@ -50,7 +48,6 @@ mixin ModelFormValidator<TModel extends ModelForm> {
         Collection(variableMirror.metadata)
             .where((arg1) => arg1 is FormValidatorAnnotation)
             .select((arg1) => arg1 as FormValidatorAnnotation)
-            .orderBy((arg1) => arg1.criticityLevel)
             .toList();
     return validators;
   }

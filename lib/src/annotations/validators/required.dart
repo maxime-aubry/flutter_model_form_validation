@@ -9,7 +9,7 @@ import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 class Required extends FormValidatorAnnotation {
   const Required({
     @required this.error,
-  }) : super(criticityLevel: 1, error: error);
+  }) : super(error: error);
 
   /// [error] is the custom error to return in case of invalidation.
   final String error;

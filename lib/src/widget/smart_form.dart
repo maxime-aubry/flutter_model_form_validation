@@ -1,23 +1,20 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
 import 'package:flutter_model_form_validation/src/index.dart';
+import 'package:flutter_model_form_validation/src/providers/index.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 class SmartForm extends SingleChildStatefulWidget {
-  final Widget child;
   final FormBuilder formBuilder;
-  // final Widget Function(
-  //   BuildContext context,
-  //   Widget child,
-  //   FormStateBase formState,
-  // ) builder;
+  final Widget Function(BuildContext context, FormStateBase formState,
+      FormGroup formGroup, Widget child) builder;
 
-  const SmartForm({
+  SmartForm({
     Key key,
-    @required this.child,
+    Widget child,
     @required this.formBuilder,
-    // @required this.builder,
+    @required this.builder,
   }) : super(key: key, child: child);
 
   @override
@@ -42,10 +39,16 @@ class _SmartFormState extends SingleChildState<SmartForm> {
       autovalidateMode: AutovalidateMode.always,
       child: MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => widget.formBuilder.group, child: child),
-          Provider(create: (_) => this._formState),
+          FormBuilderProvider(create: (_) => widget.formBuilder),
+          FormGroupProvider(create: (_) => widget.formBuilder.group),
+          FormStateProvider(create: (_) => this._formState),
         ],
-        child: child,
+        child: widget.builder(
+          context,
+          this._formState,
+          widget.formBuilder.group,
+          child,
+        ),
       ),
     );
   }

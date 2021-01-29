@@ -5,40 +5,21 @@ import 'package:flutter_model_form_validation/src/index.dart';
 class FormBuilder {
   FormBuilder({
     @required FormGroup group,
-  }) : assert(group != null,
-            'Cannot instanciate form builder if main form group is not provided.') {
+  }) {
     this.group = group;
-    this._isInitialized = false;
-    this._isAttachedToFormState = false;
-  }
-
-  FormBuilder.modelFormBuilder() {
-    this.group = null;
-    this._isInitialized = false;
-    this._isAttachedToFormState = false;
   }
 
   FormGroup group;
   FormStateBase formState;
-  bool _isInitialized;
-  bool _isAttachedToFormState;
-  bool get isInitialized => this._isInitialized;
-  bool get isAttachedToFormState => this._isAttachedToFormState;
 
   void initialize(FormStateBase formState) {
     assert(formState != null,
         'Cannot initialize form builder if form state is not provided.');
-    assert(!this._isInitialized,
-        'Cannot initialize form builder if this one is already initialized.');
-    assert(!this._isAttachedToFormState,
-        'Cannot attach form builder to form styate if this one is already attached.');
 
     this.formState = formState;
     this.group.formBuilder = this;
     this._initializeFormGroup(this.group, null, 'root');
     this.checkMultipleStepsForm();
-    this._isInitialized = true;
-    this._isAttachedToFormState = true;
   }
 
   /// If current form is multiple steps form, check if root level contains only form groups.
@@ -66,27 +47,14 @@ class FormBuilder {
     current.initialize(name, parentGroup, isArrayItem);
 
     for (MapEntry<String, AbstractControl> child in current.controls.entries) {
-      if (child.value is FormGroup) {
-        this._initializeFormGroup(
-          child.value as FormGroup,
-          current,
-          child.key,
-        );
-      }
-      if (child.value is FormArray) {
-        this._initializeFormArray(
-          child.value as FormArray,
-          current,
-          child.key,
-        );
-      }
-      if (child.value is FormControl) {
-        this._initializeFormControl(
-          child.value as FormControl,
-          current,
-          child.key,
-        );
-      }
+      if (child.value is FormGroup)
+        this._initializeFormGroup(child.value, current, child.key);
+
+      if (child.value is FormArray)
+        this._initializeFormArray(child.value, current, child.key);
+
+      if (child.value is FormControl)
+        this._initializeFormControl(child.value, current, child.key);
     }
   }
 

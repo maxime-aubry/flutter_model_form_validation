@@ -1,3 +1,77 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+import 'package:provider/provider.dart';
+
+class FormBuilderProvider extends Provider<FormBuilder> {
+  FormBuilderProvider({
+    Key key,
+    @required Create<FormBuilder> create,
+    Dispose<FormBuilder> dispose,
+    bool lazy,
+    TransitionBuilder builder,
+    Widget child,
+  }) : super(
+          key: key,
+          create: create,
+          dispose: dispose,
+          lazy: lazy,
+          builder: builder,
+          child: child,
+        );
+}
+
+class FormStateProvider extends Provider<FormStateBase> {
+  FormStateProvider({
+    Key key,
+    @required Create<FormStateBase> create,
+    Dispose<FormStateBase> dispose,
+    bool lazy,
+    TransitionBuilder builder,
+    Widget child,
+  }) : super(
+          key: key,
+          create: create,
+          dispose: dispose,
+          lazy: lazy,
+          builder: builder,
+          child: child,
+        );
+}
+
+class FormGroupProvider extends ChangeNotifierProvider<FormGroup> {
+  FormGroupProvider({
+    Key key,
+    @required Create<FormGroup> create,
+    bool lazy,
+    TransitionBuilder builder,
+    Widget child,
+  }) : super(
+          key: key,
+          create: create,
+          lazy: lazy,
+          builder: builder,
+          child: child,
+        );
+}
+
+class FormControlProvider<TField>
+    extends ChangeNotifierProvider<FormControl<TField>> {
+  FormControlProvider({
+    Key key,
+    @required Create<FormControl<TField>> create,
+    bool lazy,
+    TransitionBuilder builder,
+    Widget child,
+  }) : super(
+          key: key,
+          create: create,
+          lazy: lazy,
+          builder: builder,
+          child: child,
+        );
+}
+
 // import 'package:flutter/foundation.dart';
 // import 'package:flutter/widgets.dart';
 // import 'package:flutter_model_form_validation/src/form_declarers/index.dart';

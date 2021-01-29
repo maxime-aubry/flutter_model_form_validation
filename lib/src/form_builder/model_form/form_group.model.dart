@@ -26,7 +26,6 @@ class ModelFormGroup extends FormGroup with ModelFormValidator {
           controls: new Map<String, AbstractControl>(),
         ) {
     this.current = current;
-    this.initialize(name, parentGroup, isArrayItem);
   }
 
   ModelForm current;
@@ -47,47 +46,40 @@ class ModelFormGroup extends FormGroup with ModelFormValidator {
   ) {
     assert(name != null && !name.isEmpty,
         'Cannot initialize form group if its name is not provided.');
-    assert(!super.isInitialized,
-        'Cannot initialize form group if this one is already initialized.');
+    // assert(!super.isInitialized,
+    //     'Cannot initialize form group if this one is already initialized.');
 
     super.name = name;
     super.parentGroup = parentGroup;
     super.isArrayItem = isArrayItem;
 
-    if (super.name != 'root' && super.parentGroup != null && !isArrayItem) {
-      ModelFormGroup parentGroup2 = parentGroup as ModelFormGroup;
-      ModelFormBuilder formBuilder = super.getFormBuilder() as ModelFormBuilder;
-      FormGroupElement<ModelForm> formElement =
-          super.getModelPart<FormGroupElement<ModelForm>>(
-        parentGroup2.current,
-        this.name,
-      );
-
-      formBuilder.addCorrespondence(
-        this.modelPartfullname,
-        this,
-      );
-
-      super.validators = super.getValidators(
-        parentGroup2.current,
-        super.name,
-      );
-
-      formBuilder.formState.update(
-        super.fullname,
-        null,
-        super.status,
-      );
-
-      formElement.addListener(() {
-        this.current = formElement.value;
-        this._actualizeChildren();
-      });
+    if (this._isRootFormGroup() && !isArrayItem) {
+      super.getValidators(super.parentGroup, super.name);
+      this._updateValueOnModelChange(super.parentGroup);
     }
 
-    if (this.current != null) this._actualizeChildren();
+    this._actualizeChildren();
+    // super.isInitialized = true;
+  }
 
-    super.isInitialized = true;
+  @override
+  Future validate() async => await super
+      .validateControl(this.current, super.formPath, super.modelPath);
+
+  /* Private methods */
+  bool _isRootFormGroup() =>
+      (super.name != 'root' && super.parentGroup != null);
+
+  void _updateValueOnModelChange(ModelFormGroup parentGroup) {
+    FormGroupElement<ModelForm> formElement =
+        super.getModelPart<FormGroupElement<ModelForm>>(
+      parentGroup.current,
+      this.name,
+    );
+    formElement.addListener(() {
+      this.current = formElement.value;
+      this._actualizeChildren();
+    });
   }
 
   void _actualizeChildren() {
@@ -96,30 +88,32 @@ class ModelFormGroup extends FormGroup with ModelFormValidator {
       return;
     }
 
-    InstanceMirror instanceMirror = super.getInstanceMirror(this.current);
-    Iterable<MapEntry<String, DeclarationMirror>> formControls = instanceMirror
-        .type.declarations.entries
-        .where((element) => element.value is VariableMirror)
-        .toList();
-
-    for (MapEntry<String, DeclarationMirror> formControl in formControls) {
-      VariableMirror variableMirror = formControl.value as VariableMirror;
-
-      if (variableMirror.dynamicReflectedType == FormGroupElement) {
+    for (MapEntry<String, VariableMirror> formControl in this._getChildren()) {
+      if (formControl.value.dynamicReflectedType == FormGroupElement) {
         this._addChildFormGroup(formControl.key);
         continue;
       }
 
-      if (variableMirror.dynamicReflectedType == FormArrayElement) {
+      if (formControl.value.dynamicReflectedType == FormArrayElement) {
         this._addChildFormArray(formControl.key);
         continue;
       }
 
-      if (variableMirror.dynamicReflectedType == FormControlElement) {
-        this._addChildFormControl(variableMirror, formControl.key);
+      if (formControl.value.dynamicReflectedType == FormControlElement) {
+        this._addChildFormControl(formControl.value, formControl.key);
         continue;
       }
     }
+  }
+
+  Iterable<MapEntry<String, VariableMirror>> _getChildren() {
+    InstanceMirror instanceMirror = super.getInstanceMirror(this.current);
+    Iterable<MapEntry<String, VariableMirror>> children = instanceMirror
+        .type.declarations.entries
+        .where((element) => element.value is VariableMirror)
+        .cast<MapEntry<String, VariableMirror>>()
+        .toList();
+    return children;
   }
 
   void _addChildFormGroup(String property) {
@@ -130,8 +124,8 @@ class ModelFormGroup extends FormGroup with ModelFormValidator {
     super.addControl(
       property,
       new ModelFormGroup(
-        name: property,
-        parentGroup: this,
+        name: null,
+        parentGroup: null,
         current: model,
       ),
     );
@@ -145,8 +139,8 @@ class ModelFormGroup extends FormGroup with ModelFormValidator {
     super.addControl(
       property,
       new ModelFormArray(
-        name: property,
-        parentGroup: this,
+        name: null,
+        parentGroup: null,
         items: model,
       ),
     );
@@ -162,14 +156,10 @@ class ModelFormGroup extends FormGroup with ModelFormValidator {
     super.addControl(
       property,
       new ModelFormControl(
-        name: property,
-        parentGroup: this,
+        name: null,
+        parentGroup: null,
         value: value,
       ),
     );
   }
-
-  @override
-  Future validate() async => await super
-      .validateControl(this.current, super.formPath, super.modelPath);
 }

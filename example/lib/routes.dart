@@ -1,10 +1,8 @@
-import 'package:example/pages/basic_form/basic_form.dart';
-import 'package:example/pages/home.dart';
-// import 'package:example/pages/stepper_form/stepper_form_page.dart';
+import 'package:example/pages/index.dart';
 
 class pageRoutes {
   static const String home = Home.routeName;
-  static const String basicForm = BasicForm.routeName;
-  // static const String stepperForm = StepperFormPage.routeName;
-  // static const String addBook = AddBookPage.routeName;
+  static const String reactiveForm = ReactiveForm.routeName;
+  static const String reactiveDynamicForm = ReactiveDynamicForm.routeName;
+  static const String modelForm = ModelForm.routeName;
 }

@@ -15,7 +15,6 @@ class ModelFormArray extends FormArray with ModelFormValidator {
           groups: [],
         ) {
     this.items = items ?? new FormArrayItems<ModelForm>([]);
-    this.initialize(name, parentGroup);
   }
 
   FormArrayItems<ModelForm> items;
@@ -37,82 +36,74 @@ class ModelFormArray extends FormArray with ModelFormValidator {
         'Cannot initialize form array if its name is not provided.');
     assert(parentGroup != null,
         'Cannot initialize form array if its parent form group is not provided.');
-    assert(!super.isInitialized,
-        'Cannot initialize form group if this one is already initialized.');
+    // assert(!super.isInitialized,
+    //     'Cannot initialize form group if this one is already initialized.');
 
     super.name = name;
     super.parentGroup = parentGroup;
-
-    ModelFormGroup parentGroup2 = parentGroup as ModelFormGroup;
-    ModelFormBuilder formBuilder = super.getFormBuilder() as ModelFormBuilder;
-    FormArrayElement<ModelForm> formElement =
-        super.getModelPart<FormArrayElement<ModelForm>>(
-      parentGroup2.current,
-      this.name,
-    );
-
-    formBuilder.addCorrespondence(
-      this.modelPartfullname,
-      this,
-    );
-
-    super.validators = super.getValidators(
-      parentGroup2.current,
-      super.name,
-    );
-
-    formBuilder.formState.update(
-      super.fullname,
-      null,
-      super.status,
-    );
-
+    super.getValidators(super.parentGroup, super.name);
     this._actualizeChildren();
-
-    formElement.addListener(() {
-      this.items = formElement.value;
-      this._actualizeChildren();
-    });
-
-    super.isInitialized = true;
+    this._updateValueOnModelChange(super.parentGroup);
+    // super.isInitialized = true;
   }
 
   /// [_actualizeChildren] method actualize [items] and [groups] collections of form array.
   void _actualizeChildren() {
     if (this.items == null) this.items = new FormArrayItems<ModelForm>([]);
 
-    // add new groups
-    List<ModelForm> itemsToAdd = Collection(this.items)
-        .except(Collection(this.groups)
-            .select((arg1) => (arg1 as ModelFormGroup).current))
-        .toList();
+    List<ModelForm> itemsToAdd = this._getItemsToAdd();
+    this._addItemsToFormArray(itemsToAdd);
 
-    for (ModelForm item in itemsToAdd)
-      super.addGroup(new ModelFormGroup(
-        name: '${super.name}[${super.groups.length}]',
-        parentGroup: super.parentGroup,
-        current: item,
-        isArrayItem: true,
-        formBuilder: null,
-      ));
-
-    // remove existing groups
-    List<FormGroup> groupsToRemove = Collection(this.groups)
-        .where((arg1) => !this.items.contains((arg1 as ModelFormGroup).current))
-        .toList();
-
-    if (groupsToRemove.length > 0) {
-      for (ModelFormGroup group in groupsToRemove) super.removeGroup(group);
-
-      // rename children's control names
-      for (FormGroup group in this.groups) group.updateName();
-    }
-
-    itemsToAdd.clear();
-    groupsToRemove.clear();
+    List<FormGroup> groupsToRemove = this._getItemsToRemove();
+    this._removeItemsFromFormArray(groupsToRemove);
+    super.reindexFormArrayItems();
   }
 
   @override
   Future validate() async =>
       await super.validateControl(this.items, super.formPath, super.modelPath);
+
+  /* Private methods */
+  void _updateValueOnModelChange(ModelFormGroup parentGroup) {
+    FormArrayElement<ModelForm> formElement =
+        super.getModelPart<FormArrayElement<ModelForm>>(
+      parentGroup.current,
+      this.name,
+    );
+    formElement.addListener(() {
+      this.items = formElement.value;
+      this._actualizeChildren();
+    });
+  }
+
+  List<ModelForm> _getItemsToAdd() {
+    List<ModelForm> items = Collection(this.items)
+        .except(Collection(this.groups)
+            .select((arg1) => (arg1 as ModelFormGroup).current))
+        .toList();
+    return items;
+  }
+
+  List<FormGroup> _getItemsToRemove() {
+    List<FormGroup> items = Collection(this.groups)
+        .where((arg1) => !this.items.contains((arg1 as ModelFormGroup).current))
+        .toList();
+    return items;
+  }
+
+  void _addItemsToFormArray(List<ModelForm> modelsToAdd) {
+    for (ModelForm model in modelsToAdd) {
+      super.addGroup(new ModelFormGroup(
+        name: '${super.name}[${super.groups.length}]',
+        parentGroup: super.parentGroup,
+        current: model,
+        isArrayItem: true,
+        formBuilder: null,
+      ));
+    }
+  }
+
+  void _removeItemsFromFormArray(List<FormGroup> groupsToRemove) {
+    for (ModelFormGroup group in groupsToRemove) super.removeGroup(group);
+  }
 }

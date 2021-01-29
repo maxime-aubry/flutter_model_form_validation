@@ -6,9 +6,9 @@ class ModelFormState extends FormStateBase {
   ModelFormState({
     @required ModelForm model,
     bool isMultipleStepsForm = false,
-  }) : super.modelFormState(isMultipleStepsForm) {
+  }) : super(formBuilder: null, isMultipleStepsForm: isMultipleStepsForm) {
     this.model = model;
-    this._initialize();
+    // this._initialize();
   }
 
   ModelForm model;
@@ -17,7 +17,8 @@ class ModelFormState extends FormStateBase {
     return super.formBuilder as ModelFormBuilder;
   }
 
-  void _initialize() {
+  @override
+  void initialize() {
     super.formBuilder = new ModelFormBuilder();
     super.formBuilder.initialize(this);
   }

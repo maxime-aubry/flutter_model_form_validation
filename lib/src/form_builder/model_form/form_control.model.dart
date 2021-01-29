@@ -13,8 +13,8 @@ class ModelFormControl<TField> extends FormControl<TField>
           value: null,
           validators: [],
         ) {
-    super.value = value;
-    this.initialize(name, parentGroup);
+    // super.value = value;
+    // this.initialize(name, parentGroup);
   }
 
   String get modelPartfullname {
@@ -34,43 +34,28 @@ class ModelFormControl<TField> extends FormControl<TField>
         'Cannot initialize form array if its name is not provided.');
     assert(parentGroup != null,
         'Cannot initialize form array if its parent form group is not provided.');
-    assert(!super.isInitialized,
-        'Cannot initialize form group if this one is already initialized.');
+    // assert(!super.isInitialized,
+    //     'Cannot initialize form group if this one is already initialized.');
 
     super.name = name;
     super.parentGroup = parentGroup;
-
-    ModelFormGroup parentGroup2 = this.parentGroup as ModelFormGroup;
-    ModelFormBuilder formBuilder = super.getFormBuilder() as ModelFormBuilder;
-    FormControlElement formElement = super.getModelPart<FormControlElement>(
-      parentGroup2.current,
-      this.name,
-    );
-
-    formBuilder.addCorrespondence(
-      this.modelPartfullname,
-      this,
-    );
-
-    super.validators = super.getValidators(
-      parentGroup2.current,
-      super.name,
-    );
-
-    formBuilder.formState.update(
-      super.fullname,
-      null,
-      super.status,
-    );
-
-    formElement.addListener(() {
-      this.value = formElement.value;
-    });
-
-    super.isInitialized = true;
+    super.getValidators(super.parentGroup, super.name);
+    this._updateValueOnModelChange(super.parentGroup);
+    // super.isInitialized = true;
   }
 
   @override
   Future validate() async =>
       await super.validateControl(this.value, super.formPath, super.modelPath);
+
+  /* Private methods */
+  void _updateValueOnModelChange(ModelFormGroup parentGroup) {
+    FormControlElement formElement = super.getModelPart<FormControlElement>(
+      parentGroup.current,
+      this.name,
+    );
+    formElement.addListener(() {
+      // this.value = formElement.value;
+    });
+  }
 }

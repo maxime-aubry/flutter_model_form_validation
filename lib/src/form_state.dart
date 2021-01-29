@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/form_builder/index.dart';
-import 'package:flutter_model_form_validation/src/utils/index.dart';
-import 'package:queries/collections.dart';
+// import 'package:flutter_model_form_validation/src/utils/index.dart';
+// import 'package:queries/collections.dart';
 
 enum EFormStatus {
   pure,
@@ -13,35 +13,33 @@ class FormStateBase {
   FormStateBase({
     @required FormBuilder formBuilder,
     bool isMultipleStepsForm = false,
-  }) : assert(formBuilder != null,
-            'Cannot instanciate a form state if form builder is not provided.') {
+  }) {
+    this.formBuilder = formBuilder;
     this._isMultipleStepsForm = isMultipleStepsForm;
     this._status = EFormStatus.pure;
-    this._statuses = new Map<String, EAbstractControlStatus>();
-    this._errors = new Map<String, ValidationError>();
+    // this._statuses = new Map<String, EAbstractControlStatus>();
+    // this._errors = new Map<String, ValidationError>();
     // this.initialize(formBuilder);
   }
 
-  FormStateBase.modelFormState(bool isMultipleStepsForm) {
-    this._isMultipleStepsForm = isMultipleStepsForm;
-    this._status = EFormStatus.pure;
-    this._statuses = new Map<String, EAbstractControlStatus>();
-    this._errors = new Map<String, ValidationError>();
-  }
+  // FormStateBase.modelFormState(bool isMultipleStepsForm) {
+  //   this._isMultipleStepsForm = isMultipleStepsForm;
+  //   this._status = EFormStatus.pure;
+  //   // this._statuses = new Map<String, EAbstractControlStatus>();
+  //   // this._errors = new Map<String, ValidationError>();
+  // }
 
   @protected
   FormBuilder formBuilder;
   bool _isMultipleStepsForm;
-  Map<String, EAbstractControlStatus> _statuses;
-  Map<String, ValidationError> _errors;
+  // Map<String, EAbstractControlStatus> _statuses;
+  // Map<String, ValidationError> _errors;
   EFormStatus _status;
 
   EFormStatus get status => this._status;
   bool get isMultipleStepsForm => this._isMultipleStepsForm;
 
   void initialize() {
-    this.formBuilder = formBuilder;
-
     // intialize form builder (provide form group parent for each abstract control).
     // attach form builder to form state.
     formBuilder.initialize(this);
@@ -86,49 +84,49 @@ class FormStateBase {
     return this.status == EFormStatus.valid;
   }
 
-  bool _actualizeFormState() {
-    bool isValid = !Dictionary.fromMap(this._statuses)
-        .where((arg1) =>
-            arg1.value != null && arg1.value == EAbstractControlStatus.invalid)
-        .any();
-    this._status = isValid ? EFormStatus.valid : EFormStatus.invalid;
-    return isValid;
-  }
+  // bool _actualizeFormState() {
+  //   bool isValid = !Dictionary.fromMap(this._statuses)
+  //       .where((arg1) =>
+  //           arg1.value != null && arg1.value == EAbstractControlStatus.invalid)
+  //       .any();
+  //   this._status = isValid ? EFormStatus.valid : EFormStatus.invalid;
+  //   return isValid;
+  // }
 
-  void update(
-    String key,
-    ValidationError error,
-    EAbstractControlStatus status,
-  ) {
-    this._statuses[key] = status;
-    this._errors[key] = error;
-    this._actualizeFormState();
-  }
+  // void update(
+  //   String key,
+  //   ValidationError error,
+  //   EAbstractControlStatus status,
+  // ) {
+  //   this._statuses[key] = status;
+  //   this._errors[key] = error;
+  //   this._actualizeFormState();
+  // }
 
-  EAbstractControlStatus getStatus(String name) {
-    if (name == null || name.isEmpty)
-      throw new Exception(
-          'Cannot get a form control status if control name is not provided.');
+  // EAbstractControlStatus getStatus(String name) {
+  //   if (name == null || name.isEmpty)
+  //     throw new Exception(
+  //         'Cannot get a form control status if control name is not provided.');
 
-    if (!this._errors.containsKey(name)) return null;
+  //   if (!this._errors.containsKey(name)) return null;
 
-    EAbstractControlStatus status = this._statuses[name];
-    return status;
-  }
+  //   EAbstractControlStatus status = this._statuses[name];
+  //   return status;
+  // }
 
-  ValidationError getError(String name) {
-    if (name == null || name.isEmpty)
-      throw new Exception(
-          'Cannot get a form control status if control name is not provided.');
+  // ValidationError getError(String name) {
+  //   if (name == null || name.isEmpty)
+  //     throw new Exception(
+  //         'Cannot get a form control status if control name is not provided.');
 
-    if (!this._errors.containsKey(name)) return null;
+  //   if (!this._errors.containsKey(name)) return null;
 
-    ValidationError error = this._errors[name];
-    return error;
-  }
+  //   ValidationError error = this._errors[name];
+  //   return error;
+  // }
 
-  String getErrorMessage(String name) {
-    ValidationError error = this.getError(name);
-    return error?.message;
-  }
+  // String getErrorMessage(String name) {
+  //   ValidationError error = this.getError(name);
+  //   return error?.message;
+  // }
 }

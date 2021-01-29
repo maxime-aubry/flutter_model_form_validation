@@ -12,7 +12,7 @@ class MultiSelect<TValue> extends FormValidatorAnnotation {
   const MultiSelect({
     @required this.serviceName,
     @required this.error,
-  }) : super(criticityLevel: 2, error: error);
+  }) : super(error: error);
 
   /// [serviceName] is the service name that provides items for validators.
   final String serviceName;

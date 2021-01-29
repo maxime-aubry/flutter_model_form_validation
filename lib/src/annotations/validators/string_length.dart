@@ -11,7 +11,7 @@ class StringLength extends FormValidatorAnnotation {
     @required this.min,
     @required this.max,
     @required this.error,
-  }) : super(criticityLevel: 2, error: error);
+  }) : super(error: error);
 
   /// [min] is the minimal number of your string length.
   final int min;

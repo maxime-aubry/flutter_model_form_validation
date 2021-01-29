@@ -10,7 +10,7 @@ import 'package:flutter_model_form_validation/src/utils/index.dart';
 class URL extends FormValidatorAnnotation {
   const URL({
     @required this.error,
-  }) : super(criticityLevel: 2, error: error);
+  }) : super(error: error);
 
   /// [error] is the custom error to return in case of invalidation.
   final String error;

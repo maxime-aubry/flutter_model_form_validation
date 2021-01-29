@@ -13,7 +13,7 @@ class InText extends FormValidatorAnnotation {
     this.text,
     this.textOnProperty,
     @required this.error,
-  }) : super(criticityLevel: 2, error: error);
+  }) : super(error: error);
 
   /// [text] is the text in which user will search keywords.
   final String text;

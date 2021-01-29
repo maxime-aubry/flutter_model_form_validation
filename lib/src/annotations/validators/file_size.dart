@@ -12,7 +12,7 @@ class FileSize extends FormValidatorAnnotation {
   const FileSize({
     @required this.size,
     @required this.error,
-  }) : super(criticityLevel: 2, error: error);
+  }) : super(error: error);
 
   /// [size] is the allowed size.
   final int size;
