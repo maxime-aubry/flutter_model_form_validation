@@ -77,6 +77,9 @@ class FormGroup extends AbstractControl {
     return hasKey;
   }
 
+  /// Add abstract control into this form group.
+  /// And then, force the reinitialization of the form builder to update the tree.
+  /// Notify listeners.
   void addControl(
     String name,
     AbstractControl control) {
@@ -88,9 +91,12 @@ class FormGroup extends AbstractControl {
 
     this.controls[name] = control;
     this._forceInitialization();
-    this.notifyListeners();
+    super.notifyListeners();
   }
 
+  /// Remove abstract control from this form group.
+  /// Notify listeners.
+  /// Remove listeners.
   void removeControl(
     String name,
   ) {
@@ -100,7 +106,8 @@ class FormGroup extends AbstractControl {
         'Cannot add control if this one is not added.');
 
     this.controls.remove(name);
-    this.notifyListeners();
+    super.notifyListeners();
+    super.removeListener(() { });
   }
 
   /* Private methods */
@@ -114,7 +121,7 @@ class FormGroup extends AbstractControl {
   @protected
   void clearControls() {
     this.controls.clear();
-    this.notifyListeners();
+    super.notifyListeners();
   }
 
   Future validate() async =>

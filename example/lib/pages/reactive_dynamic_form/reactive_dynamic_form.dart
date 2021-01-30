@@ -1,7 +1,7 @@
 import 'package:example/custom_drawer.dart';
+import 'package:example/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-import 'package:provider/provider.dart';
 
 class ReactiveDynamicForm extends StatefulWidget {
   static const String routeName = '/reactiveDynamicForm';
@@ -24,15 +24,8 @@ class _ReactiveDynamicFormState extends State<ReactiveDynamicForm> {
             children: [
               this._firstnameInput(formGroup.controls['firstname']),
               this._lastnameInput(formGroup.controls['lastname']),
-              new FormControlProvider<bool>(
-                create: (context) => formGroup.controls['share_address'],
-                builder: (context, child) => Column(
-                  children: [
-                    this._shareAddressInput(context),
-                    this._displayAddress(context, formGroup),
-                  ],
-                ),
-              ),
+              this._shareAddressInput(formGroup.controls['share_address']),
+              _AddressFormGroup(formGroup.controls['share_address']),
             ],
           ),
         ),
@@ -63,65 +56,58 @@ class _ReactiveDynamicFormState extends State<ReactiveDynamicForm> {
         ),
       );
 
-  Widget _firstnameInput(FormControl<String> formControl) => new Padding(
-        padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
-        child: new TextFormField(
-          decoration: InputDecoration(labelText: 'firstname'),
-          keyboardType: TextInputType.text,
-          controller: new TextEditingController(text: formControl.value),
-          onChanged: (value) async {
-            await formControl.setValue(value);
+  Widget _firstnameInput(FormControl<String> formControl) =>
+      new CustomTextInput(label: 'firstname', formControl: formControl);
+
+  Widget _lastnameInput(FormControl<String> formControl) =>
+      new CustomTextInput(label: 'lastname', formControl: formControl);
+
+  Widget _shareAddressInput(FormControl<bool> formControl) =>
+      new CustomSwitchInput(label: 'share address', formControl: formControl);
+}
+
+class _AddressFormGroup extends StatefulWidget {
+  final FormControl<bool> shareAddress;
+
+  const _AddressFormGroup({Key key, this.shareAddress}) : super(key: key);
+
+  @override
+  _AddressFormGroupState createState() => _AddressFormGroupState();
+}
+
+class _AddressFormGroupState extends State<_AddressFormGroup> {
+  @override
+  Widget build(BuildContext context) => new FormControlProvider<bool>(
+        create: (context) => widget.shareAddress,
+        child: new FormControlConsumer<bool>(
+          builder: (context, formControl, child) {
+            return Container();
           },
-          validator: (value) => formControl.error?.message,
         ),
       );
+  /*return FormControlConsumer<bool>(
+      builder: (context, formControl, child) {
+        if (formControl.value) {
+          FormGroup currentFormGroup = this._addAddress(parentFormGroup);
 
-  Widget _lastnameInput(FormControl<String> formControl) => new Padding(
-        padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
-        child: new TextFormField(
-          decoration: InputDecoration(labelText: 'lastname'),
-          keyboardType: TextInputType.text,
-          controller: new TextEditingController(text: formControl.value),
-          onChanged: (value) async {
-            await formControl.setValue(value);
-          },
-          validator: (value) => formControl.error?.message,
-        ),
-      );
-
-  Widget _shareAddressInput(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(child: Text('display address ?')),
-        Switch(
-          value: Provider.of<FormControl<bool>>(context).value,
-          onChanged: (value) {
-            Provider.of<FormControl<bool>>(context, listen: false)
-                .setValue(value);
-          },
-        ),
-      ],
-    );
-  }
-
-  Widget _displayAddress(BuildContext context, FormGroup parentFormGroup) =>
-      new FormControlConsumer<bool>(
-        builder: (context, formControl, child) {
-          if (formControl.value) {
-            this._addAddress(parentFormGroup);
-            return Column(
+          return FormGroupProvider(
+            create: (context) => currentFormGroup,
+            child: Column(
               children: [
-                this._streetInput(parentFormGroup.controls['street']),
+                this._streetInput(currentFormGroup.controls['street']),
+                this._zipcodeInput(currentFormGroup.controls['zipcode']),
+                this._countryInput(currentFormGroup.controls['country']),
               ],
-            );
-          } else {
-            this._removeAddress(parentFormGroup);
-          }
-          return Column();
-        },
-      );
+            ),
+          );
+        }
 
-  void _addAddress(FormGroup parentFormGroup) {
+        this._removeAddress(parentFormGroup);
+        return Column();
+      },
+    );*/
+
+  FormGroup _addAddress(FormGroup parentFormGroup) {
     if (!parentFormGroup.containsControl('address')) {
       FormGroup address = new FormGroup(name: 'address', controls: {
         'street': new FormControl<String>(
@@ -138,7 +124,10 @@ class _ReactiveDynamicFormState extends State<ReactiveDynamicForm> {
         ),
       });
       parentFormGroup.addControl('address', address);
+      return address;
     }
+
+    return null;
   }
 
   void _removeAddress(FormGroup parentFormGroup) {
@@ -146,16 +135,12 @@ class _ReactiveDynamicFormState extends State<ReactiveDynamicForm> {
       parentFormGroup.removeControl('address');
   }
 
-  Widget _streetInput(FormControl<String> formControl) => new Padding(
-        padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
-        child: new TextFormField(
-          decoration: InputDecoration(labelText: 'street'),
-          keyboardType: TextInputType.text,
-          controller: new TextEditingController(text: formControl.value),
-          onChanged: (value) async {
-            await formControl.setValue(value);
-          },
-          validator: (value) => formControl.error?.message,
-        ),
-      );
+  Widget _streetInput(FormControl<String> formControl) =>
+      new CustomTextInput(label: 'street', formControl: formControl);
+
+  Widget _zipcodeInput(FormControl<String> formControl) =>
+      new CustomTextInput(label: 'zip code', formControl: formControl);
+
+  Widget _countryInput(FormControl<String> formControl) =>
+      new CustomTextInput(label: 'country', formControl: formControl);
 }

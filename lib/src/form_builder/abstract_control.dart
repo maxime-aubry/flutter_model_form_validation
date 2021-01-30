@@ -10,11 +10,7 @@ class AbstractControl extends ChangeNotifier {
     this.parentGroup = null;
     this.validators = validators;
     this.status = EAbstractControlStatus.pure;
-    // this.isInitialized = false;
   }
-
-  // @protected
-  // bool isInitialized;
 
   @protected
   List<FormValidatorAnnotation> validators;
@@ -23,24 +19,6 @@ class AbstractControl extends ChangeNotifier {
   String name;
   EAbstractControlStatus status;
   ValidationError error;
-
-  // String get name => this.controlName;
-  // EAbstractControlStatus get status => this.validation_status;
-  // ValidationError get error {
-  //   if (this.validation_error == null) return null;
-
-  //   return this.validation_error.copyWith(
-  //         propertyName: this.validation_error.propertyName,
-  //         validatorType: this.validation_error.validatorType,
-  //         message: this.validation_error.message,
-  //       );
-  // }
-
-  // String get fullname {
-  //   if (this.name == null || this.name.isEmpty) return null;
-  //   if (this.name == 'root' && this.parentGroup == null) return null;
-  //   return '${this.parentGroup.hashCode}.${this.name}';
-  // }
 
   @protected
   Future<void> validateControl(
@@ -53,7 +31,7 @@ class AbstractControl extends ChangeNotifier {
 
     // before validation
     this.status = EAbstractControlStatus.validationInProgress;
-    this.notifyListeners();
+    super.notifyListeners();
 
     // validation
     for (FormValidatorAnnotation validator in this.validators) {
@@ -84,7 +62,7 @@ class AbstractControl extends ChangeNotifier {
     // after validation
     this.status =
         isValid ? EAbstractControlStatus.valid : EAbstractControlStatus.invalid;
-    this.notifyListeners();
+    super.notifyListeners();
   }
 
   @protected

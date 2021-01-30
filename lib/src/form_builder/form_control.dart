@@ -27,12 +27,9 @@ class FormControl<TField> extends AbstractControl {
         'Cannot initialize form control if its name is not provided.');
     assert(parentGroup != null,
         'Cannot initialize form control if its parent form group is not provided.');
-    // assert(!super.isInitialized,
-    //     'Cannot initialize form control if this one is already initialized.');
 
     super.name = name;
     super.parentGroup = parentGroup;
-    // super.isInitialized = true;
   }
 
   String get formPath {

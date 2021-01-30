@@ -34,12 +34,9 @@ class FormArray extends AbstractControl {
         'Cannot initialize form array if its name is not provided.');
     assert(parentGroup != null,
         'Cannot initialize form array if its parent form group is not provided.');
-    // assert(!super.isInitialized,
-    //     'Cannot initialize form group if this one is already initialized.');
 
     super.name = name;
     super.parentGroup = parentGroup;
-    // super.isInitialized = true;
   }
 
   @protected
@@ -49,7 +46,7 @@ class FormArray extends AbstractControl {
         'Cannot add form group if this one is already added.');
 
     this._addItem(formGroup);
-    this.notifyListeners();
+    super.notifyListeners();
   }
 
   @protected
@@ -60,7 +57,7 @@ class FormArray extends AbstractControl {
 
     this._removeItem(formGroup);
     this.reindexFormArrayItems();
-    this.notifyListeners();
+    super.notifyListeners();
   }
 
   Future validate() async =>
