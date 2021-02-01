@@ -38,12 +38,11 @@ class StepForm extends ModelForm {
 @flutterModelFormValidator
 class AuthorStep extends ModelForm {
   AuthorStep() {
-    this.firstName = new FormControlElement<String>(null, 'example.models');
-    this.lastName = new FormControlElement<String>(null, 'example.models');
-    this.gender = new FormControlElement<EGender>(null, 'example.models');
-    this.birthDay = new FormControlElement<DateTime>(null, 'example.models');
-    this.subscriptionDate =
-        new FormControlElement<DateTime>(null, 'example.models');
+    this.firstName = new FormControlElement<String>(null);
+    this.lastName = new FormControlElement<String>(null);
+    this.gender = new FormControlElement<EGender>(null);
+    this.birthDay = new FormControlElement<DateTime>(null);
+    this.subscriptionDate = new FormControlElement<DateTime>(null);
   }
 
   @Required(error: 'firstname is required')
@@ -88,11 +87,10 @@ class BooksStep extends ModelForm {
 @flutterModelFormValidator
 class Book extends ModelForm {
   Book() {
-    this.title = new FormControlElement<String>(null, 'example.models');
-    this.literaryGenres =
-        new FormControlElement<List<ELiteraryGenre>>([], 'example.models');
-    this.releaseDate = new FormControlElement<DateTime>(null, 'example.models');
-    this.price = new FormControlElement<num>(null, 'example.models');
+    this.title = new FormControlElement<String>(null);
+    this.literaryGenres = new FormControlElement<List<ELiteraryGenre>>([]);
+    this.releaseDate = new FormControlElement<DateTime>(null);
+    this.price = new FormControlElement<num>(null);
   }
 
   @Required(error: 'title is required')

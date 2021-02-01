@@ -25,21 +25,15 @@ class CustomDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(child: Text('Examples')),
-          createDrawerBodyItem(
-            text: 'Reactive form',
-            onTap: () => Navigator.pushReplacementNamed(
-                context, pageRoutes.reactiveForm),
-          ),
+          // createDrawerBodyItem(
+          //   text: 'Reactive form',
+          //   onTap: () => Navigator.pushReplacementNamed(
+          //       context, pageRoutes.reactiveForm),
+          // ),
           createDrawerBodyItem(
             text: 'Reactive dynamic form',
             onTap: () => Navigator.pushReplacementNamed(
                 context, pageRoutes.reactiveDynamicForm),
-          ),
-          Divider(),
-          createDrawerBodyItem(
-            text: 'Model form',
-            onTap: () =>
-                Navigator.pushReplacementNamed(context, pageRoutes.modelForm),
           ),
         ],
       ),

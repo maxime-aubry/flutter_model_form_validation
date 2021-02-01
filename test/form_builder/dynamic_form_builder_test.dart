@@ -7,13 +7,13 @@ void main() {
   group('DynamicFormBuilder.', () {
     // test('Unable to generate a form using by a null model.', () {
     //   expect(() {
-    //     FormStateBase modelState = new FormStateBase(formBuilder: null);
+    //     ReactiveFormState modelState = new ReactiveFormState(formBuilder: null);
     //     expect(modelState, isNotNull);
     //   }, throwsA(isA<AssertionError>()));
     // });
 
     test('Initialize form builder.', () async {
-      FormBuilder formBuilder = new FormBuilder(
+      ReactiveFormBuilder formBuilder = new ReactiveFormBuilder(
         group: new FormGroup(
           controls: {
             'firstName': new FormControl<String>(
@@ -75,7 +75,7 @@ void main() {
           validators: [],
         ),
       );
-      FormStateBase formState = new FormStateBase(formBuilder: formBuilder);
+      ReactiveFormState formState = new ReactiveFormState(formBuilder: formBuilder);
 
       expect(formState.status, EFormStatus.pure);
 

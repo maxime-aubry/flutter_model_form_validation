@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
+import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
-import 'package:flutter_model_form_validation/src/form_builder/index.dart';
+import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
 /// [Range] validator permits you to check that a value using by declared settings. Only datetime, number and string are allowed.
 /// {@category Metadata}

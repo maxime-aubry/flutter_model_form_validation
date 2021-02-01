@@ -2,9 +2,11 @@ import 'package:example/pages/home.dart';
 import 'package:example/pages/index.dart';
 import 'package:example/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 void main() {
   // initializeReflectable();
+  LibraryInitializer.initialize(libraryName: 'example.models');
   runApp(new MyApp());
 }
 
@@ -20,9 +22,9 @@ class MyApp extends StatelessWidget {
       home: Home(),
       routes: {
         pageRoutes.home: (context) => Home(),
-        pageRoutes.reactiveForm: (context) => ReactiveForm(),
-        pageRoutes.reactiveDynamicForm: (context) => ReactiveDynamicForm(),
-        pageRoutes.modelForm: (context) => ModelForm(),
+        // pageRoutes.reactiveForm: (context) => ReactiveFormScreen(),
+        pageRoutes.reactiveDynamicForm: (context) =>
+            ReactiveDynamicFormScreen(),
       },
     );
   }

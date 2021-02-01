@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_model_form_validation/src/annotations/validators/index.dart';
+import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
-import 'package:flutter_model_form_validation/src/form_builder/index.dart';
+import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 import 'package:flutter_model_form_validation/src/utils/index.dart';
 import 'package:queries/collections.dart';
 
