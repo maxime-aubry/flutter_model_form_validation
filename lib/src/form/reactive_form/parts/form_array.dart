@@ -4,8 +4,8 @@ import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart'
 
 class FormArray extends AbstractControl {
   FormArray({
-    @required List<FormValidatorAnnotation> validators,
     @required List<FormGroup> groups,
+    @required List<FormValidatorAnnotation> validators,
   }) : super(validators) {
     this.groups = groups ?? [];
   }

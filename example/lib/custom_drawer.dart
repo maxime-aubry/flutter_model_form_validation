@@ -39,6 +39,13 @@ class CustomDrawer extends StatelessWidget {
               pageRoutes.reactiveFormWithDynamicContent,
             ),
           ),
+          createDrawerBodyItem(
+            text: 'Reactive form with form array',
+            onTap: () => Navigator.pushReplacementNamed(
+              context,
+              pageRoutes.reactiveFormWithFormArray,
+            ),
+          ),
         ],
       ),
     );

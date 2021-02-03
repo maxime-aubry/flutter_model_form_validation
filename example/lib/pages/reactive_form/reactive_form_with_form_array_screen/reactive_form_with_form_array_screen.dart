@@ -4,14 +4,16 @@ import 'package:example/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-class ReactiveFormScreen extends StatefulWidget {
-  static const String routeName = '/reactiveForm';
+class ReactiveFormWithFormArrayScreen extends StatefulWidget {
+  static const String routeName = '/reactiveFormWithFormArray';
 
   @override
-  _ReactiveFormScreenState createState() => _ReactiveFormScreenState();
+  _ReactiveFormWithFormArrayScreenState createState() =>
+      _ReactiveFormWithFormArrayScreenState();
 }
 
-class _ReactiveFormScreenState extends State<ReactiveFormScreen> {
+class _ReactiveFormWithFormArrayScreenState
+    extends State<ReactiveFormWithFormArrayScreen> {
   List<SelectListItem<EGender>> genders = [
     new SelectListItem<EGender>(EGender.male, 'male'),
     new SelectListItem<EGender>(EGender.female, 'female'),
@@ -62,6 +64,10 @@ class _ReactiveFormScreenState extends State<ReactiveFormScreen> {
             'gender': new FormControl<EGender>(
               value: null,
               validators: [Required(error: 'gender is required')],
+            ),
+            'social_links': new FormArray(
+              groups: [],
+              validators: [NbItems(min: '1', max: '3', error: 'error')],
             ),
           },
         ),

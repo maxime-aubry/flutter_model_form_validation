@@ -4,11 +4,11 @@ import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart'
 
 class FormGroup extends AbstractControl {
   FormGroup({
-    String name,
-    FormGroup parentGroup,
+    // String name,
+    // FormGroup parentGroup,
     ReactiveFormBuilder formBuilder,
-    List<FormValidatorAnnotation> validators,
     @required Map<String, AbstractControl> controls,
+    List<FormValidatorAnnotation> validators,
   }) : super(validators) {
     this.formBuilder = formBuilder;
     this.controls = controls ?? new Map<String, AbstractControl>();

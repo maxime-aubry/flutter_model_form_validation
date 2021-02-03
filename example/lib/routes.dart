@@ -5,4 +5,6 @@ class pageRoutes {
   static const String reactiveForm = ReactiveFormScreen.routeName;
   static const String reactiveFormWithDynamicContent =
       ReactiveFormWithDynamicContentScreen.routeName;
+  static const String reactiveFormWithFormArray =
+      ReactiveFormWithFormArrayScreen.routeName;
 }

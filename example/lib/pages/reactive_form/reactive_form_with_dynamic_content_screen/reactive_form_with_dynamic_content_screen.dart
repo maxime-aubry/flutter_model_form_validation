@@ -1,4 +1,5 @@
 import 'package:example/custom_drawer.dart';
+import 'package:example/models.dart';
 import 'package:example/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
@@ -13,6 +14,11 @@ class ReactiveFormWithDynamicContentScreen extends StatefulWidget {
 
 class _ReactiveFormWithDynamicContentState
     extends State<ReactiveFormWithDynamicContentScreen> {
+  List<SelectListItem<EGender>> genders = [
+    new SelectListItem<EGender>(EGender.male, 'male'),
+    new SelectListItem<EGender>(EGender.female, 'female'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return ReactiveForm(
@@ -27,6 +33,7 @@ class _ReactiveFormWithDynamicContentState
               children: [
                 this._firstnameInput(formGroup.controls['firstname']),
                 this._lastnameInput(formGroup.controls['lastname']),
+                this._genderInput(formGroup.controls['gender']),
                 this._shareAddressInput(formGroup.controls['share_address']),
                 new _AddressFormGroup(),
               ],
@@ -56,6 +63,10 @@ class _ReactiveFormWithDynamicContentState
               value: null,
               validators: [Required(error: 'lastname is required')],
             ),
+            'gender': new FormControl<EGender>(
+              value: null,
+              validators: [Required(error: 'gender is required')],
+            ),
             'share_address': new FormControl<bool>(value: false),
             'address': new FormGroup(
               controls: {},
@@ -69,6 +80,13 @@ class _ReactiveFormWithDynamicContentState
 
   Widget _lastnameInput(FormControl<String> formControl) =>
       new CustomTextInput(label: 'lastname', formControl: formControl);
+
+  Widget _genderInput(FormControl<EGender> formControl) =>
+      new CustomSingleDropdown<EGender>(
+        label: 'gender',
+        dataSource: this.genders,
+        formControl: formControl,
+      );
 
   Widget _shareAddressInput(FormControl<bool> formControl) =>
       new CustomSwitchInput(label: 'share address', formControl: formControl);

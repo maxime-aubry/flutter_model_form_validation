@@ -26,6 +26,8 @@ class MyApp extends StatelessWidget {
         pageRoutes.reactiveForm: (context) => ReactiveFormScreen(),
         pageRoutes.reactiveFormWithDynamicContent: (context) =>
             ReactiveFormWithDynamicContentScreen(),
+        pageRoutes.reactiveFormWithFormArray: (context) =>
+            ReactiveFormWithFormArrayScreen(),
       },
     );
   }
