@@ -65,6 +65,7 @@ class FormGroup extends AbstractControl {
     super.name = name;
     super.parentGroup = parentGroup;
     this.isArrayItem = isArrayItem;
+    super.isInitialized = true;
   }
 
   bool containsControl(
@@ -105,11 +106,12 @@ class FormGroup extends AbstractControl {
 
     this.controls.remove(name);
     super.notifyListeners();
-    super.removeListener(() {});
+    //super.removeListener(() {});
   }
 
   /* Private methods */
   /// Forces the form builder to reinitialize the tree of abstract controls to update itself and add new form groups, form arrays and form controls.
+  /// Only non initialized elements are treated.
   void _forceInitialization() {
     ReactiveFormBuilder formBuilder = super.getFormBuilder();
     formBuilder.initialize(formBuilder.formState);

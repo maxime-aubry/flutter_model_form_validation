@@ -3,24 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 import 'package:provider/provider.dart';
 
-class FormBuilderProvider extends Provider<ReactiveFormBuilder> {
-  FormBuilderProvider({
-    Key key,
-    @required Create<ReactiveFormBuilder> create,
-    Dispose<ReactiveFormBuilder> dispose,
-    bool lazy,
-    TransitionBuilder builder,
-    Widget child,
-  }) : super(
-          key: key,
-          create: create,
-          dispose: dispose,
-          lazy: lazy,
-          builder: builder,
-          child: child,
-        );
-}
-
 class FormStateProvider extends Provider<ReactiveFormState> {
   FormStateProvider({
     Key key,
@@ -37,6 +19,8 @@ class FormStateProvider extends Provider<ReactiveFormState> {
           builder: builder,
           child: child,
         );
+  
+  static ReactiveFormState of(BuildContext context, {bool listen = true}) => Provider.of<ReactiveFormState>(context, listen: listen);
 }
 
 class FormGroupProvider extends ChangeNotifierProvider<FormGroup> {
@@ -53,13 +37,14 @@ class FormGroupProvider extends ChangeNotifierProvider<FormGroup> {
           builder: builder,
           child: child,
         );
+  
+  static FormGroup of(BuildContext context, {bool listen = true}) => Provider.of<FormGroup>(context, listen: listen);
 }
 
-class FormControlProvider<TField>
-    extends ChangeNotifierProvider<FormControl<TField>> {
-  FormControlProvider({
+class FormArrayProvider extends ChangeNotifierProvider<FormArray> {
+  FormArrayProvider({
     Key key,
-    @required Create<FormControl<TField>> create,
+    @required Create<FormArray> create,
     bool lazy,
     TransitionBuilder builder,
     Widget child,
@@ -70,6 +55,27 @@ class FormControlProvider<TField>
           builder: builder,
           child: child,
         );
+  
+  static FormArray of(BuildContext context, {bool listen = true}) => Provider.of<FormArray>(context, listen: listen);
+}
+
+class FormControlProvider<TProperty>
+    extends ChangeNotifierProvider<FormControl<TProperty>> {
+  FormControlProvider({
+    Key key,
+    @required Create<FormControl<TProperty>> create,
+    bool lazy,
+    TransitionBuilder builder,
+    Widget child,
+  }) : super(
+          key: key,
+          create: create,
+          lazy: lazy,
+          builder: builder,
+          child: child,
+        );
+  
+  static FormControl<TProperty> of<TProperty>(BuildContext context, {bool listen = true}) => Provider.of<FormControl<TProperty>>(context, listen: listen);
 }
 
 // import 'package:flutter/foundation.dart';

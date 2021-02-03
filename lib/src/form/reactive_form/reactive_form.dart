@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/provider/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
+import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 class ReactiveForm extends SingleChildStatefulWidget {
@@ -9,7 +10,6 @@ class ReactiveForm extends SingleChildStatefulWidget {
   final Widget Function(
     BuildContext context,
     ReactiveFormState formState,
-    FormGroup formGroup,
     Widget child,
   ) builder;
 
@@ -43,16 +43,16 @@ class _ReactiveFormState extends SingleChildState<ReactiveForm> {
     return Form(
       key: this._formKey,
       autovalidateMode: AutovalidateMode.always,
-      child: new FormGroupProvider(
-        create: (_) => widget.formBuilder.group,
-        builder: (context, child) {
-          return widget.builder(
-            context,
-            this._formState,
-            widget.formBuilder.group,
-            child,
-          );
-        },
+      child: MultiProvider(
+        providers: [
+          new FormStateProvider(create: (_) => this._formState),
+          new FormGroupProvider(create: (_) => widget.formBuilder.group),
+        ],
+        child: widget.builder(
+          context,
+          this._formState,
+          child,
+        ),
       ),
     );
   }

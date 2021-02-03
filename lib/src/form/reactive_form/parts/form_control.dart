@@ -33,6 +33,7 @@ class FormControl<TProperty> extends AbstractControl {
 
     super.name = name;
     super.parentGroup = parentGroup;
+    super.isInitialized = true;
   }
 
   String get formPath {

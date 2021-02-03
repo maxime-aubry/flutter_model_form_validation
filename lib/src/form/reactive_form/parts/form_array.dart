@@ -37,6 +37,7 @@ class FormArray extends AbstractControl {
 
     super.name = name;
     super.parentGroup = parentGroup;
+    super.isInitialized = true;
   }
 
   @protected

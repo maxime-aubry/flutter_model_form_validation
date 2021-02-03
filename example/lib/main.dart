@@ -22,9 +22,9 @@ class MyApp extends StatelessWidget {
       home: Home(),
       routes: {
         pageRoutes.home: (context) => Home(),
-        // pageRoutes.reactiveForm: (context) => ReactiveFormScreen(),
-        pageRoutes.reactiveDynamicForm: (context) =>
-            ReactiveDynamicFormScreen(),
+        pageRoutes.reactiveForm: (context) => ReactiveFormScreen(),
+        pageRoutes.reactiveFormWithDynamicContent: (context) =>
+            ReactiveFormWithDynamicContentScreen(),
       },
     );
   }

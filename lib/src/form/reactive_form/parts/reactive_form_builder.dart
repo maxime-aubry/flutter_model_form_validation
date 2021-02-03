@@ -42,7 +42,8 @@ class ReactiveFormBuilder {
     String name, [
     bool isArrayItem = false,
   ]) {
-    current.initialize(name, parentGroup, isArrayItem);
+    if (!current.isInitialized)
+      current.initialize(name, parentGroup, isArrayItem);
 
     for (MapEntry<String, AbstractControl> child in current.controls.entries) {
       if (child.value is FormGroup)
@@ -57,26 +58,28 @@ class ReactiveFormBuilder {
   }
 
   void _initializeFormArray(
-    FormArray formArray,
+    FormArray current,
     FormGroup parentGroup,
     String name,
   ) {
-    formArray.initialize(name, parentGroup);
+    if (!current.isInitialized)
+      current.initialize(name, parentGroup);
 
-    for (FormGroup formGroup in formArray.groups)
+    for (FormGroup formGroup in current.groups)
       this._initializeFormGroup(
         formGroup,
         parentGroup,
-        '$name[${formArray.groups.indexOf(formGroup)}]',
+        '$name[${current.groups.indexOf(formGroup)}]',
         true,
       );
   }
 
   void _initializeFormControl(
-    FormControl formControl,
+    FormControl current,
     FormGroup parentGroup,
     String name,
   ) {
-    formControl.initialize(name, parentGroup);
+    if (!current.isInitialized)
+      current.initialize(name, parentGroup);
   }
 }

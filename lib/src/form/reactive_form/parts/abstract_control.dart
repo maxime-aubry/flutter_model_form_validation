@@ -10,6 +10,7 @@ class AbstractControl extends ChangeNotifier {
     this.parentGroup = null;
     this.validators = validators ?? [];
     this.status = EAbstractControlStatus.pure;
+    this.isInitialized = false;
   }
 
   @protected
@@ -19,6 +20,7 @@ class AbstractControl extends ChangeNotifier {
   String name;
   EAbstractControlStatus status;
   ValidationError error;
+  bool isInitialized;
 
   @protected
   Future<void> validateControl(

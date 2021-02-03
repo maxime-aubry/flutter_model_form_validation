@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-import 'package:provider/provider.dart';
 
 class CustomSwitchInput extends StatefulWidget {
   final String label;
@@ -24,9 +23,9 @@ class _CustomSwitchState extends State<CustomSwitchInput> {
           children: [
             Expanded(child: Text('display address ?')),
             Switch(
-              value: Provider.of<FormControl<bool>>(context).value,
+              value: FormControlProvider.of<bool>(context).value,
               onChanged: (value) {
-                Provider.of<FormControl<bool>>(context, listen: false)
+                FormControlProvider.of<bool>(context, listen: false)
                     .setValue(value);
               },
             ),
