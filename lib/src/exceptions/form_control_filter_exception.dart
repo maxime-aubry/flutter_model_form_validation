@@ -1,5 +1,5 @@
 class FormControlFilterException implements Exception {
-  FormControlFilterException(this.message);
+  FormControlFilterException(this.message) {}
 
   final String message;
 }

@@ -62,8 +62,7 @@ class ReactiveFormBuilder {
     FormGroup parentGroup,
     String name,
   ) {
-    if (!current.isInitialized)
-      current.initialize(name, parentGroup);
+    if (!current.isInitialized) current.initialize(name, parentGroup);
 
     for (FormGroup formGroup in current.groups)
       this._initializeFormGroup(
@@ -79,7 +78,6 @@ class ReactiveFormBuilder {
     FormGroup parentGroup,
     String name,
   ) {
-    if (!current.isInitialized)
-      current.initialize(name, parentGroup);
+    if (!current.isInitialized) current.initialize(name, parentGroup);
   }
 }

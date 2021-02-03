@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
+import 'package:flutter_model_form_validation/src/form/form_control_filter/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
@@ -7,9 +8,16 @@ class FormControl<TProperty> extends AbstractControl {
   FormControl({
     @required TProperty value,
     List<FormValidatorAnnotation> validators,
-  })  : assert(FormControlFilter.isAllowedFormControlType<TProperty>(),
-            'Cannot instanciate a FormControlElement with a not allowed type. Allowed types are : DateTime, num, int, double, Uint8, Uint16, Uint32, Uint64, Int8, Int16, Int32, Int64, String, bool, enums, List<DateTime>, List<num>, List<int>, List<double>, Uint8List, Uint16List, Uint32List, Uint64List, Int8List, Int16List, Int32List, Int64List, List<String>, List<bool> and a list of enum.'),
-        super(validators) {
+  }) : super(validators) {
+    // check if TProperty is an alloew type
+    // throw an exception if not
+    FormControlFilter<TProperty> filter = new FormControlFilter<TProperty>();
+
+    if (!filter.isAllowedFormControlType())
+      throw new Exception(
+        'Cannot instanciate a FormControlElement with a not allowed type $TProperty. Allowed types are : DateTime, num, int, double, Uint8, Uint16, Uint32, Uint64, Int8, Int16, Int32, Int64, String, bool, enums, List<DateTime>, List<num>, List<int>, List<double>, Uint8List, Uint16List, Uint32List, Uint64List, Int8List, Int16List, Int32List, Int64List, List<String>, List<bool> and a list of enum.',
+      );
+
     this._value = value;
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
 enum EFormStatus {
@@ -30,6 +31,12 @@ class ReactiveFormState {
   bool get isMultipleStepsForm => this._isMultipleStepsForm;
 
   void initialize() {
+    if (!LibraryInitializer.isInitialized)
+      throw new Exception(
+          'flutter_model_form_validation library is not initialized. Please, call LibraryInitializer.initialize(String libraryName) method.');
+
+    if (this.formBuilder == null) throw new Exception('Form builder is null.');
+
     // intialize form builder (provide form group parent for each abstract control).
     // attach form builder to form state.
     formBuilder.initialize(this);

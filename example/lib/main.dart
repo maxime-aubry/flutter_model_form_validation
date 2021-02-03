@@ -1,3 +1,4 @@
+import 'package:example/models.reflectable.dart';
 import 'package:example/pages/home.dart';
 import 'package:example/pages/index.dart';
 import 'package:example/routes.dart';
@@ -5,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 void main() {
-  // initializeReflectable();
+  initializeReflectable();
   LibraryInitializer.initialize(libraryName: 'example.models');
   runApp(new MyApp());
 }

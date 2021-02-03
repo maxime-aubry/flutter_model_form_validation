@@ -1,4 +1,5 @@
 import 'package:example/custom_drawer.dart';
+import 'package:example/models.dart';
 import 'package:example/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
@@ -25,6 +26,7 @@ class _ReactiveFormScreenState extends State<ReactiveFormScreen> {
               children: [
                 this._firstnameInput(formGroup.controls['firstname']),
                 this._lastnameInput(formGroup.controls['lastname']),
+                //this._genderInput(formGroup.controls['gender']),
               ],
             ),
           ),
@@ -52,6 +54,10 @@ class _ReactiveFormScreenState extends State<ReactiveFormScreen> {
               value: null,
               validators: [Required(error: 'lastname is required')],
             ),
+            'gender': new FormControl<EGender>(
+              value: null,
+              validators: [Required(error: 'gender is required')],
+            ),
           },
         ),
       );
@@ -62,6 +68,14 @@ class _ReactiveFormScreenState extends State<ReactiveFormScreen> {
   Widget _lastnameInput(FormControl<String> formControl) =>
       new CustomTextInput(label: 'lastname', formControl: formControl);
 
-  Widget _shareAddressInput(FormControl<bool> formControl) =>
-      new CustomSwitchInput(label: 'share address', formControl: formControl);
+  Widget _genderInput(FormControl<EGender> formControl) =>
+      new CustomSingleDropdown<EGender>(
+        label: 'gender',
+        dataSource: [],
+        value: FormControlProvider.of<EGender>(context).value,
+        onChange: (value) {
+          FormControlProvider.of<EGender>(context, listen: false)
+              .setValue(value.value);
+        },
+      );
 }
