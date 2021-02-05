@@ -13,7 +13,7 @@ void main() {
         RequiredTest model = new RequiredTest('a');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -26,7 +26,7 @@ void main() {
         RequiredTest model = new RequiredTest('');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -41,7 +41,7 @@ void main() {
         RequiredTest model = new RequiredTest(null);
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')

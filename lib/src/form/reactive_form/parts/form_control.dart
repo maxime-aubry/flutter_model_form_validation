@@ -4,45 +4,17 @@ import 'package:flutter_model_form_validation/src/form/form_control_filter/index
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
-class FormControl<TProperty> extends AbstractControl {
-  FormControl({
-    @required TProperty value,
-    List<FormValidatorAnnotation> validators,
-  }) : super(validators) {
-    // check if TProperty is an alloew type
-    // throw an exception if not
-    FormControlFilter<TProperty> filter = new FormControlFilter<TProperty>();
+class FormControl<TProperty> extends AbstractControl
+    with FormControlFilter<TProperty> {
+  /* Public properties */
 
-    if (!filter.isAllowedFormControlType())
-      throw new Exception(
-        'Cannot instanciate a FormControlElement with a not allowed type $TProperty. Allowed types are : DateTime, num, int, double, Uint8, Uint16, Uint32, Uint64, Int8, Int16, Int32, Int64, String, bool, enums, List<DateTime>, List<num>, List<int>, List<double>, Uint8List, Uint16List, Uint32List, Uint64List, Int8List, Int16List, Int32List, Int64List, List<String>, List<bool> and a list of enum.',
-      );
+  /* Protected properties */
 
-    this._value = value;
-  }
-
+  /* Private properties */
   TProperty _value;
 
+  /* Getters */
   TProperty get value => this._value;
-
-  Future<void> setValue(TProperty value) async {
-    this._value = value;
-    await super.validateControl(value, this.formPath, this.modelPath);
-  }
-
-  void initialize(
-    String name,
-    FormGroup parentGroup,
-  ) {
-    assert(name != null && !name.isEmpty,
-        'Cannot initialize form control if its name is not provided.');
-    assert(parentGroup != null,
-        'Cannot initialize form control if its parent form group is not provided.');
-
-    super.name = name;
-    super.parentGroup = parentGroup;
-    super.isInitialized = true;
-  }
 
   String get formPath {
     String part =
@@ -58,6 +30,69 @@ class FormControl<TProperty> extends AbstractControl {
     return part;
   }
 
+  /* Setters */
+  @protected
+  void set value(TProperty value) {
+    this._value = value;
+  }
+
+  /* Constructors */
+  FormControl({
+    @required TProperty value,
+    @required List<FormValidatorAnnotation> validators,
+    @required ReactiveFormState formState,
+  }) : super(validators, formState) {
+    // check if TProperty is an alloew type
+    // throw an exception if not
+    super.checkAllowedFormControlType();
+    this._value = value;
+  }
+
+  /* Public methods */
+  void initialize(
+    String name,
+    FormGroup parentGroup,
+    FormIndexer indexer,
+  ) {
+    if (name == null || name.isEmpty)
+      throw new Exception(
+          'Cannot initialize form control if its name is not provided.');
+
+    if (this.isInitialized)
+      throw new Exception(
+          'Cannot initialize an already initialized form control.');
+
+    super.name = name;
+    super.parentGroup = parentGroup;
+    super.indexer = indexer;
+    super.index();
+    super.isInitialized = true;
+  }
+
+  Future<void> setValue(TProperty value) async {
+    this._value = value;
+    await super.validateControl(this.formPath, this.modelPath);
+  }
+
+  // FormControl<TProperty> clone(FormGroup clonedParent) {
+  //   TProperty newValue = (this._value is List)
+  //       ? ([]..addAll(this._value as List<TProperty>))
+  //       : this._value;
+
+  //   FormControl<TProperty> clone = new FormControl<TProperty>(
+  //     value: newValue,
+  //     validators: super.validators,
+  //   );
+
+  //   clone.initialize(super.name, clonedParent);
+  //   clone.error = super.error?.copyWith();
+  //   return clone;
+  // }
+
   Future<void> validate() async =>
-      await super.validateControl(this.value, this.formPath, this.modelPath);
+      await super.validateControl(this.formPath, this.modelPath);
+
+  /* Protected methods */
+
+  /* Private methods */
 }

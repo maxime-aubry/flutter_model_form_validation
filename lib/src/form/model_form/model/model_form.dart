@@ -1,3 +1,3 @@
 class ModelForm {
-  String getPropertyFullname(String property) => '${this.hashCode}.$property';
+  String getPropertyuniqueName(String property) => '${this.hashCode}.$property';
 }

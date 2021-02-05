@@ -20,8 +20,9 @@ class _ReactiveFormScreenState extends State<ReactiveFormScreen> {
   @override
   Widget build(BuildContext context) {
     return ReactiveForm(
+      //context: new MainFormContext(formBuilder: this._getFormBuilder()),
       formBuilder: this._getFormBuilder(),
-      builder: (context, formState, __) => new Scaffold(
+      child: new Scaffold(
         appBar: new AppBar(title: Text("Reactive form")),
         drawer: new CustomDrawer(),
         body: new Padding(
@@ -38,6 +39,8 @@ class _ReactiveFormScreenState extends State<ReactiveFormScreen> {
         ),
         floatingActionButton: new FloatingActionButton(
           onPressed: () async {
+            ReactiveFormState formState = context.readFormState();
+
             if (await formState.validate()) {
               // Data treatment and post to server here...
             }

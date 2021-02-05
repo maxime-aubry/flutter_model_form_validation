@@ -17,14 +17,11 @@ class CustomTextInput extends StatefulWidget {
 
 class _CustomTextInputState extends State<CustomTextInput> {
   @override
-  Widget build(BuildContext context) => new Padding(
-        padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
-        child: new TextFormField(
-          decoration: InputDecoration(labelText: widget.label),
-          keyboardType: TextInputType.text,
-          controller: new TextEditingController(text: widget.formControl.value),
-          onChanged: (value) async => await widget.formControl.setValue(value),
-          validator: (value) => widget.formControl.error?.message,
-        ),
+  Widget build(BuildContext context) => new TextFormField(
+        decoration: InputDecoration(labelText: widget.label),
+        keyboardType: TextInputType.text,
+        controller: new TextEditingController(text: widget.formControl.value),
+        onChanged: (value) async => await widget.formControl.setValue(value),
+        validator: (value) => widget.formControl.error?.message,
       );
 }

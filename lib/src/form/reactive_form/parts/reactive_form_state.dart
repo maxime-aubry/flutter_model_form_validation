@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
+import 'package:queries/collections.dart';
 
 enum EFormStatus {
   pure,
@@ -10,27 +11,47 @@ enum EFormStatus {
 }
 
 class ReactiveFormState {
-  ReactiveFormState({
-    @required this.formBuilder,
-    @required GlobalKey<FormState> formKey,
-    bool isMultipleStepsForm = false,
-  }) {
-    this.formBuilder = formBuilder;
-    this._formKey = formKey;
-    this._isMultipleStepsForm = isMultipleStepsForm;
-    this._status = EFormStatus.pure;
-  }
+  /* Public properties */
+  bool isInitialized;
 
+  /* Protected properties */
   @protected
   ReactiveFormBuilder formBuilder;
-  bool _isMultipleStepsForm;
+
+  /* Private properties */
   EFormStatus _status;
   GlobalKey<FormState> _formKey;
+  // Map<String, EAbstractControlStatus> _statuses;
+  // Map<String, ValidationError> _errors;
 
+  /* Getters */
   EFormStatus get status => this._status;
-  bool get isMultipleStepsForm => this._isMultipleStepsForm;
 
+  Map<String, EAbstractControlStatus> get _statuses =>
+      Dictionary.fromMap(this.formBuilder.indexer)
+          .toDictionary$1((arg1) => arg1.key, (arg1) => arg1.value.status)
+          .toMap();
+
+  Map<String, ValidationError> get _errors =>
+      Dictionary.fromMap(this.formBuilder.indexer)
+          .toDictionary$1((arg1) => arg1.key, (arg1) => arg1.value.error)
+          .toMap();
+
+  /* Setters */
+
+  /* Constructors */
+  ReactiveFormState({@required this.formBuilder}) {
+    this.formBuilder = formBuilder;
+    this._status = EFormStatus.pure;
+    this.isInitialized = false;
+  }
+
+  /* Public methods */
   void initialize() {
+    if (this.isInitialized)
+      throw new Exception(
+          'Cannot initialize an already initialized form state.');
+
     if (!LibraryInitializer.isInitialized)
       throw new Exception(
           'flutter_model_form_validation library is not initialized. Please, call LibraryInitializer.initialize(String libraryName) method.');
@@ -40,8 +61,64 @@ class ReactiveFormState {
     // intialize form builder (provide form group parent for each abstract control).
     // attach form builder to form state.
     formBuilder.initialize(this);
+    this.isInitialized = true;
   }
 
+  void attachFormKey(GlobalKey<FormState> formKey) {
+    this._formKey = formKey;
+  }
+
+  void update() {
+    bool isValid = !Dictionary.fromMap(this._statuses)
+        .where((arg1) =>
+            arg1.value != null && arg1.value == EAbstractControlStatus.invalid)
+        .any();
+    this._status = isValid ? EFormStatus.valid : EFormStatus.invalid;
+  }
+
+  Future<bool> validate() async {
+    for (MapEntry<String, AbstractControl> control
+        in this.formBuilder.group.controls.entries) {
+      if (control.value is FormGroup)
+        await this._validateFormGroup(control.value);
+      if (control.value is FormArray)
+        await this._validateFormArray(control.value);
+      if (control.value is FormControl)
+        await this._validateFormControl(control.value);
+    }
+
+    this._formKey.currentState.validate();
+
+    return this.status == EFormStatus.valid;
+  }
+
+  EAbstractControlStatus getStatus(String name) {
+    if (name == null || name.isEmpty)
+      throw new Exception(
+          'Cannot get a form control status if control name is not provided.');
+
+    if (!this._errors.containsKey(name)) return null;
+
+    EAbstractControlStatus status = this._statuses[name];
+    return status;
+  }
+
+  ValidationError getError(String name) {
+    if (name == null || name.isEmpty)
+      throw new Exception(
+          'Cannot get a form control status if control name is not provided.');
+
+    if (!this._errors.containsKey(name)) return null;
+
+    ValidationError error = this._errors[name];
+    return error;
+  }
+
+  String getErrorMessage(String name) => this.getError(name)?.message;
+
+  /* Proptected methods */
+
+  /* Private methods */
   Future _validateFormGroup(FormGroup formGroup) async {
     if (formGroup.isArrayItem) await formGroup.validate();
 
@@ -66,66 +143,4 @@ class ReactiveFormState {
   Future _validateFormControl(FormControl formControl) async {
     await formControl.validate();
   }
-
-  Future<bool> validate() async {
-    for (MapEntry<String, AbstractControl> control
-        in this.formBuilder.group.controls.entries) {
-      if (control.value is FormGroup)
-        await this._validateFormGroup(control.value);
-      if (control.value is FormArray)
-        await this._validateFormArray(control.value);
-      if (control.value is FormControl)
-        await this._validateFormControl(control.value);
-    }
-
-    this._formKey.currentState.validate();
-
-    return this.status == EFormStatus.valid;
-  }
-
-  // bool _actualizeFormState() {
-  //   bool isValid = !Dictionary.fromMap(this._statuses)
-  //       .where((arg1) =>
-  //           arg1.value != null && arg1.value == EAbstractControlStatus.invalid)
-  //       .any();
-  //   this._status = isValid ? EFormStatus.valid : EFormStatus.invalid;
-  //   return isValid;
-  // }
-
-  // void update(
-  //   String key,
-  //   ValidationError error,
-  //   EAbstractControlStatus status,
-  // ) {
-  //   this._statuses[key] = status;
-  //   this._errors[key] = error;
-  //   this._actualizeFormState();
-  // }
-
-  // EAbstractControlStatus getStatus(String name) {
-  //   if (name == null || name.isEmpty)
-  //     throw new Exception(
-  //         'Cannot get a form control status if control name is not provided.');
-
-  //   if (!this._errors.containsKey(name)) return null;
-
-  //   EAbstractControlStatus status = this._statuses[name];
-  //   return status;
-  // }
-
-  // ValidationError getError(String name) {
-  //   if (name == null || name.isEmpty)
-  //     throw new Exception(
-  //         'Cannot get a form control status if control name is not provided.');
-
-  //   if (!this._errors.containsKey(name)) return null;
-
-  //   ValidationError error = this._errors[name];
-  //   return error;
-  // }
-
-  // String getErrorMessage(String name) {
-  //   ValidationError error = this.getError(name);
-  //   return error?.message;
-  // }
 }

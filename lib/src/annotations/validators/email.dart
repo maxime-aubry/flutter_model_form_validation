@@ -17,22 +17,21 @@ class Email extends FormValidatorAnnotation {
   @override
   Future<bool> isValid(
     FormGroup root,
-    FormGroup fg,
-    Object value,
-    String formPath,
-    String modelFormPath,
+    FormGroup formGroup,
+    String property,
   ) async {
-    try {
-      if (value == null) return true;
+    return true;
+    // try {
+    //   if (value == null) return true;
 
-      if (value is! String) throw new Exception('field type must be a string');
+    //   if (value is! String) throw new Exception('field type must be a string');
 
-      bool isValid = _validate(value);
-      return isValid;
-    } catch (e) {
-      throw new ValidationException(
-          'An error occurend with validator on from control with validator of type');
-    }
+    //   bool isValid = _validate(value);
+    //   return isValid;
+    // } catch (e) {
+    //   throw new ValidationException(
+    //       'An error occurend with validator on from control with validator of type');
+    // }
   }
 
   bool _validate(String value) {

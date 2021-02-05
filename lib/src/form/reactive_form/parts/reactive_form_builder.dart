@@ -1,23 +1,46 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_model_form_validation/src/form/form_indexer.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
 class ReactiveFormBuilder {
-  ReactiveFormBuilder({
-    @required this.group,
-  });
-
+  /* Public properties */
+  bool isInitialized;
   FormGroup group;
   ReactiveFormState formState;
+  FormIndexer indexer;
 
+  /* Protected properties */
+
+  /* Private properties */
+  // bool _isMultipleStepsForm;
+
+  /* Getters */
+  // bool get isMultipleStepsForm => this._isMultipleStepsForm;
+
+  /* Setters */
+
+  /* Constructors */
+  ReactiveFormBuilder({
+    @required this.group,
+    bool isMultipleStepsForm = false,
+  }) {
+    this.isInitialized = false;
+    this.indexer = new FormIndexer();
+    // this._isMultipleStepsForm = isMultipleStepsForm;
+  }
+
+  /* Public methods */
   void initialize(ReactiveFormState formState) {
-    assert(formState != null,
-        'Cannot initialize form builder if form state is not provided.');
+    if (formState == null)
+      throw new Exception(
+          'Cannot initialize form builder if form state is not provided.');
 
     this.formState = formState;
     this.group.formBuilder = this;
-    this._initializeFormGroup(this.group, null, 'root');
-    this.checkMultipleStepsForm();
+    this.group.initialize('root', null, false, this.indexer);
+    // if (this._isMultipleStepsForm) this.checkMultipleStepsForm();
+    this.isInitialized = true;
   }
 
   /// If current form is multiple steps form, check if root level contains only form groups.
@@ -31,53 +54,12 @@ class ReactiveFormBuilder {
         .toList()
         .any((element) => element.value is! FormGroup);
 
-    if (this.formState.isMultipleStepsForm && !isValidMultipleStepsForm)
+    if (!isValidMultipleStepsForm)
       throw new Exception(
           'A form with multipe steps must contains form groups only into its root level.');
   }
 
-  void _initializeFormGroup(
-    FormGroup current,
-    FormGroup parentGroup,
-    String name, [
-    bool isArrayItem = false,
-  ]) {
-    if (!current.isInitialized)
-      current.initialize(name, parentGroup, isArrayItem);
+  /* Protected methods */
 
-    for (MapEntry<String, AbstractControl> child in current.controls.entries) {
-      if (child.value is FormGroup)
-        this._initializeFormGroup(child.value, current, child.key);
-
-      if (child.value is FormArray)
-        this._initializeFormArray(child.value, current, child.key);
-
-      if (child.value is FormControl)
-        this._initializeFormControl(child.value, current, child.key);
-    }
-  }
-
-  void _initializeFormArray(
-    FormArray current,
-    FormGroup parentGroup,
-    String name,
-  ) {
-    if (!current.isInitialized) current.initialize(name, parentGroup);
-
-    for (FormGroup formGroup in current.groups)
-      this._initializeFormGroup(
-        formGroup,
-        parentGroup,
-        '$name[${current.groups.indexOf(formGroup)}]',
-        true,
-      );
-  }
-
-  void _initializeFormControl(
-    FormControl current,
-    FormGroup parentGroup,
-    String name,
-  ) {
-    if (!current.isInitialized) current.initialize(name, parentGroup);
-  }
+  /* Private methods */
 }

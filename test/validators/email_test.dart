@@ -13,11 +13,9 @@ void main() {
         EmailTest model = new EmailTest('azerty@test.com');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
-        ValidationError error = formState.formBuilder
-            .getFormElement<ModelFormControl>(model, 'value')
-            ?.error;
+        ValidationError error = formState.getError('value');
         expect(error, isNull);
       });
     });
@@ -26,11 +24,9 @@ void main() {
         EmailTest model = new EmailTest('azerty@.com');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
-        ValidationError error = formState.formBuilder
-            .getFormElement<ModelFormControl>(model, 'value')
-            ?.error;
+        ValidationError error = formState.getError('value');
         expect(error, isNotNull);
         expect(error.propertyName, 'value');
         expect(error.validatorType, Email);

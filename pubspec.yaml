@@ -14,10 +14,9 @@ dependencies:
   collection: ^1.14.13
   image: ^2.1.19
   mime: ^0.9.7
-  nested: ^0.0.4
   provider: ^4.3.3
   queries: ^0.1.14
-  reflectable: ^2.2.8
+  reflectable: ^2.2.9
 
 dev_dependencies:
   flutter_test:

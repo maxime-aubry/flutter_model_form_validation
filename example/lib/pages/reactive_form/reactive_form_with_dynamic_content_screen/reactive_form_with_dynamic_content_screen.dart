@@ -22,12 +22,13 @@ class _ReactiveFormWithDynamicContentState
   @override
   Widget build(BuildContext context) {
     return ReactiveForm(
+      //context: new MainFormContext(formBuilder: this._getFormBuilder()),
       formBuilder: this._getFormBuilder(),
-      builder: (context, formState, __) => new Scaffold(
+      child: new Scaffold(
         appBar: new AppBar(title: Text("Reactive form with dynamic content")),
         drawer: new CustomDrawer(),
         body: new Padding(
-          padding: EdgeInsets.all(5.0),
+          padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
           child: new FormGroupConsumer(
             builder: (_, formGroup, __) => new Column(
               children: [
@@ -42,6 +43,8 @@ class _ReactiveFormWithDynamicContentState
         ),
         floatingActionButton: new FloatingActionButton(
           onPressed: () async {
+            ReactiveFormState formState = context.readFormState();
+
             if (await formState.validate()) {
               // Data treatment and post to server here...
             }
@@ -100,13 +103,13 @@ class _AddressFormGroup extends StatefulWidget {
 class _AddressFormGroupState extends State<_AddressFormGroup> {
   @override
   Widget build(BuildContext context) {
-    FormGroup parent = FormGroupProvider.of(context);
-    FormGroup addressFormGroup = parent.controls['address'] as FormGroup;
+    FormGroup parent = context.watchFormGroup();
 
     return new FormControlProvider<bool>(
       create: (_) => parent.controls['share_address'],
       builder: (context, __) {
-        FormControl<bool> share_address = FormControlProvider.of<bool>(context);
+        FormGroup addressFormGroup = parent.controls['address'] as FormGroup;
+        FormControl<bool> share_address = context.watchFormControl<bool>();
 
         if (share_address.value) {
           this._enableAddress(addressFormGroup);

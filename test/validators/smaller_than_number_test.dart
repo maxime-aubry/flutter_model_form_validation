@@ -15,7 +15,7 @@ void main() {
         SmallerThanNumberTest model = new SmallerThanNumberTest(10, 11);
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -27,7 +27,7 @@ void main() {
         SmallerThanNumberTest model = new SmallerThanNumberTest(10, 11);
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -39,7 +39,7 @@ void main() {
         SmallerThanNumberTest model = new SmallerThanNumberTest(0);
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -53,7 +53,7 @@ void main() {
         SmallerThanNumberTest model = new SmallerThanNumberTest(1, 2);
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -67,7 +67,7 @@ void main() {
         SmallerThanNumberTest model = new SmallerThanNumberTest(1, 1);
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -82,7 +82,7 @@ void main() {
         SmallerThanNumberTest model = new SmallerThanNumberTest(1, 0);
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')

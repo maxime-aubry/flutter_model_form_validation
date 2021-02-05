@@ -17,18 +17,17 @@ class Required extends FormValidatorAnnotation {
   @override
   Future<bool> isValid(
     FormGroup root,
-    FormGroup fg,
-    Object value,
-    String formPath,
-    String modelFormPath,
+    FormGroup formGroup,
+    String property,
   ) async {
-    try {
-      bool isValid = _validate(value);
-      return isValid;
-    } catch (e) {
-      throw new ValidationException(
-          'An error occurend with validator on from control with validator of type');
-    }
+    return true;
+    // try {
+    //   bool isValid = _validate(value);
+    //   return isValid;
+    // } catch (e) {
+    //   throw new ValidationException(
+    //       'An error occurend with validator on from control with validator of type');
+    // }
   }
 
   bool _validate(Object value) {

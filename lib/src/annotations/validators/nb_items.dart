@@ -33,28 +33,27 @@ class NbItems extends FormValidatorAnnotation {
   @override
   Future<bool> isValid(
     FormGroup root,
-    FormGroup fg,
-    Object value,
-    String formPath,
-    String modelFormPath,
+    FormGroup formGroup,
+    String property,
   ) async {
-    try {
-      if (value == null) return true;
+    return true;
+    // try {
+    //   if (value == null) return true;
 
-      if (value is! List) throw new Exception('field type must be a list');
+    //   if (value is! List) throw new Exception('field type must be a list');
 
-      bool isValid = this._validate(
-        value: value,
-        minValue: this.getRemoteValue<num>(fg, this.minOnProperty, this.min),
-        maxValue: this.getRemoteValue<num>(fg, this.maxOnProperty, this.max),
-      );
-      return isValid;
-    } on RemotePropertyException catch (e) {
-      throw e;
-    } catch (e) {
-      throw new ValidationException(
-          'An error occured with validator on form element with validator of type');
-    }
+    //   bool isValid = this._validate(
+    //     value: value,
+    //     minValue: this.getRemoteValue<num>(fg, this.minOnProperty, this.min),
+    //     maxValue: this.getRemoteValue<num>(fg, this.maxOnProperty, this.max),
+    //   );
+    //   return isValid;
+    // } on RemotePropertyException catch (e) {
+    //   throw e;
+    // } catch (e) {
+    //   throw new ValidationException(
+    //       'An error occured with validator on form element with validator of type');
+    // }
   }
 
   bool _validate({

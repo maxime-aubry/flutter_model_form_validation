@@ -33,34 +33,33 @@ class PhoneNumber extends FormValidatorAnnotation {
   @override
   Future<bool> isValid(
     FormGroup root,
-    FormGroup fg,
-    Object value,
-    String formPath,
-    String modelFormPath,
+    FormGroup formGroup,
+    String property,
   ) async {
-    try {
-      if (value == null) return true;
+    return true;
+    // try {
+    //   if (value == null) return true;
 
-      if (value is! String) throw new Exception('field type must be a string');
+    //   if (value is! String) throw new Exception('field type must be a string');
 
-      bool isValid = _validate(
-        value: (value as String)?.toLowerCase(),
-        countryCodeValue: this
-            .getRemoteValue<String>(
-                fg, this.countryCodeOnProperty, this.countryCode)
-            ?.toUpperCase(),
-        phoneNumberTypeValue: this
-            .getRemoteValue<String>(
-                fg, this.phoneNumberTypeOnProperty, this.phoneNumberType)
-            ?.toLowerCase(),
-      );
-      return isValid;
-    } on RemotePropertyException catch (e) {
-      throw e;
-    } catch (e) {
-      throw new ValidationException(
-          'An error occured with validator on form element with validator of type');
-    }
+    //   bool isValid = _validate(
+    //     value: (value as String)?.toLowerCase(),
+    //     countryCodeValue: this
+    //         .getRemoteValue<String>(
+    //             fg, this.countryCodeOnProperty, this.countryCode)
+    //         ?.toUpperCase(),
+    //     phoneNumberTypeValue: this
+    //         .getRemoteValue<String>(
+    //             fg, this.phoneNumberTypeOnProperty, this.phoneNumberType)
+    //         ?.toLowerCase(),
+    //   );
+    //   return isValid;
+    // } on RemotePropertyException catch (e) {
+    //   throw e;
+    // } catch (e) {
+    //   throw new ValidationException(
+    //       'An error occured with validator on form element with validator of type');
+    // }
   }
 
   bool _validate({

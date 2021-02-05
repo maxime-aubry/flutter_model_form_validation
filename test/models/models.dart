@@ -8,76 +8,6 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 void main() {}
 
 @flutterModelFormValidator
-enum EGender { male, female }
-
-//#region ComplexFormTest
-@flutterModelFormValidator
-class FormBuilderTest extends ModelForm {
-  FormBuilderTest(
-    String firstName,
-    String lastName,
-    DateTime birthDay,
-    DateTime subscriptionDate,
-  ) {
-    this.firstName = new FormControlElement<String>(firstName);
-    this.lastName = new FormControlElement<String>(lastName);
-    this.birthDay = new FormControlElement<DateTime>(birthDay);
-    this.subscriptionDate =
-        new FormControlElement<DateTime>(subscriptionDate);
-    this.books = new FormArrayElement(null);
-    this.favoriteBook = new FormGroupElement<Book>(null);
-  }
-
-  @Required(error: 'error message here')
-  @StringLength(min: 3, max: 50, error: 'error message here')
-  FormControlElement<String> firstName;
-
-  @Required(error: 'error message here')
-  @StringLength(min: 3, max: 50, error: 'error message here')
-  FormControlElement<String> lastName;
-
-  @Required(error: 'error message here')
-  FormControlElement<DateTime> birthDay;
-
-  @Required(error: 'error message here')
-  @GreaterOrEqualTo(
-    valueToCompareOnProperty: 'birthDay',
-    error: 'error message here',
-  )
-  @SmallerOrEqualTo(valueToCompare: '2020-01-01', error: 'error message here')
-  FormControlElement<DateTime> subscriptionDate;
-
-  @NbItems(min: '1', max: '3', error: 'error message here')
-  FormArrayElement<Book> books;
-
-  @Required(error: 'error message here')
-  FormGroupElement<Book> favoriteBook;
-}
-
-@flutterModelFormValidator
-class Book extends ModelForm {
-  Book(
-    String name,
-    num price,
-    DateTime loanDate,
-  ) {
-    this.name = new FormControlElement<String>(name);
-    this.price = new FormControlElement<num>(price);
-    this.loanDate = new FormControlElement<DateTime>(loanDate);
-  }
-
-  @Required(error: 'error message here')
-  @StringLength(min: 3, max: 100, error: 'error message here')
-  FormControlElement<String> name;
-
-  @Required(error: 'price is required')
-  @GreaterThan(valueToCompare: '0', error: 'error message here')
-  FormControlElement<num> price;
-
-  @Required(error: 'error message here')
-  FormControlElement<DateTime> loanDate;
-}
-//#endregion
 
 //#region DateTimeRange
 @flutterModelFormValidator
@@ -125,8 +55,7 @@ class EqualToDatetimeTest extends ModelForm {
     DateTime valueToCompare,
   ]) {
     this.value = new FormControlElement<DateTime>(value);
-    this.valueToCompare =
-        new FormControlElement<DateTime>(valueToCompare);
+    this.valueToCompare = new FormControlElement<DateTime>(valueToCompare);
   }
 
   @EqualTo(
@@ -147,8 +76,7 @@ class EqualToNumberTest extends ModelForm {
     num valueToCompare,
   ]) {
     this.value = new FormControlElement<num>(value);
-    this.valueToCompare =
-        new FormControlElement<num>(valueToCompare);
+    this.valueToCompare = new FormControlElement<num>(valueToCompare);
   }
 
   @EqualTo(
@@ -169,8 +97,7 @@ class EqualToStringTest extends ModelForm {
     String valueToCompare,
   ]) {
     this.value = new FormControlElement<String>(value);
-    this.valueToCompare =
-        new FormControlElement<String>(valueToCompare);
+    this.valueToCompare = new FormControlElement<String>(valueToCompare);
   }
 
   @EqualTo(
@@ -221,8 +148,7 @@ class GreaterOrEqualToDatetimeTest extends ModelForm {
     DateTime valueToCompare,
   ]) {
     this.value = new FormControlElement<DateTime>(value);
-    this.valueToCompare =
-        new FormControlElement<DateTime>(valueToCompare);
+    this.valueToCompare = new FormControlElement<DateTime>(valueToCompare);
   }
 
   @GreaterOrEqualTo(
@@ -243,8 +169,7 @@ class GreaterOrEqualToNumberTest extends ModelForm {
     num valueToCompare,
   ]) {
     this.value = new FormControlElement<num>(value);
-    this.valueToCompare =
-        new FormControlElement<num>(valueToCompare);
+    this.valueToCompare = new FormControlElement<num>(valueToCompare);
   }
 
   @GreaterOrEqualTo(
@@ -265,8 +190,7 @@ class GreaterOrEqualToStringTest extends ModelForm {
     String valueToCompare,
   ]) {
     this.value = new FormControlElement<String>(value);
-    this.valueToCompare =
-        new FormControlElement<String>(valueToCompare);
+    this.valueToCompare = new FormControlElement<String>(valueToCompare);
   }
 
   @GreaterOrEqualTo(
@@ -287,8 +211,7 @@ class GreaterThanDatetimeTest extends ModelForm {
     DateTime valueToCompare,
   ]) {
     this.value = new FormControlElement<DateTime>(value);
-    this.valueToCompare =
-        new FormControlElement<DateTime>(valueToCompare);
+    this.valueToCompare = new FormControlElement<DateTime>(valueToCompare);
   }
 
   @GreaterThan(
@@ -309,8 +232,7 @@ class GreaterThanNumberTest extends ModelForm {
     num valueToCompare,
   ]) {
     this.value = new FormControlElement<num>(value);
-    this.valueToCompare =
-        new FormControlElement<num>(valueToCompare);
+    this.valueToCompare = new FormControlElement<num>(valueToCompare);
   }
 
   @GreaterThan(
@@ -331,8 +253,7 @@ class GreaterThanStringTest extends ModelForm {
     String valueToCompare,
   ]) {
     this.value = new FormControlElement<String>(value);
-    this.valueToCompare =
-        new FormControlElement<String>(valueToCompare);
+    this.valueToCompare = new FormControlElement<String>(valueToCompare);
   }
 
   @GreaterThan(
@@ -484,8 +405,7 @@ class NotEqualToDatetimeTest extends ModelForm {
     DateTime valueToCompare,
   ]) {
     this.value = new FormControlElement<DateTime>(value);
-    this.valueToCompare =
-        new FormControlElement<DateTime>(valueToCompare);
+    this.valueToCompare = new FormControlElement<DateTime>(valueToCompare);
   }
 
   @NotEqualTo(
@@ -506,8 +426,7 @@ class NotEqualToNumberTest extends ModelForm {
     num valueToCompare,
   ]) {
     this.value = new FormControlElement<num>(value);
-    this.valueToCompare =
-        new FormControlElement<num>(valueToCompare);
+    this.valueToCompare = new FormControlElement<num>(valueToCompare);
   }
 
   @NotEqualTo(
@@ -528,8 +447,7 @@ class NotEqualToStringTest extends ModelForm {
     String valueToCompare,
   ]) {
     this.value = new FormControlElement<String>(value);
-    this.valueToCompare =
-        new FormControlElement<String>(valueToCompare);
+    this.valueToCompare = new FormControlElement<String>(valueToCompare);
   }
 
   @NotEqualTo(
@@ -577,10 +495,8 @@ class PhoneNumberTest extends ModelForm {
     String phoneNumberType,
   ]) {
     this.value = new FormControlElement<String>(value);
-    this.countryCode =
-        new FormControlElement<String>(countryCode);
-    this.phoneNumberType =
-        new FormControlElement<String>(phoneNumberType);
+    this.countryCode = new FormControlElement<String>(countryCode);
+    this.phoneNumberType = new FormControlElement<String>(phoneNumberType);
   }
 
   @PhoneNumber(
@@ -674,8 +590,7 @@ class SmallerOrEqualToDatetimeTest extends ModelForm {
     DateTime valueToCompare,
   ]) {
     this.value = new FormControlElement<DateTime>(value);
-    this.valueToCompare =
-        new FormControlElement<DateTime>(valueToCompare);
+    this.valueToCompare = new FormControlElement<DateTime>(valueToCompare);
   }
 
   @SmallerOrEqualTo(
@@ -696,8 +611,7 @@ class SmallerOrEqualToNumberTest extends ModelForm {
     num valueToCompare,
   ]) {
     this.value = new FormControlElement<num>(value);
-    this.valueToCompare =
-        new FormControlElement<num>(valueToCompare);
+    this.valueToCompare = new FormControlElement<num>(valueToCompare);
   }
 
   @SmallerOrEqualTo(
@@ -718,8 +632,7 @@ class SmallerOrEqualToStringTest extends ModelForm {
     String valueToCompare,
   ]) {
     this.value = new FormControlElement<String>(value);
-    this.valueToCompare =
-        new FormControlElement<String>(valueToCompare);
+    this.valueToCompare = new FormControlElement<String>(valueToCompare);
   }
 
   @SmallerOrEqualTo(
@@ -740,8 +653,7 @@ class SmallerThanDatetimeTest extends ModelForm {
     DateTime valueToCompare,
   ]) {
     this.value = new FormControlElement<DateTime>(value);
-    this.valueToCompare =
-        new FormControlElement<DateTime>(valueToCompare);
+    this.valueToCompare = new FormControlElement<DateTime>(valueToCompare);
   }
 
   @SmallerThan(
@@ -762,8 +674,7 @@ class SmallerThanNumberTest extends ModelForm {
     num valueToCompare,
   ]) {
     this.value = new FormControlElement<num>(value);
-    this.valueToCompare =
-        new FormControlElement<num>(valueToCompare);
+    this.valueToCompare = new FormControlElement<num>(valueToCompare);
   }
 
   @SmallerThan(
@@ -784,8 +695,7 @@ class SmallerThanStringTest extends ModelForm {
     String valueToCompare,
   ]) {
     this.value = new FormControlElement<String>(value);
-    this.valueToCompare =
-        new FormControlElement<String>(valueToCompare);
+    this.valueToCompare = new FormControlElement<String>(valueToCompare);
   }
 
   @SmallerThan(

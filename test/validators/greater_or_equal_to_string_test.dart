@@ -6,6 +6,7 @@ import '../models/models.reflectable.dart';
 
 void main() {
   initializeReflectable();
+  LibraryInitializer.initialize(libraryName: 'test.models');
 
   group('GreaterOrEqualToString.', () {
     group('Test the priority between user and developer static data.', () {
@@ -15,12 +16,13 @@ void main() {
         GreaterOrEqualToStringTest model =
             new GreaterOrEqualToStringTest('c', 'c');
         ModelFormState formState = new ModelFormState(model: model);
+        formState.initialize();
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
-        ValidationError error = formState.formBuilder
-            .getFormElement<ModelFormControl>(model, 'value')
-            ?.error;
+        
+        FormControl<String> fc = formState.formBuilder.indexer.ofFormControl<String>('value');
+        ValidationError error = formState.getError(fc.uniqueName);
         expect(error, isNull);
       });
 
@@ -29,11 +31,12 @@ void main() {
             new GreaterOrEqualToStringTest('c', 'c');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
-        ValidationError error = formState.formBuilder
-            .getFormElement<ModelFormControl>(model, 'value')
-            ?.error;
+
+        FormControl<String> fc = formState.formBuilder.indexer.ofFormControl<String>('value');
+        ValidationError error = formState.getError(fc.uniqueName);
         expect(error, isNull);
       });
 
@@ -41,11 +44,11 @@ void main() {
         GreaterOrEqualToStringTest model = new GreaterOrEqualToStringTest('b');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
-        ValidationError error = formState.formBuilder
-            .getFormElement<ModelFormControl>(model, 'value')
-            ?.error;
+        
+        FormControl<String> fc = formState.formBuilder.indexer.ofFormControl<String>('value');
+        ValidationError error = formState.getError(fc.uniqueName);
         expect(error, isNull);
       });
     });
@@ -56,11 +59,11 @@ void main() {
             new GreaterOrEqualToStringTest('c', 'b');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
-        ValidationError error = formState.formBuilder
-            .getFormElement<ModelFormControl>(model, 'value')
-            ?.error;
+        
+        FormControl<String> fc = formState.formBuilder.indexer.ofFormControl<String>('value');
+        ValidationError error = formState.getError(fc.uniqueName);
         expect(error, isNull);
       });
 
@@ -69,11 +72,11 @@ void main() {
             new GreaterOrEqualToStringTest('b', 'b');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
-        ValidationError error = formState.formBuilder
-            .getFormElement<ModelFormControl>(model, 'value')
-            ?.error;
+        
+        FormControl<String> fc = formState.formBuilder.indexer.ofFormControl<String>('value');
+        ValidationError error = formState.getError(fc.uniqueName);
         expect(error, isNull);
       });
     });
@@ -84,11 +87,12 @@ void main() {
             new GreaterOrEqualToStringTest('a', 'b');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
-        ValidationError error = formState.formBuilder
-            .getFormElement<ModelFormControl>(model, 'value')
-            ?.error;
+        
+        FormControl<String> fc = formState.formBuilder.indexer.ofFormControl<String>('value');
+        ValidationError error = formState.getError(fc.uniqueName);
+        expect(error, isNull);
         expect(error, isNotNull);
         expect(error.propertyName, 'value');
         expect(error.validatorType, GreaterOrEqualTo);

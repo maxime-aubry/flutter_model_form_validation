@@ -27,29 +27,28 @@ class InText extends FormValidatorAnnotation {
   @override
   Future<bool> isValid(
     FormGroup root,
-    FormGroup fg,
-    Object value,
-    String formPath,
-    String modelFormPath,
+    FormGroup formGroup,
+    String property,
   ) async {
-    try {
-      if (value == null) return true;
+    return true;
+    // try {
+    //   if (value == null) return true;
 
-      if (value is! String) throw new Exception('field type must be a string');
+    //   if (value is! String) throw new Exception('field type must be a string');
 
-      bool isValid = _validate(
-        value: (value as String)?.toLowerCase(),
-        text: this
-            .getRemoteValue<String>(fg, this.textOnProperty, this.text)
-            ?.toLowerCase(),
-      );
-      return isValid;
-    } on RemotePropertyException catch (e) {
-      throw e;
-    } catch (e) {
-      throw new ValidationException(
-          'An error occured with validator on form element with validator of type');
-    }
+    //   bool isValid = _validate(
+    //     value: (value as String)?.toLowerCase(),
+    //     text: this
+    //         .getRemoteValue<String>(fg, this.textOnProperty, this.text)
+    //         ?.toLowerCase(),
+    //   );
+    //   return isValid;
+    // } on RemotePropertyException catch (e) {
+    //   throw e;
+    // } catch (e) {
+    //   throw new ValidationException(
+    //       'An error occured with validator on form element with validator of type');
+    // }
   }
 
   bool _validate({

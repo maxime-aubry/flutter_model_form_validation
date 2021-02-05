@@ -2,51 +2,57 @@ import 'package:flutter_model_form_validation/src/form/model_form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
 class ModelFormBuilder extends ReactiveFormBuilder {
+  /* Public properties */
+  bool isInitialized;
+
+  /* Protected properties */
+
+  /* Private properties */
+  // bool _isMultipleStepsForm;
+
+  /* Getters */
+  @override
+  ModelFormState get formState => super.formState as ModelFormState;
+
+  /* Setters */
+
+  /* Constructors */
   ModelFormBuilder() : super(group: null) {
-    // this._isInitialized = false;
-    // this._isAttachedToFormState = false;
-    // this._correspondenceHandler = new ModelCorrespondenceHandler();
+    this.isInitialized = false;
   }
 
-  // bool _isInitialized;
-  // bool _isAttachedToFormState;
-  // ModelCorrespondenceHandler _correspondenceHandler;
-
-  // bool get isInitialized => this._isInitialized;
-  // bool get isAttachedToFormState => this._isAttachedToFormState;
-
+  /* Public methods */
   @override
   void initialize(ReactiveFormState formState) {
-    assert(formState != null,
-        'Cannot initialize form builder if form state is not provided.');
-    assert(formState is ModelFormState,
-        'Cannot initialize form builder with a non-model form state.');
-    // assert(!this.isInitialized,
-    //     'Cannot initialize form builder if this one is already initialized.');
-    // assert(!this.isAttachedToFormState,
-    //     'Cannot attach form builder to form styate if this one is already attached.');
+    if (formState == null)
+      throw new Exception(
+          'Cannot initialize form builder if form state is not provided.');
 
-    ModelFormState modelFormState = formState as ModelFormState;
-    super.formState = modelFormState;
+    if (formState is! ModelFormState)
+      throw new Exception(
+          'Cannot initialize form builder with a non-model form state.');
 
-    this.group = new ModelFormGroup(
-      name: 'root',
-      parentGroup: null,
-      current: modelFormState.model,
-      isArrayItem: false,
-      formBuilder: this,
-    );
-
-    super.checkMultipleStepsForm();
-    // this.isInitialized = true;
-    // this.isAttachedToFormState = true;
+    this.formState = formState as ModelFormState;
+    this._addMainFormGroup();
   }
 
-  // void addCorrespondence(String fpFullname, AbstractControl abstractControl) =>
-  //     this._correspondenceHandler.add(fpFullname, abstractControl);
+  /* Protected methods */
 
-  // void removeCorrespondence(String fpFullname) =>
-  //     this._correspondenceHandler.remove(fpFullname);
+  /* Private methods */
+  void _addMainFormGroup() {
+    ModelFormGroup group = new ModelFormGroup(
+      formBuilder: this,
+      formState: this.formState,
+    );
+    group.initialize('root', null, false, this.indexer);
+    this.group = group;
+  }
+
+  // void addCorrespondence(String fpuniqueName, AbstractControl abstractControl) =>
+  //     this._correspondenceHandler.add(fpuniqueName, abstractControl);
+
+  // void removeCorrespondence(String fpuniqueName) =>
+  //     this._correspondenceHandler.remove(fpuniqueName);
 
   // T getFormElement<T extends AbstractControl>(
   //   ModelForm model,
@@ -57,9 +63,9 @@ class ModelFormBuilder extends ReactiveFormBuilder {
   //           property,
   //         );
 
-  T getFormElement<T extends AbstractControl>(
-    ModelForm model,
-    String property,
-  ) =>
-      null;
+  // T getFormElement<T extends AbstractControl>(
+  //   ModelForm model,
+  //   String property,
+  // ) =>
+  //     null;
 }

@@ -1,107 +1,159 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/model_form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 import 'package:queries/collections.dart';
 
-class ModelFormArray extends FormArray with ModelFormValidator {
+class ModelFormArray extends FormArray with ReflectableForm {
+  /* Public properties */
+  FormArrayItems<ModelForm> items;
+
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+  @override
+  ModelFormState get formState => super.formState;
+
+  @override
+  ModelFormGroup get parentGroup => super.parentGroup;
+
+  // String get modelPartuniqueName {
+  //   if (this.name == null || this.name.isEmpty) return null;
+  //   if (this.name == 'root' && this.parentGroup == null) return null;
+  //   ModelFormGroup parentGroup2 = this.parentGroup as ModelFormGroup;
+  //   return '${parentGroup2.model.hashCode}.${this.name}';
+  // }
+
+  /* Setters */
+
+  /* Constructors */
   ModelFormArray({
-    @required String name,
-    @required ModelFormGroup parentGroup,
+    @required ModelFormState formState,
     @required FormArrayItems<ModelForm> items,
   }) : super(
           validators: [],
           groups: [],
+          formState: formState,
         ) {
     this.items = items ?? new FormArrayItems<ModelForm>([]);
   }
 
-  FormArrayItems<ModelForm> items;
-
-  String get modelPartfullname {
-    if (this.name == null || this.name.isEmpty) return null;
-    if (this.name == 'root' && this.parentGroup == null) return null;
-    ModelFormGroup parentGroup2 = this.parentGroup as ModelFormGroup;
-    return '${parentGroup2.current.hashCode}.${this.name}';
-  }
-
+  /* Public methods */
   @override
-  @protected
   void initialize(
     String name,
     FormGroup parentGroup,
+    FormIndexer indexer,
   ) {
-    assert(name != null && !name.isEmpty,
-        'Cannot initialize form array if its name is not provided.');
-    assert(parentGroup != null,
-        'Cannot initialize form array if its parent form group is not provided.');
-    // assert(!super.isInitialized,
-    //     'Cannot initialize form group if this one is already initialized.');
+    if (name == null || name.isEmpty)
+      throw new Exception(
+          'Cannot initialize form array if its name is not provided.');
+
+    if (this.isInitialized)
+      throw new Exception(
+          'Cannot initialize an already initialized form array.');
 
     super.name = name;
     super.parentGroup = parentGroup;
-    super.getValidators(super.parentGroup, super.name);
-    this._actualizeChildren();
-    this._updateValueOnModelChange(super.parentGroup);
-    // super.isInitialized = true;
-  }
-
-  /// [_actualizeChildren] method actualize [items] and [groups] collections of form array.
-  void _actualizeChildren() {
-    if (this.items == null) this.items = new FormArrayItems<ModelForm>([]);
-
-    List<ModelForm> itemsToAdd = this._getItemsToAdd();
-    this._addItemsToFormArray(itemsToAdd);
-
-    List<FormGroup> groupsToRemove = this._getItemsToRemove();
-    this._removeItemsFromFormArray(groupsToRemove);
-    super.reindexFormArrayItems();
+    super.indexer = indexer;
+    super.index();
+    super.validators = super.getValidators(this.parentGroup.model, this.name);
+    this._listenModelAndUpdate();
+    this._addGroups();
+    super.isInitialized = true;
   }
 
   @override
   Future validate() async =>
-      await super.validateControl(this.items, super.formPath, super.modelPath);
+      await super.validateControl(super.formPath, super.modelPath);
+
+  /* Protected methods */
 
   /* Private methods */
-  void _updateValueOnModelChange(ModelFormGroup parentGroup) {
+  void _addGroups() {
+    if (this.items == null) this.items = new FormArrayItems<ModelForm>([]);
+
+    for (ModelForm model in this.items) {
+      super.addGroup(
+        new ModelFormGroup(
+          formBuilder: null,
+          formState: this.formState,
+          model: model,
+        ),
+        notify: false,
+      );
+    }
+  }
+
+  void _replaceGroupsAfterItemsUpdate() {
+    //#region locales methods
+    List<ModelForm> getItemsToAdd() {
+      List<ModelForm> alreadyAddedModels = Collection(this.groups)
+          .select((arg1) => (arg1 as ModelFormGroup).model)
+          .toList();
+      List<ModelForm> itemsToAdd = Collection(this.items)
+          .except(Collection(alreadyAddedModels))
+          .toList();
+      return itemsToAdd;
+    }
+
+    void addItemsToFormArray(List<ModelForm> modelsToAdd) {
+      for (ModelForm model in modelsToAdd) {
+        super.addGroup(
+          new ModelFormGroup(
+            formBuilder: null,
+            formState: this.formState,
+            model: model,
+          ),
+          notify: false,
+        );
+      }
+    }
+
+    List<FormGroup> getItemsToRemove() {
+      List<FormGroup> itemsToRemove = Collection(this.groups)
+          .where((arg1) => !this.items.contains((arg1 as ModelFormGroup).model))
+          .toList();
+      return itemsToRemove;
+    }
+
+    void removeItemsFromFormArray(List<FormGroup> groupsToRemove) {
+      for (ModelFormGroup group in groupsToRemove)
+        super.removeGroup(
+          group,
+          notify: false,
+        );
+    }
+
+    void addMissingItems() {
+      List<ModelForm> itemsToAdd = getItemsToAdd();
+      addItemsToFormArray(itemsToAdd);
+    }
+
+    void removeUselessItems() {
+      List<FormGroup> groupsToRemove = getItemsToRemove();
+      removeItemsFromFormArray(groupsToRemove);
+    }
+    //#endregion
+
+    if (this.items == null) this.items = new FormArrayItems<ModelForm>([]);
+    addMissingItems();
+    removeUselessItems();
+    super.reindexFormArrayItems(notify: false);
+    super.notifyListeners();
+  }
+
+  void _listenModelAndUpdate() {
     FormArrayElement<ModelForm> formElement =
         super.getModelPart<FormArrayElement<ModelForm>>(
-      parentGroup.current,
+      this.parentGroup.model,
       this.name,
     );
     formElement.addListener(() {
       this.items = formElement.value;
-      this._actualizeChildren();
+      this._replaceGroupsAfterItemsUpdate();
     });
-  }
-
-  List<ModelForm> _getItemsToAdd() {
-    List<ModelForm> items = Collection(this.items)
-        .except(Collection(this.groups)
-            .select((arg1) => (arg1 as ModelFormGroup).current))
-        .toList();
-    return items;
-  }
-
-  List<FormGroup> _getItemsToRemove() {
-    List<FormGroup> items = Collection(this.groups)
-        .where((arg1) => !this.items.contains((arg1 as ModelFormGroup).current))
-        .toList();
-    return items;
-  }
-
-  void _addItemsToFormArray(List<ModelForm> modelsToAdd) {
-    for (ModelForm model in modelsToAdd) {
-      super.addGroup(new ModelFormGroup(
-        name: '${super.name}[${super.groups.length}]',
-        parentGroup: super.parentGroup,
-        current: model,
-        isArrayItem: true,
-        formBuilder: null,
-      ));
-    }
-  }
-
-  void _removeItemsFromFormArray(List<FormGroup> groupsToRemove) {
-    for (ModelFormGroup group in groupsToRemove) super.removeGroup(group);
   }
 }

@@ -7,18 +7,22 @@ import 'package:provider/single_child_widget.dart';
 
 class ReactiveForm extends SingleChildStatefulWidget {
   final ReactiveFormBuilder formBuilder;
+  final ReactiveFormState formState;
+
   final Widget Function(
     BuildContext context,
-    ReactiveFormState formState,
     Widget child,
   ) builder;
 
   ReactiveForm({
     Key key,
     Widget child,
-    @required this.formBuilder,
-    @required this.builder,
-  }) : super(key: key, child: child);
+    this.formBuilder,
+    this.builder,
+  })  : this.formState = new ReactiveFormState(formBuilder: formBuilder),
+        super(key: key, child: child) {
+    this.formState.initialize();
+  }
 
   @override
   SingleChildState<ReactiveForm> createState() => _ReactiveFormState();
@@ -26,16 +30,11 @@ class ReactiveForm extends SingleChildStatefulWidget {
 
 class _ReactiveFormState extends SingleChildState<ReactiveForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  ReactiveFormState _formState;
 
   @override
   void initState() {
     super.initState();
-    this._formState = new ReactiveFormState(
-      formBuilder: widget.formBuilder,
-      formKey: this._formKey,
-    );
-    this._formState.initialize();
+    widget.formState.attachFormKey(this._formKey);
   }
 
   @override
@@ -45,14 +44,14 @@ class _ReactiveFormState extends SingleChildState<ReactiveForm> {
       autovalidateMode: AutovalidateMode.always,
       child: MultiProvider(
         providers: [
-          new FormStateProvider(create: (_) => this._formState),
+          new FormStateProvider(create: (_) => widget.formState),
           new FormGroupProvider(create: (_) => widget.formBuilder.group),
         ],
-        child: widget.builder(
+        builder: (context, child) => widget.builder(
           context,
-          this._formState,
           child,
         ),
+        child: child,
       ),
     );
   }

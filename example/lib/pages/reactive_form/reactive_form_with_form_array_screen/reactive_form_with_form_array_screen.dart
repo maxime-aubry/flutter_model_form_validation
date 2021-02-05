@@ -1,5 +1,6 @@
 import 'package:example/custom_drawer.dart';
 import 'package:example/models.dart';
+import 'package:example/pages/index.dart';
 import 'package:example/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
@@ -23,30 +24,28 @@ class _ReactiveFormWithFormArrayScreenState
   Widget build(BuildContext context) {
     return ReactiveForm(
       formBuilder: this._getFormBuilder(),
-      builder: (context, formState, __) => new Scaffold(
-        appBar: new AppBar(title: Text("Reactive form")),
-        drawer: new CustomDrawer(),
-        body: new Padding(
-          padding: EdgeInsets.all(5.0),
-          child: new FormGroupConsumer(
-            builder: (_, formGroup, __) => new Column(
-              children: [
-                this._firstnameInput(formGroup.controls['firstname']),
-                this._lastnameInput(formGroup.controls['lastname']),
-                this._genderInput(formGroup.controls['gender']),
-              ],
+      builder: (context, _) {
+        return new Scaffold(
+          appBar: new AppBar(title: Text("Reactive form")),
+          drawer: new CustomDrawer(),
+          body: new SingleChildScrollView(
+            child: new Padding(
+              padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+              child: this._form(context),
             ),
           ),
-        ),
-        floatingActionButton: new FloatingActionButton(
-          onPressed: () async {
-            if (await formState.validate()) {
-              // Data treatment and post to server here...
-            }
-          },
-          child: Icon(Icons.done),
-        ),
-      ),
+          floatingActionButton: new FloatingActionButton(
+            onPressed: () async {
+              ReactiveFormState formState = context.readFormState();
+
+              if (await formState.validate()) {
+                // Data treatment and post to server here...
+              }
+            },
+            child: Icon(Icons.done),
+          ),
+        );
+      },
     );
   }
 
@@ -66,12 +65,41 @@ class _ReactiveFormWithFormArrayScreenState
               validators: [Required(error: 'gender is required')],
             ),
             'social_links': new FormArray(
-              groups: [],
+              groups: [
+                new FormGroup(controls: {
+                  'social_network': new FormControl<ESocialNetwork>(
+                      value: ESocialNetwork.github),
+                  'url': new FormControl<String>(value: 'azerty'),
+                }),
+              ],
               validators: [NbItems(min: '1', max: '3', error: 'error')],
             ),
           },
         ),
       );
+
+  Widget _form(BuildContext context) {
+    FormGroup form = context.watchFormGroup();
+
+    return new Column(
+      children: [
+        this._firstnameInput(form.controls['firstname']),
+        this._lastnameInput(form.controls['lastname']),
+        this._genderInput(form.controls['gender']),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: new Padding(
+            padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+            child: const Text(
+              'Social links',
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+        ),
+        new SocialLinksArray(),
+      ],
+    );
+  }
 
   Widget _firstnameInput(FormControl<String> formControl) =>
       new CustomTextInput(label: 'firstname', formControl: formControl);

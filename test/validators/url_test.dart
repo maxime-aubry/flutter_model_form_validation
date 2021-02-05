@@ -13,7 +13,7 @@ void main() {
         UrlTest model = new UrlTest('http://foo.com/blah_blah');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -25,7 +25,7 @@ void main() {
         UrlTest model = new UrlTest('http://foo.com/blah_blah/');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -37,7 +37,7 @@ void main() {
         UrlTest model = new UrlTest('http://foo.com/blah_blah_(wikipedia)');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -51,7 +51,7 @@ void main() {
             new UrlTest('http://foo.com/blah_blah_(wikipedia)_(again)');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -63,7 +63,7 @@ void main() {
         UrlTest model = new UrlTest('http://www.example.com/wpstyle/?p=364');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -77,7 +77,7 @@ void main() {
             new UrlTest('https://www.example.com/foo/?bar=baz&inga=42&quux');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -89,7 +89,7 @@ void main() {
         UrlTest model = new UrlTest('http://✪df.ws/123');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -101,7 +101,7 @@ void main() {
         UrlTest model = new UrlTest('http://userid:password@example.com:8080');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -114,7 +114,7 @@ void main() {
         UrlTest model = new UrlTest('http://userid:password@example.com:8080/');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -126,7 +126,7 @@ void main() {
         UrlTest model = new UrlTest('http://userid@example.com');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -138,7 +138,7 @@ void main() {
         UrlTest model = new UrlTest('http://userid@example.com/');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -150,7 +150,7 @@ void main() {
         UrlTest model = new UrlTest('http://userid@example.com:8080');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -162,7 +162,7 @@ void main() {
         UrlTest model = new UrlTest('http://userid@example.com:8080/');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -174,7 +174,7 @@ void main() {
         UrlTest model = new UrlTest('http://userid:password@example.com');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -186,7 +186,7 @@ void main() {
         UrlTest model = new UrlTest('http://userid:password@example.com/');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -198,7 +198,7 @@ void main() {
         UrlTest model = new UrlTest('http://142.42.1.1/');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -210,7 +210,7 @@ void main() {
         UrlTest model = new UrlTest('http://142.42.1.1:8080/');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -222,7 +222,7 @@ void main() {
         UrlTest model = new UrlTest('http://➡.ws/䨹');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -234,7 +234,7 @@ void main() {
         UrlTest model = new UrlTest('http://⌘.ws');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -246,7 +246,7 @@ void main() {
         UrlTest model = new UrlTest('http://⌘.ws/');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -258,7 +258,7 @@ void main() {
         UrlTest model = new UrlTest('http://foo.com/blah_(wikipedia)#cite-1');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -272,7 +272,7 @@ void main() {
             new UrlTest('http://foo.com/blah_(wikipedia)_blah#cite-1');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -284,7 +284,7 @@ void main() {
         UrlTest model = new UrlTest('http://foo.com/unicode_(✪)_in_parens');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -296,7 +296,7 @@ void main() {
         UrlTest model = new UrlTest('http://foo.com/(something)?after=parens');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -308,7 +308,7 @@ void main() {
         UrlTest model = new UrlTest('http://☺.damowmow.com/');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -322,7 +322,7 @@ void main() {
             new UrlTest('http://code.google.com/events/#&product=browser');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -334,7 +334,7 @@ void main() {
         UrlTest model = new UrlTest('http://j.mp');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -346,7 +346,7 @@ void main() {
         UrlTest model = new UrlTest('ftp://foo.bar/baz');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -360,7 +360,7 @@ void main() {
             new UrlTest('http://foo.bar/?q=Test%20URL-encoded%20stuff');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -372,7 +372,7 @@ void main() {
         UrlTest model = new UrlTest('http://مثال.إختبار');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -384,7 +384,7 @@ void main() {
         UrlTest model = new UrlTest('http://例子.测试');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -396,7 +396,7 @@ void main() {
         UrlTest model = new UrlTest('http://उदाहरण.परीक्षा');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -411,7 +411,7 @@ void main() {
             new UrlTest(r"http://-.~_!$&'()*+,;=:%40:80%2f::::::@example.com");
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -423,7 +423,7 @@ void main() {
         UrlTest model = new UrlTest('http://1337.net');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -435,7 +435,7 @@ void main() {
         UrlTest model = new UrlTest('http://a.b-c.de');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -447,7 +447,7 @@ void main() {
         UrlTest model = new UrlTest('http://223.255.255.254');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), true);
+        expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -459,7 +459,7 @@ void main() {
       //   UrlTest model = new UrlTest('https://foo_bar.example.com/');
       //   ModelState formState = new ModelState<UrlTest>(model);
 
-      //   expect(await formState.validateForm(), true);
+      //   expect(await formState.validate(), true);
       //   expect(formState.errors.isEmpty, true);
       // });
     });
@@ -469,7 +469,7 @@ void main() {
         UrlTest model = new UrlTest('http://');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -484,7 +484,7 @@ void main() {
         UrlTest model = new UrlTest('http://.');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -499,7 +499,7 @@ void main() {
         UrlTest model = new UrlTest('http://..');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -514,7 +514,7 @@ void main() {
         UrlTest model = new UrlTest('http://../');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -529,7 +529,7 @@ void main() {
         UrlTest model = new UrlTest('http://?');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -544,7 +544,7 @@ void main() {
         UrlTest model = new UrlTest('http://??');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -559,7 +559,7 @@ void main() {
         UrlTest model = new UrlTest('http://??/');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -574,7 +574,7 @@ void main() {
         UrlTest model = new UrlTest('http://#');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -589,7 +589,7 @@ void main() {
         UrlTest model = new UrlTest('http://##');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -604,7 +604,7 @@ void main() {
         UrlTest model = new UrlTest('http://##/');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -621,7 +621,7 @@ void main() {
             new UrlTest('http://foo.bar?q=Spaces should be encoded');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -636,7 +636,7 @@ void main() {
         UrlTest model = new UrlTest('//');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -651,7 +651,7 @@ void main() {
         UrlTest model = new UrlTest('//a');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -666,7 +666,7 @@ void main() {
         UrlTest model = new UrlTest('///a');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -681,7 +681,7 @@ void main() {
         UrlTest model = new UrlTest('///');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -696,7 +696,7 @@ void main() {
         UrlTest model = new UrlTest('http:///a');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -711,7 +711,7 @@ void main() {
         UrlTest model = new UrlTest('foo.com');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -726,7 +726,7 @@ void main() {
         UrlTest model = new UrlTest('rdar://1234');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -741,7 +741,7 @@ void main() {
         UrlTest model = new UrlTest('h://test');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -756,7 +756,7 @@ void main() {
         UrlTest model = new UrlTest('http:// shouldfail.com');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -771,7 +771,7 @@ void main() {
         UrlTest model = new UrlTest(':// should fail');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -786,7 +786,7 @@ void main() {
         UrlTest model = new UrlTest('http://foo.bar/foo(bar)baz quux');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -801,7 +801,7 @@ void main() {
         UrlTest model = new UrlTest('ftps://foo.bar/');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -816,7 +816,7 @@ void main() {
         UrlTest model = new UrlTest('http://-error-.invalid/');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -831,7 +831,7 @@ void main() {
       //   UrlTest model = new UrlTest('http://a.b--c.de/');
       //   ModelState formState = new ModelState<UrlTest>(model);
 
-      //   expect(await formState.validateForm(), false);
+      //   expect(await formState.validate(), false);
       //   expect(formState.errors['value'].validatorType, URL);
       //   expect(formState.errors['value'].propertyName, 'value');
       //   expect(formState.errors['value'].error, 'Invalid URL');
@@ -841,7 +841,7 @@ void main() {
         UrlTest model = new UrlTest('http://-a.b.co');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -856,7 +856,7 @@ void main() {
         UrlTest model = new UrlTest('http://a.b-.co');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -871,7 +871,7 @@ void main() {
         UrlTest model = new UrlTest('http://0.0.0.0');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -886,7 +886,7 @@ void main() {
         UrlTest model = new UrlTest('http://10.1.1.0');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -901,7 +901,7 @@ void main() {
         UrlTest model = new UrlTest('http://10.1.1.255');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -916,7 +916,7 @@ void main() {
         UrlTest model = new UrlTest('http://224.1.1.1');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -931,7 +931,7 @@ void main() {
         UrlTest model = new UrlTest('http://1.1.1.1.1');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -946,7 +946,7 @@ void main() {
         UrlTest model = new UrlTest('http://123.123.123');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -961,7 +961,7 @@ void main() {
         UrlTest model = new UrlTest('http://3628126748');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -976,7 +976,7 @@ void main() {
         UrlTest model = new UrlTest('http://.www.foo.bar/');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -991,7 +991,7 @@ void main() {
         UrlTest model = new UrlTest('http://www.foo.bar./');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -1006,7 +1006,7 @@ void main() {
         UrlTest model = new UrlTest('http://.www.foo.bar./');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -1021,7 +1021,7 @@ void main() {
         UrlTest model = new UrlTest('http://10.1.1.1');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')
@@ -1036,7 +1036,7 @@ void main() {
         UrlTest model = new UrlTest('http://10.1.1.254');
         ModelFormState formState = new ModelFormState(model: model);
 
-        expect(await formState.validateForm(), false);
+        expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
         ValidationError error = formState.formBuilder
             .getFormElement<ModelFormControl>(model, 'value')

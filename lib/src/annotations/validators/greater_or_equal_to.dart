@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
+import 'package:flutter_model_form_validation/src/utils/index.dart';
 
 /// [GreaterOrEqualTo] validator permits you to check that a value is greater or equal to the value of another property. Only datetime, number and string are allowed.
 /// {@category Metadata}
@@ -26,73 +27,83 @@ class GreaterOrEqualTo extends FormValidatorAnnotation {
   Future<bool> isValid(
     FormGroup root,
     FormGroup fg,
-    Object value,
-    String formPath,
-    String modelFormPath,
+    String property,
   ) async {
-    try {
-      if (value == null) return true;
+    FormControl formControl = fg.indexer.ofFormControl(property);
 
-      if (value is! DateTime &&
-          value is! num &&
-          value is! int &&
-          value is! double &&
-          value is! String)
-        throw new Exception(
-            'field type must be a datetime, a number or a string');
+    if (formControl.value == null) return true;
 
-      if (value is DateTime) {
-        bool isValid = this._validate<DateTime>(
-          value: value,
-          valueToCompare: this.getRemoteValue<DateTime>(
-              fg, this.valueToCompareOnProperty, this.valueToCompare),
-        );
-        return isValid;
-      }
+    
 
-      if (value is num) {
-        bool isValid = this._validate<num>(
-          value: value,
-          valueToCompare: this.getRemoteValue<num>(
-              fg, this.valueToCompareOnProperty, this.valueToCompare),
-        );
-        return isValid;
-      }
 
-      if (value is int) {
-        bool isValid = this._validate<int>(
-          value: value,
-          valueToCompare: this.getRemoteValue<int>(
-              fg, this.valueToCompareOnProperty, this.valueToCompare),
-        );
-        return isValid;
-      }
+    return false;
 
-      if (value is double) {
-        bool isValid = this._validate<double>(
-          value: value,
-          valueToCompare: this.getRemoteValue<double>(
-              fg, this.valueToCompareOnProperty, this.valueToCompare),
-        );
-        return isValid;
-      }
+    // try {
+    //   if (value == null) return true;
 
-      if (value is String) {
-        bool isValid = this._validate<String>(
-          value: value,
-          valueToCompare: this.getRemoteValue<String>(
-              fg, this.valueToCompareOnProperty, this.valueToCompare),
-        );
-        return isValid;
-      }
+    //   if (value is! DateTime &&
+    //       value is! num &&
+    //       value is! int &&
+    //       value is! double &&
+    //       value is! String)
+    //     throw new Exception(
+    //         'field type must be a datetime, a number or a string');
 
-      throw Exception('Value type and items type are different');
-    } on RemotePropertyException catch (e) {
-      throw e;
-    } catch (e) {
-      throw new ValidationException(
-          'An error occured with validator on form element with validator of type');
-    }
+    //   if (value is DateTime) {
+    //     bool isValid = this._validate<DateTime>(
+    //       value: value,
+    //       valueToCompare: this.getRemoteValue<DateTime>(
+    //         fg,
+    //         this.valueToCompareOnProperty,
+    //         this.valueToCompare.toDateTime(),
+    //       ),
+    //     );
+    //     return isValid;
+    //   }
+
+    //   if (value is num) {
+    //     bool isValid = this._validate<num>(
+    //       value: value,
+    //       valueToCompare: this.getRemoteValue<num>(
+    //           fg, this.valueToCompareOnProperty, this.valueToCompare,),
+    //     );
+    //     return isValid;
+    //   }
+
+    //   if (value is int) {
+    //     bool isValid = this._validate<int>(
+    //       value: value,
+    //       valueToCompare: this.getRemoteValue<int>(
+    //           fg, this.valueToCompareOnProperty, this.valueToCompare),
+    //     );
+    //     return isValid;
+    //   }
+
+    //   if (value is double) {
+    //     bool isValid = this._validate<double>(
+    //       value: value,
+    //       valueToCompare: this.getRemoteValue<double>(
+    //           fg, this.valueToCompareOnProperty, this.valueToCompare),
+    //     );
+    //     return isValid;
+    //   }
+
+    //   if (value is String) {
+    //     bool isValid = this._validate<String>(
+    //       value: value,
+    //       valueToCompare: this.getRemoteValue<String>(
+    //           fg, this.valueToCompareOnProperty, this.valueToCompare),
+    //     );
+    //     return isValid;
+    //   }
+
+    //   throw Exception('Value type and items type are different');
+    // } on RemotePropertyException catch (e) {
+    //   throw e;
+    // } catch (e) {
+    //   throw new ValidationException(
+    //       'An error occured with validator on form element with validator of type');
+    // }
   }
 
   bool _validate<TValue extends Comparable>({

@@ -46,63 +46,58 @@ class _CustomDropdownState<TProperty>
           FormControl<TProperty> formControl =
               FormControlProvider.of<TProperty>(context);
 
-          return new Padding(
-            padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
-              child: new Column(
-                children: [
-                  SmartSelect<TProperty>.multiple(
-                    title: widget.label,
-                    value:
-                        FormControlProvider.of<List<TProperty>>(context).value,
-                    choiceItems: S2Choice.listFrom<TProperty, Map>(
-                      source: Collection(widget.dataSource)
-                          .select(
-                              (arg1) => {'key': arg1.value, 'value': arg1.text})
-                          .toList(),
-                      value: (index, item) => item['key'],
-                      title: (index, item) => item['value'],
+          return new Column(
+            children: [
+              SmartSelect<TProperty>.multiple(
+                title: widget.label,
+                value: FormControlProvider.of<List<TProperty>>(context).value,
+                choiceItems: S2Choice.listFrom<TProperty, Map>(
+                  source: Collection(widget.dataSource)
+                      .select((arg1) => {'key': arg1.value, 'value': arg1.text})
+                      .toList(),
+                  value: (index, item) => item['key'],
+                  title: (index, item) => item['value'],
+                ),
+                onChange: (state) {
+                  FormControlProvider.of<List<TProperty>>(context,
+                          listen: false)
+                      .setValue(state.value);
+                },
+                modalType: S2ModalType.bottomSheet,
+                modalConfirm: true,
+                modalFilter: true,
+                choiceGrouped: false,
+                tileBuilder: (context, state) {
+                  return S2Tile.fromState(
+                    state,
+                    isTwoLine: false,
+                    title: Text(
+                      widget.label,
+                      style: TextStyle(color: Colors.grey[700]),
                     ),
-                    onChange: (state) {
-                      FormControlProvider.of<List<TProperty>>(context,
-                              listen: false)
-                          .setValue(state.value);
-                    },
-                    modalType: S2ModalType.bottomSheet,
-                    modalConfirm: true,
-                    modalFilter: true,
-                    choiceGrouped: false,
-                    tileBuilder: (context, state) {
-                      return S2Tile.fromState(
-                        state,
-                        isTwoLine: false,
-                        title: Text(
-                          widget.label,
-                          style: TextStyle(color: Colors.grey[700]),
-                        ),
-                        padding: EdgeInsets.zero,
-                      );
-                    },
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: new Border(
-                        top: new BorderSide(
-                          color: (formControl.status ==
-                                  EAbstractControlStatus.invalid)
+                    padding: EdgeInsets.zero,
+                  );
+                },
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  border: new Border(
+                    top: new BorderSide(
+                      color:
+                          (formControl.status == EAbstractControlStatus.invalid)
                               ? errorColor
                               : Colors.grey,
-                          width: 1,
-                          style: BorderStyle.solid,
-                        ),
-                      ),
+                      width: 1,
+                      style: BorderStyle.solid,
                     ),
-                    child: new Container(),
                   ),
-                  (formControl.status == EAbstractControlStatus.invalid)
-                      ? this._getErrorText(formControl.error?.message)
-                      : new Container(),
-                ],
+                ),
+                child: new Container(),
               ),
+              (formControl.status == EAbstractControlStatus.invalid)
+                  ? this._getErrorText(formControl.error?.message)
+                  : new Container(),
+            ],
           );
         },
       );

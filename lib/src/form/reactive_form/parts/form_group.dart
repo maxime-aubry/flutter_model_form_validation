@@ -1,23 +1,20 @@
 import 'package:flutter/foundation.dart';
+
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
+import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
 class FormGroup extends AbstractControl {
-  FormGroup({
-    // String name,
-    // FormGroup parentGroup,
-    ReactiveFormBuilder formBuilder,
-    @required Map<String, AbstractControl> controls,
-    List<FormValidatorAnnotation> validators,
-  }) : super(validators) {
-    this.formBuilder = formBuilder;
-    this.controls = controls ?? new Map<String, AbstractControl>();
-  }
-
+  /* Public properties */
   ReactiveFormBuilder formBuilder;
   bool isArrayItem;
   Map<String, AbstractControl> controls;
 
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
   String get formPath {
     String part =
         (this.parentGroup != null) ? '${this.parentGroup.formPath}' : 'root';
@@ -54,17 +51,40 @@ class FormGroup extends AbstractControl {
     return part;
   }
 
+  /* Setters */
+
+  /* Constructors */
+  FormGroup({
+    ReactiveFormBuilder formBuilder,
+    @required Map<String, AbstractControl> controls,
+    @required List<FormValidatorAnnotation> validators,
+    @required ReactiveFormState formState,
+  }) : super(validators, formState) {
+    this.formBuilder = formBuilder;
+    this.controls = controls ?? new Map<String, AbstractControl>();
+  }
+
+  /* Public methods */
   void initialize(
     String name,
     FormGroup parentGroup,
     bool isArrayItem,
+    FormIndexer indexer,
   ) {
-    assert(name != null && !name.isEmpty,
-        'Cannot initialize form group if its name is not provided.');
+    if (name == null || name.isEmpty)
+      throw new Exception(
+          'Cannot initialize form group if its name is not provided.');
+
+    if (this.isInitialized)
+      throw new Exception(
+          'Cannot initialize an already initialized form group.');
 
     super.name = name;
     super.parentGroup = parentGroup;
+    super.indexer = indexer;
+    super.index();
     this.isArrayItem = isArrayItem;
+    this._initializeControls();
     super.isInitialized = true;
   }
 
@@ -89,7 +109,7 @@ class FormGroup extends AbstractControl {
         'Cannot add control if this one is already added.');
 
     this.controls[name] = control;
-    this._forceInitialization();
+    this._initializeControl(name, control);
     super.notifyListeners();
   }
 
@@ -106,16 +126,57 @@ class FormGroup extends AbstractControl {
 
     this.controls.remove(name);
     super.notifyListeners();
-    //super.removeListener(() {});
   }
 
-  /* Private methods */
-  /// Forces the form builder to reinitialize the tree of abstract controls to update itself and add new form groups, form arrays and form controls.
-  /// Only non initialized elements are treated.
-  void _forceInitialization() {
-    ReactiveFormBuilder formBuilder = super.getFormBuilder();
-    formBuilder.initialize(formBuilder.formState);
+  // FormGroup clone(FormGroup clonedParent) {
+  //   FormGroup clone = new FormGroup(
+  //     formBuilder: this.formBuilder,
+  //     controls: {},
+  //     validators: this.validators,
+  //   );
+
+  //   clone.initialize(super.name, clonedParent, this.isArrayItem);
+  //   clone.error = super.error?.copyWith();
+  //   this._cloneControls(clone);
+  //   return clone;
+  // }
+
+  FormGroup getFormGroup(String name) {
+    if (!this.containsControl(name))
+      throw new Exception('Form group not found.');
+
+    if (this.controls[name] is! FormGroup)
+      throw new Exception('Control is not of type FormGroup.');
+
+    FormGroup formGroup = this.controls[name] as FormGroup;
+    return formGroup;
   }
+
+  FormArray getFormArray(String name) {
+    if (!this.containsControl(name))
+      throw new Exception('Form array not found.');
+
+    if (this.controls[name] is! FormArray)
+      throw new Exception('Control is not of type FormArray.');
+
+    FormArray formArray = this.controls[name] as FormArray;
+    return formArray;
+  }
+
+  FormControl<TProperty> getFormControl<TProperty>(String name) {
+    if (!this.containsControl(name))
+      throw new Exception('Form control not found.');
+
+    if (this.controls[name] is! FormControl<TProperty>)
+      throw new Exception('Control is not of type FormControl<$TProperty>.');
+
+    FormControl<TProperty> formControl =
+        this.controls[name] as FormControl<TProperty>;
+    return formControl;
+  }
+
+  Future validate() async =>
+      await super.validateControl(this.formPath, this.modelPath);
 
   /* Protected methods */
   @protected
@@ -124,6 +185,35 @@ class FormGroup extends AbstractControl {
     super.notifyListeners();
   }
 
-  Future validate() async =>
-      await super.validateControl(this, this.formPath, this.modelPath);
+  /* Private methods */
+  void _initializeControls() {
+    for (MapEntry<String, AbstractControl> control in this.controls.entries)
+      this._initializeControl(control.key, control.value);
+  }
+
+  void _initializeControl(String name, AbstractControl control) {
+    if (control is FormGroup)
+      control.initialize(name, this, false, this.indexer);
+    if (control is FormArray) control.initialize(name, this, this.indexer);
+    if (control is FormControl) control.initialize(name, this, this.indexer);
+  }
+
+  // void _cloneControls(FormGroup clone) {
+  //   for (MapEntry<String, AbstractControl> control in this.controls.entries) {
+  //     if (control.value is FormGroup) {
+  //       FormGroup child = (control.value as FormGroup).clone(clone);
+  //       clone.controls[control.key] = child;
+  //     }
+
+  //     if (control.value is FormArray) {
+  //       FormArray child = (control.value as FormArray).clone(clone);
+  //       clone.controls[control.key] = child;
+  //     }
+
+  //     if (control.value is FormControl) {
+  //       FormControl child = (control.value as FormControl).clone(clone);
+  //       clone.controls[control.key] = child;
+  //     }
+  //   }
+  // }
 }

@@ -7,3 +7,6 @@ void main() {}
 
 @flutterModelFormValidator
 enum EGender { male, female }
+
+@flutterModelFormValidator
+enum ESocialNetwork { github, twitter, facebook, pub }
