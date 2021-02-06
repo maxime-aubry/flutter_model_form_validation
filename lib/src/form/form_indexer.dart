@@ -1,12 +1,10 @@
 // import 'dart:collection';
+import 'dart:collection';
 
-import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-abstract class FormIndexer implements Map<String, AbstractControl> {
-  external factory FormIndexer();
-  
-  external factory FormIndexer.identity();
+abstract class FormIndexer extends HashMap<String, AbstractControl> {
+  factory FormIndexer() => HashMap.identity();
 
   FormGroup ofFormGroup(String key) {
     // HashMap

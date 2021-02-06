@@ -1,49 +1,16 @@
-import 'dart:ffi';
-import 'dart:typed_data';
-
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/form_control_filter/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:reflectable/reflectable.dart';
 
-class CheckPrimitives<TProperty> implements ICheckFilter {
+class CheckSingleValue<TProperty, TValue> implements ICheckFilter {
   @override
-  bool checkFilter() => (TProperty == DateTime ||
-      TProperty == num ||
-      TProperty == int ||
-      TProperty == double ||
-      TProperty == Uint8 ||
-      TProperty == Uint16 ||
-      TProperty == Uint32 ||
-      TProperty == Uint64 ||
-      TProperty == Int8 ||
-      TProperty == Int16 ||
-      TProperty == Int32 ||
-      TProperty == Int64 ||
-      TProperty == String ||
-      TProperty == bool ||
-      TProperty == Uint8List ||
-      TProperty == Uint16List ||
-      TProperty == Uint32List ||
-      TProperty == Uint64List ||
-      TProperty == Int8List ||
-      TProperty == Int16List ||
-      TProperty == Int32List ||
-      TProperty == Int64List);
+  bool checkFilter() => (TProperty == TValue);
 }
 
-class CheckListOfPrimitive<TProperty, TList> implements ICheckFilter {
+class CheckListOfValues<TProperty, TList extends List> implements ICheckFilter {
   @override
-  bool checkFilter() {
-    try {
-      String seekedType = (<TList>[]).runtimeType.toString();
-      String wantedType = TProperty.toString();
-      bool isListOfType = (wantedType == seekedType);
-      return isListOfType;
-    } catch (_) {
-      return false;
-    }
-  }
+  bool checkFilter() => (TProperty == TList);
 }
 
 class CheckEnum<TProperty> implements ICheckFilter {

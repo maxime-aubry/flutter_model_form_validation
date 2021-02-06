@@ -20,8 +20,9 @@ void main() {
 
         expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
-        
-        FormControl<String> fc = formState.formBuilder.indexer.ofFormControl<String>('value');
+
+        FormControl<String> fc =
+            formState.formBuilder.indexer.ofFormControl<String>('value');
         ValidationError error = formState.getError(fc.uniqueName);
         expect(error, isNull);
       });
@@ -31,11 +32,11 @@ void main() {
             new GreaterOrEqualToStringTest('c', 'c');
         ModelFormState formState = new ModelFormState(model: model);
 
-
         expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
 
-        FormControl<String> fc = formState.formBuilder.indexer.ofFormControl<String>('value');
+        FormControl<String> fc =
+            formState.formBuilder.indexer.ofFormControl<String>('value');
         ValidationError error = formState.getError(fc.uniqueName);
         expect(error, isNull);
       });
@@ -46,8 +47,9 @@ void main() {
 
         expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
-        
-        FormControl<String> fc = formState.formBuilder.indexer.ofFormControl<String>('value');
+
+        FormControl<String> fc =
+            formState.formBuilder.indexer.ofFormControl<String>('value');
         ValidationError error = formState.getError(fc.uniqueName);
         expect(error, isNull);
       });
@@ -61,8 +63,9 @@ void main() {
 
         expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
-        
-        FormControl<String> fc = formState.formBuilder.indexer.ofFormControl<String>('value');
+
+        FormControl<String> fc =
+            formState.formBuilder.indexer.ofFormControl<String>('value');
         ValidationError error = formState.getError(fc.uniqueName);
         expect(error, isNull);
       });
@@ -74,8 +77,9 @@ void main() {
 
         expect(await formState.validate(), true);
         expect(formState.status, EFormStatus.valid);
-        
-        FormControl<String> fc = formState.formBuilder.indexer.ofFormControl<String>('value');
+
+        FormControl<String> fc =
+            formState.formBuilder.indexer.ofFormControl<String>('value');
         ValidationError error = formState.getError(fc.uniqueName);
         expect(error, isNull);
       });
@@ -89,8 +93,9 @@ void main() {
 
         expect(await formState.validate(), false);
         expect(formState.status, EFormStatus.invalid);
-        
-        FormControl<String> fc = formState.formBuilder.indexer.ofFormControl<String>('value');
+
+        FormControl<String> fc =
+            formState.formBuilder.indexer.ofFormControl<String>('value');
         ValidationError error = formState.getError(fc.uniqueName);
         expect(error, isNull);
         expect(error, isNotNull);
