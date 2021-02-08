@@ -11,7 +11,6 @@ class AbstractControl extends ChangeNotifier {
   EAbstractControlStatus status;
   ValidationError error;
   bool isInitialized;
-  FormIndexer indexer;
 
   /* Protected properties */
   @protected
@@ -23,31 +22,24 @@ class AbstractControl extends ChangeNotifier {
   /* Private properties */
 
   /* Getters */
-  String get uniqueName {
-    if (this.name == 'root' && this.parentGroup == null) return this.name;
-    return '${this.parentGroup.hashCode}.${this.name}';
-  }
+  String get uniqueName => '${this.hashCode}.${this.name}';
 
   /* Setters */
 
   /* Constructors */
-  AbstractControl(
-    List<FormValidatorAnnotation> validators,
-    ReactiveFormState formState,
-  ) {
-    if (formState == null)
-      throw new Exception(
-          'Cannot initialize abstract control if form state is not provided.');
-
+  AbstractControl(List<FormValidatorAnnotation> validators) {
     this.name = null;
     this.parentGroup = null;
     this.validators = validators ?? [];
-    this.formState = formState;
     this.status = EAbstractControlStatus.pure;
     this.isInitialized = false;
   }
 
   /* Public methods */
+  void index() => this.formState.formBuilder.indexer.addControl(this);
+
+  void deindex() => this.formState.formBuilder.indexer.removeControl(this);
+
   // @protected
   // ReactiveFormBuilder getFormBuilder() {
   //   FormGroup firstFormGroup;
@@ -71,9 +63,6 @@ class AbstractControl extends ChangeNotifier {
 
   /* Protected methods */
   @protected
-  void index() => this.indexer[this.uniqueName] = this;
-
-  @protected
   Future<void> validateControl(
     String formPath,
     String modelPath,
@@ -96,7 +85,6 @@ class AbstractControl extends ChangeNotifier {
     for (FormValidatorAnnotation validator in this.validators) {
       try {
         isValid = await validator.isValid(
-          this._getRoot(this),
           parentGroup,
           this.name,
         );

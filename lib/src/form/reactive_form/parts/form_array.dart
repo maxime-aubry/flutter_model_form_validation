@@ -32,8 +32,7 @@ class FormArray extends AbstractControl {
   FormArray({
     @required List<FormGroup> groups,
     @required List<FormValidatorAnnotation> validators,
-    @required ReactiveFormState formState,
-  }) : super(validators, formState) {
+  }) : super(validators) {
     this.groups = groups ?? [];
   }
 
@@ -41,19 +40,19 @@ class FormArray extends AbstractControl {
   void initialize(
     String name,
     FormGroup parentGroup,
-    FormIndexer indexer,
+    ReactiveFormState formState,
   ) {
     if (name == null || name.isEmpty)
       throw new Exception(
-          'Cannot initialize form array if its name is not provided.');
+          'Cannot initialize FormArray if its name is not provided.');
 
     if (this.isInitialized)
       throw new Exception(
-          'Cannot initialize an already initialized form array.');
+          'Cannot initialize an already initialized FormArray.');
 
     super.name = name;
     super.parentGroup = parentGroup;
-    super.indexer = indexer;
+    super.formState = formState;
     super.index();
     this._initializeItems();
     super.isInitialized = true;
@@ -130,7 +129,7 @@ class FormArray extends AbstractControl {
 
   void _initializeItem(FormGroup item) {
     String indexedName = this._getIndexedFormArrayItemName(item);
-    item.initialize(indexedName, this.parentGroup, true, this.indexer);
+    item.initialize(indexedName, this.parentGroup, true, this.formState);
   }
 
   // void _cloneItems(FormArray clone) {

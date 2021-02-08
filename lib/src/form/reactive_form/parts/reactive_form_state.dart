@@ -15,7 +15,6 @@ class ReactiveFormState {
   bool isInitialized;
 
   /* Protected properties */
-  @protected
   ReactiveFormBuilder formBuilder;
 
   /* Private properties */
@@ -41,6 +40,10 @@ class ReactiveFormState {
 
   /* Constructors */
   ReactiveFormState({@required this.formBuilder}) {
+    if (formBuilder == null)
+      throw new Exception(
+          'Cannot instanciate ReactiveFormState because FormBuilder is not provided.');
+
     this.formBuilder = formBuilder;
     this._status = EFormStatus.pure;
     this.isInitialized = false;
@@ -50,13 +53,15 @@ class ReactiveFormState {
   void initialize() {
     if (this.isInitialized)
       throw new Exception(
-          'Cannot initialize an already initialized form state.');
+          'Cannot initialize an already initialized ReactiveFormState.');
 
     if (!LibraryInitializer.isInitialized)
       throw new Exception(
           'flutter_model_form_validation library is not initialized. Please, call LibraryInitializer.initialize(String libraryName) method.');
 
-    if (this.formBuilder == null) throw new Exception('Form builder is null.');
+    if (this.formBuilder == null)
+      throw new Exception(
+          'Cannot initialize ReactiveFormState if ReactiveFormBuilder is not provided.');
 
     // intialize form builder (provide form group parent for each abstract control).
     // attach form builder to form state.

@@ -1,13 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_model_form_validation/src/annotations/index.dart';
-import 'package:flutter_model_form_validation/src/exceptions/index.dart';
-import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-/// [MembershipPassword] validator permits you to check that a string value is accordance with declared settings.
-/// You must set to true at least one options. In the other case, your validator will always return false.
-/// {@category Metadata}
-/// {@subCategory Validators}
-class MembershipPassword extends FormValidatorAnnotation {
+class MembershipPassword extends FormControlValidatorAnnotation<String> {
   const MembershipPassword({
     @required this.minLength,
     @required this.maxLength,
@@ -15,7 +9,7 @@ class MembershipPassword extends FormValidatorAnnotation {
     @required this.includesUppercaseCharacters,
     @required this.includesNumericalCharacters,
     @required this.includesSpecialCharacters,
-    @required this.error,
+    @required String error,
   }) : super(error: error);
 
   /// [minLength] is the minimal string length of your password.
@@ -36,30 +30,13 @@ class MembershipPassword extends FormValidatorAnnotation {
   /// [includesSpecialCharacters] forces to add special characters to the password.
   final bool includesSpecialCharacters;
 
-  /// [error] is the custom error to return in case of invalidation.
-  final String error;
-
   @override
-  Future<bool> isValid(
-    FormGroup root,
-    FormGroup formGroup,
-    String property,
-  ) async {
-    return true;
-    // try {
-    //   if (value == null) return true;
-
-    //   if (value is! String) throw new Exception('field type must be a string');
-
-    //   bool isValid = _validate(value);
-    //   return isValid;
-    // } catch (e) {
-    //   throw new ValidationException(
-    //       'An error occurend with validator on from control with validator of type');
-    // }
-  }
+  Future<bool> isValid(FormControl<String> control, String property) async =>
+      this._validate(control.value);
 
   bool _validate(String value) {
+    if (value == null || value.isEmpty) return true;
+
     if (!this.includesAlphabeticalCharacters &&
         !this.includesUppercaseCharacters &&
         !this.includesNumericalCharacters &&

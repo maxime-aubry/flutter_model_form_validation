@@ -39,14 +39,11 @@ class ModelFormGroup extends FormGroup
 
   /* Constructors */
   ModelFormGroup({
-    ReactiveFormBuilder formBuilder,
     @required ModelFormState formState,
     @required ModelForm model,
   }) : super(
-          formBuilder: formBuilder,
           controls: {},
           validators: [],
-          formState: formState,
         ) {
     this.model = model;
   }
@@ -57,19 +54,23 @@ class ModelFormGroup extends FormGroup
     String name,
     FormGroup parentGroup,
     bool isArrayItem,
-    FormIndexer indexer,
+    ReactiveFormState formState,
   ) {
     if (name == null || name.isEmpty)
       throw new Exception(
-          'Cannot initialize form group if its name is not provided.');
+          'Cannot initialize ModelFormGroup if its name is not provided.');
 
     if (this.isInitialized)
       throw new Exception(
-          'Cannot initialize an already initialized form group.');
+          'Cannot initialize an already initialized ModelFormGroup.');
+
+    if (formState is! ModelFormState)
+      throw new Exception(
+          'Cannot initialize ModelFormGroup with a non-ModelFormState.');
 
     super.name = name;
     super.parentGroup = parentGroup;
-    super.indexer = indexer;
+    super.formState = formState;
     super.index();
     super.isArrayItem = isArrayItem;
     // root form group does not have validators. It's not necessary to listen it, it's impossible to set it to null.
@@ -135,7 +136,6 @@ class ModelFormGroup extends FormGroup
     super.addControl(
       property,
       new ModelFormGroup(
-        formBuilder: null,
         formState: this.formState,
         model: model,
       ),

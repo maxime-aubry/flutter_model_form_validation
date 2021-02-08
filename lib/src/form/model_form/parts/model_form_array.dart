@@ -35,7 +35,6 @@ class ModelFormArray extends FormArray with ReflectableForm {
   }) : super(
           validators: [],
           groups: [],
-          formState: formState,
         ) {
     this.items = items ?? new FormArrayItems<ModelForm>([]);
   }
@@ -45,19 +44,23 @@ class ModelFormArray extends FormArray with ReflectableForm {
   void initialize(
     String name,
     FormGroup parentGroup,
-    FormIndexer indexer,
+    ReactiveFormState formState,
   ) {
     if (name == null || name.isEmpty)
       throw new Exception(
-          'Cannot initialize form array if its name is not provided.');
+          'Cannot initialize ModelFormArray if its name is not provided.');
 
     if (this.isInitialized)
       throw new Exception(
-          'Cannot initialize an already initialized form array.');
+          'Cannot initialize an already initialized ModelFormArray.');
+
+    if (formState is! ModelFormState)
+      throw new Exception(
+          'Cannot initialize ModelFormArray with a non-ModelFormState.');
 
     super.name = name;
     super.parentGroup = parentGroup;
-    super.indexer = indexer;
+    super.formState = formState;
     super.index();
     super.validators = super.getValidators(this.parentGroup.model, this.name);
     this._listenModelAndUpdate();
@@ -78,7 +81,6 @@ class ModelFormArray extends FormArray with ReflectableForm {
     for (ModelForm model in this.items) {
       super.addGroup(
         new ModelFormGroup(
-          formBuilder: null,
           formState: this.formState,
           model: model,
         ),
@@ -103,7 +105,6 @@ class ModelFormArray extends FormArray with ReflectableForm {
       for (ModelForm model in modelsToAdd) {
         super.addGroup(
           new ModelFormGroup(
-            formBuilder: null,
             formState: this.formState,
             model: model,
           ),

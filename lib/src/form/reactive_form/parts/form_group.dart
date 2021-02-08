@@ -6,7 +6,6 @@ import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart'
 
 class FormGroup extends AbstractControl {
   /* Public properties */
-  ReactiveFormBuilder formBuilder;
   bool isArrayItem;
   Map<String, AbstractControl> controls;
 
@@ -55,12 +54,9 @@ class FormGroup extends AbstractControl {
 
   /* Constructors */
   FormGroup({
-    ReactiveFormBuilder formBuilder,
     @required Map<String, AbstractControl> controls,
     @required List<FormValidatorAnnotation> validators,
-    @required ReactiveFormState formState,
-  }) : super(validators, formState) {
-    this.formBuilder = formBuilder;
+  }) : super(validators) {
     this.controls = controls ?? new Map<String, AbstractControl>();
   }
 
@@ -69,19 +65,19 @@ class FormGroup extends AbstractControl {
     String name,
     FormGroup parentGroup,
     bool isArrayItem,
-    FormIndexer indexer,
+    ReactiveFormState formState,
   ) {
     if (name == null || name.isEmpty)
       throw new Exception(
-          'Cannot initialize form group if its name is not provided.');
+          'Cannot initialize FormGroup if its name is not provided.');
 
     if (this.isInitialized)
       throw new Exception(
-          'Cannot initialize an already initialized form group.');
+          'Cannot initialize an already initialized FormGroup.');
 
     super.name = name;
     super.parentGroup = parentGroup;
-    super.indexer = indexer;
+    super.formState = formState;
     super.index();
     this.isArrayItem = isArrayItem;
     this._initializeControls();
@@ -193,9 +189,9 @@ class FormGroup extends AbstractControl {
 
   void _initializeControl(String name, AbstractControl control) {
     if (control is FormGroup)
-      control.initialize(name, this, false, this.indexer);
-    if (control is FormArray) control.initialize(name, this, this.indexer);
-    if (control is FormControl) control.initialize(name, this, this.indexer);
+      control.initialize(name, this, false, this.formState);
+    if (control is FormArray) control.initialize(name, this, this.formState);
+    if (control is FormControl) control.initialize(name, this, this.formState);
   }
 
   // void _cloneControls(FormGroup clone) {

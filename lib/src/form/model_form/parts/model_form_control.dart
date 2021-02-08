@@ -34,7 +34,6 @@ class ModelFormControl<TField> extends FormControl<TField>
   }) : super(
           value: value,
           validators: [],
-          formState: formState,
         );
 
   /* Public methods */
@@ -42,19 +41,23 @@ class ModelFormControl<TField> extends FormControl<TField>
   void initialize(
     String name,
     FormGroup parentGroup,
-    FormIndexer indexer,
+    ReactiveFormState formState,
   ) {
     if (name == null || name.isEmpty)
       throw new Exception(
-          'Cannot initialize form control if its name is not provided.');
+          'Cannot initialize ModelFormControl if its name is not provided.');
 
     if (this.isInitialized)
       throw new Exception(
-          'Cannot initialize an already initialized form control.');
+          'Cannot initialize an already initialized ModelFormControl.');
+
+    if (formState is! ModelFormState)
+      throw new Exception(
+          'Cannot initialize ModelFormControl with a non-ModelFormState.');
 
     super.name = name;
     super.parentGroup = parentGroup;
-    super.indexer = indexer;
+    super.formState = formState;
     super.index();
     super.validators = super.getValidators(this.parentGroup.model, this.name);
     this._listenValueAndUpdate(this.parentGroup);

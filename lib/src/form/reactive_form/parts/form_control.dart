@@ -40,8 +40,7 @@ class FormControl<TProperty> extends AbstractControl
   FormControl({
     @required TProperty value,
     @required List<FormValidatorAnnotation> validators,
-    @required ReactiveFormState formState,
-  }) : super(validators, formState) {
+  }) : super(validators) {
     // check if TProperty is an alloew type
     // throw an exception if not
     super.checkAllowedFormControlType();
@@ -52,7 +51,7 @@ class FormControl<TProperty> extends AbstractControl
   void initialize(
     String name,
     FormGroup parentGroup,
-    FormIndexer indexer,
+    ReactiveFormState formState,
   ) {
     if (name == null || name.isEmpty)
       throw new Exception(
@@ -64,7 +63,7 @@ class FormControl<TProperty> extends AbstractControl
 
     super.name = name;
     super.parentGroup = parentGroup;
-    super.indexer = indexer;
+    super.formState = formState;
     super.index();
     super.isInitialized = true;
   }

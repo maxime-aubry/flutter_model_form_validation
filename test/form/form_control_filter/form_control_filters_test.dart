@@ -11,7 +11,8 @@ class FormControlFilterTester<TProperty> with FormControlFilter<TProperty> {
   }
 }
 
-class FormControlCustomFilterTester<TProperty> with FormControlFilter<TProperty> {
+class FormControlCustomFilterTester<TProperty>
+    with FormControlFilter<TProperty> {
   FormControlCustomFilterTester() {
     List<ICheckFilter> filters = [
       new CheckEnum<TProperty>(),
@@ -25,25 +26,31 @@ void main() {
   LibraryInitializer.initialize(libraryName: 'test.models');
 
   group('FormControlFilter.', () {
-    test('FormControlFilter allows EGender.', () async {
-      FormControlFilterTester<EGender> tester = new FormControlFilterTester<EGender>();
+    test('FormControlFilter allows EGender.', () {
+      FormControlFilterTester<EGender> tester =
+          new FormControlFilterTester<EGender>();
       expect(tester, isNotNull);
     });
 
-    test('FormControlFilter does not allow EFakeEnum.', () async {
+    test('FormControlFilter does not allow EFakeEnum.', () {
       expect(() {
-        FormControlFilterTester<EFakeEnum> tester = new FormControlFilterTester<EFakeEnum>();
+        FormControlFilterTester<EFakeEnum> tester =
+            new FormControlFilterTester<EFakeEnum>();
       }, throwsA(isInstanceOf<Exception>()));
     });
-    
-    test('FormControlFilter allows EGender using by restricted filters.', () async {
-      FormControlCustomFilterTester<EGender> tester = new FormControlCustomFilterTester<EGender>();
+
+    test('FormControlFilter allows EGender using by restricted filters.', () {
+      FormControlCustomFilterTester<EGender> tester =
+          new FormControlCustomFilterTester<EGender>();
       expect(tester, isNotNull);
     });
-    
-    test('FormControlFilter does not allow DateTime using by restricted filters.', () async {
+
+    test(
+        'FormControlFilter does not allow DateTime using by restricted filters.',
+        () {
       expect(() {
-        FormControlCustomFilterTester<DateTime> tester = new FormControlCustomFilterTester<DateTime>();
+        FormControlCustomFilterTester<DateTime> tester =
+            new FormControlCustomFilterTester<DateTime>();
       }, throwsA(isInstanceOf<Exception>()));
     });
   });

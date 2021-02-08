@@ -5,11 +5,11 @@ import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart'
 
 class ModelFormState extends ReactiveFormState {
   /* Public properties */
-  ModelForm model;
 
   /* Protected properties */
 
   /* Private properties */
+  ModelForm _model;
 
   /* Getters */
   ModelFormBuilder get formBuilder => super.formBuilder as ModelFormBuilder;
@@ -20,7 +20,7 @@ class ModelFormState extends ReactiveFormState {
   ModelFormState({
     @required ModelForm model,
   }) : super(formBuilder: null) {
-    this.model = model;
+    this._model = model;
   }
 
   /* Public methods */
@@ -28,13 +28,17 @@ class ModelFormState extends ReactiveFormState {
   void initialize() {
     if (this.isInitialized)
       throw new Exception(
-          'Cannot initialize an already initialized form state.');
+          'Cannot initialize an already initialized ModelFormState.');
 
     if (!LibraryInitializer.isInitialized)
       throw new Exception(
           'flutter_model_form_validation library is not initialized. Please, call LibraryInitializer.initialize(String libraryName) method.');
 
-    super.formBuilder = new ModelFormBuilder();
+    if (this.formBuilder == null)
+      throw new Exception(
+          'Cannot initialize ModelFormState if ModelFormBuilder is not provided.');
+
+    super.formBuilder = new ModelFormBuilder(this._model);
     super.formBuilder.initialize(this);
     this.isInitialized = true;
   }

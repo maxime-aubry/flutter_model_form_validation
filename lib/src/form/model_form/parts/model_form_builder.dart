@@ -9,6 +9,7 @@ class ModelFormBuilder extends ReactiveFormBuilder {
 
   /* Private properties */
   // bool _isMultipleStepsForm;
+  ModelForm _model;
 
   /* Getters */
   @override
@@ -17,7 +18,8 @@ class ModelFormBuilder extends ReactiveFormBuilder {
   /* Setters */
 
   /* Constructors */
-  ModelFormBuilder() : super(group: null) {
+  ModelFormBuilder(ModelForm model) : super(group: null) {
+    this._model = model;
     this.isInitialized = false;
   }
 
@@ -26,11 +28,11 @@ class ModelFormBuilder extends ReactiveFormBuilder {
   void initialize(ReactiveFormState formState) {
     if (formState == null)
       throw new Exception(
-          'Cannot initialize form builder if form state is not provided.');
+          'Cannot initialize ModelFormBuilder if ModelFormState is not provided.');
 
     if (formState is! ModelFormState)
       throw new Exception(
-          'Cannot initialize form builder with a non-model form state.');
+          'Cannot initialize ModelFormBuilder with a non-ModelFormState.');
 
     this.formState = formState as ModelFormState;
     this._addMainFormGroup();
@@ -41,10 +43,10 @@ class ModelFormBuilder extends ReactiveFormBuilder {
   /* Private methods */
   void _addMainFormGroup() {
     ModelFormGroup group = new ModelFormGroup(
-      formBuilder: this,
       formState: this.formState,
+      model: this._model,
     );
-    group.initialize('root', null, false, this.indexer);
+    group.initialize('root', null, false, this.formState);
     this.group = group;
   }
 

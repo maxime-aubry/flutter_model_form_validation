@@ -14,28 +14,28 @@ mixin FormControlFilter<TProperty> {
     new CheckSingleValue<TProperty, num>(),
     new CheckSingleValue<TProperty, int>(),
     new CheckSingleValue<TProperty, double>(),
-    new CheckSingleValue<TProperty, Uint8>(),
-    new CheckSingleValue<TProperty, Uint16>(),
-    new CheckSingleValue<TProperty, Uint32>(),
-    new CheckSingleValue<TProperty, Uint64>(),
-    new CheckSingleValue<TProperty, Int8>(),
-    new CheckSingleValue<TProperty, Int16>(),
-    new CheckSingleValue<TProperty, Int32>(),
-    new CheckSingleValue<TProperty, Int64>(),
+    // new CheckSingleValue<TProperty, Uint8>(),
+    // new CheckSingleValue<TProperty, Uint16>(),
+    // new CheckSingleValue<TProperty, Uint32>(),
+    // new CheckSingleValue<TProperty, Uint64>(),
+    // new CheckSingleValue<TProperty, Int8>(),
+    // new CheckSingleValue<TProperty, Int16>(),
+    // new CheckSingleValue<TProperty, Int32>(),
+    // new CheckSingleValue<TProperty, Int64>(),
     new CheckSingleValue<TProperty, String>(),
     new CheckSingleValue<TProperty, bool>(),
     new CheckListOfValues<TProperty, List<DateTime>>(),
     new CheckListOfValues<TProperty, List<num>>(),
     new CheckListOfValues<TProperty, List<int>>(),
     new CheckListOfValues<TProperty, List<double>>(),
-    new CheckListOfValues<TProperty, List<Uint8>>(),
-    new CheckListOfValues<TProperty, List<Uint16>>(),
-    new CheckListOfValues<TProperty, List<Uint32>>(),
-    new CheckListOfValues<TProperty, List<Uint64>>(),
-    new CheckListOfValues<TProperty, List<Int8>>(),
-    new CheckListOfValues<TProperty, List<Int16>>(),
-    new CheckListOfValues<TProperty, List<Int32>>(),
-    new CheckListOfValues<TProperty, List<Int64>>(),
+    // new CheckListOfValues<TProperty, List<Uint8>>(),
+    // new CheckListOfValues<TProperty, List<Uint16>>(),
+    // new CheckListOfValues<TProperty, List<Uint32>>(),
+    // new CheckListOfValues<TProperty, List<Uint64>>(),
+    // new CheckListOfValues<TProperty, List<Int8>>(),
+    // new CheckListOfValues<TProperty, List<Int16>>(),
+    // new CheckListOfValues<TProperty, List<Int32>>(),
+    // new CheckListOfValues<TProperty, List<Int64>>(),
     new CheckListOfValues<TProperty, Uint8List>(),
     new CheckListOfValues<TProperty, Uint16List>(),
     new CheckListOfValues<TProperty, Uint32List>(),
@@ -57,7 +57,7 @@ mixin FormControlFilter<TProperty> {
   /* Constructors */
 
   /* Public methods */
-  void checkAllowedFormControlType({ List<ICheckFilter> filters = null }) {
+  void checkAllowedFormControlType({List<ICheckFilter> filters = null}) {
     bool isAllowed = false;
 
     for (ICheckFilter filter in (filters ?? this._defaultFilters)) {

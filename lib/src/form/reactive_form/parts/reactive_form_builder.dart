@@ -34,11 +34,10 @@ class ReactiveFormBuilder {
   void initialize(ReactiveFormState formState) {
     if (formState == null)
       throw new Exception(
-          'Cannot initialize form builder if form state is not provided.');
+          'Cannot initialize ReactiveFormBuilder if ReactiveFormState is not provided.');
 
     this.formState = formState;
-    this.group.formBuilder = this;
-    this.group.initialize('root', null, false, this.indexer);
+    this.group.initialize('root', null, false, this.formState);
     // if (this._isMultipleStepsForm) this.checkMultipleStepsForm();
     this.isInitialized = true;
   }
