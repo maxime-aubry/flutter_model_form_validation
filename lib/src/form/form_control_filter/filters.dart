@@ -1,7 +1,10 @@
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
-import 'package:flutter_model_form_validation/src/form/form_control_filter/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:reflectable/reflectable.dart';
+
+abstract class ICheckFilter {
+  bool checkFilter();
+}
 
 class CheckSingleValue<TProperty, TValue> implements ICheckFilter {
   @override

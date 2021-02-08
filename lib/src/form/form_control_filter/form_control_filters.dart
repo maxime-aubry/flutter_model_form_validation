@@ -1,6 +1,6 @@
-import 'dart:ffi';
 import 'dart:typed_data';
 
+import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form/form_control_filter/index.dart';
 
 mixin FormControlFilter<TProperty> {
@@ -68,7 +68,7 @@ mixin FormControlFilter<TProperty> {
     }
 
     if (!isAllowed) {
-      throw new Exception(
+      throw new FormControlFilterException(
         '''Cannot instanciate a FormControlElement with a not allowed type $TProperty.
         Allowed types are : DateTime, num, int, double, Uint8, Uint16, Uint32, Uint64, Int8, Int16, Int32, Int64, String, bool, enums, List<DateTime>, List<num>, List<int>, List<double>, Uint8List, Uint16List, Uint32List, Uint64List, Int8List, Int16List, Int32List, Int64List, List<String>, List<bool> and a list of enum.''',
       );

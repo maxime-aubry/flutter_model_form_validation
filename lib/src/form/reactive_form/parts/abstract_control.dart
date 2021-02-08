@@ -53,20 +53,17 @@ class AbstractControl extends ChangeNotifier {
   //   }
 
   //   if (firstFormGroup == null)
-  //     throw new Exception('Cannot get first form group.');
+  //     throw new FormBuilderException('Cannot get first form group.');
 
   //   if (firstFormGroup.formBuilder == null)
-  //     throw new Exception('Form builder is not located.');
+  //     throw new FormBuilderException('Form builder is not located.');
 
   //   return firstFormGroup.formBuilder;
   // }
 
   /* Protected methods */
   @protected
-  Future<void> validateControl(
-    String formPath,
-    String modelPath,
-  ) async {
+  Future<void> validateControl() async {
     bool isValid = true;
     this.error = null;
 
@@ -84,10 +81,7 @@ class AbstractControl extends ChangeNotifier {
     // validation
     for (FormValidatorAnnotation validator in this.validators) {
       try {
-        isValid = await validator.isValid(
-          parentGroup,
-          this.name,
-        );
+        isValid = await validator.isValid(parentGroup, this.name);
 
         if (!isValid) {
           this.error = ValidationError(
@@ -99,7 +93,7 @@ class AbstractControl extends ChangeNotifier {
         }
       } on TypeError catch (_) {
         isValid = false;
-      } on ValidationException catch (_) {
+      } on Exception catch (_) {
         isValid = false;
       }
     }
@@ -112,15 +106,15 @@ class AbstractControl extends ChangeNotifier {
   }
 
   /* Private methods */
-  FormGroup _getRoot(
-    AbstractControl control,
-  ) {
-    if (control.parentGroup != null) return this._getRoot(control.parentGroup);
+  // FormGroup _getRoot(
+  //   AbstractControl control,
+  // ) {
+  //   if (control.parentGroup != null) return this._getRoot(control.parentGroup);
 
-    if (control is! FormGroup)
-      throw new Exception(
-          'Cannot return a form control that is not a form group.');
+  //   if (control is! FormGroup)
+  //     throw new FormBuilderException(
+  //         'Cannot return a form control that is not a form group.');
 
-    return control;
-  }
+  //   return control;
+  // }
 }

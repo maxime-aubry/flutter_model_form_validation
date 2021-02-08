@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form/form_indexer.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
@@ -33,7 +34,7 @@ class ReactiveFormBuilder {
   /* Public methods */
   void initialize(ReactiveFormState formState) {
     if (formState == null)
-      throw new Exception(
+      throw new FormBuilderException(
           'Cannot initialize ReactiveFormBuilder if ReactiveFormState is not provided.');
 
     this.formState = formState;
@@ -54,7 +55,7 @@ class ReactiveFormBuilder {
         .any((element) => element.value is! FormGroup);
 
     if (!isValidMultipleStepsForm)
-      throw new Exception(
+      throw new FormBuilderException(
           'A form with multipe steps must contains form groups only into its root level.');
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/model_form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
@@ -27,15 +28,15 @@ class ModelFormState extends ReactiveFormState {
   @override
   void initialize() {
     if (this.isInitialized)
-      throw new Exception(
+      throw new FormBuilderException(
           'Cannot initialize an already initialized ModelFormState.');
 
     if (!LibraryInitializer.isInitialized)
-      throw new Exception(
+      throw new FormBuilderException(
           'flutter_model_form_validation library is not initialized. Please, call LibraryInitializer.initialize(String libraryName) method.');
 
     if (this.formBuilder == null)
-      throw new Exception(
+      throw new FormBuilderException(
           'Cannot initialize ModelFormState if ModelFormBuilder is not provided.');
 
     super.formBuilder = new ModelFormBuilder(this._model);

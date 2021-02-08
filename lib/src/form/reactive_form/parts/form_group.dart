@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
+import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
@@ -68,11 +69,11 @@ class FormGroup extends AbstractControl {
     ReactiveFormState formState,
   ) {
     if (name == null || name.isEmpty)
-      throw new Exception(
+      throw new FormBuilderException(
           'Cannot initialize FormGroup if its name is not provided.');
 
     if (this.isInitialized)
-      throw new Exception(
+      throw new FormBuilderException(
           'Cannot initialize an already initialized FormGroup.');
 
     super.name = name;
@@ -139,10 +140,10 @@ class FormGroup extends AbstractControl {
 
   FormGroup getFormGroup(String name) {
     if (!this.containsControl(name))
-      throw new Exception('Form group not found.');
+      throw new FormBuilderException('Form group not found.');
 
     if (this.controls[name] is! FormGroup)
-      throw new Exception('Control is not of type FormGroup.');
+      throw new FormBuilderException('Control is not of type FormGroup.');
 
     FormGroup formGroup = this.controls[name] as FormGroup;
     return formGroup;
@@ -150,10 +151,10 @@ class FormGroup extends AbstractControl {
 
   FormArray getFormArray(String name) {
     if (!this.containsControl(name))
-      throw new Exception('Form array not found.');
+      throw new FormBuilderException('Form array not found.');
 
     if (this.controls[name] is! FormArray)
-      throw new Exception('Control is not of type FormArray.');
+      throw new FormBuilderException('Control is not of type FormArray.');
 
     FormArray formArray = this.controls[name] as FormArray;
     return formArray;
@@ -161,18 +162,18 @@ class FormGroup extends AbstractControl {
 
   FormControl<TProperty> getFormControl<TProperty>(String name) {
     if (!this.containsControl(name))
-      throw new Exception('Form control not found.');
+      throw new FormBuilderException('Form control not found.');
 
     if (this.controls[name] is! FormControl<TProperty>)
-      throw new Exception('Control is not of type FormControl<$TProperty>.');
+      throw new FormBuilderException(
+          'Control is not of type FormControl<$TProperty>.');
 
     FormControl<TProperty> formControl =
         this.controls[name] as FormControl<TProperty>;
     return formControl;
   }
 
-  Future validate() async =>
-      await super.validateControl(this.formPath, this.modelPath);
+  Future validate() async => await super.validateControl();
 
   /* Protected methods */
   @protected

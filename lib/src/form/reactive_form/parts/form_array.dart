@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
+import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
@@ -43,11 +44,11 @@ class FormArray extends AbstractControl {
     ReactiveFormState formState,
   ) {
     if (name == null || name.isEmpty)
-      throw new Exception(
+      throw new FormBuilderException(
           'Cannot initialize FormArray if its name is not provided.');
 
     if (this.isInitialized)
-      throw new Exception(
+      throw new FormBuilderException(
           'Cannot initialize an already initialized FormArray.');
 
     super.name = name;
@@ -96,8 +97,7 @@ class FormArray extends AbstractControl {
   //   return clone;
   // }
 
-  Future validate() async =>
-      await super.validateControl(this.formPath, this.modelPath);
+  Future validate() async => await super.validateControl();
 
   /* Protected methods */
   @protected

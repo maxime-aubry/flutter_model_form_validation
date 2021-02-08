@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/model_form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
@@ -57,15 +58,15 @@ class ModelFormGroup extends FormGroup
     ReactiveFormState formState,
   ) {
     if (name == null || name.isEmpty)
-      throw new Exception(
+      throw new FormBuilderException(
           'Cannot initialize ModelFormGroup if its name is not provided.');
 
     if (this.isInitialized)
-      throw new Exception(
+      throw new FormBuilderException(
           'Cannot initialize an already initialized ModelFormGroup.');
 
     if (formState is! ModelFormState)
-      throw new Exception(
+      throw new FormBuilderException(
           'Cannot initialize ModelFormGroup with a non-ModelFormState.');
 
     super.name = name;
@@ -84,8 +85,7 @@ class ModelFormGroup extends FormGroup
   }
 
   @override
-  Future validate() async =>
-      await super.validateControl(super.formPath, super.modelPath);
+  Future validate() async => await super.validateControl();
 
   /* Protected methods */
 

@@ -1,3 +1,4 @@
+import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form/model_form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
@@ -27,11 +28,11 @@ class ModelFormBuilder extends ReactiveFormBuilder {
   @override
   void initialize(ReactiveFormState formState) {
     if (formState == null)
-      throw new Exception(
+      throw new FormBuilderException(
           'Cannot initialize ModelFormBuilder if ModelFormState is not provided.');
 
     if (formState is! ModelFormState)
-      throw new Exception(
+      throw new FormBuilderException(
           'Cannot initialize ModelFormBuilder with a non-ModelFormState.');
 
     this.formState = formState as ModelFormState;

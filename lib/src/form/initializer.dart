@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 
 class LibraryInitializer {
   static bool _isInitialized = false;
@@ -11,7 +12,7 @@ class LibraryInitializer {
     @required String libraryName,
   }) {
     if (libraryName == null || libraryName.isEmpty)
-      throw new Exception(
+      throw new LibraryInitializerException(
           'Library name is required for the library initializer. This one provides a way to detect and allow enums.');
 
     _libraryName = libraryName;

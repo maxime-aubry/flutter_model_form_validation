@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
+import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form/form_control_filter/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
@@ -54,11 +55,11 @@ class FormControl<TProperty> extends AbstractControl
     ReactiveFormState formState,
   ) {
     if (name == null || name.isEmpty)
-      throw new Exception(
+      throw new FormBuilderException(
           'Cannot initialize form control if its name is not provided.');
 
     if (this.isInitialized)
-      throw new Exception(
+      throw new FormBuilderException(
           'Cannot initialize an already initialized form control.');
 
     super.name = name;
@@ -70,7 +71,7 @@ class FormControl<TProperty> extends AbstractControl
 
   Future<void> setValue(TProperty value) async {
     this._value = value;
-    await super.validateControl(this.formPath, this.modelPath);
+    await super.validateControl();
   }
 
   // FormControl<TProperty> clone(FormGroup clonedParent) {
@@ -88,8 +89,7 @@ class FormControl<TProperty> extends AbstractControl
   //   return clone;
   // }
 
-  Future<void> validate() async =>
-      await super.validateControl(this.formPath, this.modelPath);
+  Future<void> validate() async => await super.validateControl();
 
   /* Protected methods */
 
