@@ -11,7 +11,7 @@ class GreaterThan<TProperty extends Comparable>
   }) : super(error: error);
 
   /// [valueToCompare] is default value to compare.
-  final String valueToCompare;
+  final TProperty valueToCompare;
 
   /// [valueToCompareOnProperty] is the name of targeted property that user uses to provide value to compare. This one has priority on [valueToCompare].
   final String valueToCompareOnProperty;
@@ -31,4 +31,76 @@ class GreaterThan<TProperty extends Comparable>
     bool isValid = (comparison > 0);
     return isValid;
   }
+}
+
+class GreaterThanDateTime extends GreaterThan<DateTime> {
+  const GreaterThanDateTime({
+    DateTime valueToCompare,
+    String valueToCompareOnProperty,
+    @required String error,
+  }) : super(
+          valueToCompare: valueToCompare,
+          valueToCompareOnProperty: valueToCompareOnProperty,
+          error: error,
+        );
+}
+
+class GreaterThanNumber extends GreaterThan<num> {
+  const GreaterThanNumber({
+    num valueToCompare,
+    String valueToCompareOnProperty,
+    @required String error,
+  }) : super(
+          valueToCompare: valueToCompare,
+          valueToCompareOnProperty: valueToCompareOnProperty,
+          error: error,
+        );
+}
+
+class GreaterThanBigInt extends GreaterThan<BigInt> {
+  const GreaterThanBigInt({
+    BigInt valueToCompare,
+    String valueToCompareOnProperty,
+    @required String error,
+  }) : super(
+          valueToCompare: valueToCompare,
+          valueToCompareOnProperty: valueToCompareOnProperty,
+          error: error,
+        );
+}
+
+class GreaterThanDouble extends GreaterThan<double> {
+  const GreaterThanDouble({
+    double valueToCompare,
+    String valueToCompareOnProperty,
+    @required String error,
+  }) : super(
+          valueToCompare: valueToCompare,
+          valueToCompareOnProperty: valueToCompareOnProperty,
+          error: error,
+        );
+}
+
+class GreaterThanInt extends GreaterThan<int> {
+  const GreaterThanInt({
+    int valueToCompare,
+    String valueToCompareOnProperty,
+    @required String error,
+  }) : super(
+          valueToCompare: valueToCompare,
+          valueToCompareOnProperty: valueToCompareOnProperty,
+          error: error,
+        );
+}
+
+class GreaterThanString extends GreaterThan<String> {
+  const GreaterThanString({
+    String valueToCompare,
+    String valueToCompareOnProperty,
+    @required String error,
+  }) : super(
+          valueToCompare: valueToCompare,
+          valueToCompareOnProperty: valueToCompareOnProperty,
+          error: error,
+        );
 }

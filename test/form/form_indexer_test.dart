@@ -1,29 +1,43 @@
-// import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-// import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-// void main() {
-//   group('FormIndexer.', () {
-//     ReactiveFormBuilder _formBuilder;
-//     ReactiveFormState _formState;
+void main() {
+  group('FormIndexer.', () {
+    FormIndexer _indexer = new FormIndexer();
 
-//     setUpAll(() {
-//       _formBuilder = new ReactiveFormBuilder(
-//         group: new FormGroup(
-//           controls: {},
-//           validators: [],
-//         ),
-//       );
-//       _formState = new ReactiveFormState(formBuilder: _formBuilder);
-//       _formState.initialize();
-//     });
+    setUp(() {
+      _indexer.clear();
+    });
 
-//     test('CheckEnum returns true for EGender.', () async {
+    test('Registers a FormGroup into FormIndexer.', () async {
+      FormGroup formGroup = new FormGroup(controls: {}, validators: []);
+      formGroup.name = 'field1';
+      _indexer.addControl(formGroup);
 
-//       FormIndexer indexer = new FormIndexer();
-//       indexer.addControl(formGroup);
+      expect(_indexer, isNotNull);
+      expect(_indexer.containsKey(formGroup.uniqueName), isTrue);
+      expect(_indexer[formGroup.uniqueName], isA<FormGroup>());
+    });
 
-//       expect(indexer.keys, contains(formGroup.uniqueName));
-//       expect(indexer[formGroup.uniqueName], formGroup);
-//     });
-//   });
-// }
+    test('Registers and get a FormGroup from FormIndexer.', () async {
+      FormGroup formGroup = new FormGroup(controls: {}, validators: []);
+      formGroup.name = 'field1';
+      _indexer.addControl(formGroup);
+
+      FormGroup storedFormGroup = _indexer.ofFormGroup(formGroup.uniqueName);
+
+      expect(storedFormGroup, isNotNull);
+      expect(_indexer[formGroup.uniqueName], isA<FormGroup>());
+      expect(_indexer[formGroup.uniqueName].name, 'field1');
+    });
+
+    test('Registers and removes a FormGroup from FormIndexer.', () async {
+      FormGroup formGroup = new FormGroup(controls: {}, validators: []);
+      formGroup.name = 'field1';
+      _indexer.addControl(formGroup);
+      _indexer.removeControl(formGroup);
+
+      expect(_indexer.containsKey(formGroup.uniqueName), isTrue);
+    });
+  });
+}

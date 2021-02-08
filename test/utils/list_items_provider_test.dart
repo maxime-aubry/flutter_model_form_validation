@@ -5,7 +5,7 @@ void main() {
   group('ListItemsProvider.', () {
     List<SelectListItem<int>> _items = [];
 
-    setUpAll(() {
+    setUp(() {
       ListItemsProvider.clear();
 
       _items = [
@@ -15,53 +15,57 @@ void main() {
       ];
     });
 
-    test('Register a service with <int> items without throwing an exception.', () async {
-      ListItemsProvider.register<int>('getItems', () {
+    test(
+        'Register a service with <int> items, from local datasource, without throwing an exception.',
+        () async {
+      ListItemsProvider.register<int>('getItems', () async {
         return _items;
       });
     });
 
-    test('Register a service with <int> items and consume it.', () async {
-      ListItemsProvider.register<int>('getItems', () {
+    test(
+        'Register a service with <int> items, from local datasource, and consume it.',
+        () async {
+      ListItemsProvider.register<int>('getItems', () async {
         return _items;
       });
-      Function service = ListItemsProvider.provide<int>('getItems');
-      List<SelectListItem<int>> receivedItems = service() as List<SelectListItem<int>>;
-
-      expect(_items.length, receivedItems.length);
+      Future<List<SelectListItem<int>>> Function() service =
+          ListItemsProvider.provide<int>('getItems');
+      List<SelectListItem<int>> receivedItems = await service();
+      expect(_items, equals(receivedItems));
     });
 
-    // test('Service provide local data.', () async {
-    //   List<SelectListItem<int>> items = [
-    //     new SelectListItem<int>(1, '1'),
-    //     new SelectListItem<int>(2, '2'),
-    //     new SelectListItem<int>(3, '3'),
-    //   ];
-    //   ListItemsProvider.register('getItems', () {
-    //     return items;
-    //   });
-    //   Function f = ListItemsProvider.get('getItems');
-    //   List<SelectListItem<int>> tempData = await f();
-    //   expect(tempData, items);
-    //   ListItemsProvider.close('getItems');
-    // });
+    test('Register and close a service.', () async {
+      ListItemsProvider.register<int>('getItems', () async {
+        return _items;
+      });
+      ListItemsProvider.close('getItems');
+    });
 
-    // test('Service provide global data. It can be changed outside.', () async {
-    //   List<SelectListItem<int>> items = [
-    //     new SelectListItem<int>(1, '1'),
-    //     new SelectListItem<int>(2, '2'),
-    //     new SelectListItem<int>(3, '3'),
-    //   ];
-    //   ListItemsProvider.register('getItems', () {
-    //     return items;
-    //   });
-    //   Function f = ListItemsProvider.get('getItems');
+    test('Cannot access to an service without its name.', () {
+      expect(
+        () {
+          Future<List<SelectListItem<int>>> Function() service =
+              ListItemsProvider.provide(null);
+        },
+        throwsA(
+          isA<ListItemProviderException>().having((error) => error.message,
+              'description', 'Service name is required.'),
+        ),
+      );
+    });
 
-    //   // before adding items in the list, the service must return [1, 2, 3, 4]
-    //   items.add(new SelectListItem<int>(4, '4'));
-    //   List<SelectListItem<int>> tempData = await f();
-    //   expect(tempData, items);
-    //   ListItemsProvider.close('getItems');
-    // });
+    test('Cannot access to an non-registered service.', () {
+      expect(
+        () {
+          Future<List<SelectListItem<int>>> Function() service =
+              ListItemsProvider.provide('getItems');
+        },
+        throwsA(
+          isA<ListItemProviderException>().having((error) => error.message,
+              'description', 'Service name is not recognized.'),
+        ),
+      );
+    });
   });
 }

@@ -1,6 +1,8 @@
+import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/utils/index.dart';
 
-typedef List<SelectListItem<TProperty>> ListItemsServiceFunction<TProperty>();
+typedef Future<List<SelectListItem<TProperty>>> ListItemsServiceFunction<
+    TProperty>();
 
 /// [ListItemsProvider] provides data to validators, as dropdown, autocomplete...
 /// Items are provided from local or global data, or using by a HTTP request.
@@ -9,11 +11,15 @@ class ListItemsProvider {
 
   static void clear() => ListItemsProvider._services.clear();
 
-  static void register<TProperty>(String name, ListItemsServiceFunction service) {
+  static void register<TProperty>(
+    String name,
+    ListItemsServiceFunction service,
+  ) {
     if (name == null || name.isEmpty)
-      throw new Exception('Service name is required.');
+      throw new ListItemProviderException('Service name is required.');
 
-    if (service == null) throw new Exception('Service is required.');
+    if (service == null)
+      throw new ListItemProviderException('Service is required.');
 
     if (ListItemsProvider._services == null)
       ListItemsProvider._services = new Map<String, ListItemsServiceFunction>();
@@ -22,10 +28,10 @@ class ListItemsProvider {
 
   static void close(String name) {
     if (name == null || name.isEmpty)
-      throw new Exception('Service name is required.');
+      throw new ListItemProviderException('Service name is required.');
 
     if (!ListItemsProvider._services.containsKey(name))
-      throw new Exception('Service name is not recognized.');
+      throw new ListItemProviderException('Service name is not recognized.');
 
     if (ListItemsProvider._services == null)
       ListItemsProvider._services = new Map<String, ListItemsServiceFunction>();
@@ -34,12 +40,13 @@ class ListItemsProvider {
 
   static ListItemsServiceFunction<TProperty> provide<TProperty>(String name) {
     if (name == null || name.isEmpty)
-      throw new Exception('Service name is required.');
+      throw new ListItemProviderException('Service name is required.');
 
     if (!ListItemsProvider._services.containsKey(name))
-      throw new Exception('Service name is not recognized.');
+      throw new ListItemProviderException('Service name is not recognized.');
 
-    ListItemsServiceFunction<TProperty> service = ListItemsProvider._services[name];
+    ListItemsServiceFunction<TProperty> service =
+        ListItemsProvider._services[name];
     return service;
   }
 }

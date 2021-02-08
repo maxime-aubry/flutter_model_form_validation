@@ -1,10 +1,9 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_model_form_validation/src/annotations/validators/form_control/index.dart';
-import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-class GreaterOrEqualTo<TProperty extends Comparable>
+class NotEqualTo<TProperty extends Comparable>
     extends FormControlValidatorAnnotation<TProperty> {
-  const GreaterOrEqualTo({
+  const NotEqualTo({
     this.valueToCompare,
     this.valueToCompareOnProperty,
     @required String error,
@@ -18,8 +17,10 @@ class GreaterOrEqualTo<TProperty extends Comparable>
 
   @override
   Future<bool> isValid(FormControl<TProperty> control, String property) async {
-    TProperty remoteValue =
-        control.parentGroup.getFormControl<TProperty>(property).value;
+    TProperty remoteValue = control.parentGroup
+            .getFormControl<TProperty>(this.valueToCompareOnProperty)
+            .value ??
+        this.valueToCompare;
     bool isValid = this._validate(control.value, remoteValue);
     return isValid;
   }
@@ -28,13 +29,13 @@ class GreaterOrEqualTo<TProperty extends Comparable>
     if (value == null) return true;
     if (valueToCompare == null) return false;
     int comparison = value.compareTo(valueToCompare);
-    bool isValid = (comparison >= 0);
+    bool isValid = (comparison != 0);
     return isValid;
   }
 }
 
-class GreaterOrEqualToDateTime extends GreaterOrEqualTo<DateTime> {
-  const GreaterOrEqualToDateTime({
+class NotEqualToDateTime extends NotEqualTo<DateTime> {
+  const NotEqualToDateTime({
     DateTime valueToCompare,
     String valueToCompareOnProperty,
     @required String error,
@@ -45,8 +46,8 @@ class GreaterOrEqualToDateTime extends GreaterOrEqualTo<DateTime> {
         );
 }
 
-class GreaterOrEqualToNumber extends GreaterOrEqualTo<num> {
-  const GreaterOrEqualToNumber({
+class NotEqualToNumber extends NotEqualTo<num> {
+  const NotEqualToNumber({
     num valueToCompare,
     String valueToCompareOnProperty,
     @required String error,
@@ -57,8 +58,8 @@ class GreaterOrEqualToNumber extends GreaterOrEqualTo<num> {
         );
 }
 
-class GreaterOrEqualToBigInt extends GreaterOrEqualTo<BigInt> {
-  const GreaterOrEqualToBigInt({
+class NotEqualToBigInt extends NotEqualTo<BigInt> {
+  const NotEqualToBigInt({
     BigInt valueToCompare,
     String valueToCompareOnProperty,
     @required String error,
@@ -69,8 +70,8 @@ class GreaterOrEqualToBigInt extends GreaterOrEqualTo<BigInt> {
         );
 }
 
-class GreaterOrEqualToDouble extends GreaterOrEqualTo<double> {
-  const GreaterOrEqualToDouble({
+class NotEqualToDouble extends NotEqualTo<double> {
+  const NotEqualToDouble({
     double valueToCompare,
     String valueToCompareOnProperty,
     @required String error,
@@ -81,8 +82,8 @@ class GreaterOrEqualToDouble extends GreaterOrEqualTo<double> {
         );
 }
 
-class GreaterOrEqualToInt extends GreaterOrEqualTo<int> {
-  const GreaterOrEqualToInt({
+class NotEqualToInt extends NotEqualTo<int> {
+  const NotEqualToInt({
     int valueToCompare,
     String valueToCompareOnProperty,
     @required String error,
@@ -93,8 +94,8 @@ class GreaterOrEqualToInt extends GreaterOrEqualTo<int> {
         );
 }
 
-class GreaterOrEqualToString extends GreaterOrEqualTo<String> {
-  const GreaterOrEqualToString({
+class NotEqualToString extends NotEqualTo<String> {
+  const NotEqualToString({
     String valueToCompare,
     String valueToCompareOnProperty,
     @required String error,

@@ -14,11 +14,8 @@ class FileSize extends FormControlValidatorAnnotation<Uint8List> {
   final int size;
 
   @override
-  Future<bool> isValid(FormControl<Uint8List> control, String property) async {
-    if (control.value == null) return true;
-    bool isValid = this._validate(control.value);
-    return isValid;
-  }
+  Future<bool> isValid(FormControl<Uint8List> control, String property) async =>
+      this._validate(control.value);
 
   bool _validate(Uint8List value) {
     if (value == null) return true;

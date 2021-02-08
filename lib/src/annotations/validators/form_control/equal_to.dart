@@ -34,3 +34,75 @@ class EqualTo<TProperty extends Comparable>
     return isValid;
   }
 }
+
+class EqualToDateTime extends EqualTo<DateTime> {
+  const EqualToDateTime({
+    DateTime valueToCompare,
+    String valueToCompareOnProperty,
+    @required String error,
+  }) : super(
+          valueToCompare: valueToCompare,
+          valueToCompareOnProperty: valueToCompareOnProperty,
+          error: error,
+        );
+}
+
+class EqualToNumber extends EqualTo<num> {
+  const EqualToNumber({
+    num valueToCompare,
+    String valueToCompareOnProperty,
+    @required String error,
+  }) : super(
+          valueToCompare: valueToCompare,
+          valueToCompareOnProperty: valueToCompareOnProperty,
+          error: error,
+        );
+}
+
+class EqualToBigInt extends EqualTo<BigInt> {
+  const EqualToBigInt({
+    BigInt valueToCompare,
+    String valueToCompareOnProperty,
+    @required String error,
+  }) : super(
+          valueToCompare: valueToCompare,
+          valueToCompareOnProperty: valueToCompareOnProperty,
+          error: error,
+        );
+}
+
+class EqualToDouble extends EqualTo<double> {
+  const EqualToDouble({
+    double valueToCompare,
+    String valueToCompareOnProperty,
+    @required String error,
+  }) : super(
+          valueToCompare: valueToCompare,
+          valueToCompareOnProperty: valueToCompareOnProperty,
+          error: error,
+        );
+}
+
+class EqualToInt extends EqualTo<int> {
+  const EqualToInt({
+    int valueToCompare,
+    String valueToCompareOnProperty,
+    @required String error,
+  }) : super(
+          valueToCompare: valueToCompare,
+          valueToCompareOnProperty: valueToCompareOnProperty,
+          error: error,
+        );
+}
+
+class EqualToString extends EqualTo<String> {
+  const EqualToString({
+    String valueToCompare,
+    String valueToCompareOnProperty,
+    @required String error,
+  }) : super(
+          valueToCompare: valueToCompare,
+          valueToCompareOnProperty: valueToCompareOnProperty,
+          error: error,
+        );
+}

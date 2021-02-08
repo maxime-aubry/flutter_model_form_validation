@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:queries/collections.dart';
 
-class MultiSelect<TProperty>
-    extends FormControlValidatorAnnotation<List<TProperty>> {
-  const MultiSelect({
+class SingleSelect<TProperty>
+    extends FormControlValidatorAnnotation<TProperty> {
+  const SingleSelect({
     @required this.serviceName,
     @required String error,
   }) : super(error: error);
@@ -13,8 +13,7 @@ class MultiSelect<TProperty>
   final String serviceName;
 
   @override
-  Future<bool> isValid(
-      FormControl<List<TProperty>> control, String property) async {
+  Future<bool> isValid(FormControl<TProperty> control, String property) async {
     Future<List<SelectListItem<TProperty>>> Function() service =
         ListItemsProvider.provide<TProperty>(this.serviceName);
     List<SelectListItem> items = await service();
@@ -23,16 +22,14 @@ class MultiSelect<TProperty>
   }
 
   bool _validate(
-    List<TProperty> values,
+    TProperty value,
     List<SelectListItem<TProperty>> items,
   ) {
     List<TProperty> itemValues =
         Collection(items).select((arg1) => arg1.value).toList();
 
-    // are each value into the provided list of items ?
-    IEnumerable<TProperty> unknownValues =
-        Collection(values).except(Collection(itemValues));
-    if (unknownValues.any()) return false;
+    // is value into the provided list of items ?
+    if (itemValues.contains(value)) return true;
 
     return true;
   }
