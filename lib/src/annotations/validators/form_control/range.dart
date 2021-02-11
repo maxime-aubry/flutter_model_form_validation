@@ -35,6 +35,9 @@ class Range<TProperty extends Comparable>
       this.maxOnProperty,
       this.max,
     );
+    if (min.compareTo(max) > 0)
+      throw new ValidationException(
+          'Range validator does not accept that min value is greater than max value.');
     bool isValid = this._validate(control.value, min, max);
     return isValid;
   }

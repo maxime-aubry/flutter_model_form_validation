@@ -10,59 +10,59 @@ void main() {
     LibraryInitializer.initialize(libraryName: 'test.models');
   });
 
-  group('RangeOfDateTime.', () {
-    test('RangeOfDateTime validator returns True for min date.', () async {
-      RangeOfDateTimeEqualToMinStub stub = new RangeOfDateTimeEqualToMinStub();
+  group('RangeOfString.', () {
+    test('RangeOfString validator returns True for min string.', () async {
+      RangeOfStringEqualToMinStub stub = new RangeOfStringEqualToMinStub();
       FormControl formControl = stub.getControl();
-      RangeOfDateTime validator = stub.getValidator();
+      RangeOfString validator = stub.getValidator();
       bool isValid = await validator.isValid(formControl);
       expect(isValid, isTrue);
     });
 
-    test('RangeOfDateTime validator returns True for max date.', () async {
-      RangeOfDateTimeEqualToMaxStub stub = new RangeOfDateTimeEqualToMaxStub();
+    test('RangeOfString validator returns True for max string.', () async {
+      RangeOfStringEqualToMaxStub stub = new RangeOfStringEqualToMaxStub();
       FormControl formControl = stub.getControl();
-      RangeOfDateTime validator = stub.getValidator();
+      RangeOfString validator = stub.getValidator();
       bool isValid = await validator.isValid(formControl);
       expect(isValid, isTrue);
     });
 
-    test('RangeOfDateTime validator returns True for date between min and max.', () async {
-      RangeOfDateTimeBetweenMinAndMaxStub stub = new RangeOfDateTimeBetweenMinAndMaxStub();
+    test('RangeOfString validator returns True for string between min and max.', () async {
+      RangeOfStringBetweenMinAndMaxStub stub = new RangeOfStringBetweenMinAndMaxStub();
       FormControl formControl = stub.getControl();
-      RangeOfDateTime validator = stub.getValidator();
+      RangeOfString validator = stub.getValidator();
       bool isValid = await validator.isValid(formControl);
       expect(isValid, isTrue);
     });
 
-    test('RangeOfDateTime validator returns True for date with external min and max.', () async {
-      RangeOfDateTimeWithExternalMinMaxStub stub = new RangeOfDateTimeWithExternalMinMaxStub();
+    test('RangeOfString validator returns True for string with external min and max.', () async {
+      RangeOfStringWithExternalMinMaxStub stub = new RangeOfStringWithExternalMinMaxStub();
       FormControl formControl = stub.getControl();
-      RangeOfDateTime validator = stub.getValidator();
+      RangeOfString validator = stub.getValidator();
       bool isValid = await validator.isValid(formControl);
       expect(isValid, isTrue);
     });
 
-    test('RangeOfDateTime validator returns False for date before min.', () async {
-      RangeOfDateTimeBeforeMinStub stub = new RangeOfDateTimeBeforeMinStub();
+    test('RangeOfString validator returns False for string before min.', () async {
+      RangeOfStringBeforeMinStub stub = new RangeOfStringBeforeMinStub();
       FormControl formControl = stub.getControl();
-      RangeOfDateTime validator = stub.getValidator();
+      RangeOfString validator = stub.getValidator();
       bool isValid = await validator.isValid(formControl);
       expect(isValid, isFalse);
     });
 
-    test('RangeOfDateTime validator returns False for date after max.', () async {
-      RangeOfDateTimeAfterMaxStub stub = new RangeOfDateTimeAfterMaxStub();
+    test('RangeOfString validator returns False for string after max.', () async {
+      RangeOfStringAfterMaxStub stub = new RangeOfStringAfterMaxStub();
       FormControl formControl = stub.getControl();
-      RangeOfDateTime validator = stub.getValidator();
+      RangeOfString validator = stub.getValidator();
       bool isValid = await validator.isValid(formControl);
       expect(isValid, isFalse);
     });
 
-    test('RangeOfDateTime validator returns False for invalid min and max values.', () async {
-      RangeOfDateTimeWithInvalidMinMaxStub stub = new RangeOfDateTimeWithInvalidMinMaxStub();
+    test('RangeOfString validator returns False for invalid min and max values.', () async {
+      RangeOfStringWithInvalidMinMaxStub stub = new RangeOfStringWithInvalidMinMaxStub();
       FormControl formControl = stub.getControl();
-      RangeOfDateTime validator = stub.getValidator();
+      RangeOfString validator = stub.getValidator();
       
       expect(
         () async {
