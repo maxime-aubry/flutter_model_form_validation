@@ -23,13 +23,17 @@ class NbValues extends FormControlValidatorAnnotation<List> {
   final String maxOnProperty;
 
   @override
-  Future<bool> isValid(FormControl<List> control, String property) async {
-    int min =
-        control.parentGroup.getFormControl<int>(this.minOnProperty).value ??
-            this.min;
-    int max =
-        control.parentGroup.getFormControl<int>(this.maxOnProperty).value ??
-            this.max;
+  Future<bool> isValid(FormControl<List> control) async {
+    int min = super.getValidatorParameter<int>(
+      control,
+      this.minOnProperty,
+      this.min,
+    );
+    int max = super.getValidatorParameter<int>(
+      control,
+      this.maxOnProperty,
+      this.max,
+    );
     bool isValid = this._validate(control.value.length, min, max);
     return isValid;
   }

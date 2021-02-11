@@ -6,7 +6,10 @@ import '../../models/models.reflectable.dart';
 import '../../models/models_outside_of_library.dart';
 
 void main() {
-  initializeReflectable();
+  setUp(() {
+    initializeReflectable();
+    LibraryInitializer.initialize(libraryName: 'test.models');
+  });
 
   group('CheckEnum.', () {
     test('CheckEnum returns true for EGender.', () async {

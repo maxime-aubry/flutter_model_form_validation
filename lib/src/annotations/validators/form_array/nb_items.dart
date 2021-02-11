@@ -23,13 +23,20 @@ class NbItems extends FormArrayValidatorAnnotation {
   final String maxOnProperty;
 
   @override
-  Future<bool> isValid(FormArray control, String property) async {
-    int min =
-        control.parentGroup.getFormControl<int>(this.minOnProperty).value ??
-            this.min;
-    int max =
-        control.parentGroup.getFormControl<int>(this.maxOnProperty).value ??
-            this.max;
+  Future<bool> isValid(FormArray control) async {
+    int min = super.getValidatorParameter(
+      control,
+      this.minOnProperty,
+      this.min,
+    );
+    int max = super.getValidatorParameter(
+      control,
+      this.maxOnProperty,
+      this.max,
+    );
+    if (min > max)
+      throw new ValidationException(
+          'NbItems validator does not accept that min value is greater than max value.');
     bool isValid = this._validate(control.groups.length, min, max);
     return isValid;
   }

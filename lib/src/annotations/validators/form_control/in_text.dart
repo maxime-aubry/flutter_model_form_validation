@@ -15,10 +15,13 @@ class InText extends FormControlValidatorAnnotation<String> {
   final String textOnProperty;
 
   @override
-  Future<bool> isValid(FormControl<String> control, String property) async {
-    String remoteValue =
-        control.parentGroup.getFormControl<String>(property).value;
-    bool isValid = this._validate(control.value, remoteValue);
+  Future<bool> isValid(FormControl<String> control) async {
+    String text = super.getValidatorParameter<String>(
+      control,
+      this.textOnProperty,
+      this.text,
+    );
+    bool isValid = this._validate(control.value, text);
     return isValid;
   }
 

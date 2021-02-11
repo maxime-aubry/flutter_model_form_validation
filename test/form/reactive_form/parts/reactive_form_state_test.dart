@@ -20,9 +20,7 @@ void main() {
   });
 
   group('ReactiveFormState.', () {
-    test(
-        'ReactiveFormState and ReactiveFormBuilder are initialized.',
-        () {
+    test('ReactiveFormState and ReactiveFormBuilder are initialized.', () {
       _formState.initialize();
     });
 

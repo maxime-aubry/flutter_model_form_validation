@@ -9,7 +9,7 @@ class Email extends FormControlValidatorAnnotation<String> {
   }) : super(error: error);
 
   @override
-  Future<bool> isValid(FormControl<String> control, String property) async =>
+  Future<bool> isValid(FormControl<String> control) async =>
       this._validate(control.value);
 
   bool _validate(String value) {

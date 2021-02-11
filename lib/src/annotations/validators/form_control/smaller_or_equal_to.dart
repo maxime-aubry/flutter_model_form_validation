@@ -16,10 +16,13 @@ class SmallerOrEqualTo<TProperty extends Comparable>
   final String valueToCompareOnProperty;
 
   @override
-  Future<bool> isValid(FormControl<TProperty> control, String property) async {
-    TProperty remoteValue =
-        control.parentGroup.getFormControl<TProperty>(property).value;
-    bool isValid = this._validate(control.value, remoteValue);
+  Future<bool> isValid(FormControl<TProperty> control) async {
+    TProperty valueToCompare = super.getValidatorParameter<TProperty>(
+      control,
+      this.valueToCompareOnProperty,
+      this.valueToCompare,
+    );
+    bool isValid = this._validate(control.value, valueToCompare);
     return isValid;
   }
 

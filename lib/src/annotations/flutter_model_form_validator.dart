@@ -12,9 +12,6 @@ class FlutterModelFormValidator extends Reflectable {
           libraryCapability,
           metadataCapability,
           reflectedTypeCapability,
-          // typeCapability,
-          // typeRelationsCapability,
-          // typingCapability,
         );
 }
 

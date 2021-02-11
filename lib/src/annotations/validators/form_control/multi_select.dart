@@ -13,8 +13,7 @@ class MultiSelect<TProperty>
   final String serviceName;
 
   @override
-  Future<bool> isValid(
-      FormControl<List<TProperty>> control, String property) async {
+  Future<bool> isValid(FormControl<List<TProperty>> control) async {
     Future<List<SelectListItem<TProperty>>> Function() service =
         ListItemsProvider.provide<TProperty>(this.serviceName);
     List<SelectListItem> items = await service();

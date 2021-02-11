@@ -81,7 +81,7 @@ class AbstractControl extends ChangeNotifier {
     // validation
     for (FormValidatorAnnotation validator in this.validators) {
       try {
-        isValid = await validator.isValid(parentGroup, this.name);
+        isValid = await validator.isValid(parentGroup);
 
         if (!isValid) {
           this.error = ValidationError(

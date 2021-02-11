@@ -26,7 +26,7 @@ class ImageSize extends FormControlValidatorAnnotation<Uint8List> {
   final int maxHeight;
 
   @override
-  Future<bool> isValid(FormControl<Uint8List> control, String property) async {
+  Future<bool> isValid(FormControl<Uint8List> control) async {
     imageDecoder.Image image = imageDecoder.decodeImage(control.value);
     bool isValid = this._validate(image);
     return isValid;

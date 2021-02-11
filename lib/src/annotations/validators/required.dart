@@ -7,7 +7,7 @@ class Required extends FormValidatorAnnotation<AbstractControl> {
   }) : super(error: error);
 
   @override
-  Future<bool> isValid(AbstractControl control, String property) async {
+  Future<bool> isValid(AbstractControl control) async {
     if (control is FormGroup)
       return this._validateFormGroup(control.controls.length);
     if (control is FormArray)
@@ -16,9 +16,9 @@ class Required extends FormValidatorAnnotation<AbstractControl> {
     return false;
   }
 
-  bool _validateFormGroup(int length) => (length == 0);
+  bool _validateFormGroup(int length) => (length > 0);
 
-  bool _validateFormArray(int length) => (length == 0);
+  bool _validateFormArray(int length) => (length > 0);
 
   bool _validateFormControl(Object value) {
     if (value == null) return false;

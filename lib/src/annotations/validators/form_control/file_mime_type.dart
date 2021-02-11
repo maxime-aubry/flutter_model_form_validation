@@ -15,7 +15,7 @@ class FileMimeType extends FormControlValidatorAnnotation<Uint8List> {
   final List<String> mimeTypes;
 
   @override
-  Future<bool> isValid(FormControl<Uint8List> control, String property) async =>
+  Future<bool> isValid(FormControl<Uint8List> control) async =>
       this._validate(control.value);
 
   bool _validate(Uint8List value) {

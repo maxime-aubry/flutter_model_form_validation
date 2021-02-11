@@ -22,8 +22,10 @@ class FormControlCustomFilterTester<TProperty>
 }
 
 void main() {
-  initializeReflectable();
-  LibraryInitializer.initialize(libraryName: 'test.models');
+  setUp(() {
+    initializeReflectable();
+    LibraryInitializer.initialize(libraryName: 'test.models');
+  });
 
   group('FormControlFilter.', () {
     test('FormControlFilter allows EGender.', () {

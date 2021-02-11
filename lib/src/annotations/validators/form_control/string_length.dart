@@ -15,7 +15,7 @@ class StringLength extends FormControlValidatorAnnotation<String> {
   final int max;
 
   @override
-  Future<bool> isValid(FormControl<String> control, String property) async =>
+  Future<bool> isValid(FormControl<String> control) async =>
       this._validate(control.value);
 
   bool _validate(String value) {

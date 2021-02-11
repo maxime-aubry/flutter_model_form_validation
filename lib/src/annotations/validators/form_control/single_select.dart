@@ -13,7 +13,7 @@ class SingleSelect<TProperty>
   final String serviceName;
 
   @override
-  Future<bool> isValid(FormControl<TProperty> control, String property) async {
+  Future<bool> isValid(FormControl<TProperty> control) async {
     Future<List<SelectListItem<TProperty>>> Function() service =
         ListItemsProvider.provide<TProperty>(this.serviceName);
     List<SelectListItem> items = await service();
