@@ -1,6 +1,6 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-import '../../main_stub.dart';
+import '../../stub.dart';
 
 abstract class _INbItemsStub extends IStub<FormArray, NbItems> {}
 

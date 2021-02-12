@@ -2,7 +2,7 @@ import 'package:constant_datetime/constant_datetime.dart';
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-import '../../main_stub.dart';
+import '../../stub.dart';
 
 abstract class _IEqualToDateTimeStub
     extends IStub<FormControl<DateTime>, EqualToDateTime> {}

@@ -1,6 +1,6 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-import '../../main_stub.dart';
+import '../../stub.dart';
 
 abstract class _IRequiredStub<TAbstractControl extends AbstractControl>
     extends IStub<TAbstractControl, Required> {}

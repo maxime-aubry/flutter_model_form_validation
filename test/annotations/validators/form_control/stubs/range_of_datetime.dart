@@ -1,7 +1,7 @@
 import 'package:constant_datetime/constant_datetime.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-import '../../main_stub.dart';
+import '../../stub.dart';
 
 abstract class _IRangeOfDateTimeStub
     extends IStub<FormControl<DateTime>, RangeOfDateTime> {}

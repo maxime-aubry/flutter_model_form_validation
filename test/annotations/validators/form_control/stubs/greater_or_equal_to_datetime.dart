@@ -2,7 +2,7 @@ import 'package:constant_datetime/constant_datetime.dart';
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-import '../../main_stub.dart';
+import '../../stub.dart';
 
 abstract class _IGreaterOrEqualToDateTimeStub
     extends IStub<FormControl<DateTime>, GreaterOrEqualToDateTime> {}
@@ -20,7 +20,7 @@ class GreaterOrEqualToDateTime_ValueIsGreaterThanValueToCompare_Stub
 
   @override
   GreaterOrEqualToDateTime getValidator() => GreaterOrEqualToDateTime(
-        valueToCompare: const ConstantDateTime('2021-01-02T00:00:00'),
+        valueToCompare: const ConstantDateTime('2020-12-31T00:00:00'),
         error: 'value is not valid',
       );
 }
@@ -74,7 +74,7 @@ class GreaterOrEqualToDateTime_ValueIsSmallerThanValueToCompare_Stub
 
   @override
   GreaterOrEqualToDateTime getValidator() => GreaterOrEqualToDateTime(
-        valueToCompare: const ConstantDateTime('2021-01-02T00:00:00'),
+        valueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
         error: 'value is not valid',
       );
 }
