@@ -13,7 +13,7 @@ class Email extends FormControlValidatorAnnotation<String> {
       this._validate(control.value);
 
   bool _validate(String value) {
-    if (value == null) return true;
+    if (value == null || value.isEmpty) return true;
     RegExp regExp = new RegExp(Rules.email);
     if (regExp.hasMatch(value)) return true;
     return false;

@@ -4,16 +4,16 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 import '../../main_stub.dart';
 
 abstract class _IRangeOfDateTimeStub
-    extends IStub<FormControl, RangeOfDateTime> {}
+    extends IStub<FormControl<DateTime>, RangeOfDateTime> {}
 
-class RangeOfDateTimeEqualToMinStub extends _IRangeOfDateTimeStub {
+class RangeOfDateTime_ValueEqualToMin_Stub extends _IRangeOfDateTimeStub {
   @override
-  FormControl getControl() {
-    FormControl formControl = new FormControl<DateTime>(
+  FormControl<DateTime> getControl() {
+    FormControl<DateTime> value = new FormControl<DateTime>(
       value: new DateTime(2021, 1, 1),
       validators: [],
     );
-    return formControl;
+    return value;
   }
 
   @override
@@ -24,14 +24,14 @@ class RangeOfDateTimeEqualToMinStub extends _IRangeOfDateTimeStub {
       );
 }
 
-class RangeOfDateTimeEqualToMaxStub extends _IRangeOfDateTimeStub {
+class RangeOfDateTime_ValueEqualToMax_Stub extends _IRangeOfDateTimeStub {
   @override
-  FormControl getControl() {
-    FormControl formControl = new FormControl<DateTime>(
+  FormControl<DateTime> getControl() {
+    FormControl<DateTime> value = new FormControl<DateTime>(
       value: new DateTime(2021, 12, 31),
       validators: [],
     );
-    return formControl;
+    return value;
   }
 
   @override
@@ -42,14 +42,14 @@ class RangeOfDateTimeEqualToMaxStub extends _IRangeOfDateTimeStub {
       );
 }
 
-class RangeOfDateTimeBetweenMinAndMaxStub extends _IRangeOfDateTimeStub {
+class RangeOfDateTime_ValueBetweenMinAndMax_Stub extends _IRangeOfDateTimeStub {
   @override
-  FormControl getControl() {
-    FormControl formControl = new FormControl<DateTime>(
+  FormControl<DateTime> getControl() {
+    FormControl<DateTime> value = new FormControl<DateTime>(
       value: new DateTime(2021, 06, 01),
       validators: [],
     );
-    return formControl;
+    return value;
   }
 
   @override
@@ -60,18 +60,18 @@ class RangeOfDateTimeBetweenMinAndMaxStub extends _IRangeOfDateTimeStub {
       );
 }
 
-class RangeOfDateTimeWithExternalMinMaxStub extends _IRangeOfDateTimeStub {
+class RangeOfDateTime_WithExternalMinMax_Stub extends _IRangeOfDateTimeStub {
   @override
-  FormControl getControl() {
-    FormControl min = new FormControl<DateTime>(
+  FormControl<DateTime> getControl() {
+    FormControl<DateTime> min = new FormControl<DateTime>(
       value: new DateTime(2020, 01, 01),
       validators: [],
     );
-    FormControl max = new FormControl<DateTime>(
+    FormControl<DateTime> max = new FormControl<DateTime>(
       value: new DateTime(2020, 12, 31),
       validators: [],
     );
-    FormControl value = new FormControl<DateTime>(
+    FormControl<DateTime> value = new FormControl<DateTime>(
       value: new DateTime(2020, 06, 01),
       validators: [],
     );
@@ -101,14 +101,14 @@ class RangeOfDateTimeWithExternalMinMaxStub extends _IRangeOfDateTimeStub {
       );
 }
 
-class RangeOfDateTimeBeforeMinStub extends _IRangeOfDateTimeStub {
+class RangeOfDateTime_ValueBeforeMin_Stub extends _IRangeOfDateTimeStub {
   @override
-  FormControl getControl() {
-    FormControl formControl = new FormControl<DateTime>(
+  FormControl<DateTime> getControl() {
+    FormControl<DateTime> value = new FormControl<DateTime>(
       value: new DateTime(2020, 12, 31),
       validators: [],
     );
-    return formControl;
+    return value;
   }
 
   @override
@@ -119,14 +119,14 @@ class RangeOfDateTimeBeforeMinStub extends _IRangeOfDateTimeStub {
       );
 }
 
-class RangeOfDateTimeAfterMaxStub extends _IRangeOfDateTimeStub {
+class RangeOfDateTime_ValueAfterMax_Stub extends _IRangeOfDateTimeStub {
   @override
-  FormControl getControl() {
-    FormControl formControl = new FormControl<DateTime>(
+  FormControl<DateTime> getControl() {
+    FormControl<DateTime> value = new FormControl<DateTime>(
       value: new DateTime(2022, 01, 01),
       validators: [],
     );
-    return formControl;
+    return value;
   }
 
   @override
@@ -137,14 +137,50 @@ class RangeOfDateTimeAfterMaxStub extends _IRangeOfDateTimeStub {
       );
 }
 
-class RangeOfDateTimeWithInvalidMinMaxStub extends _IRangeOfDateTimeStub {
+class RangeOfDateTime_WithMissingMin_Stub extends _IRangeOfDateTimeStub {
   @override
-  FormControl getControl() {
-    FormControl formControl = new FormControl<DateTime>(
+  FormControl<DateTime> getControl() {
+    FormControl<DateTime> value = new FormControl<DateTime>(
       value: null,
       validators: [],
     );
-    return formControl;
+    return value;
+  }
+
+  @override
+  RangeOfDateTime getValidator() => RangeOfDateTime(
+        min: null,
+        max: const ConstantDateTime('2020-12-31T23:59:59'),
+        error: 'invalid datetime into range.',
+      );
+}
+
+class RangeOfDateTime_WithMissingMax_Stub extends _IRangeOfDateTimeStub {
+  @override
+  FormControl<DateTime> getControl() {
+    FormControl<DateTime> value = new FormControl<DateTime>(
+      value: null,
+      validators: [],
+    );
+    return value;
+  }
+
+  @override
+  RangeOfDateTime getValidator() => RangeOfDateTime(
+        min: const ConstantDateTime('2021-01-01T00:00:00'),
+        max: null,
+        error: 'invalid datetime into range.',
+      );
+}
+
+class RangeOfDateTime_MinGreatherThanMax_Stub extends _IRangeOfDateTimeStub {
+  @override
+  FormControl<DateTime> getControl() {
+    FormControl<DateTime> value = new FormControl<DateTime>(
+      value: null,
+      validators: [],
+    );
+    return value;
   }
 
   @override

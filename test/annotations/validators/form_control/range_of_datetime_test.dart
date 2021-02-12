@@ -1,78 +1,131 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../models/models.reflectable.dart';
-import 'stubs/index.dart';
+import 'stubs/range_of_datetime.dart';
 
 void main() {
   setUp(() {
-    initializeReflectable();
     LibraryInitializer.initialize(libraryName: 'test.models');
   });
 
   group('RangeOfDateTime.', () {
-    test('RangeOfDateTime validator returns True for min date.', () async {
-      RangeOfDateTimeEqualToMinStub stub = new RangeOfDateTimeEqualToMinStub();
-      FormControl formControl = stub.getControl();
+    test(
+        'RangeOfDateTime validator returns True (reason: value is equal to min).',
+        () async {
+      RangeOfDateTime_ValueEqualToMin_Stub stub =
+          new RangeOfDateTime_ValueEqualToMin_Stub();
+      FormControl<DateTime> formControl = stub.getControl();
       RangeOfDateTime validator = stub.getValidator();
       bool isValid = await validator.isValid(formControl);
       expect(isValid, isTrue);
     });
 
-    test('RangeOfDateTime validator returns True for max date.', () async {
-      RangeOfDateTimeEqualToMaxStub stub = new RangeOfDateTimeEqualToMaxStub();
-      FormControl formControl = stub.getControl();
+    test(
+        'RangeOfDateTime validator returns True (reason: value is equal to max).',
+        () async {
+      RangeOfDateTime_ValueEqualToMax_Stub stub =
+          new RangeOfDateTime_ValueEqualToMax_Stub();
+      FormControl<DateTime> formControl = stub.getControl();
       RangeOfDateTime validator = stub.getValidator();
       bool isValid = await validator.isValid(formControl);
       expect(isValid, isTrue);
     });
 
-    test('RangeOfDateTime validator returns True for date between min and max.', () async {
-      RangeOfDateTimeBetweenMinAndMaxStub stub = new RangeOfDateTimeBetweenMinAndMaxStub();
-      FormControl formControl = stub.getControl();
+    test(
+        'RangeOfDateTime validator returns True (reason: value is between min and max).',
+        () async {
+      RangeOfDateTime_ValueBetweenMinAndMax_Stub stub =
+          new RangeOfDateTime_ValueBetweenMinAndMax_Stub();
+      FormControl<DateTime> formControl = stub.getControl();
       RangeOfDateTime validator = stub.getValidator();
       bool isValid = await validator.isValid(formControl);
       expect(isValid, isTrue);
     });
 
-    test('RangeOfDateTime validator returns True for date with external min and max.', () async {
-      RangeOfDateTimeWithExternalMinMaxStub stub = new RangeOfDateTimeWithExternalMinMaxStub();
-      FormControl formControl = stub.getControl();
+    test(
+        'RangeOfDateTime validator returns True (reason: external min and max are ok).',
+        () async {
+      RangeOfDateTime_WithExternalMinMax_Stub stub =
+          new RangeOfDateTime_WithExternalMinMax_Stub();
+      FormControl<DateTime> formControl = stub.getControl();
       RangeOfDateTime validator = stub.getValidator();
       bool isValid = await validator.isValid(formControl);
       expect(isValid, isTrue);
     });
 
-    test('RangeOfDateTime validator returns False for date before min.', () async {
-      RangeOfDateTimeBeforeMinStub stub = new RangeOfDateTimeBeforeMinStub();
-      FormControl formControl = stub.getControl();
+    test(
+        'RangeOfDateTime validator returns False (reason: value is smaller than min).',
+        () async {
+      RangeOfDateTime_ValueBeforeMin_Stub stub =
+          new RangeOfDateTime_ValueBeforeMin_Stub();
+      FormControl<DateTime> formControl = stub.getControl();
       RangeOfDateTime validator = stub.getValidator();
       bool isValid = await validator.isValid(formControl);
       expect(isValid, isFalse);
     });
 
-    test('RangeOfDateTime validator returns False for date after max.', () async {
-      RangeOfDateTimeAfterMaxStub stub = new RangeOfDateTimeAfterMaxStub();
-      FormControl formControl = stub.getControl();
+    test(
+        'RangeOfDateTime validator returns False (reason: value is greater than max).',
+        () async {
+      RangeOfDateTime_ValueAfterMax_Stub stub =
+          new RangeOfDateTime_ValueAfterMax_Stub();
+      FormControl<DateTime> formControl = stub.getControl();
       RangeOfDateTime validator = stub.getValidator();
       bool isValid = await validator.isValid(formControl);
       expect(isValid, isFalse);
     });
 
-    test('RangeOfDateTime validator returns False for invalid min and max values.', () async {
-      RangeOfDateTimeWithInvalidMinMaxStub stub = new RangeOfDateTimeWithInvalidMinMaxStub();
-      FormControl formControl = stub.getControl();
+    test('RangeOfDateTime validator returns False (reason: min is missing).',
+        () async {
+      RangeOfDateTime_WithMissingMin_Stub stub =
+          new RangeOfDateTime_WithMissingMin_Stub();
+      FormControl<DateTime> formControl = stub.getControl();
       RangeOfDateTime validator = stub.getValidator();
-      
+
       expect(
         () async {
           await validator.isValid(formControl);
         },
         throwsA(
-          isA<ValidationException>().having(
-              (error) => error.message,
-              'description',
-              'Range validator does not accept that min value is greater than max value.'),
+          isA<ValidationException>().having((error) => error.message,
+              'description', 'Min value is not defined.'),
+        ),
+      );
+    });
+
+    test('RangeOfDateTime validator returns False (reason: max is missing).',
+        () async {
+      RangeOfDateTime_WithMissingMax_Stub stub =
+          new RangeOfDateTime_WithMissingMax_Stub();
+      FormControl<DateTime> formControl = stub.getControl();
+      RangeOfDateTime validator = stub.getValidator();
+
+      expect(
+        () async {
+          await validator.isValid(formControl);
+        },
+        throwsA(
+          isA<ValidationException>().having((error) => error.message,
+              'description', 'Max value is not defined.'),
+        ),
+      );
+    });
+
+    test(
+        'RangeOfDateTime validator returns False (reason: min is greater than max).',
+        () async {
+      RangeOfDateTime_MinGreatherThanMax_Stub stub =
+          new RangeOfDateTime_MinGreatherThanMax_Stub();
+      FormControl<DateTime> formControl = stub.getControl();
+      RangeOfDateTime validator = stub.getValidator();
+
+      expect(
+        () async {
+          await validator.isValid(formControl);
+        },
+        throwsA(
+          isA<ValidationException>().having((error) => error.message,
+              'description', 'Min value is greater than max value.'),
         ),
       );
     });

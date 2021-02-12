@@ -35,9 +35,10 @@ class Range<TProperty extends Comparable>
       this.maxOnProperty,
       this.max,
     );
+    if (min == null) throw new ValidationException('Min value is not defined.');
+    if (max == null) throw new ValidationException('Max value is not defined.');
     if (min.compareTo(max) > 0)
-      throw new ValidationException(
-          'Range validator does not accept that min value is greater than max value.');
+      throw new ValidationException('Min value is greater than max value.');
     bool isValid = this._validate(control.value, min, max);
     return isValid;
   }
@@ -76,22 +77,6 @@ class RangeOfNumber extends Range<num> {
   const RangeOfNumber({
     num min,
     num max,
-    String minOnProperty,
-    String maxOnProperty,
-    @required String error,
-  }) : super(
-          min: min,
-          max: max,
-          minOnProperty: minOnProperty,
-          maxOnProperty: maxOnProperty,
-          error: error,
-        );
-}
-
-class RangeOfBigInt extends Range<BigInt> {
-  const RangeOfBigInt({
-    BigInt min,
-    BigInt max,
     String minOnProperty,
     String maxOnProperty,
     @required String error,

@@ -60,18 +60,6 @@ class EqualToNumber extends EqualTo<num> {
         );
 }
 
-class EqualToBigInt extends EqualTo<BigInt> {
-  const EqualToBigInt({
-    BigInt valueToCompare,
-    String valueToCompareOnProperty,
-    @required String error,
-  }) : super(
-          valueToCompare: valueToCompare,
-          valueToCompareOnProperty: valueToCompareOnProperty,
-          error: error,
-        );
-}
-
 class EqualToDouble extends EqualTo<double> {
   const EqualToDouble({
     double valueToCompare,

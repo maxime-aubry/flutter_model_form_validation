@@ -53,6 +53,8 @@ abstract class FormValidatorAnnotation<
   ) {
     //#region locales methods
     TProperty getCastedDefaultValue(TProperty defaultValue) {
+      if (defaultValue == null) return null;
+
       if (TProperty == DateTime) {
         if (defaultValue is! ConstantDateTime) {
           throw new ValidationException(
@@ -72,16 +74,6 @@ abstract class FormValidatorAnnotation<
     TProperty getRemoteParameter(AbstractControl control, String property) {
       TProperty remoteParameter =
           this.getFormControl<TProperty>(control, property)?.value;
-
-      if (remoteParameter == null) {
-        throw new ValidationException(
-          '''Cannot get datetime from remote parameter.
-            This one is not a ConstantDateTime object, its type is $TProperty.
-            Please, provide a ConstantDateTime object, just like this :
-            @Validator(parameter: ConstantDateTime('yyyy-MM-ddTHH:mm:ssZ'))''',
-        );
-      }
-
       return remoteParameter;
     }
 
