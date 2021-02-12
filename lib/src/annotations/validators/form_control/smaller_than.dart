@@ -29,9 +29,9 @@ class SmallerThan<TProperty extends Comparable>
 
   bool _validate(TProperty value, TProperty valueToCompare) {
     if (value == null) return true;
-    if (valueToCompare == null) return false;
+    if (valueToCompare == null) return true;
     int comparison = value.compareTo(valueToCompare);
-    bool isValid = (comparison > 0);
+    bool isValid = (comparison < 0);
     return isValid;
   }
 }

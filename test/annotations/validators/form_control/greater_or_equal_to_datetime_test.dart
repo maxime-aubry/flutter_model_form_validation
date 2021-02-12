@@ -19,7 +19,7 @@ void main() {
       bool isValid = await validator.isValid(formControl);
       expect(isValid, isTrue);
     });
-    
+
     test(
         'GreaterOrEqualToDateTime validator returns True (reason: value is equal to valueToCompare).',
         () async {
@@ -30,7 +30,7 @@ void main() {
       bool isValid = await validator.isValid(formControl);
       expect(isValid, isTrue);
     });
-    
+
     test(
         'GreaterOrEqualToDateTime validator returns True (reason: valueToCompare is null).',
         () async {
@@ -41,7 +41,7 @@ void main() {
       bool isValid = await validator.isValid(formControl);
       expect(isValid, isTrue);
     });
-    
+
     test(
         'GreaterOrEqualToDateTime validator returns False (reason: value is smaller than valueToCompare).',
         () async {
