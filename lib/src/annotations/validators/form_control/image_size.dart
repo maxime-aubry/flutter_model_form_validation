@@ -27,17 +27,25 @@ class ImageSize extends FormControlValidatorAnnotation<Uint8List> {
 
   @override
   Future<bool> isValid(FormControl<Uint8List> control) async {
-    imageDecoder.Image image = imageDecoder.decodeImage(control.value);
-    bool isValid = this._validate(image);
+    if (this.minWidth == null)
+      throw new ValidationException('Min width is not defined.');
+    if (this.maxWidth == null)
+      throw new ValidationException('Max width is not defined.');
+    if (this.minHeight == null)
+      throw new ValidationException('Min height is not defined.');
+    if (this.maxHeight == null)
+      throw new ValidationException('Max height is not defined.');
+    bool isValid = this._validate(control.value);
     return isValid;
   }
 
-  bool _validate(imageDecoder.Image value) {
+  bool _validate(Uint8List value) {
     if (value == null) return true;
-    if (value.width < this.minWidth ||
-        value.height < this.minHeight ||
-        value.width > this.maxWidth ||
-        value.height > this.maxHeight) return false;
+    imageDecoder.Image image = imageDecoder.decodeImage(value);
+    if (image.width < this.minWidth ||
+        image.height < this.minHeight ||
+        image.width > this.maxWidth ||
+        image.height > this.maxHeight) return false;
     return true;
   }
 }

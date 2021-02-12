@@ -75,7 +75,7 @@ void main() {
       expect(isValid, isFalse);
     });
 
-    test('RangeOfDateTime validator returns False (reason: min is missing).',
+    test('RangeOfDateTime validator throws an exception (reason: min is missing).',
         () async {
       RangeOfDateTime_WithMissingMin_Stub stub =
           new RangeOfDateTime_WithMissingMin_Stub();
@@ -93,7 +93,7 @@ void main() {
       );
     });
 
-    test('RangeOfDateTime validator returns False (reason: max is missing).',
+    test('RangeOfDateTime validator throws an exception (reason: max is missing).',
         () async {
       RangeOfDateTime_WithMissingMax_Stub stub =
           new RangeOfDateTime_WithMissingMax_Stub();
@@ -112,7 +112,7 @@ void main() {
     });
 
     test(
-        'RangeOfDateTime validator returns False (reason: min is greater than max).',
+        'RangeOfDateTime validator throws an exception (reason: min is greater than max).',
         () async {
       RangeOfDateTime_MinGreatherThanMax_Stub stub =
           new RangeOfDateTime_MinGreatherThanMax_Stub();

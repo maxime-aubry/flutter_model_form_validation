@@ -22,7 +22,7 @@ class FileSize_AllowedFileSize_Stub extends _IFileSizeStub {
   @override
   FileSize getValidator() => FileSize(
         size: 1048576,
-        error: 'unllowed file size',
+        error: 'unallowed file size',
       );
 }
 
@@ -39,7 +39,7 @@ class FileSize_NoFile_Stub extends _IFileSizeStub {
   @override
   FileSize getValidator() => FileSize(
         size: 1048576,
-        error: 'unllowed file size',
+        error: 'unallowed file size',
       );
 }
 
@@ -58,7 +58,7 @@ class FileSize_UnallowedFileSize_Stub extends _IFileSizeStub {
   @override
   FileSize getValidator() => FileSize(
         size: 1048576,
-        error: 'unllowed file size',
+        error: 'unallowed file size',
       );
 }
 
@@ -76,6 +76,6 @@ class FileSize_NullFileSize_Stub extends _IFileSizeStub {
   @override
   FileSize getValidator() => FileSize(
         size: null,
-        error: 'unllowed file size',
+        error: 'unallowed file size',
       );
 }

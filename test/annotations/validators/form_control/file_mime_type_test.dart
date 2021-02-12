@@ -40,7 +40,7 @@ void main() {
       expect(isValid, isFalse);
     });
 
-    test('FileMimeType validator returns False (reason: null mime type array).',
+    test('FileMimeType validator throws an exception (reason: null mime type array).',
         () async {
       FileMimeType_NullMimeTypeArray_Stub stub =
           new FileMimeType_NullMimeTypeArray_Stub();
@@ -59,7 +59,7 @@ void main() {
     });
 
     test(
-        'FileMimeType validator returns False (reason: empty mime type array).',
+        'FileMimeType validator throws an exception (reason: empty mime type array).',
         () async {
       FileMimeType_EmptyMimeTypeArray_Stub stub =
           new FileMimeType_EmptyMimeTypeArray_Stub();

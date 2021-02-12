@@ -38,7 +38,7 @@ void main() {
       expect(isValid, isFalse);
     });
 
-    test('FileMimeType validator returns False (reason: null file size).',
+    test('FileMimeType validator throws an exception (reason: null file size).',
         () async {
       FileSize_NullFileSize_Stub stub = new FileSize_NullFileSize_Stub();
       FormControl<Uint8List> formControl = stub.getControl();
