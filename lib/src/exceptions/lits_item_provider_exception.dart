@@ -1,5 +1,8 @@
-class ListItemProviderException implements Exception {
+import 'package:flutter_model_form_validation/src/exceptions/index.dart';
+
+class ListItemProviderException implements IException {
   ListItemProviderException(this.message);
 
-  final String message;
+  @override
+  String message;
 }

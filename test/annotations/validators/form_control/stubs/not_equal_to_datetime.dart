@@ -4,93 +4,87 @@ import 'package:flutter_model_form_validation/src/form/index.dart';
 
 import '../../stub.dart';
 
-abstract class _INotEqualToDateTimeStub
-    extends IStub<FormControl<DateTime>, NotEqualToDateTime> {}
-
-class NotEqualToDateTime_ValueNotEqualToValueToCompare_Stub
-    extends _INotEqualToDateTimeStub {
-  @override
-  FormControl<DateTime> getControl() {
-    FormControl<DateTime> value = new FormControl<DateTime>(
-      value: new DateTime(2021, 1, 2),
+class _NotEqualToDateTimeStub
+    extends IStub<FormControl<DateTime>, NotEqualToDateTime> {
+  _NotEqualToDateTimeStub({
+    DateTime fcValue,
+    DateTime fcValueToCompare,
+    ConstantDateTime validatorValueToCompare,
+  }) {
+    FormControl<DateTime> _value = new FormControl<DateTime>(
+      value: fcValue,
       validators: [],
     );
-    return value;
-  }
-
-  @override
-  NotEqualToDateTime getValidator() => NotEqualToDateTime(
-        valueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
-        error: 'value is not valid',
-      );
-}
-
-class NotEqualToDateTime_WithExternalValueToCompare_Stub
-    extends _INotEqualToDateTimeStub {
-  @override
-  FormControl<DateTime> getControl() {
-    FormControl<DateTime> valueToCompare = new FormControl<DateTime>(
-      value: new DateTime(2020, 01, 01),
+    FormControl<DateTime> _valueToCompare = new FormControl<DateTime>(
+      value: fcValueToCompare,
       validators: [],
     );
-    FormControl<DateTime> value = new FormControl<DateTime>(
-      value: new DateTime(2020, 01, 02),
-      validators: [],
-    );
-    FormGroup root = new FormGroup(
+    FormGroup _root = new FormGroup(
       controls: {
-        'valueToCompare': valueToCompare,
-        'value': value,
+        'value': _value,
+        'valueToCompare': _valueToCompare,
       },
       validators: [],
     );
+    _value.parentGroup = _root;
+    _valueToCompare.parentGroup = _root;
 
-    valueToCompare.parentGroup = root;
-    value.parentGroup = root;
-
-    return value;
+    super.control = _value;
+    super.validator = NotEqualToDateTime(
+      valueToCompare: validatorValueToCompare,
+      valueToCompareOnProperty:
+          (fcValueToCompare != null) ? 'valueToCompare' : null,
+      error: 'invalid date',
+    );
   }
-
-  @override
-  NotEqualToDateTime getValidator() => NotEqualToDateTime(
-        valueToCompare: const ConstantDateTime('2021-06-01T00:00:00'),
-        valueToCompareOnProperty: 'valueToCompare',
-        error: 'value is not valid',
-      );
 }
 
-class NotEqualToDateTime_ValueEqualToValueToCompare_Stub
-    extends _INotEqualToDateTimeStub {
-  @override
-  FormControl<DateTime> getControl() {
-    FormControl<DateTime> value = new FormControl<DateTime>(
-      value: new DateTime(2021, 01, 01),
-      validators: [],
-    );
-    return value;
-  }
-
-  @override
-  NotEqualToDateTime getValidator() => NotEqualToDateTime(
-        valueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
-        error: 'value is not valid',
-      );
+/* Value is valid */
+class NotEqualToDateTime_ValueDoesNotEqualValueToCompare_Stub
+    extends _NotEqualToDateTimeStub {
+  NotEqualToDateTime_ValueDoesNotEqualValueToCompare_Stub()
+      : super(
+          fcValue: new DateTime(2021, 1, 2),
+          validatorValueToCompare:
+              const ConstantDateTime('2021-01-01T00:00:00'),
+        ) {}
 }
 
-class NotEqualToDateTime_WithMissingValueToCompare_Stub
-    extends _INotEqualToDateTimeStub {
-  @override
-  FormControl<DateTime> getControl() {
-    FormControl<DateTime> value = new FormControl<DateTime>(
-      value: new DateTime(2020, 06, 01),
-      validators: [],
-    );
-    return value;
-  }
+class NotEqualToDateTime_NullValue_Stub extends _NotEqualToDateTimeStub {
+  NotEqualToDateTime_NullValue_Stub()
+      : super(
+          fcValue: null,
+          validatorValueToCompare:
+              const ConstantDateTime('2021-01-01T00:00:00'),
+        ) {}
+}
 
-  @override
-  NotEqualToDateTime getValidator() => NotEqualToDateTime(
-        valueToCompare: null,
-        error: 'value is not valid',
-      );
+/* Value is not valid */
+class NotEqualToDateTime_ValueEqualsValueToCompare_Stub
+    extends _NotEqualToDateTimeStub {
+  NotEqualToDateTime_ValueEqualsValueToCompare_Stub()
+      : super(
+          fcValue: new DateTime(2021, 1, 1),
+          validatorValueToCompare:
+              const ConstantDateTime('2021-01-01T00:00:00'),
+        ) {}
+}
+
+/* Remote parameters are provided */
+class NotEqualToDateTime_ValueToCompareOnPropertyIsProvided_Stub
+    extends _NotEqualToDateTimeStub {
+  NotEqualToDateTime_ValueToCompareOnPropertyIsProvided_Stub()
+      : super(
+          fcValue: new DateTime(2021, 1, 2),
+          fcValueToCompare: new DateTime(2021, 1, 2),
+          validatorValueToCompare:
+              const ConstantDateTime('2021-01-01T00:00:00'),
+        ) {}
+}
+
+/* None parameter is provided */
+class NotEqualToDateTime_ValueToCompareIsNotProvided_Stub
+    extends _NotEqualToDateTimeStub {
+  NotEqualToDateTime_ValueToCompareIsNotProvided_Stub()
+      : super(fcValue: new DateTime(2021, 1, 2)) {}
 }

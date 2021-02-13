@@ -4,59 +4,87 @@ import 'package:flutter_model_form_validation/src/form/index.dart';
 
 import '../../stub.dart';
 
-abstract class _ISmallerThanDateTimeStub
-    extends IStub<FormControl<DateTime>, SmallerThanDateTime> {}
+class _SmallerThanDateTimeStub
+    extends IStub<FormControl<DateTime>, SmallerThanDateTime> {
+  _SmallerThanDateTimeStub({
+    DateTime fcValue,
+    DateTime fcValueToCompare,
+    ConstantDateTime validatorValueToCompare,
+  }) {
+    FormControl<DateTime> _value = new FormControl<DateTime>(
+      value: fcValue,
+      validators: [],
+    );
+    FormControl<DateTime> _valueToCompare = new FormControl<DateTime>(
+      value: fcValueToCompare,
+      validators: [],
+    );
+    FormGroup _root = new FormGroup(
+      controls: {
+        'value': _value,
+        'valueToCompare': _valueToCompare,
+      },
+      validators: [],
+    );
+    _value.parentGroup = _root;
+    _valueToCompare.parentGroup = _root;
 
+    super.control = _value;
+    super.validator = SmallerThanDateTime(
+      valueToCompare: validatorValueToCompare,
+      valueToCompareOnProperty:
+          (fcValueToCompare != null) ? 'valueToCompare' : null,
+      error: 'invalid date',
+    );
+  }
+}
+
+/* Value is valid */
 class SmallerThanDateTime_ValueIsSmallerThanValueToCompare_Stub
-    extends _ISmallerThanDateTimeStub {
-  @override
-  FormControl<DateTime> getControl() {
-    FormControl<DateTime> value = new FormControl<DateTime>(
-      value: new DateTime(2020, 12, 31),
-      validators: [],
-    );
-    return value;
-  }
-
-  @override
-  SmallerThanDateTime getValidator() => SmallerThanDateTime(
-        valueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
-        error: 'value is not valid',
-      );
+    extends _SmallerThanDateTimeStub {
+  SmallerThanDateTime_ValueIsSmallerThanValueToCompare_Stub()
+      : super(
+          fcValue: new DateTime(2020, 12, 31),
+          validatorValueToCompare:
+              const ConstantDateTime('2021-01-01T00:00:00'),
+        ) {}
 }
 
-class SmallerThanDateTime_ValueToCompareIsNull_Stub
-    extends _ISmallerThanDateTimeStub {
-  @override
-  FormControl<DateTime> getControl() {
-    FormControl<DateTime> value = new FormControl<DateTime>(
-      value: new DateTime(2021, 1, 1),
-      validators: [],
-    );
-    return value;
-  }
-
-  @override
-  SmallerThanDateTime getValidator() => SmallerThanDateTime(
-        valueToCompare: null,
-        error: 'value is not valid',
-      );
+class SmallerThanDateTime_NullValue_Stub extends _SmallerThanDateTimeStub {
+  SmallerThanDateTime_NullValue_Stub()
+      : super(
+          fcValue: null,
+          validatorValueToCompare:
+              const ConstantDateTime('2021-01-01T00:00:00'),
+        ) {}
 }
 
+/* Value is not valid */
 class SmallerThanDateTime_ValueIsGreaterThanValueToCompare_Stub
-    extends _ISmallerThanDateTimeStub {
-  @override
-  FormControl<DateTime> getControl() {
-    FormControl<DateTime> value = new FormControl<DateTime>(
-      value: new DateTime(2021, 1, 1),
-      validators: [],
-    );
-    return value;
-  }
+    extends _SmallerThanDateTimeStub {
+  SmallerThanDateTime_ValueIsGreaterThanValueToCompare_Stub()
+      : super(
+          fcValue: new DateTime(2021, 1, 2),
+          validatorValueToCompare:
+              const ConstantDateTime('2021-01-01T00:00:00'),
+        ) {}
+}
 
-  @override
-  SmallerThanDateTime getValidator() => SmallerThanDateTime(
-        valueToCompare: const ConstantDateTime('2020-12-31T00:00:00'),
-        error: 'value is not valid',
-      );
+/* Remote parameters are provided */
+class SmallerThanDateTime_ValueToCompareOnPropertyIsProvided_Stub
+    extends _SmallerThanDateTimeStub {
+  SmallerThanDateTime_ValueToCompareOnPropertyIsProvided_Stub()
+      : super(
+          fcValue: new DateTime(2020, 12, 31),
+          fcValueToCompare: new DateTime(2020, 12, 31),
+          validatorValueToCompare:
+              const ConstantDateTime('2021-01-01T00:00:00'),
+        ) {}
+}
+
+/* None parameter is provided */
+class SmallerThanDateTime_ValueToCompareIsNotProvided_Stub
+    extends _SmallerThanDateTimeStub {
+  SmallerThanDateTime_ValueToCompareIsNotProvided_Stub()
+      : super(fcValue: new DateTime(2020, 12, 31)) {}
 }

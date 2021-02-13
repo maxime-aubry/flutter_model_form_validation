@@ -28,7 +28,9 @@ class SmallerOrEqualTo<TProperty extends Comparable>
 
   bool _validate(TProperty value, TProperty valueToCompare) {
     if (value == null) return true;
+    if (value is String && value.isEmpty) return true;
     if (valueToCompare == null) return true;
+    if (valueToCompare is String && valueToCompare.isEmpty) return true;
     int comparison = value.compareTo(valueToCompare);
     bool isValid = (comparison <= 0);
     return isValid;

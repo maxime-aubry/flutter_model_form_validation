@@ -6,93 +6,72 @@ import 'package:flutter_model_form_validation/src/form/index.dart';
 
 import '../../stub.dart';
 
-abstract class _IFileMimeTypeStub
-    extends IStub<FormControl<Uint8List>, FileMimeType> {}
-
-class FileMimeType_AllowedMimeType_Stub extends _IFileMimeTypeStub {
-  @override
-  FormControl<Uint8List> getControl() {
-    File file = new File('${Directory.current.path}/test/assets/glycine.jpg');
-    FormControl<Uint8List> value = new FormControl<Uint8List>(
-      value: file.readAsBytesSync(),
+class _FileMimeTypeStub extends IStub<FormControl<Uint8List>, FileMimeType> {
+  _FileMimeTypeStub({
+    File file,
+    List<String> mimeTypes,
+  }) : super() {
+    this.control = new FormControl<Uint8List>(
+      value: file?.readAsBytesSync(),
       validators: [],
     );
-    return value;
+    this.validator = FileMimeType(
+      mimeTypes: mimeTypes,
+      error: 'invalid mime type',
+    );
   }
-
-  @override
-  FileMimeType getValidator() => FileMimeType(
-        mimeTypes: ['image/jpeg', 'image/bmp'],
-        error: 'mime type is not allowed',
-      );
 }
 
-class FileMimeType_NoFile_Stub extends _IFileMimeTypeStub {
-  @override
-  FormControl<Uint8List> getControl() {
-    FormControl<Uint8List> value = new FormControl<Uint8List>(
-      value: null,
-      validators: [],
-    );
-    return value;
-  }
-
-  @override
-  FileMimeType getValidator() => FileMimeType(
-        mimeTypes: ['image/jpeg', 'image/bmp'],
-        error: 'mime type is not allowed',
-      );
+/* Value is valid */
+class FileMimeType_MimeTypeIsAllowed_Stub extends _FileMimeTypeStub {
+  FileMimeType_MimeTypeIsAllowed_Stub()
+      : super(
+          file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
+          mimeTypes: ['image/jpeg', 'image/bmp'],
+        );
 }
 
-class FileMimeType_UnallowedMimeType_Stub extends _IFileMimeTypeStub {
-  @override
-  FormControl<Uint8List> getControl() {
-    File file =
-        new File('${Directory.current.path}/test/assets/erable-japonais.png');
-    FormControl<Uint8List> value = new FormControl<Uint8List>(
-      value: file.readAsBytesSync(),
-      validators: [],
-    );
-    return value;
-  }
-
-  @override
-  FileMimeType getValidator() => FileMimeType(
-        mimeTypes: ['image/jpeg', 'image/bmp'],
-        error: 'mime type is not allowed',
-      );
+class FileMimeType_NoFile_Stub extends _FileMimeTypeStub {
+  FileMimeType_NoFile_Stub()
+      : super(
+          file: null,
+          mimeTypes: ['image/jpeg', 'image/bmp'],
+        );
 }
 
-class FileMimeType_NullMimeTypeArray_Stub extends _IFileMimeTypeStub {
-  @override
-  FormControl<Uint8List> getControl() {
-    File file =
-        new File('${Directory.current.path}/test/assets/erable-japonais.png');
-    FormControl<Uint8List> value = new FormControl<Uint8List>(
-      value: file.readAsBytesSync(),
-      validators: [],
-    );
-    return value;
-  }
-
-  @override
-  FileMimeType getValidator() =>
-      FileMimeType(mimeTypes: null, error: 'mime type is not allowed');
+/* Value is not valid */
+class FileMimeType_MimeTypeIsNotAllowed_Stub extends _FileMimeTypeStub {
+  FileMimeType_MimeTypeIsNotAllowed_Stub()
+      : super(
+          file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
+          mimeTypes: ['image/png', 'image/bmp'],
+        );
 }
 
-class FileMimeType_EmptyMimeTypeArray_Stub extends _IFileMimeTypeStub {
-  @override
-  FormControl<Uint8List> getControl() {
-    File file =
-        new File('${Directory.current.path}/test/assets/erable-japonais.png');
-    FormControl<Uint8List> value = new FormControl<Uint8List>(
-      value: file.readAsBytesSync(),
-      validators: [],
-    );
-    return value;
-  }
+/* Remote parameters are provided */
 
-  @override
-  FileMimeType getValidator() =>
-      FileMimeType(mimeTypes: [], error: 'mime type is not allowed');
+/* None parameter is provided */
+class FileMimeType_MimeTypesArrayIsNull_Stub extends _FileMimeTypeStub {
+  FileMimeType_MimeTypesArrayIsNull_Stub()
+      : super(
+          file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
+          mimeTypes: null,
+        );
+}
+
+class FileMimeType_MimeTypesArrayIsEmpty_Stub extends _FileMimeTypeStub {
+  FileMimeType_MimeTypesArrayIsEmpty_Stub()
+      : super(
+          file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
+          mimeTypes: [],
+        );
+}
+
+/* File not found */
+class FileMimeType_FileNotFound_Stub extends _FileMimeTypeStub {
+  FileMimeType_FileNotFound_Stub()
+      : super(
+          file: new File('${Directory.current.path}/test/assets/not-found.jpg'),
+          mimeTypes: ['image/jpeg', 'image/bmp'],
+        );
 }

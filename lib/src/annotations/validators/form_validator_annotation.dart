@@ -2,7 +2,6 @@ import 'package:constant_datetime/constant_datetime.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
-import 'package:flutter_model_form_validation/src/utils/index.dart';
 
 /// [FormValidatorAnnotation] is the parent class for every validators you will create and use.
 /// {@category Metadata}

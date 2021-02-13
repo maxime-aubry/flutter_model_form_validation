@@ -1,5 +1,8 @@
-class FormBuilderException implements Exception {
+import 'package:flutter_model_form_validation/src/exceptions/index.dart';
+
+class FormBuilderException implements IException {
   FormBuilderException(this.message);
 
-  final String message;
+  @override
+  String message;
 }

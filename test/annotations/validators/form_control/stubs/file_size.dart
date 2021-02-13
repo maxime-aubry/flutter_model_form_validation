@@ -1,81 +1,68 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:flutter_model_form_validation/src/annotations/index.dart';
-import 'package:flutter_model_form_validation/src/form/index.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 import '../../stub.dart';
 
-abstract class _IFileSizeStub extends IStub<FormControl<Uint8List>, FileSize> {}
-
-class FileSize_AllowedFileSize_Stub extends _IFileSizeStub {
-  @override
-  FormControl<Uint8List> getControl() {
-    File file = new File('${Directory.current.path}/test/assets/glycine.jpg');
-    FormControl<Uint8List> value = new FormControl<Uint8List>(
-      value: file.readAsBytesSync(),
+class _FileSizeTypeStub extends IStub<FormControl<Uint8List>, FileSize> {
+  _FileSizeTypeStub({
+    File file,
+    int size,
+  }) : super() {
+    this.control = new FormControl<Uint8List>(
+      value: file?.readAsBytesSync(),
       validators: [],
     );
-    return value;
+    this.validator = FileSize(
+      size: size,
+      error: 'invalid file size',
+    );
   }
-
-  @override
-  FileSize getValidator() => FileSize(
-        size: 1048576,
-        error: 'unallowed file size',
-      );
 }
 
-class FileSize_NoFile_Stub extends _IFileSizeStub {
-  @override
-  FormControl<Uint8List> getControl() {
-    FormControl<Uint8List> value = new FormControl<Uint8List>(
-      value: null,
-      validators: [],
-    );
-    return value;
-  }
-
-  @override
-  FileSize getValidator() => FileSize(
-        size: 1048576,
-        error: 'unallowed file size',
-      );
+/* Value is valid */
+class FileSize_FileSizeIsAllowed_Stub extends _FileSizeTypeStub {
+  FileSize_FileSizeIsAllowed_Stub()
+      : super(
+          file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
+          size: 1048576,
+        );
 }
 
-class FileSize_UnallowedFileSize_Stub extends _IFileSizeStub {
-  @override
-  FormControl<Uint8List> getControl() {
-    File file =
-        new File('${Directory.current.path}/test/assets/erable-japonais.png');
-    FormControl<Uint8List> value = new FormControl<Uint8List>(
-      value: file.readAsBytesSync(),
-      validators: [],
-    );
-    return value;
-  }
-
-  @override
-  FileSize getValidator() => FileSize(
-        size: 1048576,
-        error: 'unallowed file size',
-      );
+class FileSize_NoFile_Stub extends _FileSizeTypeStub {
+  FileSize_NoFile_Stub()
+      : super(
+          file: null,
+          size: 1048576,
+        );
 }
 
-class FileSize_NullFileSize_Stub extends _IFileSizeStub {
-  @override
-  FormControl<Uint8List> getControl() {
-    File file = new File('${Directory.current.path}/test/assets/glycine.jpg');
-    FormControl<Uint8List> value = new FormControl<Uint8List>(
-      value: file.readAsBytesSync(),
-      validators: [],
-    );
-    return value;
-  }
+/* Value is not valid */
+class FileSize_FileSizeIsNotAllowed_Stub extends _FileSizeTypeStub {
+  FileSize_FileSizeIsNotAllowed_Stub()
+      : super(
+          file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
+          size: 524288,
+        );
+}
 
-  @override
-  FileSize getValidator() => FileSize(
-        size: null,
-        error: 'unallowed file size',
-      );
+/* Remote parameters are provided */
+
+/* None parameter is provided */
+class FileSize_FileSizeIsNull_Stub extends _FileSizeTypeStub {
+  FileSize_FileSizeIsNull_Stub()
+      : super(
+          file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
+          size: null,
+        );
+}
+
+/* File not found */
+class FileSize_FileNotFound_Stub extends _FileSizeTypeStub {
+  FileSize_FileNotFound_Stub()
+      : super(
+          file: new File('${Directory.current.path}/test/assets/not-found.jpg'),
+          size: 1048576,
+        );
 }

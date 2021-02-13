@@ -49,6 +49,7 @@ class Range<TProperty extends Comparable>
     TProperty maxValue,
   ) {
     if (value == null) return true;
+    if (value is String && value.isEmpty) return true;
     if (minValue == null || maxValue == null) return false;
     int comparison_of_min = value.compareTo(minValue);
     int comparison_of_max = value.compareTo(maxValue);

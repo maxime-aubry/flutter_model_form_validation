@@ -1,5 +1,8 @@
-class LibraryInitializerException implements Exception {
+import 'package:flutter_model_form_validation/src/exceptions/index.dart';
+
+class LibraryInitializerException implements IException {
   LibraryInitializerException(this.message);
 
-  final String message;
+  @override
+  String message;
 }

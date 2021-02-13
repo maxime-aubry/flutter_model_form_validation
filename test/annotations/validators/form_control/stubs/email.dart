@@ -3,60 +3,36 @@ import 'package:flutter_model_form_validation/src/form/index.dart';
 
 import '../../stub.dart';
 
-abstract class _IEmailStub extends IStub<FormControl<String>, Email> {}
-
-class EmailValidStub extends _IEmailStub {
-  @override
-  FormControl<String> getControl() {
-    FormControl<String> value = new FormControl<String>(
-      value: 'a.a@a.a',
+class _EmailStub extends IStub<FormControl<String>, Email> {
+  _EmailStub({
+    String fcValue,
+  }) {
+    super.control = new FormControl<String>(
+      value: fcValue,
       validators: [],
     );
-    return value;
+    super.validator = Email(error: 'invalid email');
   }
-
-  @override
-  Email getValidator() => Email(error: 'invalid email');
 }
 
-class EmailNullStub extends _IEmailStub {
-  @override
-  FormControl<String> getControl() {
-    FormControl<String> value = new FormControl<String>(
-      value: null,
-      validators: [],
-    );
-    return value;
-  }
-
-  @override
-  Email getValidator() => Email(error: 'invalid email');
+/* Value is valid */
+class Email_ValidEmail_Stub extends _EmailStub {
+  Email_ValidEmail_Stub() : super(fcValue: 'a.a@a.a');
 }
 
-class EmailEmptyStub extends _IEmailStub {
-  @override
-  FormControl<String> getControl() {
-    FormControl<String> value = new FormControl<String>(
-      value: '',
-      validators: [],
-    );
-    return value;
-  }
-
-  @override
-  Email getValidator() => Email(error: 'invalid email');
+class Email_NullValue_Stub extends _EmailStub {
+  Email_NullValue_Stub() : super(fcValue: null);
 }
 
-class EmailInvalidStub extends _IEmailStub {
-  @override
-  FormControl<String> getControl() {
-    FormControl<String> value = new FormControl<String>(
-      value: 'a.a@a',
-      validators: [],
-    );
-    return value;
-  }
-
-  @override
-  Email getValidator() => Email(error: 'invalid email');
+class Email_EmptyValue_Stub extends _EmailStub {
+  Email_EmptyValue_Stub() : super(fcValue: '');
 }
+
+/* Value is not valid */
+class Email_InavlidEmail_Stub extends _EmailStub {
+  Email_InavlidEmail_Stub() : super(fcValue: 'a.a@a');
+}
+
+/* Remote parameters are provided */
+
+/* None parameter is provided */

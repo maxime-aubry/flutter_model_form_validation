@@ -1,7 +1,12 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-abstract class IStub<TAbstractControl extends AbstractControl,
+class IStub<TAbstractControl extends AbstractControl,
     TValidator extends FormValidatorAnnotation> {
-  TAbstractControl getControl();
-  TValidator getValidator();
+  TAbstractControl control;
+  TValidator validator;
 }
+
+/* Value is valid */
+/* Value is not valid */
+/* Remote parameters are provided */
+/* None parameter is provided */

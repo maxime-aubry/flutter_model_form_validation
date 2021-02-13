@@ -1,5 +1,8 @@
-class FormControlFilterException implements Exception {
-  FormControlFilterException(this.message) {}
+import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 
-  final String message;
+class FormControlFilterException implements IException {
+  FormControlFilterException(this.message);
+
+  @override
+  String message;
 }
