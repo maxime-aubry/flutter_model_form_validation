@@ -86,7 +86,7 @@ class NotEqualToString_ValueToCompareOnPropertyIsProvided_Stub
 }
 
 /* None parameter is provided */
-class NotEqualToString_ValueToCompareIsNotProvided_Stub
+class NotEqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _NotEqualToStringStub {
-  NotEqualToString_ValueToCompareIsNotProvided_Stub() : super(fcValue: 'a') {}
+  NotEqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub() : super(fcValue: 'a') {}
 }

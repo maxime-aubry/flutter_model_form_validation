@@ -78,7 +78,7 @@ class SmallerThanDouble_ValueToCompareOnPropertyIsProvided_Stub
 }
 
 /* None parameter is provided */
-class SmallerThanDouble_ValueToCompareIsNotProvided_Stub
+class SmallerThanDouble_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _SmallerThanDoubleStub {
-  SmallerThanDouble_ValueToCompareIsNotProvided_Stub() : super(fcValue: 1) {}
+  SmallerThanDouble_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub() : super(fcValue: 1) {}
 }

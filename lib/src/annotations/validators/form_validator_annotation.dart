@@ -9,10 +9,14 @@ import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart'
 abstract class FormValidatorAnnotation<
     TAbstractControl extends AbstractControl> {
   const FormValidatorAnnotation({
+    this.serviceName,
     @required this.error,
   });
 
-  /// This is the error to display (provided by developers).
+  /// [serviceName] allows to use a service to load data.
+  final String serviceName;
+
+  /// [error] is the error to display.
   final String error;
 
   /// Verify if the model is valid compared to the current validator You must add [value] parameter, this one is your current property to validate.

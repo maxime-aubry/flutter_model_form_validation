@@ -75,6 +75,6 @@ class EqualToInt_ValueToCompareOnPropertyIsProvided_Stub
 }
 
 /* None parameter is provided */
-class EqualToInt_ValueToCompareIsNotProvided_Stub extends _EqualToIntStub {
-  EqualToInt_ValueToCompareIsNotProvided_Stub() : super(fcValue: 0) {}
+class EqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub extends _EqualToIntStub {
+  EqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub() : super(fcValue: 0) {}
 }

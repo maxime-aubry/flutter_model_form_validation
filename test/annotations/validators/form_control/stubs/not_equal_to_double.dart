@@ -78,7 +78,7 @@ class NotEqualToDouble_ValueToCompareOnPropertyIsProvided_Stub
 }
 
 /* None parameter is provided */
-class NotEqualToDouble_ValueToCompareIsNotProvided_Stub
+class NotEqualToDouble_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _NotEqualToDoubleStub {
-  NotEqualToDouble_ValueToCompareIsNotProvided_Stub() : super(fcValue: 0) {}
+  NotEqualToDouble_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub() : super(fcValue: 0) {}
 }

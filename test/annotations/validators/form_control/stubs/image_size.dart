@@ -5,8 +5,8 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 
 import '../../stub.dart';
 
-class _ImageSizeTypeStub extends IStub<FormControl<Uint8List>, ImageSize> {
-  _ImageSizeTypeStub({
+class _ImageSizeStub extends IStub<FormControl<Uint8List>, ImageSize> {
+  _ImageSizeStub({
     File file,
     int fcMinWidth,
     int fcMaxWidth,
@@ -69,129 +69,129 @@ class _ImageSizeTypeStub extends IStub<FormControl<Uint8List>, ImageSize> {
 }
 
 /* Value is valid */
-class ImageSizeType_ImageSizeIsAllowed_Stub extends _ImageSizeTypeStub {
-  ImageSizeType_ImageSizeIsAllowed_Stub()
+class ImageSize_ImageSizeIsAllowed_Stub extends _ImageSizeStub {
+  ImageSize_ImageSizeIsAllowed_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
-          fcMinWidth: 800,
-          fcMaxWidth: 900,
-          fcMinHeight: 500,
-          fcMaxHeight: 600,
+          validatorMinWidth: 800,
+          validatorMaxWidth: 900,
+          validatorMinHeight: 500,
+          validatorMaxHeight: 600,
         );
 }
 
-class ImageSizeType_FileIsNull_Stub extends _ImageSizeTypeStub {
-  ImageSizeType_FileIsNull_Stub()
+class ImageSize_FileIsNull_Stub extends _ImageSizeStub {
+  ImageSize_FileIsNull_Stub()
       : super(
           file: null,
-          fcMinWidth: 800,
-          fcMaxWidth: 900,
-          fcMinHeight: 500,
-          fcMaxHeight: 600,
+          validatorMinWidth: 800,
+          validatorMaxWidth: 900,
+          validatorMinHeight: 500,
+          validatorMaxHeight: 600,
         );
 }
 
 /* Value is not valid */
-class ImageSizeType_ImageWidthIsNotAllowed_Stub extends _ImageSizeTypeStub {
-  ImageSizeType_ImageWidthIsNotAllowed_Stub()
+class ImageSize_ImageWidthIsNotAllowed_Stub extends _ImageSizeStub {
+  ImageSize_ImageWidthIsNotAllowed_Stub()
       : super(
           file: null,
-          fcMinWidth: 850,
-          fcMaxWidth: 900,
-          fcMinHeight: 500,
-          fcMaxHeight: 600,
+          validatorMinWidth: 850,
+          validatorMaxWidth: 900,
+          validatorMinHeight: 500,
+          validatorMaxHeight: 600,
         );
 }
 
-class ImageSizeType_ImageHeightIsNotAllowed_Stub extends _ImageSizeTypeStub {
-  ImageSizeType_ImageHeightIsNotAllowed_Stub()
+class ImageSize_ImageHeightIsNotAllowed_Stub extends _ImageSizeStub {
+  ImageSize_ImageHeightIsNotAllowed_Stub()
       : super(
           file: null,
-          fcMinWidth: 800,
-          fcMaxWidth: 900,
-          fcMinHeight: 550,
-          fcMaxHeight: 600,
+          validatorMinWidth: 800,
+          validatorMaxWidth: 900,
+          validatorMinHeight: 550,
+          validatorMaxHeight: 600,
         );
 }
 
 /* Remote parameters are provided */
-class ImageSizeType_ImageSizeOnPropertyIsProvided_Stub
-    extends _ImageSizeTypeStub {
-  ImageSizeType_ImageSizeOnPropertyIsProvided_Stub()
+class ImageSize_ImageSizeOnPropertyIsProvided_Stub
+    extends _ImageSizeStub {
+  ImageSize_ImageSizeOnPropertyIsProvided_Stub()
       : super(
           file: null,
-          fcMinWidth: 100,
-          fcMaxWidth: 100,
-          fcMinHeight: 100,
-          fcMaxHeight: 100,
           validatorMinWidth: 800,
           validatorMaxWidth: 900,
           validatorMinHeight: 500,
           validatorMaxHeight: 600,
+          fcMinWidth: 100,
+          fcMaxWidth: 100,
+          fcMinHeight: 100,
+          fcMaxHeight: 100,
         );
 }
 
 /* None parameter is provided */
-class ImageSizeType_MinWidthOnPropertyIsNotProvided_Stub
-    extends _ImageSizeTypeStub {
-  ImageSizeType_MinWidthOnPropertyIsNotProvided_Stub()
+class ImageSize_ThrowsValidatorParameterExceptionOnNullMinWidth_Stub
+    extends _ImageSizeStub {
+  ImageSize_ThrowsValidatorParameterExceptionOnNullMinWidth_Stub()
       : super(
           file: null,
-          fcMinWidth: null,
-          fcMaxWidth: 100,
-          fcMinHeight: 100,
-          fcMaxHeight: 100,
           validatorMinWidth: null,
           validatorMaxWidth: 900,
           validatorMinHeight: 500,
           validatorMaxHeight: 600,
+          fcMinWidth: null,
+          fcMaxWidth: 100,
+          fcMinHeight: 100,
+          fcMaxHeight: 100,
         );
 }
 
-class ImageSizeType_MaxWidthOnPropertyIsNotProvided_Stub
-    extends _ImageSizeTypeStub {
-  ImageSizeType_MaxWidthOnPropertyIsNotProvided_Stub()
+class ImageSize_ThrowsValidatorParameterExceptionOnNullMaxWidth_Stub
+    extends _ImageSizeStub {
+  ImageSize_ThrowsValidatorParameterExceptionOnNullMaxWidth_Stub()
       : super(
           file: null,
-          fcMinWidth: 100,
-          fcMaxWidth: null,
-          fcMinHeight: 100,
-          fcMaxHeight: 100,
           validatorMinWidth: 800,
           validatorMaxWidth: null,
           validatorMinHeight: 500,
           validatorMaxHeight: 600,
+          fcMinWidth: 100,
+          fcMaxWidth: null,
+          fcMinHeight: 100,
+          fcMaxHeight: 100,
         );
 }
 
-class ImageSizeType_MinHeightOnPropertyIsNotProvided_Stub
-    extends _ImageSizeTypeStub {
-  ImageSizeType_MinHeightOnPropertyIsNotProvided_Stub()
+class ImageSize_ThrowsValidatorParameterExceptionOnNullMinHeight_Stub
+    extends _ImageSizeStub {
+  ImageSize_ThrowsValidatorParameterExceptionOnNullMinHeight_Stub()
       : super(
           file: null,
-          fcMinWidth: 100,
-          fcMaxWidth: 100,
-          fcMinHeight: null,
-          fcMaxHeight: 100,
           validatorMinWidth: 800,
           validatorMaxWidth: 900,
           validatorMinHeight: null,
           validatorMaxHeight: 600,
+          fcMinWidth: 100,
+          fcMaxWidth: 100,
+          fcMinHeight: null,
+          fcMaxHeight: 100,
         );
 }
 
-class ImageSizeType_MaxHeightOnPropertyIsNotProvided_Stub
-    extends _ImageSizeTypeStub {
-  ImageSizeType_MaxHeightOnPropertyIsNotProvided_Stub()
+class ImageSize_ThrowsValidatorParameterExceptionOnNullMaxHeight_Stub
+    extends _ImageSizeStub {
+  ImageSize_ThrowsValidatorParameterExceptionOnNullMaxHeight_Stub()
       : super(
           file: null,
-          fcMinWidth: 100,
-          fcMaxWidth: 100,
-          fcMinHeight: 100,
-          fcMaxHeight: null,
           validatorMinWidth: 800,
           validatorMaxWidth: 900,
           validatorMinHeight: 500,
           validatorMaxHeight: null,
+          fcMinWidth: 100,
+          fcMaxWidth: 100,
+          fcMinHeight: 100,
+          fcMaxHeight: null,
         );
 }

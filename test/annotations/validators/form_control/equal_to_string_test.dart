@@ -43,8 +43,8 @@ void main() {
     });
 
     test('None ValueToCompare is provided.', () async {
-      EqualToString_ValueToCompareIsNotProvided_Stub stub =
-          new EqualToString_ValueToCompareIsNotProvided_Stub();
+      EqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub stub =
+          new EqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub();
       bool isValid = await stub.validator.isValid(stub.control);
       expect(isValid, isTrue);
     });

@@ -94,8 +94,8 @@ class GreaterOrEqualToDateTime_ValueToCompareOnPropertyIsProvided_Stub
 }
 
 /* None parameter is provided */
-class GreaterOrEqualToDateTime_ValueToCompareIsNotProvided_Stub
+class GreaterOrEqualToDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _GreaterOrEqualToDateTimeStub {
-  GreaterOrEqualToDateTime_ValueToCompareIsNotProvided_Stub()
+  GreaterOrEqualToDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
       : super(fcValue: new DateTime(2021, 1, 2)) {}
 }

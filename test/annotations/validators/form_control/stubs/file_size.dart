@@ -5,8 +5,8 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 
 import '../../stub.dart';
 
-class _FileSizeTypeStub extends IStub<FormControl<Uint8List>, FileSize> {
-  _FileSizeTypeStub({
+class _FileSizeStub extends IStub<FormControl<Uint8List>, FileSize> {
+  _FileSizeStub({
     File file,
     int size,
   }) : super() {
@@ -22,7 +22,7 @@ class _FileSizeTypeStub extends IStub<FormControl<Uint8List>, FileSize> {
 }
 
 /* Value is valid */
-class FileSize_FileSizeIsAllowed_Stub extends _FileSizeTypeStub {
+class FileSize_FileSizeIsAllowed_Stub extends _FileSizeStub {
   FileSize_FileSizeIsAllowed_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
@@ -30,7 +30,7 @@ class FileSize_FileSizeIsAllowed_Stub extends _FileSizeTypeStub {
         );
 }
 
-class FileSize_NoFile_Stub extends _FileSizeTypeStub {
+class FileSize_NoFile_Stub extends _FileSizeStub {
   FileSize_NoFile_Stub()
       : super(
           file: null,
@@ -39,7 +39,7 @@ class FileSize_NoFile_Stub extends _FileSizeTypeStub {
 }
 
 /* Value is not valid */
-class FileSize_FileSizeIsNotAllowed_Stub extends _FileSizeTypeStub {
+class FileSize_FileSizeIsNotAllowed_Stub extends _FileSizeStub {
   FileSize_FileSizeIsNotAllowed_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
@@ -50,8 +50,8 @@ class FileSize_FileSizeIsNotAllowed_Stub extends _FileSizeTypeStub {
 /* Remote parameters are provided */
 
 /* None parameter is provided */
-class FileSize_FileSizeIsNull_Stub extends _FileSizeTypeStub {
-  FileSize_FileSizeIsNull_Stub()
+class FileSize_ThrowsValidatorParameterExceptionOnNullSize_Stub extends _FileSizeStub {
+  FileSize_ThrowsValidatorParameterExceptionOnNullSize_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
           size: null,
@@ -59,7 +59,7 @@ class FileSize_FileSizeIsNull_Stub extends _FileSizeTypeStub {
 }
 
 /* File not found */
-class FileSize_FileNotFound_Stub extends _FileSizeTypeStub {
+class FileSize_FileNotFound_Stub extends _FileSizeStub {
   FileSize_FileNotFound_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/not-found.jpg'),

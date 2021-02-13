@@ -87,7 +87,7 @@ class GreaterThanDouble_ValueToCompareOnPropertyIsProvided_Stub
 }
 
 /* None parameter is provided */
-class GreaterThanDouble_ValueToCompareIsNotProvided_Stub
+class GreaterThanDouble_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _GreaterThanDoubleStub {
-  GreaterThanDouble_ValueToCompareIsNotProvided_Stub() : super(fcValue: 1) {}
+  GreaterThanDouble_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub() : super(fcValue: 1) {}
 }

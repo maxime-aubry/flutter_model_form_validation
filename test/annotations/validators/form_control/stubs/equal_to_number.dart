@@ -76,7 +76,7 @@ class EqualToNumber_ValueToCompareOnPropertyIsProvided_Stub
 }
 
 /* None parameter is provided */
-class EqualToNumber_ValueToCompareIsNotProvided_Stub
+class EqualToNumber_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _EqualToNumberStub {
-  EqualToNumber_ValueToCompareIsNotProvided_Stub() : super(fcValue: 0) {}
+  EqualToNumber_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub() : super(fcValue: 0) {}
 }

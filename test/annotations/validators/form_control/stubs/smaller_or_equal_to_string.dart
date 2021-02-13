@@ -88,8 +88,8 @@ class SmallerOrEqualToString_ValueToCompareOnPropertyIsProvided_Stub
 }
 
 /* None parameter is provided */
-class SmallerOrEqualToString_ValueToCompareIsNotProvided_Stub
+class SmallerOrEqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _SmallerOrEqualToStringStub {
-  SmallerOrEqualToString_ValueToCompareIsNotProvided_Stub()
+  SmallerOrEqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
       : super(fcValue: 'b') {}
 }

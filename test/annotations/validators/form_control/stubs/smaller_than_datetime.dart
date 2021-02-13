@@ -83,8 +83,8 @@ class SmallerThanDateTime_ValueToCompareOnPropertyIsProvided_Stub
 }
 
 /* None parameter is provided */
-class SmallerThanDateTime_ValueToCompareIsNotProvided_Stub
+class SmallerThanDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _SmallerThanDateTimeStub {
-  SmallerThanDateTime_ValueToCompareIsNotProvided_Stub()
+  SmallerThanDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
       : super(fcValue: new DateTime(2020, 12, 31)) {}
 }

@@ -84,7 +84,7 @@ class EqualToString_ValueToCompareOnPropertyIsProvided_Stub
 }
 
 /* None parameter is provided */
-class EqualToString_ValueToCompareIsNotProvided_Stub
+class EqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _EqualToStringStub {
-  EqualToString_ValueToCompareIsNotProvided_Stub() : super(fcValue: 'a') {}
+  EqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub() : super(fcValue: 'a') {}
 }
