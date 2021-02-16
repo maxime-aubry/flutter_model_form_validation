@@ -50,8 +50,8 @@ class EqualToDateTime_ValueEqualsValueToCompare_Stub
         ) {}
 }
 
-class EqualToDateTime_NullValue_Stub extends _EqualToDateTimeStub {
-  EqualToDateTime_NullValue_Stub()
+class EqualToDateTime_ValueIsNull_Stub extends _EqualToDateTimeStub {
+  EqualToDateTime_ValueIsNull_Stub()
       : super(
           fcValue: null,
           validatorValueToCompare:

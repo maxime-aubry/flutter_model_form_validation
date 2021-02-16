@@ -51,7 +51,8 @@ class FileMimeType_MimeTypeIsNotAllowed_Stub extends _FileMimeTypeStub {
 /* Remote parameters are provided */
 
 /* None parameter is provided */
-class FileMimeType_ThrowsValidatorParameterExceptionOnNullMimeTypesArray_Stub extends _FileMimeTypeStub {
+class FileMimeType_ThrowsValidatorParameterExceptionOnNullMimeTypesArray_Stub
+    extends _FileMimeTypeStub {
   FileMimeType_ThrowsValidatorParameterExceptionOnNullMimeTypesArray_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
@@ -59,7 +60,8 @@ class FileMimeType_ThrowsValidatorParameterExceptionOnNullMimeTypesArray_Stub ex
         );
 }
 
-class FileMimeType_ThrowsValidatorParameterExceptionOnEmptyMimeTypesArray_Stub extends _FileMimeTypeStub {
+class FileMimeType_ThrowsValidatorParameterExceptionOnEmptyMimeTypesArray_Stub
+    extends _FileMimeTypeStub {
   FileMimeType_ThrowsValidatorParameterExceptionOnEmptyMimeTypesArray_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),

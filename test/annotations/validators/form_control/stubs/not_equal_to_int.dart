@@ -47,8 +47,8 @@ class NotEqualToInt_ValueDoesNotEqualValueToCompare_Stub
         ) {}
 }
 
-class NotEqualToInt_NullValue_Stub extends _NotEqualToIntStub {
-  NotEqualToInt_NullValue_Stub()
+class NotEqualToInt_ValueIsNull_Stub extends _NotEqualToIntStub {
+  NotEqualToInt_ValueIsNull_Stub()
       : super(
           fcValue: null,
           validatorValueToCompare: 0,
@@ -78,5 +78,6 @@ class NotEqualToInt_ValueToCompareOnPropertyIsProvided_Stub
 /* None parameter is provided */
 class NotEqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _NotEqualToIntStub {
-  NotEqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub() : super(fcValue: 0) {}
+  NotEqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
+      : super(fcValue: 0) {}
 }

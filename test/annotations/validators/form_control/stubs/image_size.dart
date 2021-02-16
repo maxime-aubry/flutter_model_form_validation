@@ -115,8 +115,7 @@ class ImageSize_ImageHeightIsNotAllowed_Stub extends _ImageSizeStub {
 }
 
 /* Remote parameters are provided */
-class ImageSize_ImageSizeOnPropertyIsProvided_Stub
-    extends _ImageSizeStub {
+class ImageSize_ImageSizeOnPropertyIsProvided_Stub extends _ImageSizeStub {
   ImageSize_ImageSizeOnPropertyIsProvided_Stub()
       : super(
           file: null,

@@ -13,7 +13,7 @@ class ListItemsProvider {
 
   static void register<TProperty>(
     String name,
-    ListItemsServiceFunction service,
+    ListItemsServiceFunction<TProperty> service,
   ) {
     if (name == null || name.isEmpty)
       throw new ListItemProviderException('Service name is required.');

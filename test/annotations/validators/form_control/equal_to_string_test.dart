@@ -17,7 +17,8 @@ void main() {
     });
 
     test('Value is null.', () async {
-      EqualToString_NullValue_Stub stub = new EqualToString_NullValue_Stub();
+      EqualToString_ValueIsNull_Stub stub =
+          new EqualToString_ValueIsNull_Stub();
       bool isValid = await stub.validator.isValid(stub.control);
       expect(isValid, isTrue);
     });
@@ -43,7 +44,8 @@ void main() {
     });
 
     test('None ValueToCompare is provided.', () async {
-      EqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub stub =
+      EqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
+          stub =
           new EqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub();
       bool isValid = await stub.validator.isValid(stub.control);
       expect(isValid, isTrue);

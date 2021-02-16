@@ -20,8 +20,8 @@ class Email_ValidEmail_Stub extends _EmailStub {
   Email_ValidEmail_Stub() : super(fcValue: 'a.a@a.a');
 }
 
-class Email_NullValue_Stub extends _EmailStub {
-  Email_NullValue_Stub() : super(fcValue: null);
+class Email_ValueIsNull_Stub extends _EmailStub {
+  Email_ValueIsNull_Stub() : super(fcValue: null);
 }
 
 class Email_EmptyValue_Stub extends _EmailStub {

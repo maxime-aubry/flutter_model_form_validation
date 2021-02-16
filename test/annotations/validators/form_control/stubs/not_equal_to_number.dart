@@ -47,8 +47,8 @@ class NotEqualToNumber_ValueDoesNotEqualValueToCompare_Stub
         ) {}
 }
 
-class NotEqualToNumber_NullValue_Stub extends _NotEqualToNumberStub {
-  NotEqualToNumber_NullValue_Stub()
+class NotEqualToNumber_ValueIsNull_Stub extends _NotEqualToNumberStub {
+  NotEqualToNumber_ValueIsNull_Stub()
       : super(
           fcValue: null,
           validatorValueToCompare: 0,
@@ -79,5 +79,6 @@ class NotEqualToNumber_ValueToCompareOnPropertyIsProvided_Stub
 /* None parameter is provided */
 class NotEqualToNumber_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _NotEqualToNumberStub {
-  NotEqualToNumber_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub() : super(fcValue: 0) {}
+  NotEqualToNumber_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
+      : super(fcValue: 0) {}
 }

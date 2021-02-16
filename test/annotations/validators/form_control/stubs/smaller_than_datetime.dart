@@ -50,8 +50,8 @@ class SmallerThanDateTime_ValueIsSmallerThanValueToCompare_Stub
         ) {}
 }
 
-class SmallerThanDateTime_NullValue_Stub extends _SmallerThanDateTimeStub {
-  SmallerThanDateTime_NullValue_Stub()
+class SmallerThanDateTime_ValueIsNull_Stub extends _SmallerThanDateTimeStub {
+  SmallerThanDateTime_ValueIsNull_Stub()
       : super(
           fcValue: null,
           validatorValueToCompare:

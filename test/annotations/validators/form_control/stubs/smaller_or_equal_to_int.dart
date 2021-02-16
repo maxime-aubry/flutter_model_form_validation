@@ -57,8 +57,8 @@ class SmallerOrEqualToInt_ValueEqualsValueToCompare_Stub
         ) {}
 }
 
-class SmallerOrEqualToInt_NullValue_Stub extends _SmallerOrEqualToIntStub {
-  SmallerOrEqualToInt_NullValue_Stub()
+class SmallerOrEqualToInt_ValueIsNull_Stub extends _SmallerOrEqualToIntStub {
+  SmallerOrEqualToInt_ValueIsNull_Stub()
       : super(
           fcValue: null,
           validatorValueToCompare: 0,
@@ -89,5 +89,6 @@ class SmallerOrEqualToInt_ValueToCompareOnPropertyIsProvided_Stub
 /* None parameter is provided */
 class SmallerOrEqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _SmallerOrEqualToIntStub {
-  SmallerOrEqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub() : super(fcValue: 1) {}
+  SmallerOrEqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
+      : super(fcValue: 1) {}
 }

@@ -50,7 +50,8 @@ class FileSize_FileSizeIsNotAllowed_Stub extends _FileSizeStub {
 /* Remote parameters are provided */
 
 /* None parameter is provided */
-class FileSize_ThrowsValidatorParameterExceptionOnNullSize_Stub extends _FileSizeStub {
+class FileSize_ThrowsValidatorParameterExceptionOnNullSize_Stub
+    extends _FileSizeStub {
   FileSize_ThrowsValidatorParameterExceptionOnNullSize_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),

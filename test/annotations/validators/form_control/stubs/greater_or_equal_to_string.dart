@@ -57,9 +57,9 @@ class GreaterOrEqualToString_ValueEqualsValueToCompare_Stub
         ) {}
 }
 
-class GreaterOrEqualToString_NullValue_Stub
+class GreaterOrEqualToString_ValueIsNull_Stub
     extends _GreaterOrEqualToStringStub {
-  GreaterOrEqualToString_NullValue_Stub()
+  GreaterOrEqualToString_ValueIsNull_Stub()
       : super(
           fcValue: null,
           validatorValueToCompare: 'a',

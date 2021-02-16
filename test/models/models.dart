@@ -8,7 +8,7 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 void main() {}
 
 @flutterModelFormValidator
-enum EGender { male, female }
+enum EGender { male, female, other }
 
 // //#region DateTimeRange
 // @flutterModelFormValidator

@@ -48,8 +48,8 @@ class SmallerThanString_ValueIsSmallerThanValueToCompare_Stub
         ) {}
 }
 
-class SmallerThanString_NullValue_Stub extends _SmallerThanStringStub {
-  SmallerThanString_NullValue_Stub()
+class SmallerThanString_ValueIsNull_Stub extends _SmallerThanStringStub {
+  SmallerThanString_ValueIsNull_Stub()
       : super(
           fcValue: null,
           validatorValueToCompare: 'a',
@@ -80,5 +80,6 @@ class SmallerThanString_ValueToCompareOnPropertyIsProvided_Stub
 /* None parameter is provided */
 class SmallerThanString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _SmallerThanStringStub {
-  SmallerThanString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub() : super(fcValue: 'b') {}
+  SmallerThanString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
+      : super(fcValue: 'b') {}
 }

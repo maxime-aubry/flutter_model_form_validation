@@ -48,8 +48,8 @@ class NotEqualToString_ValueDoesNotEqualValueToCompare_Stub
         ) {}
 }
 
-class NotEqualToString_NullValue_Stub extends _NotEqualToStringStub {
-  NotEqualToString_NullValue_Stub()
+class NotEqualToString_ValueIsNull_Stub extends _NotEqualToStringStub {
+  NotEqualToString_ValueIsNull_Stub()
       : super(
           fcValue: null,
           validatorValueToCompare: 'a',
@@ -88,5 +88,6 @@ class NotEqualToString_ValueToCompareOnPropertyIsProvided_Stub
 /* None parameter is provided */
 class NotEqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _NotEqualToStringStub {
-  NotEqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub() : super(fcValue: 'a') {}
+  NotEqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
+      : super(fcValue: 'a') {}
 }

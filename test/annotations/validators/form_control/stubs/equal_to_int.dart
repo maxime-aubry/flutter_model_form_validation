@@ -46,8 +46,8 @@ class EqualToInt_ValueEqualsValueToCompare_Stub extends _EqualToIntStub {
         ) {}
 }
 
-class EqualToInt_NullValue_Stub extends _EqualToIntStub {
-  EqualToInt_NullValue_Stub()
+class EqualToInt_ValueIsNull_Stub extends _EqualToIntStub {
+  EqualToInt_ValueIsNull_Stub()
       : super(
           fcValue: null,
           validatorValueToCompare: 0,
@@ -75,6 +75,8 @@ class EqualToInt_ValueToCompareOnPropertyIsProvided_Stub
 }
 
 /* None parameter is provided */
-class EqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub extends _EqualToIntStub {
-  EqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub() : super(fcValue: 0) {}
+class EqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
+    extends _EqualToIntStub {
+  EqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
+      : super(fcValue: 0) {}
 }

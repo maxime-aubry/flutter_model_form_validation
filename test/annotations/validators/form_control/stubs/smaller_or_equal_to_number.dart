@@ -57,9 +57,9 @@ class SmallerOrEqualToNumber_ValueIsSmallerThanValueToCompare_Stub
         ) {}
 }
 
-class SmallerOrEqualToNumber_NullValue_Stub
+class SmallerOrEqualToNumber_ValueIsNull_Stub
     extends _SmallerOrEqualToNumberStub {
-  SmallerOrEqualToNumber_NullValue_Stub()
+  SmallerOrEqualToNumber_ValueIsNull_Stub()
       : super(
           fcValue: null,
           validatorValueToCompare: 0,

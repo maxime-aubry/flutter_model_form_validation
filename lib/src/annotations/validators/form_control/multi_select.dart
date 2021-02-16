@@ -5,17 +5,14 @@ import 'package:queries/collections.dart';
 class MultiSelect<TProperty>
     extends FormControlValidatorAnnotation<List<TProperty>> {
   const MultiSelect({
-    @required this.serviceName,
+    @required String serviceName,
     @required String error,
-  }) : super(error: error);
-
-  /// [serviceName] is the service name that provides items for validators.
-  final String serviceName;
+  }) : super(serviceName: serviceName, error: error);
 
   @override
   Future<bool> isValid(FormControl<List<TProperty>> control) async {
     Future<List<SelectListItem<TProperty>>> Function() service =
-        ListItemsProvider.provide<TProperty>(this.serviceName);
+        ListItemsProvider.provide<TProperty>(super.serviceName);
     List<SelectListItem> items = await service();
     bool isValid = this._validate(control.value, items);
     return isValid;

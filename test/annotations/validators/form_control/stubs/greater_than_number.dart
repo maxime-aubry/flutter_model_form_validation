@@ -48,8 +48,8 @@ class GreaterThanNumber_ValueIsGreaterThanValueToCompare_Stub
         ) {}
 }
 
-class GreaterThanNumber_NullValue_Stub extends _GreaterThanNumberStub {
-  GreaterThanNumber_NullValue_Stub()
+class GreaterThanNumber_ValueIsNull_Stub extends _GreaterThanNumberStub {
+  GreaterThanNumber_ValueIsNull_Stub()
       : super(
           fcValue: null,
           validatorValueToCompare: 0,
@@ -89,5 +89,6 @@ class GreaterThanNumber_ValueToCompareOnPropertyIsProvided_Stub
 /* None parameter is provided */
 class GreaterThanNumber_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _GreaterThanNumberStub {
-  GreaterThanNumber_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub() : super(fcValue: 1) {}
+  GreaterThanNumber_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
+      : super(fcValue: 1) {}
 }
