@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/form_control/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
+/// [GreaterOrEqualTo] with [TProperty] generic type is a validator that check if a value is greater or equal to another.
 class GreaterOrEqualTo<TProperty extends Comparable>
     extends FormControlValidatorAnnotation<TProperty> {
   const GreaterOrEqualTo({
@@ -10,12 +11,18 @@ class GreaterOrEqualTo<TProperty extends Comparable>
     @required String error,
   }) : super(error: error);
 
-  /// [valueToCompare] is default value to compare.
+  /// [valueToCompare] is default value to compare. It's a constant, provided by developer inside the [GreaterOrEqualTo] annotation.
   final TProperty valueToCompare;
 
-  /// [valueToCompareOnProperty] is the name of targeted property that user uses to provide value to compare. This one has priority on [valueToCompare].
+  /// [valueToCompareOnProperty] is a name of [FormControl] that provides an overriding value of [valueToCompare].
   final String valueToCompareOnProperty;
 
+  /// Compares [FormControl] value with another value.
+  ///
+  /// Returns a Future<bool>. If no data is provided using by [valueToCompare] or [valueToCompareOnProperty], validator will return [False].
+  /// Else, the validator will check if FormControl's data is greater or equal to [valueToCompare]. In this case, validator will return [True], else it will return [False].
+  ///
+  /// The [control] argument is of [FormControl] type here, with [TProperty] generic type.
   @override
   Future<bool> isValid(FormControl<TProperty> control) async {
     TProperty valueToCompare = super.getValidatorParameter<TProperty>(
@@ -30,14 +37,15 @@ class GreaterOrEqualTo<TProperty extends Comparable>
   bool _validate(TProperty value, TProperty valueToCompare) {
     if (value == null) return true;
     if (value is String && value.isEmpty) return true;
-    if (valueToCompare == null) return true;
-    if (valueToCompare is String && valueToCompare.isEmpty) return true;
+    if (valueToCompare == null) return false;
+    if (valueToCompare is String && valueToCompare.isEmpty) return false;
     int comparison = value.compareTo(valueToCompare);
     bool isValid = (comparison >= 0);
     return isValid;
   }
 }
 
+/// [GreaterOrEqualToDateTime] is a validator that check if a [DateTime] value is greater or equal to another.
 class GreaterOrEqualToDateTime extends GreaterOrEqualTo<DateTime> {
   const GreaterOrEqualToDateTime({
     DateTime valueToCompare,
@@ -50,6 +58,7 @@ class GreaterOrEqualToDateTime extends GreaterOrEqualTo<DateTime> {
         );
 }
 
+/// [GreaterOrEqualToNumber] is a validator that check if a [DateTime] value is greater or equal to another.
 class GreaterOrEqualToNumber extends GreaterOrEqualTo<num> {
   const GreaterOrEqualToNumber({
     num valueToCompare,
@@ -62,6 +71,7 @@ class GreaterOrEqualToNumber extends GreaterOrEqualTo<num> {
         );
 }
 
+/// [GreaterOrEqualToBigInt] is a validator that check if a [DateTime] value is greater or equal to another.
 class GreaterOrEqualToBigInt extends GreaterOrEqualTo<BigInt> {
   const GreaterOrEqualToBigInt({
     BigInt valueToCompare,
@@ -74,6 +84,7 @@ class GreaterOrEqualToBigInt extends GreaterOrEqualTo<BigInt> {
         );
 }
 
+/// [GreaterOrEqualToDouble] is a validator that check if a [DateTime] value is greater or equal to another.
 class GreaterOrEqualToDouble extends GreaterOrEqualTo<double> {
   const GreaterOrEqualToDouble({
     double valueToCompare,
@@ -86,6 +97,7 @@ class GreaterOrEqualToDouble extends GreaterOrEqualTo<double> {
         );
 }
 
+/// [GreaterOrEqualToInt] is a validator that check if a [DateTime] value is greater or equal to another.
 class GreaterOrEqualToInt extends GreaterOrEqualTo<int> {
   const GreaterOrEqualToInt({
     int valueToCompare,
@@ -98,6 +110,7 @@ class GreaterOrEqualToInt extends GreaterOrEqualTo<int> {
         );
 }
 
+/// [GreaterOrEqualToString] is a validator that check if a [DateTime] value is greater or equal to another.
 class GreaterOrEqualToString extends GreaterOrEqualTo<String> {
   const GreaterOrEqualToString({
     String valueToCompare,
