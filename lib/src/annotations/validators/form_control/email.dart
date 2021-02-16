@@ -19,9 +19,9 @@ class Email extends FormControlValidatorAnnotation<String> {
       this._validate(control.value);
 
   bool _validate(String value) {
-    if (value == null || value.isEmpty) return true;
+    String _value = (value == null) ? '' : value;
     RegExp regExp = new RegExp(Rules.email);
-    if (regExp.hasMatch(value)) return true;
+    if (regExp.hasMatch(_value)) return true;
     return false;
   }
 }

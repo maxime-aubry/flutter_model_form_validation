@@ -24,7 +24,7 @@ class FileMimeType extends FormControlValidatorAnnotation<Uint8List> {
   @override
   Future<bool> isValid(FormControl<Uint8List> control) async {
     if (this.mimeTypes == null || this.mimeTypes.isEmpty)
-      throw new ValidationException('Mime types are not defined.');
+      throw new ValidatorParameterException('Mime types are not defined.');
     bool isValid = await this._validate(control.value);
     return isValid;
   }

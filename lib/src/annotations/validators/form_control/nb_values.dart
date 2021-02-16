@@ -34,8 +34,6 @@ class NbValues extends FormControlValidatorAnnotation<List> {
       this.maxOnProperty,
       this.max,
     );
-    if (min == null) throw new ValidationException('Min value is not defined.');
-    if (max == null) throw new ValidationException('Max value is not defined.');
     if (min.compareTo(max) > 0)
       throw new ValidationException('Min value is greater than max value.');
     bool isValid = this._validate(control.value.length, min, max);

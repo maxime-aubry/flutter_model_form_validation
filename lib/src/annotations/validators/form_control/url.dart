@@ -11,10 +11,9 @@ class Url extends FormControlValidatorAnnotation<String> {
       this._validate(control.value);
 
   bool _validate(String value) {
-    if (value == null) return true;
-
+    String _value = (value == null) ? '' : value;
     RegExp regExp = new RegExp(Rules.url);
-    if (regExp.hasMatch(value)) return true;
+    if (regExp.hasMatch(_value)) return true;
     return false;
   }
 }

@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
+import '../../exceptions/index.dart';
+
 /// [FormValidatorAnnotation] is the parent class for every validators you will create and use.
 /// {@category Metadata}
 /// {@subCategory FormDeclarators}
@@ -49,6 +51,9 @@ abstract class FormValidatorAnnotation<
     return control.parentGroup.getFormControl<TProperty>(name);
   }
 
+  bool doesAbstractControlExist(AbstractControl control, String name) =>
+      control.parentGroup.controls.containsKey(name);
+
   TProperty getValidatorParameter<TProperty>(
     AbstractControl control,
     String property,
@@ -80,8 +85,16 @@ abstract class FormValidatorAnnotation<
       return remoteParameter;
     }
 
-    TProperty getParameter(TProperty defaultValue) {
+    TProperty getParameter(
+      AbstractControl control,
+      String property,
+      TProperty defaultValue,
+    ) {
       if (property == null || property.isEmpty) return defaultValue;
+
+      if (!this.doesAbstractControlExist(control, property))
+        throw new ValidatorParameterException(
+            '$property and its default value are not defined.');
 
       TProperty remoteParameter = getRemoteParameter(control, property);
       return remoteParameter;
@@ -89,7 +102,7 @@ abstract class FormValidatorAnnotation<
     //#endregion
 
     defaultValue = getCastedDefaultValue(defaultValue);
-    TProperty parameter = getParameter(defaultValue);
+    TProperty parameter = getParameter(control, property, defaultValue);
     return parameter;
   }
 }

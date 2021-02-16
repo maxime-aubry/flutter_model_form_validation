@@ -16,10 +16,13 @@ class StringLength extends FormControlValidatorAnnotation<String> {
 
   @override
   Future<bool> isValid(FormControl<String> control) async {
-    if (min == null) throw new ValidationException('Min value is not defined.');
-    if (max == null) throw new ValidationException('Max value is not defined.');
+    if (min == null)
+      throw new ValidatorParameterException('Min value is not defined.');
+    if (max == null)
+      throw new ValidatorParameterException('Max value is not defined.');
     if (min.compareTo(max) > 0)
-      throw new ValidationException('Min value is greater than max value.');
+      throw new ValidatorParameterException(
+          'Min value is greater than max value.');
     bool isValid = this._validate(control.value);
     return isValid;
   }

@@ -34,7 +34,16 @@ class FormControl<TProperty> extends AbstractControl
   /* Setters */
   @protected
   void set value(TProperty value) {
-    this._value = value;
+    // does not accept empty string value
+    if (TProperty == String) {
+      String _value = value as String;
+      if (_value.isEmpty)
+        this._value = null;
+      else
+        this._value = value;
+    } else {
+      this._value = value;
+    }
   }
 
   /* Constructors */

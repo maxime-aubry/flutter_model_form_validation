@@ -26,8 +26,9 @@ class InText extends FormControlValidatorAnnotation<String> {
   }
 
   bool _validate(String value, String text) {
-    if (value == null || value.isEmpty) return true;
-    if (text == null || text.isEmpty) return true;
+    if (value == null && text == null) return true;
+    if (value == null) return false;
+    if (text == null) return false;
     return text.contains(value);
   }
 }

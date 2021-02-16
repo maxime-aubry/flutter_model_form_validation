@@ -35,8 +35,6 @@ class Range<TProperty extends Comparable>
       this.maxOnProperty,
       this.max,
     );
-    if (min == null) throw new ValidationException('Min value is not defined.');
-    if (max == null) throw new ValidationException('Max value is not defined.');
     if (min.compareTo(max) > 0)
       throw new ValidationException('Min value is greater than max value.');
     bool isValid = this._validate(control.value, min, max);
@@ -48,9 +46,10 @@ class Range<TProperty extends Comparable>
     TProperty minValue,
     TProperty maxValue,
   ) {
-    if (value == null) return true;
-    if (value is String && value.isEmpty) return true;
-    if (minValue == null || maxValue == null) return false;
+    if (value == null && minValue == null && maxValue == null) return true;
+    if (value == null) return false;
+    if (minValue == null) return false;
+    if (maxValue == null) return false;
     int comparison_of_min = value.compareTo(minValue);
     int comparison_of_max = value.compareTo(maxValue);
     bool isValid = (comparison_of_min >= 0 && comparison_of_max <= 0);
