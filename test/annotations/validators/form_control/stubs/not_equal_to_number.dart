@@ -76,7 +76,7 @@ class NotEqualToNumber_ValueToCompareOnPropertyIsProvided_Stub
         ) {}
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class NotEqualToNumber_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _NotEqualToNumberStub {
   NotEqualToNumber_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()

@@ -74,7 +74,7 @@ class EqualToInt_ValueToCompareOnPropertyIsProvided_Stub
         ) {}
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class EqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _EqualToIntStub {
   EqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()

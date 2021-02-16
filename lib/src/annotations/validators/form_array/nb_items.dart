@@ -34,8 +34,12 @@ class NbItems extends FormArrayValidatorAnnotation {
       this.maxOnProperty,
       this.max,
     );
+    if (min == null)
+      throw new ValidatorParameterException('Min is not defined.');
+    if (max == null)
+      throw new ValidatorParameterException('Max is not defined.');
     if (min.compareTo(max) > 0)
-      throw new ValidationException(
+      throw new ValidatorParameterException(
           'NbItems validator does not accept that min value is greater than max value.');
     bool isValid = this._validate(control.groups.length, min, max);
     return isValid;

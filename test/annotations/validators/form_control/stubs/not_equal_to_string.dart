@@ -85,7 +85,7 @@ class NotEqualToString_ValueToCompareOnPropertyIsProvided_Stub
         ) {}
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class NotEqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _NotEqualToStringStub {
   NotEqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()

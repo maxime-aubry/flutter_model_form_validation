@@ -82,7 +82,7 @@ class EqualToDateTime_ValueToCompareOnPropertyIsProvided_Stub
         ) {}
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class EqualToDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _EqualToDateTimeStub {
   EqualToDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()

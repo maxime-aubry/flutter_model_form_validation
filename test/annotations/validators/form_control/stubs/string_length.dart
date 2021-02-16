@@ -65,7 +65,7 @@ class StringLength_ValueDoesNotMatchToRegexp_Stub extends _StringLengthStub {
 
 /* Remote parameters are provided */
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class StringLength_ThrowsValidatorParameterExceptionOnNullExpression_Stub
     extends _StringLengthStub {
   StringLength_ThrowsValidatorParameterExceptionOnNullExpression_Stub()

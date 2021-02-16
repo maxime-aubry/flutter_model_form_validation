@@ -130,7 +130,7 @@ class ImageSize_ImageSizeOnPropertyIsProvided_Stub extends _ImageSizeStub {
         );
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class ImageSize_ThrowsValidatorParameterExceptionOnNullMinWidth_Stub
     extends _ImageSizeStub {
   ImageSize_ThrowsValidatorParameterExceptionOnNullMinWidth_Stub()

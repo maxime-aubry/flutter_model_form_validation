@@ -85,7 +85,7 @@ class InText_TextOnPropertyIsProvided_Stub extends _InTextStub {
         );
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class ImageSize_ThrowsValidatorParameterExceptionOnNullText_Stub
     extends _InTextStub {
   ImageSize_ThrowsValidatorParameterExceptionOnNullText_Stub()

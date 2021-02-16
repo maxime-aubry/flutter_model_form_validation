@@ -92,7 +92,7 @@ class GreaterThanDateTime_ValueToCompareOnPropertyIsProvided_Stub
         ) {}
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class GreaterThanDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _GreaterThanDateTimeStub {
   GreaterThanDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()

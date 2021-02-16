@@ -86,7 +86,7 @@ class GreaterOrEqualToInt_ValueToCompareOnPropertyIsProvided_Stub
         ) {}
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class GreaterOrEqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _GreaterOrEqualToIntStub {
   GreaterOrEqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()

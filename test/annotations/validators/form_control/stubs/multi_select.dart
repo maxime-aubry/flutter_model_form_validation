@@ -84,4 +84,4 @@ class MultiSelect_ItemsAreNotIntoListOfItems_Stub extends _MultiSelectStub {
 
 /* Remote parameters are provided */
 
-/* None parameter is provided */
+/* Exceptions on parameters */

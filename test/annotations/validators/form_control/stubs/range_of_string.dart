@@ -132,7 +132,7 @@ class RangeOfString_MaxOnPropertyIsProvided_Stub extends _RangeOfStringStub {
         );
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class RangeOfString_ThrowsValidatorParameterExceptionOnNullMin_Stub
     extends _RangeOfStringStub {
   RangeOfString_ThrowsValidatorParameterExceptionOnNullMin_Stub()

@@ -82,7 +82,7 @@ class NotEqualToDateTime_ValueToCompareOnPropertyIsProvided_Stub
         ) {}
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class NotEqualToDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _NotEqualToDateTimeStub {
   NotEqualToDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()

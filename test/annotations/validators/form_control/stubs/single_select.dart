@@ -73,4 +73,4 @@ class SingleSelect_ItemIsNotIntoListOfItems_Stub extends _SingleSelectStub {
 
 /* Remote parameters are provided */
 
-/* None parameter is provided */
+/* Exceptions on parameters */

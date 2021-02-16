@@ -76,7 +76,7 @@ class SmallerThanInt_ValueToCompareOnPropertyIsProvided_Stub
         ) {}
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class SmallerThanInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _SmallerThanIntStub {
   SmallerThanInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()

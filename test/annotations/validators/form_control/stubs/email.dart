@@ -35,4 +35,4 @@ class Email_InavlidEmail_Stub extends _EmailStub {
 
 /* Remote parameters are provided */
 
-/* None parameter is provided */
+/* Exceptions on parameters */

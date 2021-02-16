@@ -9,4 +9,4 @@ class IStub<TAbstractControl extends AbstractControl,
 /* Value is valid */
 /* Value is not valid */
 /* Remote parameters are provided */
-/* None parameter is provided */
+/* Exceptions on parameters */

@@ -38,4 +38,4 @@ class RequiredFormArray_FormArrayGroupsAreEmpty_Stub
 
 /* Remote parameters are provided */
 
-/* None parameter is provided */
+/* Exceptions on parameters */

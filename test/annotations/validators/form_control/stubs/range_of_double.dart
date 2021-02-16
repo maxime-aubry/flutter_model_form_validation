@@ -123,7 +123,7 @@ class RangeOfDouble_MaxOnPropertyIsProvided_Stub extends _RangeOfDoubleStub {
         );
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class RangeOfDouble_ThrowsValidatorParameterExceptionOnNullMin_Stub
     extends _RangeOfDoubleStub {
   RangeOfDouble_ThrowsValidatorParameterExceptionOnNullMin_Stub()

@@ -86,4 +86,4 @@ class MembershipPassword_PasswordIsNotValid_Stub
 
 /* Remote parameters are provided */
 
-/* None parameter is provided */
+/* Exceptions on parameters */

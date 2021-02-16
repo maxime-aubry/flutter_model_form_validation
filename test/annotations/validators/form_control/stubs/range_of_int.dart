@@ -123,7 +123,7 @@ class RangeOfInt_MaxOnPropertyIsProvided_Stub extends _RangeOfIntStub {
         );
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class RangeOfInt_ThrowsValidatorParameterExceptionOnNullMin_Stub
     extends _RangeOfIntStub {
   RangeOfInt_ThrowsValidatorParameterExceptionOnNullMin_Stub()

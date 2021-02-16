@@ -49,7 +49,7 @@ class FileSize_FileSizeIsNotAllowed_Stub extends _FileSizeStub {
 
 /* Remote parameters are provided */
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class FileSize_ThrowsValidatorParameterExceptionOnNullSize_Stub
     extends _FileSizeStub {
   FileSize_ThrowsValidatorParameterExceptionOnNullSize_Stub()

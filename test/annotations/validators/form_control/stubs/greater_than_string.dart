@@ -86,7 +86,7 @@ class GreaterThanString_ValueToCompareOnPropertyIsProvided_Stub
         ) {}
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class GreaterThanString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _GreaterThanStringStub {
   GreaterThanString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()

@@ -93,7 +93,7 @@ class GreaterOrEqualToDateTime_ValueToCompareOnPropertyIsProvided_Stub
         ) {}
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class GreaterOrEqualToDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _GreaterOrEqualToDateTimeStub {
   GreaterOrEqualToDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()

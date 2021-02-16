@@ -123,7 +123,7 @@ class NbValues_MaxOnPropertyIsProvided_Stub extends _NbValuesStub {
         ) {}
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class NbValues_ThrowsValidatorParameterExceptionOnNullMin_Stub
     extends _NbValuesStub {
   NbValues_ThrowsValidatorParameterExceptionOnNullMin_Stub()

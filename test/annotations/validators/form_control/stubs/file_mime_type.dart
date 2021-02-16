@@ -50,7 +50,7 @@ class FileMimeType_MimeTypeIsNotAllowed_Stub extends _FileMimeTypeStub {
 
 /* Remote parameters are provided */
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class FileMimeType_ThrowsValidatorParameterExceptionOnNullMimeTypesArray_Stub
     extends _FileMimeTypeStub {
   FileMimeType_ThrowsValidatorParameterExceptionOnNullMimeTypesArray_Stub()

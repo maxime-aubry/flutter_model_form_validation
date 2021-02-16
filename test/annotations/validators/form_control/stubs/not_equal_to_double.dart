@@ -77,7 +77,7 @@ class NotEqualToDouble_ValueToCompareOnPropertyIsProvided_Stub
         ) {}
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class NotEqualToDouble_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _NotEqualToDoubleStub {
   NotEqualToDouble_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()

@@ -82,7 +82,7 @@ class SmallerThanDateTime_ValueToCompareOnPropertyIsProvided_Stub
         ) {}
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class SmallerThanDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _SmallerThanDateTimeStub {
   SmallerThanDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()

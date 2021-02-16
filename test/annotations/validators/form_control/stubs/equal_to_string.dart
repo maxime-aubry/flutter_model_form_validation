@@ -83,7 +83,7 @@ class EqualToString_ValueToCompareOnPropertyIsProvided_Stub
         ) {}
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class EqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _EqualToStringStub {
   EqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()

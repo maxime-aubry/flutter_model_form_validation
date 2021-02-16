@@ -348,4 +348,4 @@ class Url_UrlIsNotValid39_Stub extends _UrlStub {
 
 /* Remote parameters are provided */
 
-/* None parameter is provided */
+/* Exceptions on parameters */

@@ -128,7 +128,7 @@ class RangeOfDateTime_MaxOnPropertyIsProvided_Stub
         );
 }
 
-/* None parameter is provided */
+/* Exceptions on parameters */
 class RangeOfDateTime_ThrowsValidatorParameterExceptionOnNullMin_Stub
     extends _RangeOfDateTimeStub {
   RangeOfDateTime_ThrowsValidatorParameterExceptionOnNullMin_Stub()
