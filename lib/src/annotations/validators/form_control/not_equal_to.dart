@@ -5,22 +5,23 @@ class NotEqualTo<TProperty extends Comparable>
     extends FormControlValidatorAnnotation<TProperty> {
   const NotEqualTo({
     this.valueToCompare,
-    this.valueToCompareOnProperty,
+    this.remoteValueToCompare,
     @required String error,
   }) : super(error: error);
 
   /// [valueToCompare] is default value to compare.
   final TProperty valueToCompare;
 
-  /// [valueToCompareOnProperty] is the name of targeted property that user uses to provide value to compare. This one has priority on [valueToCompare].
-  final String valueToCompareOnProperty;
+  /// [remoteValueToCompare] is the name of targeted property that user uses to provide value to compare. This one has priority on [valueToCompare].
+  final String remoteValueToCompare;
 
   @override
   Future<bool> isValid(FormControl<TProperty> control) async {
-    TProperty valueToCompare = super.getValidatorParameter<TProperty>(
-      control,
-      this.valueToCompareOnProperty,
-      this.valueToCompare,
+    TProperty valueToCompare = super.getRemoteValidatorParameter<TProperty>(
+      defaultValue: this.valueToCompare,
+      localParameterName: 'valueToCompare',
+      remoteParameterName: this.remoteValueToCompare,
+      control: control.parentGroup,
     );
     bool isValid = this._validate(control.value, valueToCompare);
     return isValid;
@@ -43,7 +44,7 @@ class NotEqualToDateTime extends NotEqualTo<DateTime> {
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          valueToCompareOnProperty: valueToCompareOnProperty,
+          remoteValueToCompare: valueToCompareOnProperty,
           error: error,
         );
 }
@@ -55,7 +56,7 @@ class NotEqualToNumber extends NotEqualTo<num> {
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          valueToCompareOnProperty: valueToCompareOnProperty,
+          remoteValueToCompare: valueToCompareOnProperty,
           error: error,
         );
 }
@@ -67,7 +68,7 @@ class NotEqualToBigInt extends NotEqualTo<BigInt> {
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          valueToCompareOnProperty: valueToCompareOnProperty,
+          remoteValueToCompare: valueToCompareOnProperty,
           error: error,
         );
 }
@@ -79,7 +80,7 @@ class NotEqualToDouble extends NotEqualTo<double> {
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          valueToCompareOnProperty: valueToCompareOnProperty,
+          remoteValueToCompare: valueToCompareOnProperty,
           error: error,
         );
 }
@@ -91,7 +92,7 @@ class NotEqualToInt extends NotEqualTo<int> {
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          valueToCompareOnProperty: valueToCompareOnProperty,
+          remoteValueToCompare: valueToCompareOnProperty,
           error: error,
         );
 }
@@ -103,7 +104,7 @@ class NotEqualToString extends NotEqualTo<String> {
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          valueToCompareOnProperty: valueToCompareOnProperty,
+          remoteValueToCompare: valueToCompareOnProperty,
           error: error,
         );
 }

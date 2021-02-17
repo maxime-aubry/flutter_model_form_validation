@@ -59,10 +59,10 @@ class _ImageSizeStub extends IStub<FormControl<Uint8List>, ImageSize> {
       maxWidth: validatorMaxWidth,
       minHeight: validatorMinHeight,
       maxHeight: validatorMaxHeight,
-      minWidthOnProperty: (fcMinWidth != null) ? 'minWidth' : null,
-      maxWidthOnProperty: (fcMaxWidth != null) ? 'maxWidth' : null,
-      minHeightOnProperty: (fcMinWidth != null) ? 'minHeight' : null,
-      maxHeightOnProperty: (fcMaxHeight != null) ? 'maxHeight' : null,
+      remoteMinWidth: (fcMinWidth != null) ? 'minWidth' : null,
+      remoteMaxWidth: (fcMaxWidth != null) ? 'maxWidth' : null,
+      remoteMinHeight: (fcMinWidth != null) ? 'minHeight' : null,
+      remoteMaxHeight: (fcMaxHeight != null) ? 'maxHeight' : null,
       error: 'invalid image size',
     );
   }

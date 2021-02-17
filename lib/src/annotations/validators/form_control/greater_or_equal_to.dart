@@ -7,28 +7,29 @@ class GreaterOrEqualTo<TProperty extends Comparable>
     extends FormControlValidatorAnnotation<TProperty> {
   const GreaterOrEqualTo({
     this.valueToCompare,
-    this.valueToCompareOnProperty,
+    this.remoteValueToCompare,
     @required String error,
   }) : super(error: error);
 
   /// [valueToCompare] is default value to compare. It's a constant, provided by developer inside the [GreaterOrEqualTo] annotation.
   final TProperty valueToCompare;
 
-  /// [valueToCompareOnProperty] is a name of [FormControl] that provides an overriding value of [valueToCompare].
-  final String valueToCompareOnProperty;
+  /// [remoteValueToCompare] is a name of [FormControl] that provides an overriding value of [valueToCompare].
+  final String remoteValueToCompare;
 
   /// Compares [FormControl] value with another value.
   ///
-  /// Returns a Future<bool>. If no data is provided using by [valueToCompare] or [valueToCompareOnProperty], validator will return [False].
+  /// Returns a Future<bool>. If no data is provided using by [valueToCompare] or [remoteValueToCompare], validator will return [False].
   /// Else, the validator will check if FormControl's data is greater or equal to [valueToCompare]. In this case, validator will return [True], else it will return [False].
   ///
   /// The [control] argument is of [FormControl] type here, with [TProperty] generic type.
   @override
   Future<bool> isValid(FormControl<TProperty> control) async {
-    TProperty valueToCompare = super.getValidatorParameter<TProperty>(
-      control,
-      this.valueToCompareOnProperty,
-      this.valueToCompare,
+    TProperty valueToCompare = super.getRemoteValidatorParameter<TProperty>(
+      defaultValue: this.valueToCompare,
+      localParameterName: 'valueToCompare',
+      remoteParameterName: this.remoteValueToCompare,
+      control: control.parentGroup,
     );
     bool isValid = this._validate(control.value, valueToCompare);
     return isValid;
@@ -52,7 +53,7 @@ class GreaterOrEqualToDateTime extends GreaterOrEqualTo<DateTime> {
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          valueToCompareOnProperty: valueToCompareOnProperty,
+          remoteValueToCompare: valueToCompareOnProperty,
           error: error,
         );
 }
@@ -65,7 +66,7 @@ class GreaterOrEqualToNumber extends GreaterOrEqualTo<num> {
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          valueToCompareOnProperty: valueToCompareOnProperty,
+          remoteValueToCompare: valueToCompareOnProperty,
           error: error,
         );
 }
@@ -78,7 +79,7 @@ class GreaterOrEqualToBigInt extends GreaterOrEqualTo<BigInt> {
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          valueToCompareOnProperty: valueToCompareOnProperty,
+          remoteValueToCompare: valueToCompareOnProperty,
           error: error,
         );
 }
@@ -91,7 +92,7 @@ class GreaterOrEqualToDouble extends GreaterOrEqualTo<double> {
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          valueToCompareOnProperty: valueToCompareOnProperty,
+          remoteValueToCompare: valueToCompareOnProperty,
           error: error,
         );
 }
@@ -104,7 +105,7 @@ class GreaterOrEqualToInt extends GreaterOrEqualTo<int> {
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          valueToCompareOnProperty: valueToCompareOnProperty,
+          remoteValueToCompare: valueToCompareOnProperty,
           error: error,
         );
 }
@@ -117,7 +118,7 @@ class GreaterOrEqualToString extends GreaterOrEqualTo<String> {
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          valueToCompareOnProperty: valueToCompareOnProperty,
+          remoteValueToCompare: valueToCompareOnProperty,
           error: error,
         );
 }

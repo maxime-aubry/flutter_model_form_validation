@@ -10,59 +10,73 @@ class ImageSize extends FormControlValidatorAnnotation<Uint8List> {
     this.maxWidth,
     this.minHeight,
     this.maxHeight,
-    this.minWidthOnProperty,
-    this.maxWidthOnProperty,
-    this.minHeightOnProperty,
-    this.maxHeightOnProperty,
+    this.remoteMinWidth,
+    this.remoteMaxWidth,
+    this.remoteMinHeight,
+    this.remoteMaxHeight,
     @required String error,
   }) : super(error: error);
 
   /// [minWidth] is the allowed min width.
   final int minWidth;
 
-  /// [minHeight] is the allowed min height.
-  final int minHeight;
-
   /// [maxWidth] is the allowed max width.
   final int maxWidth;
+
+  /// [minHeight] is the allowed min height.
+  final int minHeight;
 
   /// [maxHeight] is the allowed max height.
   final int maxHeight;
 
-  /// [minWidthOnProperty] is the name of targeted property that user uses to provide min width. This one has priority on [minWidth].
-  final String minWidthOnProperty;
+  /// [remoteMinWidth] is the name of targeted property that user uses to provide min width. This one has priority on [minWidth].
+  final String remoteMinWidth;
 
-  /// [minHeightOnProperty] is the name of targeted property that user uses to provide min height. This one has priority on [minHeight].
-  final String minHeightOnProperty;
+  /// [remoteMaxWidth] is the name of targeted property that user uses to provide max width. This one has priority on [maxWidth].
+  final String remoteMaxWidth;
 
-  /// [maxWidthOnProperty] is the name of targeted property that user uses to provide max width. This one has priority on [maxWidth].
-  final String maxWidthOnProperty;
+  /// [remoteMinHeight] is the name of targeted property that user uses to provide min height. This one has priority on [minHeight].
+  final String remoteMinHeight;
 
-  /// [maxHeightOnProperty] is the name of targeted property that user uses to provide max height. This one has priority on [maxHeight].
-  final String maxHeightOnProperty;
+  /// [remoteMaxHeight] is the name of targeted property that user uses to provide max height. This one has priority on [maxHeight].
+  final String remoteMaxHeight;
 
   @override
   Future<bool> isValid(FormControl<Uint8List> control) async {
-    int minWidth = super.getValidatorParameter<int>(
-      control,
-      this.minWidthOnProperty,
-      this.minWidth,
+    int minWidth = super.getRemoteValidatorParameter<int>(
+      defaultValue: this.minWidth,
+      localParameterName: 'minWidth',
+      remoteParameterName: this.remoteMinWidth,
+      control: control.parentGroup,
     );
-    int maxWidth = super.getValidatorParameter<int>(
-      control,
-      this.maxWidthOnProperty,
-      this.maxWidth,
+    int maxWidth = super.getRemoteValidatorParameter<int>(
+      defaultValue: this.maxWidth,
+      localParameterName: 'maxWidth',
+      remoteParameterName: this.remoteMaxWidth,
+      control: control.parentGroup,
     );
-    int minHeight = super.getValidatorParameter<int>(
-      control,
-      this.minHeightOnProperty,
-      this.minHeight,
+    int minHeight = super.getRemoteValidatorParameter<int>(
+      defaultValue: this.minHeight,
+      localParameterName: 'minHeight',
+      remoteParameterName: this.remoteMinHeight,
+      control: control.parentGroup,
     );
-    int maxHeight = super.getValidatorParameter<int>(
-      control,
-      this.maxHeightOnProperty,
-      this.maxHeight,
+    int maxHeight = super.getRemoteValidatorParameter<int>(
+      defaultValue: this.maxHeight,
+      localParameterName: 'maxHeight',
+      remoteParameterName: this.remoteMaxHeight,
+      control: control.parentGroup,
     );
+
+    if (minWidth == null)
+      throw new ValidatorParameterException('minWidth is not defined.');
+    if (maxWidth == null)
+      throw new ValidatorParameterException('maxWidth is not defined.');
+    if (minHeight == null)
+      throw new ValidatorParameterException('minHeight is not defined.');
+    if (maxHeight == null)
+      throw new ValidatorParameterException('maxHeight is not defined.');
+
     bool isValid = this._validate(
       control.value,
       minWidth,

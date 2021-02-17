@@ -6,22 +6,23 @@ class SmallerThan<TProperty extends Comparable>
     extends FormControlValidatorAnnotation<TProperty> {
   const SmallerThan({
     this.valueToCompare,
-    this.valueToCompareOnProperty,
+    this.remoteValueToCompare,
     @required String error,
   }) : super(error: error);
 
   /// [valueToCompare] is default value to compare.
   final TProperty valueToCompare;
 
-  /// [valueToCompareOnProperty] is the name of targeted property that user uses to provide value to compare. This one has priority on [valueToCompare].
-  final String valueToCompareOnProperty;
+  /// [remoteValueToCompare] is the name of targeted property that user uses to provide value to compare. This one has priority on [valueToCompare].
+  final String remoteValueToCompare;
 
   @override
   Future<bool> isValid(FormControl<TProperty> control) async {
-    TProperty valueToCompare = super.getValidatorParameter<TProperty>(
-      control,
-      this.valueToCompareOnProperty,
-      this.valueToCompare,
+    TProperty valueToCompare = super.getRemoteValidatorParameter<TProperty>(
+      defaultValue: this.valueToCompare,
+      localParameterName: 'valueToCompare',
+      remoteParameterName: this.remoteValueToCompare,
+      control: control.parentGroup,
     );
     bool isValid = this._validate(control.value, valueToCompare);
     return isValid;
@@ -44,7 +45,7 @@ class SmallerThanDateTime extends SmallerThan<DateTime> {
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          valueToCompareOnProperty: valueToCompareOnProperty,
+          remoteValueToCompare: valueToCompareOnProperty,
           error: error,
         );
 }
@@ -56,7 +57,7 @@ class SmallerThanNumber extends SmallerThan<num> {
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          valueToCompareOnProperty: valueToCompareOnProperty,
+          remoteValueToCompare: valueToCompareOnProperty,
           error: error,
         );
 }
@@ -68,7 +69,7 @@ class SmallerThanBigInt extends SmallerThan<BigInt> {
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          valueToCompareOnProperty: valueToCompareOnProperty,
+          remoteValueToCompare: valueToCompareOnProperty,
           error: error,
         );
 }
@@ -80,7 +81,7 @@ class SmallerThanDouble extends SmallerThan<double> {
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          valueToCompareOnProperty: valueToCompareOnProperty,
+          remoteValueToCompare: valueToCompareOnProperty,
           error: error,
         );
 }
@@ -92,7 +93,7 @@ class SmallerThanInt extends SmallerThan<int> {
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          valueToCompareOnProperty: valueToCompareOnProperty,
+          remoteValueToCompare: valueToCompareOnProperty,
           error: error,
         );
 }
@@ -104,7 +105,7 @@ class SmallerThanString extends SmallerThan<String> {
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          valueToCompareOnProperty: valueToCompareOnProperty,
+          remoteValueToCompare: valueToCompareOnProperty,
           error: error,
         );
 }

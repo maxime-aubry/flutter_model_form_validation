@@ -4,22 +4,23 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 class InText extends FormControlValidatorAnnotation<String> {
   const InText({
     this.text,
-    this.textOnProperty,
+    this.remoteText,
     @required String error,
   }) : super(error: error);
 
   /// [text] is the text in which user will search keywords.
   final String text;
 
-  /// [textOnProperty] is the name of targeted property in which user will search keywords. This one has priority on [text] value.
-  final String textOnProperty;
+  /// [remoteText] is the name of targeted property in which user will search keywords. This one has priority on [text] value.
+  final String remoteText;
 
   @override
   Future<bool> isValid(FormControl<String> control) async {
-    String text = super.getValidatorParameter<String>(
-      control,
-      this.textOnProperty,
-      this.text,
+    String text = super.getRemoteValidatorParameter<String>(
+      defaultValue: this.text,
+      localParameterName: 'text',
+      remoteParameterName: this.remoteText,
+      control: control.parentGroup,
     );
     bool isValid = this._validate(control.value, text);
     return isValid;

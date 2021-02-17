@@ -6,8 +6,8 @@ class Range<TProperty extends Comparable>
   const Range({
     this.min,
     this.max,
-    this.minOnProperty,
-    this.maxOnProperty,
+    this.remoteMin,
+    this.remoteMax,
     @required String error,
   }) : super(error: error);
 
@@ -17,26 +17,34 @@ class Range<TProperty extends Comparable>
   /// [max] is the maximal value of your range.
   final TProperty max;
 
-  /// [minOnProperty] is the name of targeted property that user uses to provide minimal value of your range. This one has priority on [min] value.
-  final String minOnProperty;
+  /// [remoteMin] is the name of targeted property that user uses to provide minimal value of your range. This one has priority on [min] value.
+  final String remoteMin;
 
-  /// [maxOnProperty] is the name of targeted property that user uses to provide maximal value of your range. This one has priority on [max] value.
-  final String maxOnProperty;
+  /// [remoteMax] is the name of targeted property that user uses to provide maximal value of your range. This one has priority on [max] value.
+  final String remoteMax;
 
   @override
   Future<bool> isValid(FormControl<TProperty> control) async {
-    TProperty min = super.getValidatorParameter(
-      control,
-      this.minOnProperty,
-      this.min,
+    TProperty min = super.getRemoteValidatorParameter(
+      defaultValue: this.min,
+      localParameterName: 'min',
+      remoteParameterName: this.remoteMin,
+      control: control.parentGroup,
     );
-    TProperty max = super.getValidatorParameter(
-      control,
-      this.maxOnProperty,
-      this.max,
+    TProperty max = super.getRemoteValidatorParameter(
+      defaultValue: this.max,
+      localParameterName: 'max',
+      remoteParameterName: this.remoteMax,
+      control: control.parentGroup,
     );
+
+    if (min == null)
+      throw new ValidatorParameterException('Min is not defined.');
+    if (max == null)
+      throw new ValidatorParameterException('Max is not defined.');
     if (min.compareTo(max) > 0)
       throw new ValidationException('Min value is greater than max value.');
+
     bool isValid = this._validate(control.value, min, max);
     return isValid;
   }
@@ -67,8 +75,8 @@ class RangeOfDateTime extends Range<DateTime> {
   }) : super(
           min: min,
           max: max,
-          minOnProperty: minOnProperty,
-          maxOnProperty: maxOnProperty,
+          remoteMin: minOnProperty,
+          remoteMax: maxOnProperty,
           error: error,
         );
 }
@@ -83,8 +91,8 @@ class RangeOfNumber extends Range<num> {
   }) : super(
           min: min,
           max: max,
-          minOnProperty: minOnProperty,
-          maxOnProperty: maxOnProperty,
+          remoteMin: minOnProperty,
+          remoteMax: maxOnProperty,
           error: error,
         );
 }
@@ -99,8 +107,8 @@ class RangeOfDouble extends Range<double> {
   }) : super(
           min: min,
           max: max,
-          minOnProperty: minOnProperty,
-          maxOnProperty: maxOnProperty,
+          remoteMin: minOnProperty,
+          remoteMax: maxOnProperty,
           error: error,
         );
 }
@@ -115,8 +123,8 @@ class RangeOfInt extends Range<int> {
   }) : super(
           min: min,
           max: max,
-          minOnProperty: minOnProperty,
-          maxOnProperty: maxOnProperty,
+          remoteMin: minOnProperty,
+          remoteMax: maxOnProperty,
           error: error,
         );
 }
@@ -131,8 +139,8 @@ class RangeOfString extends Range<String> {
   }) : super(
           min: min,
           max: max,
-          minOnProperty: minOnProperty,
-          maxOnProperty: maxOnProperty,
+          remoteMin: minOnProperty,
+          remoteMax: maxOnProperty,
           error: error,
         );
 }

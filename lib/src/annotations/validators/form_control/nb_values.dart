@@ -5,8 +5,8 @@ class NbValues extends FormControlValidatorAnnotation<List> {
   const NbValues({
     this.min,
     this.max,
-    this.minOnProperty,
-    this.maxOnProperty,
+    this.remoteMin,
+    this.remoteMax,
     @required String error,
   }) : super(error: error);
 
@@ -16,26 +16,33 @@ class NbValues extends FormControlValidatorAnnotation<List> {
   /// [max] is maximal quantity of items.
   final int max;
 
-  /// [minOnProperty] is the name of targeted property that user uses to provide minimal quantity of items of your array. This one has priority on [min] value.
-  final String minOnProperty;
+  /// [remoteMin] is the name of targeted property that user uses to provide minimal quantity of items of your array. This one has priority on [min] value.
+  final String remoteMin;
 
-  /// [maxOnProperty] is the name of targeted property that user uses to provide maximal quantity of items of your array. This one has priority on [max] value.
-  final String maxOnProperty;
+  /// [remoteMax] is the name of targeted property that user uses to provide maximal quantity of items of your array. This one has priority on [max] value.
+  final String remoteMax;
 
   @override
   Future<bool> isValid(FormControl<List> control) async {
-    int min = super.getValidatorParameter<int>(
-      control,
-      this.minOnProperty,
-      this.min,
+    int min = super.getRemoteValidatorParameter<int>(
+      defaultValue: this.min,
+      localParameterName: 'min',
+      remoteParameterName: this.remoteMin,
+      control: control.parentGroup,
     );
-    int max = super.getValidatorParameter<int>(
-      control,
-      this.maxOnProperty,
-      this.max,
+    int max = super.getRemoteValidatorParameter<int>(
+      defaultValue: this.max,
+      localParameterName: 'max',
+      remoteParameterName: this.remoteMax,
+      control: control.parentGroup,
     );
+    if (min == null)
+      throw new ValidatorParameterException('Min is not defined.');
+    if (max == null)
+      throw new ValidatorParameterException('Max is not defined.');
     if (min.compareTo(max) > 0)
       throw new ValidationException('Min value is greater than max value.');
+
     bool isValid = this._validate(control.value.length, min, max);
     return isValid;
   }

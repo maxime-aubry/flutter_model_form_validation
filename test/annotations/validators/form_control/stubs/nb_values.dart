@@ -39,8 +39,8 @@ class _NbValuesStub extends IStub<FormControl<List<String>>, NbValues> {
     super.validator = NbValues(
       min: validatorMin,
       max: validatorMax,
-      minOnProperty: (fcMin != null) ? 'min' : null,
-      maxOnProperty: (fcMax != null) ? 'max' : null,
+      remoteMin: (fcMin != null) ? 'min' : null,
+      remoteMax: (fcMax != null) ? 'max' : null,
       error: 'invalid number of values',
     );
   }

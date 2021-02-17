@@ -24,12 +24,12 @@ class NbItems extends FormArrayValidatorAnnotation {
 
   @override
   Future<bool> isValid(FormArray control) async {
-    int min = super.getValidatorParameter(
+    int min = super.getRemoteValidatorParameter(
       control,
       this.minOnProperty,
       this.min,
     );
-    int max = super.getValidatorParameter(
+    int max = super.getRemoteValidatorParameter(
       control,
       this.maxOnProperty,
       this.max,

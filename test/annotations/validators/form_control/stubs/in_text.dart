@@ -29,7 +29,7 @@ class _InTextStub extends IStub<FormControl<String>, InText> {
     super.control = _value;
     super.validator = InText(
       text: validatorText,
-      textOnProperty: (fcText != null) ? 'text' : null,
+      remoteText: (fcText != null) ? 'text' : null,
       error: 'value not in text',
     );
   }

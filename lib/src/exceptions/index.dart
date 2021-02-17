@@ -4,4 +4,5 @@ export 'i_exception.dart';
 export 'library_initializer_exception.dart';
 export 'lits_item_provider_exception.dart';
 export 'validation_exception.dart';
+export 'validator_navigation_exception.dart';
 export 'validator_parameter_exception.dart';
