@@ -1,9 +1,9 @@
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
-class _UrlStub extends IStub<FormControl<String>, Url> {
+class _UrlStub extends ValidatorStub<FormControl<String>, Url> {
   _UrlStub({
     String fcValue,
   }) {

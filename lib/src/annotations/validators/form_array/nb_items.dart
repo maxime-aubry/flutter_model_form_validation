@@ -5,8 +5,8 @@ class NbItems extends FormArrayValidatorAnnotation {
   const NbItems({
     this.min,
     this.max,
-    this.minOnProperty,
-    this.maxOnProperty,
+    this.remoteMin,
+    this.remoteMax,
     @required String error,
   }) : super(error: error);
 
@@ -16,23 +16,25 @@ class NbItems extends FormArrayValidatorAnnotation {
   /// [max] is maximal quantity of items.
   final int max;
 
-  /// [minOnProperty] is the name of targeted property that user uses to provide minimal quantity of items of your array. This one has priority on [min] value.
-  final String minOnProperty;
+  /// [remoteMin] is the name of targeted property that user uses to provide minimal quantity of items of your array. This one has priority on [min] value.
+  final String remoteMin;
 
-  /// [maxOnProperty] is the name of targeted property that user uses to provide maximal quantity of items of your array. This one has priority on [max] value.
-  final String maxOnProperty;
+  /// [remoteMax] is the name of targeted property that user uses to provide maximal quantity of items of your array. This one has priority on [max] value.
+  final String remoteMax;
 
   @override
   Future<bool> isValid(FormArray control) async {
     int min = super.getRemoteValidatorParameter(
-      control,
-      this.minOnProperty,
-      this.min,
+      defaultValue: this.min,
+      localParameterName: 'min',
+      remoteParameterName: this.remoteMin,
+      control: control.parentGroup,
     );
     int max = super.getRemoteValidatorParameter(
-      control,
-      this.maxOnProperty,
-      this.max,
+      defaultValue: this.max,
+      localParameterName: 'max',
+      remoteParameterName: this.remoteMax,
+      control: control.parentGroup,
     );
     if (min == null)
       throw new ValidatorParameterException('Min is not defined.');

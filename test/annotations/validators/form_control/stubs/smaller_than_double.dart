@@ -1,10 +1,10 @@
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
 class _SmallerThanDoubleStub
-    extends IStub<FormControl<double>, SmallerThanDouble> {
+    extends ValidatorStub<FormControl<double>, SmallerThanDouble> {
   _SmallerThanDoubleStub({
     double fcValue,
     double fcValueToCompare,

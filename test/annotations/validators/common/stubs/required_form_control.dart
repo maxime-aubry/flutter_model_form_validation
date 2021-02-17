@@ -1,8 +1,9 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
-class _RequiredFormControlStub extends IStub<FormControl<String>, Required> {
+class _RequiredFormControlStub
+    extends ValidatorStub<FormControl<String>, Required> {
   _RequiredFormControlStub({
     String fcValue,
   }) {

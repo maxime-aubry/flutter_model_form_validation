@@ -1,9 +1,9 @@
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
-class _NbValuesStub extends IStub<FormControl<List<String>>, NbValues> {
+class _NbValuesStub extends ValidatorStub<FormControl<List<String>>, NbValues> {
   _NbValuesStub({
     List<String> fcValue,
     int fcMin,

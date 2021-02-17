@@ -1,9 +1,9 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
 class _MembershipPasswordStub
-    extends IStub<FormControl<String>, MembershipPassword> {
+    extends ValidatorStub<FormControl<String>, MembershipPassword> {
   _MembershipPasswordStub({
     String fcValue,
     int minLength,

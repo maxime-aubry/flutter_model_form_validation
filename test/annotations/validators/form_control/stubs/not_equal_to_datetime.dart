@@ -2,10 +2,10 @@ import 'package:constant_datetime/constant_datetime.dart';
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
 class _NotEqualToDateTimeStub
-    extends IStub<FormControl<DateTime>, NotEqualToDateTime> {
+    extends ValidatorStub<FormControl<DateTime>, NotEqualToDateTime> {
   _NotEqualToDateTimeStub({
     DateTime fcValue,
     DateTime fcValueToCompare,

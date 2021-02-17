@@ -3,9 +3,9 @@ import 'dart:typed_data';
 
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
-class _FileSizeStub extends IStub<FormControl<Uint8List>, FileSize> {
+class _FileSizeStub extends ValidatorStub<FormControl<Uint8List>, FileSize> {
   _FileSizeStub({
     File file,
     int size,

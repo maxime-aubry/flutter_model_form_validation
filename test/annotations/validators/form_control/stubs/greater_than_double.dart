@@ -1,10 +1,10 @@
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
 class _GreaterThanDoubleStub
-    extends IStub<FormControl<double>, GreaterThanDouble> {
+    extends ValidatorStub<FormControl<double>, GreaterThanDouble> {
   _GreaterThanDoubleStub({
     double fcValue,
     double fcValueToCompare,

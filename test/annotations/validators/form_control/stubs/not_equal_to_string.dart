@@ -1,10 +1,10 @@
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
 class _NotEqualToStringStub
-    extends IStub<FormControl<String>, NotEqualToString> {
+    extends ValidatorStub<FormControl<String>, NotEqualToString> {
   _NotEqualToStringStub({
     String fcValue,
     String fcValueToCompare,

@@ -1,9 +1,10 @@
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
-class _RangeOfDoubleStub extends IStub<FormControl<double>, RangeOfDouble> {
+class _RangeOfDoubleStub
+    extends ValidatorStub<FormControl<double>, RangeOfDouble> {
   _RangeOfDoubleStub({
     double fcValue,
     double fcMin,

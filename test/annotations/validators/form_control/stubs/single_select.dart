@@ -1,9 +1,10 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 import '../../../../models/models.dart';
-import '../../stub.dart';
+import '../../stubs.dart';
 
-class _SingleSelectStub extends IStub<FormControl<EGender>, SingleSelect> {
+class _SingleSelectStub
+    extends ValidatorStub<FormControl<EGender>, SingleSelect> {
   _SingleSelectStub({
     EGender fcValue,
     List<SelectListItem<EGender>> items,

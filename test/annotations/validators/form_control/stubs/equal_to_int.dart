@@ -1,9 +1,9 @@
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
-class _EqualToIntStub extends IStub<FormControl<int>, EqualToInt> {
+class _EqualToIntStub extends ValidatorStub<FormControl<int>, EqualToInt> {
   _EqualToIntStub({
     int fcValue,
     int fcValueToCompare,

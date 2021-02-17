@@ -1,9 +1,10 @@
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
-class _StringLengthStub extends IStub<FormControl<String>, StringLength> {
+class _StringLengthStub
+    extends ValidatorStub<FormControl<String>, StringLength> {
   _StringLengthStub({
     String fcValue,
     String validatorExpression,

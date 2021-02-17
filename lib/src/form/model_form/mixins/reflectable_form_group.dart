@@ -18,7 +18,6 @@ mixin ReflectableFormGroup {
   /* Public methods */
 
   /* Protected methods */
-
   @protected
   Iterable<MapEntry<String, FormElementNotifier>> getControls(
       ModelForm model, InstanceMirror instanceMirror) {

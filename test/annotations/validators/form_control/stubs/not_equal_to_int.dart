@@ -1,9 +1,10 @@
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
-class _NotEqualToIntStub extends IStub<FormControl<int>, NotEqualToInt> {
+class _NotEqualToIntStub
+    extends ValidatorStub<FormControl<int>, NotEqualToInt> {
   _NotEqualToIntStub({
     int fcValue,
     int fcValueToCompare,

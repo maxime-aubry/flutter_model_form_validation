@@ -1,10 +1,10 @@
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
 class _GreaterOrEqualToNumberStub
-    extends IStub<FormControl<num>, GreaterOrEqualToNumber> {
+    extends ValidatorStub<FormControl<num>, GreaterOrEqualToNumber> {
   _GreaterOrEqualToNumberStub({
     num fcValue,
     num fcValueToCompare,

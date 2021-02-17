@@ -2,10 +2,10 @@ import 'package:constant_datetime/constant_datetime.dart';
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
 class _GreaterThanDateTimeStub
-    extends IStub<FormControl<DateTime>, GreaterThanDateTime> {
+    extends ValidatorStub<FormControl<DateTime>, GreaterThanDateTime> {
   _GreaterThanDateTimeStub({
     DateTime fcValue,
     DateTime fcValueToCompare,

@@ -1,8 +1,8 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
-class _NbItemsStub extends IStub<FormArray, NbItems> {
+class _NbItemsStub extends ValidatorStub<FormArray, NbItems> {
   _NbItemsStub({
     List<FormGroup> fcValue,
     int fcMin,
@@ -39,8 +39,8 @@ class _NbItemsStub extends IStub<FormArray, NbItems> {
     super.validator = NbItems(
       min: validatorMin,
       max: validatorMax,
-      minOnProperty: (fcMin != null) ? 'min' : null,
-      maxOnProperty: (fcMax != null) ? 'max' : null,
+      remoteMin: (fcMin != null) ? 'min' : null,
+      remoteMax: (fcMax != null) ? 'max' : null,
       error: '',
     );
   }

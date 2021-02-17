@@ -1,9 +1,9 @@
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
-class _EmailStub extends IStub<FormControl<String>, Email> {
+class _EmailStub extends ValidatorStub<FormControl<String>, Email> {
   _EmailStub({
     String fcValue,
   }) {
@@ -11,7 +11,7 @@ class _EmailStub extends IStub<FormControl<String>, Email> {
       value: fcValue,
       validators: [],
     );
-    super.validator = Email(error: 'invalid email');
+    super.validator = Email(error: '');
   }
 }
 

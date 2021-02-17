@@ -1,8 +1,8 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
-class _RequiredFormGroupStub extends IStub<FormGroup, Required> {
+class _RequiredFormGroupStub extends ValidatorStub<FormGroup, Required> {
   _RequiredFormGroupStub({
     Map<String, AbstractControl> controls,
   }) {

@@ -1,9 +1,10 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 import '../../../../models/models.dart';
-import '../../stub.dart';
+import '../../stubs.dart';
 
-class _MultiSelectStub extends IStub<FormControl<List<EGender>>, MultiSelect> {
+class _MultiSelectStub
+    extends ValidatorStub<FormControl<List<EGender>>, MultiSelect> {
   _MultiSelectStub({
     List<EGender> fcValue,
     List<SelectListItem<EGender>> items,

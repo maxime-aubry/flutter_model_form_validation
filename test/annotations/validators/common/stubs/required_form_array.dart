@@ -1,8 +1,8 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
-class _RequiredFormArrayStub extends IStub<FormArray, Required> {
+class _RequiredFormArrayStub extends ValidatorStub<FormArray, Required> {
   _RequiredFormArrayStub({
     List<FormGroup> groups,
   }) {

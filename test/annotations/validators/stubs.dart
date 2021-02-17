@@ -1,6 +1,14 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-class IStub<TAbstractControl extends AbstractControl,
+class NavigatorTester with FormValidatorNavigator {}
+
+class FormAnnotationStub {
+  String soughtParameterName;
+  FormControl<String> control;
+  NavigatorTester navigator;
+}
+
+class ValidatorStub<TAbstractControl extends AbstractControl,
     TValidator extends FormValidatorAnnotation> {
   TAbstractControl control;
   TValidator validator;

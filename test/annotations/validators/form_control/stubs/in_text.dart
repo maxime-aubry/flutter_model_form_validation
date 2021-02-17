@@ -1,8 +1,8 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
-class _InTextStub extends IStub<FormControl<String>, InText> {
+class _InTextStub extends ValidatorStub<FormControl<String>, InText> {
   _InTextStub({
     String fcValue,
     String fcText,

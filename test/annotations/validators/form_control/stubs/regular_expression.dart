@@ -1,10 +1,10 @@
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
 class _RegularExpressionStub
-    extends IStub<FormControl<String>, RegularExpression> {
+    extends ValidatorStub<FormControl<String>, RegularExpression> {
   _RegularExpressionStub({
     String fcValue,
     String validatorExpression,

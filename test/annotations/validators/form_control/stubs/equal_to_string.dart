@@ -1,9 +1,10 @@
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-import '../../stub.dart';
+import '../../stubs.dart';
 
-class _EqualToStringStub extends IStub<FormControl<String>, EqualToString> {
+class _EqualToStringStub
+    extends ValidatorStub<FormControl<String>, EqualToString> {
   _EqualToStringStub({
     String fcValue,
     String fcValueToCompare,
