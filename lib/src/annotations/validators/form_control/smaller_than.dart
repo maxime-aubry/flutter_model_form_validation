@@ -41,11 +41,11 @@ class SmallerThan<TProperty extends Comparable>
 class SmallerThanDateTime extends SmallerThan<DateTime> {
   const SmallerThanDateTime({
     DateTime valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -53,11 +53,11 @@ class SmallerThanDateTime extends SmallerThan<DateTime> {
 class SmallerThanNumber extends SmallerThan<num> {
   const SmallerThanNumber({
     num valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -65,11 +65,11 @@ class SmallerThanNumber extends SmallerThan<num> {
 class SmallerThanBigInt extends SmallerThan<BigInt> {
   const SmallerThanBigInt({
     BigInt valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -77,11 +77,11 @@ class SmallerThanBigInt extends SmallerThan<BigInt> {
 class SmallerThanDouble extends SmallerThan<double> {
   const SmallerThanDouble({
     double valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -89,11 +89,11 @@ class SmallerThanDouble extends SmallerThan<double> {
 class SmallerThanInt extends SmallerThan<int> {
   const SmallerThanInt({
     int valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -101,11 +101,11 @@ class SmallerThanInt extends SmallerThan<int> {
 class SmallerThanString extends SmallerThan<String> {
   const SmallerThanString({
     String valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }

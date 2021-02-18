@@ -6,16 +6,17 @@ import '../../stubs.dart';
 class _EqualToStringStub
     extends ValidatorStub<FormControl<String>, EqualToString> {
   _EqualToStringStub({
-    String fcValue,
-    String fcValueToCompare,
-    String validatorValueToCompare,
+    String value,
+    String remoteValueToCompare,
+    String remoteValueToCompareName = 'valueToCompare',
+    String localeValueToCompare,
   }) {
     FormControl<String> _value = new FormControl<String>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     FormControl<String> _valueToCompare = new FormControl<String>(
-      value: fcValueToCompare,
+      value: remoteValueToCompare,
       validators: [],
     );
     FormGroup _root = new FormGroup(
@@ -30,10 +31,9 @@ class _EqualToStringStub
 
     super.control = _value;
     super.validator = EqualToString(
-      valueToCompare: validatorValueToCompare,
-      valueToCompareOnProperty:
-          (fcValueToCompare != null) ? 'valueToCompare' : null,
-      error: 'invalid date',
+      valueToCompare: localeValueToCompare,
+      remoteValueToCompare: remoteValueToCompareName,
+      error: null,
     );
   }
 }
@@ -42,51 +42,55 @@ class _EqualToStringStub
 class EqualToString_ValueEqualsValueToCompare_Stub extends _EqualToStringStub {
   EqualToString_ValueEqualsValueToCompare_Stub()
       : super(
-          fcValue: 'a',
-          validatorValueToCompare: 'a',
+          value: 'a',
+          localeValueToCompare: 'a',
         ) {}
 }
 
-class EqualToString_ValueIsNull_Stub extends _EqualToStringStub {
-  EqualToString_ValueIsNull_Stub()
+class EqualToString_ValueAndValueToCompareAreNull_Stub
+    extends _EqualToStringStub {
+  EqualToString_ValueAndValueToCompareAreNull_Stub()
       : super(
-          fcValue: null,
-          validatorValueToCompare: 'a',
-        ) {}
-}
-
-class EqualToString_EmptyValue_Stub extends _EqualToStringStub {
-  EqualToString_EmptyValue_Stub()
-      : super(
-          fcValue: '',
-          validatorValueToCompare: 'a',
+          value: null,
+          localeValueToCompare: null,
         ) {}
 }
 
 /* Value is not valid */
+class EqualToString_ValueIsNull_Stub extends _EqualToStringStub {
+  EqualToString_ValueIsNull_Stub()
+      : super(
+          value: null,
+          localeValueToCompare: 'a',
+        ) {}
+}
+
+class EqualToString_ValueToCompareIsNull_Stub extends _EqualToStringStub {
+  EqualToString_ValueToCompareIsNull_Stub()
+      : super(
+          value: 'a',
+          localeValueToCompare: null,
+        ) {}
+}
+
 class EqualToString_ValueDoesNotEqualValueToCompare_Stub
     extends _EqualToStringStub {
   EqualToString_ValueDoesNotEqualValueToCompare_Stub()
       : super(
-          fcValue: 'b',
-          validatorValueToCompare: 'a',
+          value: 'b',
+          localeValueToCompare: 'a',
         ) {}
 }
 
 /* Remote parameters are provided */
-class EqualToString_ValueToCompareOnPropertyIsProvided_Stub
+class EqualToString_remoteValueToCompareIsProvided_Stub
     extends _EqualToStringStub {
-  EqualToString_ValueToCompareOnPropertyIsProvided_Stub()
+  EqualToString_remoteValueToCompareIsProvided_Stub()
       : super(
-          fcValue: 'b',
-          fcValueToCompare: 'b',
-          validatorValueToCompare: 'a',
+          value: 'b',
+          remoteValueToCompare: 'b',
+          localeValueToCompare: 'a',
         ) {}
 }
 
 /* Exceptions on parameters */
-class EqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
-    extends _EqualToStringStub {
-  EqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
-      : super(fcValue: 'a') {}
-}

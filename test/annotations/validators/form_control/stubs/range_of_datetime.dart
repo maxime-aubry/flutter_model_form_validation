@@ -41,8 +41,8 @@ class _RangeOfDateTimeStub
     super.validator = RangeOfDateTime(
       min: validatorMin,
       max: validatorMax,
-      minOnProperty: (fcMin != null) ? 'min' : null,
-      maxOnProperty: (fcMax != null) ? 'max' : null,
+      remoteMin: (fcMin != null) ? 'min' : null,
+      remoteMax: (fcMax != null) ? 'max' : null,
       error: 'invalid date',
     );
   }
@@ -106,9 +106,8 @@ class RangeOfDateTime_ValueIsGreaterThanMax_Stub extends _RangeOfDateTimeStub {
 }
 
 /* Remote parameters are provided */
-class RangeOfDateTime_MinOnPropertyIsProvided_Stub
-    extends _RangeOfDateTimeStub {
-  RangeOfDateTime_MinOnPropertyIsProvided_Stub()
+class RangeOfDateTime_remoteMinIsProvided_Stub extends _RangeOfDateTimeStub {
+  RangeOfDateTime_remoteMinIsProvided_Stub()
       : super(
           fcValue: new DateTime(2020, 6, 1),
           fcMin: new DateTime(2020, 1, 1),
@@ -117,9 +116,8 @@ class RangeOfDateTime_MinOnPropertyIsProvided_Stub
         );
 }
 
-class RangeOfDateTime_MaxOnPropertyIsProvided_Stub
-    extends _RangeOfDateTimeStub {
-  RangeOfDateTime_MaxOnPropertyIsProvided_Stub()
+class RangeOfDateTime_remoteMaxIsProvided_Stub extends _RangeOfDateTimeStub {
+  RangeOfDateTime_remoteMaxIsProvided_Stub()
       : super(
           fcValue: new DateTime(2022, 6, 1),
           fcMax: new DateTime(2022, 12, 31),

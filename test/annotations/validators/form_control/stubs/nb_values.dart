@@ -103,8 +103,8 @@ class NbValues_UnallowedNumberOfValues_Stub extends _NbValuesStub {
 }
 
 /* Remote parameters are provided */
-class NbValues_MinOnPropertyIsProvided_Stub extends _NbValuesStub {
-  NbValues_MinOnPropertyIsProvided_Stub()
+class NbValues_remoteMinIsProvided_Stub extends _NbValuesStub {
+  NbValues_remoteMinIsProvided_Stub()
       : super(
           fcValue: ['a'],
           fcMin: 1,
@@ -113,8 +113,8 @@ class NbValues_MinOnPropertyIsProvided_Stub extends _NbValuesStub {
         ) {}
 }
 
-class NbValues_MaxOnPropertyIsProvided_Stub extends _NbValuesStub {
-  NbValues_MaxOnPropertyIsProvided_Stub()
+class NbValues_remoteMaxIsProvided_Stub extends _NbValuesStub {
+  NbValues_remoteMaxIsProvided_Stub()
       : super(
           fcValue: ['a', 'b', 'c', 'd'],
           fcMax: 4,

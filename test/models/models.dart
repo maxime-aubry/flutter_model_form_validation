@@ -26,8 +26,8 @@ enum EGender { male, female, other }
 //   @Range(
 //     min: '2019-01-01',
 //     max: '2019-12-31',
-//     minOnProperty: 'min',
-//     maxOnProperty: 'max',
+//     remoteMin: 'min',
+//     remoteMax: 'max',
 //     error: 'error message here',
 //   )
 //   FormControlElement<DateTime> value;
@@ -61,7 +61,7 @@ enum EGender { male, female, other }
 
 //   @EqualTo(
 //     valueToCompare: '2019-01-01T00:00:00',
-//     valueToCompareOnProperty: 'valueToCompare',
+//     remoteValueToCompare: 'valueToCompare',
 //     error: 'error message here',
 //   )
 //   FormControlElement<DateTime> value;
@@ -82,7 +82,7 @@ enum EGender { male, female, other }
 
 //   @EqualTo(
 //     valueToCompare: '1',
-//     valueToCompareOnProperty: 'valueToCompare',
+//     remoteValueToCompare: 'valueToCompare',
 //     error: 'error message here',
 //   )
 //   FormControlElement<num> value;
@@ -103,7 +103,7 @@ enum EGender { male, female, other }
 
 //   @EqualTo(
 //     valueToCompare: 'b',
-//     valueToCompareOnProperty: 'valueToCompare',
+//     remoteValueToCompare: 'valueToCompare',
 //     error: 'error message here',
 //   )
 //   FormControlElement<String> value;
@@ -153,7 +153,7 @@ enum EGender { male, female, other }
 //   }
 
 //   @GreaterOrEqualTo(
-//     valueToCompareOnProperty: 'valueToCompare',
+//     remoteValueToCompare: 'valueToCompare',
 //     valueToCompare: '2019-01-01T00:00:00',
 //     error: 'error message here',
 //   )
@@ -174,7 +174,7 @@ enum EGender { male, female, other }
 //   }
 
 //   @GreaterOrEqualTo(
-//     valueToCompareOnProperty: 'valueToCompare',
+//     remoteValueToCompare: 'valueToCompare',
 //     valueToCompare: '1',
 //     error: 'error message here',
 //   )
@@ -195,7 +195,7 @@ enum EGender { male, female, other }
 //   }
 
 //   @GreaterOrEqualTo(
-//     valueToCompareOnProperty: 'valueToCompare',
+//     remoteValueToCompare: 'valueToCompare',
 //     valueToCompare: 'b',
 //     error: 'error message here',
 //   )
@@ -217,7 +217,7 @@ enum EGender { male, female, other }
 
 //   @GreaterThan(
 //     valueToCompare: '2019-01-01T00:00:00',
-//     valueToCompareOnProperty: 'valueToCompare',
+//     remoteValueToCompare: 'valueToCompare',
 //     error: 'error message here',
 //   )
 //   FormControlElement<DateTime> value;
@@ -238,7 +238,7 @@ enum EGender { male, female, other }
 
 //   @GreaterThan(
 //     valueToCompare: '1',
-//     valueToCompareOnProperty: 'valueToCompare',
+//     remoteValueToCompare: 'valueToCompare',
 //     error: 'error message here',
 //   )
 //   FormControlElement<num> value;
@@ -259,7 +259,7 @@ enum EGender { male, female, other }
 
 //   @GreaterThan(
 //     valueToCompare: 'b',
-//     valueToCompareOnProperty: 'valueToCompare',
+//     remoteValueToCompare: 'valueToCompare',
 //     error: 'error message here',
 //   )
 //   FormControlElement<String> value;
@@ -388,8 +388,8 @@ enum EGender { male, female, other }
 //   @NbItems(
 //     min: '1',
 //     max: '3',
-//     minOnProperty: 'min',
-//     maxOnProperty: 'max',
+//     remoteMin: 'min',
+//     remoteMax: 'max',
 //     error: 'error message here',
 //   )
 //   FormControlElement<List<String>> value;
@@ -411,7 +411,7 @@ enum EGender { male, female, other }
 
 //   @NotEqualTo(
 //     valueToCompare: '2019-01-01T00:00:00',
-//     valueToCompareOnProperty: 'valueToCompare',
+//     remoteValueToCompare: 'valueToCompare',
 //     error: 'error message here',
 //   )
 //   FormControlElement<DateTime> value;
@@ -432,7 +432,7 @@ enum EGender { male, female, other }
 
 //   @NotEqualTo(
 //     valueToCompare: '1',
-//     valueToCompareOnProperty: 'valueToCompare',
+//     remoteValueToCompare: 'valueToCompare',
 //     error: 'error message here',
 //   )
 //   FormControlElement<num> value;
@@ -453,7 +453,7 @@ enum EGender { male, female, other }
 
 //   @NotEqualTo(
 //     valueToCompare: 'b',
-//     valueToCompareOnProperty: 'valueToCompare',
+//     remoteValueToCompare: 'valueToCompare',
 //     error: 'error message here',
 //   )
 //   FormControlElement<String> value;
@@ -477,8 +477,8 @@ enum EGender { male, female, other }
 //   @Range(
 //     min: '-10',
 //     max: '-1',
-//     minOnProperty: 'min',
-//     maxOnProperty: 'max',
+//     remoteMin: 'min',
+//     remoteMax: 'max',
 //     error: 'error message here',
 //   )
 //   FormControlElement<num> value;
@@ -596,7 +596,7 @@ enum EGender { male, female, other }
 
 //   @SmallerOrEqualTo(
 //     valueToCompare: '2019-01-01T00:00:00',
-//     valueToCompareOnProperty: 'valueToCompare',
+//     remoteValueToCompare: 'valueToCompare',
 //     error: 'error message here',
 //   )
 //   FormControlElement<DateTime> value;
@@ -617,7 +617,7 @@ enum EGender { male, female, other }
 
 //   @SmallerOrEqualTo(
 //     valueToCompare: '1',
-//     valueToCompareOnProperty: 'valueToCompare',
+//     remoteValueToCompare: 'valueToCompare',
 //     error: 'error message here',
 //   )
 //   FormControlElement<num> value;
@@ -638,7 +638,7 @@ enum EGender { male, female, other }
 
 //   @SmallerOrEqualTo(
 //     valueToCompare: 'b',
-//     valueToCompareOnProperty: 'valueToCompare',
+//     remoteValueToCompare: 'valueToCompare',
 //     error: 'error message here',
 //   )
 //   FormControlElement<String> value;
@@ -659,7 +659,7 @@ enum EGender { male, female, other }
 
 //   @SmallerThan(
 //     valueToCompare: '2019-01-01T00:00:00',
-//     valueToCompareOnProperty: 'valueToCompare',
+//     remoteValueToCompare: 'valueToCompare',
 //     error: 'error message here',
 //   )
 //   FormControlElement<DateTime> value;
@@ -680,7 +680,7 @@ enum EGender { male, female, other }
 
 //   @SmallerThan(
 //     valueToCompare: '1',
-//     valueToCompareOnProperty: 'valueToCompare',
+//     remoteValueToCompare: 'valueToCompare',
 //     error: 'error message here',
 //   )
 //   FormControlElement<num> value;
@@ -701,7 +701,7 @@ enum EGender { male, female, other }
 
 //   @SmallerThan(
 //     valueToCompare: 'b',
-//     valueToCompareOnProperty: 'valueToCompare',
+//     remoteValueToCompare: 'valueToCompare',
 //     error: 'error message here',
 //   )
 //   FormControlElement<String> value;
@@ -741,8 +741,8 @@ enum EGender { male, female, other }
 //   @Range(
 //     min: 'a',
 //     max: 'd',
-//     minOnProperty: 'min',
-//     maxOnProperty: 'max',
+//     remoteMin: 'min',
+//     remoteMax: 'max',
 //     error: 'error message here',
 //   )
 //   FormControlElement<String> value;

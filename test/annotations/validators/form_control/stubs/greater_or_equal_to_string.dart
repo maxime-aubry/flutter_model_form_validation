@@ -31,7 +31,7 @@ class _GreaterOrEqualToStringStub
     super.control = _value;
     super.validator = GreaterOrEqualToString(
       valueToCompare: validatorValueToCompare,
-      valueToCompareOnProperty:
+      remoteValueToCompare:
           (fcValueToCompare != null) ? 'valueToCompare' : null,
       error: 'invalid date',
     );
@@ -77,9 +77,9 @@ class GreaterOrEqualToString_ValueIsSmallerThanValueToCompare_Stub
 }
 
 /* Remote parameters are provided */
-class GreaterOrEqualToString_ValueToCompareOnPropertyIsProvided_Stub
+class GreaterOrEqualToString_remoteValueToCompareIsProvided_Stub
     extends _GreaterOrEqualToStringStub {
-  GreaterOrEqualToString_ValueToCompareOnPropertyIsProvided_Stub()
+  GreaterOrEqualToString_remoteValueToCompareIsProvided_Stub()
       : super(
           fcValue: 'b',
           fcValueToCompare: 'b',

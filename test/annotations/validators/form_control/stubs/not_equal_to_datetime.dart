@@ -32,7 +32,7 @@ class _NotEqualToDateTimeStub
     super.control = _value;
     super.validator = NotEqualToDateTime(
       valueToCompare: validatorValueToCompare,
-      valueToCompareOnProperty:
+      remoteValueToCompare:
           (fcValueToCompare != null) ? 'valueToCompare' : null,
       error: 'invalid date',
     );
@@ -71,9 +71,9 @@ class NotEqualToDateTime_ValueEqualsValueToCompare_Stub
 }
 
 /* Remote parameters are provided */
-class NotEqualToDateTime_ValueToCompareOnPropertyIsProvided_Stub
+class NotEqualToDateTime_remoteValueToCompareIsProvided_Stub
     extends _NotEqualToDateTimeStub {
-  NotEqualToDateTime_ValueToCompareOnPropertyIsProvided_Stub()
+  NotEqualToDateTime_remoteValueToCompareIsProvided_Stub()
       : super(
           fcValue: new DateTime(2021, 1, 2),
           fcValueToCompare: new DateTime(2021, 1, 2),

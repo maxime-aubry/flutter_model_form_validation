@@ -6,16 +6,17 @@ import '../../stubs.dart';
 class _EqualToNumberStub
     extends ValidatorStub<FormControl<num>, EqualToNumber> {
   _EqualToNumberStub({
-    num fcValue,
-    num fcValueToCompare,
-    num validatorValueToCompare,
+    num value,
+    num remoteValueToCompare,
+    String remoteValueToCompareName = 'valueToCompare',
+    num localeValueToCompare,
   }) {
     FormControl<num> _value = new FormControl<num>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     FormControl<num> _valueToCompare = new FormControl<num>(
-      value: fcValueToCompare,
+      value: remoteValueToCompare,
       validators: [],
     );
     FormGroup _root = new FormGroup(
@@ -30,9 +31,8 @@ class _EqualToNumberStub
 
     super.control = _value;
     super.validator = EqualToNumber(
-      valueToCompare: validatorValueToCompare,
-      valueToCompareOnProperty:
-          (fcValueToCompare != null) ? 'valueToCompare' : null,
+      valueToCompare: localeValueToCompare,
+      remoteValueToCompare: remoteValueToCompareName,
       error: 'invalid date',
     );
   }
@@ -42,43 +42,55 @@ class _EqualToNumberStub
 class EqualToNumber_ValueEqualsValueToCompare_Stub extends _EqualToNumberStub {
   EqualToNumber_ValueEqualsValueToCompare_Stub()
       : super(
-          fcValue: 0,
-          validatorValueToCompare: 0,
+          value: 0,
+          localeValueToCompare: 0,
         ) {}
 }
 
-class EqualToNumber_ValueIsNull_Stub extends _EqualToNumberStub {
-  EqualToNumber_ValueIsNull_Stub()
+class EqualToNumber_ValueAndValueToCompareAreNull_Stub
+    extends _EqualToNumberStub {
+  EqualToNumber_ValueAndValueToCompareAreNull_Stub()
       : super(
-          fcValue: null,
-          validatorValueToCompare: 0,
+          value: null,
+          localeValueToCompare: null,
         ) {}
 }
 
 /* Value is not valid */
+class EqualToNumber_ValueIsNull_Stub extends _EqualToNumberStub {
+  EqualToNumber_ValueIsNull_Stub()
+      : super(
+          value: null,
+          localeValueToCompare: 0,
+        ) {}
+}
+
+class EqualToNumber_ValueToCompareIsNull_Stub extends _EqualToNumberStub {
+  EqualToNumber_ValueToCompareIsNull_Stub()
+      : super(
+          value: 0,
+          localeValueToCompare: null,
+        ) {}
+}
+
 class EqualToNumber_ValueDoesNotEqualValueToCompare_Stub
     extends _EqualToNumberStub {
   EqualToNumber_ValueDoesNotEqualValueToCompare_Stub()
       : super(
-          fcValue: 1,
-          validatorValueToCompare: 0,
+          value: 1,
+          localeValueToCompare: 0,
         ) {}
 }
 
 /* Remote parameters are provided */
-class EqualToNumber_ValueToCompareOnPropertyIsProvided_Stub
+class EqualToNumber_remoteValueToCompareIsProvided_Stub
     extends _EqualToNumberStub {
-  EqualToNumber_ValueToCompareOnPropertyIsProvided_Stub()
+  EqualToNumber_remoteValueToCompareIsProvided_Stub()
       : super(
-          fcValue: 1,
-          fcValueToCompare: 1,
-          validatorValueToCompare: 0,
+          value: 1,
+          remoteValueToCompare: 1,
+          localeValueToCompare: 0,
         ) {}
 }
 
 /* Exceptions on parameters */
-class EqualToNumber_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
-    extends _EqualToNumberStub {
-  EqualToNumber_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
-      : super(fcValue: 0) {}
-}

@@ -32,7 +32,7 @@ class _GreaterThanDateTimeStub
     super.control = _value;
     super.validator = GreaterThanDateTime(
       valueToCompare: validatorValueToCompare,
-      valueToCompareOnProperty:
+      remoteValueToCompare:
           (fcValueToCompare != null) ? 'valueToCompare' : null,
       error: 'invalid date',
     );
@@ -81,9 +81,9 @@ class GreaterThanDateTime_ValueEqualsValueToCompare_Stub
 }
 
 /* Remote parameters are provided */
-class GreaterThanDateTime_ValueToCompareOnPropertyIsProvided_Stub
+class GreaterThanDateTime_remoteValueToCompareIsProvided_Stub
     extends _GreaterThanDateTimeStub {
-  GreaterThanDateTime_ValueToCompareOnPropertyIsProvided_Stub()
+  GreaterThanDateTime_remoteValueToCompareIsProvided_Stub()
       : super(
           fcValue: new DateTime(2021, 1, 2),
           fcValueToCompare: new DateTime(2021, 1, 2),

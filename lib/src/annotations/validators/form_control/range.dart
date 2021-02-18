@@ -69,14 +69,14 @@ class RangeOfDateTime extends Range<DateTime> {
   const RangeOfDateTime({
     DateTime min,
     DateTime max,
-    String minOnProperty,
-    String maxOnProperty,
+    String remoteMin,
+    String remoteMax,
     @required String error,
   }) : super(
           min: min,
           max: max,
-          remoteMin: minOnProperty,
-          remoteMax: maxOnProperty,
+          remoteMin: remoteMin,
+          remoteMax: remoteMax,
           error: error,
         );
 }
@@ -85,14 +85,14 @@ class RangeOfNumber extends Range<num> {
   const RangeOfNumber({
     num min,
     num max,
-    String minOnProperty,
-    String maxOnProperty,
+    String remoteMin,
+    String remoteMax,
     @required String error,
   }) : super(
           min: min,
           max: max,
-          remoteMin: minOnProperty,
-          remoteMax: maxOnProperty,
+          remoteMin: remoteMin,
+          remoteMax: remoteMax,
           error: error,
         );
 }
@@ -101,14 +101,14 @@ class RangeOfDouble extends Range<double> {
   const RangeOfDouble({
     double min,
     double max,
-    String minOnProperty,
-    String maxOnProperty,
+    String remoteMin,
+    String remoteMax,
     @required String error,
   }) : super(
           min: min,
           max: max,
-          remoteMin: minOnProperty,
-          remoteMax: maxOnProperty,
+          remoteMin: remoteMin,
+          remoteMax: remoteMax,
           error: error,
         );
 }
@@ -117,14 +117,14 @@ class RangeOfInt extends Range<int> {
   const RangeOfInt({
     int min,
     int max,
-    String minOnProperty,
-    String maxOnProperty,
+    String remoteMin,
+    String remoteMax,
     @required String error,
   }) : super(
           min: min,
           max: max,
-          remoteMin: minOnProperty,
-          remoteMax: maxOnProperty,
+          remoteMin: remoteMin,
+          remoteMax: remoteMax,
           error: error,
         );
 }
@@ -133,14 +133,14 @@ class RangeOfString extends Range<String> {
   const RangeOfString({
     String min,
     String max,
-    String minOnProperty,
-    String maxOnProperty,
+    String remoteMin,
+    String remoteMax,
     @required String error,
   }) : super(
           min: min,
           max: max,
-          remoteMin: minOnProperty,
-          remoteMax: maxOnProperty,
+          remoteMin: remoteMin,
+          remoteMax: remoteMax,
           error: error,
         );
 }

@@ -31,7 +31,7 @@ class _NotEqualToStringStub
     super.control = _value;
     super.validator = NotEqualToString(
       valueToCompare: validatorValueToCompare,
-      valueToCompareOnProperty:
+      remoteValueToCompare:
           (fcValueToCompare != null) ? 'valueToCompare' : null,
       error: 'invalid date',
     );
@@ -75,9 +75,9 @@ class NotEqualToString_ValueEqualsValueToCompare_Stub
 }
 
 /* Remote parameters are provided */
-class NotEqualToString_ValueToCompareOnPropertyIsProvided_Stub
+class NotEqualToString_remoteValueToCompareIsProvided_Stub
     extends _NotEqualToStringStub {
-  NotEqualToString_ValueToCompareOnPropertyIsProvided_Stub()
+  NotEqualToString_remoteValueToCompareIsProvided_Stub()
       : super(
           fcValue: 'b',
           fcValueToCompare: 'b',

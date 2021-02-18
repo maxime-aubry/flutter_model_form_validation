@@ -32,7 +32,7 @@ class _SmallerOrEqualToDateTimeStub
     super.control = _value;
     super.validator = SmallerOrEqualToDateTime(
       valueToCompare: validatorValueToCompare,
-      valueToCompareOnProperty:
+      remoteValueToCompare:
           (fcValueToCompare != null) ? 'valueToCompare' : null,
       error: 'invalid date',
     );
@@ -82,9 +82,9 @@ class SmallerOrEqualToDateTime_ValueIsGreterThanValueToCompare_Stub
 }
 
 /* Remote parameters are provided */
-class SmallerOrEqualToDateTime_ValueToCompareOnPropertyIsProvided_Stub
+class SmallerOrEqualToDateTime_remoteValueToCompareIsProvided_Stub
     extends _SmallerOrEqualToDateTimeStub {
-  SmallerOrEqualToDateTime_ValueToCompareOnPropertyIsProvided_Stub()
+  SmallerOrEqualToDateTime_remoteValueToCompareIsProvided_Stub()
       : super(
           fcValue: new DateTime(2021, 1, 1),
           fcValueToCompare: new DateTime(2021, 1, 1),

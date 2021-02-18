@@ -49,11 +49,11 @@ class GreaterOrEqualTo<TProperty extends Comparable>
 class GreaterOrEqualToDateTime extends GreaterOrEqualTo<DateTime> {
   const GreaterOrEqualToDateTime({
     DateTime valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -62,11 +62,11 @@ class GreaterOrEqualToDateTime extends GreaterOrEqualTo<DateTime> {
 class GreaterOrEqualToNumber extends GreaterOrEqualTo<num> {
   const GreaterOrEqualToNumber({
     num valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -75,11 +75,11 @@ class GreaterOrEqualToNumber extends GreaterOrEqualTo<num> {
 class GreaterOrEqualToBigInt extends GreaterOrEqualTo<BigInt> {
   const GreaterOrEqualToBigInt({
     BigInt valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -88,11 +88,11 @@ class GreaterOrEqualToBigInt extends GreaterOrEqualTo<BigInt> {
 class GreaterOrEqualToDouble extends GreaterOrEqualTo<double> {
   const GreaterOrEqualToDouble({
     double valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -101,11 +101,11 @@ class GreaterOrEqualToDouble extends GreaterOrEqualTo<double> {
 class GreaterOrEqualToInt extends GreaterOrEqualTo<int> {
   const GreaterOrEqualToInt({
     int valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -114,11 +114,11 @@ class GreaterOrEqualToInt extends GreaterOrEqualTo<int> {
 class GreaterOrEqualToString extends GreaterOrEqualTo<String> {
   const GreaterOrEqualToString({
     String valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }

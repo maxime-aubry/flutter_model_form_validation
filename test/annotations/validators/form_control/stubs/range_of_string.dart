@@ -40,8 +40,8 @@ class _RangeOfStringStub
     super.validator = RangeOfString(
       min: validatorMin,
       max: validatorMax,
-      minOnProperty: (fcMin != null) ? 'min' : null,
-      maxOnProperty: (fcMax != null) ? 'max' : null,
+      remoteMin: (fcMin != null) ? 'min' : null,
+      remoteMax: (fcMax != null) ? 'max' : null,
       error: 'invalid date',
     );
   }
@@ -113,8 +113,8 @@ class RangeOfString_ValueIsGreaterThanMax_Stub extends _RangeOfStringStub {
 }
 
 /* Remote parameters are provided */
-class RangeOfString_MinOnPropertyIsProvided_Stub extends _RangeOfStringStub {
-  RangeOfString_MinOnPropertyIsProvided_Stub()
+class RangeOfString_remoteMinIsProvided_Stub extends _RangeOfStringStub {
+  RangeOfString_remoteMinIsProvided_Stub()
       : super(
           fcValue: 'b',
           fcMin: 'b',
@@ -123,8 +123,8 @@ class RangeOfString_MinOnPropertyIsProvided_Stub extends _RangeOfStringStub {
         );
 }
 
-class RangeOfString_MaxOnPropertyIsProvided_Stub extends _RangeOfStringStub {
-  RangeOfString_MaxOnPropertyIsProvided_Stub()
+class RangeOfString_remoteMaxIsProvided_Stub extends _RangeOfStringStub {
+  RangeOfString_remoteMaxIsProvided_Stub()
       : super(
           fcValue: 'h',
           fcMax: 'h',

@@ -10,7 +10,7 @@ class _EqualToDateTimeStub
     DateTime value,
     DateTime remoteValueToCompare,
     String remoteValueToCompareName = 'valueToCompare',
-    ConstantDateTime valueToCompare,
+    ConstantDateTime localeValueToCompare,
   }) {
     FormControl<DateTime> _value = new FormControl<DateTime>(
       value: value,
@@ -32,9 +32,9 @@ class _EqualToDateTimeStub
 
     super.control = _value;
     super.validator = EqualToDateTime(
-      valueToCompare: valueToCompare,
-      valueToCompareOnProperty: remoteValueToCompareName,
-      error: '',
+      valueToCompare: localeValueToCompare,
+      remoteValueToCompare: remoteValueToCompareName,
+      error: null,
     );
   }
 }
@@ -45,7 +45,7 @@ class EqualToDateTime_ValueEqualsValueToCompare_Stub
   EqualToDateTime_ValueEqualsValueToCompare_Stub()
       : super(
           value: new DateTime(2021, 1, 1),
-          valueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
+          localeValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
         ) {}
 }
 
@@ -54,7 +54,7 @@ class EqualToDateTime_ValueAndValueToCompareAreNull_Stub
   EqualToDateTime_ValueAndValueToCompareAreNull_Stub()
       : super(
           value: null,
-          valueToCompare: null,
+          localeValueToCompare: null,
         ) {}
 }
 
@@ -63,7 +63,7 @@ class EqualToDateTime_ValueIsNull_Stub extends _EqualToDateTimeStub {
   EqualToDateTime_ValueIsNull_Stub()
       : super(
           value: null,
-          valueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
+          localeValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
         ) {}
 }
 
@@ -71,7 +71,7 @@ class EqualToDateTime_ValueToCompareIsNull_Stub extends _EqualToDateTimeStub {
   EqualToDateTime_ValueToCompareIsNull_Stub()
       : super(
           value: new DateTime(2021, 1, 1),
-          valueToCompare: null,
+          localeValueToCompare: null,
         ) {}
 }
 
@@ -80,38 +80,19 @@ class EqualToDateTime_ValueDoesNotEqualValueToCompare_Stub
   EqualToDateTime_ValueDoesNotEqualValueToCompare_Stub()
       : super(
           value: new DateTime(2021, 1, 2),
-          valueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
+          localeValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
         ) {}
 }
 
 /* Remote parameters are provided */
-class EqualToDateTime_ValueToCompareOnPropertyIsProvided_Stub
+class EqualToDateTime_remoteValueToCompareIsProvided_Stub
     extends _EqualToDateTimeStub {
-  EqualToDateTime_ValueToCompareOnPropertyIsProvided_Stub()
+  EqualToDateTime_remoteValueToCompareIsProvided_Stub()
       : super(
           value: new DateTime(2021, 1, 2),
           remoteValueToCompare: new DateTime(2021, 1, 2),
-          valueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
+          localeValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
         ) {}
 }
 
 /* Exceptions on parameters */
-/*class EqualToDateTime_ThrowsValidatorParameterExceptionOnBadNameOfValueToCompare_Stub
-    extends _EqualToDateTimeStub {
-  EqualToDateTime_ThrowsValidatorParameterExceptionOnBadNameOfValueToCompare_Stub()
-      : super(
-          value: new DateTime(2021, 1, 1),
-          remoteValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
-          remoteValueToCompareName: 'badName',
-        ) {}
-}*/
-
-class EqualToDateTime_ThrowsValidatorParameterExceptionOnBadTypeOfValueToCompare_Stub
-    extends _EqualToDateTimeStub {
-  EqualToDateTime_ThrowsValidatorParameterExceptionOnBadTypeOfValueToCompare_Stub()
-      : super(
-          value: new DateTime(2021, 1, 1),
-          remoteValueToCompare: new DateTime(2021, 1, 1),
-          remoteValueToCompareName: 'badName',
-        ) {}
-}

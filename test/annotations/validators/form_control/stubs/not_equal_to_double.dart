@@ -31,7 +31,7 @@ class _NotEqualToDoubleStub
     super.control = _value;
     super.validator = NotEqualToDouble(
       valueToCompare: validatorValueToCompare,
-      valueToCompareOnProperty:
+      remoteValueToCompare:
           (fcValueToCompare != null) ? 'valueToCompare' : null,
       error: 'invalid date',
     );
@@ -67,9 +67,9 @@ class NotEqualToDouble_ValueEqualsValueToCompare_Stub
 }
 
 /* Remote parameters are provided */
-class NotEqualToDouble_ValueToCompareOnPropertyIsProvided_Stub
+class NotEqualToDouble_remoteValueToCompareIsProvided_Stub
     extends _NotEqualToDoubleStub {
-  NotEqualToDouble_ValueToCompareOnPropertyIsProvided_Stub()
+  NotEqualToDouble_remoteValueToCompareIsProvided_Stub()
       : super(
           fcValue: 1,
           fcValueToCompare: 1,

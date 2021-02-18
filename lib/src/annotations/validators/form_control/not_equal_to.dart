@@ -40,11 +40,11 @@ class NotEqualTo<TProperty extends Comparable>
 class NotEqualToDateTime extends NotEqualTo<DateTime> {
   const NotEqualToDateTime({
     DateTime valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -52,11 +52,11 @@ class NotEqualToDateTime extends NotEqualTo<DateTime> {
 class NotEqualToNumber extends NotEqualTo<num> {
   const NotEqualToNumber({
     num valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -64,11 +64,11 @@ class NotEqualToNumber extends NotEqualTo<num> {
 class NotEqualToBigInt extends NotEqualTo<BigInt> {
   const NotEqualToBigInt({
     BigInt valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -76,11 +76,11 @@ class NotEqualToBigInt extends NotEqualTo<BigInt> {
 class NotEqualToDouble extends NotEqualTo<double> {
   const NotEqualToDouble({
     double valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -88,11 +88,11 @@ class NotEqualToDouble extends NotEqualTo<double> {
 class NotEqualToInt extends NotEqualTo<int> {
   const NotEqualToInt({
     int valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -100,11 +100,11 @@ class NotEqualToInt extends NotEqualTo<int> {
 class NotEqualToString extends NotEqualTo<String> {
   const NotEqualToString({
     String valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }

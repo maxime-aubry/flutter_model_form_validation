@@ -39,8 +39,8 @@ class _RangeOfIntStub extends ValidatorStub<FormControl<int>, RangeOfInt> {
     super.validator = RangeOfInt(
       min: validatorMin,
       max: validatorMax,
-      minOnProperty: (fcMin != null) ? 'min' : null,
-      maxOnProperty: (fcMax != null) ? 'max' : null,
+      remoteMin: (fcMin != null) ? 'min' : null,
+      remoteMax: (fcMax != null) ? 'max' : null,
       error: 'invalid date',
     );
   }
@@ -103,8 +103,8 @@ class RangeOfInt_ValueIsGreaterThanMax_Stub extends _RangeOfIntStub {
 }
 
 /* Remote parameters are provided */
-class RangeOfInt_MinOnPropertyIsProvided_Stub extends _RangeOfIntStub {
-  RangeOfInt_MinOnPropertyIsProvided_Stub()
+class RangeOfInt_remoteMinIsProvided_Stub extends _RangeOfIntStub {
+  RangeOfInt_remoteMinIsProvided_Stub()
       : super(
           fcValue: -5,
           fcMin: -5,
@@ -113,8 +113,8 @@ class RangeOfInt_MinOnPropertyIsProvided_Stub extends _RangeOfIntStub {
         );
 }
 
-class RangeOfInt_MaxOnPropertyIsProvided_Stub extends _RangeOfIntStub {
-  RangeOfInt_MaxOnPropertyIsProvided_Stub()
+class RangeOfInt_remoteMaxIsProvided_Stub extends _RangeOfIntStub {
+  RangeOfInt_remoteMaxIsProvided_Stub()
       : super(
           fcValue: 15,
           fcMax: 15,

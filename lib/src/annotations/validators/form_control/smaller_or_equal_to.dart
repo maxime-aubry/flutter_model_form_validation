@@ -40,11 +40,11 @@ class SmallerOrEqualTo<TProperty extends Comparable>
 class SmallerOrEqualToDateTime extends SmallerOrEqualTo<DateTime> {
   const SmallerOrEqualToDateTime({
     DateTime valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -52,11 +52,11 @@ class SmallerOrEqualToDateTime extends SmallerOrEqualTo<DateTime> {
 class SmallerOrEqualToNumber extends SmallerOrEqualTo<num> {
   const SmallerOrEqualToNumber({
     num valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -64,11 +64,11 @@ class SmallerOrEqualToNumber extends SmallerOrEqualTo<num> {
 class SmallerOrEqualToBigInt extends SmallerOrEqualTo<BigInt> {
   const SmallerOrEqualToBigInt({
     BigInt valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -76,11 +76,11 @@ class SmallerOrEqualToBigInt extends SmallerOrEqualTo<BigInt> {
 class SmallerOrEqualToDouble extends SmallerOrEqualTo<double> {
   const SmallerOrEqualToDouble({
     double valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -88,11 +88,11 @@ class SmallerOrEqualToDouble extends SmallerOrEqualTo<double> {
 class SmallerOrEqualToInt extends SmallerOrEqualTo<int> {
   const SmallerOrEqualToInt({
     int valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -100,11 +100,11 @@ class SmallerOrEqualToInt extends SmallerOrEqualTo<int> {
 class SmallerOrEqualToString extends SmallerOrEqualTo<String> {
   const SmallerOrEqualToString({
     String valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }

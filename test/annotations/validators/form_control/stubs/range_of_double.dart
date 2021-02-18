@@ -40,8 +40,8 @@ class _RangeOfDoubleStub
     super.validator = RangeOfDouble(
       min: validatorMin,
       max: validatorMax,
-      minOnProperty: (fcMin != null) ? 'min' : null,
-      maxOnProperty: (fcMax != null) ? 'max' : null,
+      remoteMin: (fcMin != null) ? 'min' : null,
+      remoteMax: (fcMax != null) ? 'max' : null,
       error: 'invalid date',
     );
   }
@@ -104,8 +104,8 @@ class RangeOfDouble_ValueIsGreaterThanMax_Stub extends _RangeOfDoubleStub {
 }
 
 /* Remote parameters are provided */
-class RangeOfDouble_MinOnPropertyIsProvided_Stub extends _RangeOfDoubleStub {
-  RangeOfDouble_MinOnPropertyIsProvided_Stub()
+class RangeOfDouble_remoteMinIsProvided_Stub extends _RangeOfDoubleStub {
+  RangeOfDouble_remoteMinIsProvided_Stub()
       : super(
           fcValue: -5,
           fcMin: -5,
@@ -114,8 +114,8 @@ class RangeOfDouble_MinOnPropertyIsProvided_Stub extends _RangeOfDoubleStub {
         );
 }
 
-class RangeOfDouble_MaxOnPropertyIsProvided_Stub extends _RangeOfDoubleStub {
-  RangeOfDouble_MaxOnPropertyIsProvided_Stub()
+class RangeOfDouble_remoteMaxIsProvided_Stub extends _RangeOfDoubleStub {
+  RangeOfDouble_remoteMaxIsProvided_Stub()
       : super(
           fcValue: 15,
           fcMax: 15,

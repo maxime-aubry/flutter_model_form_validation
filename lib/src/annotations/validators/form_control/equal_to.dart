@@ -49,11 +49,11 @@ class EqualTo<TProperty extends Comparable>
 class EqualToDateTime extends EqualTo<DateTime> {
   const EqualToDateTime({
     DateTime valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -62,11 +62,11 @@ class EqualToDateTime extends EqualTo<DateTime> {
 class EqualToNumber extends EqualTo<num> {
   const EqualToNumber({
     num valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -75,11 +75,11 @@ class EqualToNumber extends EqualTo<num> {
 class EqualToDouble extends EqualTo<double> {
   const EqualToDouble({
     double valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -88,11 +88,11 @@ class EqualToDouble extends EqualTo<double> {
 class EqualToInt extends EqualTo<int> {
   const EqualToInt({
     int valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }
@@ -101,11 +101,11 @@ class EqualToInt extends EqualTo<int> {
 class EqualToString extends EqualTo<String> {
   const EqualToString({
     String valueToCompare,
-    String valueToCompareOnProperty,
+    String remoteValueToCompare,
     @required String error,
   }) : super(
           valueToCompare: valueToCompare,
-          remoteValueToCompare: valueToCompareOnProperty,
+          remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
 }

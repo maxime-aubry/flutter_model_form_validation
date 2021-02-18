@@ -58,7 +58,7 @@ void main() {
     });
 
     group('Remote parameters.', () {
-      test('MinOnProperty is provided. Its value override the one of min.',
+      test('remoteMin is provided. Its value override the one of min.',
           () async {
         NbItems_MinOnProrpertyIsProvided_Stub stub =
             new NbItems_MinOnProrpertyIsProvided_Stub();
@@ -66,7 +66,7 @@ void main() {
         expect(isValid, isTrue);
       });
 
-      test('MaxOnProperty is provided. Its value override the one of max.',
+      test('remoteMax is provided. Its value override the one of max.',
           () async {
         NbItems_MaxOnProrpertyIsProvided_Stub stub =
             new NbItems_MaxOnProrpertyIsProvided_Stub();
@@ -77,7 +77,7 @@ void main() {
 
     group('Throws exception on parameters.', () {
       test(
-          'Validator throws an exception because min is not provided, using by min and minOnProperty.',
+          'Validator throws an exception because min is not provided, using by min and remoteMin.',
           () async {
         NbItems_ThrowsValidatorParameterExceptionOnNullMin_Stub stub =
             new NbItems_ThrowsValidatorParameterExceptionOnNullMin_Stub();
@@ -87,7 +87,7 @@ void main() {
       });
 
       test(
-          'Validator throws an exception because max is not provided, using by max and maxOnProperty.',
+          'Validator throws an exception because max is not provided, using by max and remoteMax.',
           () async {
         NbItems_ThrowsValidatorParameterExceptionOnNullMax_Stub stub =
             new NbItems_ThrowsValidatorParameterExceptionOnNullMax_Stub();
