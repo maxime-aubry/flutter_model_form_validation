@@ -74,11 +74,100 @@ class MembershipPassword_PasswordIsNotValid_Stub
 /* Remote parameters are provided */
 
 /* Exceptions on parameters */
-class MembershipPassword_ThrowsValidatorParameterExceptionOnMinLengthGreaterThanMaxHLength_Stub
+class MembershipPassword_ThrowsValidatorParameterExceptionOnMinLengthIsNull_Stub
     extends _MembershipPasswordStub {
-  MembershipPassword_ThrowsValidatorParameterExceptionOnMinLengthGreaterThanMaxHLength_Stub()
+  MembershipPassword_ThrowsValidatorParameterExceptionOnMinLengthIsNull_Stub()
       : super(
+          value: 'P@\$\$w0rd',
+          localMinLength: null,
+          localMaxLength: 12,
+          localIncludesAlphabeticalCharacters: true,
+          localIncludesUppercaseCharacters: true,
+          localIncludesNumericalCharacters: true,
+          localIncludesSpecialCharacters: true,
+        );
+}
+
+class MembershipPassword_ThrowsValidatorParameterExceptionOnMaxLengthIsNull_Stub
+    extends _MembershipPasswordStub {
+  MembershipPassword_ThrowsValidatorParameterExceptionOnMaxLengthIsNull_Stub()
+      : super(
+          value: 'P@\$\$w0rd',
+          localMinLength: 6,
+          localMaxLength: null,
+          localIncludesAlphabeticalCharacters: true,
+          localIncludesUppercaseCharacters: true,
+          localIncludesNumericalCharacters: true,
+          localIncludesSpecialCharacters: true,
+        );
+}
+
+class MembershipPassword_ThrowsValidatorParameterExceptionOnIncludesAlphabeticalCharactersIsNull_Stub
+    extends _MembershipPasswordStub {
+  MembershipPassword_ThrowsValidatorParameterExceptionOnIncludesAlphabeticalCharactersIsNull_Stub()
+      : super(
+          value: 'P@\$\$w0rd',
+          localMinLength: 6,
+          localMaxLength: 12,
+          localIncludesAlphabeticalCharacters: null,
+          localIncludesUppercaseCharacters: true,
+          localIncludesNumericalCharacters: true,
+          localIncludesSpecialCharacters: true,
+        );
+}
+
+class MembershipPassword_ThrowsValidatorParameterExceptionOnIncludesUppercaseCharactersIsNull_Stub
+    extends _MembershipPasswordStub {
+  MembershipPassword_ThrowsValidatorParameterExceptionOnIncludesUppercaseCharactersIsNull_Stub()
+      : super(
+          value: 'P@\$\$w0rd',
+          localMinLength: 6,
+          localMaxLength: 12,
+          localIncludesAlphabeticalCharacters: true,
+          localIncludesUppercaseCharacters: null,
+          localIncludesNumericalCharacters: true,
+          localIncludesSpecialCharacters: true,
+        );
+}
+
+class MembershipPassword_ThrowsValidatorParameterExceptionOnIncludesNumericalCharactersIsNull_Stub
+    extends _MembershipPasswordStub {
+  MembershipPassword_ThrowsValidatorParameterExceptionOnIncludesNumericalCharactersIsNull_Stub()
+      : super(
+          value: 'P@\$\$w0rd',
+          localMinLength: 6,
+          localMaxLength: 12,
+          localIncludesAlphabeticalCharacters: true,
+          localIncludesUppercaseCharacters: true,
+          localIncludesNumericalCharacters: null,
+          localIncludesSpecialCharacters: true,
+        );
+}
+
+class MembershipPassword_ThrowsValidatorParameterExceptionOnIncludesSpecialCharactersIsNull_Stub
+    extends _MembershipPasswordStub {
+  MembershipPassword_ThrowsValidatorParameterExceptionOnIncludesSpecialCharactersIsNull_Stub()
+      : super(
+          value: 'P@\$\$w0rd',
+          localMinLength: 6,
+          localMaxLength: 12,
+          localIncludesAlphabeticalCharacters: true,
+          localIncludesUppercaseCharacters: true,
+          localIncludesNumericalCharacters: true,
+          localIncludesSpecialCharacters: null,
+        );
+}
+
+class MembershipPassword_ThrowsValidatorParameterExceptionOnMinLengthGreaterThanMaxLength_Stub
+    extends _MembershipPasswordStub {
+  MembershipPassword_ThrowsValidatorParameterExceptionOnMinLengthGreaterThanMaxLength_Stub()
+      : super(
+          value: 'P@\$\$w0rd',
           localMinLength: 12,
           localMaxLength: 6,
+          localIncludesAlphabeticalCharacters: true,
+          localIncludesUppercaseCharacters: true,
+          localIncludesNumericalCharacters: true,
+          localIncludesSpecialCharacters: null,
         );
 }

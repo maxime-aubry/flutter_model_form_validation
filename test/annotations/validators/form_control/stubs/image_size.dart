@@ -99,7 +99,7 @@ class ImageSize_FileIsNull_Stub extends _ImageSizeStub {
 class ImageSize_ImageWidthIsNotAllowed_Stub extends _ImageSizeStub {
   ImageSize_ImageWidthIsNotAllowed_Stub()
       : super(
-          file: null,
+          file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
           localeMinWidth: 850,
           localeMaxWidth: 900,
           localeMinHeight: 500,
@@ -110,7 +110,7 @@ class ImageSize_ImageWidthIsNotAllowed_Stub extends _ImageSizeStub {
 class ImageSize_ImageHeightIsNotAllowed_Stub extends _ImageSizeStub {
   ImageSize_ImageHeightIsNotAllowed_Stub()
       : super(
-          file: null,
+          file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
           localeMinWidth: 800,
           localeMaxWidth: 900,
           localeMinHeight: 550,
@@ -122,7 +122,7 @@ class ImageSize_ImageHeightIsNotAllowed_Stub extends _ImageSizeStub {
 class ImageSize_remoteWidthAndHeightAreProvided_Stub extends _ImageSizeStub {
   ImageSize_remoteWidthAndHeightAreProvided_Stub()
       : super(
-          file: null,
+          file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
           localeMinWidth: 800,
           localeMaxWidth: 900,
           localeMinHeight: 500,
@@ -139,7 +139,7 @@ class ImageSize_ThrowsValidatorParameterExceptionOnNullMinWidth_Stub
     extends _ImageSizeStub {
   ImageSize_ThrowsValidatorParameterExceptionOnNullMinWidth_Stub()
       : super(
-          file: null,
+          file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
           localeMinWidth: null,
           localeMaxWidth: 900,
           localeMinHeight: 500,
@@ -155,7 +155,7 @@ class ImageSize_ThrowsValidatorParameterExceptionOnNullMaxWidth_Stub
     extends _ImageSizeStub {
   ImageSize_ThrowsValidatorParameterExceptionOnNullMaxWidth_Stub()
       : super(
-          file: null,
+          file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
           localeMinWidth: 800,
           localeMaxWidth: null,
           localeMinHeight: 500,
@@ -171,7 +171,7 @@ class ImageSize_ThrowsValidatorParameterExceptionOnNullMinHeight_Stub
     extends _ImageSizeStub {
   ImageSize_ThrowsValidatorParameterExceptionOnNullMinHeight_Stub()
       : super(
-          file: null,
+          file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
           localeMinWidth: 800,
           localeMaxWidth: 900,
           localeMinHeight: null,
@@ -187,7 +187,7 @@ class ImageSize_ThrowsValidatorParameterExceptionOnNullMaxHeight_Stub
     extends _ImageSizeStub {
   ImageSize_ThrowsValidatorParameterExceptionOnNullMaxHeight_Stub()
       : super(
-          file: null,
+          file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
           localeMinWidth: 800,
           localeMaxWidth: 900,
           localeMinHeight: 500,
@@ -203,7 +203,7 @@ class ImageSize_ThrowsValidatorParameterExceptionOnMinWidthGreaterThanMaxWidth_S
     extends _ImageSizeStub {
   ImageSize_ThrowsValidatorParameterExceptionOnMinWidthGreaterThanMaxWidth_Stub()
       : super(
-          file: null,
+          file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
           localeMinWidth: 1000,
           localeMaxWidth: 900,
           localeMinHeight: 500,
@@ -215,7 +215,7 @@ class ImageSize_ThrowsValidatorParameterExceptionOnMinHeightGreaterThanMaxHeight
     extends _ImageSizeStub {
   ImageSize_ThrowsValidatorParameterExceptionOnMinHeightGreaterThanMaxHeight_Stub()
       : super(
-          file: null,
+          file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
           localeMinWidth: 800,
           localeMaxWidth: 900,
           localeMinHeight: 700,
