@@ -137,9 +137,9 @@ mixin FormValidatorNavigator {
     }
 
     TParameter getParameter() {
-      if (remoteParameterName != null && remoteParameterName.isEmpty)
+      if (remoteParameterName == null || remoteParameterName.isEmpty)
         throw new ValidatorParameterException(
-            'Remote parameter name is not defined. Empty strings are forbidden.');
+            'Remote parameter name is not defined.');
 
       bool isRemoteParameterDefined = (remoteParameterName != null);
       if (!isRemoteParameterDefined) return defaultValue;

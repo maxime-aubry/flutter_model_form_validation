@@ -3,7 +3,6 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 class NavigatorTester with FormValidatorNavigator {}
 
 class FormAnnotationStub {
-  String soughtParameterName;
   FormControl<String> control;
   NavigatorTester navigator;
 }
