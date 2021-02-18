@@ -9,7 +9,7 @@ class _EqualToStringStub
     String value,
     String remoteValueToCompare,
     String remoteValueToCompareName = 'valueToCompare',
-    String localeValueToCompare,
+    String localValueToCompare,
   }) {
     FormControl<String> _value = new FormControl<String>(
       value: value,
@@ -31,7 +31,7 @@ class _EqualToStringStub
 
     super.control = _value;
     super.validator = EqualToString(
-      valueToCompare: localeValueToCompare,
+      valueToCompare: localValueToCompare,
       remoteValueToCompare: remoteValueToCompareName,
       error: null,
     );
@@ -43,7 +43,7 @@ class EqualToString_ValueEqualsValueToCompare_Stub extends _EqualToStringStub {
   EqualToString_ValueEqualsValueToCompare_Stub()
       : super(
           value: 'a',
-          localeValueToCompare: 'a',
+          localValueToCompare: 'a',
         ) {}
 }
 
@@ -52,7 +52,7 @@ class EqualToString_ValueAndValueToCompareAreNull_Stub
   EqualToString_ValueAndValueToCompareAreNull_Stub()
       : super(
           value: null,
-          localeValueToCompare: null,
+          localValueToCompare: null,
         ) {}
 }
 
@@ -61,7 +61,7 @@ class EqualToString_ValueIsNull_Stub extends _EqualToStringStub {
   EqualToString_ValueIsNull_Stub()
       : super(
           value: null,
-          localeValueToCompare: 'a',
+          localValueToCompare: 'a',
         ) {}
 }
 
@@ -69,7 +69,7 @@ class EqualToString_ValueToCompareIsNull_Stub extends _EqualToStringStub {
   EqualToString_ValueToCompareIsNull_Stub()
       : super(
           value: 'a',
-          localeValueToCompare: null,
+          localValueToCompare: null,
         ) {}
 }
 
@@ -78,7 +78,7 @@ class EqualToString_ValueDoesNotEqualValueToCompare_Stub
   EqualToString_ValueDoesNotEqualValueToCompare_Stub()
       : super(
           value: 'b',
-          localeValueToCompare: 'a',
+          localValueToCompare: 'a',
         ) {}
 }
 
@@ -89,7 +89,7 @@ class EqualToString_remoteValueToCompareIsProvided_Stub
       : super(
           value: 'b',
           remoteValueToCompare: 'b',
-          localeValueToCompare: 'a',
+          localValueToCompare: 'a',
         ) {}
 }
 

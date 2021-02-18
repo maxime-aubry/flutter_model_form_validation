@@ -8,7 +8,7 @@ class _EqualToIntStub extends ValidatorStub<FormControl<int>, EqualToInt> {
     int value,
     int remoteValueToCompare,
     String remoteValueToCompareName = 'valueToCompare',
-    int localeValueToCompare,
+    int localValueToCompare,
   }) {
     FormControl<int> _value = new FormControl<int>(
       value: value,
@@ -30,7 +30,7 @@ class _EqualToIntStub extends ValidatorStub<FormControl<int>, EqualToInt> {
 
     super.control = _value;
     super.validator = EqualToInt(
-      valueToCompare: localeValueToCompare,
+      valueToCompare: localValueToCompare,
       remoteValueToCompare: remoteValueToCompareName,
       error: null,
     );
@@ -42,7 +42,7 @@ class EqualToInt_ValueEqualsValueToCompare_Stub extends _EqualToIntStub {
   EqualToInt_ValueEqualsValueToCompare_Stub()
       : super(
           value: 0,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 
@@ -50,7 +50,7 @@ class EqualToInt_ValueAndValueToCompareAreNull_Stub extends _EqualToIntStub {
   EqualToInt_ValueAndValueToCompareAreNull_Stub()
       : super(
           value: null,
-          localeValueToCompare: null,
+          localValueToCompare: null,
         ) {}
 }
 
@@ -59,7 +59,7 @@ class EqualToInt_ValueIsNull_Stub extends _EqualToIntStub {
   EqualToInt_ValueIsNull_Stub()
       : super(
           value: null,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 
@@ -67,7 +67,7 @@ class EqualToInt_ValueToCompareIsNull_Stub extends _EqualToIntStub {
   EqualToInt_ValueToCompareIsNull_Stub()
       : super(
           value: 0,
-          localeValueToCompare: null,
+          localValueToCompare: null,
         ) {}
 }
 
@@ -75,7 +75,7 @@ class EqualToInt_ValueDoesNotEqualValueToCompare_Stub extends _EqualToIntStub {
   EqualToInt_ValueDoesNotEqualValueToCompare_Stub()
       : super(
           value: 1,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 
@@ -85,7 +85,7 @@ class EqualToInt_remoteValueToCompareIsProvided_Stub extends _EqualToIntStub {
       : super(
           value: 1,
           remoteValueToCompare: 1,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 

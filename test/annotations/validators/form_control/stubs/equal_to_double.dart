@@ -9,7 +9,7 @@ class _EqualToDoubleStub
     double value,
     double remoteValueToCompare,
     String remoteValueToCompareName = 'valueToCompare',
-    double localeValueToCompare,
+    double localValueToCompare,
   }) {
     FormControl<double> _value = new FormControl<double>(
       value: value,
@@ -31,7 +31,7 @@ class _EqualToDoubleStub
 
     super.control = _value;
     super.validator = EqualToDouble(
-      valueToCompare: localeValueToCompare,
+      valueToCompare: localValueToCompare,
       remoteValueToCompare: remoteValueToCompareName,
       error: null,
     );
@@ -43,7 +43,7 @@ class EqualToDouble_ValueEqualsValueToCompare_Stub extends _EqualToDoubleStub {
   EqualToDouble_ValueEqualsValueToCompare_Stub()
       : super(
           value: 0,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 
@@ -52,7 +52,7 @@ class EqualToDouble_ValueAndValueToCompareAreNull_Stub
   EqualToDouble_ValueAndValueToCompareAreNull_Stub()
       : super(
           value: null,
-          localeValueToCompare: null,
+          localValueToCompare: null,
         ) {}
 }
 
@@ -61,7 +61,7 @@ class EqualToDouble_ValueIsNull_Stub extends _EqualToDoubleStub {
   EqualToDouble_ValueIsNull_Stub()
       : super(
           value: null,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 
@@ -69,7 +69,7 @@ class EqualToDouble_ValueToCompareIsNull_Stub extends _EqualToDoubleStub {
   EqualToDouble_ValueToCompareIsNull_Stub()
       : super(
           value: 0,
-          localeValueToCompare: null,
+          localValueToCompare: null,
         ) {}
 }
 
@@ -78,7 +78,7 @@ class EqualToDouble_ValueDoesNotEqualValueToCompare_Stub
   EqualToDouble_ValueDoesNotEqualValueToCompare_Stub()
       : super(
           value: 1,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 
@@ -89,7 +89,7 @@ class EqualToDouble_remoteValueToCompareIsProvided_Stub
       : super(
           value: 1,
           remoteValueToCompare: 1,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 

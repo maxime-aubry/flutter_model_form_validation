@@ -4,16 +4,17 @@ import '../../stubs.dart';
 
 class _InTextStub extends ValidatorStub<FormControl<String>, InText> {
   _InTextStub({
-    String fcValue,
-    String fcText,
-    String validatorText,
+    String value,
+    String remoteText,
+    String remoteTextName = 'text',
+    String localText,
   }) : super() {
     FormControl<String> _value = new FormControl<String>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     FormControl<String> _text = new FormControl<String>(
-      value: fcText,
+      value: remoteText,
       validators: [],
     );
     FormGroup _root = new FormGroup(
@@ -28,9 +29,9 @@ class _InTextStub extends ValidatorStub<FormControl<String>, InText> {
 
     super.control = _value;
     super.validator = InText(
-      text: validatorText,
-      remoteText: (fcText != null) ? 'text' : null,
-      error: 'value not in text',
+      text: localText,
+      remoteText: remoteTextName,
+      error: null,
     );
   }
 }
@@ -39,36 +40,43 @@ class _InTextStub extends ValidatorStub<FormControl<String>, InText> {
 class InText_ValueIsInText_Stub extends _InTextStub {
   InText_ValueIsInText_Stub()
       : super(
-          fcValue: 'consectetur',
-          validatorText:
+          value: 'consectetur',
+          localText:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         );
 }
 
-class InText_ValueIsNull_Stub extends _InTextStub {
-  InText_ValueIsNull_Stub()
+class InText_ValueAndTextAreNull_Stub extends _InTextStub {
+  InText_ValueAndTextAreNull_Stub()
       : super(
-          fcValue: null,
-          validatorText:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        );
-}
-
-class InText_ValueIsEmpty_Stub extends _InTextStub {
-  InText_ValueIsEmpty_Stub()
-      : super(
-          fcValue: '',
-          validatorText:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          value: null,
+          localText: null,
         );
 }
 
 /* Value is not valid */
+class InText_ValueIsNull_Stub extends _InTextStub {
+  InText_ValueIsNull_Stub()
+      : super(
+          value: null,
+          localText:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        );
+}
+
+class InText_ValueToCompareIsNull_Stub extends _InTextStub {
+  InText_ValueToCompareIsNull_Stub()
+      : super(
+          value: 'consectetur',
+          localText: null,
+        );
+}
+
 class InText_ValueIsNotInText_Stub extends _InTextStub {
   InText_ValueIsNotInText_Stub()
       : super(
-          fcValue: 'azerty',
-          validatorText:
+          value: 'azerty',
+          localText:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         );
 }
@@ -77,21 +85,12 @@ class InText_ValueIsNotInText_Stub extends _InTextStub {
 class InText_TextOnPropertyIsProvided_Stub extends _InTextStub {
   InText_TextOnPropertyIsProvided_Stub()
       : super(
-          fcValue: 'exercitation',
-          validatorText:
+          value: 'exercitation',
+          localText:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          fcText:
+          remoteText:
               'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         );
 }
 
 /* Exceptions on parameters */
-class ImageSize_ThrowsValidatorParameterExceptionOnNullText_Stub
-    extends _InTextStub {
-  ImageSize_ThrowsValidatorParameterExceptionOnNullText_Stub()
-      : super(
-          fcValue: 'consectetur',
-          validatorText: null,
-          fcText: null,
-        );
-}

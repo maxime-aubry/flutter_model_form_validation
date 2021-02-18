@@ -9,7 +9,7 @@ class _GreaterOrEqualToIntStub
     int value,
     int remoteValueToCompare,
     String remoteValueToCompareName = 'valueToCompare',
-    int localeValueToCompare,
+    int localValueToCompare,
   }) {
     FormControl<int> _value = new FormControl<int>(
       value: value,
@@ -31,7 +31,7 @@ class _GreaterOrEqualToIntStub
 
     super.control = _value;
     super.validator = GreaterOrEqualToInt(
-      valueToCompare: localeValueToCompare,
+      valueToCompare: localValueToCompare,
       remoteValueToCompare: remoteValueToCompareName,
       error: null,
     );
@@ -44,7 +44,7 @@ class GreaterOrEqualToInt_ValueIsGreaterThanValueToCompare_Stub
   GreaterOrEqualToInt_ValueIsGreaterThanValueToCompare_Stub()
       : super(
           value: 1,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 
@@ -53,7 +53,7 @@ class GreaterOrEqualToInt_ValueEqualsValueToCompare_Stub
   GreaterOrEqualToInt_ValueEqualsValueToCompare_Stub()
       : super(
           value: 0,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 
@@ -62,7 +62,7 @@ class GreaterOrEqualToInt_ValueAndValueToCompareAreNull_Stub
   GreaterOrEqualToInt_ValueAndValueToCompareAreNull_Stub()
       : super(
           value: null,
-          localeValueToCompare: null,
+          localValueToCompare: null,
         ) {}
 }
 
@@ -71,7 +71,7 @@ class GreaterOrEqualToInt_ValueIsNull_Stub extends _GreaterOrEqualToIntStub {
   GreaterOrEqualToInt_ValueIsNull_Stub()
       : super(
           value: null,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 
@@ -80,7 +80,7 @@ class GreaterOrEqualToInt_ValueToCompareIsNull_Stub
   GreaterOrEqualToInt_ValueToCompareIsNull_Stub()
       : super(
           value: 0,
-          localeValueToCompare: null,
+          localValueToCompare: null,
         ) {}
 }
 
@@ -89,7 +89,7 @@ class GreaterOrEqualToInt_ValueIsSmallerThanValueToCompare_Stub
   GreaterOrEqualToInt_ValueIsSmallerThanValueToCompare_Stub()
       : super(
           value: 0,
-          localeValueToCompare: 1,
+          localValueToCompare: 1,
         ) {}
 }
 
@@ -100,7 +100,7 @@ class GreaterOrEqualToInt_remoteValueToCompareIsProvided_Stub
       : super(
           value: 1,
           remoteValueToCompare: 1,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 

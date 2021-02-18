@@ -9,7 +9,7 @@ class _GreaterThanDoubleStub
     double value,
     double remoteValueToCompare,
     String remoteValueToCompareName = 'valueToCompare',
-    double localeValueToCompare,
+    double localValueToCompare,
   }) {
     FormControl<double> _value = new FormControl<double>(
       value: value,
@@ -31,7 +31,7 @@ class _GreaterThanDoubleStub
 
     super.control = _value;
     super.validator = GreaterThanDouble(
-      valueToCompare: localeValueToCompare,
+      valueToCompare: localValueToCompare,
       remoteValueToCompare: remoteValueToCompareName,
       error: null,
     );
@@ -44,7 +44,7 @@ class GreaterThanDouble_ValueIsGreaterThanValueToCompare_Stub
   GreaterThanDouble_ValueIsGreaterThanValueToCompare_Stub()
       : super(
           value: 1,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 
@@ -52,7 +52,7 @@ class GreaterThanDouble_ValueIsNull_Stub extends _GreaterThanDoubleStub {
   GreaterThanDouble_ValueIsNull_Stub()
       : super(
           value: null,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 
@@ -62,7 +62,7 @@ class GreaterThanDouble_ValueIsSmallerThanValueToCompare_Stub
   GreaterThanDouble_ValueIsSmallerThanValueToCompare_Stub()
       : super(
           value: -1,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 
@@ -71,7 +71,7 @@ class GreaterThanDouble_ValueEqualsValueToCompare_Stub
   GreaterThanDouble_ValueEqualsValueToCompare_Stub()
       : super(
           value: 0,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 
@@ -82,7 +82,7 @@ class GreaterThanDouble_remoteValueToCompareIsProvided_Stub
       : super(
           value: 1,
           remoteValueToCompare: 1,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 

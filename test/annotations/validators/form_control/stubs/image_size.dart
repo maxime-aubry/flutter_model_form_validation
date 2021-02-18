@@ -8,33 +8,37 @@ import '../../stubs.dart';
 class _ImageSizeStub extends ValidatorStub<FormControl<Uint8List>, ImageSize> {
   _ImageSizeStub({
     File file,
-    int fcMinWidth,
-    int fcMaxWidth,
-    int fcMinHeight,
-    int fcMaxHeight,
-    int validatorMinWidth,
-    int validatorMaxWidth,
-    int validatorMinHeight,
-    int validatorMaxHeight,
+    int remoteMinWidth,
+    int remoteMaxWidth,
+    int remoteMinHeight,
+    int remoteMaxHeight,
+    String remoteMinWidthName = 'minWidth',
+    String remoteMaxWidthName = 'maxWidth',
+    String remoteMinHeightName = 'minHeight',
+    String remoteMaxHeightName = 'maxHeight',
+    int localeMinWidth,
+    int localeMaxWidth,
+    int localeMinHeight,
+    int localeMaxHeight,
   }) : super() {
     FormControl<Uint8List> _value = new FormControl<Uint8List>(
       value: file.readAsBytesSync(),
       validators: [],
     );
     FormControl<int> _minWidth = new FormControl<int>(
-      value: fcMinWidth,
+      value: remoteMinWidth,
       validators: [],
     );
     FormControl<int> _maxWidth = new FormControl<int>(
-      value: fcMaxWidth,
+      value: remoteMaxWidth,
       validators: [],
     );
     FormControl<int> _minHeight = new FormControl<int>(
-      value: fcMinHeight,
+      value: remoteMinHeight,
       validators: [],
     );
     FormControl<int> _maxHeight = new FormControl<int>(
-      value: fcMaxHeight,
+      value: remoteMaxHeight,
       validators: [],
     );
     FormGroup _root = new FormGroup(
@@ -55,15 +59,15 @@ class _ImageSizeStub extends ValidatorStub<FormControl<Uint8List>, ImageSize> {
 
     super.control = _value;
     super.validator = ImageSize(
-      minWidth: validatorMinWidth,
-      maxWidth: validatorMaxWidth,
-      minHeight: validatorMinHeight,
-      maxHeight: validatorMaxHeight,
-      remoteMinWidth: (fcMinWidth != null) ? 'minWidth' : null,
-      remoteMaxWidth: (fcMaxWidth != null) ? 'maxWidth' : null,
-      remoteMinHeight: (fcMinWidth != null) ? 'minHeight' : null,
-      remoteMaxHeight: (fcMaxHeight != null) ? 'maxHeight' : null,
-      error: 'invalid image size',
+      minWidth: localeMinWidth,
+      maxWidth: localeMaxWidth,
+      minHeight: localeMinHeight,
+      maxHeight: localeMaxHeight,
+      remoteMinWidth: remoteMinWidthName,
+      remoteMaxWidth: remoteMaxWidthName,
+      remoteMinHeight: remoteMinHeightName,
+      remoteMaxHeight: remoteMaxHeightName,
+      error: null,
     );
   }
 }
@@ -73,10 +77,10 @@ class ImageSize_ImageSizeIsAllowed_Stub extends _ImageSizeStub {
   ImageSize_ImageSizeIsAllowed_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
-          validatorMinWidth: 800,
-          validatorMaxWidth: 900,
-          validatorMinHeight: 500,
-          validatorMaxHeight: 600,
+          localeMinWidth: 800,
+          localeMaxWidth: 900,
+          localeMinHeight: 500,
+          localeMaxHeight: 600,
         );
 }
 
@@ -84,10 +88,10 @@ class ImageSize_FileIsNull_Stub extends _ImageSizeStub {
   ImageSize_FileIsNull_Stub()
       : super(
           file: null,
-          validatorMinWidth: 800,
-          validatorMaxWidth: 900,
-          validatorMinHeight: 500,
-          validatorMaxHeight: 600,
+          localeMinWidth: 800,
+          localeMaxWidth: 900,
+          localeMinHeight: 500,
+          localeMaxHeight: 600,
         );
 }
 
@@ -96,10 +100,10 @@ class ImageSize_ImageWidthIsNotAllowed_Stub extends _ImageSizeStub {
   ImageSize_ImageWidthIsNotAllowed_Stub()
       : super(
           file: null,
-          validatorMinWidth: 850,
-          validatorMaxWidth: 900,
-          validatorMinHeight: 500,
-          validatorMaxHeight: 600,
+          localeMinWidth: 850,
+          localeMaxWidth: 900,
+          localeMinHeight: 500,
+          localeMaxHeight: 600,
         );
 }
 
@@ -107,26 +111,26 @@ class ImageSize_ImageHeightIsNotAllowed_Stub extends _ImageSizeStub {
   ImageSize_ImageHeightIsNotAllowed_Stub()
       : super(
           file: null,
-          validatorMinWidth: 800,
-          validatorMaxWidth: 900,
-          validatorMinHeight: 550,
-          validatorMaxHeight: 600,
+          localeMinWidth: 800,
+          localeMaxWidth: 900,
+          localeMinHeight: 550,
+          localeMaxHeight: 600,
         );
 }
 
 /* Remote parameters are provided */
-class ImageSize_ImageSizeOnPropertyIsProvided_Stub extends _ImageSizeStub {
-  ImageSize_ImageSizeOnPropertyIsProvided_Stub()
+class ImageSize_remoteWidthAndHeightAreProvided_Stub extends _ImageSizeStub {
+  ImageSize_remoteWidthAndHeightAreProvided_Stub()
       : super(
           file: null,
-          validatorMinWidth: 800,
-          validatorMaxWidth: 900,
-          validatorMinHeight: 500,
-          validatorMaxHeight: 600,
-          fcMinWidth: 100,
-          fcMaxWidth: 100,
-          fcMinHeight: 100,
-          fcMaxHeight: 100,
+          localeMinWidth: 800,
+          localeMaxWidth: 900,
+          localeMinHeight: 500,
+          localeMaxHeight: 600,
+          remoteMinWidth: 100,
+          remoteMaxWidth: 100,
+          remoteMinHeight: 100,
+          remoteMaxHeight: 100,
         );
 }
 
@@ -136,14 +140,14 @@ class ImageSize_ThrowsValidatorParameterExceptionOnNullMinWidth_Stub
   ImageSize_ThrowsValidatorParameterExceptionOnNullMinWidth_Stub()
       : super(
           file: null,
-          validatorMinWidth: null,
-          validatorMaxWidth: 900,
-          validatorMinHeight: 500,
-          validatorMaxHeight: 600,
-          fcMinWidth: null,
-          fcMaxWidth: 100,
-          fcMinHeight: 100,
-          fcMaxHeight: 100,
+          localeMinWidth: null,
+          localeMaxWidth: 900,
+          localeMinHeight: 500,
+          localeMaxHeight: 600,
+          remoteMinWidth: null,
+          remoteMaxWidth: 100,
+          remoteMinHeight: 100,
+          remoteMaxHeight: 100,
         );
 }
 
@@ -152,14 +156,14 @@ class ImageSize_ThrowsValidatorParameterExceptionOnNullMaxWidth_Stub
   ImageSize_ThrowsValidatorParameterExceptionOnNullMaxWidth_Stub()
       : super(
           file: null,
-          validatorMinWidth: 800,
-          validatorMaxWidth: null,
-          validatorMinHeight: 500,
-          validatorMaxHeight: 600,
-          fcMinWidth: 100,
-          fcMaxWidth: null,
-          fcMinHeight: 100,
-          fcMaxHeight: 100,
+          localeMinWidth: 800,
+          localeMaxWidth: null,
+          localeMinHeight: 500,
+          localeMaxHeight: 600,
+          remoteMinWidth: 100,
+          remoteMaxWidth: null,
+          remoteMinHeight: 100,
+          remoteMaxHeight: 100,
         );
 }
 
@@ -168,14 +172,14 @@ class ImageSize_ThrowsValidatorParameterExceptionOnNullMinHeight_Stub
   ImageSize_ThrowsValidatorParameterExceptionOnNullMinHeight_Stub()
       : super(
           file: null,
-          validatorMinWidth: 800,
-          validatorMaxWidth: 900,
-          validatorMinHeight: null,
-          validatorMaxHeight: 600,
-          fcMinWidth: 100,
-          fcMaxWidth: 100,
-          fcMinHeight: null,
-          fcMaxHeight: 100,
+          localeMinWidth: 800,
+          localeMaxWidth: 900,
+          localeMinHeight: null,
+          localeMaxHeight: 600,
+          remoteMinWidth: 100,
+          remoteMaxWidth: 100,
+          remoteMinHeight: null,
+          remoteMaxHeight: 100,
         );
 }
 
@@ -184,13 +188,37 @@ class ImageSize_ThrowsValidatorParameterExceptionOnNullMaxHeight_Stub
   ImageSize_ThrowsValidatorParameterExceptionOnNullMaxHeight_Stub()
       : super(
           file: null,
-          validatorMinWidth: 800,
-          validatorMaxWidth: 900,
-          validatorMinHeight: 500,
-          validatorMaxHeight: null,
-          fcMinWidth: 100,
-          fcMaxWidth: 100,
-          fcMinHeight: 100,
-          fcMaxHeight: null,
+          localeMinWidth: 800,
+          localeMaxWidth: 900,
+          localeMinHeight: 500,
+          localeMaxHeight: null,
+          remoteMinWidth: 100,
+          remoteMaxWidth: 100,
+          remoteMinHeight: 100,
+          remoteMaxHeight: null,
+        );
+}
+
+class ImageSize_ThrowsValidatorParameterExceptionOnMinWidthGreaterThanMaxWidth_Stub
+    extends _ImageSizeStub {
+  ImageSize_ThrowsValidatorParameterExceptionOnMinWidthGreaterThanMaxWidth_Stub()
+      : super(
+          file: null,
+          localeMinWidth: 1000,
+          localeMaxWidth: 900,
+          localeMinHeight: 500,
+          localeMaxHeight: 600,
+        );
+}
+
+class ImageSize_ThrowsValidatorParameterExceptionOnMinHeightGreaterThanMaxHeight_Stub
+    extends _ImageSizeStub {
+  ImageSize_ThrowsValidatorParameterExceptionOnMinHeightGreaterThanMaxHeight_Stub()
+      : super(
+          file: null,
+          localeMinWidth: 800,
+          localeMaxWidth: 900,
+          localeMinHeight: 700,
+          localeMaxHeight: 600,
         );
 }

@@ -9,7 +9,7 @@ class _EqualToNumberStub
     num value,
     num remoteValueToCompare,
     String remoteValueToCompareName = 'valueToCompare',
-    num localeValueToCompare,
+    num localValueToCompare,
   }) {
     FormControl<num> _value = new FormControl<num>(
       value: value,
@@ -31,7 +31,7 @@ class _EqualToNumberStub
 
     super.control = _value;
     super.validator = EqualToNumber(
-      valueToCompare: localeValueToCompare,
+      valueToCompare: localValueToCompare,
       remoteValueToCompare: remoteValueToCompareName,
       error: null,
     );
@@ -43,7 +43,7 @@ class EqualToNumber_ValueEqualsValueToCompare_Stub extends _EqualToNumberStub {
   EqualToNumber_ValueEqualsValueToCompare_Stub()
       : super(
           value: 0,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 
@@ -52,7 +52,7 @@ class EqualToNumber_ValueAndValueToCompareAreNull_Stub
   EqualToNumber_ValueAndValueToCompareAreNull_Stub()
       : super(
           value: null,
-          localeValueToCompare: null,
+          localValueToCompare: null,
         ) {}
 }
 
@@ -61,7 +61,7 @@ class EqualToNumber_ValueIsNull_Stub extends _EqualToNumberStub {
   EqualToNumber_ValueIsNull_Stub()
       : super(
           value: null,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 
@@ -69,7 +69,7 @@ class EqualToNumber_ValueToCompareIsNull_Stub extends _EqualToNumberStub {
   EqualToNumber_ValueToCompareIsNull_Stub()
       : super(
           value: 0,
-          localeValueToCompare: null,
+          localValueToCompare: null,
         ) {}
 }
 
@@ -78,7 +78,7 @@ class EqualToNumber_ValueDoesNotEqualValueToCompare_Stub
   EqualToNumber_ValueDoesNotEqualValueToCompare_Stub()
       : super(
           value: 1,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 
@@ -89,7 +89,7 @@ class EqualToNumber_remoteValueToCompareIsProvided_Stub
       : super(
           value: 1,
           remoteValueToCompare: 1,
-          localeValueToCompare: 0,
+          localValueToCompare: 0,
         ) {}
 }
 
