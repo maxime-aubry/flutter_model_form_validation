@@ -6,16 +6,17 @@ import '../../stubs.dart';
 class _GreaterThanStringStub
     extends ValidatorStub<FormControl<String>, GreaterThanString> {
   _GreaterThanStringStub({
-    String fcValue,
-    String fcValueToCompare,
-    String validatorValueToCompare,
+    String value,
+    String remoteValueToCompare,
+    String remoteValueToCompareName = 'valueToCompare',
+    String localeValueToCompare,
   }) {
     FormControl<String> _value = new FormControl<String>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     FormControl<String> _valueToCompare = new FormControl<String>(
-      value: fcValueToCompare,
+      value: remoteValueToCompare,
       validators: [],
     );
     FormGroup _root = new FormGroup(
@@ -30,10 +31,9 @@ class _GreaterThanStringStub
 
     super.control = _value;
     super.validator = GreaterThanString(
-      valueToCompare: validatorValueToCompare,
-      remoteValueToCompare:
-          (fcValueToCompare != null) ? 'valueToCompare' : null,
-      error: 'invalid date',
+      valueToCompare: localeValueToCompare,
+      remoteValueToCompare: remoteValueToCompareName,
+      error: null,
     );
   }
 }
@@ -43,16 +43,16 @@ class GreaterThanString_ValueIsGreaterThanValueToCompare_Stub
     extends _GreaterThanStringStub {
   GreaterThanString_ValueIsGreaterThanValueToCompare_Stub()
       : super(
-          fcValue: 'b',
-          validatorValueToCompare: 'a',
+          value: 'b',
+          localeValueToCompare: 'a',
         ) {}
 }
 
 class GreaterThanString_ValueIsNull_Stub extends _GreaterThanStringStub {
   GreaterThanString_ValueIsNull_Stub()
       : super(
-          fcValue: null,
-          validatorValueToCompare: 'a',
+          value: null,
+          localeValueToCompare: 'a',
         ) {}
 }
 
@@ -61,8 +61,8 @@ class GreaterThanString_ValueIsSmallerThanValueToCompare_Stub
     extends _GreaterThanStringStub {
   GreaterThanString_ValueIsSmallerThanValueToCompare_Stub()
       : super(
-          fcValue: 'a',
-          validatorValueToCompare: 'b',
+          value: 'a',
+          localeValueToCompare: 'b',
         ) {}
 }
 
@@ -70,8 +70,8 @@ class GreaterThanString_ValueEqualsValueToCompare_Stub
     extends _GreaterThanStringStub {
   GreaterThanString_ValueEqualsValueToCompare_Stub()
       : super(
-          fcValue: 'a',
-          validatorValueToCompare: 'b',
+          value: 'a',
+          localeValueToCompare: 'b',
         ) {}
 }
 
@@ -80,9 +80,9 @@ class GreaterThanString_remoteValueToCompareIsProvided_Stub
     extends _GreaterThanStringStub {
   GreaterThanString_remoteValueToCompareIsProvided_Stub()
       : super(
-          fcValue: 'b',
-          fcValueToCompare: 'b',
-          validatorValueToCompare: 'a',
+          value: 'b',
+          remoteValueToCompare: 'b',
+          localeValueToCompare: 'a',
         ) {}
 }
 
@@ -90,5 +90,5 @@ class GreaterThanString_remoteValueToCompareIsProvided_Stub
 class GreaterThanString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _GreaterThanStringStub {
   GreaterThanString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
-      : super(fcValue: 'b') {}
+      : super(value: 'b') {}
 }

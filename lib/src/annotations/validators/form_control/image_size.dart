@@ -76,6 +76,12 @@ class ImageSize extends FormControlValidatorAnnotation<Uint8List> {
       throw new ValidatorParameterException('minHeight is not defined.');
     if (maxHeight == null)
       throw new ValidatorParameterException('maxHeight is not defined.');
+    if (minWidth.compareTo(maxWidth) > 0)
+      throw new ValidationException(
+          'minWidth value is greater than maxWidth value.');
+    if (minHeight.compareTo(maxHeight) > 0)
+      throw new ValidationException(
+          'minHeight value is greater than maxHeight value.');
 
     bool isValid = this._validate(
       control.value,

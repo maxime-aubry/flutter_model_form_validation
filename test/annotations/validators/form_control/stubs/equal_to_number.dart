@@ -33,7 +33,7 @@ class _EqualToNumberStub
     super.validator = EqualToNumber(
       valueToCompare: localeValueToCompare,
       remoteValueToCompare: remoteValueToCompareName,
-      error: 'invalid date',
+      error: null,
     );
   }
 }

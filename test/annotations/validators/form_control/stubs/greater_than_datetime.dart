@@ -7,16 +7,17 @@ import '../../stubs.dart';
 class _GreaterThanDateTimeStub
     extends ValidatorStub<FormControl<DateTime>, GreaterThanDateTime> {
   _GreaterThanDateTimeStub({
-    DateTime fcValue,
-    DateTime fcValueToCompare,
-    ConstantDateTime validatorValueToCompare,
+    DateTime value,
+    DateTime remoteValueToCompare,
+    String remoteValueToCompareName = 'valueToCompare',
+    ConstantDateTime localeValueToCompare,
   }) {
     FormControl<DateTime> _value = new FormControl<DateTime>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     FormControl<DateTime> _valueToCompare = new FormControl<DateTime>(
-      value: fcValueToCompare,
+      value: remoteValueToCompare,
       validators: [],
     );
     FormGroup _root = new FormGroup(
@@ -31,10 +32,9 @@ class _GreaterThanDateTimeStub
 
     super.control = _value;
     super.validator = GreaterThanDateTime(
-      valueToCompare: validatorValueToCompare,
-      remoteValueToCompare:
-          (fcValueToCompare != null) ? 'valueToCompare' : null,
-      error: 'invalid date',
+      valueToCompare: localeValueToCompare,
+      remoteValueToCompare: remoteValueToCompareName,
+      error: null,
     );
   }
 }
@@ -44,39 +44,44 @@ class GreaterThanDateTime_ValueIsGreaterThanValueToCompare_Stub
     extends _GreaterThanDateTimeStub {
   GreaterThanDateTime_ValueIsGreaterThanValueToCompare_Stub()
       : super(
-          fcValue: new DateTime(2021, 1, 2),
-          validatorValueToCompare:
-              const ConstantDateTime('2021-01-01T00:00:00'),
+          value: new DateTime(2021, 1, 2),
+          localeValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
         ) {}
 }
 
-class GreaterThanDateTime_ValueIsNull_Stub extends _GreaterThanDateTimeStub {
-  GreaterThanDateTime_ValueIsNull_Stub()
+class GreaterThanDateTime_ValueAndValueToCompareAreNull_Stub
+    extends _GreaterThanDateTimeStub {
+  GreaterThanDateTime_ValueAndValueToCompareAreNull_Stub()
       : super(
-          fcValue: null,
-          validatorValueToCompare:
-              const ConstantDateTime('2021-01-01T00:00:00'),
+          value: null,
+          localeValueToCompare: null,
         ) {}
 }
 
 /* Value is not valid */
+class GreaterThanDateTime_ValueIsNull_Stub extends _GreaterThanDateTimeStub {
+  GreaterThanDateTime_ValueIsNull_Stub()
+      : super(
+          value: null,
+          localeValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
+        ) {}
+}
+
+class GreaterThanDateTime_ValueToCompareIsNull_Stub
+    extends _GreaterThanDateTimeStub {
+  GreaterThanDateTime_ValueToCompareIsNull_Stub()
+      : super(
+          value: new DateTime(2021, 1, 1),
+          localeValueToCompare: null,
+        ) {}
+}
+
 class GreaterThanDateTime_ValueIsSmallerThanValueToCompare_Stub
     extends _GreaterThanDateTimeStub {
   GreaterThanDateTime_ValueIsSmallerThanValueToCompare_Stub()
       : super(
-          fcValue: new DateTime(2020, 12, 31),
-          validatorValueToCompare:
-              const ConstantDateTime('2021-01-01T00:00:00'),
-        ) {}
-}
-
-class GreaterThanDateTime_ValueEqualsValueToCompare_Stub
-    extends _GreaterThanDateTimeStub {
-  GreaterThanDateTime_ValueEqualsValueToCompare_Stub()
-      : super(
-          fcValue: new DateTime(2021, 1, 1),
-          validatorValueToCompare:
-              const ConstantDateTime('2021-01-01T00:00:00'),
+          value: new DateTime(2021, 1, 1),
+          localeValueToCompare: const ConstantDateTime('2021-01-02T00:00:00'),
         ) {}
 }
 
@@ -85,16 +90,10 @@ class GreaterThanDateTime_remoteValueToCompareIsProvided_Stub
     extends _GreaterThanDateTimeStub {
   GreaterThanDateTime_remoteValueToCompareIsProvided_Stub()
       : super(
-          fcValue: new DateTime(2021, 1, 2),
-          fcValueToCompare: new DateTime(2021, 1, 2),
-          validatorValueToCompare:
-              const ConstantDateTime('2021-01-01T00:00:00'),
+          value: new DateTime(2021, 1, 2),
+          remoteValueToCompare: new DateTime(2021, 1, 2),
+          localeValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
         ) {}
 }
 
 /* Exceptions on parameters */
-class GreaterThanDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
-    extends _GreaterThanDateTimeStub {
-  GreaterThanDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
-      : super(fcValue: new DateTime(2021, 1, 2)) {}
-}

@@ -18,7 +18,7 @@ class _FileMimeTypeStub
     );
     this.validator = FileMimeType(
       mimeTypes: mimeTypes,
-      error: 'invalid mime type',
+      error: null,
     );
   }
 }

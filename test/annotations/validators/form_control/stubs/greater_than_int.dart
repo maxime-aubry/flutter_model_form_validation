@@ -6,16 +6,17 @@ import '../../stubs.dart';
 class _GreaterThanIntStub
     extends ValidatorStub<FormControl<int>, GreaterThanInt> {
   _GreaterThanIntStub({
-    int fcValue,
-    int fcValueToCompare,
-    int validatorValueToCompare,
+    int value,
+    int remoteValueToCompare,
+    String remoteValueToCompareName = 'valueToCompare',
+    int localeValueToCompare,
   }) {
     FormControl<int> _value = new FormControl<int>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     FormControl<int> _valueToCompare = new FormControl<int>(
-      value: fcValueToCompare,
+      value: remoteValueToCompare,
       validators: [],
     );
     FormGroup _root = new FormGroup(
@@ -30,10 +31,9 @@ class _GreaterThanIntStub
 
     super.control = _value;
     super.validator = GreaterThanInt(
-      valueToCompare: validatorValueToCompare,
-      remoteValueToCompare:
-          (fcValueToCompare != null) ? 'valueToCompare' : null,
-      error: 'invalid date',
+      valueToCompare: localeValueToCompare,
+      remoteValueToCompare: remoteValueToCompareName,
+      error: null,
     );
   }
 }
@@ -43,16 +43,16 @@ class GreaterThanInt_ValueIsGreaterThanValueToCompare_Stub
     extends _GreaterThanIntStub {
   GreaterThanInt_ValueIsGreaterThanValueToCompare_Stub()
       : super(
-          fcValue: 1,
-          validatorValueToCompare: 0,
+          value: 1,
+          localeValueToCompare: 0,
         ) {}
 }
 
 class GreaterThanInt_ValueIsNull_Stub extends _GreaterThanIntStub {
   GreaterThanInt_ValueIsNull_Stub()
       : super(
-          fcValue: null,
-          validatorValueToCompare: 0,
+          value: null,
+          localeValueToCompare: 0,
         ) {}
 }
 
@@ -61,8 +61,8 @@ class GreaterThanInt_ValueIsSmallerThanValueToCompare_Stub
     extends _GreaterThanIntStub {
   GreaterThanInt_ValueIsSmallerThanValueToCompare_Stub()
       : super(
-          fcValue: -1,
-          validatorValueToCompare: 0,
+          value: -1,
+          localeValueToCompare: 0,
         ) {}
 }
 
@@ -70,8 +70,8 @@ class GreaterThanInt_ValueEqualsValueToCompare_Stub
     extends _GreaterThanIntStub {
   GreaterThanInt_ValueEqualsValueToCompare_Stub()
       : super(
-          fcValue: 0,
-          validatorValueToCompare: 0,
+          value: 0,
+          localeValueToCompare: 0,
         ) {}
 }
 
@@ -80,9 +80,9 @@ class GreaterThanInt_remoteValueToCompareIsProvided_Stub
     extends _GreaterThanIntStub {
   GreaterThanInt_remoteValueToCompareIsProvided_Stub()
       : super(
-          fcValue: 1,
-          fcValueToCompare: 1,
-          validatorValueToCompare: 0,
+          value: 1,
+          remoteValueToCompare: 1,
+          localeValueToCompare: 0,
         ) {}
 }
 
@@ -90,5 +90,5 @@ class GreaterThanInt_remoteValueToCompareIsProvided_Stub
 class GreaterThanInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _GreaterThanIntStub {
   GreaterThanInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
-      : super(fcValue: 1) {}
+      : super(value: 1) {}
 }

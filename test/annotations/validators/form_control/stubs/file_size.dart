@@ -16,7 +16,7 @@ class _FileSizeStub extends ValidatorStub<FormControl<Uint8List>, FileSize> {
     );
     this.validator = FileSize(
       size: size,
-      error: 'invalid file size',
+      error: null,
     );
   }
 }

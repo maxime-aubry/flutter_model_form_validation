@@ -6,16 +6,17 @@ import '../../stubs.dart';
 class _GreaterOrEqualToDoubleStub
     extends ValidatorStub<FormControl<double>, GreaterOrEqualToDouble> {
   _GreaterOrEqualToDoubleStub({
-    double fcValue,
-    double fcValueToCompare,
-    double validatorValueToCompare,
+    double value,
+    double remoteValueToCompare,
+    String remoteValueToCompareName = 'valueToCompare',
+    double localeValueToCompare,
   }) {
     FormControl<double> _value = new FormControl<double>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     FormControl<double> _valueToCompare = new FormControl<double>(
-      value: fcValueToCompare,
+      value: remoteValueToCompare,
       validators: [],
     );
     FormGroup _root = new FormGroup(
@@ -30,10 +31,9 @@ class _GreaterOrEqualToDoubleStub
 
     super.control = _value;
     super.validator = GreaterOrEqualToDouble(
-      valueToCompare: validatorValueToCompare,
-      remoteValueToCompare:
-          (fcValueToCompare != null) ? 'valueToCompare' : null,
-      error: 'invalid date',
+      valueToCompare: localeValueToCompare,
+      remoteValueToCompare: remoteValueToCompareName,
+      error: null,
     );
   }
 }
@@ -43,8 +43,8 @@ class GreaterOrEqualToDouble_ValueIsGreaterThanValueToCompare_Stub
     extends _GreaterOrEqualToDoubleStub {
   GreaterOrEqualToDouble_ValueIsGreaterThanValueToCompare_Stub()
       : super(
-          fcValue: 1,
-          validatorValueToCompare: 0,
+          value: 1,
+          localeValueToCompare: 0,
         ) {}
 }
 
@@ -52,27 +52,45 @@ class GreaterOrEqualToDouble_ValueEqualsValueToCompare_Stub
     extends _GreaterOrEqualToDoubleStub {
   GreaterOrEqualToDouble_ValueEqualsValueToCompare_Stub()
       : super(
-          fcValue: 0,
-          validatorValueToCompare: 0,
+          value: 0,
+          localeValueToCompare: 0,
         ) {}
 }
 
-class GreaterOrEqualToDouble_ValueIsNull_Stub
+class GreaterOrEqualToDouble_ValueAndValueToCompareAreNull_Stub
     extends _GreaterOrEqualToDoubleStub {
-  GreaterOrEqualToDouble_ValueIsNull_Stub()
+  GreaterOrEqualToDouble_ValueAndValueToCompareAreNull_Stub()
       : super(
-          fcValue: null,
-          validatorValueToCompare: 0,
+          value: null,
+          localeValueToCompare: null,
         ) {}
 }
 
 /* Value is not valid */
+class GreaterOrEqualToDouble_ValueIsNull_Stub
+    extends _GreaterOrEqualToDoubleStub {
+  GreaterOrEqualToDouble_ValueIsNull_Stub()
+      : super(
+          value: null,
+          localeValueToCompare: 0,
+        ) {}
+}
+
+class GreaterOrEqualToDouble_ValueToCompareIsNull_Stub
+    extends _GreaterOrEqualToDoubleStub {
+  GreaterOrEqualToDouble_ValueToCompareIsNull_Stub()
+      : super(
+          value: 0,
+          localeValueToCompare: null,
+        ) {}
+}
+
 class GreaterOrEqualToDouble_ValueIsSmallerThanValueToCompare_Stub
     extends _GreaterOrEqualToDoubleStub {
   GreaterOrEqualToDouble_ValueIsSmallerThanValueToCompare_Stub()
       : super(
-          fcValue: 0,
-          validatorValueToCompare: 1,
+          value: 0,
+          localeValueToCompare: 1,
         ) {}
 }
 
@@ -81,15 +99,10 @@ class GreaterOrEqualToDouble_remoteValueToCompareIsProvided_Stub
     extends _GreaterOrEqualToDoubleStub {
   GreaterOrEqualToDouble_remoteValueToCompareIsProvided_Stub()
       : super(
-          fcValue: 1,
-          fcValueToCompare: 1,
-          validatorValueToCompare: 0,
+          value: 1,
+          remoteValueToCompare: 1,
+          localeValueToCompare: 0,
         ) {}
 }
 
 /* Exceptions on parameters */
-class GreaterOrEqualToDouble_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
-    extends _GreaterOrEqualToDoubleStub {
-  GreaterOrEqualToDouble_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
-      : super(fcValue: 1) {}
-}
