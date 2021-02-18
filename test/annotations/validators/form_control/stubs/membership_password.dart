@@ -5,26 +5,26 @@ import '../../stubs.dart';
 class _MembershipPasswordStub
     extends ValidatorStub<FormControl<String>, MembershipPassword> {
   _MembershipPasswordStub({
-    String fcValue,
-    int minLength,
-    int maxLength,
-    bool includesAlphabeticalCharacters,
-    bool includesUppercaseCharacters,
-    bool includesNumericalCharacters,
-    bool includesSpecialCharacters,
+    String value,
+    int localMinLength,
+    int localMaxLength,
+    bool localIncludesAlphabeticalCharacters,
+    bool localIncludesUppercaseCharacters,
+    bool localIncludesNumericalCharacters,
+    bool localIncludesSpecialCharacters,
   }) : super() {
     super.control = new FormControl<String>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     super.validator = MembershipPassword(
-      minLength: minLength,
-      maxLength: maxLength,
-      includesAlphabeticalCharacters: includesAlphabeticalCharacters,
-      includesUppercaseCharacters: includesUppercaseCharacters,
-      includesNumericalCharacters: includesNumericalCharacters,
-      includesSpecialCharacters: includesSpecialCharacters,
-      error: 'invalid password',
+      minLength: localMinLength,
+      maxLength: localMaxLength,
+      includesAlphabeticalCharacters: localIncludesAlphabeticalCharacters,
+      includesUppercaseCharacters: localIncludesUppercaseCharacters,
+      includesNumericalCharacters: localIncludesNumericalCharacters,
+      includesSpecialCharacters: localIncludesSpecialCharacters,
+      error: null,
     );
   }
 }
@@ -33,39 +33,26 @@ class _MembershipPasswordStub
 class MembershipPassword_PasswordIsValid_Stub extends _MembershipPasswordStub {
   MembershipPassword_PasswordIsValid_Stub()
       : super(
-          fcValue: 'P@\$\$w0rd',
-          minLength: 6,
-          maxLength: 12,
-          includesAlphabeticalCharacters: true,
-          includesUppercaseCharacters: true,
-          includesNumericalCharacters: true,
-          includesSpecialCharacters: true,
+          value: 'P@\$\$w0rd',
+          localMinLength: 6,
+          localMaxLength: 12,
+          localIncludesAlphabeticalCharacters: true,
+          localIncludesUppercaseCharacters: true,
+          localIncludesNumericalCharacters: true,
+          localIncludesSpecialCharacters: true,
         );
 }
 
 class MembershipPassword_PasswordIsNull_Stub extends _MembershipPasswordStub {
   MembershipPassword_PasswordIsNull_Stub()
       : super(
-          fcValue: null,
-          minLength: 6,
-          maxLength: 12,
-          includesAlphabeticalCharacters: true,
-          includesUppercaseCharacters: true,
-          includesNumericalCharacters: true,
-          includesSpecialCharacters: true,
-        );
-}
-
-class MembershipPassword_PasswordIsEmpty_Stub extends _MembershipPasswordStub {
-  MembershipPassword_PasswordIsEmpty_Stub()
-      : super(
-          fcValue: '',
-          minLength: 6,
-          maxLength: 12,
-          includesAlphabeticalCharacters: true,
-          includesUppercaseCharacters: true,
-          includesNumericalCharacters: true,
-          includesSpecialCharacters: true,
+          value: null,
+          localMinLength: 6,
+          localMaxLength: 12,
+          localIncludesAlphabeticalCharacters: true,
+          localIncludesUppercaseCharacters: true,
+          localIncludesNumericalCharacters: true,
+          localIncludesSpecialCharacters: true,
         );
 }
 
@@ -74,16 +61,24 @@ class MembershipPassword_PasswordIsNotValid_Stub
     extends _MembershipPasswordStub {
   MembershipPassword_PasswordIsNotValid_Stub()
       : super(
-          fcValue: 'password',
-          minLength: 6,
-          maxLength: 12,
-          includesAlphabeticalCharacters: true,
-          includesUppercaseCharacters: true,
-          includesNumericalCharacters: true,
-          includesSpecialCharacters: true,
+          value: 'password',
+          localMinLength: 6,
+          localMaxLength: 12,
+          localIncludesAlphabeticalCharacters: true,
+          localIncludesUppercaseCharacters: true,
+          localIncludesNumericalCharacters: true,
+          localIncludesSpecialCharacters: true,
         );
 }
 
 /* Remote parameters are provided */
 
 /* Exceptions on parameters */
+class MembershipPassword_ThrowsValidatorParameterExceptionOnMinLengthGreaterThanMaxHLength_Stub
+    extends _MembershipPasswordStub {
+  MembershipPassword_ThrowsValidatorParameterExceptionOnMinLengthGreaterThanMaxHLength_Stub()
+      : super(
+          localMinLength: 12,
+          localMaxLength: 6,
+        );
+}

@@ -38,15 +38,20 @@ class Range<TProperty extends Comparable>
       control: control.parentGroup,
     );
 
-    if (min == null)
-      throw new ValidatorParameterException('Min is not defined.');
-    if (max == null)
-      throw new ValidatorParameterException('Max is not defined.');
-    if (min.compareTo(max) > 0)
-      throw new ValidationException('Min value is greater than max value.');
-
+    this._validateParameters();
     bool isValid = this._validate(control.value, min, max);
     return isValid;
+  }
+
+  void _validateParameters() {
+    if (min == null)
+      throw new ValidatorParameterException('Min is not defined.');
+
+    if (max == null)
+      throw new ValidatorParameterException('Max is not defined.');
+
+    if (min.compareTo(max) > 0)
+      throw new ValidationException('Min value is greater than max value.');
   }
 
   bool _validate(

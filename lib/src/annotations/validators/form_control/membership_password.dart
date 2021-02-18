@@ -5,11 +5,11 @@ class MembershipPassword extends FormControlValidatorAnnotation<String> {
   const MembershipPassword({
     @required this.minLength,
     @required this.maxLength,
-    @required this.includesAlphabeticalCharacters,
-    @required this.includesUppercaseCharacters,
-    @required this.includesNumericalCharacters,
-    @required this.includesSpecialCharacters,
-    @required String error,
+    this.includesAlphabeticalCharacters = false,
+    this.includesUppercaseCharacters = false,
+    this.includesNumericalCharacters = false,
+    this.includesSpecialCharacters = false,
+    String error,
   }) : super(error: error);
 
   /// [minLength] is the minimal string length of your password.
@@ -31,8 +31,39 @@ class MembershipPassword extends FormControlValidatorAnnotation<String> {
   final bool includesSpecialCharacters;
 
   @override
-  Future<bool> isValid(FormControl<String> control) async =>
-      this._validate(control.value);
+  Future<bool> isValid(FormControl<String> control) async {
+    this._validateParameters();
+    bool isValid = await this._validate(control.value);
+    return isValid;
+  }
+
+  void _validateParameters() {
+    if (this.minLength == null)
+      throw new ValidatorParameterException('minLength is not defined.');
+
+    if (this.maxLength == null)
+      throw new ValidatorParameterException('maxLength is not defined.');
+
+    if (this.includesAlphabeticalCharacters == null)
+      throw new ValidatorParameterException(
+          'includesAlphabeticalCharacters is not defined.');
+
+    if (this.includesUppercaseCharacters == null)
+      throw new ValidatorParameterException(
+          'includesUppercaseCharacters is not defined.');
+
+    if (this.includesNumericalCharacters == null)
+      throw new ValidatorParameterException(
+          'includesNumericalCharacters is not defined.');
+
+    if (this.includesSpecialCharacters == null)
+      throw new ValidatorParameterException(
+          'includesSpecialCharacters is not defined.');
+
+    if (this.minLength.compareTo(this.maxLength) > 0)
+      throw new ValidatorParameterException(
+          'minLength value is greater than maxLength value.');
+  }
 
   bool _validate(String value) {
     if (value == null || value.isEmpty) return true;

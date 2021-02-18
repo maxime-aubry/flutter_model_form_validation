@@ -36,15 +36,21 @@ class NbValues extends FormControlValidatorAnnotation<List> {
       remoteParameterName: this.remoteMax,
       control: control.parentGroup,
     );
-    if (min == null)
-      throw new ValidatorParameterException('Min is not defined.');
-    if (max == null)
-      throw new ValidatorParameterException('Max is not defined.');
-    if (min.compareTo(max) > 0)
-      throw new ValidationException('Min value is greater than max value.');
 
+    this._validateParameters(min, max);
     bool isValid = this._validate(control.value.length, min, max);
     return isValid;
+  }
+
+  void _validateParameters(int min, int max) {
+    if (min == null)
+      throw new ValidatorParameterException('Min is not defined.');
+
+    if (max == null)
+      throw new ValidatorParameterException('Max is not defined.');
+
+    if (min.compareTo(max) > 0)
+      throw new ValidationException('Min value is greater than max value.');
   }
 
   bool _validate(int quantity, int min, int max) =>

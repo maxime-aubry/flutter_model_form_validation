@@ -12,11 +12,15 @@ class RegularExpression extends FormControlValidatorAnnotation<String> {
 
   @override
   Future<bool> isValid(FormControl<String> control) async {
+    this._validateParameters();
+    bool isValid = await this._validate(control.value);
+    return isValid;
+  }
+
+  void _validateParameters() {
     if (this.expression == null || this.expression.isEmpty)
       throw new ValidatorParameterException(
           'Regular expression is not defined.');
-    bool isValid = await this._validate(control.value);
-    return isValid;
   }
 
   bool _validate(String value) {

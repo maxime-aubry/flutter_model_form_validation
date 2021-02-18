@@ -68,21 +68,7 @@ class ImageSize extends FormControlValidatorAnnotation<Uint8List> {
       control: control.parentGroup,
     );
 
-    if (minWidth == null)
-      throw new ValidatorParameterException('minWidth is not defined.');
-    if (maxWidth == null)
-      throw new ValidatorParameterException('maxWidth is not defined.');
-    if (minHeight == null)
-      throw new ValidatorParameterException('minHeight is not defined.');
-    if (maxHeight == null)
-      throw new ValidatorParameterException('maxHeight is not defined.');
-    if (minWidth.compareTo(maxWidth) > 0)
-      throw new ValidationException(
-          'minWidth value is greater than maxWidth value.');
-    if (minHeight.compareTo(maxHeight) > 0)
-      throw new ValidationException(
-          'minHeight value is greater than maxHeight value.');
-
+    this._validateParameters(minWidth, maxWidth, minHeight, maxHeight);
     bool isValid = this._validate(
       control.value,
       minWidth,
@@ -91,6 +77,33 @@ class ImageSize extends FormControlValidatorAnnotation<Uint8List> {
       maxHeight,
     );
     return isValid;
+  }
+
+  void _validateParameters(
+    int minWidth,
+    int maxWidth,
+    int minHeight,
+    int maxHeight,
+  ) {
+    if (minWidth == null)
+      throw new ValidatorParameterException('minWidth is not defined.');
+
+    if (maxWidth == null)
+      throw new ValidatorParameterException('maxWidth is not defined.');
+
+    if (minHeight == null)
+      throw new ValidatorParameterException('minHeight is not defined.');
+
+    if (maxHeight == null)
+      throw new ValidatorParameterException('maxHeight is not defined.');
+
+    if (minWidth.compareTo(maxWidth) > 0)
+      throw new ValidationException(
+          'minWidth value is greater than maxWidth value.');
+
+    if (minHeight.compareTo(maxHeight) > 0)
+      throw new ValidationException(
+          'minHeight value is greater than maxHeight value.');
   }
 
   bool _validate(

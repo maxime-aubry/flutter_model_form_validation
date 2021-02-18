@@ -22,10 +22,14 @@ class FileSize extends FormControlValidatorAnnotation<Uint8List> {
   /// The [control] argument is of [FormControl] of [Uint8List] type here.
   @override
   Future<bool> isValid(FormControl<Uint8List> control) async {
-    if (this.size == null)
-      throw new ValidatorParameterException('File size is not defined.');
+    this._validateParameters();
     bool isValid = await this._validate(control.value);
     return isValid;
+  }
+
+  void _validateParameters() {
+    if (this.size == null)
+      throw new ValidatorParameterException('File size is not defined.');
   }
 
   bool _validate(Uint8List value) {
