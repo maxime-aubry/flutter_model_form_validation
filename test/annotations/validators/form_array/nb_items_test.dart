@@ -5,7 +5,7 @@ import '../../../expect_exception.dart';
 import 'stubs/nb_items.dart';
 
 void main() {
-  group('Annotations > Validators > NbItems.', () {
+  group('Annotations > Validators > FormArray > NbItems.', () {
     group('Valid.', () {
       test('FormArray items size is equal to min.', () async {
         NbItems_ArraySizeIsEqualToMin_Stub stub =

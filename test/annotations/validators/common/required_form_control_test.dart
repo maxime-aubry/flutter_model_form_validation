@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'stubs/required_form_control.dart';
 
 void main() {
-  group('Annotations > Validators > Required (on FormControl).', () {
+  group('Annotations > Validators > Common > Required (on FormControl).', () {
     group('Valid.', () {
       test('FormControl\'s value is valid.', () async {
         RequiredFormControl_FormControlValueIsValid_Stub stub =

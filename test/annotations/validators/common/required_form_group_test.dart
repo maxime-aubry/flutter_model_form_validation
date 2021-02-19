@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'stubs/required_form_group.dart';
 
 void main() {
-  group('Annotations > Validators > Required (on FormGroup).', () {
+  group('Annotations > Validators > Common > Required (on FormGroup).', () {
     group('Valid.', () {
       test('FormGroup\'s controls are populated.', () async {
         RequiredFormGroup_FormGroupControlsArePopulated_Stub stub =

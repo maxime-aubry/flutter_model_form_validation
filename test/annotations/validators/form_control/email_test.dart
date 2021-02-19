@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'stubs/email.dart';
 
 void main() {
-  group('Annotations > Validators > Email.', () {
+  group('Annotations > Validators > FormControl<TProperty> > Email.', () {
     group('Valid.', () {
       test('Value is a valid email.', () async {
         Email_ValidEmail_Stub stub = new Email_ValidEmail_Stub();
