@@ -7,34 +7,37 @@ import '../../stubs.dart';
 class _SmallerOrEqualToDateTimeStub
     extends ValidatorStub<FormControl<DateTime>, SmallerOrEqualToDateTime> {
   _SmallerOrEqualToDateTimeStub({
-    DateTime fcValue,
-    DateTime fcValueToCompare,
-    ConstantDateTime validatorValueToCompare,
+    DateTime value,
+    DateTime remoteValueToCompare,
+    String remoteValueToCompareName,
+    ConstantDateTime localValueToCompare,
   }) {
     FormControl<DateTime> _value = new FormControl<DateTime>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     FormControl<DateTime> _valueToCompare = new FormControl<DateTime>(
-      value: fcValueToCompare,
+      value: remoteValueToCompare,
       validators: [],
     );
+
+    Map<String, AbstractControl> controls = {'value': _value};
+    if (remoteValueToCompareName != null)
+      controls[remoteValueToCompareName] = _valueToCompare;
+
     FormGroup _root = new FormGroup(
-      controls: {
-        'value': _value,
-        'valueToCompare': _valueToCompare,
-      },
+      controls: controls,
       validators: [],
     );
+
     _value.parentGroup = _root;
     _valueToCompare.parentGroup = _root;
 
     super.control = _value;
     super.validator = SmallerOrEqualToDateTime(
-      valueToCompare: validatorValueToCompare,
-      remoteValueToCompare:
-          (fcValueToCompare != null) ? 'valueToCompare' : null,
-      error: 'invalid date',
+      valueToCompare: localValueToCompare,
+      remoteValueToCompare: remoteValueToCompareName,
+      error: null,
     );
   }
 }
@@ -44,9 +47,8 @@ class SmallerOrEqualToDateTime_ValueIsSmallerThanValueToCompare_Stub
     extends _SmallerOrEqualToDateTimeStub {
   SmallerOrEqualToDateTime_ValueIsSmallerThanValueToCompare_Stub()
       : super(
-          fcValue: new DateTime(2021, 1, 1),
-          validatorValueToCompare:
-              const ConstantDateTime('2021-01-02T00:00:00'),
+          value: new DateTime(2021, 1, 1),
+          localValueToCompare: const ConstantDateTime('2021-01-02T00:00:00'),
         ) {}
 }
 
@@ -54,9 +56,8 @@ class SmallerOrEqualToDateTime_ValueEqualsValueToCompare_Stub
     extends _SmallerOrEqualToDateTimeStub {
   SmallerOrEqualToDateTime_ValueEqualsValueToCompare_Stub()
       : super(
-          fcValue: new DateTime(2021, 1, 1),
-          validatorValueToCompare:
-              const ConstantDateTime('2021-01-02T00:00:00'),
+          value: new DateTime(2021, 1, 1),
+          localValueToCompare: const ConstantDateTime('2021-01-02T00:00:00'),
         ) {}
 }
 
@@ -64,9 +65,8 @@ class SmallerOrEqualToDateTime_ValueIsNull_Stub
     extends _SmallerOrEqualToDateTimeStub {
   SmallerOrEqualToDateTime_ValueIsNull_Stub()
       : super(
-          fcValue: null,
-          validatorValueToCompare:
-              const ConstantDateTime('2021-01-02T00:00:00'),
+          value: null,
+          localValueToCompare: const ConstantDateTime('2021-01-02T00:00:00'),
         ) {}
 }
 
@@ -75,9 +75,8 @@ class SmallerOrEqualToDateTime_ValueIsGreterThanValueToCompare_Stub
     extends _SmallerOrEqualToDateTimeStub {
   SmallerOrEqualToDateTime_ValueIsGreterThanValueToCompare_Stub()
       : super(
-          fcValue: new DateTime(2021, 1, 2),
-          validatorValueToCompare:
-              const ConstantDateTime('2021-01-01T00:00:00'),
+          value: new DateTime(2021, 1, 2),
+          localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
         ) {}
 }
 
@@ -86,10 +85,9 @@ class SmallerOrEqualToDateTime_remoteValueToCompareIsProvided_Stub
     extends _SmallerOrEqualToDateTimeStub {
   SmallerOrEqualToDateTime_remoteValueToCompareIsProvided_Stub()
       : super(
-          fcValue: new DateTime(2021, 1, 1),
-          fcValueToCompare: new DateTime(2021, 1, 1),
-          validatorValueToCompare:
-              const ConstantDateTime('2021-01-02T00:00:00'),
+          value: new DateTime(2021, 1, 1),
+          remoteValueToCompare: new DateTime(2021, 1, 1),
+          localValueToCompare: const ConstantDateTime('2021-01-02T00:00:00'),
         ) {}
 }
 
@@ -97,5 +95,5 @@ class SmallerOrEqualToDateTime_remoteValueToCompareIsProvided_Stub
 class SmallerOrEqualToDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _SmallerOrEqualToDateTimeStub {
   SmallerOrEqualToDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
-      : super(fcValue: new DateTime(2021, 1, 1)) {}
+      : super(value: new DateTime(2021, 1, 1)) {}
 }

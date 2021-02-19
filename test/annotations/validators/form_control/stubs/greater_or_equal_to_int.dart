@@ -8,7 +8,7 @@ class _GreaterOrEqualToIntStub
   _GreaterOrEqualToIntStub({
     int value,
     int remoteValueToCompare,
-    String remoteValueToCompareName = 'valueToCompare',
+    String remoteValueToCompareName,
     int localValueToCompare,
   }) {
     FormControl<int> _value = new FormControl<int>(
@@ -19,13 +19,16 @@ class _GreaterOrEqualToIntStub
       value: remoteValueToCompare,
       validators: [],
     );
+
+    Map<String, AbstractControl> controls = {'value': _value};
+    if (remoteValueToCompareName != null)
+      controls[remoteValueToCompareName] = _valueToCompare;
+
     FormGroup _root = new FormGroup(
-      controls: {
-        'value': _value,
-        'valueToCompare': _valueToCompare,
-      },
+      controls: controls,
       validators: [],
     );
+
     _value.parentGroup = _root;
     _valueToCompare.parentGroup = _root;
 
@@ -100,6 +103,7 @@ class GreaterOrEqualToInt_remoteValueToCompareIsProvided_Stub
       : super(
           value: 1,
           remoteValueToCompare: 1,
+          remoteValueToCompareName: 'valueToCompare',
           localValueToCompare: 0,
         ) {}
 }

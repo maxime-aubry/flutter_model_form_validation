@@ -8,7 +8,7 @@ class _EqualToNumberStub
   _EqualToNumberStub({
     num value,
     num remoteValueToCompare,
-    String remoteValueToCompareName = 'valueToCompare',
+    String remoteValueToCompareName,
     num localValueToCompare,
   }) {
     FormControl<num> _value = new FormControl<num>(
@@ -19,13 +19,16 @@ class _EqualToNumberStub
       value: remoteValueToCompare,
       validators: [],
     );
+
+    Map<String, AbstractControl> controls = {'value': _value};
+    if (remoteValueToCompareName != null)
+      controls[remoteValueToCompareName] = _valueToCompare;
+
     FormGroup _root = new FormGroup(
-      controls: {
-        'value': _value,
-        'valueToCompare': _valueToCompare,
-      },
+      controls: controls,
       validators: [],
     );
+
     _value.parentGroup = _root;
     _valueToCompare.parentGroup = _root;
 
@@ -89,6 +92,7 @@ class EqualToNumber_remoteValueToCompareIsProvided_Stub
       : super(
           value: 1,
           remoteValueToCompare: 1,
+          remoteValueToCompareName: 'valueToCompare',
           localValueToCompare: 0,
         ) {}
 }

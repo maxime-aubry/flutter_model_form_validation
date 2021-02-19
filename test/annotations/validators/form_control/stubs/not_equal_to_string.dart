@@ -6,71 +6,92 @@ import '../../stubs.dart';
 class _NotEqualToStringStub
     extends ValidatorStub<FormControl<String>, NotEqualToString> {
   _NotEqualToStringStub({
-    String fcValue,
-    String fcValueToCompare,
-    String validatorValueToCompare,
+    String value,
+    String remoteValueToCompare,
+    String remoteValueToCompareName = 'valueToCompare',
+    String localValueToCompare,
   }) {
     FormControl<String> _value = new FormControl<String>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     FormControl<String> _valueToCompare = new FormControl<String>(
-      value: fcValueToCompare,
+      value: remoteValueToCompare,
       validators: [],
     );
+
+    Map<String, AbstractControl> controls = {'value': _value};
+    if (remoteValueToCompareName != null)
+      controls[remoteValueToCompareName] = _valueToCompare;
+
     FormGroup _root = new FormGroup(
-      controls: {
-        'value': _value,
-        'valueToCompare': _valueToCompare,
-      },
+      controls: controls,
       validators: [],
     );
+
     _value.parentGroup = _root;
     _valueToCompare.parentGroup = _root;
 
     super.control = _value;
     super.validator = NotEqualToString(
-      valueToCompare: validatorValueToCompare,
-      remoteValueToCompare:
-          (fcValueToCompare != null) ? 'valueToCompare' : null,
-      error: 'invalid date',
+      valueToCompare: localValueToCompare,
+      remoteValueToCompare: remoteValueToCompareName,
+      error: null,
     );
   }
 }
 
 /* Value is valid */
-class NotEqualToString_ValueDoesNotEqualValueToCompare_Stub
+class NotEqualToString_ValueIsSmallerThanValueToCompare_Stub
     extends _NotEqualToStringStub {
-  NotEqualToString_ValueDoesNotEqualValueToCompare_Stub()
+  NotEqualToString_ValueIsSmallerThanValueToCompare_Stub()
       : super(
-          fcValue: 'b',
-          validatorValueToCompare: 'a',
+          value: 'a',
+          localValueToCompare: 'b',
         ) {}
 }
 
-class NotEqualToString_ValueIsNull_Stub extends _NotEqualToStringStub {
-  NotEqualToString_ValueIsNull_Stub()
+class NotEqualToString_ValueIsGreaterThanValueToCompare_Stub
+    extends _NotEqualToStringStub {
+  NotEqualToString_ValueIsGreaterThanValueToCompare_Stub()
       : super(
-          fcValue: null,
-          validatorValueToCompare: 'a',
+          value: 'b',
+          localValueToCompare: 'a',
         ) {}
 }
 
-class NotEqualToString_EmptyValue_Stub extends _NotEqualToStringStub {
-  NotEqualToString_EmptyValue_Stub()
+class NotEqualToString_ValueAndValueToCompareAreNull_Stub
+    extends _NotEqualToStringStub {
+  NotEqualToString_ValueAndValueToCompareAreNull_Stub()
       : super(
-          fcValue: '',
-          validatorValueToCompare: 'a',
+          value: null,
+          localValueToCompare: null,
         ) {}
 }
 
 /* Value is not valid */
+class NotEqualToString_ValueIsNull_Stub extends _NotEqualToStringStub {
+  NotEqualToString_ValueIsNull_Stub()
+      : super(
+          value: null,
+          localValueToCompare: 'a',
+        ) {}
+}
+
+class NotEqualToString_ValueToCompareIsNull_Stub extends _NotEqualToStringStub {
+  NotEqualToString_ValueToCompareIsNull_Stub()
+      : super(
+          value: 'a',
+          localValueToCompare: null,
+        ) {}
+}
+
 class NotEqualToString_ValueEqualsValueToCompare_Stub
     extends _NotEqualToStringStub {
   NotEqualToString_ValueEqualsValueToCompare_Stub()
       : super(
-          fcValue: 'a',
-          validatorValueToCompare: 'a',
+          value: 'a',
+          localValueToCompare: 'a',
         ) {}
 }
 
@@ -79,15 +100,10 @@ class NotEqualToString_remoteValueToCompareIsProvided_Stub
     extends _NotEqualToStringStub {
   NotEqualToString_remoteValueToCompareIsProvided_Stub()
       : super(
-          fcValue: 'b',
-          fcValueToCompare: 'b',
-          validatorValueToCompare: 'a',
+          value: 'b',
+          remoteValueToCompare: 'b',
+          localValueToCompare: 'a',
         ) {}
 }
 
 /* Exceptions on parameters */
-class NotEqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
-    extends _NotEqualToStringStub {
-  NotEqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
-      : super(fcValue: 'a') {}
-}

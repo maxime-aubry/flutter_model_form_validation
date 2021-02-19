@@ -9,7 +9,7 @@ class _GreaterOrEqualToDateTimeStub
   _GreaterOrEqualToDateTimeStub({
     DateTime value,
     DateTime remoteValueToCompare,
-    String remoteValueToCompareName = 'valueToCompare',
+    String remoteValueToCompareName,
     ConstantDateTime localValueToCompare,
   }) {
     FormControl<DateTime> _value = new FormControl<DateTime>(
@@ -20,13 +20,16 @@ class _GreaterOrEqualToDateTimeStub
       value: remoteValueToCompare,
       validators: [],
     );
+
+    Map<String, AbstractControl> controls = {'value': _value};
+    if (remoteValueToCompareName != null)
+      controls[remoteValueToCompareName] = _valueToCompare;
+
     FormGroup _root = new FormGroup(
-      controls: {
-        'value': _value,
-        'valueToCompare': _valueToCompare,
-      },
+      controls: controls,
       validators: [],
     );
+
     _value.parentGroup = _root;
     _valueToCompare.parentGroup = _root;
 
@@ -102,6 +105,7 @@ class GreaterOrEqualToDateTime_remoteValueToCompareIsProvided_Stub
       : super(
           value: new DateTime(2021, 1, 2),
           remoteValueToCompare: new DateTime(2021, 1, 2),
+          remoteValueToCompareName: 'valueToCompare',
           localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
         ) {}
 }

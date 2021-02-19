@@ -6,7 +6,7 @@ class _InTextStub extends ValidatorStub<FormControl<String>, InText> {
   _InTextStub({
     String value,
     String remoteText,
-    String remoteTextName = 'text',
+    String remoteTextName,
     String localText,
   }) : super() {
     FormControl<String> _value = new FormControl<String>(
@@ -17,13 +17,15 @@ class _InTextStub extends ValidatorStub<FormControl<String>, InText> {
       value: remoteText,
       validators: [],
     );
+
+    Map<String, AbstractControl> controls = {'value': _value};
+    if (remoteTextName != null) controls[remoteTextName] = _text;
+
     FormGroup _root = new FormGroup(
-      controls: {
-        'value': _value,
-        'text': _text,
-      },
+      controls: controls,
       validators: [],
     );
+
     _value.parentGroup = _root;
     _text.parentGroup = _root;
 
@@ -86,10 +88,11 @@ class InText_TextOnPropertyIsProvided_Stub extends _InTextStub {
   InText_TextOnPropertyIsProvided_Stub()
       : super(
           value: 'exercitation',
-          localText:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
           remoteText:
               'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+          remoteTextName: 'text',
+          localText:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         );
 }
 

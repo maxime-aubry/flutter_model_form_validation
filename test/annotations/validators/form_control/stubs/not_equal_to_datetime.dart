@@ -7,66 +7,93 @@ import '../../stubs.dart';
 class _NotEqualToDateTimeStub
     extends ValidatorStub<FormControl<DateTime>, NotEqualToDateTime> {
   _NotEqualToDateTimeStub({
-    DateTime fcValue,
-    DateTime fcValueToCompare,
-    ConstantDateTime validatorValueToCompare,
+    DateTime value,
+    DateTime remoteValueToCompare,
+    String remoteValueToCompareName = 'valueToCompare',
+    ConstantDateTime localValueToCompare,
   }) {
     FormControl<DateTime> _value = new FormControl<DateTime>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     FormControl<DateTime> _valueToCompare = new FormControl<DateTime>(
-      value: fcValueToCompare,
+      value: remoteValueToCompare,
       validators: [],
     );
+
+    Map<String, AbstractControl> controls = {'value': _value};
+    if (remoteValueToCompareName != null)
+      controls[remoteValueToCompareName] = _valueToCompare;
+
     FormGroup _root = new FormGroup(
-      controls: {
-        'value': _value,
-        'valueToCompare': _valueToCompare,
-      },
+      controls: controls,
       validators: [],
     );
+
     _value.parentGroup = _root;
     _valueToCompare.parentGroup = _root;
 
     super.control = _value;
     super.validator = NotEqualToDateTime(
-      valueToCompare: validatorValueToCompare,
-      remoteValueToCompare:
-          (fcValueToCompare != null) ? 'valueToCompare' : null,
-      error: 'invalid date',
+      valueToCompare: localValueToCompare,
+      remoteValueToCompare: remoteValueToCompareName,
+      error: null,
     );
   }
 }
 
 /* Value is valid */
-class NotEqualToDateTime_ValueDoesNotEqualValueToCompare_Stub
+class NotEqualToDateTime_ValueIsSmallerThanValueToCompare_Stub
     extends _NotEqualToDateTimeStub {
-  NotEqualToDateTime_ValueDoesNotEqualValueToCompare_Stub()
+  NotEqualToDateTime_ValueIsSmallerThanValueToCompare_Stub()
       : super(
-          fcValue: new DateTime(2021, 1, 2),
-          validatorValueToCompare:
-              const ConstantDateTime('2021-01-01T00:00:00'),
+          value: new DateTime(2020, 12, 31),
+          localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
         ) {}
 }
 
-class NotEqualToDateTime_ValueIsNull_Stub extends _NotEqualToDateTimeStub {
-  NotEqualToDateTime_ValueIsNull_Stub()
+class NotEqualToDateTime_ValueIsGreaterThanValueToCompare_Stub
+    extends _NotEqualToDateTimeStub {
+  NotEqualToDateTime_ValueIsGreaterThanValueToCompare_Stub()
       : super(
-          fcValue: null,
-          validatorValueToCompare:
-              const ConstantDateTime('2021-01-01T00:00:00'),
+          value: new DateTime(2021, 1, 2),
+          localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
+        ) {}
+}
+
+class NotEqualToDateTime_ValueAndValueToCompareAreNull_Stub
+    extends _NotEqualToDateTimeStub {
+  NotEqualToDateTime_ValueAndValueToCompareAreNull_Stub()
+      : super(
+          value: null,
+          localValueToCompare: null,
         ) {}
 }
 
 /* Value is not valid */
+class NotEqualToDateTime_ValueIsNull_Stub extends _NotEqualToDateTimeStub {
+  NotEqualToDateTime_ValueIsNull_Stub()
+      : super(
+          value: null,
+          localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
+        ) {}
+}
+
+class NotEqualToDateTime_ValueToCompareIsNull_Stub
+    extends _NotEqualToDateTimeStub {
+  NotEqualToDateTime_ValueToCompareIsNull_Stub()
+      : super(
+          value: new DateTime(2021, 1, 1),
+          localValueToCompare: null,
+        ) {}
+}
+
 class NotEqualToDateTime_ValueEqualsValueToCompare_Stub
     extends _NotEqualToDateTimeStub {
   NotEqualToDateTime_ValueEqualsValueToCompare_Stub()
       : super(
-          fcValue: new DateTime(2021, 1, 1),
-          validatorValueToCompare:
-              const ConstantDateTime('2021-01-01T00:00:00'),
+          value: new DateTime(2021, 1, 1),
+          localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
         ) {}
 }
 
@@ -75,16 +102,10 @@ class NotEqualToDateTime_remoteValueToCompareIsProvided_Stub
     extends _NotEqualToDateTimeStub {
   NotEqualToDateTime_remoteValueToCompareIsProvided_Stub()
       : super(
-          fcValue: new DateTime(2021, 1, 2),
-          fcValueToCompare: new DateTime(2021, 1, 2),
-          validatorValueToCompare:
-              const ConstantDateTime('2021-01-01T00:00:00'),
+          value: new DateTime(2021, 1, 2),
+          remoteValueToCompare: new DateTime(2021, 1, 2),
+          localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
         ) {}
 }
 
 /* Exceptions on parameters */
-class NotEqualToDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
-    extends _NotEqualToDateTimeStub {
-  NotEqualToDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
-      : super(fcValue: new DateTime(2021, 1, 2)) {}
-}

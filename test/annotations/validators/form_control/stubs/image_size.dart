@@ -12,10 +12,10 @@ class _ImageSizeStub extends ValidatorStub<FormControl<Uint8List>, ImageSize> {
     int remoteMaxWidth,
     int remoteMinHeight,
     int remoteMaxHeight,
-    String remoteMinWidthName = 'minWidth',
-    String remoteMaxWidthName = 'maxWidth',
-    String remoteMinHeightName = 'minHeight',
-    String remoteMaxHeightName = 'maxHeight',
+    String remoteMinWidthName,
+    String remoteMaxWidthName,
+    String remoteMinHeightName,
+    String remoteMaxHeightName,
     int localeMinWidth,
     int localeMaxWidth,
     int localeMinHeight,
@@ -41,16 +41,18 @@ class _ImageSizeStub extends ValidatorStub<FormControl<Uint8List>, ImageSize> {
       value: remoteMaxHeight,
       validators: [],
     );
+
+    Map<String, AbstractControl> controls = {'value': _value};
+    if (remoteMinWidthName != null) controls[remoteMinWidthName] = _minWidth;
+    if (remoteMaxWidthName != null) controls[remoteMaxWidthName] = _maxWidth;
+    if (remoteMinHeightName != null) controls[remoteMinHeightName] = _minHeight;
+    if (remoteMaxHeightName != null) controls[remoteMaxHeightName] = _maxHeight;
+
     FormGroup _root = new FormGroup(
-      controls: {
-        'value': _value,
-        'minWidth': _minWidth,
-        'maxWidth': _maxWidth,
-        'minHeight': _minHeight,
-        'maxHeight': _maxHeight,
-      },
+      controls: controls,
       validators: [],
     );
+
     _value.parentGroup = _root;
     _minWidth.parentGroup = _root;
     _maxWidth.parentGroup = _root;
@@ -123,14 +125,18 @@ class ImageSize_remoteWidthAndHeightAreProvided_Stub extends _ImageSizeStub {
   ImageSize_remoteWidthAndHeightAreProvided_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
-          localeMinWidth: 800,
-          localeMaxWidth: 900,
-          localeMinHeight: 500,
-          localeMaxHeight: 600,
           remoteMinWidth: 100,
           remoteMaxWidth: 100,
           remoteMinHeight: 100,
           remoteMaxHeight: 100,
+          remoteMinWidthName: 'minWidth',
+          remoteMaxWidthName: 'maxWidth',
+          remoteMinHeightName: 'minHeight',
+          remoteMaxHeightName: 'maxHeight',
+          localeMinWidth: 800,
+          localeMaxWidth: 900,
+          localeMinHeight: 500,
+          localeMaxHeight: 600,
         );
 }
 
@@ -140,14 +146,14 @@ class ImageSize_ThrowsValidatorParameterExceptionOnNullMinWidth_Stub
   ImageSize_ThrowsValidatorParameterExceptionOnNullMinWidth_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
-          localeMinWidth: null,
-          localeMaxWidth: 900,
-          localeMinHeight: 500,
-          localeMaxHeight: 600,
           remoteMinWidth: null,
           remoteMaxWidth: 100,
           remoteMinHeight: 100,
           remoteMaxHeight: 100,
+          localeMinWidth: null,
+          localeMaxWidth: 900,
+          localeMinHeight: 500,
+          localeMaxHeight: 600,
         );
 }
 
@@ -156,14 +162,14 @@ class ImageSize_ThrowsValidatorParameterExceptionOnNullMaxWidth_Stub
   ImageSize_ThrowsValidatorParameterExceptionOnNullMaxWidth_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
-          localeMinWidth: 800,
-          localeMaxWidth: null,
-          localeMinHeight: 500,
-          localeMaxHeight: 600,
           remoteMinWidth: 100,
           remoteMaxWidth: null,
           remoteMinHeight: 100,
           remoteMaxHeight: 100,
+          localeMinWidth: 800,
+          localeMaxWidth: null,
+          localeMinHeight: 500,
+          localeMaxHeight: 600,
         );
 }
 
@@ -172,14 +178,14 @@ class ImageSize_ThrowsValidatorParameterExceptionOnNullMinHeight_Stub
   ImageSize_ThrowsValidatorParameterExceptionOnNullMinHeight_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
-          localeMinWidth: 800,
-          localeMaxWidth: 900,
-          localeMinHeight: null,
-          localeMaxHeight: 600,
           remoteMinWidth: 100,
           remoteMaxWidth: 100,
           remoteMinHeight: null,
           remoteMaxHeight: 100,
+          localeMinWidth: 800,
+          localeMaxWidth: 900,
+          localeMinHeight: null,
+          localeMaxHeight: 600,
         );
 }
 
@@ -188,14 +194,14 @@ class ImageSize_ThrowsValidatorParameterExceptionOnNullMaxHeight_Stub
   ImageSize_ThrowsValidatorParameterExceptionOnNullMaxHeight_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
-          localeMinWidth: 800,
-          localeMaxWidth: 900,
-          localeMinHeight: 500,
-          localeMaxHeight: null,
           remoteMinWidth: 100,
           remoteMaxWidth: 100,
           remoteMinHeight: 100,
           remoteMaxHeight: null,
+          localeMinWidth: 800,
+          localeMaxWidth: 900,
+          localeMinHeight: 500,
+          localeMaxHeight: null,
         );
 }
 

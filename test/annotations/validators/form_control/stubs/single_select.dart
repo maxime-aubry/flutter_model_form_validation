@@ -6,7 +6,7 @@ import '../../stubs.dart';
 class _SingleSelectStub
     extends ValidatorStub<FormControl<EGender>, SingleSelect> {
   _SingleSelectStub({
-    EGender fcValue,
+    EGender value,
     List<SelectListItem<EGender>> items,
   }) {
     ListItemsProvider.clear();
@@ -15,12 +15,12 @@ class _SingleSelectStub
       ListItemsProvider.register<EGender>('getItems', () async => items);
 
     super.control = new FormControl<EGender>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     super.validator = SingleSelect(
       serviceName: 'getItems',
-      error: 'invalid items',
+      error: null,
     );
   }
 }
@@ -29,7 +29,7 @@ class _SingleSelectStub
 class SingleSelect_ItemIsIntoListOfItems_Stub extends _SingleSelectStub {
   SingleSelect_ItemIsIntoListOfItems_Stub()
       : super(
-          fcValue: EGender.male,
+          value: EGender.male,
           items: [
             new SelectListItem<EGender>(EGender.male, 'male'),
             new SelectListItem<EGender>(EGender.female, 'female'),
@@ -40,7 +40,7 @@ class SingleSelect_ItemIsIntoListOfItems_Stub extends _SingleSelectStub {
 class SingleSelect_ValueIsNull_Stub extends _SingleSelectStub {
   SingleSelect_ValueIsNull_Stub()
       : super(
-          fcValue: null,
+          value: null,
           items: [
             new SelectListItem<EGender>(EGender.male, 'male'),
             new SelectListItem<EGender>(EGender.female, 'female'),
@@ -52,7 +52,7 @@ class SingleSelect_AddItemsToServiceAfterInitialization_Stub
     extends _SingleSelectStub {
   SingleSelect_AddItemsToServiceAfterInitialization_Stub()
       : super(
-          fcValue: EGender.other,
+          value: EGender.other,
           items: [
             new SelectListItem<EGender>(EGender.male, 'male'),
             new SelectListItem<EGender>(EGender.female, 'female'),
@@ -64,7 +64,7 @@ class SingleSelect_AddItemsToServiceAfterInitialization_Stub
 class SingleSelect_ItemIsNotIntoListOfItems_Stub extends _SingleSelectStub {
   SingleSelect_ItemIsNotIntoListOfItems_Stub()
       : super(
-          fcValue: EGender.other,
+          value: EGender.other,
           items: [
             new SelectListItem<EGender>(EGender.male, 'male'),
             new SelectListItem<EGender>(EGender.female, 'female'),

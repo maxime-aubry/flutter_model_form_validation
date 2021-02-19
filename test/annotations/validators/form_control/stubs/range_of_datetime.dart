@@ -7,43 +7,47 @@ import '../../stubs.dart';
 class _RangeOfDateTimeStub
     extends ValidatorStub<FormControl<DateTime>, RangeOfDateTime> {
   _RangeOfDateTimeStub({
-    DateTime fcValue,
-    DateTime fcMin,
-    DateTime fcMax,
-    ConstantDateTime validatorMin,
-    ConstantDateTime validatorMax,
+    DateTime value,
+    DateTime remoteMin,
+    DateTime remoteMax,
+    String remoteMinName,
+    String remoteMaxName,
+    ConstantDateTime localMin,
+    ConstantDateTime localMax,
   }) {
     FormControl<DateTime> _value = new FormControl<DateTime>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     FormControl<DateTime> _min = new FormControl<DateTime>(
-      value: fcMin,
+      value: remoteMin,
       validators: [],
     );
     FormControl<DateTime> _max = new FormControl<DateTime>(
-      value: fcMax,
+      value: remoteMax,
       validators: [],
     );
+
+    Map<String, AbstractControl> controls = {'value': _value};
+    if (remoteMinName != null) controls[remoteMinName] = _min;
+    if (remoteMaxName != null) controls[remoteMaxName] = _max;
+
     FormGroup _root = new FormGroup(
-      controls: {
-        'value': _value,
-        'min': _min,
-        'max': _max,
-      },
+      controls: controls,
       validators: [],
     );
+
     _value.parentGroup = _root;
     _min.parentGroup = _root;
     _max.parentGroup = _root;
 
     super.control = _value;
     super.validator = RangeOfDateTime(
-      min: validatorMin,
-      max: validatorMax,
-      remoteMin: (fcMin != null) ? 'min' : null,
-      remoteMax: (fcMax != null) ? 'max' : null,
-      error: 'invalid date',
+      min: localMin,
+      max: localMax,
+      remoteMin: remoteMinName,
+      remoteMax: remoteMaxName,
+      error: null,
     );
   }
 }
@@ -52,18 +56,18 @@ class _RangeOfDateTimeStub
 class RangeOfDateTime_ValueIsEqualToMin_Stub extends _RangeOfDateTimeStub {
   RangeOfDateTime_ValueIsEqualToMin_Stub()
       : super(
-          fcValue: new DateTime(2021, 1, 1),
-          validatorMin: const ConstantDateTime('2021-01-01T00:00:00'),
-          validatorMax: const ConstantDateTime('2021-12-31T00:00:00'),
+          value: new DateTime(2021, 1, 1),
+          localMin: const ConstantDateTime('2021-01-01T00:00:00'),
+          localMax: const ConstantDateTime('2021-12-31T00:00:00'),
         );
 }
 
 class RangeOfDateTime_ValueIsEqualToMax_Stub extends _RangeOfDateTimeStub {
   RangeOfDateTime_ValueIsEqualToMax_Stub()
       : super(
-          fcValue: new DateTime(2021, 12, 31),
-          validatorMin: const ConstantDateTime('2021-01-01T00:00:00'),
-          validatorMax: const ConstantDateTime('2021-12-31T00:00:00'),
+          value: new DateTime(2021, 12, 31),
+          localMin: const ConstantDateTime('2021-01-01T00:00:00'),
+          localMax: const ConstantDateTime('2021-12-31T00:00:00'),
         );
 }
 
@@ -71,18 +75,18 @@ class RangeOfDateTime_ValueIsBetweenMinAndMax_Stub
     extends _RangeOfDateTimeStub {
   RangeOfDateTime_ValueIsBetweenMinAndMax_Stub()
       : super(
-          fcValue: new DateTime(2021, 6, 1),
-          validatorMin: const ConstantDateTime('2021-01-01T00:00:00'),
-          validatorMax: const ConstantDateTime('2021-12-31T00:00:00'),
+          value: new DateTime(2021, 6, 1),
+          localMin: const ConstantDateTime('2021-01-01T00:00:00'),
+          localMax: const ConstantDateTime('2021-12-31T00:00:00'),
         );
 }
 
 class RangeOfDateTime_ValueIsNull_Stub extends _RangeOfDateTimeStub {
   RangeOfDateTime_ValueIsNull_Stub()
       : super(
-          fcValue: null,
-          validatorMin: const ConstantDateTime('2021-01-01T00:00:00'),
-          validatorMax: const ConstantDateTime('2021-12-31T00:00:00'),
+          value: null,
+          localMin: const ConstantDateTime('2021-01-01T00:00:00'),
+          localMax: const ConstantDateTime('2021-12-31T00:00:00'),
         );
 }
 
@@ -90,18 +94,18 @@ class RangeOfDateTime_ValueIsNull_Stub extends _RangeOfDateTimeStub {
 class RangeOfDateTime_ValueIsSmallerThanMin_Stub extends _RangeOfDateTimeStub {
   RangeOfDateTime_ValueIsSmallerThanMin_Stub()
       : super(
-          fcValue: new DateTime(2020, 12, 31),
-          validatorMin: const ConstantDateTime('2021-01-01T00:00:00'),
-          validatorMax: const ConstantDateTime('2021-12-31T00:00:00'),
+          value: new DateTime(2020, 12, 31),
+          localMin: const ConstantDateTime('2021-01-01T00:00:00'),
+          localMax: const ConstantDateTime('2021-12-31T00:00:00'),
         );
 }
 
 class RangeOfDateTime_ValueIsGreaterThanMax_Stub extends _RangeOfDateTimeStub {
   RangeOfDateTime_ValueIsGreaterThanMax_Stub()
       : super(
-          fcValue: new DateTime(2022, 1, 1),
-          validatorMin: const ConstantDateTime('2021-01-01T00:00:00'),
-          validatorMax: const ConstantDateTime('2021-12-31T00:00:00'),
+          value: new DateTime(2022, 1, 1),
+          localMin: const ConstantDateTime('2021-01-01T00:00:00'),
+          localMax: const ConstantDateTime('2021-12-31T00:00:00'),
         );
 }
 
@@ -109,20 +113,20 @@ class RangeOfDateTime_ValueIsGreaterThanMax_Stub extends _RangeOfDateTimeStub {
 class RangeOfDateTime_remoteMinIsProvided_Stub extends _RangeOfDateTimeStub {
   RangeOfDateTime_remoteMinIsProvided_Stub()
       : super(
-          fcValue: new DateTime(2020, 6, 1),
-          fcMin: new DateTime(2020, 1, 1),
-          validatorMin: const ConstantDateTime('2021-01-01T00:00:00'),
-          validatorMax: const ConstantDateTime('2021-12-31T00:00:00'),
+          value: new DateTime(2020, 6, 1),
+          remoteMin: new DateTime(2020, 1, 1),
+          localMin: const ConstantDateTime('2021-01-01T00:00:00'),
+          localMax: const ConstantDateTime('2021-12-31T00:00:00'),
         );
 }
 
 class RangeOfDateTime_remoteMaxIsProvided_Stub extends _RangeOfDateTimeStub {
   RangeOfDateTime_remoteMaxIsProvided_Stub()
       : super(
-          fcValue: new DateTime(2022, 6, 1),
-          fcMax: new DateTime(2022, 12, 31),
-          validatorMin: const ConstantDateTime('2021-01-01T00:00:00'),
-          validatorMax: const ConstantDateTime('2021-12-31T00:00:00'),
+          value: new DateTime(2022, 6, 1),
+          remoteMax: new DateTime(2022, 12, 31),
+          localMin: const ConstantDateTime('2021-01-01T00:00:00'),
+          localMax: const ConstantDateTime('2021-12-31T00:00:00'),
         );
 }
 
@@ -131,8 +135,8 @@ class RangeOfDateTime_ThrowsValidatorParameterExceptionOnNullMin_Stub
     extends _RangeOfDateTimeStub {
   RangeOfDateTime_ThrowsValidatorParameterExceptionOnNullMin_Stub()
       : super(
-          fcValue: new DateTime(2021, 1, 1),
-          validatorMin: const ConstantDateTime('2021-01-01T00:00:00'),
+          value: new DateTime(2021, 1, 1),
+          localMin: const ConstantDateTime('2021-01-01T00:00:00'),
         );
 }
 
@@ -140,7 +144,7 @@ class RangeOfDateTime_ThrowsValidatorParameterExceptionOnNullMax_Stub
     extends _RangeOfDateTimeStub {
   RangeOfDateTime_ThrowsValidatorParameterExceptionOnNullMax_Stub()
       : super(
-          fcValue: new DateTime(2021, 1, 1),
-          validatorMax: const ConstantDateTime('2021-12-31T00:00:00'),
+          value: new DateTime(2021, 1, 1),
+          localMax: const ConstantDateTime('2021-12-31T00:00:00'),
         );
 }

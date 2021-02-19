@@ -6,43 +6,47 @@ import '../../stubs.dart';
 class _RangeOfNumberStub
     extends ValidatorStub<FormControl<num>, RangeOfNumber> {
   _RangeOfNumberStub({
-    num fcValue,
-    num fcMin,
-    num fcMax,
-    num validatorMin,
-    num validatorMax,
+    num value,
+    num remoteMin,
+    num remoteMax,
+    String remoteMinName,
+    String remoteMaxName,
+    num localMin,
+    num localMax,
   }) {
     FormControl<num> _value = new FormControl<num>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     FormControl<num> _min = new FormControl<num>(
-      value: fcMin,
+      value: remoteMin,
       validators: [],
     );
     FormControl<num> _max = new FormControl<num>(
-      value: fcMax,
+      value: remoteMax,
       validators: [],
     );
+
+    Map<String, AbstractControl> controls = {'value': _value};
+    if (remoteMinName != null) controls[remoteMinName] = _min;
+    if (remoteMaxName != null) controls[remoteMaxName] = _max;
+
     FormGroup _root = new FormGroup(
-      controls: {
-        'value': _value,
-        'min': _min,
-        'max': _max,
-      },
+      controls: controls,
       validators: [],
     );
+
     _value.parentGroup = _root;
     _min.parentGroup = _root;
     _max.parentGroup = _root;
 
     super.control = _value;
     super.validator = RangeOfNumber(
-      min: validatorMin,
-      max: validatorMax,
-      remoteMin: (fcMin != null) ? 'min' : null,
-      remoteMax: (fcMax != null) ? 'max' : null,
-      error: 'invalid date',
+      min: localMin,
+      max: localMax,
+      remoteMin: remoteMinName,
+      remoteMax: remoteMaxName,
+      error: null,
     );
   }
 }
@@ -51,36 +55,36 @@ class _RangeOfNumberStub
 class RangeOfNumber_ValueIsEqualToMin_Stub extends _RangeOfNumberStub {
   RangeOfNumber_ValueIsEqualToMin_Stub()
       : super(
-          fcValue: 1,
-          validatorMin: 1,
-          validatorMax: 10,
+          value: 1,
+          localMin: 1,
+          localMax: 10,
         );
 }
 
 class RangeOfNumber_ValueIsEqualToMax_Stub extends _RangeOfNumberStub {
   RangeOfNumber_ValueIsEqualToMax_Stub()
       : super(
-          fcValue: 10,
-          validatorMin: 1,
-          validatorMax: 10,
+          value: 10,
+          localMin: 1,
+          localMax: 10,
         );
 }
 
 class RangeOfNumber_ValueIsBetweenMinAndMax_Stub extends _RangeOfNumberStub {
   RangeOfNumber_ValueIsBetweenMinAndMax_Stub()
       : super(
-          fcValue: 5,
-          validatorMin: 1,
-          validatorMax: 10,
+          value: 5,
+          localMin: 1,
+          localMax: 10,
         );
 }
 
 class RangeOfNumber_ValueIsNull_Stub extends _RangeOfNumberStub {
   RangeOfNumber_ValueIsNull_Stub()
       : super(
-          fcValue: null,
-          validatorMin: 1,
-          validatorMax: 10,
+          value: null,
+          localMin: 1,
+          localMax: 10,
         );
 }
 
@@ -88,18 +92,18 @@ class RangeOfNumber_ValueIsNull_Stub extends _RangeOfNumberStub {
 class RangeOfNumber_ValueIsSmallerThanMin_Stub extends _RangeOfNumberStub {
   RangeOfNumber_ValueIsSmallerThanMin_Stub()
       : super(
-          fcValue: -1,
-          validatorMin: 1,
-          validatorMax: 10,
+          value: -1,
+          localMin: 1,
+          localMax: 10,
         );
 }
 
 class RangeOfNumber_ValueIsGreaterThanMax_Stub extends _RangeOfNumberStub {
   RangeOfNumber_ValueIsGreaterThanMax_Stub()
       : super(
-          fcValue: 11,
-          validatorMin: 1,
-          validatorMax: 10,
+          value: 11,
+          localMin: 1,
+          localMax: 10,
         );
 }
 
@@ -107,20 +111,20 @@ class RangeOfNumber_ValueIsGreaterThanMax_Stub extends _RangeOfNumberStub {
 class RangeOfNumber_remoteMinIsProvided_Stub extends _RangeOfNumberStub {
   RangeOfNumber_remoteMinIsProvided_Stub()
       : super(
-          fcValue: -5,
-          fcMin: -5,
-          validatorMin: 1,
-          validatorMax: 10,
+          value: -5,
+          remoteMin: -5,
+          localMin: 1,
+          localMax: 10,
         );
 }
 
 class RangeOfNumber_remoteMaxIsProvided_Stub extends _RangeOfNumberStub {
   RangeOfNumber_remoteMaxIsProvided_Stub()
       : super(
-          fcValue: 15,
-          fcMax: 15,
-          validatorMin: 1,
-          validatorMax: 10,
+          value: 15,
+          remoteMax: 15,
+          localMin: 1,
+          localMax: 10,
         );
 }
 
@@ -129,8 +133,8 @@ class RangeOfNumber_ThrowsValidatorParameterExceptionOnNullMin_Stub
     extends _RangeOfNumberStub {
   RangeOfNumber_ThrowsValidatorParameterExceptionOnNullMin_Stub()
       : super(
-          fcValue: 1,
-          validatorMin: 1,
+          value: 1,
+          localMin: 1,
         );
 }
 
@@ -138,7 +142,7 @@ class RangeOfNumber_ThrowsValidatorParameterExceptionOnNullMax_Stub
     extends _RangeOfNumberStub {
   RangeOfNumber_ThrowsValidatorParameterExceptionOnNullMax_Stub()
       : super(
-          fcValue: 1,
-          validatorMax: 10,
+          value: 1,
+          localMax: 10,
         );
 }

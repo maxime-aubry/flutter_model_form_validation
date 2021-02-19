@@ -6,34 +6,37 @@ import '../../stubs.dart';
 class _SmallerThanIntStub
     extends ValidatorStub<FormControl<int>, SmallerThanInt> {
   _SmallerThanIntStub({
-    int fcValue,
-    int fcValueToCompare,
-    int validatorValueToCompare,
+    int value,
+    int remoteValueToCompare,
+    String remoteValueToCompareName,
+    int localValueToCompare,
   }) {
     FormControl<int> _value = new FormControl<int>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     FormControl<int> _valueToCompare = new FormControl<int>(
-      value: fcValueToCompare,
+      value: remoteValueToCompare,
       validators: [],
     );
+
+    Map<String, AbstractControl> controls = {'value': _value};
+    if (remoteValueToCompareName != null)
+      controls[remoteValueToCompareName] = _valueToCompare;
+
     FormGroup _root = new FormGroup(
-      controls: {
-        'value': _value,
-        'valueToCompare': _valueToCompare,
-      },
+      controls: controls,
       validators: [],
     );
+
     _value.parentGroup = _root;
     _valueToCompare.parentGroup = _root;
 
     super.control = _value;
     super.validator = SmallerThanInt(
-      valueToCompare: validatorValueToCompare,
-      remoteValueToCompare:
-          (fcValueToCompare != null) ? 'valueToCompare' : null,
-      error: 'invalid date',
+      valueToCompare: localValueToCompare,
+      remoteValueToCompare: remoteValueToCompareName,
+      error: null,
     );
   }
 }
@@ -43,16 +46,16 @@ class SmallerThanInt_ValueIsSmallerThanValueToCompare_Stub
     extends _SmallerThanIntStub {
   SmallerThanInt_ValueIsSmallerThanValueToCompare_Stub()
       : super(
-          fcValue: 0,
-          validatorValueToCompare: 1,
+          value: 0,
+          localValueToCompare: 1,
         ) {}
 }
 
 class SmallerThanInt_ValueIsNull_Stub extends _SmallerThanIntStub {
   SmallerThanInt_ValueIsNull_Stub()
       : super(
-          fcValue: null,
-          validatorValueToCompare: 0,
+          value: null,
+          localValueToCompare: 0,
         ) {}
 }
 
@@ -61,8 +64,8 @@ class SmallerThanInt_ValueIsGreaterThanValueToCompare_Stub
     extends _SmallerThanIntStub {
   SmallerThanInt_ValueIsGreaterThanValueToCompare_Stub()
       : super(
-          fcValue: 1,
-          validatorValueToCompare: 0,
+          value: 1,
+          localValueToCompare: 0,
         ) {}
 }
 
@@ -71,9 +74,9 @@ class SmallerThanInt_remoteValueToCompareIsProvided_Stub
     extends _SmallerThanIntStub {
   SmallerThanInt_remoteValueToCompareIsProvided_Stub()
       : super(
-          fcValue: 0,
-          fcValueToCompare: 0,
-          validatorValueToCompare: 1,
+          value: 0,
+          remoteValueToCompare: 0,
+          localValueToCompare: 1,
         ) {}
 }
 
@@ -81,5 +84,5 @@ class SmallerThanInt_remoteValueToCompareIsProvided_Stub
 class SmallerThanInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _SmallerThanIntStub {
   SmallerThanInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
-      : super(fcValue: 1) {}
+      : super(value: 1) {}
 }

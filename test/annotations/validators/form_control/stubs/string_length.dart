@@ -6,71 +6,117 @@ import '../../stubs.dart';
 class _StringLengthStub
     extends ValidatorStub<FormControl<String>, StringLength> {
   _StringLengthStub({
-    String fcValue,
-    String validatorExpression,
+    String value,
+    int localMin,
+    int localMax,
   }) {
     FormControl<String> _value = new FormControl<String>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
+
     FormGroup _root = new FormGroup(
       controls: {
         'value': _value,
       },
       validators: [],
     );
+
     _value.parentGroup = _root;
 
     super.control = _value;
     super.validator = StringLength(
-      min: 0,
-      max: 0,
-      error: 'invalid string length',
+      min: localMin,
+      max: localMax,
+      error: null,
     );
   }
 }
 
 /* Value is valid */
-class StringLength_ValueMatchesToRegexp_Stub extends _StringLengthStub {
-  StringLength_ValueMatchesToRegexp_Stub()
+class StringLength_ValueLengthIsEqualToMin_Stub extends _StringLengthStub {
+  StringLength_ValueLengthIsEqualToMin_Stub()
       : super(
-          fcValue: 'Hello',
-          validatorExpression: r'^Hello|Bye$',
+          value: 'H',
+          localMin: 1,
+          localMax: 6,
+        );
+}
+
+class StringLength_ValueLengthIsEqualToMax_Stub extends _StringLengthStub {
+  StringLength_ValueLengthIsEqualToMax_Stub()
+      : super(
+          value: 'Hello!',
+          localMin: 1,
+          localMax: 6,
+        );
+}
+
+class StringLength_ValueLengthIsBetweenMinAndMax_Stub
+    extends _StringLengthStub {
+  StringLength_ValueLengthIsBetweenMinAndMax_Stub()
+      : super(
+          value: 'Hi!',
+          localMin: 1,
+          localMax: 5,
         );
 }
 
 class StringLength_ValueIsNull_Stub extends _StringLengthStub {
   StringLength_ValueIsNull_Stub()
       : super(
-          fcValue: null,
-          validatorExpression: r'^Hello|Bye$',
-        );
-}
-
-class StringLength_ValueIsEmpty_Stub extends _StringLengthStub {
-  StringLength_ValueIsEmpty_Stub()
-      : super(
-          fcValue: '',
-          validatorExpression: r'^Hello|Bye$',
+          value: null,
+          localMin: 1,
+          localMax: 5,
         );
 }
 
 /* Value is not valid */
-class StringLength_ValueDoesNotMatchToRegexp_Stub extends _StringLengthStub {
-  StringLength_ValueDoesNotMatchToRegexp_Stub()
+class StringLength_ValueLengthIsSmallerThanMin_Stub extends _StringLengthStub {
+  StringLength_ValueLengthIsSmallerThanMin_Stub()
       : super(
-          fcValue: 'Hello world!',
-          validatorExpression: r'^Hello|Bye$',
+          value: 'H',
+          localMin: 2,
+          localMax: 6,
+        );
+}
+
+class StringLength_ValueLengthIsGreaterThanMax_Stub extends _StringLengthStub {
+  StringLength_ValueLengthIsGreaterThanMax_Stub()
+      : super(
+          value: 'Hello!',
+          localMin: 1,
+          localMax: 5,
         );
 }
 
 /* Remote parameters are provided */
 
 /* Exceptions on parameters */
-class StringLength_ThrowsValidatorParameterExceptionOnNullExpression_Stub
+class StringLength_ThrowsValidatorParameterExceptionOnNullMin_Stub
     extends _StringLengthStub {
-  StringLength_ThrowsValidatorParameterExceptionOnNullExpression_Stub()
+  StringLength_ThrowsValidatorParameterExceptionOnNullMin_Stub()
       : super(
-          fcValue: 'Hello',
-        );
+          value: 'a',
+          localMax: 3,
+        ) {}
+}
+
+class StringLength_ThrowsValidatorParameterExceptionOnNullMax_Stub
+    extends _StringLengthStub {
+  StringLength_ThrowsValidatorParameterExceptionOnNullMax_Stub()
+      : super(
+          value: 'a',
+          localMin: 1,
+        ) {}
+}
+
+class StringLength_ThrowsValidatorParameterExceptionOnMinGreaterThanMax_Stub
+    extends _StringLengthStub {
+  StringLength_ThrowsValidatorParameterExceptionOnMinGreaterThanMax_Stub()
+      : super(
+          value: 'a',
+          localMin: 3,
+          localMax: 1,
+        ) {}
 }

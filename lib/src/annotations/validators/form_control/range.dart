@@ -45,13 +45,13 @@ class Range<TProperty extends Comparable>
 
   void _validateParameters() {
     if (min == null)
-      throw new ValidatorParameterException('Min is not defined.');
+      throw new ValidatorParameterException('min is not defined.');
 
     if (max == null)
-      throw new ValidatorParameterException('Max is not defined.');
+      throw new ValidatorParameterException('max is not defined.');
 
     if (min.compareTo(max) > 0)
-      throw new ValidationException('Min value is greater than max value.');
+      throw new ValidationException('min value is greater than max value.');
   }
 
   bool _validate(

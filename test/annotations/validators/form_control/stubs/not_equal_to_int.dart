@@ -6,62 +6,91 @@ import '../../stubs.dart';
 class _NotEqualToIntStub
     extends ValidatorStub<FormControl<int>, NotEqualToInt> {
   _NotEqualToIntStub({
-    int fcValue,
-    int fcValueToCompare,
-    int validatorValueToCompare,
+    int value,
+    int remoteValueToCompare,
+    String remoteValueToCompareName = 'valueToCompare',
+    int localValueToCompare,
   }) {
     FormControl<int> _value = new FormControl<int>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     FormControl<int> _valueToCompare = new FormControl<int>(
-      value: fcValueToCompare,
+      value: remoteValueToCompare,
       validators: [],
     );
+
+    Map<String, AbstractControl> controls = {'value': _value};
+    if (remoteValueToCompareName != null)
+      controls[remoteValueToCompareName] = _valueToCompare;
+
     FormGroup _root = new FormGroup(
-      controls: {
-        'value': _value,
-        'valueToCompare': _valueToCompare,
-      },
+      controls: controls,
       validators: [],
     );
+
     _value.parentGroup = _root;
     _valueToCompare.parentGroup = _root;
 
     super.control = _value;
     super.validator = NotEqualToInt(
-      valueToCompare: validatorValueToCompare,
-      remoteValueToCompare:
-          (fcValueToCompare != null) ? 'valueToCompare' : null,
-      error: 'invalid date',
+      valueToCompare: localValueToCompare,
+      remoteValueToCompare: remoteValueToCompareName,
+      error: null,
     );
   }
 }
 
 /* Value is valid */
-class NotEqualToInt_ValueDoesNotEqualValueToCompare_Stub
+class NotEqualToInt_ValueIsSmallerThanValueToCompare_Stub
     extends _NotEqualToIntStub {
-  NotEqualToInt_ValueDoesNotEqualValueToCompare_Stub()
+  NotEqualToInt_ValueIsSmallerThanValueToCompare_Stub()
       : super(
-          fcValue: 1,
-          validatorValueToCompare: 0,
+          value: 0,
+          localValueToCompare: 1,
         ) {}
 }
 
-class NotEqualToInt_ValueIsNull_Stub extends _NotEqualToIntStub {
-  NotEqualToInt_ValueIsNull_Stub()
+class NotEqualToInt_ValueIsGreaterThanValueToCompare_Stub
+    extends _NotEqualToIntStub {
+  NotEqualToInt_ValueIsGreaterThanValueToCompare_Stub()
       : super(
-          fcValue: null,
-          validatorValueToCompare: 0,
+          value: 1,
+          localValueToCompare: 0,
+        ) {}
+}
+
+class NotEqualToInt_ValueAndValueToCompareAreNull_Stub
+    extends _NotEqualToIntStub {
+  NotEqualToInt_ValueAndValueToCompareAreNull_Stub()
+      : super(
+          value: null,
+          localValueToCompare: null,
         ) {}
 }
 
 /* Value is not valid */
+class NotEqualToInt_ValueIsNull_Stub extends _NotEqualToIntStub {
+  NotEqualToInt_ValueIsNull_Stub()
+      : super(
+          value: null,
+          localValueToCompare: 0,
+        ) {}
+}
+
+class NotEqualToInt_ValueToCompareIsNull_Stub extends _NotEqualToIntStub {
+  NotEqualToInt_ValueToCompareIsNull_Stub()
+      : super(
+          value: 0,
+          localValueToCompare: null,
+        ) {}
+}
+
 class NotEqualToInt_ValueEqualsValueToCompare_Stub extends _NotEqualToIntStub {
   NotEqualToInt_ValueEqualsValueToCompare_Stub()
       : super(
-          fcValue: 0,
-          validatorValueToCompare: 0,
+          value: 0,
+          localValueToCompare: 0,
         ) {}
 }
 
@@ -70,15 +99,10 @@ class NotEqualToInt_remoteValueToCompareIsProvided_Stub
     extends _NotEqualToIntStub {
   NotEqualToInt_remoteValueToCompareIsProvided_Stub()
       : super(
-          fcValue: 1,
-          fcValueToCompare: 1,
-          validatorValueToCompare: 0,
+          value: 1,
+          remoteValueToCompare: 1,
+          localValueToCompare: 0,
         ) {}
 }
 
 /* Exceptions on parameters */
-class NotEqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
-    extends _NotEqualToIntStub {
-  NotEqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
-      : super(fcValue: 0) {}
-}

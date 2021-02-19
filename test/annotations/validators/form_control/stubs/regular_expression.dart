@@ -6,11 +6,11 @@ import '../../stubs.dart';
 class _RegularExpressionStub
     extends ValidatorStub<FormControl<String>, RegularExpression> {
   _RegularExpressionStub({
-    String fcValue,
-    String validatorExpression,
+    String value,
+    String localExpression,
   }) {
     FormControl<String> _value = new FormControl<String>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     FormGroup _root = new FormGroup(
@@ -23,8 +23,8 @@ class _RegularExpressionStub
 
     super.control = _value;
     super.validator = RegularExpression(
-      expression: validatorExpression,
-      error: 'invalid expression',
+      expression: localExpression,
+      error: null,
     );
   }
 }
@@ -34,24 +34,24 @@ class RegularExpression_ValueMatchesToRegexp_Stub
     extends _RegularExpressionStub {
   RegularExpression_ValueMatchesToRegexp_Stub()
       : super(
-          fcValue: 'Hello',
-          validatorExpression: r'^Hello|Bye$',
+          value: 'Hello',
+          localExpression: r'^Hello|Bye$',
         );
 }
 
 class RegularExpression_ValueIsNull_Stub extends _RegularExpressionStub {
   RegularExpression_ValueIsNull_Stub()
       : super(
-          fcValue: null,
-          validatorExpression: r'^Hello|Bye$',
+          value: null,
+          localExpression: r'^Hello|Bye$',
         );
 }
 
 class RegularExpression_ValueIsEmpty_Stub extends _RegularExpressionStub {
   RegularExpression_ValueIsEmpty_Stub()
       : super(
-          fcValue: '',
-          validatorExpression: r'^Hello|Bye$',
+          value: '',
+          localExpression: r'^Hello|Bye$',
         );
 }
 
@@ -60,8 +60,8 @@ class RegularExpression_ValueDoesNotMatchToRegexp_Stub
     extends _RegularExpressionStub {
   RegularExpression_ValueDoesNotMatchToRegexp_Stub()
       : super(
-          fcValue: 'Hello world!',
-          validatorExpression: r'^Hello|Bye$',
+          value: 'Hello world!',
+          localExpression: r'^Hello|Bye$',
         );
 }
 
@@ -72,6 +72,6 @@ class RegularExpression_ThrowsValidatorParameterExceptionOnNullExpression_Stub
     extends _RegularExpressionStub {
   RegularExpression_ThrowsValidatorParameterExceptionOnNullExpression_Stub()
       : super(
-          fcValue: 'Hello',
+          value: 'Hello',
         );
 }

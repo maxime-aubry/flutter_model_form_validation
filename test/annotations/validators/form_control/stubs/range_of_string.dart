@@ -6,43 +6,47 @@ import '../../stubs.dart';
 class _RangeOfStringStub
     extends ValidatorStub<FormControl<String>, RangeOfString> {
   _RangeOfStringStub({
-    String fcValue,
-    String fcMin,
-    String fcMax,
-    String validatorMin,
-    String validatorMax,
+    String value,
+    String remoteMin,
+    String remoteMax,
+    String remoteMinName,
+    String remoteMaxName,
+    String localMin,
+    String localMax,
   }) {
     FormControl<String> _value = new FormControl<String>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     FormControl<String> _min = new FormControl<String>(
-      value: fcMin,
+      value: remoteMin,
       validators: [],
     );
     FormControl<String> _max = new FormControl<String>(
-      value: fcMax,
+      value: remoteMax,
       validators: [],
     );
+
+    Map<String, AbstractControl> controls = {'value': _value};
+    if (remoteMinName != null) controls[remoteMinName] = _min;
+    if (remoteMaxName != null) controls[remoteMaxName] = _max;
+
     FormGroup _root = new FormGroup(
-      controls: {
-        'value': _value,
-        'min': _min,
-        'max': _max,
-      },
+      controls: controls,
       validators: [],
     );
+
     _value.parentGroup = _root;
     _min.parentGroup = _root;
     _max.parentGroup = _root;
 
     super.control = _value;
     super.validator = RangeOfString(
-      min: validatorMin,
-      max: validatorMax,
-      remoteMin: (fcMin != null) ? 'min' : null,
-      remoteMax: (fcMax != null) ? 'max' : null,
-      error: 'invalid date',
+      min: localMin,
+      max: localMax,
+      remoteMin: remoteMinName,
+      remoteMax: remoteMaxName,
+      error: null,
     );
   }
 }
@@ -51,45 +55,45 @@ class _RangeOfStringStub
 class RangeOfString_ValueIsEqualToMin_Stub extends _RangeOfStringStub {
   RangeOfString_ValueIsEqualToMin_Stub()
       : super(
-          fcValue: 'd',
-          validatorMin: 'd',
-          validatorMax: 'g',
+          value: 'd',
+          localMin: 'd',
+          localMax: 'g',
         );
 }
 
 class RangeOfString_ValueIsEqualToMax_Stub extends _RangeOfStringStub {
   RangeOfString_ValueIsEqualToMax_Stub()
       : super(
-          fcValue: 'g',
-          validatorMin: 'd',
-          validatorMax: 'g',
+          value: 'g',
+          localMin: 'd',
+          localMax: 'g',
         );
 }
 
 class RangeOfString_ValueIsBetweenMinAndMax_Stub extends _RangeOfStringStub {
   RangeOfString_ValueIsBetweenMinAndMax_Stub()
       : super(
-          fcValue: 'f',
-          validatorMin: 'd',
-          validatorMax: 'g',
+          value: 'f',
+          localMin: 'd',
+          localMax: 'g',
         );
 }
 
 class RangeOfString_ValueIsNull_Stub extends _RangeOfStringStub {
   RangeOfString_ValueIsNull_Stub()
       : super(
-          fcValue: null,
-          validatorMin: 'd',
-          validatorMax: 'g',
+          value: null,
+          localMin: 'd',
+          localMax: 'g',
         );
 }
 
 class RangeOfString_ValueIsEmpty_Stub extends _RangeOfStringStub {
   RangeOfString_ValueIsEmpty_Stub()
       : super(
-          fcValue: '',
-          validatorMin: 'd',
-          validatorMax: 'g',
+          value: '',
+          localMin: 'd',
+          localMax: 'g',
         );
 }
 
@@ -97,18 +101,18 @@ class RangeOfString_ValueIsEmpty_Stub extends _RangeOfStringStub {
 class RangeOfString_ValueIsSmallerThanMin_Stub extends _RangeOfStringStub {
   RangeOfString_ValueIsSmallerThanMin_Stub()
       : super(
-          fcValue: 'c',
-          validatorMin: 'd',
-          validatorMax: 'g',
+          value: 'c',
+          localMin: 'd',
+          localMax: 'g',
         );
 }
 
 class RangeOfString_ValueIsGreaterThanMax_Stub extends _RangeOfStringStub {
   RangeOfString_ValueIsGreaterThanMax_Stub()
       : super(
-          fcValue: 'h',
-          validatorMin: 'd',
-          validatorMax: 'g',
+          value: 'h',
+          localMin: 'd',
+          localMax: 'g',
         );
 }
 
@@ -116,20 +120,20 @@ class RangeOfString_ValueIsGreaterThanMax_Stub extends _RangeOfStringStub {
 class RangeOfString_remoteMinIsProvided_Stub extends _RangeOfStringStub {
   RangeOfString_remoteMinIsProvided_Stub()
       : super(
-          fcValue: 'b',
-          fcMin: 'b',
-          validatorMin: 'd',
-          validatorMax: 'g',
+          value: 'b',
+          remoteMin: 'b',
+          localMin: 'd',
+          localMax: 'g',
         );
 }
 
 class RangeOfString_remoteMaxIsProvided_Stub extends _RangeOfStringStub {
   RangeOfString_remoteMaxIsProvided_Stub()
       : super(
-          fcValue: 'h',
-          fcMax: 'h',
-          validatorMin: 'd',
-          validatorMax: 'g',
+          value: 'h',
+          remoteMax: 'h',
+          localMin: 'd',
+          localMax: 'g',
         );
 }
 
@@ -138,8 +142,8 @@ class RangeOfString_ThrowsValidatorParameterExceptionOnNullMin_Stub
     extends _RangeOfStringStub {
   RangeOfString_ThrowsValidatorParameterExceptionOnNullMin_Stub()
       : super(
-          fcValue: 'd',
-          validatorMin: 'd',
+          value: 'd',
+          localMin: 'd',
         );
 }
 
@@ -147,7 +151,7 @@ class RangeOfString_ThrowsValidatorParameterExceptionOnNullMax_Stub
     extends _RangeOfStringStub {
   RangeOfString_ThrowsValidatorParameterExceptionOnNullMax_Stub()
       : super(
-          fcValue: 'h',
-          validatorMax: 'h',
+          value: 'h',
+          localMax: 'h',
         );
 }
