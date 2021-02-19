@@ -29,13 +29,13 @@ class Range<TProperty extends Comparable>
       defaultValue: this.min,
       localParameterName: 'min',
       remoteParameterName: this.remoteMin,
-      control: control.parentGroup,
+      formGroup: control.parentGroup,
     );
     TProperty max = super.getRemoteValidatorParameter(
       defaultValue: this.max,
       localParameterName: 'max',
       remoteParameterName: this.remoteMax,
-      control: control.parentGroup,
+      formGroup: control.parentGroup,
     );
 
     this._validateParameters();

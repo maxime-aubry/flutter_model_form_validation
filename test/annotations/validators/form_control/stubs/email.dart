@@ -5,32 +5,32 @@ import '../../stubs.dart';
 
 class _EmailStub extends ValidatorStub<FormControl<String>, Email> {
   _EmailStub({
-    String fcValue,
+    String value,
   }) {
     super.control = new FormControl<String>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
-    super.validator = Email(error: '');
+    super.validator = Email(error: null);
   }
 }
 
 /* Value is valid */
 class Email_ValidEmail_Stub extends _EmailStub {
-  Email_ValidEmail_Stub() : super(fcValue: 'a.a@a.a');
+  Email_ValidEmail_Stub() : super(value: 'a.a@a.a');
 }
 
 class Email_ValueIsNull_Stub extends _EmailStub {
-  Email_ValueIsNull_Stub() : super(fcValue: null);
+  Email_ValueIsNull_Stub() : super(value: null);
 }
 
 class Email_EmptyValue_Stub extends _EmailStub {
-  Email_EmptyValue_Stub() : super(fcValue: '');
+  Email_EmptyValue_Stub() : super(value: '');
 }
 
 /* Value is not valid */
 class Email_InavlidEmail_Stub extends _EmailStub {
-  Email_InavlidEmail_Stub() : super(fcValue: 'a.a@a');
+  Email_InavlidEmail_Stub() : super(value: 'a.a@a');
 }
 
 /* Remote parameters are provided */

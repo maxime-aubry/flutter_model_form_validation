@@ -9,7 +9,7 @@ class _NotEqualToDateTimeStub
   _NotEqualToDateTimeStub({
     DateTime value,
     DateTime remoteValueToCompare,
-    String remoteValueToCompareName = 'valueToCompare',
+    String remoteValueToCompareName,
     ConstantDateTime localValueToCompare,
   }) {
     FormControl<DateTime> _value = new FormControl<DateTime>(
@@ -104,6 +104,7 @@ class NotEqualToDateTime_remoteValueToCompareIsProvided_Stub
       : super(
           value: new DateTime(2021, 1, 2),
           remoteValueToCompare: new DateTime(2021, 1, 2),
+          remoteValueToCompareName: 'valueToCompare',
           localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
         ) {}
 }

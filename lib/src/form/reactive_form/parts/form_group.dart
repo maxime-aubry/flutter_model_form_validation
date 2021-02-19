@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
@@ -143,7 +142,7 @@ class FormGroup extends AbstractControl {
       throw new FormBuilderException('Form group not found.');
 
     if (this.controls[name] is! FormGroup)
-      throw new FormBuilderException('Control is not of type FormGroup.');
+      throw new FormBuilderException('Control is not of FormGroup type.');
 
     FormGroup formGroup = this.controls[name] as FormGroup;
     return formGroup;
@@ -154,7 +153,7 @@ class FormGroup extends AbstractControl {
       throw new FormBuilderException('Form array not found.');
 
     if (this.controls[name] is! FormArray)
-      throw new FormBuilderException('Control is not of type FormArray.');
+      throw new FormBuilderException('Control is not of FormArray type.');
 
     FormArray formArray = this.controls[name] as FormArray;
     return formArray;
@@ -166,7 +165,7 @@ class FormGroup extends AbstractControl {
 
     if (this.controls[name] is! FormControl<TProperty>)
       throw new FormBuilderException(
-          'Control is not of type FormControl<$TProperty>.');
+          'Control is not of FormControl<$TProperty> type.');
 
     FormControl<TProperty> formControl =
         this.controls[name] as FormControl<TProperty>;

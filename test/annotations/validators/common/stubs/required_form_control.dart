@@ -5,10 +5,10 @@ import '../../stubs.dart';
 class _RequiredFormControlStub
     extends ValidatorStub<FormControl<String>, Required> {
   _RequiredFormControlStub({
-    String fcValue,
+    String value,
   }) {
     this.control = new FormControl<String>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     this.validator = Required(error: '');
@@ -18,18 +18,18 @@ class _RequiredFormControlStub
 /* Value is valid */
 class RequiredFormControl_FormControlValueIsValid_Stub
     extends _RequiredFormControlStub {
-  RequiredFormControl_FormControlValueIsValid_Stub() : super(fcValue: 'azerty');
+  RequiredFormControl_FormControlValueIsValid_Stub() : super(value: 'azerty');
 }
 
 /* Value is not valid */
 class RequiredFormControl_FormControlValueIsNull_Stub
     extends _RequiredFormControlStub {
-  RequiredFormControl_FormControlValueIsNull_Stub() : super(fcValue: null);
+  RequiredFormControl_FormControlValueIsNull_Stub() : super(value: null);
 }
 
 class RequiredFormControl_FormControlValueIsEmpty_Stub
     extends _RequiredFormControlStub {
-  RequiredFormControl_FormControlValueIsEmpty_Stub() : super(fcValue: '');
+  RequiredFormControl_FormControlValueIsEmpty_Stub() : super(value: '');
 }
 
 /* Remote parameters are provided */

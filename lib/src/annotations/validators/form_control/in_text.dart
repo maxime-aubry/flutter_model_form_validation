@@ -20,7 +20,7 @@ class InText extends FormControlValidatorAnnotation<String> {
       defaultValue: this.text,
       localParameterName: 'text',
       remoteParameterName: this.remoteText,
-      control: control.parentGroup,
+      formGroup: control.parentGroup,
     );
     bool isValid = this._validate(control.value, text);
     return isValid;

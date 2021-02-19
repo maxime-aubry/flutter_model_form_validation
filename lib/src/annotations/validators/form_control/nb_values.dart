@@ -28,13 +28,13 @@ class NbValues extends FormControlValidatorAnnotation<List> {
       defaultValue: this.min,
       localParameterName: 'min',
       remoteParameterName: this.remoteMin,
-      control: control.parentGroup,
+      formGroup: control.parentGroup,
     );
     int max = super.getRemoteValidatorParameter<int>(
       defaultValue: this.max,
       localParameterName: 'max',
       remoteParameterName: this.remoteMax,
-      control: control.parentGroup,
+      formGroup: control.parentGroup,
     );
 
     this._validateParameters(min, max);

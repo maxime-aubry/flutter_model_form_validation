@@ -8,14 +8,14 @@ import '../../stubs.dart';
 class _FileSizeStub extends ValidatorStub<FormControl<Uint8List>, FileSize> {
   _FileSizeStub({
     File file,
-    int size,
+    int localSize,
   }) : super() {
-    this.control = new FormControl<Uint8List>(
+    super.control = new FormControl<Uint8List>(
       value: file?.readAsBytesSync(),
       validators: [],
     );
-    this.validator = FileSize(
-      size: size,
+    super.validator = FileSize(
+      size: localSize,
       error: null,
     );
   }
@@ -26,7 +26,7 @@ class FileSize_FileSizeIsAllowed_Stub extends _FileSizeStub {
   FileSize_FileSizeIsAllowed_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
-          size: 1048576,
+          localSize: 1048576,
         );
 }
 
@@ -34,7 +34,7 @@ class FileSize_NoFile_Stub extends _FileSizeStub {
   FileSize_NoFile_Stub()
       : super(
           file: null,
-          size: 1048576,
+          localSize: 1048576,
         );
 }
 
@@ -43,7 +43,7 @@ class FileSize_FileSizeIsNotAllowed_Stub extends _FileSizeStub {
   FileSize_FileSizeIsNotAllowed_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
-          size: 524288,
+          localSize: 524288,
         );
 }
 
@@ -55,7 +55,7 @@ class FileSize_ThrowsValidatorParameterExceptionOnNullSize_Stub
   FileSize_ThrowsValidatorParameterExceptionOnNullSize_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
-          size: null,
+          localSize: null,
         );
 }
 
@@ -64,6 +64,6 @@ class FileSize_FileNotFound_Stub extends _FileSizeStub {
   FileSize_FileNotFound_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/not-found.jpg'),
-          size: 1048576,
+          localSize: 1048576,
         );
 }

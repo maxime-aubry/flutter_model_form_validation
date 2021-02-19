@@ -8,7 +8,7 @@ class _NotEqualToStringStub
   _NotEqualToStringStub({
     String value,
     String remoteValueToCompare,
-    String remoteValueToCompareName = 'valueToCompare',
+    String remoteValueToCompareName,
     String localValueToCompare,
   }) {
     FormControl<String> _value = new FormControl<String>(
@@ -102,6 +102,7 @@ class NotEqualToString_remoteValueToCompareIsProvided_Stub
       : super(
           value: 'b',
           remoteValueToCompare: 'b',
+          remoteValueToCompareName: 'valueToCompare',
           localValueToCompare: 'a',
         ) {}
 }

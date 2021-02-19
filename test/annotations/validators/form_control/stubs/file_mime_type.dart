@@ -10,14 +10,14 @@ class _FileMimeTypeStub
     extends ValidatorStub<FormControl<Uint8List>, FileMimeType> {
   _FileMimeTypeStub({
     File file,
-    List<String> mimeTypes,
+    List<String> localMimeTypes,
   }) : super() {
-    this.control = new FormControl<Uint8List>(
+    super.control = new FormControl<Uint8List>(
       value: file?.readAsBytesSync(),
       validators: [],
     );
-    this.validator = FileMimeType(
-      mimeTypes: mimeTypes,
+    super.validator = FileMimeType(
+      mimeTypes: localMimeTypes,
       error: null,
     );
   }
@@ -28,7 +28,7 @@ class FileMimeType_MimeTypeIsAllowed_Stub extends _FileMimeTypeStub {
   FileMimeType_MimeTypeIsAllowed_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
-          mimeTypes: ['image/jpeg', 'image/bmp'],
+          localMimeTypes: ['image/jpeg', 'image/bmp'],
         );
 }
 
@@ -36,7 +36,7 @@ class FileMimeType_NoFile_Stub extends _FileMimeTypeStub {
   FileMimeType_NoFile_Stub()
       : super(
           file: null,
-          mimeTypes: ['image/jpeg', 'image/bmp'],
+          localMimeTypes: ['image/jpeg', 'image/bmp'],
         );
 }
 
@@ -45,7 +45,7 @@ class FileMimeType_MimeTypeIsNotAllowed_Stub extends _FileMimeTypeStub {
   FileMimeType_MimeTypeIsNotAllowed_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
-          mimeTypes: ['image/png', 'image/bmp'],
+          localMimeTypes: ['image/png', 'image/bmp'],
         );
 }
 
@@ -57,7 +57,7 @@ class FileMimeType_ThrowsValidatorParameterExceptionOnNullMimeTypesArray_Stub
   FileMimeType_ThrowsValidatorParameterExceptionOnNullMimeTypesArray_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
-          mimeTypes: null,
+          localMimeTypes: null,
         );
 }
 
@@ -66,7 +66,7 @@ class FileMimeType_ThrowsValidatorParameterExceptionOnEmptyMimeTypesArray_Stub
   FileMimeType_ThrowsValidatorParameterExceptionOnEmptyMimeTypesArray_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
-          mimeTypes: [],
+          localMimeTypes: [],
         );
 }
 
@@ -75,6 +75,6 @@ class FileMimeType_FileNotFound_Stub extends _FileMimeTypeStub {
   FileMimeType_FileNotFound_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/not-found.jpg'),
-          mimeTypes: ['image/jpeg', 'image/bmp'],
+          localMimeTypes: ['image/jpeg', 'image/bmp'],
         );
 }

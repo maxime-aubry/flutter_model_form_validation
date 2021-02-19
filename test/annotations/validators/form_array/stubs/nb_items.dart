@@ -4,30 +4,33 @@ import '../../stubs.dart';
 
 class _NbItemsStub extends ValidatorStub<FormArray, NbItems> {
   _NbItemsStub({
-    List<FormGroup> fcValue,
-    int fcMin,
-    int fcMax,
-    int validatorMin,
-    int validatorMax,
+    List<FormGroup> value,
+    int remoteMin,
+    int remoteMax,
+    String remoteMinName,
+    String remoteMaxName,
+    int localMin,
+    int localMax,
   }) {
     FormArray _value = new FormArray(
-      groups: fcValue,
+      groups: value,
       validators: [],
     );
     FormControl<int> _min = new FormControl<int>(
-      value: fcMin,
+      value: remoteMin,
       validators: [],
     );
     FormControl<int> _max = new FormControl<int>(
-      value: fcMax,
+      value: remoteMax,
       validators: [],
     );
+
+    Map<String, AbstractControl> controls = {'value': _value};
+    if (remoteMinName != null) controls[remoteMinName] = _min;
+    if (remoteMaxName != null) controls[remoteMaxName] = _max;
+
     FormGroup _root = new FormGroup(
-      controls: {
-        'value': _value,
-        'min': _min,
-        'max': _max,
-      },
+      controls: controls,
       validators: [],
     );
 
@@ -37,11 +40,11 @@ class _NbItemsStub extends ValidatorStub<FormArray, NbItems> {
 
     super.control = _value;
     super.validator = NbItems(
-      min: validatorMin,
-      max: validatorMax,
-      remoteMin: (fcMin != null) ? 'min' : null,
-      remoteMax: (fcMax != null) ? 'max' : null,
-      error: '',
+      min: localMin,
+      max: localMax,
+      remoteMin: remoteMinName,
+      remoteMax: remoteMaxName,
+      error: null,
     );
   }
 }
@@ -50,54 +53,54 @@ class _NbItemsStub extends ValidatorStub<FormArray, NbItems> {
 class NbItems_ArraySizeIsEqualToMin_Stub extends _NbItemsStub {
   NbItems_ArraySizeIsEqualToMin_Stub()
       : super(
-          fcValue: [
+          value: [
             new FormGroup(controls: {}, validators: []),
           ],
-          validatorMin: 1,
-          validatorMax: 3,
+          localMin: 1,
+          localMax: 3,
         );
 }
 
 class NbItems_ArraySizeIsEqualToMax_Stub extends _NbItemsStub {
   NbItems_ArraySizeIsEqualToMax_Stub()
       : super(
-          fcValue: [
+          value: [
             new FormGroup(controls: {}, validators: []),
             new FormGroup(controls: {}, validators: []),
             new FormGroup(controls: {}, validators: []),
           ],
-          validatorMin: 1,
-          validatorMax: 3,
+          localMin: 1,
+          localMax: 3,
         );
 }
 
 class NbItems_ArraySizeIsBetweenMinAndMax_Stub extends _NbItemsStub {
   NbItems_ArraySizeIsBetweenMinAndMax_Stub()
       : super(
-          fcValue: [
+          value: [
             new FormGroup(controls: {}, validators: []),
             new FormGroup(controls: {}, validators: []),
           ],
-          validatorMin: 1,
-          validatorMax: 3,
+          localMin: 1,
+          localMax: 3,
         );
 }
 
 class NbItems_ArrayIsNull_Stub extends _NbItemsStub {
   NbItems_ArrayIsNull_Stub()
       : super(
-          fcValue: null,
-          validatorMin: 1,
-          validatorMax: 3,
+          value: null,
+          localMin: 1,
+          localMax: 3,
         );
 }
 
 class NbItems_ArrayIsEmpty_Stub extends _NbItemsStub {
   NbItems_ArrayIsEmpty_Stub()
       : super(
-          fcValue: [],
-          validatorMin: 1,
-          validatorMax: 3,
+          value: [],
+          localMin: 1,
+          localMax: 3,
         );
 }
 
@@ -105,25 +108,25 @@ class NbItems_ArrayIsEmpty_Stub extends _NbItemsStub {
 class NbItems_ArraySizeIsSmallerThanMin_Stub extends _NbItemsStub {
   NbItems_ArraySizeIsSmallerThanMin_Stub()
       : super(
-          fcValue: [
+          value: [
             new FormGroup(controls: {}, validators: []),
           ],
-          validatorMin: 2,
-          validatorMax: 3,
+          localMin: 2,
+          localMax: 3,
         );
 }
 
 class NbItems_ArraySizeIsGreaterThanMax_Stub extends _NbItemsStub {
   NbItems_ArraySizeIsGreaterThanMax_Stub()
       : super(
-          fcValue: [
+          value: [
             new FormGroup(controls: {}, validators: []),
             new FormGroup(controls: {}, validators: []),
             new FormGroup(controls: {}, validators: []),
             new FormGroup(controls: {}, validators: []),
           ],
-          validatorMin: 2,
-          validatorMax: 3,
+          localMin: 2,
+          localMax: 3,
         );
 }
 
@@ -131,27 +134,27 @@ class NbItems_ArraySizeIsGreaterThanMax_Stub extends _NbItemsStub {
 class NbItems_MinOnProrpertyIsProvided_Stub extends _NbItemsStub {
   NbItems_MinOnProrpertyIsProvided_Stub()
       : super(
-          fcValue: [
+          value: [
             new FormGroup(controls: {}, validators: []),
           ],
-          fcMin: 1,
-          validatorMin: 2,
-          validatorMax: 3,
+          remoteMin: 1,
+          localMin: 2,
+          localMax: 3,
         );
 }
 
 class NbItems_MaxOnProrpertyIsProvided_Stub extends _NbItemsStub {
   NbItems_MaxOnProrpertyIsProvided_Stub()
       : super(
-          fcValue: [
+          value: [
             new FormGroup(controls: {}, validators: []),
             new FormGroup(controls: {}, validators: []),
             new FormGroup(controls: {}, validators: []),
             new FormGroup(controls: {}, validators: []),
           ],
-          fcMax: 4,
-          validatorMin: 2,
-          validatorMax: 3,
+          remoteMax: 4,
+          localMin: 2,
+          localMax: 3,
         );
 }
 
@@ -160,8 +163,8 @@ class NbItems_ThrowsValidatorParameterExceptionOnNullMin_Stub
     extends _NbItemsStub {
   NbItems_ThrowsValidatorParameterExceptionOnNullMin_Stub()
       : super(
-          fcValue: [],
-          validatorMax: 3,
+          value: [],
+          localMax: 3,
         );
 }
 
@@ -169,8 +172,8 @@ class NbItems_ThrowsValidatorParameterExceptionOnNullMax_Stub
     extends _NbItemsStub {
   NbItems_ThrowsValidatorParameterExceptionOnNullMax_Stub()
       : super(
-          fcValue: [],
-          validatorMin: 1,
+          value: [],
+          localMin: 1,
         );
 }
 
@@ -178,8 +181,8 @@ class NbItems_ThrowsValidatorParameterExceptionOnMinIsGreaterThanMax_Stub
     extends _NbItemsStub {
   NbItems_ThrowsValidatorParameterExceptionOnMinIsGreaterThanMax_Stub()
       : super(
-          fcValue: [],
-          validatorMin: 3,
-          validatorMax: 1,
+          value: [],
+          localMin: 3,
+          localMax: 1,
         );
 }

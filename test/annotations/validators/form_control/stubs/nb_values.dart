@@ -8,8 +8,8 @@ class _NbValuesStub extends ValidatorStub<FormControl<List<String>>, NbValues> {
     List<String> value,
     int remoteMin,
     int remoteMax,
-    String remoteMinName = 'min',
-    String remoteMaxName = 'max',
+    String remoteMinName,
+    String remoteMaxName,
     int localMin,
     int localMax,
   }) {
@@ -121,6 +121,7 @@ class NbValues_remoteMinIsProvided_Stub extends _NbValuesStub {
       : super(
           value: ['a'],
           remoteMin: 1,
+          remoteMinName: 'min',
           localMin: 2,
           localMax: 3,
         ) {}
@@ -131,6 +132,7 @@ class NbValues_remoteMaxIsProvided_Stub extends _NbValuesStub {
       : super(
           value: ['a', 'b', 'c', 'd'],
           remoteMax: 4,
+          remoteMaxName: 'max',
           localMin: 1,
           localMax: 3,
         ) {}
