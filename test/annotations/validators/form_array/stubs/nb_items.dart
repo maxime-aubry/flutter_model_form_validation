@@ -86,6 +86,7 @@ class NbItems_ArraySizeIsBetweenMinAndMax_Stub extends _NbItemsStub {
         );
 }
 
+/* Value is not valid */
 class NbItems_ArrayIsNull_Stub extends _NbItemsStub {
   NbItems_ArrayIsNull_Stub()
       : super(
@@ -95,16 +96,6 @@ class NbItems_ArrayIsNull_Stub extends _NbItemsStub {
         );
 }
 
-class NbItems_ArrayIsEmpty_Stub extends _NbItemsStub {
-  NbItems_ArrayIsEmpty_Stub()
-      : super(
-          value: [],
-          localMin: 1,
-          localMax: 3,
-        );
-}
-
-/* Value is not valid */
 class NbItems_ArraySizeIsSmallerThanMin_Stub extends _NbItemsStub {
   NbItems_ArraySizeIsSmallerThanMin_Stub()
       : super(
@@ -138,6 +129,7 @@ class NbItems_MinOnProrpertyIsProvided_Stub extends _NbItemsStub {
             new FormGroup(controls: {}, validators: []),
           ],
           remoteMin: 1,
+          remoteMinName: 'min',
           localMin: 2,
           localMax: 3,
         );
@@ -153,6 +145,7 @@ class NbItems_MaxOnProrpertyIsProvided_Stub extends _NbItemsStub {
             new FormGroup(controls: {}, validators: []),
           ],
           remoteMax: 4,
+          remoteMaxName: 'max',
           localMin: 2,
           localMax: 3,
         );

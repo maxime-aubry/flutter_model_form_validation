@@ -1,4 +1,4 @@
-import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../expect_exception.dart';
@@ -32,12 +32,6 @@ void main() {
     group('Invalid.', () {
       test('FormArray items is null.', () async {
         NbItems_ArrayIsNull_Stub stub = new NbItems_ArrayIsNull_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
-        expect(isValid, isFalse);
-      });
-
-      test('FormArray items is empty.', () async {
-        NbItems_ArrayIsEmpty_Stub stub = new NbItems_ArrayIsEmpty_Stub();
         bool isValid = await stub.validator.isValid(stub.control);
         expect(isValid, isFalse);
       });
