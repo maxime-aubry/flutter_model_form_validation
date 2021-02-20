@@ -51,15 +51,33 @@ class GreaterThanNumber_ValueIsGreaterThanValueToCompare_Stub
         ) {}
 }
 
-class GreaterThanNumber_ValueIsNull_Stub extends _GreaterThanNumberStub {
-  GreaterThanNumber_ValueIsNull_Stub()
+class GreaterThanNumber_ValueAndValueToCompareAreNull_Stub
+    extends _GreaterThanNumberStub {
+  GreaterThanNumber_ValueAndValueToCompareAreNull_Stub()
       : super(
           value: null,
-          localValueToCompare: 0,
+          localValueToCompare: null,
         ) {}
 }
 
 /* Value is not valid */
+class GreaterThanNumber_ValueIsNull_Stub extends _GreaterThanNumberStub {
+  GreaterThanNumber_ValueIsNull_Stub()
+      : super(
+          value: null,
+          localValueToCompare: 1,
+        ) {}
+}
+
+class GreaterThanNumber_ValueToCompareIsNull_Stub
+    extends _GreaterThanNumberStub {
+  GreaterThanNumber_ValueToCompareIsNull_Stub()
+      : super(
+          value: 1,
+          localValueToCompare: null,
+        ) {}
+}
+
 class GreaterThanNumber_ValueIsSmallerThanValueToCompare_Stub
     extends _GreaterThanNumberStub {
   GreaterThanNumber_ValueIsSmallerThanValueToCompare_Stub()
@@ -83,10 +101,10 @@ class GreaterThanNumber_remoteValueToCompareIsProvided_Stub
     extends _GreaterThanNumberStub {
   GreaterThanNumber_remoteValueToCompareIsProvided_Stub()
       : super(
-          value: 1,
+          value: 2,
           remoteValueToCompare: 1,
           remoteValueToCompareName: 'valueToCompare',
-          localValueToCompare: 0,
+          localValueToCompare: 10,
         ) {}
 }
 

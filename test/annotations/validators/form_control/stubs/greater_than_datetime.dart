@@ -88,15 +88,24 @@ class GreaterThanDateTime_ValueIsSmallerThanValueToCompare_Stub
         ) {}
 }
 
+class GreaterThanDateTime_ValueEqualsValueToCompare_Stub
+    extends _GreaterThanDateTimeStub {
+  GreaterThanDateTime_ValueEqualsValueToCompare_Stub()
+      : super(
+          value: new DateTime(2021, 1, 1),
+          localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
+        ) {}
+}
+
 /* Remote parameters are provided */
 class GreaterThanDateTime_remoteValueToCompareIsProvided_Stub
     extends _GreaterThanDateTimeStub {
   GreaterThanDateTime_remoteValueToCompareIsProvided_Stub()
       : super(
           value: new DateTime(2021, 1, 2),
-          remoteValueToCompare: new DateTime(2021, 1, 2),
+          remoteValueToCompare: new DateTime(2021, 1, 1),
           remoteValueToCompareName: 'valueToCompare',
-          localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
+          localValueToCompare: const ConstantDateTime('2021-01-10T00:00:00'),
         ) {}
 }
 
