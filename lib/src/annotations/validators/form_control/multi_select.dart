@@ -14,14 +14,23 @@ class MultiSelect<TProperty>
     Future<List<SelectListItem<TProperty>>> Function() service =
         ListItemsProvider.provide<TProperty>(super.serviceName);
     List<SelectListItem> items = await service();
+
+    this._validateParameters(items);
     bool isValid = this._validate(control.value, items);
     return isValid;
+  }
+
+  void _validateParameters(List<SelectListItem> items) {
+    if (items == null || items.isEmpty)
+      throw new ValidatorParameterException('items is not defined.');
   }
 
   bool _validate(
     List<TProperty> values,
     List<SelectListItem<TProperty>> items,
   ) {
+    if (values == null || values.isEmpty) return true;
+
     List<TProperty> itemValues =
         Collection(items).select((arg1) => arg1.value).toList();
 

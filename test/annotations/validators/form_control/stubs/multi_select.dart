@@ -5,22 +5,23 @@ import '../../stubs.dart';
 
 class _MultiSelectStub
     extends ValidatorStub<FormControl<List<EGender>>, MultiSelect> {
+  List<SelectListItem<EGender>> items;
+
   _MultiSelectStub({
-    List<EGender> fcValue,
+    List<EGender> value,
     List<SelectListItem<EGender>> items,
   }) {
     ListItemsProvider.clear();
+    ListItemsProvider.register<EGender>('getItems', () async => items);
 
-    if (items != null)
-      ListItemsProvider.register<EGender>('getItems', () async => items);
-
+    this.items = items;
     super.control = new FormControl<List<EGender>>(
-      value: fcValue,
+      value: value,
       validators: [],
     );
     super.validator = MultiSelect(
       serviceName: 'getItems',
-      error: 'invalid items',
+      error: null,
     );
   }
 }
@@ -29,7 +30,7 @@ class _MultiSelectStub
 class MultiSelect_ItemsAreIntoListOfItems_Stub extends _MultiSelectStub {
   MultiSelect_ItemsAreIntoListOfItems_Stub()
       : super(
-          fcValue: [EGender.male, EGender.female],
+          value: [EGender.male, EGender.female],
           items: [
             new SelectListItem<EGender>(EGender.male, 'male'),
             new SelectListItem<EGender>(EGender.female, 'female'),
@@ -40,18 +41,7 @@ class MultiSelect_ItemsAreIntoListOfItems_Stub extends _MultiSelectStub {
 class MultiSelect_ValueIsNull_Stub extends _MultiSelectStub {
   MultiSelect_ValueIsNull_Stub()
       : super(
-          fcValue: null,
-          items: [
-            new SelectListItem<EGender>(EGender.male, 'male'),
-            new SelectListItem<EGender>(EGender.female, 'female'),
-          ],
-        );
-}
-
-class MultiSelect_ValueIsEmpty_Stub extends _MultiSelectStub {
-  MultiSelect_ValueIsEmpty_Stub()
-      : super(
-          fcValue: [],
+          value: null,
           items: [
             new SelectListItem<EGender>(EGender.male, 'male'),
             new SelectListItem<EGender>(EGender.female, 'female'),
@@ -63,7 +53,7 @@ class MultiSelect_AddItemsToServiceAfterInitialization_Stub
     extends _MultiSelectStub {
   MultiSelect_AddItemsToServiceAfterInitialization_Stub()
       : super(
-          fcValue: [EGender.other],
+          value: [EGender.other],
           items: [
             new SelectListItem<EGender>(EGender.male, 'male'),
             new SelectListItem<EGender>(EGender.female, 'female'),
@@ -75,7 +65,7 @@ class MultiSelect_AddItemsToServiceAfterInitialization_Stub
 class MultiSelect_ItemsAreNotIntoListOfItems_Stub extends _MultiSelectStub {
   MultiSelect_ItemsAreNotIntoListOfItems_Stub()
       : super(
-          fcValue: [EGender.other],
+          value: [EGender.other],
           items: [
             new SelectListItem<EGender>(EGender.male, 'male'),
             new SelectListItem<EGender>(EGender.female, 'female'),
@@ -86,3 +76,11 @@ class MultiSelect_ItemsAreNotIntoListOfItems_Stub extends _MultiSelectStub {
 /* Remote parameters are provided */
 
 /* Exceptions */
+class MultiSelect_ThrowsValidatorParameterExceptionOnItemsIsNull_Stub
+    extends _MultiSelectStub {
+  MultiSelect_ThrowsValidatorParameterExceptionOnItemsIsNull_Stub()
+      : super(
+          value: [EGender.other],
+          items: null,
+        );
+}

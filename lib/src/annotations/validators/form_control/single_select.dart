@@ -14,20 +14,29 @@ class SingleSelect<TProperty>
     Future<List<SelectListItem<TProperty>>> Function() service =
         ListItemsProvider.provide<TProperty>(super.serviceName);
     List<SelectListItem> items = await service();
+
+    this._validateParameters(items);
     bool isValid = this._validate(control.value, items);
     return isValid;
+  }
+
+  void _validateParameters(List<SelectListItem> items) {
+    if (items == null || items.isEmpty)
+      throw new ValidatorParameterException('items is not defined.');
   }
 
   bool _validate(
     TProperty value,
     List<SelectListItem<TProperty>> items,
   ) {
+    if (value == null) return true;
+
     List<TProperty> itemValues =
         Collection(items).select((arg1) => arg1.value).toList();
 
     // is value into the provided list of items ?
     if (itemValues.contains(value)) return true;
 
-    return true;
+    return false;
   }
 }

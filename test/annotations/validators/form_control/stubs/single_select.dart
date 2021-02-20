@@ -5,15 +5,16 @@ import '../../stubs.dart';
 
 class _SingleSelectStub
     extends ValidatorStub<FormControl<EGender>, SingleSelect> {
+  List<SelectListItem<EGender>> items;
+
   _SingleSelectStub({
     EGender value,
     List<SelectListItem<EGender>> items,
   }) {
     ListItemsProvider.clear();
+    ListItemsProvider.register<EGender>('getItems', () async => items);
 
-    if (items != null)
-      ListItemsProvider.register<EGender>('getItems', () async => items);
-
+    this.items = items;
     super.control = new FormControl<EGender>(
       value: value,
       validators: [],
@@ -75,3 +76,11 @@ class SingleSelect_ItemIsNotIntoListOfItems_Stub extends _SingleSelectStub {
 /* Remote parameters are provided */
 
 /* Exceptions */
+class SingleSelect_ThrowsValidatorParameterExceptionOnItemsIsNull_Stub
+    extends _SingleSelectStub {
+  SingleSelect_ThrowsValidatorParameterExceptionOnItemsIsNull_Stub()
+      : super(
+          value: EGender.other,
+          items: null,
+        );
+}
