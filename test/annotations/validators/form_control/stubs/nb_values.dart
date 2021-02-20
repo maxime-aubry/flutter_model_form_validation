@@ -87,15 +87,6 @@ class NbValues_ValueIsNull_Stub extends _NbValuesStub {
         ) {}
 }
 
-class NbValues_EmptyValue_Stub extends _NbValuesStub {
-  NbValues_EmptyValue_Stub()
-      : super(
-          value: [],
-          localMin: 1,
-          localMax: 3,
-        ) {}
-}
-
 /* Value is not valid */
 class NbValues_NumberOfValuesIsSmallerThanMin_Stub extends _NbValuesStub {
   NbValues_NumberOfValuesIsSmallerThanMin_Stub()

@@ -38,19 +38,20 @@ class NbValues extends FormControlValidatorAnnotation<List> {
     );
 
     this._validateParameters(min, max);
-    bool isValid = this._validate(control.value.length, min, max);
+    bool isValid = this._validate(control.value?.length ?? 0, min, max);
     return isValid;
   }
 
   void _validateParameters(int min, int max) {
     if (min == null)
-      throw new ValidatorParameterException('Min is not defined.');
+      throw new ValidatorParameterException('min is not defined.');
 
     if (max == null)
-      throw new ValidatorParameterException('Max is not defined.');
+      throw new ValidatorParameterException('max is not defined.');
 
     if (min.compareTo(max) > 0)
-      throw new ValidationException('Min value is greater than max value.');
+      throw new ValidatorParameterException(
+          'min value is greater than max value.');
   }
 
   bool _validate(int quantity, int min, int max) =>
