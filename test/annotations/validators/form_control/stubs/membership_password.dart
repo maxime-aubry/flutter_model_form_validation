@@ -102,6 +102,20 @@ class MembershipPassword_ThrowsValidatorParameterExceptionOnMaxLengthIsNull_Stub
         );
 }
 
+class MembershipPassword_ThrowsValidatorParameterExceptionOnMinLengthGreaterThanMaxLength_Stub
+    extends _MembershipPasswordStub {
+  MembershipPassword_ThrowsValidatorParameterExceptionOnMinLengthGreaterThanMaxLength_Stub()
+      : super(
+          value: 'P@\$\$w0rd',
+          localMinLength: 12,
+          localMaxLength: 6,
+          localIncludesAlphabeticalCharacters: true,
+          localIncludesUppercaseCharacters: true,
+          localIncludesNumericalCharacters: true,
+          localIncludesSpecialCharacters: true,
+        );
+}
+
 class MembershipPassword_ThrowsValidatorParameterExceptionOnIncludesAlphabeticalCharactersIsNull_Stub
     extends _MembershipPasswordStub {
   MembershipPassword_ThrowsValidatorParameterExceptionOnIncludesAlphabeticalCharactersIsNull_Stub()
@@ -151,20 +165,6 @@ class MembershipPassword_ThrowsValidatorParameterExceptionOnIncludesSpecialChara
           value: 'P@\$\$w0rd',
           localMinLength: 6,
           localMaxLength: 12,
-          localIncludesAlphabeticalCharacters: true,
-          localIncludesUppercaseCharacters: true,
-          localIncludesNumericalCharacters: true,
-          localIncludesSpecialCharacters: null,
-        );
-}
-
-class MembershipPassword_ThrowsValidatorParameterExceptionOnMinLengthGreaterThanMaxLength_Stub
-    extends _MembershipPasswordStub {
-  MembershipPassword_ThrowsValidatorParameterExceptionOnMinLengthGreaterThanMaxLength_Stub()
-      : super(
-          value: 'P@\$\$w0rd',
-          localMinLength: 12,
-          localMaxLength: 6,
           localIncludesAlphabeticalCharacters: true,
           localIncludesUppercaseCharacters: true,
           localIncludesNumericalCharacters: true,

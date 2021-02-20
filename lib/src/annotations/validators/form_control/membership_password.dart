@@ -44,6 +44,10 @@ class MembershipPassword extends FormControlValidatorAnnotation<String> {
     if (this.maxLength == null)
       throw new ValidatorParameterException('maxLength is not defined.');
 
+    if (this.minLength.compareTo(this.maxLength) > 0)
+      throw new ValidatorParameterException(
+          'minLength value is greater than maxLength value.');
+
     if (this.includesAlphabeticalCharacters == null)
       throw new ValidatorParameterException(
           'includesAlphabeticalCharacters is not defined.');
@@ -59,10 +63,6 @@ class MembershipPassword extends FormControlValidatorAnnotation<String> {
     if (this.includesSpecialCharacters == null)
       throw new ValidatorParameterException(
           'includesSpecialCharacters is not defined.');
-
-    if (this.minLength.compareTo(this.maxLength) > 0)
-      throw new ValidatorParameterException(
-          'minLength value is greater than maxLength value.');
   }
 
   bool _validate(String value) {

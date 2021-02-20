@@ -84,8 +84,8 @@ class InText_ValueIsNotInText_Stub extends _InTextStub {
 }
 
 /* Remote parameters are provided */
-class InText_TextOnPropertyIsProvided_Stub extends _InTextStub {
-  InText_TextOnPropertyIsProvided_Stub()
+class InText_RemoteTextIsProvided_Stub extends _InTextStub {
+  InText_RemoteTextIsProvided_Stub()
       : super(
           value: 'exercitation',
           remoteText:
