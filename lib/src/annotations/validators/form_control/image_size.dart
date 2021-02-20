@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:image/image.dart' as imageDecoder;
-import 'package:mime/mime.dart';
 
 class ImageSize extends FormControlValidatorAnnotation<Uint8List> {
   const ImageSize({
@@ -116,13 +115,11 @@ class ImageSize extends FormControlValidatorAnnotation<Uint8List> {
   ) {
     if (value == null) return true;
 
-    String mimeType = lookupMimeType('no-file', headerBytes: value);
-    print(mimeType);
+    imageDecoder.Image image = imageDecoder.decodeImage(value);
 
-    if (!mimeType.startsWith('image'))
+    if (image == null)
       throw new ValidationException('current file is not an image.');
 
-    imageDecoder.Image image = imageDecoder.decodeImage(value);
     if (image.width < minWidth ||
         image.height < minHeight ||
         image.width > maxWidth ||
