@@ -86,9 +86,9 @@ class NotEqualToString_ValueToCompareIsNull_Stub extends _NotEqualToStringStub {
         ) {}
 }
 
-class NotEqualToString_ValueEqualsValueToCompare_Stub
+class NotEqualToString_ValueIsEqualToValueToCompare_Stub
     extends _NotEqualToStringStub {
-  NotEqualToString_ValueEqualsValueToCompare_Stub()
+  NotEqualToString_ValueIsEqualToValueToCompare_Stub()
       : super(
           value: 'a',
           localValueToCompare: 'a',
@@ -107,4 +107,4 @@ class NotEqualToString_remoteValueToCompareIsProvided_Stub
         ) {}
 }
 
-/* Exceptions on parameters */
+/* Exceptions */

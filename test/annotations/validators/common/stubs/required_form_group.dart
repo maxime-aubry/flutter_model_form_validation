@@ -38,4 +38,4 @@ class RequiredFormGroup_FormGroupControlsAreEmpty_Stub
 
 /* Remote parameters are provided */
 
-/* Exceptions on parameters */
+/* Exceptions */

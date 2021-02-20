@@ -42,8 +42,8 @@ class _EqualToDoubleStub
 }
 
 /* Value is valid */
-class EqualToDouble_ValueEqualsValueToCompare_Stub extends _EqualToDoubleStub {
-  EqualToDouble_ValueEqualsValueToCompare_Stub()
+class EqualToDouble_ValueIsEqualToValueToCompare_Stub extends _EqualToDoubleStub {
+  EqualToDouble_ValueIsEqualToValueToCompare_Stub()
       : super(
           value: 0,
           localValueToCompare: 0,
@@ -106,4 +106,4 @@ class EqualToDouble_remoteValueToCompareIsProvided_Stub
         ) {}
 }
 
-/* Exceptions on parameters */
+/* Exceptions */

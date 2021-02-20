@@ -33,7 +33,7 @@ void main() {
 
     group('Remote parameters.', () {});
 
-    group('Exception on parameters.', () {
+    group('Exceptions.', () {
       test(
           'Throws exception of ValidatorParameterException type when mimeType array is null.',
           () async {

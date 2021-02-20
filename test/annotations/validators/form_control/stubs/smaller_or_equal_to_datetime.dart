@@ -52,9 +52,9 @@ class SmallerOrEqualToDateTime_ValueIsSmallerThanValueToCompare_Stub
         ) {}
 }
 
-class SmallerOrEqualToDateTime_ValueEqualsValueToCompare_Stub
+class SmallerOrEqualToDateTime_ValueIsEqualToValueToCompare_Stub
     extends _SmallerOrEqualToDateTimeStub {
-  SmallerOrEqualToDateTime_ValueEqualsValueToCompare_Stub()
+  SmallerOrEqualToDateTime_ValueIsEqualToValueToCompare_Stub()
       : super(
           value: new DateTime(2021, 1, 1),
           localValueToCompare: const ConstantDateTime('2021-01-02T00:00:00'),
@@ -91,7 +91,7 @@ class SmallerOrEqualToDateTime_remoteValueToCompareIsProvided_Stub
         ) {}
 }
 
-/* Exceptions on parameters */
+/* Exceptions */
 class SmallerOrEqualToDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _SmallerOrEqualToDateTimeStub {
   SmallerOrEqualToDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()

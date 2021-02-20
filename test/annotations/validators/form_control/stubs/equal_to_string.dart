@@ -42,8 +42,8 @@ class _EqualToStringStub
 }
 
 /* Value is valid */
-class EqualToString_ValueEqualsValueToCompare_Stub extends _EqualToStringStub {
-  EqualToString_ValueEqualsValueToCompare_Stub()
+class EqualToString_ValueIsEqualToValueToCompare_Stub extends _EqualToStringStub {
+  EqualToString_ValueIsEqualToValueToCompare_Stub()
       : super(
           value: 'a',
           localValueToCompare: 'a',
@@ -106,4 +106,4 @@ class EqualToString_remoteValueToCompareIsProvided_Stub
         ) {}
 }
 
-/* Exceptions on parameters */
+/* Exceptions */

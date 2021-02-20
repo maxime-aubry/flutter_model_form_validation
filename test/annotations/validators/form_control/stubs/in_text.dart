@@ -96,4 +96,4 @@ class InText_TextOnPropertyIsProvided_Stub extends _InTextStub {
         );
 }
 
-/* Exceptions on parameters */
+/* Exceptions */

@@ -92,7 +92,7 @@ class StringLength_ValueLengthIsGreaterThanMax_Stub extends _StringLengthStub {
 
 /* Remote parameters are provided */
 
-/* Exceptions on parameters */
+/* Exceptions */
 class StringLength_ThrowsValidatorParameterExceptionOnNullMin_Stub
     extends _StringLengthStub {
   StringLength_ThrowsValidatorParameterExceptionOnNullMin_Stub()

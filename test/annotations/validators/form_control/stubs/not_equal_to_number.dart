@@ -86,9 +86,9 @@ class NotEqualToNumber_ValueToCompareIsNull_Stub extends _NotEqualToNumberStub {
         ) {}
 }
 
-class NotEqualToNumber_ValueEqualsValueToCompare_Stub
+class NotEqualToNumber_ValueIsEqualToValueToCompare_Stub
     extends _NotEqualToNumberStub {
-  NotEqualToNumber_ValueEqualsValueToCompare_Stub()
+  NotEqualToNumber_ValueIsEqualToValueToCompare_Stub()
       : super(
           value: 0,
           localValueToCompare: 0,
@@ -107,4 +107,4 @@ class NotEqualToNumber_remoteValueToCompareIsProvided_Stub
         ) {}
 }
 
-/* Exceptions on parameters */
+/* Exceptions */

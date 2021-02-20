@@ -128,7 +128,7 @@ class RangeOfDouble_remoteMaxIsProvided_Stub extends _RangeOfDoubleStub {
         );
 }
 
-/* Exceptions on parameters */
+/* Exceptions */
 class RangeOfDouble_ThrowsValidatorParameterExceptionOnNullMin_Stub
     extends _RangeOfDoubleStub {
   RangeOfDouble_ThrowsValidatorParameterExceptionOnNullMin_Stub()

@@ -43,9 +43,9 @@ class _EqualToDateTimeStub
 }
 
 /* Value is valid */
-class EqualToDateTime_ValueEqualsValueToCompare_Stub
+class EqualToDateTime_ValueIsEqualToValueToCompare_Stub
     extends _EqualToDateTimeStub {
-  EqualToDateTime_ValueEqualsValueToCompare_Stub()
+  EqualToDateTime_ValueIsEqualToValueToCompare_Stub()
       : super(
           value: new DateTime(2021, 1, 1),
           localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
@@ -108,4 +108,4 @@ class EqualToDateTime_remoteValueToCompareIsProvided_Stub
         ) {}
 }
 
-/* Exceptions on parameters */
+/* Exceptions */

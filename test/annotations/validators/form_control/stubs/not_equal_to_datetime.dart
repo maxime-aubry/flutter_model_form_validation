@@ -88,9 +88,9 @@ class NotEqualToDateTime_ValueToCompareIsNull_Stub
         ) {}
 }
 
-class NotEqualToDateTime_ValueEqualsValueToCompare_Stub
+class NotEqualToDateTime_ValueIsEqualToValueToCompare_Stub
     extends _NotEqualToDateTimeStub {
-  NotEqualToDateTime_ValueEqualsValueToCompare_Stub()
+  NotEqualToDateTime_ValueIsEqualToValueToCompare_Stub()
       : super(
           value: new DateTime(2021, 1, 1),
           localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
@@ -109,4 +109,4 @@ class NotEqualToDateTime_remoteValueToCompareIsProvided_Stub
         ) {}
 }
 
-/* Exceptions on parameters */
+/* Exceptions */

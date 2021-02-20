@@ -34,4 +34,4 @@ class RequiredFormControl_FormControlValueIsEmpty_Stub
 
 /* Remote parameters are provided */
 
-/* Exceptions on parameters */
+/* Exceptions */

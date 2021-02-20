@@ -130,7 +130,7 @@ class RangeOfDateTime_remoteMaxIsProvided_Stub extends _RangeOfDateTimeStub {
         );
 }
 
-/* Exceptions on parameters */
+/* Exceptions */
 class RangeOfDateTime_ThrowsValidatorParameterExceptionOnNullMin_Stub
     extends _RangeOfDateTimeStub {
   RangeOfDateTime_ThrowsValidatorParameterExceptionOnNullMin_Stub()

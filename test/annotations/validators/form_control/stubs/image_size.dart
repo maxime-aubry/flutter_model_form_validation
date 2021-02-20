@@ -22,7 +22,7 @@ class _ImageSizeStub extends ValidatorStub<FormControl<Uint8List>, ImageSize> {
     int localeMaxHeight,
   }) : super() {
     FormControl<Uint8List> _value = new FormControl<Uint8List>(
-      value: file.readAsBytesSync(),
+      value: file?.readAsBytesSync(),
       validators: [],
     );
     FormControl<int> _minWidth = new FormControl<int>(
@@ -124,11 +124,11 @@ class ImageSize_ImageHeightIsNotAllowed_Stub extends _ImageSizeStub {
 class ImageSize_remoteWidthAndHeightAreProvided_Stub extends _ImageSizeStub {
   ImageSize_remoteWidthAndHeightAreProvided_Stub()
       : super(
-          file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
-          remoteMinWidth: 100,
-          remoteMaxWidth: 100,
-          remoteMinHeight: 100,
-          remoteMaxHeight: 100,
+          file: new File('${Directory.current.path}/test/assets/arbre.jpg'),
+          remoteMinWidth: 50,
+          remoteMaxWidth: 150,
+          remoteMinHeight: 50,
+          remoteMaxHeight: 150,
           remoteMinWidthName: 'minWidth',
           remoteMaxWidthName: 'maxWidth',
           remoteMinHeightName: 'minHeight',
@@ -140,7 +140,7 @@ class ImageSize_remoteWidthAndHeightAreProvided_Stub extends _ImageSizeStub {
         );
 }
 
-/* Exceptions on parameters */
+/* Exceptions */
 class ImageSize_ThrowsValidatorParameterExceptionOnNullMinWidth_Stub
     extends _ImageSizeStub {
   ImageSize_ThrowsValidatorParameterExceptionOnNullMinWidth_Stub()
@@ -225,6 +225,19 @@ class ImageSize_ThrowsValidatorParameterExceptionOnMinHeightGreaterThanMaxHeight
           localeMinWidth: 800,
           localeMaxWidth: 900,
           localeMinHeight: 700,
+          localeMaxHeight: 600,
+        );
+}
+
+class ImageSize_ThrowsValidationExceptionOnFileIsNotImage_Stub
+    extends _ImageSizeStub {
+  ImageSize_ThrowsValidationExceptionOnFileIsNotImage_Stub()
+      : super(
+          file: new File(
+              '${Directory.current.path}/test/assets/image.base64.txt'),
+          localeMinWidth: 800,
+          localeMaxWidth: 900,
+          localeMinHeight: 500,
           localeMaxHeight: 600,
         );
 }

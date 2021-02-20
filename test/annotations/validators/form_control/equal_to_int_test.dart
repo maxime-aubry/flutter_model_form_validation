@@ -6,8 +6,8 @@ void main() {
   group('Annotations > Validators > FormControl<TProperty> > EqualToInt.', () {
     group('Valid.', () {
       test('value equals valueToCompare.', () async {
-        EqualToInt_ValueEqualsValueToCompare_Stub stub =
-            new EqualToInt_ValueEqualsValueToCompare_Stub();
+        EqualToInt_ValueIsEqualToValueToCompare_Stub stub =
+            new EqualToInt_ValueIsEqualToValueToCompare_Stub();
         bool isValid = await stub.validator.isValid(stub.control);
         expect(isValid, isTrue);
       });
@@ -50,7 +50,7 @@ void main() {
     });
 
     group('Remote parameters.', () {
-      test('Remot valueToCompare is provided.', () async {
+      test('Remote valueToCompare is provided.', () async {
         EqualToInt_remoteValueToCompareIsProvided_Stub stub =
             new EqualToInt_remoteValueToCompareIsProvided_Stub();
         bool isValid = await stub.validator.isValid(stub.control);

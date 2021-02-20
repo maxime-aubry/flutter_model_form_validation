@@ -87,9 +87,9 @@ class GreaterThanString_ValueIsSmallerThanValueToCompare_Stub
         ) {}
 }
 
-class GreaterThanString_ValueEqualsValueToCompare_Stub
+class GreaterThanString_ValueIsEqualToValueToCompare_Stub
     extends _GreaterThanStringStub {
-  GreaterThanString_ValueEqualsValueToCompare_Stub()
+  GreaterThanString_ValueIsEqualToValueToCompare_Stub()
       : super(
           value: 'a',
           localValueToCompare: 'b',
@@ -108,4 +108,4 @@ class GreaterThanString_remoteValueToCompareIsProvided_Stub
         ) {}
 }
 
-/* Exceptions on parameters */
+/* Exceptions */

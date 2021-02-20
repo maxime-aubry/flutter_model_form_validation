@@ -137,7 +137,7 @@ class RangeOfString_remoteMaxIsProvided_Stub extends _RangeOfStringStub {
         );
 }
 
-/* Exceptions on parameters */
+/* Exceptions */
 class RangeOfString_ThrowsValidatorParameterExceptionOnNullMin_Stub
     extends _RangeOfStringStub {
   RangeOfString_ThrowsValidatorParameterExceptionOnNullMin_Stub()

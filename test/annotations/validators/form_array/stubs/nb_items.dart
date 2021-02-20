@@ -151,7 +151,7 @@ class NbItems_MaxOnProrpertyIsProvided_Stub extends _NbItemsStub {
         );
 }
 
-/* Exceptions on parameters */
+/* Exceptions */
 class NbItems_ThrowsValidatorParameterExceptionOnNullMin_Stub
     extends _NbItemsStub {
   NbItems_ThrowsValidatorParameterExceptionOnNullMin_Stub()

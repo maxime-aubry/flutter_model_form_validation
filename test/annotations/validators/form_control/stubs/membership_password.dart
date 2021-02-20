@@ -73,7 +73,7 @@ class MembershipPassword_PasswordIsNotValid_Stub
 
 /* Remote parameters are provided */
 
-/* Exceptions on parameters */
+/* Exceptions */
 class MembershipPassword_ThrowsValidatorParameterExceptionOnMinLengthIsNull_Stub
     extends _MembershipPasswordStub {
   MembershipPassword_ThrowsValidatorParameterExceptionOnMinLengthIsNull_Stub()

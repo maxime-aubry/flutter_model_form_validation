@@ -41,8 +41,8 @@ class _EqualToIntStub extends ValidatorStub<FormControl<int>, EqualToInt> {
 }
 
 /* Value is valid */
-class EqualToInt_ValueEqualsValueToCompare_Stub extends _EqualToIntStub {
-  EqualToInt_ValueEqualsValueToCompare_Stub()
+class EqualToInt_ValueIsEqualToValueToCompare_Stub extends _EqualToIntStub {
+  EqualToInt_ValueIsEqualToValueToCompare_Stub()
       : super(
           value: 0,
           localValueToCompare: 0,
@@ -101,4 +101,4 @@ class EqualToInt_remoteValueToCompareIsProvided_Stub extends _EqualToIntStub {
         ) {}
 }
 
-/* Exceptions on parameters */
+/* Exceptions */

@@ -15,8 +15,8 @@ void main() {
       });
 
       test('value equals valueToCompare.', () async {
-        GreaterOrEqualToDateTime_ValueEqualsValueToCompare_Stub stub =
-            new GreaterOrEqualToDateTime_ValueEqualsValueToCompare_Stub();
+        GreaterOrEqualToDateTime_ValueIsEqualToValueToCompare_Stub stub =
+            new GreaterOrEqualToDateTime_ValueIsEqualToValueToCompare_Stub();
         bool isValid = await stub.validator.isValid(stub.control);
         expect(isValid, isTrue);
       });
@@ -53,7 +53,7 @@ void main() {
     });
 
     group('Remote parameters.', () {
-      test('Remot valueToCompare is provided.', () async {
+      test('Remote valueToCompare is provided.', () async {
         GreaterOrEqualToDateTime_remoteValueToCompareIsProvided_Stub stub =
             new GreaterOrEqualToDateTime_remoteValueToCompareIsProvided_Stub();
         bool isValid = await stub.validator.isValid(stub.control);

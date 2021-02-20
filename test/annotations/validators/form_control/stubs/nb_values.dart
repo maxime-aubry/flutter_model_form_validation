@@ -138,7 +138,7 @@ class NbValues_remoteMaxIsProvided_Stub extends _NbValuesStub {
         ) {}
 }
 
-/* Exceptions on parameters */
+/* Exceptions */
 class NbValues_ThrowsValidatorParameterExceptionOnNullMin_Stub
     extends _NbValuesStub {
   NbValues_ThrowsValidatorParameterExceptionOnNullMin_Stub()

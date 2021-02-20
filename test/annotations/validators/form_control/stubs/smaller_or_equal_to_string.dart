@@ -42,9 +42,9 @@ class _SmallerOrEqualToStringStub
 }
 
 /* Value is valid */
-class SmallerOrEqualToString_ValueEqualsValueToCompare_Stub
+class SmallerOrEqualToString_ValueIsEqualToValueToCompare_Stub
     extends _SmallerOrEqualToStringStub {
-  SmallerOrEqualToString_ValueEqualsValueToCompare_Stub()
+  SmallerOrEqualToString_ValueIsEqualToValueToCompare_Stub()
       : super(
           value: 'a',
           localValueToCompare: 'a',
@@ -90,7 +90,7 @@ class SmallerOrEqualToString_remoteValueToCompareIsProvided_Stub
         ) {}
 }
 
-/* Exceptions on parameters */
+/* Exceptions */
 class SmallerOrEqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _SmallerOrEqualToStringStub {
   SmallerOrEqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()

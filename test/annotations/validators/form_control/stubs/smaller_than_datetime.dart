@@ -81,7 +81,7 @@ class SmallerThanDateTime_remoteValueToCompareIsProvided_Stub
         ) {}
 }
 
-/* Exceptions on parameters */
+/* Exceptions */
 class SmallerThanDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _SmallerThanDateTimeStub {
   SmallerThanDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()

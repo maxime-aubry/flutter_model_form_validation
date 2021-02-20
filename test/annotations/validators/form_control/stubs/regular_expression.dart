@@ -67,7 +67,7 @@ class RegularExpression_ValueDoesNotMatchToRegexp_Stub
 
 /* Remote parameters are provided */
 
-/* Exceptions on parameters */
+/* Exceptions */
 class RegularExpression_ThrowsValidatorParameterExceptionOnNullExpression_Stub
     extends _RegularExpressionStub {
   RegularExpression_ThrowsValidatorParameterExceptionOnNullExpression_Stub()

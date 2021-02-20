@@ -7,8 +7,8 @@ void main() {
       () {
     group('Valid.', () {
       test('value equals valueToCompare.', () async {
-        EqualToNumber_ValueEqualsValueToCompare_Stub stub =
-            new EqualToNumber_ValueEqualsValueToCompare_Stub();
+        EqualToNumber_ValueIsEqualToValueToCompare_Stub stub =
+            new EqualToNumber_ValueIsEqualToValueToCompare_Stub();
         bool isValid = await stub.validator.isValid(stub.control);
         expect(isValid, isTrue);
       });
@@ -52,7 +52,7 @@ void main() {
     });
 
     group('Remote parameters.', () {
-      test('Remot valueToCompare is provided.', () async {
+      test('Remote valueToCompare is provided.', () async {
         EqualToNumber_remoteValueToCompareIsProvided_Stub stub =
             new EqualToNumber_remoteValueToCompareIsProvided_Stub();
         bool isValid = await stub.validator.isValid(stub.control);

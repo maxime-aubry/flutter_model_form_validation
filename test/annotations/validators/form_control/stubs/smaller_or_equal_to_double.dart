@@ -51,9 +51,9 @@ class SmallerOrEqualToDouble_ValueIsSmallerThanValueToCompare_Stub
         ) {}
 }
 
-class SmallerOrEqualToDouble_ValueEqualsValueToCompare_Stub
+class SmallerOrEqualToDouble_ValueIsEqualToValueToCompare_Stub
     extends _SmallerOrEqualToDoubleStub {
-  SmallerOrEqualToDouble_ValueEqualsValueToCompare_Stub()
+  SmallerOrEqualToDouble_ValueIsEqualToValueToCompare_Stub()
       : super(
           value: 0,
           localValueToCompare: 0,
@@ -90,7 +90,7 @@ class SmallerOrEqualToDouble_remoteValueToCompareIsProvided_Stub
         ) {}
 }
 
-/* Exceptions on parameters */
+/* Exceptions */
 class SmallerOrEqualToDouble_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _SmallerOrEqualToDoubleStub {
   SmallerOrEqualToDouble_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()

@@ -128,7 +128,7 @@ class RangeOfNumber_remoteMaxIsProvided_Stub extends _RangeOfNumberStub {
         );
 }
 
-/* Exceptions on parameters */
+/* Exceptions */
 class RangeOfNumber_ThrowsValidatorParameterExceptionOnNullMin_Stub
     extends _RangeOfNumberStub {
   RangeOfNumber_ThrowsValidatorParameterExceptionOnNullMin_Stub()

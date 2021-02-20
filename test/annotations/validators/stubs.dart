@@ -17,4 +17,4 @@ class ValidatorStub<TAbstractControl extends AbstractControl,
 /* Value is valid */
 /* Value is not valid */
 /* Remote parameters are provided */
-/* Exceptions on parameters */
+/* Exceptions */

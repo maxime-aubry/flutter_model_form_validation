@@ -30,7 +30,7 @@ void main() {
       });
     });
 
-    group('Exception on parameters.', () {
+    group('Exceptions.', () {
       test(
           'Throws exception of ValidatorParameterException type when file size is null.',
           () async {

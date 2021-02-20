@@ -45,8 +45,8 @@ void main() {
       });
 
       test('valueToCompare is equal to valueToCompare.', () async {
-        GreaterThanNumber_ValueEqualsValueToCompare_Stub stub =
-            new GreaterThanNumber_ValueEqualsValueToCompare_Stub();
+        GreaterThanNumber_ValueIsEqualToValueToCompare_Stub stub =
+            new GreaterThanNumber_ValueIsEqualToValueToCompare_Stub();
         bool isValid = await stub.validator.isValid(stub.control);
         expect(isValid, isFalse);
       });

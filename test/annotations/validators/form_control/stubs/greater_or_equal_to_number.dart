@@ -51,9 +51,9 @@ class GreaterOrEqualToNumber_ValueIsGreaterThanValueToCompare_Stub
         ) {}
 }
 
-class GreaterOrEqualToNumber_ValueEqualsValueToCompare_Stub
+class GreaterOrEqualToNumber_ValueIsEqualToValueToCompare_Stub
     extends _GreaterOrEqualToNumberStub {
-  GreaterOrEqualToNumber_ValueEqualsValueToCompare_Stub()
+  GreaterOrEqualToNumber_ValueIsEqualToValueToCompare_Stub()
       : super(
           value: 0,
           localValueToCompare: 0,
@@ -109,4 +109,4 @@ class GreaterOrEqualToNumber_remoteValueToCompareIsProvided_Stub
         ) {}
 }
 
-/* Exceptions on parameters */
+/* Exceptions */

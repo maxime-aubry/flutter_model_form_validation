@@ -80,7 +80,7 @@ class SmallerThanInt_remoteValueToCompareIsProvided_Stub
         ) {}
 }
 
-/* Exceptions on parameters */
+/* Exceptions */
 class SmallerThanInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
     extends _SmallerThanIntStub {
   SmallerThanInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
