@@ -43,7 +43,7 @@ class FileSize_FileSizeIsNotAllowed_Stub extends _FileSizeStub {
   FileSize_FileSizeIsNotAllowed_Stub()
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
-          localSize: 524288,
+          localSize: 100000,
         );
 }
 
@@ -56,14 +56,5 @@ class FileSize_ThrowsValidatorParameterExceptionOnNullSize_Stub
       : super(
           file: new File('${Directory.current.path}/test/assets/glycine.jpg'),
           localSize: null,
-        );
-}
-
-/* File not found */
-class FileSize_FileNotFound_Stub extends _FileSizeStub {
-  FileSize_FileNotFound_Stub()
-      : super(
-          file: new File('${Directory.current.path}/test/assets/not-found.jpg'),
-          localSize: 1048576,
         );
 }

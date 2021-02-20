@@ -69,12 +69,3 @@ class FileMimeType_ThrowsValidatorParameterExceptionOnEmptyMimeTypesArray_Stub
           localMimeTypes: [],
         );
 }
-
-/* File not found */
-class FileMimeType_FileNotFound_Stub extends _FileMimeTypeStub {
-  FileMimeType_FileNotFound_Stub()
-      : super(
-          file: new File('${Directory.current.path}/test/assets/not-found.jpg'),
-          localMimeTypes: ['image/jpeg', 'image/bmp'],
-        );
-}
