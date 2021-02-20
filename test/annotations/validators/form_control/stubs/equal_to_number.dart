@@ -76,9 +76,18 @@ class EqualToNumber_ValueToCompareIsNull_Stub extends _EqualToNumberStub {
         ) {}
 }
 
-class EqualToNumber_ValueDoesNotEqualValueToCompare_Stub
+class EqualToNumber_ValueIsSmallerThanValueToCompare_Stub
     extends _EqualToNumberStub {
-  EqualToNumber_ValueDoesNotEqualValueToCompare_Stub()
+  EqualToNumber_ValueIsSmallerThanValueToCompare_Stub()
+      : super(
+          value: 0,
+          localValueToCompare: 1,
+        ) {}
+}
+
+class EqualToNumber_ValueIsGreaterThanValueToCompare_Stub
+    extends _EqualToNumberStub {
+  EqualToNumber_ValueIsGreaterThanValueToCompare_Stub()
       : super(
           value: 1,
           localValueToCompare: 0,

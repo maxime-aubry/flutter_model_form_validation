@@ -36,9 +36,16 @@ void main() {
         expect(isValid, isFalse);
       });
 
-      test('value does not equal valueToCompare.', () async {
-        EqualToNumber_ValueDoesNotEqualValueToCompare_Stub stub =
-            new EqualToNumber_ValueDoesNotEqualValueToCompare_Stub();
+      test('value is smaller than valueToCompare.', () async {
+        EqualToNumber_ValueIsSmallerThanValueToCompare_Stub stub =
+            new EqualToNumber_ValueIsSmallerThanValueToCompare_Stub();
+        bool isValid = await stub.validator.isValid(stub.control);
+        expect(isValid, isFalse);
+      });
+
+      test('value is greater than valueToCompare.', () async {
+        EqualToNumber_ValueIsGreaterThanValueToCompare_Stub stub =
+            new EqualToNumber_ValueIsGreaterThanValueToCompare_Stub();
         bool isValid = await stub.validator.isValid(stub.control);
         expect(isValid, isFalse);
       });

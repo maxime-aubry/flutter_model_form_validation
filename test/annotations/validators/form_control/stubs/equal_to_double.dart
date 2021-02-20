@@ -76,9 +76,18 @@ class EqualToDouble_ValueToCompareIsNull_Stub extends _EqualToDoubleStub {
         ) {}
 }
 
-class EqualToDouble_ValueDoesNotEqualValueToCompare_Stub
+class EqualToDouble_ValueIsSmallerThanValueToCompare_Stub
     extends _EqualToDoubleStub {
-  EqualToDouble_ValueDoesNotEqualValueToCompare_Stub()
+  EqualToDouble_ValueIsSmallerThanValueToCompare_Stub()
+      : super(
+          value: 0,
+          localValueToCompare: 1,
+        ) {}
+}
+
+class EqualToDouble_ValueIsGreaterThanValueToCompare_Stub
+    extends _EqualToDoubleStub {
+  EqualToDouble_ValueIsGreaterThanValueToCompare_Stub()
       : super(
           value: 1,
           localValueToCompare: 0,

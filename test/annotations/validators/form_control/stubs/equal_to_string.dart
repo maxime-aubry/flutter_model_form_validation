@@ -76,9 +76,18 @@ class EqualToString_ValueToCompareIsNull_Stub extends _EqualToStringStub {
         ) {}
 }
 
-class EqualToString_ValueDoesNotEqualValueToCompare_Stub
+class EqualToString_ValueIsSmallerThanValueToCompare_Stub
     extends _EqualToStringStub {
-  EqualToString_ValueDoesNotEqualValueToCompare_Stub()
+  EqualToString_ValueIsSmallerThanValueToCompare_Stub()
+      : super(
+          value: 'a',
+          localValueToCompare: 'b',
+        ) {}
+}
+
+class EqualToString_ValueIsGreaterThanValueToCompare_Stub
+    extends _EqualToStringStub {
+  EqualToString_ValueIsGreaterThanValueToCompare_Stub()
       : super(
           value: 'b',
           localValueToCompare: 'a',

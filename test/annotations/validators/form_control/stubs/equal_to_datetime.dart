@@ -78,9 +78,18 @@ class EqualToDateTime_ValueToCompareIsNull_Stub extends _EqualToDateTimeStub {
         ) {}
 }
 
-class EqualToDateTime_ValueDoesNotEqualValueToCompare_Stub
+class EqualToDateTime_ValueIsSmallerThanValueToCompare_Stub
     extends _EqualToDateTimeStub {
-  EqualToDateTime_ValueDoesNotEqualValueToCompare_Stub()
+  EqualToDateTime_ValueIsSmallerThanValueToCompare_Stub()
+      : super(
+          value: new DateTime(2020, 12, 31),
+          localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
+        ) {}
+}
+
+class EqualToDateTime_ValueIsGreaterThanValueToCompare_Stub
+    extends _EqualToDateTimeStub {
+  EqualToDateTime_ValueIsGreaterThanValueToCompare_Stub()
       : super(
           value: new DateTime(2021, 1, 2),
           localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
