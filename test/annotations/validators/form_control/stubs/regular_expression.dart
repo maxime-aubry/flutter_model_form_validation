@@ -35,7 +35,7 @@ class RegularExpression_ValueMatchesToRegexp_Stub
   RegularExpression_ValueMatchesToRegexp_Stub()
       : super(
           value: 'Hello',
-          localExpression: r'^Hello|Bye$',
+          localExpression: r'^(Hello|Bye)$',
         );
 }
 
@@ -43,15 +43,7 @@ class RegularExpression_ValueIsNull_Stub extends _RegularExpressionStub {
   RegularExpression_ValueIsNull_Stub()
       : super(
           value: null,
-          localExpression: r'^Hello|Bye$',
-        );
-}
-
-class RegularExpression_ValueIsEmpty_Stub extends _RegularExpressionStub {
-  RegularExpression_ValueIsEmpty_Stub()
-      : super(
-          value: '',
-          localExpression: r'^Hello|Bye$',
+          localExpression: r'^(Hello|Bye)$',
         );
 }
 
@@ -61,7 +53,7 @@ class RegularExpression_ValueDoesNotMatchToRegexp_Stub
   RegularExpression_ValueDoesNotMatchToRegexp_Stub()
       : super(
           value: 'Hello world!',
-          localExpression: r'^Hello|Bye$',
+          localExpression: r'^(Hello|Bye)$',
         );
 }
 

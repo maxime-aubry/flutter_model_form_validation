@@ -24,7 +24,7 @@ class RegularExpression extends FormControlValidatorAnnotation<String> {
   }
 
   bool _validate(String value) {
-    if (value == null && this.expression == null) return true;
+    if (value == null) return true;
     RegExp regExp = new RegExp(this.expression);
     if (regExp.hasMatch(value.toString())) return true;
     return false;
