@@ -122,6 +122,7 @@ class RangeOfString_remoteMinIsProvided_Stub extends _RangeOfStringStub {
       : super(
           value: 'b',
           remoteMin: 'b',
+          remoteMinName: 'min',
           localMin: 'd',
           localMax: 'g',
         );
@@ -132,6 +133,7 @@ class RangeOfString_remoteMaxIsProvided_Stub extends _RangeOfStringStub {
       : super(
           value: 'h',
           remoteMax: 'h',
+          remoteMaxName: 'max',
           localMin: 'd',
           localMax: 'g',
         );
@@ -143,7 +145,7 @@ class RangeOfString_ThrowsValidatorParameterExceptionOnNullMin_Stub
   RangeOfString_ThrowsValidatorParameterExceptionOnNullMin_Stub()
       : super(
           value: 'd',
-          localMin: 'd',
+          localMax: 'd',
         );
 }
 
@@ -152,6 +154,16 @@ class RangeOfString_ThrowsValidatorParameterExceptionOnNullMax_Stub
   RangeOfString_ThrowsValidatorParameterExceptionOnNullMax_Stub()
       : super(
           value: 'h',
-          localMax: 'h',
+          localMin: 'h',
+        );
+}
+
+class RangeOfString_ThrowsValidatorParameterExceptionOnMinIsGreaterThanMax_Stub
+    extends _RangeOfStringStub {
+  RangeOfString_ThrowsValidatorParameterExceptionOnMinIsGreaterThanMax_Stub()
+      : super(
+          value: 'a',
+          localMin: 'd',
+          localMax: 'a',
         );
 }

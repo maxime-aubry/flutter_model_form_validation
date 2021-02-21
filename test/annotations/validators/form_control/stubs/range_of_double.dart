@@ -113,6 +113,7 @@ class RangeOfDouble_remoteMinIsProvided_Stub extends _RangeOfDoubleStub {
       : super(
           value: -5,
           remoteMin: -5,
+          remoteMinName: 'min',
           localMin: 1,
           localMax: 10,
         );
@@ -123,6 +124,7 @@ class RangeOfDouble_remoteMaxIsProvided_Stub extends _RangeOfDoubleStub {
       : super(
           value: 15,
           remoteMax: 15,
+          remoteMaxName: 'min',
           localMin: 1,
           localMax: 10,
         );
@@ -134,7 +136,7 @@ class RangeOfDouble_ThrowsValidatorParameterExceptionOnNullMin_Stub
   RangeOfDouble_ThrowsValidatorParameterExceptionOnNullMin_Stub()
       : super(
           value: 1,
-          localMin: 1,
+          localMax: 1,
         );
 }
 
@@ -143,6 +145,16 @@ class RangeOfDouble_ThrowsValidatorParameterExceptionOnNullMax_Stub
   RangeOfDouble_ThrowsValidatorParameterExceptionOnNullMax_Stub()
       : super(
           value: 1,
-          localMax: 10,
+          localMin: 10,
+        );
+}
+
+class RangeOfDouble_ThrowsValidatorParameterExceptionOnMinIsGreaterThanMax_Stub
+    extends _RangeOfDoubleStub {
+  RangeOfDouble_ThrowsValidatorParameterExceptionOnMinIsGreaterThanMax_Stub()
+      : super(
+          value: 1,
+          localMin: 10,
+          localMax: 1,
         );
 }

@@ -58,16 +58,16 @@ class RangeOfDateTime_ValueIsEqualToMin_Stub extends _RangeOfDateTimeStub {
       : super(
           value: new DateTime(2021, 1, 1),
           localMin: const ConstantDateTime('2021-01-01T00:00:00'),
-          localMax: const ConstantDateTime('2021-12-31T00:00:00'),
+          localMax: const ConstantDateTime('2021-01-31T00:00:00'),
         );
 }
 
 class RangeOfDateTime_ValueIsEqualToMax_Stub extends _RangeOfDateTimeStub {
   RangeOfDateTime_ValueIsEqualToMax_Stub()
       : super(
-          value: new DateTime(2021, 12, 31),
+          value: new DateTime(2021, 01, 31),
           localMin: const ConstantDateTime('2021-01-01T00:00:00'),
-          localMax: const ConstantDateTime('2021-12-31T00:00:00'),
+          localMax: const ConstantDateTime('2021-01-31T00:00:00'),
         );
 }
 
@@ -75,9 +75,9 @@ class RangeOfDateTime_ValueIsBetweenMinAndMax_Stub
     extends _RangeOfDateTimeStub {
   RangeOfDateTime_ValueIsBetweenMinAndMax_Stub()
       : super(
-          value: new DateTime(2021, 6, 1),
+          value: new DateTime(2021, 1, 15),
           localMin: const ConstantDateTime('2021-01-01T00:00:00'),
-          localMax: const ConstantDateTime('2021-12-31T00:00:00'),
+          localMax: const ConstantDateTime('2021-01-31T00:00:00'),
         );
 }
 
@@ -86,7 +86,7 @@ class RangeOfDateTime_ValueIsNull_Stub extends _RangeOfDateTimeStub {
       : super(
           value: null,
           localMin: const ConstantDateTime('2021-01-01T00:00:00'),
-          localMax: const ConstantDateTime('2021-12-31T00:00:00'),
+          localMax: const ConstantDateTime('2021-01-31T00:00:00'),
         );
 }
 
@@ -96,16 +96,16 @@ class RangeOfDateTime_ValueIsSmallerThanMin_Stub extends _RangeOfDateTimeStub {
       : super(
           value: new DateTime(2020, 12, 31),
           localMin: const ConstantDateTime('2021-01-01T00:00:00'),
-          localMax: const ConstantDateTime('2021-12-31T00:00:00'),
+          localMax: const ConstantDateTime('2021-01-31T00:00:00'),
         );
 }
 
 class RangeOfDateTime_ValueIsGreaterThanMax_Stub extends _RangeOfDateTimeStub {
   RangeOfDateTime_ValueIsGreaterThanMax_Stub()
       : super(
-          value: new DateTime(2022, 1, 1),
+          value: new DateTime(2021, 2, 1),
           localMin: const ConstantDateTime('2021-01-01T00:00:00'),
-          localMax: const ConstantDateTime('2021-12-31T00:00:00'),
+          localMax: const ConstantDateTime('2021-01-31T00:00:00'),
         );
 }
 
@@ -113,20 +113,22 @@ class RangeOfDateTime_ValueIsGreaterThanMax_Stub extends _RangeOfDateTimeStub {
 class RangeOfDateTime_remoteMinIsProvided_Stub extends _RangeOfDateTimeStub {
   RangeOfDateTime_remoteMinIsProvided_Stub()
       : super(
-          value: new DateTime(2020, 6, 1),
+          value: new DateTime(2020, 1, 1),
           remoteMin: new DateTime(2020, 1, 1),
+          remoteMinName: 'min',
           localMin: const ConstantDateTime('2021-01-01T00:00:00'),
-          localMax: const ConstantDateTime('2021-12-31T00:00:00'),
+          localMax: const ConstantDateTime('2021-01-31T00:00:00'),
         );
 }
 
 class RangeOfDateTime_remoteMaxIsProvided_Stub extends _RangeOfDateTimeStub {
   RangeOfDateTime_remoteMaxIsProvided_Stub()
       : super(
-          value: new DateTime(2022, 6, 1),
-          remoteMax: new DateTime(2022, 12, 31),
+          value: new DateTime(2021, 2, 1),
+          remoteMax: new DateTime(2021, 2, 1),
+          remoteMaxName: 'max',
           localMin: const ConstantDateTime('2021-01-01T00:00:00'),
-          localMax: const ConstantDateTime('2021-12-31T00:00:00'),
+          localMax: const ConstantDateTime('2021-01-31T00:00:00'),
         );
 }
 
@@ -136,7 +138,7 @@ class RangeOfDateTime_ThrowsValidatorParameterExceptionOnNullMin_Stub
   RangeOfDateTime_ThrowsValidatorParameterExceptionOnNullMin_Stub()
       : super(
           value: new DateTime(2021, 1, 1),
-          localMin: const ConstantDateTime('2021-01-01T00:00:00'),
+          localMax: const ConstantDateTime('2021-01-31T00:00:00'),
         );
 }
 
@@ -145,6 +147,16 @@ class RangeOfDateTime_ThrowsValidatorParameterExceptionOnNullMax_Stub
   RangeOfDateTime_ThrowsValidatorParameterExceptionOnNullMax_Stub()
       : super(
           value: new DateTime(2021, 1, 1),
-          localMax: const ConstantDateTime('2021-12-31T00:00:00'),
+          localMin: const ConstantDateTime('2021-01-01T00:00:00'),
+        );
+}
+
+class RangeOfDateTime_ThrowsValidatorParameterExceptionOnMinIsGreaterThanMax_Stub
+    extends _RangeOfDateTimeStub {
+  RangeOfDateTime_ThrowsValidatorParameterExceptionOnMinIsGreaterThanMax_Stub()
+      : super(
+          value: new DateTime(2021, 1, 1),
+          localMin: const ConstantDateTime('2021-01-31T00:00:00'),
+          localMax: const ConstantDateTime('2021-01-01T00:00:00'),
         );
 }

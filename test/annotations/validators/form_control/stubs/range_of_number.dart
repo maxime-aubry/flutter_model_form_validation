@@ -113,6 +113,7 @@ class RangeOfNumber_remoteMinIsProvided_Stub extends _RangeOfNumberStub {
       : super(
           value: -5,
           remoteMin: -5,
+          remoteMinName: 'min',
           localMin: 1,
           localMax: 10,
         );
@@ -123,6 +124,7 @@ class RangeOfNumber_remoteMaxIsProvided_Stub extends _RangeOfNumberStub {
       : super(
           value: 15,
           remoteMax: 15,
+          remoteMaxName: 'max',
           localMin: 1,
           localMax: 10,
         );
@@ -134,7 +136,7 @@ class RangeOfNumber_ThrowsValidatorParameterExceptionOnNullMin_Stub
   RangeOfNumber_ThrowsValidatorParameterExceptionOnNullMin_Stub()
       : super(
           value: 1,
-          localMin: 1,
+          localMax: 1,
         );
 }
 
@@ -143,6 +145,16 @@ class RangeOfNumber_ThrowsValidatorParameterExceptionOnNullMax_Stub
   RangeOfNumber_ThrowsValidatorParameterExceptionOnNullMax_Stub()
       : super(
           value: 1,
-          localMax: 10,
+          localMin: 10,
+        );
+}
+
+class RangeOfNumber_ThrowsValidatorParameterExceptionOnMinIsGreaterThanMax_Stub
+    extends _RangeOfNumberStub {
+  RangeOfNumber_ThrowsValidatorParameterExceptionOnMinIsGreaterThanMax_Stub()
+      : super(
+          value: 1,
+          localMin: 10,
+          localMax: 1,
         );
 }

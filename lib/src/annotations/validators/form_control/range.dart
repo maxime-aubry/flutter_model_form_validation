@@ -38,12 +38,12 @@ class Range<TProperty extends Comparable>
       formGroup: control.parentGroup,
     );
 
-    this._validateParameters();
+    this._validateParameters(min, max);
     bool isValid = this._validate(control.value, min, max);
     return isValid;
   }
 
-  void _validateParameters() {
+  void _validateParameters(TProperty min, TProperty max) {
     if (min == null)
       throw new ValidatorParameterException('min is not defined.');
 
@@ -60,10 +60,7 @@ class Range<TProperty extends Comparable>
     TProperty minValue,
     TProperty maxValue,
   ) {
-    if (value == null && minValue == null && maxValue == null) return true;
-    if (value == null) return false;
-    if (minValue == null) return false;
-    if (maxValue == null) return false;
+    if (value == null) return true;
     int comparison_of_min = value.compareTo(minValue);
     int comparison_of_max = value.compareTo(maxValue);
     bool isValid = (comparison_of_min >= 0 && comparison_of_max <= 0);
