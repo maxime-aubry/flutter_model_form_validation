@@ -86,7 +86,8 @@ class NotEqualToInt_ValueToCompareIsNull_Stub extends _NotEqualToIntStub {
         ) {}
 }
 
-class NotEqualToInt_ValueIsEqualToValueToCompare_Stub extends _NotEqualToIntStub {
+class NotEqualToInt_ValueIsEqualToValueToCompare_Stub
+    extends _NotEqualToIntStub {
   NotEqualToInt_ValueIsEqualToValueToCompare_Stub()
       : super(
           value: 0,
@@ -99,7 +100,7 @@ class NotEqualToInt_remoteValueToCompareIsProvided_Stub
     extends _NotEqualToIntStub {
   NotEqualToInt_remoteValueToCompareIsProvided_Stub()
       : super(
-          value: 1,
+          value: 0,
           remoteValueToCompare: 1,
           remoteValueToCompareName: 'valueToCompare',
           localValueToCompare: 0,

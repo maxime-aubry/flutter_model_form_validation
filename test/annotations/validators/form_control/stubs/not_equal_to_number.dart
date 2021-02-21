@@ -100,7 +100,7 @@ class NotEqualToNumber_remoteValueToCompareIsProvided_Stub
     extends _NotEqualToNumberStub {
   NotEqualToNumber_remoteValueToCompareIsProvided_Stub()
       : super(
-          value: 1,
+          value: 0,
           remoteValueToCompare: 1,
           remoteValueToCompareName: 'valueToCompare',
           localValueToCompare: 0,
