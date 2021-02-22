@@ -42,7 +42,8 @@ class _EqualToStringStub
 }
 
 /* Value is valid */
-class EqualToString_ValueIsEqualToValueToCompare_Stub extends _EqualToStringStub {
+class EqualToString_ValueIsEqualToValueToCompare_Stub
+    extends _EqualToStringStub {
   EqualToString_ValueIsEqualToValueToCompare_Stub()
       : super(
           value: 'a',
@@ -59,7 +60,6 @@ class EqualToString_ValueAndValueToCompareAreNull_Stub
         ) {}
 }
 
-/* Value is not valid */
 class EqualToString_ValueIsNull_Stub extends _EqualToStringStub {
   EqualToString_ValueIsNull_Stub()
       : super(
@@ -76,6 +76,7 @@ class EqualToString_ValueToCompareIsNull_Stub extends _EqualToStringStub {
         ) {}
 }
 
+/* Value is not valid */
 class EqualToString_ValueIsSmallerThanValueToCompare_Stub
     extends _EqualToStringStub {
   EqualToString_ValueIsSmallerThanValueToCompare_Stub()

@@ -61,7 +61,6 @@ class GreaterThanDateTime_ValueAndValueToCompareAreNull_Stub
         ) {}
 }
 
-/* Value is not valid */
 class GreaterThanDateTime_ValueIsNull_Stub extends _GreaterThanDateTimeStub {
   GreaterThanDateTime_ValueIsNull_Stub()
       : super(
@@ -79,6 +78,7 @@ class GreaterThanDateTime_ValueToCompareIsNull_Stub
         ) {}
 }
 
+/* Value is not valid */
 class GreaterThanDateTime_ValueIsSmallerThanValueToCompare_Stub
     extends _GreaterThanDateTimeStub {
   GreaterThanDateTime_ValueIsSmallerThanValueToCompare_Stub()

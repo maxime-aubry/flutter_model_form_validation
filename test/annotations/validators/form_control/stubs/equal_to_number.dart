@@ -42,7 +42,8 @@ class _EqualToNumberStub
 }
 
 /* Value is valid */
-class EqualToNumber_ValueIsEqualToValueToCompare_Stub extends _EqualToNumberStub {
+class EqualToNumber_ValueIsEqualToValueToCompare_Stub
+    extends _EqualToNumberStub {
   EqualToNumber_ValueIsEqualToValueToCompare_Stub()
       : super(
           value: 0,
@@ -59,7 +60,6 @@ class EqualToNumber_ValueAndValueToCompareAreNull_Stub
         ) {}
 }
 
-/* Value is not valid */
 class EqualToNumber_ValueIsNull_Stub extends _EqualToNumberStub {
   EqualToNumber_ValueIsNull_Stub()
       : super(
@@ -76,6 +76,7 @@ class EqualToNumber_ValueToCompareIsNull_Stub extends _EqualToNumberStub {
         ) {}
 }
 
+/* Value is not valid */
 class EqualToNumber_ValueIsSmallerThanValueToCompare_Stub
     extends _EqualToNumberStub {
   EqualToNumber_ValueIsSmallerThanValueToCompare_Stub()

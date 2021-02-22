@@ -27,23 +27,23 @@ void main() {
         bool isValid = await stub.validator.isValid(stub.control);
         expect(isValid, isTrue);
       });
-    });
 
-    group('Invalid.', () {
       test('value is null.', () async {
         GreaterOrEqualToDouble_ValueIsNull_Stub stub =
             new GreaterOrEqualToDouble_ValueIsNull_Stub();
         bool isValid = await stub.validator.isValid(stub.control);
-        expect(isValid, isFalse);
+        expect(isValid, isTrue);
       });
 
       test('valueToCompare is null.', () async {
         GreaterOrEqualToDouble_ValueToCompareIsNull_Stub stub =
             new GreaterOrEqualToDouble_ValueToCompareIsNull_Stub();
         bool isValid = await stub.validator.isValid(stub.control);
-        expect(isValid, isFalse);
+        expect(isValid, isTrue);
       });
+    });
 
+    group('Invalid.', () {
       test('valueToCompare is smaller than valueToCompare.', () async {
         GreaterOrEqualToDouble_ValueIsSmallerThanValueToCompare_Stub stub =
             new GreaterOrEqualToDouble_ValueIsSmallerThanValueToCompare_Stub();

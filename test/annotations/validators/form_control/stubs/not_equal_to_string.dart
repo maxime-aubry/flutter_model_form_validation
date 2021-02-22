@@ -69,7 +69,6 @@ class NotEqualToString_ValueAndValueToCompareAreNull_Stub
         ) {}
 }
 
-/* Value is not valid */
 class NotEqualToString_ValueIsNull_Stub extends _NotEqualToStringStub {
   NotEqualToString_ValueIsNull_Stub()
       : super(
@@ -86,6 +85,7 @@ class NotEqualToString_ValueToCompareIsNull_Stub extends _NotEqualToStringStub {
         ) {}
 }
 
+/* Value is not valid */
 class NotEqualToString_ValueIsEqualToValueToCompare_Stub
     extends _NotEqualToStringStub {
   NotEqualToString_ValueIsEqualToValueToCompare_Stub()

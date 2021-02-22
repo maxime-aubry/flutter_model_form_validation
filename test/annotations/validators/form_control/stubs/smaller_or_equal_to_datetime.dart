@@ -70,7 +70,6 @@ class SmallerOrEqualToDateTime_ValueAndValueToCompareAreNull_Stub
         ) {}
 }
 
-/* Value is not valid */
 class SmallerOrEqualToDateTime_ValueIsNull_Stub
     extends _SmallerOrEqualToDateTimeStub {
   SmallerOrEqualToDateTime_ValueIsNull_Stub()
@@ -89,6 +88,7 @@ class SmallerOrEqualToDateTime_ValueToCompareIsNull_Stub
         ) {}
 }
 
+/* Value is not valid */
 class SmallerOrEqualToDateTime_ValueIsGreaterThanValueToCompare_Stub
     extends _SmallerOrEqualToDateTimeStub {
   SmallerOrEqualToDateTime_ValueIsGreaterThanValueToCompare_Stub()

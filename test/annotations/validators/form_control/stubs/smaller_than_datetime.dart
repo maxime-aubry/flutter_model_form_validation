@@ -52,11 +52,29 @@ class SmallerThanDateTime_ValueIsSmallerThanValueToCompare_Stub
         ) {}
 }
 
+class SmallerThanDateTime_ValueAndValueToCompareAreNull_Stub
+    extends _SmallerThanDateTimeStub {
+  SmallerThanDateTime_ValueAndValueToCompareAreNull_Stub()
+      : super(
+          value: null,
+          localValueToCompare: null,
+        ) {}
+}
+
 class SmallerThanDateTime_ValueIsNull_Stub extends _SmallerThanDateTimeStub {
   SmallerThanDateTime_ValueIsNull_Stub()
       : super(
           value: null,
           localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
+        ) {}
+}
+
+class SmallerThanDateTime_ValueToCompareIsNull_Stub
+    extends _SmallerThanDateTimeStub {
+  SmallerThanDateTime_ValueToCompareIsNull_Stub()
+      : super(
+          value: new DateTime(2021, 1, 1),
+          localValueToCompare: null,
         ) {}
 }
 
@@ -66,6 +84,15 @@ class SmallerThanDateTime_ValueIsGreaterThanValueToCompare_Stub
   SmallerThanDateTime_ValueIsGreaterThanValueToCompare_Stub()
       : super(
           value: new DateTime(2021, 1, 2),
+          localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
+        ) {}
+}
+
+class SmallerThanDateTime_ValueIsEqualToValueToCompare_Stub
+    extends _SmallerThanDateTimeStub {
+  SmallerThanDateTime_ValueIsEqualToValueToCompare_Stub()
+      : super(
+          value: new DateTime(2021, 1, 1),
           localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
         ) {}
 }

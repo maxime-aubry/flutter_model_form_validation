@@ -61,7 +61,6 @@ class EqualToDateTime_ValueAndValueToCompareAreNull_Stub
         ) {}
 }
 
-/* Value is not valid */
 class EqualToDateTime_ValueIsNull_Stub extends _EqualToDateTimeStub {
   EqualToDateTime_ValueIsNull_Stub()
       : super(
@@ -78,6 +77,7 @@ class EqualToDateTime_ValueToCompareIsNull_Stub extends _EqualToDateTimeStub {
         ) {}
 }
 
+/* Value is not valid */
 class EqualToDateTime_ValueIsSmallerThanValueToCompare_Stub
     extends _EqualToDateTimeStub {
   EqualToDateTime_ValueIsSmallerThanValueToCompare_Stub()

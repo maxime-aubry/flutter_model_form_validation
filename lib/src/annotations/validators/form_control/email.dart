@@ -20,10 +20,8 @@ class Email extends FormControlValidatorAnnotation<String> {
 
   bool _validate(String value) {
     if (value == null || value.isEmpty) return true;
-
-    String _value = (value == null) ? '' : value;
     RegExp regExp = new RegExp(Rules.email);
-    if (regExp.hasMatch(_value)) return true;
+    if (regExp.hasMatch(value)) return true;
     return false;
   }
 }

@@ -17,22 +17,21 @@ void main() {
         bool isValid = await stub.validator.isValid(stub.control);
         expect(isValid, isTrue);
       });
-    });
 
-    group('Invalid.', () {
       test('value is null.', () async {
         InText_ValueIsNull_Stub stub = new InText_ValueIsNull_Stub();
         bool isValid = await stub.validator.isValid(stub.control);
-        expect(isValid, isFalse);
+        expect(isValid, isTrue);
       });
 
-      test('valueToCompare is null.', () async {
-        InText_ValueToCompareIsNull_Stub stub =
-            new InText_ValueToCompareIsNull_Stub();
+      test('text is null.', () async {
+        InText_TextIsNull_Stub stub = new InText_TextIsNull_Stub();
         bool isValid = await stub.validator.isValid(stub.control);
-        expect(isValid, isFalse);
+        expect(isValid, isTrue);
       });
+    });
 
+    group('Invalid.', () {
       test('value is not in text.', () async {
         InText_ValueIsNotInText_Stub stub = new InText_ValueIsNotInText_Stub();
         bool isValid = await stub.validator.isValid(stub.control);

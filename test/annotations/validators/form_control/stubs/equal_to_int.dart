@@ -57,7 +57,6 @@ class EqualToInt_ValueAndValueToCompareAreNull_Stub extends _EqualToIntStub {
         ) {}
 }
 
-/* Value is not valid */
 class EqualToInt_ValueIsNull_Stub extends _EqualToIntStub {
   EqualToInt_ValueIsNull_Stub()
       : super(
@@ -74,6 +73,7 @@ class EqualToInt_ValueToCompareIsNull_Stub extends _EqualToIntStub {
         ) {}
 }
 
+/* Value is not valid */
 class EqualToInt_ValueIsSmallerThanValueToCompare_Stub extends _EqualToIntStub {
   EqualToInt_ValueIsSmallerThanValueToCompare_Stub()
       : super(

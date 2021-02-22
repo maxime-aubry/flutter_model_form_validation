@@ -51,11 +51,29 @@ class SmallerThanString_ValueIsSmallerThanValueToCompare_Stub
         ) {}
 }
 
+class SmallerThanString_ValueAndValueToCompareAreNull_Stub
+    extends _SmallerThanStringStub {
+  SmallerThanString_ValueAndValueToCompareAreNull_Stub()
+      : super(
+          value: null,
+          localValueToCompare: null,
+        ) {}
+}
+
 class SmallerThanString_ValueIsNull_Stub extends _SmallerThanStringStub {
   SmallerThanString_ValueIsNull_Stub()
       : super(
           value: null,
           localValueToCompare: 'a',
+        ) {}
+}
+
+class SmallerThanString_ValueToCompareIsNull_Stub
+    extends _SmallerThanStringStub {
+  SmallerThanString_ValueToCompareIsNull_Stub()
+      : super(
+          value: 'a',
+          localValueToCompare: null,
         ) {}
 }
 
@@ -65,6 +83,15 @@ class SmallerThanString_ValueIsGreaterThanValueToCompare_Stub
   SmallerThanString_ValueIsGreaterThanValueToCompare_Stub()
       : super(
           value: 'b',
+          localValueToCompare: 'a',
+        ) {}
+}
+
+class SmallerThanString_ValueIsEqualToValueToCompare_Stub
+    extends _SmallerThanStringStub {
+  SmallerThanString_ValueIsEqualToValueToCompare_Stub()
+      : super(
+          value: 'a',
           localValueToCompare: 'a',
         ) {}
 }

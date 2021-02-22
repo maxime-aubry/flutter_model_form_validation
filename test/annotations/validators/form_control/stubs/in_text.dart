@@ -56,7 +56,6 @@ class InText_ValueAndTextAreNull_Stub extends _InTextStub {
         );
 }
 
-/* Value is not valid */
 class InText_ValueIsNull_Stub extends _InTextStub {
   InText_ValueIsNull_Stub()
       : super(
@@ -66,14 +65,15 @@ class InText_ValueIsNull_Stub extends _InTextStub {
         );
 }
 
-class InText_ValueToCompareIsNull_Stub extends _InTextStub {
-  InText_ValueToCompareIsNull_Stub()
+class InText_TextIsNull_Stub extends _InTextStub {
+  InText_TextIsNull_Stub()
       : super(
           value: 'consectetur',
           localText: null,
         );
 }
 
+/* Value is not valid */
 class InText_ValueIsNotInText_Stub extends _InTextStub {
   InText_ValueIsNotInText_Stub()
       : super(

@@ -19,23 +19,23 @@ void main() {
         bool isValid = await stub.validator.isValid(stub.control);
         expect(isValid, isTrue);
       });
-    });
 
-    group('Invalid.', () {
       test('value is null.', () async {
         EqualToNumber_ValueIsNull_Stub stub =
             new EqualToNumber_ValueIsNull_Stub();
         bool isValid = await stub.validator.isValid(stub.control);
-        expect(isValid, isFalse);
+        expect(isValid, isTrue);
       });
 
       test('valueToCompare is null.', () async {
         EqualToNumber_ValueToCompareIsNull_Stub stub =
             new EqualToNumber_ValueToCompareIsNull_Stub();
         bool isValid = await stub.validator.isValid(stub.control);
-        expect(isValid, isFalse);
+        expect(isValid, isTrue);
       });
+    });
 
+    group('Invalid.', () {
       test('value is smaller than valueToCompare.', () async {
         EqualToNumber_ValueIsSmallerThanValueToCompare_Stub stub =
             new EqualToNumber_ValueIsSmallerThanValueToCompare_Stub();

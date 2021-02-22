@@ -69,7 +69,6 @@ class GreaterOrEqualToInt_ValueAndValueToCompareAreNull_Stub
         ) {}
 }
 
-/* Value is not valid */
 class GreaterOrEqualToInt_ValueIsNull_Stub extends _GreaterOrEqualToIntStub {
   GreaterOrEqualToInt_ValueIsNull_Stub()
       : super(
@@ -87,6 +86,7 @@ class GreaterOrEqualToInt_ValueToCompareIsNull_Stub
         ) {}
 }
 
+/* Value is not valid */
 class GreaterOrEqualToInt_ValueIsSmallerThanValueToCompare_Stub
     extends _GreaterOrEqualToIntStub {
   GreaterOrEqualToInt_ValueIsSmallerThanValueToCompare_Stub()

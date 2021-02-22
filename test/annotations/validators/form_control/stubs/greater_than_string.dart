@@ -60,7 +60,6 @@ class GreaterThanString_ValueAndValueToCompareAreNull_Stub
         ) {}
 }
 
-/* Value is not valid */
 class GreaterThanString_ValueIsNull_Stub extends _GreaterThanStringStub {
   GreaterThanString_ValueIsNull_Stub()
       : super(
@@ -78,6 +77,7 @@ class GreaterThanString_ValueToCompareIsNull_Stub
         ) {}
 }
 
+/* Value is not valid */
 class GreaterThanString_ValueIsSmallerThanValueToCompare_Stub
     extends _GreaterThanStringStub {
   GreaterThanString_ValueIsSmallerThanValueToCompare_Stub()

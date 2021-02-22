@@ -69,7 +69,6 @@ class GreaterOrEqualToString_ValueAndValueToCompareAreNull_Stub
         ) {}
 }
 
-/* Value is not valid */
 class GreaterOrEqualToString_ValueIsNull_Stub
     extends _GreaterOrEqualToStringStub {
   GreaterOrEqualToString_ValueIsNull_Stub()
@@ -88,6 +87,7 @@ class GreaterOrEqualToString_ValueToCompareIsNull_Stub
         ) {}
 }
 
+/* Value is not valid */
 class GreaterOrEqualToString_ValueIsSmallerThanValueToCompare_Stub
     extends _GreaterOrEqualToStringStub {
   GreaterOrEqualToString_ValueIsSmallerThanValueToCompare_Stub()

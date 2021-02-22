@@ -69,7 +69,6 @@ class NotEqualToDouble_ValueAndValueToCompareAreNull_Stub
         ) {}
 }
 
-/* Value is not valid */
 class NotEqualToDouble_ValueIsNull_Stub extends _NotEqualToDoubleStub {
   NotEqualToDouble_ValueIsNull_Stub()
       : super(
@@ -86,6 +85,7 @@ class NotEqualToDouble_ValueToCompareIsNull_Stub extends _NotEqualToDoubleStub {
         ) {}
 }
 
+/* Value is not valid */
 class NotEqualToDouble_ValueIsEqualToValueToCompare_Stub
     extends _NotEqualToDoubleStub {
   NotEqualToDouble_ValueIsEqualToValueToCompare_Stub()

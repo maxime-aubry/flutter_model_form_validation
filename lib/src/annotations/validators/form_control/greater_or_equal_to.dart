@@ -36,9 +36,7 @@ class GreaterOrEqualTo<TProperty extends Comparable>
   }
 
   bool _validate(TProperty value, TProperty valueToCompare) {
-    if (value == null && valueToCompare == null) return true;
-    if (value == null) return false;
-    if (valueToCompare == null) return false;
+    if (value == null || valueToCompare == null) return true;
     int comparison = value.compareTo(valueToCompare);
     bool isValid = (comparison >= 0);
     return isValid;
