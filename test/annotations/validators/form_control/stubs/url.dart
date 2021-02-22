@@ -11,17 +11,18 @@ class _UrlStub extends ValidatorStub<FormControl<String>, Url> {
       value: value,
       validators: [],
     );
-    this.validator = Url(error: null);
+    this.validator = Url(
+      allowEmptyProtocol: false,
+      allowLocal: false,
+      protocols: [EUrlProtocol.http, EUrlProtocol.https, EUrlProtocol.ftp],
+      error: null,
+    );
   }
 }
 
 /* Value is valid */
 class Url_UrlIsNull_Stub extends _UrlStub {
   Url_UrlIsNull_Stub() : super(value: null);
-}
-
-class Url_UrlIsEmpty_Stub extends _UrlStub {
-  Url_UrlIsEmpty_Stub() : super(value: '');
 }
 
 class Url_UrlIsValid1_Stub extends _UrlStub {
@@ -178,10 +179,6 @@ class Url_UrlIsValid35_Stub extends _UrlStub {
 
 class Url_UrlIsValid36_Stub extends _UrlStub {
   Url_UrlIsValid36_Stub() : super(value: 'http://223.255.255.254');
-}
-
-class Url_UrlIsValid37_Stub extends _UrlStub {
-  Url_UrlIsValid37_Stub() : super(value: 'https://foo_bar.example.com/');
 }
 
 /* Value is not valid */

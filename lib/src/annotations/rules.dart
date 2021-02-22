@@ -1,3 +1,6 @@
+import 'package:flutter_model_form_validation/src/annotations/index.dart';
+import 'package:queries/collections.dart';
+
 class Rules {
   static String email = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$';
 
@@ -503,19 +506,34 @@ class Rules {
     'ZW-mobile': r'',
   };
 
-  static String url = r'^(?:(?:(?:http|https|ftp):)?\/\/)' +
-      r'(?:\S+(?::\S*)?@)?' +
-      r'(?:' +
-      r'(?!(?:10|127)(?:\.\d{1,3}){3})' +
-      r'(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})' +
-      r'(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})' +
-      r'(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])' +
-      r'(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}' +
-      r'(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))' +
-      '|' +
-      r'(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)' +
-      r'(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))' +
-      r')' +
-      r'(?::\d{2,5})?' +
-      r'(?:[/?#]\S*)?$';
+  static String url(
+    bool allowEmptyProtocol,
+    bool allowLocal,
+    List<EUrlProtocol> protocols,
+  ) {
+    String allowedProtocols = Collection(protocols)
+        .select((arg1) => arg1.toString().split('.')[1])
+        .toList()
+        .join('|');
+
+    // allow protocol or not
+    String url = "^(?:(?:$allowedProtocols)://)";
+    if (allowEmptyProtocol) url += "?";
+
+    url += r"(?:\S+(?::\S*)?@)?(?:";
+
+    if (!allowLocal) {
+      url +=
+          r"(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})";
+    }
+
+    url +=
+        r"(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-?)*[a-z\u00a1-\uffff0-9])*(?:\.(?:[a-z\u00a1-\uffff]{2,}))";
+
+    if (allowLocal) url += "?";
+
+    url += r")(?::\d{2,5})?(?:/[^\s]*)?$";
+
+    return url;
+  }
 }
