@@ -14,6 +14,10 @@ class ValidatorStub<TAbstractControl extends AbstractControl,
   TValidator validator;
 }
 
+class FormGroupStub {
+  FormGroup formGroup;
+}
+
 /* Value is valid */
 /* Value is not valid */
 /* Remote parameters are provided */

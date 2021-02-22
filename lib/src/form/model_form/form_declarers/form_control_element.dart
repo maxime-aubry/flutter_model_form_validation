@@ -5,7 +5,7 @@ import 'package:flutter_model_form_validation/src/form/model_form/index.dart';
 class FormControlElement<TProperty> extends FormElementNotifier<TProperty>
     with FormControlFilter<TProperty> {
   FormControlElement(TProperty value) : super(value) {
-    // // check if TProperty is an alloew type
+    // // check if TProperty is an allowed type
     // // throw an exception if not
     super.checkAllowedFormControlType();
   }

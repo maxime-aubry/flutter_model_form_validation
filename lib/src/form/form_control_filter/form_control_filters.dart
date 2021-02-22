@@ -69,7 +69,7 @@ mixin FormControlFilter<TProperty> {
 
     if (!isAllowed) {
       throw new FormControlFilterException(
-        '''Cannot instanciate a FormControlElement with a not allowed type $TProperty.
+        '''Cannot instantiate a FormControlElement with a not allowed type $TProperty.
         Allowed types are : DateTime, num, int, double, Uint8, Uint16, Uint32, Uint64, Int8, Int16, Int32, Int64, String, bool, enums, List<DateTime>, List<num>, List<int>, List<double>, Uint8List, Uint16List, Uint32List, Uint64List, Int8List, Int16List, Int32List, Int64List, List<String>, List<bool> and a list of enum.''',
       );
     }
