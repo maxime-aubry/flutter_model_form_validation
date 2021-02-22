@@ -1,4 +1,4 @@
-import 'package:flutter_model_form_validation/src/form/index.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 import '../../../../stubs.dart';
 

@@ -26,7 +26,7 @@ void main() {
 
     group('Invalid.', () {
       test('value is not a valid email.', () async {
-        Email_InavlidEmail_Stub stub = new Email_InavlidEmail_Stub();
+        Email_InvalidEmail_Stub stub = new Email_InvalidEmail_Stub();
         bool isValid = await stub.validator.isValid(stub.control);
         expect(isValid, isFalse);
       });

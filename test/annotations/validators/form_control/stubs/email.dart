@@ -1,5 +1,4 @@
-import 'package:flutter_model_form_validation/src/annotations/index.dart';
-import 'package:flutter_model_form_validation/src/form/index.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 import '../../../../stubs.dart';
 
@@ -29,8 +28,8 @@ class Email_EmptyValue_Stub extends _EmailStub {
 }
 
 /* Value is not valid */
-class Email_InavlidEmail_Stub extends _EmailStub {
-  Email_InavlidEmail_Stub() : super(value: 'a.a@a');
+class Email_InvalidEmail_Stub extends _EmailStub {
+  Email_InvalidEmail_Stub() : super(value: 'a.a@a');
 }
 
 /* Remote parameters are provided */

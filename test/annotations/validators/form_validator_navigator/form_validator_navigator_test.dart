@@ -1,5 +1,5 @@
 import 'package:constant_datetime/constant_datetime.dart';
-import 'package:flutter_model_form_validation/src/exceptions/index.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../expect_exception.dart';
