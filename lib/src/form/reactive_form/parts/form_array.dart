@@ -63,9 +63,13 @@ class FormArray extends AbstractControl {
     FormGroup formGroup, {
     bool notify = true,
   }) {
-    assert(formGroup != null, 'Cannot add form group if this one is null.');
-    assert(!this.groups.contains(formGroup),
-        'Cannot add form group if this one is already added.');
+    if (formGroup == null)
+      throw new FormBuilderException(
+          'Cannot add FormGroup if this one is null.');
+
+    if (this.groups.contains(formGroup))
+      throw new FormBuilderException(
+          'Cannot add FormGroup if this one is already added.');
 
     this.groups.add(formGroup);
     this._initializeItem(formGroup);
@@ -76,9 +80,13 @@ class FormArray extends AbstractControl {
     FormGroup formGroup, {
     bool notify = true,
   }) {
-    assert(formGroup != null, 'Cannot add form group if this one is null.');
-    assert(this.groups.contains(formGroup),
-        'Cannot remove form group if this one is not added.');
+    if (formGroup == null)
+      throw new FormBuilderException(
+          'Cannot add FormGroup if this one is null.');
+
+    if (!this.groups.contains(formGroup))
+      throw new FormBuilderException(
+          'Cannot remove FormGroup if this one is not registered.');
 
     this.groups.remove(formGroup);
     this.reindexFormArrayItems();
@@ -111,7 +119,7 @@ class FormArray extends AbstractControl {
   /* Private methods */
   String _getIndexedFormArrayItemName(FormGroup item) {
     int index = this.groups.indexOf(item);
-    String indexedName = '${item.name}[$index]';
+    String indexedName = '${this.name}[$index]';
     return indexedName;
   }
 
