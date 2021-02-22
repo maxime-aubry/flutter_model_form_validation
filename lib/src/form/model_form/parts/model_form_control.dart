@@ -77,7 +77,8 @@ class ModelFormControl<TField> extends FormControl<TField>
       this.name,
     );
     formElement.addListener(() {
-      this.value = formElement.value;
+      //this.value = formElement.value;
+      this.setValue(formElement.value);
     });
   }
 }

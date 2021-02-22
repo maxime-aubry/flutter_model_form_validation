@@ -32,7 +32,7 @@ class FormControl<TProperty> extends AbstractControl
   }
 
   /* Setters */
-  @protected
+  /*@protected
   void set value(TProperty value) {
     // does not accept empty string value
     if (TProperty == String) {
@@ -44,14 +44,14 @@ class FormControl<TProperty> extends AbstractControl
     } else {
       this._value = value;
     }
-  }
+  }*/
 
   /* Constructors */
   FormControl({
     @required TProperty value,
     @required List<FormValidatorAnnotation> validators,
   }) : super(validators) {
-    // check if TProperty is an alloew type
+    // check if TProperty is an allowed type
     // throw an exception if not
     super.checkAllowedFormControlType();
     this._value = value;
@@ -79,7 +79,14 @@ class FormControl<TProperty> extends AbstractControl
   }
 
   Future<void> setValue(TProperty value) async {
-    this._value = value;
+    // does not accept empty string value
+    if (TProperty == String) {
+      String _value = value as String;
+      this._value = (_value.isEmpty) ? null : value;
+    } else {
+      this._value = value;
+    }
+
     await super.validateControl();
   }
 
