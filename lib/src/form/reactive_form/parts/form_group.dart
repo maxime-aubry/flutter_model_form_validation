@@ -87,8 +87,9 @@ class FormGroup extends AbstractControl {
   bool containsControl(
     String name,
   ) {
-    assert(name != null && !name.isEmpty,
-        'Cannot check if control does exist if its name is not provided.');
+    if (name == null || name.isEmpty)
+      throw new FormBuilderException(
+          'Cannot check if control does exist if its name is not provided.');
 
     bool hasKey = this.controls.containsKey(name);
     return hasKey;
@@ -98,11 +99,16 @@ class FormGroup extends AbstractControl {
   /// And then, force the reinitialization of the form builder to update the tree.
   /// Notify listeners.
   void addControl(String name, AbstractControl control) {
-    assert(name != null && !name.isEmpty,
-        'Cannot add control if its name is not provided.');
-    assert(control != null, 'Cannot add control if this one is null.');
-    assert(!this.controls.containsKey(name),
-        'Cannot add control if this one is already added.');
+    if (name == null || name.isEmpty)
+      throw new FormBuilderException(
+          'Cannot add control if its name is not provided.');
+
+    if (control == null)
+      throw new FormBuilderException('Cannot add control if this one is null.');
+
+    if (this.controls.containsKey(name))
+      throw new FormBuilderException(
+          'Cannot add control if this one is already added.');
 
     this.controls[name] = control;
     this._initializeControl(name, control);
@@ -115,10 +121,13 @@ class FormGroup extends AbstractControl {
   void removeControl(
     String name,
   ) {
-    assert(name != null && !name.isEmpty,
-        'Cannot add control if its name is not provided.');
-    assert(this.controls.containsKey(name),
-        'Cannot add control if this one is not added.');
+    if (name == null || name.isEmpty)
+      throw new FormBuilderException(
+          'Cannot remove control if its name is not provided.');
+
+    if (!this.controls.containsKey(name))
+      throw new FormBuilderException(
+          'Cannot remove control if this one is not registered.');
 
     this.controls.remove(name);
     super.notifyListeners();
@@ -139,7 +148,7 @@ class FormGroup extends AbstractControl {
 
   FormGroup getFormGroup(String name) {
     if (!this.containsControl(name))
-      throw new FormBuilderException('Form group not found.');
+      throw new FormBuilderException('FormGroup not found.');
 
     if (this.controls[name] is! FormGroup)
       throw new FormBuilderException('Control is not of FormGroup type.');
@@ -150,7 +159,7 @@ class FormGroup extends AbstractControl {
 
   FormArray getFormArray(String name) {
     if (!this.containsControl(name))
-      throw new FormBuilderException('Form array not found.');
+      throw new FormBuilderException('FormArray not found.');
 
     if (this.controls[name] is! FormArray)
       throw new FormBuilderException('Control is not of FormArray type.');
@@ -161,7 +170,7 @@ class FormGroup extends AbstractControl {
 
   FormControl<TProperty> getFormControl<TProperty>(String name) {
     if (!this.containsControl(name))
-      throw new FormBuilderException('Form control not found.');
+      throw new FormBuilderException('FormControl not found.');
 
     if (this.controls[name] is! FormControl<TProperty>)
       throw new FormBuilderException(
