@@ -56,25 +56,43 @@ class SmallerOrEqualToInt_ValueIsEqualToValueToCompare_Stub
   SmallerOrEqualToInt_ValueIsEqualToValueToCompare_Stub()
       : super(
           value: 0,
-          localValueToCompare: 0,
+          localValueToCompare: 1,
         ) {}
 }
 
-class SmallerOrEqualToInt_ValueIsNull_Stub extends _SmallerOrEqualToIntStub {
-  SmallerOrEqualToInt_ValueIsNull_Stub()
+class SmallerOrEqualToInt_ValueAndValueToCompareAreNull_Stub
+    extends _SmallerOrEqualToIntStub {
+  SmallerOrEqualToInt_ValueAndValueToCompareAreNull_Stub()
       : super(
           value: null,
-          localValueToCompare: 0,
+          localValueToCompare: null,
         ) {}
 }
 
 /* Value is not valid */
-class SmallerOrEqualToInt_ValueIsGreterThanValueToCompare_Stub
-    extends _SmallerOrEqualToIntStub {
-  SmallerOrEqualToInt_ValueIsGreterThanValueToCompare_Stub()
+class SmallerOrEqualToInt_ValueIsNull_Stub extends _SmallerOrEqualToIntStub {
+  SmallerOrEqualToInt_ValueIsNull_Stub()
       : super(
-          value: 1,
-          localValueToCompare: 0,
+          value: null,
+          localValueToCompare: 1,
+        ) {}
+}
+
+class SmallerOrEqualToInt_ValueToCompareIsNull_Stub
+    extends _SmallerOrEqualToIntStub {
+  SmallerOrEqualToInt_ValueToCompareIsNull_Stub()
+      : super(
+          value: 0,
+          localValueToCompare: null,
+        ) {}
+}
+
+class SmallerOrEqualToInt_ValueIsGreaterThanValueToCompare_Stub
+    extends _SmallerOrEqualToIntStub {
+  SmallerOrEqualToInt_ValueIsGreaterThanValueToCompare_Stub()
+      : super(
+          value: 2,
+          localValueToCompare: 1,
         ) {}
 }
 
@@ -83,15 +101,11 @@ class SmallerOrEqualToInt_remoteValueToCompareIsProvided_Stub
     extends _SmallerOrEqualToIntStub {
   SmallerOrEqualToInt_remoteValueToCompareIsProvided_Stub()
       : super(
-          value: 0,
-          remoteValueToCompare: 0,
+          value: 2,
+          remoteValueToCompare: 2,
+          remoteValueToCompareName: 'valueToCompare',
           localValueToCompare: 1,
         ) {}
 }
 
 /* Exceptions */
-class SmallerOrEqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
-    extends _SmallerOrEqualToIntStub {
-  SmallerOrEqualToInt_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
-      : super(value: 1) {}
-}

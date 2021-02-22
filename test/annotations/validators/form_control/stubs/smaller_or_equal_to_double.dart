@@ -56,26 +56,44 @@ class SmallerOrEqualToDouble_ValueIsEqualToValueToCompare_Stub
   SmallerOrEqualToDouble_ValueIsEqualToValueToCompare_Stub()
       : super(
           value: 0,
-          localValueToCompare: 0,
+          localValueToCompare: 1,
         ) {}
 }
 
+class SmallerOrEqualToDouble_ValueAndValueToCompareAreNull_Stub
+    extends _SmallerOrEqualToDoubleStub {
+  SmallerOrEqualToDouble_ValueAndValueToCompareAreNull_Stub()
+      : super(
+          value: null,
+          localValueToCompare: null,
+        ) {}
+}
+
+/* Value is not valid */
 class SmallerOrEqualToDouble_ValueIsNull_Stub
     extends _SmallerOrEqualToDoubleStub {
   SmallerOrEqualToDouble_ValueIsNull_Stub()
       : super(
           value: null,
-          localValueToCompare: 0,
+          localValueToCompare: 1,
         ) {}
 }
 
-/* Value is not valid */
-class SmallerOrEqualToDouble_ValueIsGreterThanValueToCompare_Stub
+class SmallerOrEqualToDouble_ValueToCompareIsNull_Stub
     extends _SmallerOrEqualToDoubleStub {
-  SmallerOrEqualToDouble_ValueIsGreterThanValueToCompare_Stub()
+  SmallerOrEqualToDouble_ValueToCompareIsNull_Stub()
       : super(
-          value: 1,
-          localValueToCompare: 0,
+          value: 0,
+          localValueToCompare: null,
+        ) {}
+}
+
+class SmallerOrEqualToDouble_ValueIsGreaterThanValueToCompare_Stub
+    extends _SmallerOrEqualToDoubleStub {
+  SmallerOrEqualToDouble_ValueIsGreaterThanValueToCompare_Stub()
+      : super(
+          value: 2,
+          localValueToCompare: 1,
         ) {}
 }
 
@@ -84,15 +102,11 @@ class SmallerOrEqualToDouble_remoteValueToCompareIsProvided_Stub
     extends _SmallerOrEqualToDoubleStub {
   SmallerOrEqualToDouble_remoteValueToCompareIsProvided_Stub()
       : super(
-          value: 0,
-          remoteValueToCompare: 0,
+          value: 2,
+          remoteValueToCompare: 2,
+          remoteValueToCompareName: 'valueToCompare',
           localValueToCompare: 1,
         ) {}
 }
 
 /* Exceptions */
-class SmallerOrEqualToDouble_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
-    extends _SmallerOrEqualToDoubleStub {
-  SmallerOrEqualToDouble_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
-      : super(value: 1) {}
-}

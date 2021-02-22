@@ -74,15 +74,11 @@ class SmallerThanNumber_remoteValueToCompareIsProvided_Stub
     extends _SmallerThanNumberStub {
   SmallerThanNumber_remoteValueToCompareIsProvided_Stub()
       : super(
-          value: 0,
-          remoteValueToCompare: 0,
+          value: 9,
+          remoteValueToCompare: 10,
+          remoteValueToCompareName: 'valueToCompare',
           localValueToCompare: 1,
         ) {}
 }
 
 /* Exceptions */
-class SmallerThanNumber_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
-    extends _SmallerThanNumberStub {
-  SmallerThanNumber_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
-      : super(value: 1) {}
-}

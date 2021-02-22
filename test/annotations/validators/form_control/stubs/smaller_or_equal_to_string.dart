@@ -42,15 +42,6 @@ class _SmallerOrEqualToStringStub
 }
 
 /* Value is valid */
-class SmallerOrEqualToString_ValueIsEqualToValueToCompare_Stub
-    extends _SmallerOrEqualToStringStub {
-  SmallerOrEqualToString_ValueIsEqualToValueToCompare_Stub()
-      : super(
-          value: 'a',
-          localValueToCompare: 'a',
-        ) {}
-}
-
 class SmallerOrEqualToString_ValueIsSmallerThanValueToCompare_Stub
     extends _SmallerOrEqualToStringStub {
   SmallerOrEqualToString_ValueIsSmallerThanValueToCompare_Stub()
@@ -60,22 +51,49 @@ class SmallerOrEqualToString_ValueIsSmallerThanValueToCompare_Stub
         ) {}
 }
 
+class SmallerOrEqualToString_ValueIsEqualToValueToCompare_Stub
+    extends _SmallerOrEqualToStringStub {
+  SmallerOrEqualToString_ValueIsEqualToValueToCompare_Stub()
+      : super(
+          value: 'a',
+          localValueToCompare: 'b',
+        ) {}
+}
+
+class SmallerOrEqualToString_ValueAndValueToCompareAreNull_Stub
+    extends _SmallerOrEqualToStringStub {
+  SmallerOrEqualToString_ValueAndValueToCompareAreNull_Stub()
+      : super(
+          value: null,
+          localValueToCompare: null,
+        ) {}
+}
+
+/* Value is not valid */
 class SmallerOrEqualToString_ValueIsNull_Stub
     extends _SmallerOrEqualToStringStub {
   SmallerOrEqualToString_ValueIsNull_Stub()
       : super(
           value: null,
-          localValueToCompare: 'a',
+          localValueToCompare: 'b',
         ) {}
 }
 
-/* Value is not valid */
-class SmallerOrEqualToString_ValueIsGreterThanValueToCompare_Stub
+class SmallerOrEqualToString_ValueToCompareIsNull_Stub
     extends _SmallerOrEqualToStringStub {
-  SmallerOrEqualToString_ValueIsGreterThanValueToCompare_Stub()
+  SmallerOrEqualToString_ValueToCompareIsNull_Stub()
       : super(
           value: 'a',
-          localValueToCompare: 'b',
+          localValueToCompare: null,
+        ) {}
+}
+
+class SmallerOrEqualToString_ValueIsGreaterThanValueToCompare_Stub
+    extends _SmallerOrEqualToStringStub {
+  SmallerOrEqualToString_ValueIsGreaterThanValueToCompare_Stub()
+      : super(
+          value: 'b',
+          localValueToCompare: 'a',
         ) {}
 }
 
@@ -84,15 +102,11 @@ class SmallerOrEqualToString_remoteValueToCompareIsProvided_Stub
     extends _SmallerOrEqualToStringStub {
   SmallerOrEqualToString_remoteValueToCompareIsProvided_Stub()
       : super(
-          value: 'a',
-          remoteValueToCompare: 'a',
+          value: 'c',
+          remoteValueToCompare: 'd',
+          remoteValueToCompareName: 'valueToCompare',
           localValueToCompare: 'b',
         ) {}
 }
 
 /* Exceptions */
-class SmallerOrEqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
-    extends _SmallerOrEqualToStringStub {
-  SmallerOrEqualToString_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
-      : super(value: 'b') {}
-}

@@ -57,23 +57,41 @@ class SmallerOrEqualToDateTime_ValueIsEqualToValueToCompare_Stub
   SmallerOrEqualToDateTime_ValueIsEqualToValueToCompare_Stub()
       : super(
           value: new DateTime(2021, 1, 1),
-          localValueToCompare: const ConstantDateTime('2021-01-02T00:00:00'),
+          localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
         ) {}
 }
 
+class SmallerOrEqualToDateTime_ValueAndValueToCompareAreNull_Stub
+    extends _SmallerOrEqualToDateTimeStub {
+  SmallerOrEqualToDateTime_ValueAndValueToCompareAreNull_Stub()
+      : super(
+          value: null,
+          localValueToCompare: null,
+        ) {}
+}
+
+/* Value is not valid */
 class SmallerOrEqualToDateTime_ValueIsNull_Stub
     extends _SmallerOrEqualToDateTimeStub {
   SmallerOrEqualToDateTime_ValueIsNull_Stub()
       : super(
           value: null,
-          localValueToCompare: const ConstantDateTime('2021-01-02T00:00:00'),
+          localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
         ) {}
 }
 
-/* Value is not valid */
-class SmallerOrEqualToDateTime_ValueIsGreterThanValueToCompare_Stub
+class SmallerOrEqualToDateTime_ValueToCompareIsNull_Stub
     extends _SmallerOrEqualToDateTimeStub {
-  SmallerOrEqualToDateTime_ValueIsGreterThanValueToCompare_Stub()
+  SmallerOrEqualToDateTime_ValueToCompareIsNull_Stub()
+      : super(
+          value: new DateTime(2021, 1, 1),
+          localValueToCompare: null,
+        ) {}
+}
+
+class SmallerOrEqualToDateTime_ValueIsGreaterThanValueToCompare_Stub
+    extends _SmallerOrEqualToDateTimeStub {
+  SmallerOrEqualToDateTime_ValueIsGreaterThanValueToCompare_Stub()
       : super(
           value: new DateTime(2021, 1, 2),
           localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
@@ -85,15 +103,11 @@ class SmallerOrEqualToDateTime_remoteValueToCompareIsProvided_Stub
     extends _SmallerOrEqualToDateTimeStub {
   SmallerOrEqualToDateTime_remoteValueToCompareIsProvided_Stub()
       : super(
-          value: new DateTime(2021, 1, 1),
-          remoteValueToCompare: new DateTime(2021, 1, 1),
-          localValueToCompare: const ConstantDateTime('2021-01-02T00:00:00'),
+          value: new DateTime(2021, 1, 2),
+          remoteValueToCompare: new DateTime(2021, 1, 2),
+          remoteValueToCompareName: 'valueToCompare',
+          localValueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
         ) {}
 }
 
 /* Exceptions */
-class SmallerOrEqualToDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub
-    extends _SmallerOrEqualToDateTimeStub {
-  SmallerOrEqualToDateTime_ThrowsValidatorParameterExceptionOnNullValueToCompare_Stub()
-      : super(value: new DateTime(2021, 1, 1)) {}
-}

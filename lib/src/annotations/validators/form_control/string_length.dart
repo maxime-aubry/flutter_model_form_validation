@@ -23,14 +23,14 @@ class StringLength extends FormControlValidatorAnnotation<String> {
 
   void _validateParameters() {
     if (min == null)
-      throw new ValidatorParameterException('Min value is not defined.');
+      throw new ValidatorParameterException('min value is not defined.');
 
     if (max == null)
-      throw new ValidatorParameterException('Max value is not defined.');
+      throw new ValidatorParameterException('max value is not defined.');
 
     if (min.compareTo(max) > 0)
       throw new ValidatorParameterException(
-          'Min value is greater than max value.');
+          'min value is greater than max value.');
   }
 
   bool _validate(String value) {
