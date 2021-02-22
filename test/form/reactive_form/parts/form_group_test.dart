@@ -18,6 +18,13 @@ void main() {
         FormGroup target = stub.control.getFormGroup(stub.key);
         expect(target.formPath, stub.path);
       });
+
+      test('ModelPath accessor works.', () {
+        FormGroup_ModelPathWorks_Stub stub =
+            new FormGroup_ModelPathWorks_Stub();
+        FormGroup target = stub.control.getFormGroup(stub.key);
+        expect(target.modelPath, stub.path);
+      });
     });
 
     group('containsControl.', () {

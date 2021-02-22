@@ -31,6 +31,13 @@ class FormGroup_FormPathWorks_Stub extends _FormGroupStub {
   FormGroup_FormPathWorks_Stub() : super();
 }
 
+class FormGroup_ModelPathWorks_Stub extends _FormGroupStub {
+  String key = 'control1';
+  String path = 'root.control1';
+
+  FormGroup_ModelPathWorks_Stub() : super();
+}
+
 /* method: containsControl */
 class FormGroup_ContainsControlFindControlByKey_Stub extends _FormGroupStub {
   String key = 'control1';
