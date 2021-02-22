@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-import '../../stubs.dart';
+import '../../../../stubs.dart';
 
 class _ImageSizeStub extends ValidatorStub<FormControl<Uint8List>, ImageSize> {
   _ImageSizeStub({

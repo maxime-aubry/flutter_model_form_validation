@@ -14,8 +14,8 @@ class ValidatorStub<TAbstractControl extends AbstractControl,
   TValidator validator;
 }
 
-class FormGroupStub {
-  FormGroup formGroup;
+class AbstractControlStub<TAbstractControl extends AbstractControl> {
+  TAbstractControl control;
 }
 
 /* Value is valid */

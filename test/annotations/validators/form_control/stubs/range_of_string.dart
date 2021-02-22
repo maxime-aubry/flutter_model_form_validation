@@ -1,7 +1,7 @@
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-import '../../stubs.dart';
+import '../../../../stubs.dart';
 
 class _RangeOfStringStub
     extends ValidatorStub<FormControl<String>, RangeOfString> {

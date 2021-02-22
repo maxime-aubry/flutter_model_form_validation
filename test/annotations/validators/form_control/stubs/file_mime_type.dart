@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
-import '../../stubs.dart';
+import '../../../../stubs.dart';
 
 class _FileMimeTypeStub
     extends ValidatorStub<FormControl<Uint8List>, FileMimeType> {
