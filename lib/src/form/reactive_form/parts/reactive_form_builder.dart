@@ -38,26 +38,28 @@ class ReactiveFormBuilder {
           'Cannot initialize ReactiveFormBuilder if ReactiveFormState is not provided.');
 
     this.formState = formState;
+    this.formState.formBuilder = this;
     this.group.initialize('root', null, false, this.formState);
     // if (this._isMultipleStepsForm) this.checkMultipleStepsForm();
     this.isInitialized = true;
   }
 
-  /// If current form is multiple steps form, check if root level contains only form groups.
+  /*/// If current form is multiple steps form, check if root level contains only form groups.
   /// If it does not, throw an exception.
   @protected
-  void checkMultipleStepsForm() {
-    bool isValidMultipleStepsForm = !this
+  bool isMultipleStepsForm() {
+    bool result = !this
         .group
         .controls
         .entries
         .toList()
         .any((element) => element.value is! FormGroup);
+    return result;
 
     if (!isValidMultipleStepsForm)
       throw new FormBuilderException(
-          'A form with multipe steps must contains form groups only into its root level.');
-  }
+          'A form with multiple steps must contains form groups only into its root level.');
+  }*/
 
   /* Protected methods */
 

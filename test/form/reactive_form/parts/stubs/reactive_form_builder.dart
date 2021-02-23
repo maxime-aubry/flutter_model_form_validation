@@ -2,23 +2,51 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 
 import '../../../../stubs.dart';
 
-class _ReactiveFormBuilderStub extends FormBuilderStub<ReactiveFormBuilder> {
-  _ReactiveFormBuilderStub() {
-    ReactiveFormBuilder formBuilder = new ReactiveFormBuilder(
+class _ReactiveFormBuilderStub
+    extends FormBuilderStub<ReactiveFormBuilder, ReactiveFormState> {
+  _ReactiveFormBuilderStub({
+    bool provideFormState = true,
+  }) {
+    ReactiveFormBuilder _formBuilder = new ReactiveFormBuilder(
       group: new FormGroup(
         controls: {
-          'control1': new FormGroup(controls: {}, validators: []),
-          'control2': new FormArray(groups: [], validators: []),
-          'control3': new FormControl<String>(value: 'azerty', validators: []),
-          'control4': new FormControl<int>(value: 1, validators: []),
+          'control1': new FormGroup(controls: {
+            'control1_1': new FormControl<String>(value: null, validators: []),
+          }, validators: []),
+          'control2': new FormArray(groups: [
+            new FormGroup(controls: {
+              'control2_0_1': new FormControl<String>(
+                value: null,
+                validators: [],
+              ),
+            }, validators: []),
+            new FormGroup(controls: {
+              'control2_1_1': new FormControl<String>(
+                value: null,
+                validators: [],
+              ),
+            }, validators: []),
+          ], validators: []),
+          'control3': new FormControl<String>(value: null, validators: []),
         },
         validators: [],
       ),
     );
-    ReactiveFormState formState =
-        new ReactiveFormState(formBuilder: formBuilder);
-    formState.initialize();
+    ReactiveFormState _formState =
+        provideFormState ? new ReactiveFormState() : null;
 
-    super.formBuilder = formBuilder;
+    super.formBuilder = _formBuilder;
+    super.formState = _formState;
   }
+}
+
+class ReactiveFormBuilder_FormBuilderIsInitialized_Stub
+    extends _ReactiveFormBuilderStub {
+  ReactiveFormBuilder_FormBuilderIsInitialized_Stub() : super();
+}
+
+class ReactiveFormBuilder_ThrowsFormBuilderExceptionOnNullFormState_Stub
+    extends _ReactiveFormBuilderStub {
+  ReactiveFormBuilder_ThrowsFormBuilderExceptionOnNullFormState_Stub()
+      : super(provideFormState: false);
 }

@@ -19,9 +19,10 @@ class ReactiveForm extends SingleChildStatefulWidget {
     Widget child,
     this.formBuilder,
     this.builder,
-  })  : this.formState = new ReactiveFormState(formBuilder: formBuilder),
+  })  : this.formState = new ReactiveFormState(),
         super(key: key, child: child) {
-    this.formState.initialize();
+    //this.formState.initialize();
+    this.formBuilder.initialize(this.formState);
   }
 
   @override

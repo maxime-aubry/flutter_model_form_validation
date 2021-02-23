@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
@@ -13,7 +12,7 @@ enum EFormStatus {
 
 class ReactiveFormState {
   /* Public properties */
-  bool isInitialized;
+  //bool isInitialized;
 
   /* Protected properties */
   ReactiveFormBuilder formBuilder;
@@ -38,14 +37,14 @@ class ReactiveFormState {
   /* Setters */
 
   /* Constructors */
-  ReactiveFormState({@required this.formBuilder}) {
-    this.formBuilder = formBuilder;
+  ReactiveFormState(/*{@required this.formBuilder}*/) {
+    //this.formBuilder = formBuilder;
     this._status = EFormStatus.pure;
-    this.isInitialized = false;
+    //this.isInitialized = false;
   }
 
   /* Public methods */
-  void initialize() {
+  /*void initialize() {
     if (this.isInitialized)
       throw new FormBuilderException(
           'Cannot initialize an already initialized ReactiveFormState.');
@@ -60,9 +59,9 @@ class ReactiveFormState {
 
     // intialize form builder (provide form group parent for each abstract control).
     // attach form builder to form state.
-    formBuilder.initialize(this);
+    //formBuilder.initialize(this);
     this.isInitialized = true;
-  }
+  }*/
 
   void attachFormKey(GlobalKey<FormState> formKey) {
     this._formKey = formKey;

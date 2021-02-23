@@ -6,19 +6,25 @@ class _FormValidatorNavigatorStub<TProperty extends Comparable>
     extends FormAnnotationStub {
   _FormValidatorNavigatorStub({
     String targetName,
-    bool targetIsDefined = true,
+    bool targetsAreDefined = true,
     TProperty targetValue = null,
   }) {
     FormControl<String> _value = new FormControl<String>(
       value: null,
       validators: [],
     );
-    FormControl<TProperty> _target = new FormControl<TProperty>(
+    FormGroup _target1 = new FormGroup(controls: {}, validators: []);
+    FormArray _target2 = new FormArray(groups: [], validators: []);
+    FormControl<TProperty> _target3 = new FormControl<TProperty>(
       value: targetValue,
       validators: [],
     );
     Map<String, AbstractControl> controls = {'value': _value};
-    if (targetIsDefined) controls['target'] = _target;
+    if (targetsAreDefined) {
+      controls['target1'] = _target1;
+      controls['target2'] = _target2;
+      controls['target3'] = _target3;
+    }
 
     FormGroup _root = new FormGroup(
       controls: controls,
@@ -26,7 +32,9 @@ class _FormValidatorNavigatorStub<TProperty extends Comparable>
     );
 
     _value.parentGroup = _root;
-    _target.parentGroup = _root;
+    _target1.parentGroup = _root;
+    _target2.parentGroup = _root;
+    _target3.parentGroup = _root;
 
     super.targetName = targetName;
     super.control = _value;
@@ -34,12 +42,34 @@ class _FormValidatorNavigatorStub<TProperty extends Comparable>
   }
 }
 
-class FormValidatorNavigator_TargetFound_Stub
+/* FormGroup */
+class FormValidatorNavigator_Target1IsFound_Stub
     extends _FormValidatorNavigatorStub<String> {
-  FormValidatorNavigator_TargetFound_Stub() : super();
+  FormValidatorNavigator_Target1IsFound_Stub()
+      : super(
+          targetName: 'target1',
+        );
 }
 
-class FormValidatorNavigator_BadTargetType_Stub
+/* FormArray */
+class FormValidatorNavigator_Target2IsFound_Stub
+    extends _FormValidatorNavigatorStub<String> {
+  FormValidatorNavigator_Target2IsFound_Stub()
+      : super(
+          targetName: 'target2',
+        );
+}
+
+/* FormControl */
+class FormValidatorNavigator_Target3IsFound_Stub
+    extends _FormValidatorNavigatorStub<String> {
+  FormValidatorNavigator_Target3IsFound_Stub()
+      : super(
+          targetName: 'target3',
+        );
+}
+
+/*class FormValidatorNavigator_BadTargetType_Stub
     extends _FormValidatorNavigatorStub<String> {
   FormValidatorNavigator_BadTargetType_Stub() : super();
 }
@@ -47,23 +77,32 @@ class FormValidatorNavigator_BadTargetType_Stub
 class FormValidatorNavigator_TargetNotFound_Stub
     extends _FormValidatorNavigatorStub<String> {
   FormValidatorNavigator_TargetNotFound_Stub()
-      : super(targetName: 'badTarget', targetIsDefined: false);
+      : super(
+          targetName: 'badTarget',
+          targetsAreDefined: false,
+        );
 }
 
 class FormValidatorNavigator_ParameterIsOk_Stub
     extends _FormValidatorNavigatorStub<DateTime> {
   FormValidatorNavigator_ParameterIsOk_Stub()
-      : super(targetValue: new DateTime(2021, 1, 2));
+      : super(
+          targetValue: new DateTime(2021, 1, 2),
+        );
 }
 
 class FormValidatorNavigator_DefaultValueHasBadType_Stub
     extends _FormValidatorNavigatorStub<DateTime> {
   FormValidatorNavigator_DefaultValueHasBadType_Stub()
-      : super(targetValue: new DateTime(2021, 1, 2));
+      : super(
+          targetValue: new DateTime(2021, 1, 2),
+        );
 }
 
-class FormValidatorNavigator_ParameterNameIsNotDefined_Stub
+class FormValidatorNavigator_ParameterNameIsEmpty_Stub
     extends _FormValidatorNavigatorStub<DateTime> {
-  FormValidatorNavigator_ParameterNameIsNotDefined_Stub()
-      : super(targetIsDefined: false);
-}
+  FormValidatorNavigator_ParameterNameIsEmpty_Stub()
+      : super(
+          targetName: '',
+        );
+}*/

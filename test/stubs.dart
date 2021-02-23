@@ -18,8 +18,10 @@ class AbstractControlStub<TAbstractControl extends AbstractControl> {
   TAbstractControl control;
 }
 
-class FormBuilderStub<TFormBuilder extends ReactiveFormBuilder> {
+class FormBuilderStub<TFormBuilder extends ReactiveFormBuilder,
+    TFormState extends ReactiveFormState> {
   TFormBuilder formBuilder;
+  TFormState formState;
 }
 
 /* Value is valid */

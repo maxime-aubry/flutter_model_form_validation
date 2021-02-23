@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/model_form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
@@ -20,12 +19,12 @@ class ModelFormState extends ReactiveFormState {
   /* Constructors */
   ModelFormState({
     @required ModelForm model,
-  }) : super(formBuilder: null) {
+  }) : super(/*formBuilder: null*/) {
     this._model = model;
   }
 
   /* Public methods */
-  @override
+  /*@override
   void initialize() {
     if (this.isInitialized)
       throw new FormBuilderException(
@@ -42,7 +41,7 @@ class ModelFormState extends ReactiveFormState {
     super.formBuilder = new ModelFormBuilder(this._model);
     super.formBuilder.initialize(this);
     this.isInitialized = true;
-  }
+  }*/
 
   /* Protected methods */
 
