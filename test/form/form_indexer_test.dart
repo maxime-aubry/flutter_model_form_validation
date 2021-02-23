@@ -37,7 +37,7 @@ void main() {
       _indexer.addControl(formGroup);
       _indexer.removeControl(formGroup);
 
-      expect(_indexer.containsKey(formGroup.uniqueName), isTrue);
+      expect(_indexer.containsKey(formGroup.uniqueName), isFalse);
     });
   });
 }
