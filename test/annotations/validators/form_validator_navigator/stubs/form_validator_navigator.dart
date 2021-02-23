@@ -6,25 +6,19 @@ class _FormValidatorNavigatorStub<TProperty extends Comparable>
     extends FormAnnotationStub {
   _FormValidatorNavigatorStub({
     String targetName,
-    bool targetsAreDefined = true,
+    bool targetIsDefined = true,
     TProperty targetValue = null,
   }) {
     FormControl<String> _value = new FormControl<String>(
       value: null,
       validators: [],
     );
-    FormGroup _target1 = new FormGroup(controls: {}, validators: []);
-    FormArray _target2 = new FormArray(groups: [], validators: []);
-    FormControl<TProperty> _target3 = new FormControl<TProperty>(
+    FormControl<TProperty> _target = new FormControl<TProperty>(
       value: targetValue,
       validators: [],
     );
     Map<String, AbstractControl> controls = {'value': _value};
-    if (targetsAreDefined) {
-      controls['target1'] = _target1;
-      controls['target2'] = _target2;
-      controls['target3'] = _target3;
-    }
+    if (targetIsDefined) controls['target'] = _target;
 
     FormGroup _root = new FormGroup(
       controls: controls,
@@ -32,9 +26,7 @@ class _FormValidatorNavigatorStub<TProperty extends Comparable>
     );
 
     _value.parentGroup = _root;
-    _target1.parentGroup = _root;
-    _target2.parentGroup = _root;
-    _target3.parentGroup = _root;
+    _target.parentGroup = _root;
 
     super.targetName = targetName;
     super.control = _value;
@@ -42,67 +34,38 @@ class _FormValidatorNavigatorStub<TProperty extends Comparable>
   }
 }
 
-/* FormGroup */
-class FormValidatorNavigator_Target1IsFound_Stub
+class FormValidatorNavigator_StringParameterIsFound_Stub
     extends _FormValidatorNavigatorStub<String> {
-  FormValidatorNavigator_Target1IsFound_Stub()
+  FormValidatorNavigator_StringParameterIsFound_Stub()
       : super(
-          targetName: 'target1',
+          targetName: 'target',
+          targetValue: 'ytreza',
         );
 }
 
-/* FormArray */
-class FormValidatorNavigator_Target2IsFound_Stub
-    extends _FormValidatorNavigatorStub<String> {
-  FormValidatorNavigator_Target2IsFound_Stub()
-      : super(
-          targetName: 'target2',
-        );
-}
-
-/* FormControl */
-class FormValidatorNavigator_Target3IsFound_Stub
-    extends _FormValidatorNavigatorStub<String> {
-  FormValidatorNavigator_Target3IsFound_Stub()
-      : super(
-          targetName: 'target3',
-        );
-}
-
-/*class FormValidatorNavigator_BadTargetType_Stub
-    extends _FormValidatorNavigatorStub<String> {
-  FormValidatorNavigator_BadTargetType_Stub() : super();
-}
-
-class FormValidatorNavigator_TargetNotFound_Stub
-    extends _FormValidatorNavigatorStub<String> {
-  FormValidatorNavigator_TargetNotFound_Stub()
-      : super(
-          targetName: 'badTarget',
-          targetsAreDefined: false,
-        );
-}
-
-class FormValidatorNavigator_ParameterIsOk_Stub
+class FormValidatorNavigator_DateTimeParameterIsFound_Stub
     extends _FormValidatorNavigatorStub<DateTime> {
-  FormValidatorNavigator_ParameterIsOk_Stub()
+  FormValidatorNavigator_DateTimeParameterIsFound_Stub()
       : super(
+          targetName: 'target',
           targetValue: new DateTime(2021, 1, 2),
         );
 }
 
-class FormValidatorNavigator_DefaultValueHasBadType_Stub
+class FormValidatorNavigator_ThrowsValidatorParameterExceptionOnDefaultValueIsNotConstantDateTime_Stub
     extends _FormValidatorNavigatorStub<DateTime> {
-  FormValidatorNavigator_DefaultValueHasBadType_Stub()
+  FormValidatorNavigator_ThrowsValidatorParameterExceptionOnDefaultValueIsNotConstantDateTime_Stub()
       : super(
+          targetName: 'target',
           targetValue: new DateTime(2021, 1, 2),
         );
 }
 
-class FormValidatorNavigator_ParameterNameIsEmpty_Stub
-    extends _FormValidatorNavigatorStub<DateTime> {
-  FormValidatorNavigator_ParameterNameIsEmpty_Stub()
+class FormValidatorNavigator_ThrowsValidatorParameterExceptionOnRemoteParameterNameIsEmpty_Stub
+    extends _FormValidatorNavigatorStub<String> {
+  FormValidatorNavigator_ThrowsValidatorParameterExceptionOnRemoteParameterNameIsEmpty_Stub()
       : super(
-          targetName: '',
+          targetName: 'target',
+          targetValue: 'ytreza',
         );
-}*/
+}
