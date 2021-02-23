@@ -1,23 +1,31 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 import '../../../../stubs.dart';
+import '../initializer/initializer.dart';
 
 class _FormGroupStub extends AbstractControlStub<FormGroup> {
   _FormGroupStub() {
+    FormGroup _control1 = new FormGroup(controls: {}, validators: []);
+    FormArray _control2 = new FormArray(groups: [], validators: []);
+    FormControl<String> _control3 =
+        new FormControl<String>(value: 'azerty', validators: []);
+    FormControl<int> _control4 = new FormControl<int>(value: 1, validators: []);
+
     FormGroup _root = new FormGroup(
       controls: {
-        'control1': new FormGroup(controls: {}, validators: []),
-        'control2': new FormArray(groups: [], validators: []),
-        'control3': new FormControl<String>(value: 'azerty', validators: []),
-        'control4': new FormControl<int>(value: 1, validators: []),
+        'control1': _control1,
+        'control2': _control2,
+        'control3': _control3,
+        'control4': _control4,
       },
       validators: [],
     );
 
-    ReactiveFormBuilder formBuilder = new ReactiveFormBuilder(group: _root);
-    ReactiveFormState formState =
-        new ReactiveFormState(formBuilder: formBuilder);
-    formState.initialize();
+    initializeFormGroup(_root, 'root', null, false);
+    initializeFormGroup(_control1, 'control1', _root, false);
+    initializeFormArray(_control2, 'control2', _root);
+    initializeFormControl(_control3, 'control3', _root);
+    initializeFormControl(_control4, 'control4', _root);
 
     super.control = _root;
   }

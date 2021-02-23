@@ -18,6 +18,10 @@ class AbstractControlStub<TAbstractControl extends AbstractControl> {
   TAbstractControl control;
 }
 
+class FormBuilderStub<TFormBuilder extends ReactiveFormBuilder> {
+  TFormBuilder formBuilder;
+}
+
 /* Value is valid */
 /* Value is not valid */
 /* Remote parameters are provided */

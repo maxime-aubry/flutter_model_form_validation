@@ -1,6 +1,7 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 import '../../../../stubs.dart';
+import '../initializer/initializer.dart';
 
 class _FormControlStub<TProperty extends Comparable>
     extends AbstractControlStub<FormControl<TProperty>> {
@@ -13,10 +14,8 @@ class _FormControlStub<TProperty extends Comparable>
       validators: [],
     );
 
-    ReactiveFormBuilder formBuilder = new ReactiveFormBuilder(group: _root);
-    ReactiveFormState formState =
-        new ReactiveFormState(formBuilder: formBuilder);
-    formState.initialize();
+    initializeFormGroup(_root, 'root', null, false);
+    initializeFormControl(_control1, 'control1', _root);
 
     super.control = _control1;
   }

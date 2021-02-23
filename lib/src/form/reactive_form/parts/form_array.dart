@@ -72,7 +72,7 @@ class FormArray extends AbstractControl {
           'Cannot add FormGroup if this one is already added.');
 
     this.groups.add(formGroup);
-    this._initializeItem(formGroup);
+    //this._initializeItem(formGroup);
     if (notify) super.notifyListeners();
   }
 

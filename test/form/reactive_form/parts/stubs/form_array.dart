@@ -1,6 +1,7 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 import '../../../../stubs.dart';
+import '../initializer/initializer.dart';
 
 class _FormArrayStub extends AbstractControlStub<FormArray> {
   FormGroup groupToAdd;
@@ -9,19 +10,25 @@ class _FormArrayStub extends AbstractControlStub<FormArray> {
   _FormArrayStub({
     List<FormGroup> groups,
   }) {
-    FormArray _formArray = new FormArray(groups: groups ?? [], validators: []);
+    FormArray _control1 = new FormArray(groups: groups ?? [], validators: []);
 
     FormGroup _root = new FormGroup(
-      controls: {'control1': _formArray},
+      controls: {'control1': _control1},
       validators: [],
     );
 
-    ReactiveFormBuilder formBuilder = new ReactiveFormBuilder(group: _root);
-    ReactiveFormState formState =
-        new ReactiveFormState(formBuilder: formBuilder);
-    formState.initialize();
+    initializeFormGroup(_root, 'root', null, false);
+    initializeFormArray(_control1, 'control1', _root);
 
-    super.control = _formArray;
+    for (FormGroup group in groups)
+      initializeFormGroup(
+        group,
+        '${_control1.name}[${groups.indexOf(group)}]',
+        _root,
+        true,
+      );
+
+    super.control = _control1;
   }
 }
 
@@ -30,7 +37,7 @@ class FormArray_FormPathWorks_Stub extends _FormArrayStub {
   String key = 'control1';
   String path = 'root.controls[\'control1\']';
 
-  FormArray_FormPathWorks_Stub() : super();
+  FormArray_FormPathWorks_Stub() : super(groups: []);
 }
 
 /* accessor: ModelPath */
@@ -38,7 +45,7 @@ class FormArray_ModelPathWorks_Stub extends _FormArrayStub {
   String key = 'control1';
   String path = 'root.control1';
 
-  FormArray_ModelPathWorks_Stub() : super();
+  FormArray_ModelPathWorks_Stub() : super(groups: []);
 }
 
 /* after initialization */

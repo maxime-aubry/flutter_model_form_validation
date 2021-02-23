@@ -78,7 +78,7 @@ class FormControl<TProperty> extends AbstractControl
     super.isInitialized = true;
   }
 
-  Future<void> setValue(TProperty value) async {
+  Future<void> setValue(TProperty value, {bool validate = true}) async {
     // does not accept empty string value
     if (TProperty == String) {
       String _value = value as String;
@@ -87,7 +87,7 @@ class FormControl<TProperty> extends AbstractControl
       this._value = value;
     }
 
-    await super.validateControl();
+    if (validate) await super.validateControl();
   }
 
   // FormControl<TProperty> clone(FormGroup clonedParent) {

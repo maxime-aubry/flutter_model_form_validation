@@ -111,7 +111,7 @@ class FormGroup extends AbstractControl {
           'Cannot add control if this one is already added.');
 
     this.controls[name] = control;
-    this._initializeControl(name, control);
+    //this._initializeControl(name, control);
     super.notifyListeners();
   }
 
