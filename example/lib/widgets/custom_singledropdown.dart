@@ -49,7 +49,7 @@ class _CustomDropdownState<TProperty>
             children: [
               SmartSelect<TProperty>.single(
                 title: widget.label,
-                value: FormControlProvider.of<TProperty>(context).value,
+                value: context.watchFormControl<TProperty>().value,
                 choiceItems: S2Choice.listFrom<TProperty, Map>(
                   source: Collection(widget.dataSource)
                       .select((arg1) => {'key': arg1.value, 'value': arg1.text})
@@ -59,7 +59,7 @@ class _CustomDropdownState<TProperty>
                 ),
                 onChange: (state) {
                   FormControl<TProperty> formControl =
-                      context.watchFormControl<TProperty>();
+                      context.readFormControl<TProperty>();
                   formControl.setValue(state.value);
                 },
                 modalType: S2ModalType.bottomSheet,

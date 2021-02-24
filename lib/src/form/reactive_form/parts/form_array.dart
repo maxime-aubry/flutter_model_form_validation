@@ -15,14 +15,14 @@ class FormArray extends AbstractControl {
   /* Getters */
   String get formPath {
     String part =
-        (this.parentGroup != null) ? '${this.parentGroup.formPath}' : null;
+        (this.parent != null) ? '${this.parent.formPath}' : null;
     part += '.controls[\'${this.name}\']';
     return part;
   }
 
   String get modelPath {
     String part =
-        (this.parentGroup != null) ? '${this.parentGroup.modelPath}' : null;
+        (this.parent != null) ? '${this.parent.modelPath}' : null;
     part += '.${this.name}';
     return part;
   }
@@ -52,7 +52,7 @@ class FormArray extends AbstractControl {
           'Cannot initialize an already initialized FormArray.');
 
     super.name = name;
-    super.parentGroup = parentGroup;
+    super.parent = parentGroup;
     super.formState = formState;
     super.index();
     this._initializeItems();
@@ -93,17 +93,17 @@ class FormArray extends AbstractControl {
     if (notify) super.notifyListeners();
   }
 
-  // FormArray clone(FormGroup clonedParent) {
-  //   FormArray clone = new FormArray(
-  //     groups: [],
-  //     validators: this.validators,
-  //   );
+  FormArray clone(FormGroup clonedParent) {
+    FormArray clone = new FormArray(
+      groups: [],
+      validators: this.validators,
+    );
 
-  //   clone.initialize(super.name, clonedParent);
-  //   clone.error = super.error?.copyWith();
-  //   this._cloneItems(clone);
-  //   return clone;
-  // }
+    clone.initialize(super.name, clonedParent, this.formState);
+    clone.error = super.error?.copyWith();
+    this._cloneItems(clone);
+    return clone;
+  }
 
   Future validate() async => await super.validateControl();
 
@@ -137,13 +137,13 @@ class FormArray extends AbstractControl {
 
   void _initializeItem(FormGroup item) {
     String indexedName = this._getIndexedFormArrayItemName(item);
-    item.initialize(indexedName, this.parentGroup, true, this.formState);
+    item.initialize(indexedName, this.parent, true, this.formState);
   }
 
-  // void _cloneItems(FormArray clone) {
-  //   for (FormGroup formGroup in this.groups) {
-  //     FormGroup clonedItem = formGroup.clone(clone.parentGroup);
-  //     this._addItem(clonedItem);
-  //   }
-  // }
+  void _cloneItems(FormArray clone) {
+    for (FormGroup formGroup in this.groups) {
+      FormGroup clonedItem = formGroup.clone(clone.parent);
+      //this.addGroup(clonedItem);
+    }
+  }
 }

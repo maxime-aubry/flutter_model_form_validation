@@ -7,7 +7,7 @@ void initializeFormGroup(
   bool isArrayItem,
 ) {
   formGroup.name = name;
-  formGroup.parentGroup = parent;
+  formGroup.parent = parent;
   formGroup.isArrayItem = isArrayItem;
   formGroup.isInitialized = true;
 }
@@ -18,7 +18,7 @@ void initializeFormArray(
   FormGroup parent,
 ) {
   formArray.name = name;
-  formArray.parentGroup = parent;
+  formArray.parent = parent;
   formArray.isInitialized = true;
 }
 
@@ -28,6 +28,6 @@ void initializeFormControl(
   FormGroup parent,
 ) {
   formControl.name = name;
-  formControl.parentGroup = parent;
+  formControl.parent = parent;
   formControl.isInitialized = true;
 }

@@ -6,7 +6,7 @@ import 'package:smart_select/smart_select.dart';
 class CustomMultiDropdown<TProperty> extends StatefulWidget {
   final String label;
   final List<SelectListItem<TProperty>> dataSource;
-  final FormControl<TProperty> formControl;
+  final FormControl<List<TProperty>> formControl;
 
   CustomMultiDropdown({
     Key key,
@@ -40,17 +40,18 @@ class _CustomDropdownState<TProperty>
   }
 
   @override
-  Widget build(BuildContext context) => new FormControlProvider<TProperty>(
+  Widget build(BuildContext context) =>
+      new FormControlProvider<List<TProperty>>(
         create: (_) => widget.formControl,
         builder: (context, _) {
-          FormControl<TProperty> formControl =
-              FormControlProvider.of<TProperty>(context);
+          FormControl<List<TProperty>> formControl =
+              context.readFormControl<List<TProperty>>();
 
           return new Column(
             children: [
               SmartSelect<TProperty>.multiple(
                 title: widget.label,
-                value: FormControlProvider.of<List<TProperty>>(context).value,
+                value: context.watchFormControl<List<TProperty>>().value,
                 choiceItems: S2Choice.listFrom<TProperty, Map>(
                   source: Collection(widget.dataSource)
                       .select((arg1) => {'key': arg1.value, 'value': arg1.text})
@@ -59,9 +60,9 @@ class _CustomDropdownState<TProperty>
                   title: (index, item) => item['value'],
                 ),
                 onChange: (state) {
-                  FormControlProvider.of<List<TProperty>>(context,
-                          listen: false)
-                      .setValue(state.value);
+                  FormControl<List<TProperty>> formControl =
+                      context.readFormControl<List<TProperty>>();
+                  formControl.setValue(state.value);
                 },
                 modalType: S2ModalType.bottomSheet,
                 modalConfirm: true,

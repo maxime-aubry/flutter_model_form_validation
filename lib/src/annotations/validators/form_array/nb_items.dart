@@ -28,13 +28,13 @@ class NbItems extends FormArrayValidatorAnnotation {
       defaultValue: this.min,
       localParameterName: 'min',
       remoteParameterName: this.remoteMin,
-      formGroup: control.parentGroup,
+      formGroup: control.parent,
     );
     int max = super.getRemoteValidatorParameter(
       defaultValue: this.max,
       localParameterName: 'max',
       remoteParameterName: this.remoteMax,
-      formGroup: control.parentGroup,
+      formGroup: control.parent,
     );
     this._validateParameters(min, max);
     bool isValid = this._validate(control.groups.length, min, max);

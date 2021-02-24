@@ -2,6 +2,7 @@ import 'package:example/models.dart';
 import 'package:example/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+import 'package:queries/collections.dart';
 
 class EditSocialLink extends StatefulWidget {
   @override
@@ -18,33 +19,47 @@ class _EditSocialLinkState extends State<EditSocialLink> {
 
   @override
   Widget build(BuildContext context) {
-    FormGroup socialLink = context.readFormGroup();
+    FormGroup originalSocialLink = context.readFormGroup();
+    ReactiveFormBuilder clonedFormBuilder =
+        originalSocialLink.formBuilder.clone();
+    FormGroup socialLink =
+        Collection(clonedFormBuilder.group.getFormArray('social_links').groups)
+            .where((arg1) => arg1.name == originalSocialLink.name)
+            .single();
 
     return ReactiveForm(
       formBuilder: this._getFormBuilder(socialLink),
-      builder: (context, _) {
-        return new Scaffold(
-          appBar: new AppBar(title: Text("Edit social link")),
-          body: new SingleChildScrollView(
-            child: new Padding(
-              padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-              child: this._form(context),
-            ),
+      child: new Scaffold(
+        appBar: new AppBar(title: Text("Edit social link")),
+        body: new SingleChildScrollView(
+          child: new Padding(
+            padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+            child: Container(),
           ),
-          floatingActionButton: new FloatingActionButton(
-            onPressed: () async {
-              ReactiveFormState formState = context.readFormState();
-              FormGroup form = context.readFormGroup();
+        ),
+        /*floatingActionButton: new FloatingActionButton(
+          onPressed: () async {
+            ReactiveFormState formState = context.readFormState();
+            FormGroup form = context.readFormGroup();
 
+            if (await formState.validate()) {
+              await this._saveForm(form);
+              Navigator.pop(context);
+            }
+          },
+          child: Icon(Icons.done),
+        ),*/
+        floatingActionButton: new FormStateConsumer(
+          builder: (_, formState, __) => new FloatingActionButton(
+            child: Icon(Icons.done),
+            onPressed: () async {
               if (await formState.validate()) {
-                await this._saveForm(form);
-                Navigator.pop(context);
+                // Data treatment and post to server here...
               }
             },
-            child: Icon(Icons.done),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
@@ -55,11 +70,14 @@ class _EditSocialLinkState extends State<EditSocialLink> {
             'social_network': new FormControl<ESocialNetwork>(
               value:
                   data.getFormControl<ESocialNetwork>('social_network').value,
+              validators: [],
             ),
             'url': new FormControl<String>(
               value: data.getFormControl<String>('url').value,
+              validators: [],
             ),
           },
+          validators: [],
         ),
       );
 

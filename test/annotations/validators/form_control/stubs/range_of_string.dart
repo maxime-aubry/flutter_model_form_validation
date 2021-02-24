@@ -35,9 +35,9 @@ class _RangeOfStringStub
       validators: [],
     );
 
-    _value.parentGroup = _root;
-    _min.parentGroup = _root;
-    _max.parentGroup = _root;
+    _value.parent = _root;
+    _min.parent = _root;
+    _max.parent = _root;
 
     super.control = _value;
     super.validator = RangeOfString(

@@ -25,8 +25,8 @@ class _FormValidatorNavigatorStub<TProperty extends Comparable>
       validators: [],
     );
 
-    _value.parentGroup = _root;
-    _target.parentGroup = _root;
+    _value.parent = _root;
+    _target.parent = _root;
 
     super.targetName = targetName;
     super.control = _value;

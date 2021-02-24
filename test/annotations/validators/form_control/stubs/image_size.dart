@@ -53,11 +53,11 @@ class _ImageSizeStub extends ValidatorStub<FormControl<Uint8List>, ImageSize> {
       validators: [],
     );
 
-    _value.parentGroup = _root;
-    _minWidth.parentGroup = _root;
-    _maxWidth.parentGroup = _root;
-    _minHeight.parentGroup = _root;
-    _maxHeight.parentGroup = _root;
+    _value.parent = _root;
+    _minWidth.parent = _root;
+    _maxWidth.parent = _root;
+    _minHeight.parent = _root;
+    _maxHeight.parent = _root;
 
     super.control = _value;
     super.validator = ImageSize(

@@ -18,7 +18,7 @@ class _RegularExpressionStub
       },
       validators: [],
     );
-    _value.parentGroup = _root;
+    _value.parent = _root;
 
     super.control = _value;
     super.validator = RegularExpression(

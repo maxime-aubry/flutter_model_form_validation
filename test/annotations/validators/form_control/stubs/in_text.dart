@@ -26,8 +26,8 @@ class _InTextStub extends ValidatorStub<FormControl<String>, InText> {
       validators: [],
     );
 
-    _value.parentGroup = _root;
-    _text.parentGroup = _root;
+    _value.parent = _root;
+    _text.parent = _root;
 
     super.control = _value;
     super.validator = InText(

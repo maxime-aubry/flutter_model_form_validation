@@ -1,8 +1,9 @@
-import 'package:example/custom_drawer.dart';
 import 'package:example/models.dart';
 import 'package:example/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+
+import '../../../custom_drawer.dart';
 
 class ReactiveFormScreen extends StatefulWidget {
   static const String routeName = '/reactiveForm';
@@ -20,7 +21,6 @@ class _ReactiveFormScreenState extends State<ReactiveFormScreen> {
   @override
   Widget build(BuildContext context) {
     return ReactiveForm(
-      //context: new MainFormContext(formBuilder: this._getFormBuilder()),
       formBuilder: this._getFormBuilder(),
       child: new Scaffold(
         appBar: new AppBar(title: Text("Reactive form")),
@@ -37,15 +37,15 @@ class _ReactiveFormScreenState extends State<ReactiveFormScreen> {
             ),
           ),
         ),
-        floatingActionButton: new FloatingActionButton(
-          onPressed: () async {
-            ReactiveFormState formState = context.readFormState();
-
-            if (await formState.validate()) {
-              // Data treatment and post to server here...
-            }
-          },
-          child: Icon(Icons.done),
+        floatingActionButton: new FormStateConsumer(
+          builder: (_, formState, __) => new FloatingActionButton(
+            child: Icon(Icons.done),
+            onPressed: () async {
+              if (await formState.validate()) {
+                // Data treatment and post to server here...
+              }
+            },
+          ),
         ),
       ),
     );
@@ -67,6 +67,7 @@ class _ReactiveFormScreenState extends State<ReactiveFormScreen> {
               validators: [Required(error: 'gender is required')],
             ),
           },
+          validators: [],
         ),
       );
 

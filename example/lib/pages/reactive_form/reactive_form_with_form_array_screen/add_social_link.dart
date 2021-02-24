@@ -20,11 +20,17 @@ class _AddSocialLinkState extends State<AddSocialLink> {
   Widget build(BuildContext context) {
     ReactiveFormState formState = context.readFormState();
     FormArray socialLinks = context.readFormArray();
-    FormGroup root = socialLinks.parentGroup;
+    FormGroup root = socialLinks.parent;
     FormGroup socialLink = new FormGroup(
       controls: {
-        'social_network': new FormControl<ESocialNetwork>(value: null),
-        'url': new FormControl<String>(value: null),
+        'social_network': new FormControl<ESocialNetwork>(
+          value: null,
+          validators: [],
+        ),
+        'url': new FormControl<String>(
+          value: null,
+          validators: [],
+        ),
       },
     );
     socialLinks.addGroup(socialLink);

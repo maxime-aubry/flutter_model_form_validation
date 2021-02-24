@@ -29,8 +29,8 @@ class _SmallerOrEqualToDateTimeStub
       validators: [],
     );
 
-    _value.parentGroup = _root;
-    _valueToCompare.parentGroup = _root;
+    _value.parent = _root;
+    _valueToCompare.parent = _root;
 
     super.control = _value;
     super.validator = SmallerOrEqualToDateTime(

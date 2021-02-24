@@ -24,28 +24,26 @@ class _ReactiveFormWithFormArrayScreenState
   Widget build(BuildContext context) {
     return ReactiveForm(
       formBuilder: this._getFormBuilder(),
-      builder: (context, _) {
-        return new Scaffold(
-          appBar: new AppBar(title: Text("Reactive form")),
-          drawer: new CustomDrawer(),
-          body: new SingleChildScrollView(
-            child: new Padding(
-              padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-              child: this._form(context),
-            ),
+      child: new Scaffold(
+        appBar: new AppBar(title: Text("Reactive form")),
+        drawer: new CustomDrawer(),
+        body: new SingleChildScrollView(
+          child: new Padding(
+            padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+            child: this._form(context),
           ),
-          floatingActionButton: new FloatingActionButton(
+        ),
+        floatingActionButton: new FormStateConsumer(
+          builder: (_, formState, __) => new FloatingActionButton(
+            child: Icon(Icons.done),
             onPressed: () async {
-              ReactiveFormState formState = context.readFormState();
-
               if (await formState.validate()) {
                 // Data treatment and post to server here...
               }
             },
-            child: Icon(Icons.done),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
@@ -66,15 +64,24 @@ class _ReactiveFormWithFormArrayScreenState
             ),
             'social_links': new FormArray(
               groups: [
-                new FormGroup(controls: {
-                  'social_network': new FormControl<ESocialNetwork>(
-                      value: ESocialNetwork.github),
-                  'url': new FormControl<String>(value: 'azerty'),
-                }),
+                new FormGroup(
+                  controls: {
+                    'social_network': new FormControl<ESocialNetwork>(
+                      value: ESocialNetwork.github,
+                      validators: [],
+                    ),
+                    'url': new FormControl<String>(
+                      value: 'azerty',
+                      validators: [],
+                    ),
+                  },
+                  validators: [],
+                ),
               ],
-              validators: [NbItems(min: '1', max: '3', error: 'error')],
+              validators: [NbItems(min: 1, max: 3, error: 'error')],
             ),
           },
+          validators: [],
         ),
       );
 

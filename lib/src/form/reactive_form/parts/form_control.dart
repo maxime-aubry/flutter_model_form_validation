@@ -19,14 +19,14 @@ class FormControl<TProperty> extends AbstractControl
 
   String get formPath {
     String part =
-        (this.parentGroup != null) ? '${this.parentGroup.formPath}' : null;
+        (this.parent != null) ? '${this.parent.formPath}' : null;
     part += '.controls[\'${this.name}\']';
     return part;
   }
 
   String get modelPath {
     String part =
-        (this.parentGroup != null) ? '${this.parentGroup.modelPath}' : null;
+        (this.parent != null) ? '${this.parent.modelPath}' : null;
     part += '.${this.name}';
     return part;
   }
@@ -72,7 +72,7 @@ class FormControl<TProperty> extends AbstractControl
           'Cannot initialize an already initialized form control.');
 
     super.name = name;
-    super.parentGroup = parentGroup;
+    super.parent = parentGroup;
     super.formState = formState;
     super.index();
     super.isInitialized = true;
@@ -90,20 +90,20 @@ class FormControl<TProperty> extends AbstractControl
     if (validate) await super.validateControl();
   }
 
-  // FormControl<TProperty> clone(FormGroup clonedParent) {
-  //   TProperty newValue = (this._value is List)
-  //       ? ([]..addAll(this._value as List<TProperty>))
-  //       : this._value;
+  FormControl<TProperty> clone(FormGroup clonedParent) {
+    TProperty newValue = (this._value is List)
+        ? ([]..addAll(this._value as List<TProperty>))
+        : this._value;
 
-  //   FormControl<TProperty> clone = new FormControl<TProperty>(
-  //     value: newValue,
-  //     validators: super.validators,
-  //   );
+    FormControl<TProperty> clone = new FormControl<TProperty>(
+      value: newValue,
+      validators: super.validators,
+    );
 
-  //   clone.initialize(super.name, clonedParent);
-  //   clone.error = super.error?.copyWith();
-  //   return clone;
-  // }
+    //clone.initialize(super.name, clonedParent, this.formState);
+    //clone.error = super.error?.copyWith();
+    return clone;
+  }
 
   Future<void> validate() async => await super.validateControl();
 

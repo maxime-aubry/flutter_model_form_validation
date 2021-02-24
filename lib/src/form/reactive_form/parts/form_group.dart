@@ -16,12 +16,12 @@ class FormGroup extends AbstractControl {
   /* Getters */
   String get formPath {
     String part =
-        (this.parentGroup != null) ? '${this.parentGroup.formPath}' : 'root';
+        (this.parent != null) ? '${this.parent.formPath}' : 'root';
 
-    if (this.parentGroup != null) {
+    if (this.parent != null) {
       String key = this.name.split('[')[0];
-      if (this.isArrayItem && this.parentGroup.controls[key] is FormArray) {
-        FormArray formArray = this.parentGroup.controls[key] as FormArray;
+      if (this.isArrayItem && this.parent.controls[key] is FormArray) {
+        FormArray formArray = this.parent.controls[key] as FormArray;
         int index = formArray.groups.indexOf(this);
         part += '.controls[\'$key\'].groups[$index]';
       } else {
@@ -34,12 +34,12 @@ class FormGroup extends AbstractControl {
 
   String get modelPath {
     String part =
-        (this.parentGroup != null) ? '${this.parentGroup.modelPath}' : 'root';
+        (this.parent != null) ? '${this.parent.modelPath}' : 'root';
 
-    if (this.parentGroup != null) {
+    if (this.parent != null) {
       if (this.isArrayItem &&
-          this.parentGroup.controls[this.name] is FormArray) {
-        FormArray formArray = this.parentGroup.controls[this.name] as FormArray;
+          this.parent.controls[this.name] is FormArray) {
+        FormArray formArray = this.parent.controls[this.name] as FormArray;
         int index = formArray.groups.indexOf(this);
         part += '.${this.name}[$index]';
       } else {
@@ -76,7 +76,7 @@ class FormGroup extends AbstractControl {
           'Cannot initialize an already initialized FormGroup.');
 
     super.name = name;
-    super.parentGroup = parentGroup;
+    super.parent = parentGroup;
     super.formState = formState;
     super.index();
     this.isArrayItem = isArrayItem;
@@ -133,18 +133,17 @@ class FormGroup extends AbstractControl {
     super.notifyListeners();
   }
 
-  // FormGroup clone(FormGroup clonedParent) {
-  //   FormGroup clone = new FormGroup(
-  //     formBuilder: this.formBuilder,
-  //     controls: {},
-  //     validators: this.validators,
-  //   );
+  FormGroup clone(FormGroup clonedParent) {
+    FormGroup clone = new FormGroup(
+      controls: {},
+      validators: this.validators,
+    );
 
-  //   clone.initialize(super.name, clonedParent, this.isArrayItem);
-  //   clone.error = super.error?.copyWith();
-  //   this._cloneControls(clone);
-  //   return clone;
-  // }
+    //clone.initialize(super.name, clonedParent, this.isArrayItem, this.formState);
+    //clone.error = super.error?.copyWith();
+    this._cloneControls(clone);
+    return clone;
+  }
 
   FormGroup getFormGroup(String name) {
     if (!this.containsControl(name))
@@ -203,22 +202,22 @@ class FormGroup extends AbstractControl {
     if (control is FormControl) control.initialize(name, this, this.formState);
   }
 
-  // void _cloneControls(FormGroup clone) {
-  //   for (MapEntry<String, AbstractControl> control in this.controls.entries) {
-  //     if (control.value is FormGroup) {
-  //       FormGroup child = (control.value as FormGroup).clone(clone);
-  //       clone.controls[control.key] = child;
-  //     }
+  void _cloneControls(FormGroup clone) {
+    for (MapEntry<String, AbstractControl> control in this.controls.entries) {
+      if (control.value is FormGroup) {
+        FormGroup child = (control.value as FormGroup).clone(clone);
+        clone.controls[control.key] = child;
+      }
 
-  //     if (control.value is FormArray) {
-  //       FormArray child = (control.value as FormArray).clone(clone);
-  //       clone.controls[control.key] = child;
-  //     }
+      if (control.value is FormArray) {
+        FormArray child = (control.value as FormArray).clone(clone);
+        clone.controls[control.key] = child;
+      }
 
-  //     if (control.value is FormControl) {
-  //       FormControl child = (control.value as FormControl).clone(clone);
-  //       clone.controls[control.key] = child;
-  //     }
-  //   }
-  // }
+      if (control.value is FormControl) {
+        FormControl child = (control.value as FormControl).clone(clone);
+        clone.controls[control.key] = child;
+      }
+    }
+  }
 }

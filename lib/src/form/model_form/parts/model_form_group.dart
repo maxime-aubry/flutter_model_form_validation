@@ -25,9 +25,9 @@ class ModelFormGroup extends FormGroup
   ModelFormState get formState => super.formState;
 
   @override
-  ModelFormGroup get parentGroup => super.parentGroup;
+  ModelFormGroup get parent => super.parent;
 
-  bool get isRoot => (super.name != 'root' && super.parentGroup != null);
+  bool get isRoot => (super.name != 'root' && super.parent != null);
 
   // String get modelPartuniqueName {
   //   if (this.name == null || this.name.isEmpty) return null;
@@ -70,14 +70,14 @@ class ModelFormGroup extends FormGroup
           'Cannot initialize ModelFormGroup with a non-ModelFormState.');
 
     super.name = name;
-    super.parentGroup = parentGroup;
+    super.parent = parentGroup;
     super.formState = formState;
     super.index();
     super.isArrayItem = isArrayItem;
     // root form group does not have validators. It's not necessary to listen it, it's impossible to set it to null.
     // form array items does not have validators.
     if (!this.isRoot && !this.isArrayItem) {
-      super.validators = super.getValidators(this.parentGroup.model, this.name);
+      super.validators = super.getValidators(this.parent.model, this.name);
       this._listenModelAndUpdate();
     }
     this._addControls();
@@ -119,7 +119,7 @@ class ModelFormGroup extends FormGroup
   void _listenModelAndUpdate() {
     FormGroupElement<ModelForm> formElement =
         super.getModelPart<FormGroupElement<ModelForm>>(
-      this.parentGroup.model,
+      this.parent.model,
       this.name,
     );
     formElement.addListener(() {

@@ -44,6 +44,14 @@ class ReactiveFormBuilder {
     this.isInitialized = true;
   }
 
+  ReactiveFormBuilder clone() {
+    FormGroup root = this.group.clone(null);
+    ReactiveFormState formState = new ReactiveFormState();
+    ReactiveFormBuilder formBuilder = new ReactiveFormBuilder(group: root);
+    formBuilder.initialize(formState);
+    return formBuilder;
+  }
+
   /*/// If current form is multiple steps form, check if root level contains only form groups.
   /// If it does not, throw an exception.
   @protected

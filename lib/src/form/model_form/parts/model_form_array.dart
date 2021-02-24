@@ -18,7 +18,7 @@ class ModelFormArray extends FormArray with ReflectableForm {
   ModelFormState get formState => super.formState;
 
   @override
-  ModelFormGroup get parentGroup => super.parentGroup;
+  ModelFormGroup get parent => super.parent;
 
   // String get modelPartuniqueName {
   //   if (this.name == null || this.name.isEmpty) return null;
@@ -60,10 +60,10 @@ class ModelFormArray extends FormArray with ReflectableForm {
           'Cannot initialize ModelFormArray with a non-ModelFormState.');
 
     super.name = name;
-    super.parentGroup = parentGroup;
+    super.parent = parentGroup;
     super.formState = formState;
     super.index();
-    super.validators = super.getValidators(this.parentGroup.model, this.name);
+    super.validators = super.getValidators(this.parent.model, this.name);
     this._listenModelAndUpdate();
     this._addGroups();
     super.isInitialized = true;
@@ -149,7 +149,7 @@ class ModelFormArray extends FormArray with ReflectableForm {
   void _listenModelAndUpdate() {
     FormArrayElement<ModelForm> formElement =
         super.getModelPart<FormArrayElement<ModelForm>>(
-      this.parentGroup.model,
+      this.parent.model,
       this.name,
     );
     formElement.addListener(() {

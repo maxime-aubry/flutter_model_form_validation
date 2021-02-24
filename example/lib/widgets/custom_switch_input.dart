@@ -18,8 +18,8 @@ class CustomSwitchInput extends StatefulWidget {
 class _CustomSwitchState extends State<CustomSwitchInput> {
   @override
   Widget build(BuildContext context) => new FormControlProvider<bool>(
-        create: (context) => widget.formControl,
-        builder: (context, child) => new Row(
+        create: (_) => widget.formControl,
+        builder: (BuildContext context, Widget child) => new Row(
           children: [
             Expanded(
               child: Text(
@@ -29,9 +29,8 @@ class _CustomSwitchState extends State<CustomSwitchInput> {
             ),
             Switch(
               value: context.watchFormControl<bool>().value,
-              onChanged: (value) {
-                FormControl<bool> formControl =
-                    context.watchFormControl<bool>();
+              onChanged: (bool value) {
+                FormControl<bool> formControl = context.readFormControl<bool>();
                 formControl.setValue(value);
               },
             ),

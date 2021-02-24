@@ -22,7 +22,6 @@ class _ReactiveFormWithDynamicContentState
   @override
   Widget build(BuildContext context) {
     return ReactiveForm(
-      //context: new MainFormContext(formBuilder: this._getFormBuilder()),
       formBuilder: this._getFormBuilder(),
       child: new Scaffold(
         appBar: new AppBar(title: Text("Reactive form with dynamic content")),
@@ -41,15 +40,15 @@ class _ReactiveFormWithDynamicContentState
             ),
           ),
         ),
-        floatingActionButton: new FloatingActionButton(
-          onPressed: () async {
-            ReactiveFormState formState = context.readFormState();
-
-            if (await formState.validate()) {
-              // Data treatment and post to server here...
-            }
-          },
-          child: Icon(Icons.done),
+        floatingActionButton: new FormStateConsumer(
+          builder: (_, formState, __) => new FloatingActionButton(
+            child: Icon(Icons.done),
+            onPressed: () async {
+              if (await formState.validate()) {
+                // Data treatment and post to server here...
+              }
+            },
+          ),
         ),
       ),
     );
@@ -70,11 +69,16 @@ class _ReactiveFormWithDynamicContentState
               value: null,
               validators: [Required(error: 'gender is required')],
             ),
-            'share_address': new FormControl<bool>(value: false),
+            'share_address': new FormControl<bool>(
+              value: false,
+              validators: [],
+            ),
             'address': new FormGroup(
               controls: {},
+              validators: [],
             ),
           },
+          validators: [],
         ),
       );
 

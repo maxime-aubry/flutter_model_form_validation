@@ -47,25 +47,25 @@ class ImageSize extends FormControlValidatorAnnotation<Uint8List> {
       defaultValue: this.minWidth,
       localParameterName: 'minWidth',
       remoteParameterName: this.remoteMinWidth,
-      formGroup: control.parentGroup,
+      formGroup: control.parent,
     );
     int maxWidth = super.getRemoteValidatorParameter<int>(
       defaultValue: this.maxWidth,
       localParameterName: 'maxWidth',
       remoteParameterName: this.remoteMaxWidth,
-      formGroup: control.parentGroup,
+      formGroup: control.parent,
     );
     int minHeight = super.getRemoteValidatorParameter<int>(
       defaultValue: this.minHeight,
       localParameterName: 'minHeight',
       remoteParameterName: this.remoteMinHeight,
-      formGroup: control.parentGroup,
+      formGroup: control.parent,
     );
     int maxHeight = super.getRemoteValidatorParameter<int>(
       defaultValue: this.maxHeight,
       localParameterName: 'maxHeight',
       remoteParameterName: this.remoteMaxHeight,
-      formGroup: control.parentGroup,
+      formGroup: control.parent,
     );
 
     this._validateParameters(minWidth, maxWidth, minHeight, maxHeight);

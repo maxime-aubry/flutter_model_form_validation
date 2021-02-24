@@ -17,7 +17,7 @@ class ModelFormControl<TField> extends FormControl<TField>
   ModelFormState get formState => super.formState;
 
   @override
-  ModelFormGroup get parentGroup => super.parentGroup;
+  ModelFormGroup get parent => super.parent;
 
   // String get modelPartuniqueName {
   //   if (this.name == null || this.name.isEmpty) return null;
@@ -57,11 +57,11 @@ class ModelFormControl<TField> extends FormControl<TField>
           'Cannot initialize ModelFormControl with a non-ModelFormState.');
 
     super.name = name;
-    super.parentGroup = parentGroup;
+    super.parent = parentGroup;
     super.formState = formState;
     super.index();
-    super.validators = super.getValidators(this.parentGroup.model, this.name);
-    this._listenValueAndUpdate(this.parentGroup);
+    super.validators = super.getValidators(this.parent.model, this.name);
+    this._listenValueAndUpdate(this.parent);
     super.isInitialized = true;
   }
 

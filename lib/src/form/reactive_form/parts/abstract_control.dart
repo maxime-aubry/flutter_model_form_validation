@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/index.dart';
+import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
 class AbstractControl extends ChangeNotifier {
   /* Public properties */
-  FormGroup parentGroup;
+  FormGroup parent;
   String name;
   EAbstractControlStatus status;
   ValidationError error;
@@ -23,12 +24,16 @@ class AbstractControl extends ChangeNotifier {
   /* Getters */
   String get uniqueName => '${this.hashCode}.${this.name}';
 
+  ReactiveFormBuilder get formBuilder => this.formState.formBuilder;
+
+  FormGroup get root => this._getRoot();
+
   /* Setters */
 
   /* Constructors */
   AbstractControl(List<FormValidatorAnnotation> validators) {
     this.name = null;
-    this.parentGroup = null;
+    this.parent = null;
     this.validators = validators ?? [];
     this.status = EAbstractControlStatus.pure;
     this.isInitialized = false;
@@ -39,27 +44,6 @@ class AbstractControl extends ChangeNotifier {
 
   void deindex() => this.formState.formBuilder.indexer.removeControl(this);
 
-  // @protected
-  // ReactiveFormBuilder getFormBuilder() {
-  //   FormGroup firstFormGroup;
-
-  //   if (this.parentGroup != null) {
-  //     firstFormGroup = this._getParentGroup(this.parentGroup);
-  //   } else if (this is FormGroup &&
-  //       this.name == 'root' &&
-  //       this.parentGroup == null) {
-  //     firstFormGroup = this;
-  //   }
-
-  //   if (firstFormGroup == null)
-  //     throw new FormBuilderException('Cannot get first form group.');
-
-  //   if (firstFormGroup.formBuilder == null)
-  //     throw new FormBuilderException('Form builder is not located.');
-
-  //   return firstFormGroup.formBuilder;
-  // }
-
   /* Protected methods */
   @protected
   Future<void> validateControl() async {
@@ -69,6 +53,7 @@ class AbstractControl extends ChangeNotifier {
     if (this.validators == null || this.validators.isEmpty) {
       this.status = EAbstractControlStatus.valid;
       this.formState.update();
+      super.notifyListeners();
       return;
     }
 
@@ -80,7 +65,7 @@ class AbstractControl extends ChangeNotifier {
     // validation
     for (FormValidatorAnnotation validator in this.validators) {
       try {
-        isValid = await validator.isValid(parentGroup);
+        isValid = await validator.isValid(this);
 
         if (!isValid) {
           this.error = ValidationError(
@@ -105,15 +90,17 @@ class AbstractControl extends ChangeNotifier {
   }
 
   /* Private methods */
-  // FormGroup _getRoot(
-  //   AbstractControl control,
-  // ) {
-  //   if (control.parentGroup != null) return this._getRoot(control.parentGroup);
+  FormGroup _getRoot() {
+    // if current control is root, return it.
+    if (this is FormGroup &&
+      this.parent == null &&
+      this.name == 'root')
+    return this;
 
-  //   if (control is! FormGroup)
-  //     throw new FormBuilderException(
-  //         'Cannot return a form control that is not a form group.');
+    // if it's not root but there is not parent.
+    if (this.parent == null)
+      throw new FormBuilderException('Current ${this.runtimeType} has no parent.');
 
-  //   return control;
-  // }
+    return this.parent._getRoot();
+  }
 }

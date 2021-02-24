@@ -21,7 +21,7 @@ void main() {
       FormGroup root = stub.formBuilder.group;
       expect(root, isNotNull);
       expect(root.name, 'root');
-      expect(root.parentGroup, isNull);
+      expect(root.parent, isNull);
       expect(root.isArrayItem, isFalse);
       expect(root.controls, isNotNull);
       expect(root.controls.length, 3);
@@ -35,7 +35,7 @@ void main() {
       FormGroup control1 = root.getFormGroup('control1');
       expect(control1, isNotNull);
       expect(control1.name, 'control1');
-      expect(control1.parentGroup, root);
+      expect(control1.parent, root);
       expect(control1.isArrayItem, isFalse);
       expect(control1.controls, isNotNull);
       expect(control1.controls.length, 1);
@@ -50,7 +50,7 @@ void main() {
           control1.getFormControl<String>('control1_1');
       expect(control1_1, isNotNull);
       expect(control1_1.name, 'control1_1');
-      expect(control1_1.parentGroup, control1);
+      expect(control1_1.parent, control1);
       expect(control1_1.value, isNull);
       expect(control1_1.error, isNull);
       expect(control1_1.status, EAbstractControlStatus.pure);
@@ -63,7 +63,7 @@ void main() {
       FormArray control2 = root.getFormArray('control2');
       expect(control2, isNotNull);
       expect(control2.name, 'control2');
-      expect(control2.parentGroup, root);
+      expect(control2.parent, root);
       expect(control2.groups, isNotNull);
       expect(control2.groups.length, 2);
       expect(control2.error, isNull);
@@ -77,7 +77,7 @@ void main() {
         FormGroup control2_0 = control2.groups[0];
         expect(control2_0, isNotNull);
         expect(control2_0.name, 'control2[0]');
-        expect(control2_0.parentGroup, root);
+        expect(control2_0.parent, root);
         expect(control2_0.isArrayItem, isTrue);
         expect(control2_0.controls, isNotNull);
         expect(control2_0.controls.length, 1);
@@ -92,7 +92,7 @@ void main() {
             control2_0.getFormControl<String>('control2_0_1');
         expect(control2_0_1, isNotNull);
         expect(control2_0_1.name, 'control2_0_1');
-        expect(control2_0_1.parentGroup, control2_0);
+        expect(control2_0_1.parent, control2_0);
         expect(control2_0_1.value, isNull);
         expect(control2_0_1.error, isNull);
         expect(control2_0_1.status, EAbstractControlStatus.pure);
@@ -107,7 +107,7 @@ void main() {
         FormGroup control2_1 = control2.groups[1];
         expect(control2_1, isNotNull);
         expect(control2_1.name, 'control2[1]');
-        expect(control2_1.parentGroup, root);
+        expect(control2_1.parent, root);
         expect(control2_1.isArrayItem, isTrue);
         expect(control2_1.controls, isNotNull);
         expect(control2_1.controls.length, 1);
@@ -122,7 +122,7 @@ void main() {
             control2_1.getFormControl<String>('control2_1_1');
         expect(control2_1_1, isNotNull);
         expect(control2_1_1.name, 'control2_1_1');
-        expect(control2_1_1.parentGroup, control2_1);
+        expect(control2_1_1.parent, control2_1);
         expect(control2_1_1.value, isNull);
         expect(control2_1_1.error, isNull);
         expect(control2_1_1.status, EAbstractControlStatus.pure);
@@ -136,7 +136,7 @@ void main() {
       FormControl<String> control3 = root.getFormControl<String>('control3');
       expect(control3, isNotNull);
       expect(control3.name, 'control3');
-      expect(control3.parentGroup, root);
+      expect(control3.parent, root);
       expect(control3.value, isNull);
       expect(control3.error, isNull);
       expect(control3.status, EAbstractControlStatus.pure);

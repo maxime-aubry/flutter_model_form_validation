@@ -9,19 +9,12 @@ class ReactiveForm extends SingleChildStatefulWidget {
   final ReactiveFormBuilder formBuilder;
   final ReactiveFormState formState;
 
-  final Widget Function(
-    BuildContext context,
-    Widget child,
-  ) builder;
-
   ReactiveForm({
     Key key,
     Widget child,
     this.formBuilder,
-    this.builder,
   })  : this.formState = new ReactiveFormState(),
         super(key: key, child: child) {
-    //this.formState.initialize();
     this.formBuilder.initialize(this.formState);
   }
 
@@ -48,10 +41,10 @@ class _ReactiveFormState extends SingleChildState<ReactiveForm> {
           new FormStateProvider(create: (_) => widget.formState),
           new FormGroupProvider(create: (_) => widget.formBuilder.group),
         ],
-        builder: (context, child) => widget.builder(
+        /*builder: (context, child) => widget.builder(
           context,
           child,
-        ),
+        ),*/
         child: child,
       ),
     );

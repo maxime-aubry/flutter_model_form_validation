@@ -9,20 +9,20 @@ class Required extends FormValidatorAnnotation<AbstractControl> {
   @override
   Future<bool> isValid(AbstractControl control) async {
     if (control is FormGroup)
-      return this._validateFormGroup(control.controls.length);
+      return this._validateFormGroup(control);
     if (control is FormArray)
-      return this._validateFormArray(control.groups.length);
-    if (control is FormControl) return this._validateFormControl(control.value);
+      return this._validateFormArray(control);
+    if (control is FormControl) return this._validateFormControl(control);
     return false;
   }
 
-  bool _validateFormGroup(int length) => (length > 0);
+  bool _validateFormGroup(FormGroup formGroup) => (formGroup.controls.length > 0);
 
-  bool _validateFormArray(int length) => (length > 0);
+  bool _validateFormArray(FormArray formArray) => (formArray.groups.length > 0);
 
-  bool _validateFormControl(Object value) {
-    if (value == null) return false;
-    if (value is String && value.isEmpty) return false;
+  bool _validateFormControl(FormControl formControl) {
+    if (formControl.value == null) return false;
+    if (formControl.value is String && formControl.value.isEmpty) return false;
     return true;
   }
 }

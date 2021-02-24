@@ -22,7 +22,7 @@ class GreaterThan<TProperty extends Comparable>
       defaultValue: this.valueToCompare,
       localParameterName: 'valueToCompare',
       remoteParameterName: this.remoteValueToCompare,
-      formGroup: control.parentGroup,
+      formGroup: control.parent,
     );
     bool isValid = this._validate(control.value, valueToCompare);
     return isValid;

@@ -14,7 +14,7 @@ void main() {
         defaultValue: 'azerty',
         localParameterName: 'target',
         remoteParameterName: 'target',
-        formGroup: stub.control.parentGroup,
+        formGroup: stub.control.parent,
       );
       expect(parameter, isNotNull);
       expect(parameter, 'ytreza');
@@ -27,7 +27,7 @@ void main() {
         defaultValue: const ConstantDateTime('2021-01-01T00:00:00'),
         localParameterName: 'target',
         remoteParameterName: 'target',
-        formGroup: stub.control.parentGroup,
+        formGroup: stub.control.parent,
       );
       expect(parameter, isNotNull);
       expect(parameter, new DateTime(2021, 1, 2));
@@ -44,7 +44,7 @@ void main() {
           defaultValue: new DateTime(2021, 1, 1),
           localParameterName: 'target',
           remoteParameterName: 'target',
-          formGroup: stub.control.parentGroup,
+          formGroup: stub.control.parent,
         );
       }, '''Cannot get datetime from remote parameter.
             This one is not a ConstantDateTime object, its type is DateTime.
@@ -63,7 +63,7 @@ void main() {
           defaultValue: const ConstantDateTime('2021-01-01T00:00:00'),
           localParameterName: 'target',
           remoteParameterName: '',
-          formGroup: stub.control.parentGroup,
+          formGroup: stub.control.parent,
         );
       }, 'Cannot get remote parameter with an empty parameter name.');
     });
