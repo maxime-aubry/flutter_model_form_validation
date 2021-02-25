@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../../../expect_exception.dart';
 import '../../../models/models.reflectable.dart';
-import 'stubs/form_array.dart';
+import 'initializer/fake_initializer.dart';
 
 void main() {
   setUp(() {
@@ -12,113 +12,215 @@ void main() {
   });
 
   group('Form > ReactiveForm > Parts > FormArray.', () {
-    group('formPath.', () {
-      test('FormPath accessor works.', () {
-        FormArray_FormPathWorks_Stub stub = new FormArray_FormPathWorks_Stub();
-        expect(stub.control.formPath, stub.path);
-      });
-    });
+    group('Getters.', () {
+      test('Root getter works.', () {
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(groups: [], validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
 
-    group('modelPath.', () {
-      test('ModelPath accessor works.', () {
-        FormArray_ModelPathWorks_Stub stub =
-            new FormArray_ModelPathWorks_Stub();
-        expect(stub.control.modelPath, stub.path);
+        FormArray child = root.controls['child'] as FormArray;
+        expect(root, child.root);
       });
-    });
 
-    group('After initialization.', () {
-      test('FormArray is initialized.', () {
-        FormArray_FormArrayIsInitialized_Stub stub =
-            new FormArray_FormArrayIsInitialized_Stub();
-        expect(stub.control.groups, isNotNull);
-        expect(stub.control.groups.length, 3);
-        expect(stub.control.groups[0].name, 'control1[0]');
-        expect(stub.control.groups[1].name, 'control1[1]');
-        expect(stub.control.groups[2].name, 'control1[2]');
+      test('FormPath getter works.', () {
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(groups: [], validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray child = root.controls['child'] as FormArray;
+        expect(child.formPath, 'root.controls[\'child\']');
+      });
+
+      test('ModelPath getter works.', () {
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(groups: [], validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray child = root.controls['child'] as FormArray;
+        expect(child.modelPath, 'root.child');
       });
     });
 
     group('addGroup.', () {
-      test('Item is added to FormArray.', () {
-        FormArray_AddGroupWorks_Stub stub = new FormArray_AddGroupWorks_Stub();
-        stub.control.addGroup(stub.groupToAdd, notify: false);
-        expect(stub.control.groups.last, stub.groupToAdd);
+      test('addGroup adds items to FormArray.', () {
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(groups: [], validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray child = root.controls['child'] as FormArray;
+        FormGroup groupToAdd = new FormGroup(controls: {}, validators: []);
+
+        child.addGroup(groupToAdd, notify: false);
+        expect(child.groups.last, groupToAdd);
       });
 
       test(
-          'Throws an exception of FormBuilderException type when group is null.',
+          'addGroup throws an exception of FormBuilderException type when group is null.',
           () {
-        FormArray_AddGroupThrowsFormBuilderExceptionOnNullGroup_Stub stub =
-            new FormArray_AddGroupThrowsFormBuilderExceptionOnNullGroup_Stub();
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(groups: [], validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray child = root.controls['child'] as FormArray;
+
         expect_exception<FormBuilderException>(() {
-          stub.control.addGroup(stub.groupToAdd, notify: false);
+          child.addGroup(null, notify: false);
         }, 'Cannot add FormGroup if this one is null.');
       });
 
       test(
-          'Throws an exception of FormBuilderException type when group already exists.',
+          'addGroup throws an exception of FormBuilderException type when group already exists.',
           () {
-        FormArray_AddGroupThrowsFormBuilderExceptionOnExistingGroup_Stub stub =
-            new FormArray_AddGroupThrowsFormBuilderExceptionOnExistingGroup_Stub();
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(groups: [
+              new FormGroup(controls: {}, validators: []),
+            ], validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray child = root.controls['child'] as FormArray;
+        FormGroup groupToAdd = child.groups[0];
+
         expect_exception<FormBuilderException>(() {
-          stub.control.addGroup(stub.groupToAdd, notify: false);
+          child.addGroup(groupToAdd, notify: false);
         }, 'Cannot add FormGroup if this one is already added.');
       });
     });
 
     group('removeGroup.', () {
-      test('First item is removed.', () {
-        FormArray_RemoveFirstGroupWorks_Stub stub =
-            new FormArray_RemoveFirstGroupWorks_Stub();
-        stub.control.removeGroup(stub.groupToRemove, notify: false);
-        bool exists = stub.control.groups.contains(stub.groupToRemove);
+      test('removeGroup removes first item.', () {
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(groups: [
+              new FormGroup(controls: {}, validators: []),
+              new FormGroup(controls: {}, validators: []),
+              new FormGroup(controls: {}, validators: []),
+            ], validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray child = root.controls['child'] as FormArray;
+        FormGroup groupToRemove = child.groups[0];
+
+        child.removeGroup(groupToRemove, notify: false);
+        bool exists = child.groups.contains(groupToRemove);
         expect(exists, isFalse);
-        expect(stub.control.groups.length, 2);
-        expect(stub.control.groups[0].name, 'control1[0]');
-        expect(stub.control.groups[1].name, 'control1[1]');
+        expect(child.groups.length, 2);
+        expect(child.groups[0].name, 'child[0]');
+        expect(child.groups[1].name, 'child[1]');
       });
 
-      test('Second item is removed.', () {
-        FormArray_RemoveSecondGroupWorks_Stub stub =
-            new FormArray_RemoveSecondGroupWorks_Stub();
-        stub.control.removeGroup(stub.groupToRemove, notify: false);
-        bool exists = stub.control.groups.contains(stub.groupToRemove);
+      test('removeGroup removes second item.', () {
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(groups: [
+              new FormGroup(controls: {}, validators: []),
+              new FormGroup(controls: {}, validators: []),
+              new FormGroup(controls: {}, validators: []),
+            ], validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray child = root.controls['child'] as FormArray;
+        FormGroup groupToRemove = child.groups[1];
+
+        child.removeGroup(groupToRemove, notify: false);
+        bool exists = child.groups.contains(groupToRemove);
         expect(exists, isFalse);
-        expect(stub.control.groups.length, 2);
-        expect(stub.control.groups[0].name, 'control1[0]');
-        expect(stub.control.groups[1].name, 'control1[1]');
+        expect(child.groups.length, 2);
+        expect(child.groups[0].name, 'child[0]');
+        expect(child.groups[1].name, 'child[1]');
       });
 
-      test('Third item is removed.', () {
-        FormArray_RemoveThirdGroupWorks_Stub stub =
-            new FormArray_RemoveThirdGroupWorks_Stub();
-        stub.control.removeGroup(stub.groupToRemove, notify: false);
-        bool exists = stub.control.groups.contains(stub.groupToRemove);
+      test('removeGroup removes third item.', () {
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(groups: [
+              new FormGroup(controls: {}, validators: []),
+              new FormGroup(controls: {}, validators: []),
+              new FormGroup(controls: {}, validators: []),
+            ], validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray child = root.controls['child'] as FormArray;
+        FormGroup groupToRemove = child.groups[2];
+
+        child.removeGroup(groupToRemove, notify: false);
+        bool exists = child.groups.contains(groupToRemove);
         expect(exists, isFalse);
-        expect(stub.control.groups.length, 2);
-        expect(stub.control.groups[0].name, 'control1[0]');
-        expect(stub.control.groups[1].name, 'control1[1]');
+        expect(child.groups.length, 2);
+        expect(child.groups[0].name, 'child[0]');
+        expect(child.groups[1].name, 'child[1]');
       });
 
       test(
-          'Throw an exception of FormBuilderException type when group is null.',
+          'removeGroup throws an exception of FormBuilderException type when group is null.',
           () {
-        FormArray_RemoveGroupThrowsFormBuilderExceptionOnNullGroup_Stub stub =
-            new FormArray_RemoveGroupThrowsFormBuilderExceptionOnNullGroup_Stub();
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(groups: [
+              new FormGroup(controls: {}, validators: []),
+              new FormGroup(controls: {}, validators: []),
+              new FormGroup(controls: {}, validators: []),
+            ], validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray child = root.controls['child'] as FormArray;
+
         expect_exception<FormBuilderException>(() {
-          stub.control.removeGroup(stub.groupToRemove, notify: false);
+          child.removeGroup(null, notify: false);
         }, 'Cannot add FormGroup if this one is null.');
       });
 
       test(
-          'Throw an exception of FormBuilderException type when group is not registered.',
+          'removeGroup throws an exception of FormBuilderException type when group is not registered.',
           () {
-        FormArray_RemoveGroupThrowsFormBuilderExceptionOnNotRegisteredGroup_Stub
-            stub =
-            new FormArray_RemoveGroupThrowsFormBuilderExceptionOnNotRegisteredGroup_Stub();
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(groups: [], validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray child = root.controls['child'] as FormArray;
+        FormGroup groupToRemove = new FormGroup(controls: {}, validators: []);
+
         expect_exception<FormBuilderException>(() {
-          stub.control.removeGroup(stub.groupToRemove, notify: false);
+          child.removeGroup(groupToRemove, notify: false);
         }, 'Cannot remove FormGroup if this one is not registered.');
       });
     });

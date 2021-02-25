@@ -2,23 +2,65 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../expect_exception.dart';
-import 'stubs/reactive_form_builder.dart';
 
 void main() {
   group('ReactiveFormBuilder.', () {
     test('FormBuilder is initialized.', () {
-      ReactiveFormBuilder_FormBuilderIsInitialized_Stub stub =
-          new ReactiveFormBuilder_FormBuilderIsInitialized_Stub();
-      stub.formBuilder.initialize(stub.formState);
+      ReactiveFormBuilder formBuilder = new ReactiveFormBuilder(
+        group: new FormGroup(
+          controls: {
+            'control1': new FormGroup(
+              controls: {
+                'control1_1': new FormControl<String>(
+                  value: null,
+                  validators: [],
+                ),
+              },
+              validators: [],
+            ),
+            'control2': new FormArray(
+              groups: [
+                new FormGroup(
+                  controls: {
+                    'control2_0_1': new FormControl<String>(
+                      value: null,
+                      validators: [],
+                    ),
+                  },
+                  validators: [],
+                ),
+                new FormGroup(
+                  controls: {
+                    'control2_1_1': new FormControl<String>(
+                      value: null,
+                      validators: [],
+                    ),
+                  },
+                  validators: [],
+                ),
+              ],
+              validators: [],
+            ),
+            'control3': new FormControl<String>(
+              value: null,
+              validators: [],
+            ),
+          },
+          validators: [],
+        ),
+      );
+
+      ReactiveFormState formState = new ReactiveFormState();
+      formBuilder.initialize(formState);
 
       // form builder
-      expect(stub.formBuilder.isInitialized, isTrue);
-      expect(stub.formBuilder.formState, isNotNull);
-      expect(stub.formBuilder.formState, stub.formState);
-      expect(stub.formBuilder.indexer, isNotNull);
+      expect(formBuilder.isInitialized, isTrue);
+      expect(formBuilder.formState, isNotNull);
+      expect(formBuilder.formState, formState);
+      expect(formBuilder.indexer, isNotNull);
 
       // root
-      FormGroup root = stub.formBuilder.group;
+      FormGroup root = formBuilder.group;
       expect(root, isNotNull);
       expect(root.name, 'root');
       expect(root.parent, isNull);
@@ -148,10 +190,49 @@ void main() {
     test(
         'Throws an exception of FormBuilderException type when ReactiveFormState is null.',
         () {
-      ReactiveFormBuilder_ThrowsFormBuilderExceptionOnNullFormState_Stub stub =
-          new ReactiveFormBuilder_ThrowsFormBuilderExceptionOnNullFormState_Stub();
+      ReactiveFormBuilder formBuilder = new ReactiveFormBuilder(
+        group: new FormGroup(
+          controls: {
+            'control1': new FormGroup(controls: {
+              'control1_1': new FormControl<String>(
+                value: null,
+                validators: [],
+              ),
+            }, validators: []),
+            'control2': new FormArray(
+              groups: [
+                new FormGroup(
+                  controls: {
+                    'control2_0_1': new FormControl<String>(
+                      value: null,
+                      validators: [],
+                    ),
+                  },
+                  validators: [],
+                ),
+                new FormGroup(
+                  controls: {
+                    'control2_1_1': new FormControl<String>(
+                      value: null,
+                      validators: [],
+                    ),
+                  },
+                  validators: [],
+                ),
+              ],
+              validators: [],
+            ),
+            'control3': new FormControl<String>(
+              value: null,
+              validators: [],
+            ),
+          },
+          validators: [],
+        ),
+      );
+
       expect_exception<FormBuilderException>(() {
-        stub.formBuilder.initialize(stub.formState);
+        formBuilder.initialize(null);
       }, 'Cannot initialize ReactiveFormBuilder if ReactiveFormState is not provided.');
     });
   });

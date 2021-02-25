@@ -14,9 +14,9 @@ class ValidatorStub<TAbstractControl extends AbstractControl,
   TValidator validator;
 }
 
-class AbstractControlStub<TAbstractControl extends AbstractControl> {
+/*class AbstractControlStub<TAbstractControl extends AbstractControl> {
   TAbstractControl control;
-}
+}*/
 
 class FormBuilderStub<TFormBuilder extends ReactiveFormBuilder,
     TFormState extends ReactiveFormState> {
