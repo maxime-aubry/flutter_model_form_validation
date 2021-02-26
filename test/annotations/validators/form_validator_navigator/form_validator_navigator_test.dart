@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../../../expect_exception.dart';
 import '../../../form/reactive_form/parts/initializer/fake_initializer.dart';
-import 'stubs/form_validator_navigator.dart';
 
 class NavigatorTester with FormValidatorNavigator {}
 
@@ -84,15 +83,19 @@ void main() {
     test(
         'Throws exception of FormValidatorNavigator_Throws type when remote parameter name is empty.',
         () {
-      FormValidatorNavigator_ThrowsValidatorParameterExceptionOnRemoteParameterNameIsEmpty_Stub
-          stub =
-          new FormValidatorNavigator_ThrowsValidatorParameterExceptionOnRemoteParameterNameIsEmpty_Stub();
+      FormGroup root = new FormGroup(
+        controls: {},
+        validators: [],
+      );
+      fakeInitializeRoot(root);
+      NavigatorTester navigator = new NavigatorTester();
+
       expect_exception<ValidatorParameterException>(() {
-        stub.navigator.getRemoteValidatorParameter<DateTime>(
+        navigator.getRemoteValidatorParameter<DateTime>(
           defaultValue: const ConstantDateTime('2021-01-01T00:00:00'),
           localParameterName: 'target',
           remoteParameterName: '',
-          formGroup: stub.control.parent,
+          formGroup: root,
         );
       }, 'Cannot get remote parameter with an empty parameter name.');
     });
