@@ -2,51 +2,132 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../expect_exception.dart';
-import 'stubs/nb_items.dart';
+import '../../../form/reactive_form/parts/initializer/fake_initializer.dart';
 
 void main() {
   group('Annotations > Validators > FormArray > NbItems.', () {
     group('Valid.', () {
       test('FormArray items size is equal to min.', () async {
-        NbItems_ArraySizeIsEqualToMin_Stub stub =
-            new NbItems_ArraySizeIsEqualToMin_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(
+              groups: [
+                new FormGroup(controls: {}, validators: []),
+              ],
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray formArray = root.controls['child'] as FormArray;
+        NbItems validator = NbItems(min: 1, max: 3, error: null);
+        bool isValid = await validator.isValid(formArray);
         expect(isValid, isTrue);
       });
 
       test('FormArray items size is equal to max.', () async {
-        NbItems_ArraySizeIsEqualToMax_Stub stub =
-            new NbItems_ArraySizeIsEqualToMax_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(
+              groups: [
+                new FormGroup(controls: {}, validators: []),
+                new FormGroup(controls: {}, validators: []),
+                new FormGroup(controls: {}, validators: []),
+              ],
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray formArray = root.controls['child'] as FormArray;
+        NbItems validator = NbItems(min: 1, max: 3, error: null);
+        bool isValid = await validator.isValid(formArray);
         expect(isValid, isTrue);
       });
 
       test('FormArray items size is between min and max.', () async {
-        NbItems_ArraySizeIsBetweenMinAndMax_Stub stub =
-            new NbItems_ArraySizeIsBetweenMinAndMax_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(
+              groups: [
+                new FormGroup(controls: {}, validators: []),
+                new FormGroup(controls: {}, validators: []),
+              ],
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray formArray = root.controls['child'] as FormArray;
+        NbItems validator = NbItems(min: 1, max: 3, error: null);
+        bool isValid = await validator.isValid(formArray);
         expect(isValid, isTrue);
       });
     });
 
     group('Invalid.', () {
       test('FormArray items is null.', () async {
-        NbItems_ArrayIsNull_Stub stub = new NbItems_ArrayIsNull_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(
+              groups: null,
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray formArray = root.controls['child'] as FormArray;
+        NbItems validator = NbItems(min: 1, max: 3, error: null);
+        bool isValid = await validator.isValid(formArray);
         expect(isValid, isFalse);
       });
 
       test('FormArray items size is smaller than min.', () async {
-        NbItems_ArraySizeIsSmallerThanMin_Stub stub =
-            new NbItems_ArraySizeIsSmallerThanMin_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(
+              groups: [],
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray formArray = root.controls['child'] as FormArray;
+        NbItems validator = NbItems(min: 1, max: 3, error: null);
+        bool isValid = await validator.isValid(formArray);
         expect(isValid, isFalse);
       });
 
-      test('FormArray items size is smaller than max.', () async {
-        NbItems_ArraySizeIsGreaterThanMax_Stub stub =
-            new NbItems_ArraySizeIsGreaterThanMax_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+      test('FormArray items size is greater than max.', () async {
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(
+              groups: [
+                new FormGroup(controls: {}, validators: []),
+                new FormGroup(controls: {}, validators: []),
+                new FormGroup(controls: {}, validators: []),
+                new FormGroup(controls: {}, validators: []),
+              ],
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray formArray = root.controls['child'] as FormArray;
+        NbItems validator = NbItems(min: 1, max: 3, error: null);
+        bool isValid = await validator.isValid(formArray);
         expect(isValid, isFalse);
       });
     });
@@ -54,17 +135,50 @@ void main() {
     group('Remote parameters.', () {
       test('remoteMin is provided. Its value override the one of min.',
           () async {
-        NbItems_MinOnProrpertyIsProvided_Stub stub =
-            new NbItems_MinOnProrpertyIsProvided_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(
+              groups: [
+                new FormGroup(controls: {}, validators: []),
+              ],
+              validators: [],
+            ),
+            'min': new FormControl<int>(value: 1, validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray formArray = root.controls['child'] as FormArray;
+        NbItems validator =
+            NbItems(min: 2, max: 3, remoteMin: 'min', error: null);
+        bool isValid = await validator.isValid(formArray);
         expect(isValid, isTrue);
       });
 
       test('remoteMax is provided. Its value override the one of max.',
           () async {
-        NbItems_MaxOnProrpertyIsProvided_Stub stub =
-            new NbItems_MaxOnProrpertyIsProvided_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(
+              groups: [
+                new FormGroup(controls: {}, validators: []),
+                new FormGroup(controls: {}, validators: []),
+                new FormGroup(controls: {}, validators: []),
+                new FormGroup(controls: {}, validators: []),
+              ],
+              validators: [],
+            ),
+            'max': new FormControl<int>(value: 4, validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray formArray = root.controls['child'] as FormArray;
+        NbItems validator =
+            NbItems(min: 1, max: 3, remoteMax: 'max', error: null);
+        bool isValid = await validator.isValid(formArray);
         expect(isValid, isTrue);
       });
     });
@@ -73,30 +187,65 @@ void main() {
       test(
           'Validator throws an exception because min is not provided, using by min and remoteMin.',
           () async {
-        NbItems_ThrowsValidatorParameterExceptionOnNullMin_Stub stub =
-            new NbItems_ThrowsValidatorParameterExceptionOnNullMin_Stub();
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(
+              groups: [],
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray formArray = root.controls['child'] as FormArray;
+        NbItems validator = NbItems(min: null, max: 3, error: null);
+
         expect_exception<ValidatorParameterException>(() async {
-          await stub.validator.isValid(stub.control);
+          await validator.isValid(formArray);
         }, 'Min is not defined.');
       });
 
       test(
           'Validator throws an exception because max is not provided, using by max and remoteMax.',
           () async {
-        NbItems_ThrowsValidatorParameterExceptionOnNullMax_Stub stub =
-            new NbItems_ThrowsValidatorParameterExceptionOnNullMax_Stub();
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(
+              groups: [],
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray formArray = root.controls['child'] as FormArray;
+        NbItems validator = NbItems(min: 1, max: null, error: null);
+
         expect_exception<ValidatorParameterException>(() async {
-          await stub.validator.isValid(stub.control);
+          await validator.isValid(formArray);
         }, 'Max is not defined.');
       });
 
       test('Validator throws an exception because min is greater than max.',
           () async {
-        NbItems_ThrowsValidatorParameterExceptionOnMinIsGreaterThanMax_Stub
-            stub =
-            new NbItems_ThrowsValidatorParameterExceptionOnMinIsGreaterThanMax_Stub();
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(
+              groups: [],
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray formArray = root.controls['child'] as FormArray;
+        NbItems validator = NbItems(min: 3, max: 1, error: null);
+
         expect_exception<ValidatorParameterException>(() async {
-          await stub.validator.isValid(stub.control);
+          await validator.isValid(formArray);
         }, 'NbItems validator does not accept that min value is greater than max value.');
       });
     });

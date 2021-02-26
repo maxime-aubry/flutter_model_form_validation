@@ -9,7 +9,7 @@ void main() {
           value: 'azerty',
           validators: [],
         );
-        Required validator = Required(error: '');
+        Required validator = Required(error: null);
 
         bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
@@ -22,7 +22,7 @@ void main() {
           value: null,
           validators: [],
         );
-        Required validator = Required(error: '');
+        Required validator = Required(error: null);
 
         bool isValid = await validator.isValid(formControl);
         expect(isValid, isFalse);
@@ -33,7 +33,7 @@ void main() {
           value: '',
           validators: [],
         );
-        Required validator = Required(error: '');
+        Required validator = Required(error: null);
 
         bool isValid = await validator.isValid(formControl);
         expect(isValid, isFalse);

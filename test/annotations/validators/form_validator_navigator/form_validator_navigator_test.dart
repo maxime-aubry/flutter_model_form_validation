@@ -3,48 +3,77 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../expect_exception.dart';
+import '../../../form/reactive_form/parts/initializer/fake_initializer.dart';
 import 'stubs/form_validator_navigator.dart';
+
+class NavigatorTester with FormValidatorNavigator {}
 
 void main() {
   group('Annotations > Validators > FormValidatorNavigator.', () {
     test('Remote String parameter is found.', () {
-      FormValidatorNavigator_StringParameterIsFound_Stub stub =
-          new FormValidatorNavigator_StringParameterIsFound_Stub();
-      String parameter = stub.navigator.getRemoteValidatorParameter<String>(
+      FormGroup root = new FormGroup(
+        controls: {
+          'target': new FormControl<String>(value: 'ytreza', validators: []),
+        },
+        validators: [],
+      );
+      fakeInitializeRoot(root);
+      NavigatorTester navigator = new NavigatorTester();
+
+      String parameter = navigator.getRemoteValidatorParameter<String>(
         defaultValue: 'azerty',
         localParameterName: 'target',
         remoteParameterName: 'target',
-        formGroup: stub.control.parent,
+        formGroup: root,
       );
       expect(parameter, isNotNull);
       expect(parameter, 'ytreza');
     });
 
     test('Remote DateTime parameter is found.', () {
-      FormValidatorNavigator_DateTimeParameterIsFound_Stub stub =
-          new FormValidatorNavigator_DateTimeParameterIsFound_Stub();
-      DateTime parameter = stub.navigator.getRemoteValidatorParameter<DateTime>(
-        defaultValue: const ConstantDateTime('2021-01-01T00:00:00'),
+      FormGroup root = new FormGroup(
+        controls: {
+          'target': new FormControl<DateTime>(
+            value: new DateTime(2021, 1, 1),
+            validators: [],
+          ),
+        },
+        validators: [],
+      );
+      fakeInitializeRoot(root);
+      NavigatorTester navigator = new NavigatorTester();
+
+      DateTime parameter = navigator.getRemoteValidatorParameter<DateTime>(
+        defaultValue: const ConstantDateTime('2021-01-02T00:00:00'),
         localParameterName: 'target',
         remoteParameterName: 'target',
-        formGroup: stub.control.parent,
+        formGroup: root,
       );
       expect(parameter, isNotNull);
-      expect(parameter, new DateTime(2021, 1, 2));
+      expect(parameter, new DateTime(2021, 1, 1));
     });
 
     test(
         'Throws exception of FormValidatorNavigator_Throws type when default value is not a ConstantDateTime.',
         () {
-      FormValidatorNavigator_ThrowsValidatorParameterExceptionOnDefaultValueIsNotConstantDateTime_Stub
-          stub =
-          new FormValidatorNavigator_ThrowsValidatorParameterExceptionOnDefaultValueIsNotConstantDateTime_Stub();
+      FormGroup root = new FormGroup(
+        controls: {
+          'target': new FormControl<DateTime>(
+            value: new DateTime(2021, 1, 1),
+            validators: [],
+          ),
+        },
+        validators: [],
+      );
+      fakeInitializeRoot(root);
+      NavigatorTester navigator = new NavigatorTester();
+
       expect_exception<ValidatorParameterException>(() {
-        stub.navigator.getRemoteValidatorParameter<DateTime>(
-          defaultValue: new DateTime(2021, 1, 1),
+        navigator.getRemoteValidatorParameter<DateTime>(
+          defaultValue: new DateTime(2021, 1, 2),
           localParameterName: 'target',
           remoteParameterName: 'target',
-          formGroup: stub.control.parent,
+          formGroup: root,
         );
       }, '''Cannot get datetime from remote parameter.
             This one is not a ConstantDateTime object, its type is DateTime.

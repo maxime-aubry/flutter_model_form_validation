@@ -11,7 +11,7 @@ void main() {
           },
           validators: [],
         );
-        Required validator = Required(error: '');
+        Required validator = Required(error: null);
 
         bool isValid = await validator.isValid(formGroup);
         expect(isValid, isTrue);
@@ -24,7 +24,7 @@ void main() {
           controls: null,
           validators: [],
         );
-        Required validator = Required(error: '');
+        Required validator = Required(error: null);
 
         bool isValid = await validator.isValid(formGroup);
         expect(isValid, isFalse);
@@ -35,7 +35,7 @@ void main() {
           controls: {},
           validators: [],
         );
-        Required validator = Required(error: '');
+        Required validator = Required(error: null);
 
         bool isValid = await validator.isValid(formGroup);
         expect(isValid, isFalse);
