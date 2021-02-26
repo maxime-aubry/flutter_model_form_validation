@@ -1,30 +1,41 @@
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'stubs/required_form_control.dart';
 
 void main() {
   group('Annotations > Validators > Common > Required (on FormControl).', () {
     group('Valid.', () {
       test('FormControl\'s value is valid.', () async {
-        RequiredFormControl_FormControlValueIsValid_Stub stub =
-            new RequiredFormControl_FormControlValueIsValid_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormControl<String> formControl = new FormControl<String>(
+          value: 'azerty',
+          validators: [],
+        );
+        Required validator = Required(error: '');
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
       });
     });
 
     group('Invalid.', () {
-      test('FormControl\'s controls are null.', () async {
-        RequiredFormControl_FormControlValueIsNull_Stub stub =
-            new RequiredFormControl_FormControlValueIsNull_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+      test('FormControl\'s value is null.', () async {
+        FormControl<String> formControl = new FormControl<String>(
+          value: null,
+          validators: [],
+        );
+        Required validator = Required(error: '');
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isFalse);
       });
 
-      test('FormControl\'s controls are empty.', () async {
-        RequiredFormControl_FormControlValueIsEmpty_Stub stub =
-            new RequiredFormControl_FormControlValueIsEmpty_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+      test('FormControl\'s value is empty.', () async {
+        FormControl<String> formControl = new FormControl<String>(
+          value: '',
+          validators: [],
+        );
+        Required validator = Required(error: '');
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isFalse);
       });
     });

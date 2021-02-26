@@ -1,30 +1,43 @@
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'stubs/required_form_array.dart';
 
 void main() {
   group('Annotations > Validators > Common > Required (on FormArray).', () {
     group('Valid.', () {
       test('FormArray\'s groups are populated.', () async {
-        RequiredFormArray_FormArrayGroupsArePopulated_Stub stub =
-            new RequiredFormArray_FormArrayGroupsArePopulated_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormArray formArray = new FormArray(
+          groups: [
+            new FormGroup(controls: {}, validators: []),
+          ],
+          validators: [],
+        );
+        Required validator = Required(error: '');
+
+        bool isValid = await validator.isValid(formArray);
         expect(isValid, isTrue);
       });
     });
 
     group('Invalid.', () {
       test('FormArray\'s groups are null.', () async {
-        RequiredFormArray_FormArrayGroupsAreNull_Stub stub =
-            new RequiredFormArray_FormArrayGroupsAreNull_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormArray formArray = new FormArray(
+          groups: null,
+          validators: [],
+        );
+        Required validator = Required(error: '');
+
+        bool isValid = await validator.isValid(formArray);
         expect(isValid, isFalse);
       });
 
       test('FormArray\'s groups are empty.', () async {
-        RequiredFormArray_FormArrayGroupsAreEmpty_Stub stub =
-            new RequiredFormArray_FormArrayGroupsAreEmpty_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormArray formArray = new FormArray(
+          groups: [],
+          validators: [],
+        );
+        Required validator = Required(error: '');
+
+        bool isValid = await validator.isValid(formArray);
         expect(isValid, isFalse);
       });
     });
