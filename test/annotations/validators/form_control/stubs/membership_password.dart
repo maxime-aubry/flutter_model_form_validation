@@ -20,8 +20,9 @@ class _MembershipPasswordStub
     super.validator = MembershipPassword(
       minLength: localMinLength,
       maxLength: localMaxLength,
-      includesAlphabeticalCharacters: localIncludesAlphabeticalCharacters,
-      includesUppercaseCharacters: localIncludesUppercaseCharacters,
+      includesLowercaseAlphabeticalCharacters:
+          localIncludesAlphabeticalCharacters,
+      includesUppercaseAlphabeticalCharacters: localIncludesUppercaseCharacters,
       includesNumericalCharacters: localIncludesNumericalCharacters,
       includesSpecialCharacters: localIncludesSpecialCharacters,
       error: null,
