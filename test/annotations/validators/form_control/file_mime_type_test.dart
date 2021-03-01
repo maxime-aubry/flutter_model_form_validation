@@ -1,33 +1,90 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../expect_exception.dart';
-import 'stubs/file_mime_type.dart';
+import '../../../form/reactive_form/parts/initializer/fake_initializer.dart';
 
 void main() {
+  File file = new File('${Directory.current.path}/test/assets/glycine.jpg');
+
   group('Annotations > Validators > FormControl<TProperty> > FileMimeType.',
       () {
     group('Valid.', () {
       test('File\'s mime type is allowed.', () async {
-        FileMimeType_MimeTypeIsAllowed_Stub stub =
-            new FileMimeType_MimeTypeIsAllowed_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<Uint8List>(
+              value: file?.readAsBytesSync(),
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<Uint8List> formControl =
+            root.controls['child'] as FormControl<Uint8List>;
+        FileMimeType validator = FileMimeType(
+          mimeTypes: ['image/jpeg'],
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, file?.readAsBytesSync());
+        expect(validator.mimeTypes, ['image/jpeg']);
       });
 
       test('File not provided.', () async {
-        FileMimeType_NoFile_Stub stub = new FileMimeType_NoFile_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<Uint8List>(value: null, validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<Uint8List> formControl =
+            root.controls['child'] as FormControl<Uint8List>;
+        FileMimeType validator = FileMimeType(
+          mimeTypes: ['image/jpeg'],
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, null);
+        expect(validator.mimeTypes, ['image/jpeg']);
       });
     });
 
     group('Invalid.', () {
       test('File\'s mime type is not allowed.', () async {
-        FileMimeType_MimeTypeIsNotAllowed_Stub stub =
-            new FileMimeType_MimeTypeIsNotAllowed_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<Uint8List>(
+              value: file?.readAsBytesSync(),
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<Uint8List> formControl =
+            root.controls['child'] as FormControl<Uint8List>;
+        FileMimeType validator = FileMimeType(
+          mimeTypes: ['image/png'],
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isFalse);
+        expect(formControl.value, file?.readAsBytesSync());
+        expect(validator.mimeTypes, ['image/png']);
       });
     });
 
@@ -37,22 +94,46 @@ void main() {
       test(
           'Throws exception of ValidatorParameterException type when mimeType array is null.',
           () async {
-        FileMimeType_ThrowsValidatorParameterExceptionOnNullMimeTypesArray_Stub
-            stub =
-            new FileMimeType_ThrowsValidatorParameterExceptionOnNullMimeTypesArray_Stub();
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<Uint8List>(
+              value: file?.readAsBytesSync(),
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<Uint8List> formControl =
+            root.controls['child'] as FormControl<Uint8List>;
+        FileMimeType validator = FileMimeType(mimeTypes: null, error: null);
+
         expect_exception<ValidatorParameterException>(() async {
-          await stub.validator.isValid(stub.control);
+          await validator.isValid(formControl);
         }, 'Mime types are not defined.');
       });
 
       test(
           'Throws exception of ValidatorParameterException type when mimeType array is empty.',
           () async {
-        FileMimeType_ThrowsValidatorParameterExceptionOnEmptyMimeTypesArray_Stub
-            stub =
-            new FileMimeType_ThrowsValidatorParameterExceptionOnEmptyMimeTypesArray_Stub();
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<Uint8List>(
+              value: file?.readAsBytesSync(),
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<Uint8List> formControl =
+            root.controls['child'] as FormControl<Uint8List>;
+        FileMimeType validator = FileMimeType(mimeTypes: [], error: null);
+
         expect_exception<ValidatorParameterException>(() async {
-          await stub.validator.isValid(stub.control);
+          await validator.isValid(formControl);
         }, 'Mime types are not defined.');
       });
     });
