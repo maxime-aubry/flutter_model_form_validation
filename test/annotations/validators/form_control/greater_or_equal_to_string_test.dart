@@ -116,7 +116,7 @@ void main() {
     });
 
     group('Invalid.', () {
-      test('valueToCompare is smaller than valueToCompare.', () async {
+      test('value is smaller than valueToCompare.', () async {
         FormGroup root = new FormGroup(
           controls: {
             'child': new FormControl<String>(
@@ -156,6 +156,8 @@ void main() {
 
         FormControl<String> formControl =
             root.controls['child'] as FormControl<String>;
+        FormControl<String> valueToCompare =
+            root.controls['valueToCompare'] as FormControl<String>;
         GreaterOrEqualToString validator = GreaterOrEqualToString(
           valueToCompare: 'a',
           remoteValueToCompare: 'valueToCompare',
@@ -165,6 +167,7 @@ void main() {
         bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
         expect(formControl.value, 'b');
+        expect(valueToCompare.value, 'b');
         expect(validator.valueToCompare, 'a');
         expect(validator.remoteValueToCompare, 'valueToCompare');
       });

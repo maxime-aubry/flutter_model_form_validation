@@ -139,7 +139,7 @@ void main() {
     });
 
     group('Invalid.', () {
-      test('valueToCompare is smaller than valueToCompare.', () async {
+      test('value is smaller than valueToCompare.', () async {
         FormGroup root = new FormGroup(
           controls: {
             'child': new FormControl<DateTime>(
@@ -187,6 +187,8 @@ void main() {
 
         FormControl<DateTime> formControl =
             root.controls['child'] as FormControl<DateTime>;
+        FormControl<DateTime> valueToCompare =
+            root.controls['valueToCompare'] as FormControl<DateTime>;
         GreaterOrEqualToDateTime validator = GreaterOrEqualToDateTime(
           valueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
           remoteValueToCompare: 'valueToCompare',
@@ -196,6 +198,7 @@ void main() {
         bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
         expect(formControl.value, new DateTime(2021, 1, 2));
+        expect(valueToCompare.value, new DateTime(2021, 1, 2));
         expect(
           validator.valueToCompare,
           const ConstantDateTime('2021-01-01T00:00:00'),

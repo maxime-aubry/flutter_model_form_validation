@@ -186,6 +186,8 @@ void main() {
 
         FormControl<DateTime> formControl =
             root.controls['child'] as FormControl<DateTime>;
+        FormControl<DateTime> valueToCompare =
+            root.controls['valueToCompare'] as FormControl<DateTime>;
         EqualToDateTime validator = EqualToDateTime(
           valueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
           remoteValueToCompare: 'valueToCompare',
@@ -195,6 +197,7 @@ void main() {
         bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
         expect(formControl.value, new DateTime(2021, 1, 2));
+        expect(valueToCompare.value, new DateTime(2021, 1, 2));
         expect(
           validator.valueToCompare,
           const ConstantDateTime('2021-01-01T00:00:00'),

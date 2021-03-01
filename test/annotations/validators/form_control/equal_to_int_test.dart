@@ -139,6 +139,8 @@ void main() {
 
         FormControl<int> formControl =
             root.controls['child'] as FormControl<int>;
+        FormControl<int> valueToCompare =
+            root.controls['valueToCompare'] as FormControl<int>;
         EqualToInt validator = EqualToInt(
           valueToCompare: 0,
           remoteValueToCompare: 'valueToCompare',
@@ -148,6 +150,7 @@ void main() {
         bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
         expect(formControl.value, 1);
+        expect(valueToCompare.value, 1);
         expect(validator.valueToCompare, 0);
         expect(validator.remoteValueToCompare, 'valueToCompare');
       });
