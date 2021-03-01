@@ -1,62 +1,161 @@
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'stubs/equal_to_string.dart';
+import '../../../form/reactive_form/parts/initializer/fake_initializer.dart';
 
 void main() {
   group('Annotations > Validators > FormControl<TProperty> > EqualToString.',
       () {
     group('Valid.', () {
       test('value equals valueToCompare.', () async {
-        EqualToString_ValueIsEqualToValueToCompare_Stub stub =
-            new EqualToString_ValueIsEqualToValueToCompare_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<String>(value: 'a', validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<String> formControl =
+            root.controls['child'] as FormControl<String>;
+        EqualToString validator =
+            EqualToString(valueToCompare: 'a', error: null);
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, 'a');
+        expect(validator.valueToCompare, 'a');
       });
 
       test('value and valueToCompare are null.', () async {
-        EqualToString_ValueAndValueToCompareAreNull_Stub stub =
-            new EqualToString_ValueAndValueToCompareAreNull_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<String>(value: null, validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<String> formControl =
+            root.controls['child'] as FormControl<String>;
+        EqualToString validator = EqualToString(
+          valueToCompare: null,
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, isNull);
+        expect(validator.valueToCompare, isNull);
       });
 
       test('value is null.', () async {
-        EqualToString_ValueIsNull_Stub stub =
-            new EqualToString_ValueIsNull_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<String>(value: null, validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<String> formControl =
+            root.controls['child'] as FormControl<String>;
+        EqualToString validator =
+            EqualToString(valueToCompare: 'a', error: null);
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, isNull);
+        expect(validator.valueToCompare, 'a');
       });
 
       test('valueToCompare is null.', () async {
-        EqualToString_ValueToCompareIsNull_Stub stub =
-            new EqualToString_ValueToCompareIsNull_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<String>(value: 'a', validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<String> formControl =
+            root.controls['child'] as FormControl<String>;
+        EqualToString validator =
+            EqualToString(valueToCompare: null, error: null);
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, 'a');
+        expect(validator.valueToCompare, null);
       });
     });
 
     group('Invalid.', () {
       test('value is smaller than valueToCompare.', () async {
-        EqualToString_ValueIsSmallerThanValueToCompare_Stub stub =
-            new EqualToString_ValueIsSmallerThanValueToCompare_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<String>(value: 'a', validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<String> formControl =
+            root.controls['child'] as FormControl<String>;
+        EqualToString validator =
+            EqualToString(valueToCompare: 'b', error: null);
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isFalse);
+        expect(formControl.value, 'a');
+        expect(validator.valueToCompare, 'b');
       });
 
       test('value is greater than valueToCompare.', () async {
-        EqualToString_ValueIsGreaterThanValueToCompare_Stub stub =
-            new EqualToString_ValueIsGreaterThanValueToCompare_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<String>(value: 'b', validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<String> formControl =
+            root.controls['child'] as FormControl<String>;
+        EqualToString validator =
+            EqualToString(valueToCompare: 'a', error: null);
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isFalse);
+        expect(formControl.value, 'b');
+        expect(validator.valueToCompare, 'a');
       });
     });
 
     group('Remote parameters.', () {
       test('Remote valueToCompare is provided.', () async {
-        EqualToString_remoteValueToCompareIsProvided_Stub stub =
-            new EqualToString_remoteValueToCompareIsProvided_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<String>(value: 'b', validators: []),
+            'valueToCompare':
+                new FormControl<String>(value: 'b', validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<String> formControl =
+            root.controls['child'] as FormControl<String>;
+        EqualToString validator = EqualToString(
+          valueToCompare: 'a',
+          remoteValueToCompare: 'valueToCompare',
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, 'b');
+        expect(validator.valueToCompare, 'a');
       });
     });
   });
