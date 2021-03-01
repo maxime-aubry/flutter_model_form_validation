@@ -109,6 +109,9 @@ void main() {
             root.controls['child'] as FormControl<Uint8List>;
         FileMimeType validator = FileMimeType(mimeTypes: null, error: null);
 
+        expect(formControl.value, file?.readAsBytesSync());
+        expect(validator.mimeTypes, null);
+
         expect_exception<ValidatorParameterException>(() async {
           await validator.isValid(formControl);
         }, 'Mime types are not defined.');
@@ -131,6 +134,9 @@ void main() {
         FormControl<Uint8List> formControl =
             root.controls['child'] as FormControl<Uint8List>;
         FileMimeType validator = FileMimeType(mimeTypes: [], error: null);
+
+        expect(formControl.value, file?.readAsBytesSync());
+        expect(validator.mimeTypes, []);
 
         expect_exception<ValidatorParameterException>(() async {
           await validator.isValid(formControl);
