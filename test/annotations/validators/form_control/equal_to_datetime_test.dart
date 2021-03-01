@@ -199,6 +199,7 @@ void main() {
           validator.valueToCompare,
           const ConstantDateTime('2021-01-01T00:00:00'),
         );
+        expect(validator.remoteValueToCompare, 'valueToCompare');
       });
     });
   });

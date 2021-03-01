@@ -149,6 +149,7 @@ void main() {
         expect(isValid, isTrue);
         expect(formControl.value, 1);
         expect(validator.valueToCompare, 0);
+        expect(validator.remoteValueToCompare, 'valueToCompare');
       });
     });
   });

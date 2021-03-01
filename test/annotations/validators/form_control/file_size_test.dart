@@ -49,7 +49,7 @@ void main() {
 
         bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
-        expect(formControl.value, null);
+        expect(formControl.value, isNull);
         expect(validator.size, 1048576);
       });
     });
@@ -98,7 +98,7 @@ void main() {
         FileSize validator = FileSize(size: null, error: null);
 
         expect(formControl.value, file?.readAsBytesSync());
-        expect(validator.size, null);
+        expect(validator.size, isNull);
 
         expect_exception<ValidatorParameterException>(() async {
           await validator.isValid(formControl);

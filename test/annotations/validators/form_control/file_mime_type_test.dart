@@ -56,7 +56,7 @@ void main() {
 
         bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
-        expect(formControl.value, null);
+        expect(formControl.value, isNull);
         expect(validator.mimeTypes, ['image/jpeg']);
       });
     });
@@ -110,7 +110,7 @@ void main() {
         FileMimeType validator = FileMimeType(mimeTypes: null, error: null);
 
         expect(formControl.value, file?.readAsBytesSync());
-        expect(validator.mimeTypes, null);
+        expect(validator.mimeTypes, isNull);
 
         expect_exception<ValidatorParameterException>(() async {
           await validator.isValid(formControl);
