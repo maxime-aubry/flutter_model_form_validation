@@ -37,7 +37,7 @@ void main() {
         );
       });
 
-      test('value equals valueToCompare.', () async {
+      test('value is equal valueToCompare.', () async {
         FormGroup root = new FormGroup(
           controls: {
             'child': new FormControl<DateTime>(
