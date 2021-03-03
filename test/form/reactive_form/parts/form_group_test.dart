@@ -53,6 +53,33 @@ void main() {
       });
     });
 
+    group('getValidator.', () {
+      test('getValidator returns Required validator.', () {
+        FormGroup root = new FormGroup(
+          controls: {},
+          validators: [Required(error: null)],
+        );
+        fakeInitializeRoot(root);
+
+        Required validator = root.getValidator<Required>();
+        expect(validator, isNotNull);
+      });
+
+      test(
+          'getValidator throws an exception of FormBuilderException type when validator is not found.',
+          () {
+        FormGroup root = new FormGroup(
+          controls: {},
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        expect_exception<FormBuilderException>(() {
+          root.getValidator<Required>();
+        }, 'Current FormGroup has no validator of Required type.');
+      });
+    });
+
     group('containsControl.', () {
       test('containsControl find control using by key.', () {
         FormGroup root = new FormGroup(

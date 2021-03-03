@@ -53,6 +53,43 @@ void main() {
       });
     });
 
+    group('getValidator.', () {
+      test('getValidator returns Required validator.', () {
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(
+              groups: [],
+              validators: [Required(error: null)],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray child = root.controls['child'] as FormArray;
+        Required validator = child.getValidator<Required>();
+        expect(validator, isNotNull);
+      });
+
+      test(
+          'getValidator throws an exception of FormBuilderException type when validator is not found.',
+          () {
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormArray(groups: [], validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormArray child = root.controls['child'] as FormArray;
+
+        expect_exception<FormBuilderException>(() {
+          child.getValidator<Required>();
+        }, 'Current FormArray has no validator of Required type.');
+      });
+    });
+
     group('addGroup.', () {
       test('addGroup adds items to FormArray.', () {
         FormGroup root = new FormGroup(

@@ -3,6 +3,7 @@ import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
+import 'package:queries/collections.dart';
 
 class AbstractControl extends ChangeNotifier {
   /* Public properties */
@@ -43,6 +44,18 @@ class AbstractControl extends ChangeNotifier {
   void index() => this.formState.formBuilder.indexer.addControl(this);
 
   void deindex() => this.formState.formBuilder.indexer.removeControl(this);
+
+  TValidator getValidator<TValidator extends FormValidatorAnnotation>() {
+    TValidator validator = Collection(this.validators)
+        .where((arg1) => arg1 is TValidator)
+        .singleOrDefault();
+
+    if (validator == null)
+      throw new FormBuilderException(
+          'Current ${this.runtimeType} has no validator of ${TValidator.toString()} type.');
+
+    return validator;
+  }
 
   /* Protected methods */
   @protected
@@ -92,14 +105,13 @@ class AbstractControl extends ChangeNotifier {
   /* Private methods */
   FormGroup _getRoot() {
     // if current control is root, return it.
-    if (this is FormGroup &&
-      this.parent == null &&
-      this.name == 'root')
-    return this;
+    if (this is FormGroup && this.parent == null && this.name == 'root')
+      return this;
 
     // if it's not root but there is not parent.
     if (this.parent == null)
-      throw new FormBuilderException('Current ${this.runtimeType} has no parent.');
+      throw new FormBuilderException(
+          'Current ${this.runtimeType} has no parent.');
 
     return this.parent._getRoot();
   }

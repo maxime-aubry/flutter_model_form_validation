@@ -20,10 +20,15 @@ class PasswordSettings {
 }
 
 abstract class IPasswordCheckRule {
+  String name;
+
   bool checkRule(String value, PasswordSettings settings);
 }
 
 class PasswordCheckMinLength implements IPasswordCheckRule {
+  @override
+  String name = 'minLength';
+
   @override
   bool checkRule(String value, PasswordSettings settings) =>
       value.length >= settings.minLength;
@@ -31,12 +36,18 @@ class PasswordCheckMinLength implements IPasswordCheckRule {
 
 class PasswordCheckMaxLength implements IPasswordCheckRule {
   @override
+  String name = 'maxLength';
+
+  @override
   bool checkRule(String value, PasswordSettings settings) =>
       value.length <= settings.maxLength;
 }
 
 class PasswordCheckLowercaseAlphabeticalCharacters
     implements IPasswordCheckRule {
+  @override
+  String name = 'includesLowercaseAlphabeticalCharacters';
+
   @override
   bool checkRule(String value, PasswordSettings settings) {
     String expression = r'[a-z]';
@@ -49,6 +60,9 @@ class PasswordCheckLowercaseAlphabeticalCharacters
 class PasswordCheckUppercaseAlphabeticalCharacters
     implements IPasswordCheckRule {
   @override
+  String name = 'includesUppercaseAlphabeticalCharacters';
+
+  @override
   bool checkRule(String value, PasswordSettings settings) {
     String expression = r'[A-Z]';
     RegExp regExp = new RegExp(expression);
@@ -58,6 +72,9 @@ class PasswordCheckUppercaseAlphabeticalCharacters
 }
 
 class PasswordCheckNumericalCharacters implements IPasswordCheckRule {
+  @override
+  String name = 'includesNumericalCharacters';
+
   @override
   bool checkRule(String value, PasswordSettings settings) {
     String expression = r'[\d]';
@@ -69,6 +86,9 @@ class PasswordCheckNumericalCharacters implements IPasswordCheckRule {
 
 class PasswordCheckSpecialCharacters implements IPasswordCheckRule {
   @override
+  String name = 'includesSpecialCharacters';
+
+  @override
   bool checkRule(String value, PasswordSettings settings) {
     String expression = r'[@$!%*?&]';
     RegExp regExp = new RegExp(expression);
@@ -78,16 +98,7 @@ class PasswordCheckSpecialCharacters implements IPasswordCheckRule {
 }
 
 class MembershipPassword extends FormControlValidatorAnnotation<String> {
-  const MembershipPassword({
-    @required this.minLength,
-    @required this.maxLength,
-    this.includesLowercaseAlphabeticalCharacters = false,
-    this.includesUppercaseAlphabeticalCharacters = false,
-    this.includesNumericalCharacters = false,
-    this.includesSpecialCharacters = false,
-    String error,
-  }) : super(error: error);
-
+  /* Public properties */
   /// [minLength] is the minimal string length of your password.
   final int minLength;
 
@@ -106,6 +117,26 @@ class MembershipPassword extends FormControlValidatorAnnotation<String> {
   /// [includesSpecialCharacters] forces to add special characters to the password.
   final bool includesSpecialCharacters;
 
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
+  const MembershipPassword({
+    @required this.minLength,
+    @required this.maxLength,
+    this.includesLowercaseAlphabeticalCharacters = false,
+    this.includesUppercaseAlphabeticalCharacters = false,
+    this.includesNumericalCharacters = false,
+    this.includesSpecialCharacters = false,
+    String error,
+  }) : super(error: error);
+
+  /* Public methods */
   @override
   Future<bool> isValid(FormControl<String> control) async {
     this._validateParameters();
@@ -113,6 +144,38 @@ class MembershipPassword extends FormControlValidatorAnnotation<String> {
     return isValid;
   }
 
+  /// [getErrorDetails] provides error details. For each option, specify if it's a success or a failure.
+  /// // How to use it ?
+  /// '''dart
+  /// FormControl<String> formControl; // get it...
+  /// MembershipPassword validator = formControl.getValidator<MembershipPassword>();
+  /// Map<String, bool> details = validator.getErrorDetails('azerty');
+  /// '''
+  Map<String, bool> getErrorDetails(String value) {
+    try {
+      Map<String, bool> details = Map<String, bool>();
+
+      PasswordSettings settings = new PasswordSettings(
+        this.minLength,
+        this.maxLength,
+        this.includesLowercaseAlphabeticalCharacters,
+        this.includesUppercaseAlphabeticalCharacters,
+        this.includesNumericalCharacters,
+        this.includesSpecialCharacters,
+      );
+
+      for (IPasswordCheckRule rule in this._getRules())
+        details[rule.name] = rule.checkRule(value, settings);
+
+      return details;
+    } catch (e) {
+      return Map<String, bool>();
+    }
+  }
+
+  /* Protected methods */
+
+  /* Private methods */
   void _validateParameters() {
     if (this.minLength == null)
       throw new ValidatorParameterException('minLength is not defined.');
@@ -139,17 +202,25 @@ class MembershipPassword extends FormControlValidatorAnnotation<String> {
     if (this.includesSpecialCharacters == null)
       throw new ValidatorParameterException(
           'includesSpecialCharacters is not defined.');
+  }
 
-    if (!this.includesLowercaseAlphabeticalCharacters &&
-        !this.includesUppercaseAlphabeticalCharacters &&
-        !this.includesNumericalCharacters &&
-        !this.includesSpecialCharacters)
-      throw new ValidatorParameterException(
-          '''You must allow at least one option:
-           - includesLowercaseAlphabeticalCharacters,
-           - includesUppercaseAlphabeticalCharacters,
-           - includesNumericalCharacters,
-           - includesSpecialCharacters.''');
+  bool _validate(String value) {
+    if (value == null || value.isEmpty) return true;
+
+    PasswordSettings settings = new PasswordSettings(
+      this.minLength,
+      this.maxLength,
+      this.includesLowercaseAlphabeticalCharacters,
+      this.includesUppercaseAlphabeticalCharacters,
+      this.includesNumericalCharacters,
+      this.includesSpecialCharacters,
+    );
+
+    for (IPasswordCheckRule rule in this._getRules()) {
+      if (!rule.checkRule(value, settings)) return false;
+    }
+
+    return true;
   }
 
   List<IPasswordCheckRule> _getRules() {
@@ -171,90 +242,5 @@ class MembershipPassword extends FormControlValidatorAnnotation<String> {
       rules.add(new PasswordCheckSpecialCharacters());
 
     return rules;
-  }
-
-  bool _validate(String value) {
-    if (value == null || value.isEmpty) return true;
-
-    PasswordSettings settings = new PasswordSettings(
-      this.minLength,
-      this.maxLength,
-      this.includesLowercaseAlphabeticalCharacters,
-      this.includesUppercaseAlphabeticalCharacters,
-      this.includesNumericalCharacters,
-      this.includesSpecialCharacters,
-    );
-
-    List<IPasswordCheckRule> rules = this._getRules();
-
-    for (IPasswordCheckRule rule in rules) {
-      if (!rule.checkRule(value, settings)) return false;
-    }
-
-    return true;
-  }
-
-  /// [getErrorDetails] provides error details. For each options, specify if it's a success or a failure.
-  static Map<String, bool> getErrorDetails(
-      String value,
-      int minLength,
-      int maxLength,
-      bool includesAlphabeticalCharacters,
-      bool includesUppercaseCharacters,
-      bool includesNumericalCharacters,
-      bool includesSpecialCharacters) {
-    try {
-      Map<String, bool> details = Map<String, bool>();
-
-      if (includesAlphabeticalCharacters) {
-        String expression = r'(?=.*[a-z])';
-        RegExp regExp = new RegExp(expression);
-        if (regExp.hasMatch(value))
-          details['includesAlphabeticalCharacters'] = true;
-        else
-          details['includesAlphabeticalCharacters'] = false;
-      }
-
-      if (includesAlphabeticalCharacters && includesUppercaseCharacters) {
-        String expression = r'(?=.*[A-Z])';
-        RegExp regExp = new RegExp(expression);
-        if (regExp.hasMatch(value))
-          details['includesUppercaseCharacters'] = true;
-        else
-          details['includesUppercaseCharacters'] = false;
-      }
-
-      if (includesNumericalCharacters) {
-        String expression = r'(?=.*\d)';
-        RegExp regExp = new RegExp(expression);
-        if (regExp.hasMatch(value))
-          details['includesNumericalCharacters'] = true;
-        else
-          details['includesNumericalCharacters'] = false;
-      }
-
-      if (includesSpecialCharacters) {
-        String expression = r'(?=.*[@$!%*?&])';
-        RegExp regExp = new RegExp(expression);
-        if (regExp.hasMatch(value))
-          details['includesSpecialCharacters'] = true;
-        else
-          details['includesSpecialCharacters'] = false;
-      }
-
-      if (value.length >= minLength)
-        details['minLength'] = true;
-      else
-        details['minLength'] = false;
-
-      if (value.length <= maxLength)
-        details['maxLength'] = true;
-      else
-        details['maxLength'] = false;
-
-      return details;
-    } catch (e) {
-      return Map<String, bool>();
-    }
   }
 }

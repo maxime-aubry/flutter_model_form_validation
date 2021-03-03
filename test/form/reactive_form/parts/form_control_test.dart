@@ -1,6 +1,7 @@
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../expect_exception.dart';
 import '../../../models/models.reflectable.dart';
 import 'initializer/fake_initializer.dart';
 
@@ -40,6 +41,45 @@ void main() {
             root.controls['child'] as FormControl<String>;
 
         expect(child.modelPath, 'root.child');
+      });
+    });
+
+    group('getValidator.', () {
+      test('getValidator returns Required validator.', () {
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<String>(
+              value: null,
+              validators: [Required(error: null)],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<String> child =
+            root.controls['child'] as FormControl<String>;
+        Required validator = child.getValidator<Required>();
+        expect(validator, isNotNull);
+      });
+
+      test(
+          'getValidator throws an exception of FormBuilderException type when validator is not found.',
+          () {
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<String>(value: null, validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<String> child =
+            root.controls['child'] as FormControl<String>;
+
+        expect_exception<FormBuilderException>(() {
+          child.getValidator<Required>();
+        }, 'Current FormControl<String> has no validator of Required type.');
       });
     });
 
