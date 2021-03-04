@@ -9,7 +9,12 @@ typedef Future<List<SelectListItem<TProperty>>> ListItemsServiceFunction<
 class ListItemsProvider {
   static Map<String, ListItemsServiceFunction> _services = {};
 
-  static void clear() => ListItemsProvider._services.clear();
+  static void clear() {
+    if (ListItemsProvider._services == null)
+      ListItemsProvider._services = new Map<String, ListItemsServiceFunction>();
+
+    ListItemsProvider._services.clear();
+  }
 
   static void register<TProperty>(
     String name,
@@ -23,6 +28,11 @@ class ListItemsProvider {
 
     if (ListItemsProvider._services == null)
       ListItemsProvider._services = new Map<String, ListItemsServiceFunction>();
+
+    if (ListItemsProvider._services.containsKey(name))
+      throw new ListItemProviderException(
+          'Service name is already registered.');
+
     ListItemsProvider._services[name] = service;
   }
 
@@ -35,6 +45,7 @@ class ListItemsProvider {
 
     if (ListItemsProvider._services == null)
       ListItemsProvider._services = new Map<String, ListItemsServiceFunction>();
+
     ListItemsProvider._services.remove(name);
   }
 
