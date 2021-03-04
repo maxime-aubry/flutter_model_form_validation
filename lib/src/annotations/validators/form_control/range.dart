@@ -57,12 +57,12 @@ class Range<TProperty extends Comparable>
 
   bool _validate(
     TProperty value,
-    TProperty minValue,
-    TProperty maxValue,
+    TProperty min,
+    TProperty max,
   ) {
     if (value == null) return true;
-    int comparison_of_min = value.compareTo(minValue);
-    int comparison_of_max = value.compareTo(maxValue);
+    int comparison_of_min = value.compareTo(min);
+    int comparison_of_max = value.compareTo(max);
     bool isValid = (comparison_of_min >= 0 && comparison_of_max <= 0);
     return isValid;
   }

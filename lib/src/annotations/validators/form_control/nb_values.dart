@@ -38,7 +38,7 @@ class NbValues extends FormControlValidatorAnnotation<List> {
     );
 
     this._validateParameters(min, max);
-    bool isValid = this._validate(control.value?.length ?? 0, min, max);
+    bool isValid = this._validate(control.value, min, max);
     return isValid;
   }
 
@@ -54,6 +54,11 @@ class NbValues extends FormControlValidatorAnnotation<List> {
           'min value is greater than max value.');
   }
 
-  bool _validate(int quantity, int min, int max) =>
-      (quantity >= min && quantity <= max);
+  bool _validate(List value, int min, int max) {
+    if (value == null) return true;
+    int comparison_of_min = value.length.compareTo(min);
+    int comparison_of_max = value.length.compareTo(max);
+    bool isValid = (comparison_of_min >= 0 && comparison_of_max <= 0);
+    return isValid;
+  }
 }
