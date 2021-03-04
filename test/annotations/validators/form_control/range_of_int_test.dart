@@ -2,68 +2,216 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../expect_exception.dart';
-import 'stubs/range_of_int.dart';
+import '../../../form/reactive_form/parts/initializer/fake_initializer.dart';
 
 void main() {
   group('Annotations > Validators > FormControl<TProperty> > RangeOfInt.', () {
     group('Valid.', () {
       test('value is equal to min.', () async {
-        RangeOfInt_ValueIsEqualToMin_Stub stub =
-            new RangeOfInt_ValueIsEqualToMin_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<int>(
+              value: 0,
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<int> formControl =
+            root.controls['child'] as FormControl<int>;
+        RangeOfInt validator = RangeOfInt(min: 0, max: 31, error: null);
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, 0);
+        expect(validator.min, 0);
+        expect(validator.max, 31);
       });
 
       test('value is equal to max.', () async {
-        RangeOfInt_ValueIsEqualToMax_Stub stub =
-            new RangeOfInt_ValueIsEqualToMax_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<int>(
+              value: 31,
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<int> formControl =
+            root.controls['child'] as FormControl<int>;
+        RangeOfInt validator = RangeOfInt(min: 0, max: 31, error: null);
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, 31);
+        expect(validator.min, 0);
+        expect(validator.max, 31);
       });
 
       test('value is between min and max.', () async {
-        RangeOfInt_ValueIsBetweenMinAndMax_Stub stub =
-            new RangeOfInt_ValueIsBetweenMinAndMax_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<int>(
+              value: 15,
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<int> formControl =
+            root.controls['child'] as FormControl<int>;
+        RangeOfInt validator = RangeOfInt(min: 0, max: 31, error: null);
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, 15);
+        expect(validator.min, 0);
+        expect(validator.max, 31);
       });
 
       test('value is null.', () async {
-        RangeOfInt_ValueIsNull_Stub stub = new RangeOfInt_ValueIsNull_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<int>(value: null, validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<int> formControl =
+            root.controls['child'] as FormControl<int>;
+        RangeOfInt validator = RangeOfInt(min: 0, max: 31, error: null);
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, isNull);
+        expect(validator.min, 0);
+        expect(validator.max, 31);
       });
     });
 
     group('Invalid.', () {
       test('value is smaller than min.', () async {
-        RangeOfInt_ValueIsSmallerThanMin_Stub stub =
-            new RangeOfInt_ValueIsSmallerThanMin_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<int>(
+              value: -1,
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<int> formControl =
+            root.controls['child'] as FormControl<int>;
+        RangeOfInt validator = RangeOfInt(min: 0, max: 31, error: null);
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isFalse);
+        expect(formControl.value, -1);
+        expect(validator.min, 0);
+        expect(validator.max, 31);
       });
 
       test('value is greater than max.', () async {
-        RangeOfInt_ValueIsGreaterThanMax_Stub stub =
-            new RangeOfInt_ValueIsGreaterThanMax_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<int>(
+              value: 32,
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<int> formControl =
+            root.controls['child'] as FormControl<int>;
+        RangeOfInt validator = RangeOfInt(min: 0, max: 31, error: null);
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isFalse);
+        expect(formControl.value, 32);
+        expect(validator.min, 0);
+        expect(validator.max, 31);
       });
     });
 
     group('Remote parameters.', () {
       test('Remote min is provided.', () async {
-        RangeOfInt_remoteMinIsProvided_Stub stub =
-            new RangeOfInt_remoteMinIsProvided_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<int>(
+              value: 0,
+              validators: [],
+            ),
+            'min': new FormControl<int>(
+              value: 0,
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<int> formControl =
+            root.controls['child'] as FormControl<int>;
+        FormControl<int> min = root.controls['min'] as FormControl<int>;
+        RangeOfInt validator = RangeOfInt(
+          min: 15,
+          max: 31,
+          remoteMin: 'min',
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, 0);
+        expect(min.value, 0);
+        expect(validator.min, 15);
+        expect(validator.max, 31);
       });
 
       test('Remote max is provided.', () async {
-        RangeOfInt_remoteMaxIsProvided_Stub stub =
-            new RangeOfInt_remoteMaxIsProvided_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<int>(
+              value: 0,
+              validators: [],
+            ),
+            'max': new FormControl<int>(
+              value: 31,
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<int> formControl =
+            root.controls['child'] as FormControl<int>;
+        FormControl<int> max = root.controls['max'] as FormControl<int>;
+        RangeOfInt validator = RangeOfInt(
+          min: 0,
+          max: 15,
+          remoteMax: 'max',
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, 0);
+        expect(max.value, 31);
+        expect(validator.min, 0);
+        expect(validator.max, 15);
       });
     });
 
@@ -71,31 +219,69 @@ void main() {
       test(
           'Throws exception of ValidatorParameterException type when min is null.',
           () async {
-        RangeOfInt_ThrowsValidatorParameterExceptionOnNullMin_Stub stub =
-            new RangeOfInt_ThrowsValidatorParameterExceptionOnNullMin_Stub();
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<int>(
+              value: 0,
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<int> formControl =
+            root.controls['child'] as FormControl<int>;
+        RangeOfInt validator = RangeOfInt(min: null, max: 31, error: null);
+
         expect_exception<ValidatorParameterException>(() async {
-          await stub.validator.isValid(stub.control);
+          await validator.isValid(formControl);
         }, 'min is not defined.');
       });
 
       test(
           'Throws exception of ValidatorParameterException type when max is null.',
           () async {
-        RangeOfInt_ThrowsValidatorParameterExceptionOnNullMax_Stub stub =
-            new RangeOfInt_ThrowsValidatorParameterExceptionOnNullMax_Stub();
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<int>(
+              value: 0,
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<int> formControl =
+            root.controls['child'] as FormControl<int>;
+        RangeOfInt validator = RangeOfInt(min: 0, max: null, error: null);
+
         expect_exception<ValidatorParameterException>(() async {
-          await stub.validator.isValid(stub.control);
+          await validator.isValid(formControl);
         }, 'max is not defined.');
       });
 
       test(
           'Throws exception of ValidatorParameterException type when min is greater than max.',
           () async {
-        RangeOfInt_ThrowsValidatorParameterExceptionOnMinIsGreaterThanMax_Stub
-            stub =
-            new RangeOfInt_ThrowsValidatorParameterExceptionOnMinIsGreaterThanMax_Stub();
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<int>(
+              value: 0,
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<int> formControl =
+            root.controls['child'] as FormControl<int>;
+        RangeOfInt validator = RangeOfInt(min: 31, max: 0, error: null);
+
         expect_exception<ValidatorParameterException>(() async {
-          await stub.validator.isValid(stub.control);
+          await validator.isValid(formControl);
         }, 'min value is greater than max value.');
       });
     });
