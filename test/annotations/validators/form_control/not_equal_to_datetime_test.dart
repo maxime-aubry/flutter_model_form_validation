@@ -1,6 +1,8 @@
+import 'package:constant_datetime/constant_datetime.dart';
+import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'stubs/not_equal_to_datetime.dart';
+import '../../../form/reactive_form/parts/initializer/fake_initializer.dart';
 
 void main() {
   group(
@@ -8,56 +10,199 @@ void main() {
       () {
     group('Valid.', () {
       test('value is smaller than valueToCompare.', () async {
-        NotEqualToDateTime_ValueIsSmallerThanValueToCompare_Stub stub =
-            new NotEqualToDateTime_ValueIsSmallerThanValueToCompare_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<DateTime>(
+              value: new DateTime(2021, 1, 1),
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<DateTime> formControl =
+            root.controls['child'] as FormControl<DateTime>;
+        NotEqualToDateTime validator = NotEqualToDateTime(
+          valueToCompare: const ConstantDateTime('2021-01-31T00:00:00'),
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, new DateTime(2021, 1, 1));
+        expect(
+          validator.valueToCompare,
+          const ConstantDateTime('2021-01-31T00:00:00'),
+        );
       });
 
       test('value is greater than valueToCompare.', () async {
-        NotEqualToDateTime_ValueIsGreaterThanValueToCompare_Stub stub =
-            new NotEqualToDateTime_ValueIsGreaterThanValueToCompare_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<DateTime>(
+              value: new DateTime(2021, 1, 31),
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<DateTime> formControl =
+            root.controls['child'] as FormControl<DateTime>;
+        NotEqualToDateTime validator = NotEqualToDateTime(
+          valueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, new DateTime(2021, 1, 31));
+        expect(
+          validator.valueToCompare,
+          const ConstantDateTime('2021-01-01T00:00:00'),
+        );
       });
 
       test('value and valueToCompare are null.', () async {
-        NotEqualToDateTime_ValueAndValueToCompareAreNull_Stub stub =
-            new NotEqualToDateTime_ValueAndValueToCompareAreNull_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<DateTime>(value: null, validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<DateTime> formControl =
+            root.controls['child'] as FormControl<DateTime>;
+        NotEqualToDateTime validator = NotEqualToDateTime(
+          valueToCompare: null,
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, null);
+        expect(validator.valueToCompare, null);
       });
 
       test('value is null.', () async {
-        NotEqualToDateTime_ValueIsNull_Stub stub =
-            new NotEqualToDateTime_ValueIsNull_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<DateTime>(value: null, validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<DateTime> formControl =
+            root.controls['child'] as FormControl<DateTime>;
+        NotEqualToDateTime validator = NotEqualToDateTime(
+          valueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, null);
+        expect(
+          validator.valueToCompare,
+          const ConstantDateTime('2021-01-01T00:00:00'),
+        );
       });
 
       test('valueToCompare is null.', () async {
-        NotEqualToDateTime_ValueToCompareIsNull_Stub stub =
-            new NotEqualToDateTime_ValueToCompareIsNull_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<DateTime>(
+              value: new DateTime(2021, 1, 1),
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<DateTime> formControl =
+            root.controls['child'] as FormControl<DateTime>;
+        NotEqualToDateTime validator = NotEqualToDateTime(
+          valueToCompare: null,
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, new DateTime(2021, 1, 1));
+        expect(validator.valueToCompare, isNull);
       });
     });
 
     group('Invalid.', () {
       test('value is equal to valueToCompare.', () async {
-        NotEqualToDateTime_ValueIsEqualToValueToCompare_Stub stub =
-            new NotEqualToDateTime_ValueIsEqualToValueToCompare_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<DateTime>(
+              value: new DateTime(2021, 1, 1),
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<DateTime> formControl =
+            root.controls['child'] as FormControl<DateTime>;
+        NotEqualToDateTime validator = NotEqualToDateTime(
+          valueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isFalse);
+        expect(formControl.value, new DateTime(2021, 1, 1));
+        expect(
+          validator.valueToCompare,
+          const ConstantDateTime('2021-01-01T00:00:00'),
+        );
       });
     });
 
     group('Remote parameters.', () {
       test('Remote valueToCompare is provided.', () async {
-        NotEqualToDateTime_remoteValueToCompareIsProvided_Stub stub =
-            new NotEqualToDateTime_remoteValueToCompareIsProvided_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<DateTime>(
+              value: new DateTime(2021, 1, 1),
+              validators: [],
+            ),
+            'valueToCompare': new FormControl<DateTime>(
+              value: new DateTime(2021, 1, 2),
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<DateTime> formControl =
+            root.controls['child'] as FormControl<DateTime>;
+        FormControl<DateTime> valueToCompare =
+            root.controls['valueToCompare'] as FormControl<DateTime>;
+        NotEqualToDateTime validator = NotEqualToDateTime(
+          valueToCompare: const ConstantDateTime('2021-01-01T00:00:00'),
+          remoteValueToCompare: 'valueToCompare',
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, new DateTime(2021, 1, 1));
+        expect(valueToCompare.value, new DateTime(2021, 1, 2));
+        expect(
+          validator.valueToCompare,
+          const ConstantDateTime('2021-01-01T00:00:00'),
+        );
       });
     });
   });

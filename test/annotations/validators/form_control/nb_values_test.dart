@@ -26,6 +26,8 @@ void main() {
         bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
         expect(formControl.value, ['a']);
+        expect(validator.min, 1);
+        expect(validator.max, 3);
       });
 
       test('Number of values is equal to max.', () async {
@@ -47,6 +49,8 @@ void main() {
         bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
         expect(formControl.value, ['a', 'b', 'c']);
+        expect(validator.min, 1);
+        expect(validator.max, 3);
       });
 
       test('Number of values is between min and max.', () async {
@@ -68,6 +72,8 @@ void main() {
         bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
         expect(formControl.value, ['a', 'b']);
+        expect(validator.min, 1);
+        expect(validator.max, 3);
       });
 
       test('value is null.', () async {
@@ -86,6 +92,8 @@ void main() {
         bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
         expect(formControl.value, isNull);
+        expect(validator.min, 1);
+        expect(validator.max, 3);
       });
     });
 
@@ -109,6 +117,8 @@ void main() {
         bool isValid = await validator.isValid(formControl);
         expect(isValid, isFalse);
         expect(formControl.value, []);
+        expect(validator.min, 1);
+        expect(validator.max, 3);
       });
 
       test('Number of values is greater than max.', () async {
@@ -130,6 +140,8 @@ void main() {
         bool isValid = await validator.isValid(formControl);
         expect(isValid, isFalse);
         expect(formControl.value, ['a', 'b', 'c', 'd']);
+        expect(validator.min, 1);
+        expect(validator.max, 3);
       });
     });
 
@@ -161,6 +173,8 @@ void main() {
         expect(isValid, isTrue);
         expect(formControl.value, ['a']);
         expect(min.value, 1);
+        expect(validator.min, 2);
+        expect(validator.max, 3);
       });
 
       test('remoteMax is provided.', () async {
@@ -190,6 +204,8 @@ void main() {
         expect(isValid, isTrue);
         expect(formControl.value, ['a', 'b', 'c']);
         expect(max.value, 3);
+        expect(validator.min, 1);
+        expect(validator.max, 2);
       });
     });
 
@@ -208,6 +224,9 @@ void main() {
         FormControl<List<String>> formControl =
             root.controls['child'] as FormControl<List<String>>;
         NbValues validator = NbValues(min: null, max: 3, error: null);
+
+        expect(validator.min, null);
+        expect(validator.max, 3);
 
         expect_exception<ValidatorParameterException>(() async {
           await validator.isValid(formControl);
@@ -229,6 +248,9 @@ void main() {
             root.controls['child'] as FormControl<List<String>>;
         NbValues validator = NbValues(min: 1, max: null, error: null);
 
+        expect(validator.min, 1);
+        expect(validator.max, null);
+
         expect_exception<ValidatorParameterException>(() async {
           await validator.isValid(formControl);
         }, 'max is not defined.');
@@ -248,6 +270,9 @@ void main() {
         FormControl<List<String>> formControl =
             root.controls['child'] as FormControl<List<String>>;
         NbValues validator = NbValues(min: 3, max: 1, error: null);
+
+        expect(validator.min, 3);
+        expect(validator.max, 1);
 
         expect_exception<ValidatorParameterException>(() async {
           await validator.isValid(formControl);
