@@ -1,71 +1,245 @@
+import 'package:constant_datetime/constant_datetime.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../expect_exception.dart';
-import 'stubs/range_of_datetime.dart';
+import '../../../form/reactive_form/parts/initializer/fake_initializer.dart';
 
 void main() {
   group('Annotations > Validators > FormControl<TProperty> > RangeOfDateTime.',
       () {
     group('Valid.', () {
       test('value is equal to min.', () async {
-        RangeOfDateTime_ValueIsEqualToMin_Stub stub =
-            new RangeOfDateTime_ValueIsEqualToMin_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<DateTime>(
+              value: new DateTime(2021, 1, 1),
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<DateTime> formControl =
+            root.controls['child'] as FormControl<DateTime>;
+        RangeOfDateTime validator = RangeOfDateTime(
+          min: const ConstantDateTime('2021-01-01T00:00:00'),
+          max: const ConstantDateTime('2021-01-31T00:00:00'),
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, new DateTime(2021, 1, 1));
+        expect(validator.min, const ConstantDateTime('2021-01-01T00:00:00'));
+        expect(validator.max, const ConstantDateTime('2021-01-31T00:00:00'));
       });
 
       test('value is equal to max.', () async {
-        RangeOfDateTime_ValueIsEqualToMax_Stub stub =
-            new RangeOfDateTime_ValueIsEqualToMax_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<DateTime>(
+              value: new DateTime(2021, 1, 31),
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<DateTime> formControl =
+            root.controls['child'] as FormControl<DateTime>;
+        RangeOfDateTime validator = RangeOfDateTime(
+          min: const ConstantDateTime('2021-01-01T00:00:00'),
+          max: const ConstantDateTime('2021-01-31T00:00:00'),
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, new DateTime(2021, 1, 31));
+        expect(validator.min, const ConstantDateTime('2021-01-01T00:00:00'));
+        expect(validator.max, const ConstantDateTime('2021-01-31T00:00:00'));
       });
 
       test('value is between min and max.', () async {
-        RangeOfDateTime_ValueIsBetweenMinAndMax_Stub stub =
-            new RangeOfDateTime_ValueIsBetweenMinAndMax_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<DateTime>(
+              value: new DateTime(2021, 1, 15),
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<DateTime> formControl =
+            root.controls['child'] as FormControl<DateTime>;
+        RangeOfDateTime validator = RangeOfDateTime(
+          min: const ConstantDateTime('2021-01-01T00:00:00'),
+          max: const ConstantDateTime('2021-01-31T00:00:00'),
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, new DateTime(2021, 1, 15));
+        expect(validator.min, const ConstantDateTime('2021-01-01T00:00:00'));
+        expect(validator.max, const ConstantDateTime('2021-01-31T00:00:00'));
       });
 
       test('value is null.', () async {
-        RangeOfDateTime_ValueIsNull_Stub stub =
-            new RangeOfDateTime_ValueIsNull_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<DateTime>(value: null, validators: []),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<DateTime> formControl =
+            root.controls['child'] as FormControl<DateTime>;
+        RangeOfDateTime validator = RangeOfDateTime(
+          min: const ConstantDateTime('2021-01-01T00:00:00'),
+          max: const ConstantDateTime('2021-01-31T00:00:00'),
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, isNull);
+        expect(validator.min, const ConstantDateTime('2021-01-01T00:00:00'));
+        expect(validator.max, const ConstantDateTime('2021-01-31T00:00:00'));
       });
     });
 
     group('Invalid.', () {
       test('value is smaller than min.', () async {
-        RangeOfDateTime_ValueIsSmallerThanMin_Stub stub =
-            new RangeOfDateTime_ValueIsSmallerThanMin_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<DateTime>(
+              value: new DateTime(2020, 12, 31),
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<DateTime> formControl =
+            root.controls['child'] as FormControl<DateTime>;
+        RangeOfDateTime validator = RangeOfDateTime(
+          min: const ConstantDateTime('2021-01-01T00:00:00'),
+          max: const ConstantDateTime('2021-01-31T00:00:00'),
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isFalse);
+        expect(formControl.value, new DateTime(2020, 12, 31));
+        expect(validator.min, const ConstantDateTime('2021-01-01T00:00:00'));
+        expect(validator.max, const ConstantDateTime('2021-01-31T00:00:00'));
       });
 
       test('value is greater than max.', () async {
-        RangeOfDateTime_ValueIsGreaterThanMax_Stub stub =
-            new RangeOfDateTime_ValueIsGreaterThanMax_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<DateTime>(
+              value: new DateTime(2021, 2, 1),
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<DateTime> formControl =
+            root.controls['child'] as FormControl<DateTime>;
+        RangeOfDateTime validator = RangeOfDateTime(
+          min: const ConstantDateTime('2021-01-01T00:00:00'),
+          max: const ConstantDateTime('2021-01-31T00:00:00'),
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isFalse);
+        expect(formControl.value, new DateTime(2021, 2, 1));
+        expect(validator.min, const ConstantDateTime('2021-01-01T00:00:00'));
+        expect(validator.max, const ConstantDateTime('2021-01-31T00:00:00'));
       });
     });
 
     group('Remote parameters.', () {
       test('Remote min is provided.', () async {
-        RangeOfDateTime_remoteMinIsProvided_Stub stub =
-            new RangeOfDateTime_remoteMinIsProvided_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<DateTime>(
+              value: new DateTime(2021, 1, 1),
+              validators: [],
+            ),
+            'min': new FormControl<DateTime>(
+              value: new DateTime(2021, 1, 1),
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<DateTime> formControl =
+            root.controls['child'] as FormControl<DateTime>;
+        FormControl<DateTime> min =
+            root.controls['min'] as FormControl<DateTime>;
+        RangeOfDateTime validator = RangeOfDateTime(
+          min: const ConstantDateTime('2021-01-15T00:00:00'),
+          max: const ConstantDateTime('2021-01-31T00:00:00'),
+          remoteMin: 'min',
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, new DateTime(2021, 1, 1));
+        expect(min.value, new DateTime(2021, 1, 1));
+        expect(validator.min, const ConstantDateTime('2021-01-15T00:00:00'));
+        expect(validator.max, const ConstantDateTime('2021-01-31T00:00:00'));
       });
 
       test('Remote max is provided.', () async {
-        RangeOfDateTime_remoteMaxIsProvided_Stub stub =
-            new RangeOfDateTime_remoteMaxIsProvided_Stub();
-        bool isValid = await stub.validator.isValid(stub.control);
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<DateTime>(
+              value: new DateTime(2021, 1, 1),
+              validators: [],
+            ),
+            'max': new FormControl<DateTime>(
+              value: new DateTime(2021, 1, 31),
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<DateTime> formControl =
+            root.controls['child'] as FormControl<DateTime>;
+        FormControl<DateTime> max =
+            root.controls['max'] as FormControl<DateTime>;
+        RangeOfDateTime validator = RangeOfDateTime(
+          min: const ConstantDateTime('2021-01-01T00:00:00'),
+          max: const ConstantDateTime('2021-01-15T00:00:00'),
+          remoteMax: 'max',
+          error: null,
+        );
+
+        bool isValid = await validator.isValid(formControl);
         expect(isValid, isTrue);
+        expect(formControl.value, new DateTime(2021, 1, 1));
+        expect(max.value, new DateTime(2021, 1, 31));
+        expect(validator.min, const ConstantDateTime('2021-01-01T00:00:00'));
+        expect(validator.max, const ConstantDateTime('2021-01-15T00:00:00'));
       });
     });
 
@@ -73,31 +247,81 @@ void main() {
       test(
           'Throws exception of ValidatorParameterException type when min is null.',
           () async {
-        RangeOfDateTime_ThrowsValidatorParameterExceptionOnNullMin_Stub stub =
-            new RangeOfDateTime_ThrowsValidatorParameterExceptionOnNullMin_Stub();
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<DateTime>(
+              value: new DateTime(2021, 1, 1),
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<DateTime> formControl =
+            root.controls['child'] as FormControl<DateTime>;
+        RangeOfDateTime validator = RangeOfDateTime(
+          min: null,
+          max: const ConstantDateTime('2021-01-31T00:00:00'),
+          error: null,
+        );
+
         expect_exception<ValidatorParameterException>(() async {
-          await stub.validator.isValid(stub.control);
+          await validator.isValid(formControl);
         }, 'min is not defined.');
       });
 
       test(
           'Throws exception of ValidatorParameterException type when max is null.',
           () async {
-        RangeOfDateTime_ThrowsValidatorParameterExceptionOnNullMax_Stub stub =
-            new RangeOfDateTime_ThrowsValidatorParameterExceptionOnNullMax_Stub();
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<DateTime>(
+              value: new DateTime(2021, 1, 1),
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<DateTime> formControl =
+            root.controls['child'] as FormControl<DateTime>;
+        RangeOfDateTime validator = RangeOfDateTime(
+          min: const ConstantDateTime('2021-01-01T00:00:00'),
+          max: null,
+          error: null,
+        );
+
         expect_exception<ValidatorParameterException>(() async {
-          await stub.validator.isValid(stub.control);
+          await validator.isValid(formControl);
         }, 'max is not defined.');
       });
 
       test(
           'Throws exception of ValidatorParameterException type when min is greater than max.',
           () async {
-        RangeOfDateTime_ThrowsValidatorParameterExceptionOnMinIsGreaterThanMax_Stub
-            stub =
-            new RangeOfDateTime_ThrowsValidatorParameterExceptionOnMinIsGreaterThanMax_Stub();
+        FormGroup root = new FormGroup(
+          controls: {
+            'child': new FormControl<DateTime>(
+              value: new DateTime(2021, 1, 1),
+              validators: [],
+            ),
+          },
+          validators: [],
+        );
+        fakeInitializeRoot(root);
+
+        FormControl<DateTime> formControl =
+            root.controls['child'] as FormControl<DateTime>;
+        RangeOfDateTime validator = RangeOfDateTime(
+          min: const ConstantDateTime('2021-01-31T00:00:00'),
+          max: const ConstantDateTime('2021-01-01T00:00:00'),
+          error: null,
+        );
+
         expect_exception<ValidatorParameterException>(() async {
-          await stub.validator.isValid(stub.control);
+          await validator.isValid(formControl);
         }, 'min value is greater than max value.');
       });
     });
