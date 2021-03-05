@@ -59,6 +59,17 @@ class FormArray extends AbstractControl {
     super.isInitialized = true;
   }
 
+  /// [forceToReinitialize] forces FormGroup to initialize all items.
+  /// Let use this function after adding a new item into the groups.
+  /// All descendants will be automatically initialized.
+  void forceToReinitialize() => this._initializeItems();
+
+  @override
+  void deindex() {
+    this._deindexItems();
+    super.deindex();
+  }
+
   void addGroup(
     FormGroup formGroup, {
     bool notify = true,
@@ -72,7 +83,6 @@ class FormArray extends AbstractControl {
           'Cannot add FormGroup if this one is already added.');
 
     this.groups.add(formGroup);
-    //this._initializeItem(formGroup);
     if (notify) super.notifyListeners();
   }
 
@@ -88,6 +98,7 @@ class FormArray extends AbstractControl {
       throw new FormBuilderException(
           'Cannot remove FormGroup if this one is not registered.');
 
+    this._deindexItem(formGroup);
     this.groups.remove(formGroup);
     this.reindexFormArrayItems();
     if (notify) super.notifyListeners();
@@ -99,7 +110,6 @@ class FormArray extends AbstractControl {
       validators: this.validators,
     );
 
-    clone.initialize(super.name, clonedParent, this.formState);
     clone.error = super.error?.copyWith();
     this._cloneItems(clone);
     return clone;
@@ -143,7 +153,13 @@ class FormArray extends AbstractControl {
   void _cloneItems(FormArray clone) {
     for (FormGroup formGroup in this.groups) {
       FormGroup clonedItem = formGroup.clone(clone.parent);
-      //this.addGroup(clonedItem);
+      clone.addGroup(clonedItem);
     }
   }
+
+  void _deindexItems() {
+    for (FormGroup item in this.groups) this._deindexItem(item);
+  }
+
+  void _deindexItem(FormGroup item) => item.deindex();
 }

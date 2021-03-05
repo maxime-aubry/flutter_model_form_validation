@@ -30,7 +30,28 @@ class _ReactiveFormWithFormArrayScreenState
         body: new SingleChildScrollView(
           child: new Padding(
             padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-            child: this._form(context),
+            child: new FormGroupConsumer(
+              builder: (_, root, __) => new Column(
+                children: [
+                  this._firstnameInput(
+                    root.getFormControl<String>('firstname'),
+                  ),
+                  this._lastnameInput(root.getFormControl<String>('lastname')),
+                  this._genderInput(root.getFormControl<EGender>('gender')),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: new Padding(
+                      padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                      child: const Text(
+                        'Social links',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                  new SocialLinksArray(),
+                ],
+              ),
+            ),
           ),
         ),
         floatingActionButton: new FormStateConsumer(
@@ -84,29 +105,6 @@ class _ReactiveFormWithFormArrayScreenState
           validators: [],
         ),
       );
-
-  Widget _form(BuildContext context) {
-    FormGroup form = context.watchFormGroup();
-
-    return new Column(
-      children: [
-        this._firstnameInput(form.controls['firstname']),
-        this._lastnameInput(form.controls['lastname']),
-        this._genderInput(form.controls['gender']),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: new Padding(
-            padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-            child: const Text(
-              'Social links',
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
-        ),
-        new SocialLinksArray(),
-      ],
-    );
-  }
 
   Widget _firstnameInput(FormControl<String> formControl) =>
       new CustomTextInput(label: 'firstname', formControl: formControl);

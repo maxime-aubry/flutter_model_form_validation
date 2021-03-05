@@ -78,6 +78,9 @@ class FormControl<TProperty> extends AbstractControl
     super.isInitialized = true;
   }
 
+  @override
+  void deindex() => super.deindex();
+
   Future<void> setValue(TProperty value, {bool validate = true}) async {
     // does not accept empty string value
     if (TProperty == String) {
@@ -100,8 +103,6 @@ class FormControl<TProperty> extends AbstractControl
       validators: super.validators,
     );
 
-    //clone.initialize(super.name, clonedParent, this.formState);
-    //clone.error = super.error?.copyWith();
     return clone;
   }
 

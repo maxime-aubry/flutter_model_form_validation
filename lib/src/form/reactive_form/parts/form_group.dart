@@ -84,9 +84,18 @@ class FormGroup extends AbstractControl {
     super.isInitialized = true;
   }
 
-  bool containsControl(
-    String name,
-  ) {
+  /// [forceToReinitialize] forces FormGroup to initialize all controls.
+  /// Let use this function after adding a new FormGroup, FormArray or a FormControl.
+  /// All descendants will be automatically initialized.
+  void forceToReinitialize() => this._initializeControls();
+
+  @override
+  void deindex() {
+    this._deindexControls();
+    super.deindex();
+  }
+
+  bool containsControl(String name) {
     if (name == null || name.isEmpty)
       throw new FormBuilderException(
           'Cannot check if control does exist if its name is not provided.');
@@ -111,16 +120,13 @@ class FormGroup extends AbstractControl {
           'Cannot add control if this one is already added.');
 
     this.controls[name] = control;
-    //this._initializeControl(name, control);
     super.notifyListeners();
   }
 
   /// Remove abstract control from this form group.
   /// Notify listeners.
   /// Remove listeners.
-  void removeControl(
-    String name,
-  ) {
+  void removeControl(String name) {
     if (name == null || name.isEmpty)
       throw new FormBuilderException(
           'Cannot remove control if its name is not provided.');
@@ -129,6 +135,7 @@ class FormGroup extends AbstractControl {
       throw new FormBuilderException(
           'Cannot remove control if this one is not registered.');
 
+    this._deindexControl(name);
     this.controls.remove(name);
     super.notifyListeners();
   }
@@ -138,9 +145,6 @@ class FormGroup extends AbstractControl {
       controls: {},
       validators: this.validators,
     );
-
-    //clone.initialize(super.name, clonedParent, this.isArrayItem, this.formState);
-    //clone.error = super.error?.copyWith();
     this._cloneControls(clone);
     return clone;
   }
@@ -219,5 +223,17 @@ class FormGroup extends AbstractControl {
         clone.controls[control.key] = child;
       }
     }
+  }
+
+  void _deindexControls() {
+    for (MapEntry<String, AbstractControl> control in this.controls.entries)
+      this._deindexControl(control.key);
+  }
+
+  void _deindexControl(String name) {
+    AbstractControl control = this.controls[name];
+    if (control is FormGroup) control.deindex();
+    if (control is FormArray) control.deindex();
+    if (control is FormControl) control.deindex();
   }
 }

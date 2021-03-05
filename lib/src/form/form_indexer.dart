@@ -39,7 +39,7 @@ class FormIndexer extends MapBase<String, AbstractControl> {
   void removeControl(AbstractControl control) =>
       this.remove(control.uniqueName);
 
-  FormGroup ofFormGroup(String key) {
+  /*FormGroup ofFormGroup(String key) {
     // HashMap
     if (!this.containsKey(key))
       throw new Exception(
@@ -77,7 +77,7 @@ class FormIndexer extends MapBase<String, AbstractControl> {
 
     FormControl<TProperty> formControl = this[key];
     return formControl;
-  }
+  }*/
 
   /* Protected methods */
 

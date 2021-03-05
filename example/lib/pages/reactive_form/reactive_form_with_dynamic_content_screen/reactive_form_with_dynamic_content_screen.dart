@@ -29,12 +29,14 @@ class _ReactiveFormWithDynamicContentState
         body: new Padding(
           padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
           child: new FormGroupConsumer(
-            builder: (_, formGroup, __) => new Column(
+            builder: (_, root, __) => new Column(
               children: [
-                this._firstnameInput(formGroup.controls['firstname']),
-                this._lastnameInput(formGroup.controls['lastname']),
-                this._genderInput(formGroup.controls['gender']),
-                this._shareAddressInput(formGroup.controls['share_address']),
+                this._firstnameInput(root.getFormControl<String>('firstname')),
+                this._lastnameInput(root.getFormControl<String>('lastname')),
+                this._genderInput(root.getFormControl<EGender>('gender')),
+                this._shareAddressInput(
+                  root.getFormControl<bool>('share_address'),
+                ),
                 new _AddressFormGroup(),
               ],
             ),
@@ -107,12 +109,12 @@ class _AddressFormGroup extends StatefulWidget {
 class _AddressFormGroupState extends State<_AddressFormGroup> {
   @override
   Widget build(BuildContext context) {
-    FormGroup parent = context.watchFormGroup();
+    FormGroup root = context.watchFormGroup();
 
     return new FormControlProvider<bool>(
-      create: (_) => parent.controls['share_address'],
+      create: (_) => root.controls['share_address'],
       builder: (context, __) {
-        FormGroup addressFormGroup = parent.controls['address'] as FormGroup;
+        FormGroup addressFormGroup = root.controls['address'] as FormGroup;
         FormControl<bool> share_address = context.watchFormControl<bool>();
 
         if (share_address.value) {
@@ -137,49 +139,42 @@ class _AddressFormGroupState extends State<_AddressFormGroup> {
     );
   }
 
-  void _enableAddress(FormGroup formGroup) {
-    if (!formGroup.containsControl('street')) {
-      formGroup.addControl(
+  void _enableAddress(FormGroup address) {
+    if (!address.containsControl('street') &&
+        !address.containsControl('zipcode') &&
+        !address.containsControl('country')) {
+      address.addControl(
         'street',
         new FormControl<String>(
           value: null,
           validators: [Required(error: 'street is required')],
         ),
       );
-    }
-
-    if (!formGroup.containsControl('zipcode')) {
-      formGroup.addControl(
+      address.addControl(
         'zipcode',
         new FormControl<String>(
           value: null,
           validators: [Required(error: 'zip code is required')],
         ),
       );
-    }
-
-    if (!formGroup.containsControl('country')) {
-      formGroup.addControl(
+      address.addControl(
         'country',
         new FormControl<String>(
           value: null,
           validators: [Required(error: 'country is required')],
         ),
       );
+      address.forceToReinitialize();
     }
   }
 
-  void _disableAddress(FormGroup formGroup) {
-    if (formGroup.containsControl('street')) {
-      formGroup.removeControl('street');
-    }
-
-    if (formGroup.containsControl('zipcode')) {
-      formGroup.removeControl('zipcode');
-    }
-
-    if (formGroup.containsControl('country')) {
-      formGroup.removeControl('country');
+  void _disableAddress(FormGroup address) {
+    if (address.containsControl('street') &&
+        address.containsControl('zipcode') &&
+        address.containsControl('country')) {
+      address.removeControl('street');
+      address.removeControl('zipcode');
+      address.removeControl('country');
     }
   }
 

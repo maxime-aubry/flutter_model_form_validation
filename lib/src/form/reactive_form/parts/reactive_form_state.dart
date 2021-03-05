@@ -37,32 +37,11 @@ class ReactiveFormState {
   /* Setters */
 
   /* Constructors */
-  ReactiveFormState(/*{@required this.formBuilder}*/) {
-    //this.formBuilder = formBuilder;
+  ReactiveFormState() {
     this._status = EFormStatus.pure;
-    //this.isInitialized = false;
   }
 
   /* Public methods */
-  /*void initialize() {
-    if (this.isInitialized)
-      throw new FormBuilderException(
-          'Cannot initialize an already initialized ReactiveFormState.');
-
-    if (this.formBuilder == null)
-      throw new FormBuilderException(
-          'Cannot initialize ReactiveFormState if ReactiveFormBuilder is not provided.');
-
-    if (!LibraryInitializer.isInitialized)
-      throw new FormBuilderException(
-          'flutter_model_form_validation library is not initialized. Please, call LibraryInitializer.initialize(String libraryName) method.');
-
-    // intialize form builder (provide form group parent for each abstract control).
-    // attach form builder to form state.
-    //formBuilder.initialize(this);
-    this.isInitialized = true;
-  }*/
-
   void attachFormKey(GlobalKey<FormState> formKey) {
     this._formKey = formKey;
   }
