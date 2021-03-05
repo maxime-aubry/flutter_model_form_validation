@@ -4,11 +4,23 @@ import 'package:queries/collections.dart';
 
 class MultiSelect<TProperty>
     extends FormControlValidatorAnnotation<List<TProperty>> {
+  /* Public properties */
+
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
   const MultiSelect({
     @required String serviceName,
     @required String error,
   }) : super(serviceName: serviceName, error: error);
 
+  /* Public methods */
   @override
   Future<bool> isValid(FormControl<List<TProperty>> control) async {
     Future<List<SelectListItem<TProperty>>> Function() service =
@@ -25,6 +37,9 @@ class MultiSelect<TProperty>
       throw new ValidatorParameterException('items is not defined.');
   }
 
+  /* Protected methods */
+
+  /* Private methods */
   bool _validate(
     List<TProperty> values,
     List<SelectListItem<TProperty>> items,

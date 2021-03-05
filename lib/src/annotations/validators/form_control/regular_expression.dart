@@ -2,14 +2,25 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 class RegularExpression extends FormControlValidatorAnnotation<String> {
+  /* Public properties */
+  /// [expression] is the regular expression to use.
+  final String expression;
+
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
   const RegularExpression({
     @required this.expression,
     @required String error,
   }) : super(error: error);
 
-  /// [expression] is the regular expression to use.
-  final String expression;
-
+  /* Public methods */
   @override
   Future<bool> isValid(FormControl<String> control) async {
     this._validateParameters();
@@ -17,6 +28,9 @@ class RegularExpression extends FormControlValidatorAnnotation<String> {
     return isValid;
   }
 
+  /* Protected methods */
+
+  /* Private methods */
   void _validateParameters() {
     if (this.expression == null || this.expression.isEmpty)
       throw new ValidatorParameterException(

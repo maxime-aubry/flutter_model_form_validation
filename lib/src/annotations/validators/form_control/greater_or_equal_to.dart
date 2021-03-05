@@ -5,18 +5,29 @@ import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart'
 /// [GreaterOrEqualTo] with [TProperty] generic type is a validator that check if a value is greater or equal to another.
 class GreaterOrEqualTo<TProperty extends Comparable>
     extends FormControlValidatorAnnotation<TProperty> {
-  const GreaterOrEqualTo({
-    this.valueToCompare,
-    this.remoteValueToCompare,
-    @required String error,
-  }) : super(error: error);
-
+  /* Public properties */
   /// [valueToCompare] is default value to compare. It's a constant, provided by developer inside the [GreaterOrEqualTo] annotation.
   final TProperty valueToCompare;
 
   /// [remoteValueToCompare] is a name of [FormControl] that provides an overriding value of [valueToCompare].
   final String remoteValueToCompare;
 
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
+  const GreaterOrEqualTo({
+    this.valueToCompare,
+    this.remoteValueToCompare,
+    @required String error,
+  }) : super(error: error);
+
+  /* Public methods */
   /// Compares [FormControl] value with another value.
   ///
   /// Returns a Future<bool>. If no data is provided using by [valueToCompare] or [remoteValueToCompare], validator will return [False].
@@ -35,6 +46,9 @@ class GreaterOrEqualTo<TProperty extends Comparable>
     return isValid;
   }
 
+  /* Protected methods */
+
+  /* Private methods */
   bool _validate(TProperty value, TProperty valueToCompare) {
     if (value == null || valueToCompare == null) return true;
     int comparison = value.compareTo(valueToCompare);
@@ -45,6 +59,17 @@ class GreaterOrEqualTo<TProperty extends Comparable>
 
 /// [GreaterOrEqualToDateTime] is a validator that check if a [DateTime] value is greater or equal to another.
 class GreaterOrEqualToDateTime extends GreaterOrEqualTo<DateTime> {
+  /* Public properties */
+
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
   const GreaterOrEqualToDateTime({
     DateTime valueToCompare,
     String remoteValueToCompare,
@@ -54,36 +79,27 @@ class GreaterOrEqualToDateTime extends GreaterOrEqualTo<DateTime> {
           remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
-}
 
-/// [GreaterOrEqualToNumber] is a validator that check if a [DateTime] value is greater or equal to another.
-class GreaterOrEqualToNumber extends GreaterOrEqualTo<num> {
-  const GreaterOrEqualToNumber({
-    num valueToCompare,
-    String remoteValueToCompare,
-    @required String error,
-  }) : super(
-          valueToCompare: valueToCompare,
-          remoteValueToCompare: remoteValueToCompare,
-          error: error,
-        );
-}
+  /* Public methods */
 
-/// [GreaterOrEqualToBigInt] is a validator that check if a [DateTime] value is greater or equal to another.
-class GreaterOrEqualToBigInt extends GreaterOrEqualTo<BigInt> {
-  const GreaterOrEqualToBigInt({
-    BigInt valueToCompare,
-    String remoteValueToCompare,
-    @required String error,
-  }) : super(
-          valueToCompare: valueToCompare,
-          remoteValueToCompare: remoteValueToCompare,
-          error: error,
-        );
+  /* Protected methods */
+
+  /* Private methods */
 }
 
 /// [GreaterOrEqualToDouble] is a validator that check if a [DateTime] value is greater or equal to another.
 class GreaterOrEqualToDouble extends GreaterOrEqualTo<double> {
+  /* Public properties */
+
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
   const GreaterOrEqualToDouble({
     double valueToCompare,
     String remoteValueToCompare,
@@ -93,10 +109,27 @@ class GreaterOrEqualToDouble extends GreaterOrEqualTo<double> {
           remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
+
+  /* Public methods */
+
+  /* Protected methods */
+
+  /* Private methods */
 }
 
 /// [GreaterOrEqualToInt] is a validator that check if a [DateTime] value is greater or equal to another.
 class GreaterOrEqualToInt extends GreaterOrEqualTo<int> {
+  /* Public properties */
+
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
   const GreaterOrEqualToInt({
     int valueToCompare,
     String remoteValueToCompare,
@@ -106,10 +139,57 @@ class GreaterOrEqualToInt extends GreaterOrEqualTo<int> {
           remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
+
+  /* Public methods */
+
+  /* Protected methods */
+
+  /* Private methods */
+}
+
+/// [GreaterOrEqualToNumber] is a validator that check if a [DateTime] value is greater or equal to another.
+class GreaterOrEqualToNumber extends GreaterOrEqualTo<num> {
+  /* Public properties */
+
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
+  const GreaterOrEqualToNumber({
+    num valueToCompare,
+    String remoteValueToCompare,
+    @required String error,
+  }) : super(
+          valueToCompare: valueToCompare,
+          remoteValueToCompare: remoteValueToCompare,
+          error: error,
+        );
+
+/* Public methods */
+
+/* Protected methods */
+
+/* Private methods */
 }
 
 /// [GreaterOrEqualToString] is a validator that check if a [DateTime] value is greater or equal to another.
 class GreaterOrEqualToString extends GreaterOrEqualTo<String> {
+  /* Public properties */
+
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
   const GreaterOrEqualToString({
     String valueToCompare,
     String remoteValueToCompare,
@@ -119,4 +199,10 @@ class GreaterOrEqualToString extends GreaterOrEqualTo<String> {
           remoteValueToCompare: remoteValueToCompare,
           error: error,
         );
+
+  /* Public methods */
+
+  /* Protected methods */
+
+  /* Private methods */
 }

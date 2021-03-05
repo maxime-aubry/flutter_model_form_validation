@@ -5,18 +5,7 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 import 'package:image/image.dart' as imageDecoder;
 
 class ImageSize extends FormControlValidatorAnnotation<Uint8List> {
-  const ImageSize({
-    this.minWidth,
-    this.maxWidth,
-    this.minHeight,
-    this.maxHeight,
-    this.remoteMinWidth,
-    this.remoteMaxWidth,
-    this.remoteMinHeight,
-    this.remoteMaxHeight,
-    @required String error,
-  }) : super(error: error);
-
+  /* Public properties */
   /// [minWidth] is the allowed min width.
   final int minWidth;
 
@@ -41,6 +30,28 @@ class ImageSize extends FormControlValidatorAnnotation<Uint8List> {
   /// [remoteMaxHeight] is the name of targeted property that user uses to provide max height. This one has priority on [maxHeight].
   final String remoteMaxHeight;
 
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
+  const ImageSize({
+    this.minWidth,
+    this.maxWidth,
+    this.minHeight,
+    this.maxHeight,
+    this.remoteMinWidth,
+    this.remoteMaxWidth,
+    this.remoteMinHeight,
+    this.remoteMaxHeight,
+    @required String error,
+  }) : super(error: error);
+
+  /* Public methods */
   @override
   Future<bool> isValid(FormControl<Uint8List> control) async {
     int minWidth = super.getRemoteValidatorParameter<int>(
@@ -79,6 +90,9 @@ class ImageSize extends FormControlValidatorAnnotation<Uint8List> {
     return isValid;
   }
 
+  /* Protected methods */
+
+  /* Private methods */
   void _validateParameters(
     int minWidth,
     int maxWidth,

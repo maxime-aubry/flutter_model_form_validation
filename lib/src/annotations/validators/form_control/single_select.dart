@@ -4,11 +4,23 @@ import 'package:queries/collections.dart';
 
 class SingleSelect<TProperty>
     extends FormControlValidatorAnnotation<TProperty> {
+  /* Public properties */
+
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
   const SingleSelect({
     @required String serviceName,
     @required String error,
   }) : super(serviceName: serviceName, error: error);
 
+  /* Public methods */
   @override
   Future<bool> isValid(FormControl<TProperty> control) async {
     Future<List<SelectListItem<TProperty>>> Function() service =
@@ -20,6 +32,9 @@ class SingleSelect<TProperty>
     return isValid;
   }
 
+  /* Protected methods */
+
+  /* Private methods */
   void _validateParameters(List<SelectListItem> items) {
     if (items == null || items.isEmpty)
       throw new ValidatorParameterException('items is not defined.');

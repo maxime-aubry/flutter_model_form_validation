@@ -2,14 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 class NbValues extends FormControlValidatorAnnotation<List> {
-  const NbValues({
-    this.min,
-    this.max,
-    this.remoteMin,
-    this.remoteMax,
-    @required String error,
-  }) : super(error: error);
-
+  /* Public properties */
   /// [min] is minimal quantity of items.
   final int min;
 
@@ -22,6 +15,24 @@ class NbValues extends FormControlValidatorAnnotation<List> {
   /// [remoteMax] is the name of targeted property that user uses to provide maximal quantity of items of your array. This one has priority on [max] value.
   final String remoteMax;
 
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
+  const NbValues({
+    this.min,
+    this.max,
+    this.remoteMin,
+    this.remoteMax,
+    @required String error,
+  }) : super(error: error);
+
+  /* Public methods */
   @override
   Future<bool> isValid(FormControl<List> control) async {
     int min = super.getRemoteValidatorParameter<int>(
@@ -42,6 +53,9 @@ class NbValues extends FormControlValidatorAnnotation<List> {
     return isValid;
   }
 
+  /* Protected methods */
+
+  /* Private methods */
   void _validateParameters(int min, int max) {
     if (min == null)
       throw new ValidatorParameterException('min is not defined.');

@@ -26,28 +26,72 @@ abstract class IPasswordCheckRule {
 }
 
 class PasswordCheckMinLength implements IPasswordCheckRule {
+  /* Public properties */
   @override
   String name = 'minLength';
 
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
+
+  /* Public methods */
   @override
   bool checkRule(String value, PasswordSettings settings) =>
       value.length >= settings.minLength;
+
+  /* Protected methods */
+
+  /* Private methods */
 }
 
 class PasswordCheckMaxLength implements IPasswordCheckRule {
+  /* Public properties */
   @override
   String name = 'maxLength';
 
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
+
+  /* Public methods */
   @override
   bool checkRule(String value, PasswordSettings settings) =>
       value.length <= settings.maxLength;
+
+  /* Protected methods */
+
+  /* Private methods */
 }
 
 class PasswordCheckLowercaseAlphabeticalCharacters
     implements IPasswordCheckRule {
+  /* Public properties */
   @override
   String name = 'includesLowercaseAlphabeticalCharacters';
 
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
+
+  /* Public methods */
   @override
   bool checkRule(String value, PasswordSettings settings) {
     String expression = r'[a-z]';
@@ -55,13 +99,29 @@ class PasswordCheckLowercaseAlphabeticalCharacters
     if (regExp.hasMatch(value.toString())) return true;
     return false;
   }
+
+  /* Protected methods */
+
+  /* Private methods */
 }
 
 class PasswordCheckUppercaseAlphabeticalCharacters
     implements IPasswordCheckRule {
+  /* Public properties */
   @override
   String name = 'includesUppercaseAlphabeticalCharacters';
 
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
+
+  /* Public methods */
   @override
   bool checkRule(String value, PasswordSettings settings) {
     String expression = r'[A-Z]';
@@ -69,12 +129,28 @@ class PasswordCheckUppercaseAlphabeticalCharacters
     if (regExp.hasMatch(value.toString())) return true;
     return false;
   }
+
+  /* Protected methods */
+
+  /* Private methods */
 }
 
 class PasswordCheckNumericalCharacters implements IPasswordCheckRule {
+  /* Public properties */
   @override
   String name = 'includesNumericalCharacters';
 
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
+
+  /* Public methods */
   @override
   bool checkRule(String value, PasswordSettings settings) {
     String expression = r'[\d]';
@@ -82,12 +158,28 @@ class PasswordCheckNumericalCharacters implements IPasswordCheckRule {
     if (regExp.hasMatch(value.toString())) return true;
     return false;
   }
+
+  /* Protected methods */
+
+  /* Private methods */
 }
 
 class PasswordCheckSpecialCharacters implements IPasswordCheckRule {
+  /* Public properties */
   @override
   String name = 'includesSpecialCharacters';
 
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
+
+  /* Public methods */
   @override
   bool checkRule(String value, PasswordSettings settings) {
     String expression = r'[@$!%*?&]';
@@ -95,6 +187,10 @@ class PasswordCheckSpecialCharacters implements IPasswordCheckRule {
     if (regExp.hasMatch(value.toString())) return true;
     return false;
   }
+
+  /* Protected methods */
+
+  /* Private methods */
 }
 
 class MembershipPassword extends FormControlValidatorAnnotation<String> {

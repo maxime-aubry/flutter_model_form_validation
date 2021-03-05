@@ -4,13 +4,24 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 enum EUrlProtocol { http, https, ftp }
 
 class Url extends FormControlValidatorAnnotation<String> {
+  /* Public properties */
+  final List<EUrlProtocol> protocols;
+
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
   const Url({
     @required this.protocols,
     @required String error,
   }) : super(error: error);
 
-  final List<EUrlProtocol> protocols;
-
+  /* Public methods */
   @override
   Future<bool> isValid(FormControl<String> control) async {
     this._validateParameters();
@@ -18,6 +29,9 @@ class Url extends FormControlValidatorAnnotation<String> {
     return isValid;
   }
 
+  /* Protected methods */
+
+  /* Private methods */
   void _validateParameters() {
     if (this.protocols == null || this.protocols.isEmpty)
       throw new ValidatorParameterException('protocols is not defined.');

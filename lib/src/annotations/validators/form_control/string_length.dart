@@ -2,18 +2,29 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 class StringLength extends FormControlValidatorAnnotation<String> {
-  const StringLength({
-    @required this.min,
-    @required this.max,
-    @required String error,
-  }) : super(error: error);
-
+  /* Public properties */
   /// [min] is the minimal number of your string length.
   final int min;
 
   /// [max] is the maximal number of your string length.
   final int max;
 
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
+  const StringLength({
+    @required this.min,
+    @required this.max,
+    @required String error,
+  }) : super(error: error);
+
+  /* Public methods */
   @override
   Future<bool> isValid(FormControl<String> control) async {
     this._validateParameters();
@@ -21,6 +32,9 @@ class StringLength extends FormControlValidatorAnnotation<String> {
     return isValid;
   }
 
+  /* Protected methods */
+
+  /* Private methods */
   void _validateParameters() {
     if (min == null)
       throw new ValidatorParameterException('min value is not defined.');

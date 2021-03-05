@@ -3,14 +3,7 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 
 class Range<TProperty extends Comparable>
     extends FormControlValidatorAnnotation<TProperty> {
-  const Range({
-    this.min,
-    this.max,
-    this.remoteMin,
-    this.remoteMax,
-    @required String error,
-  }) : super(error: error);
-
+  /* Public properties */
   /// [min] is the minimal value of your range.
   final TProperty min;
 
@@ -23,6 +16,24 @@ class Range<TProperty extends Comparable>
   /// [remoteMax] is the name of targeted property that user uses to provide maximal value of your range. This one has priority on [max] value.
   final String remoteMax;
 
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
+  const Range({
+    this.min,
+    this.max,
+    this.remoteMin,
+    this.remoteMax,
+    @required String error,
+  }) : super(error: error);
+
+  /* Public methods */
   @override
   Future<bool> isValid(FormControl<TProperty> control) async {
     TProperty min = super.getRemoteValidatorParameter(
@@ -43,6 +54,9 @@ class Range<TProperty extends Comparable>
     return isValid;
   }
 
+  /* Protected methods */
+
+  /* Private methods */
   void _validateParameters(TProperty min, TProperty max) {
     if (min == null)
       throw new ValidatorParameterException('min is not defined.');
@@ -69,6 +83,17 @@ class Range<TProperty extends Comparable>
 }
 
 class RangeOfDateTime extends Range<DateTime> {
+  /* Public properties */
+
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
   const RangeOfDateTime({
     DateTime min,
     DateTime max,
@@ -82,25 +107,26 @@ class RangeOfDateTime extends Range<DateTime> {
           remoteMax: remoteMax,
           error: error,
         );
-}
 
-class RangeOfNumber extends Range<num> {
-  const RangeOfNumber({
-    num min,
-    num max,
-    String remoteMin,
-    String remoteMax,
-    @required String error,
-  }) : super(
-          min: min,
-          max: max,
-          remoteMin: remoteMin,
-          remoteMax: remoteMax,
-          error: error,
-        );
+  /* Public methods */
+
+  /* Protected methods */
+
+  /* Private methods */
 }
 
 class RangeOfDouble extends Range<double> {
+  /* Public properties */
+
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
   const RangeOfDouble({
     double min,
     double max,
@@ -114,9 +140,26 @@ class RangeOfDouble extends Range<double> {
           remoteMax: remoteMax,
           error: error,
         );
+
+  /* Public methods */
+
+  /* Protected methods */
+
+  /* Private methods */
 }
 
 class RangeOfInt extends Range<int> {
+  /* Public properties */
+
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
   const RangeOfInt({
     int min,
     int max,
@@ -130,12 +173,29 @@ class RangeOfInt extends Range<int> {
           remoteMax: remoteMax,
           error: error,
         );
+
+  /* Public methods */
+
+  /* Protected methods */
+
+  /* Private methods */
 }
 
-class RangeOfString extends Range<String> {
-  const RangeOfString({
-    String min,
-    String max,
+class RangeOfNumber extends Range<num> {
+  /* Public properties */
+
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
+  const RangeOfNumber({
+    num min,
+    num max,
     String remoteMin,
     String remoteMax,
     @required String error,
@@ -146,4 +206,43 @@ class RangeOfString extends Range<String> {
           remoteMax: remoteMax,
           error: error,
         );
+
+/* Public methods */
+
+/* Protected methods */
+
+/* Private methods */
+}
+
+class RangeOfString extends Range<String> {
+  /* Public properties */
+
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
+  const RangeOfString({
+    String min,
+    String max,
+    String remoteMin,
+    String remoteMax,
+    @required String error,
+  }) : super(
+    min: min,
+    max: max,
+    remoteMin: remoteMin,
+    remoteMax: remoteMax,
+    error: error,
+  );
+
+  /* Public methods */
+
+  /* Protected methods */
+
+  /* Private methods */
 }

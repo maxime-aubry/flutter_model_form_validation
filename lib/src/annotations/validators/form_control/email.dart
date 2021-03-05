@@ -5,10 +5,22 @@ import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart'
 
 /// [Email] is a validator that check if a value is a valid email.
 class Email extends FormControlValidatorAnnotation<String> {
+  /* Public properties */
+
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
   const Email({
     @required String error,
   }) : super(error: error);
 
+  /* Public methods */
   /// Compares [FormControl] value with another value.
   ///
   /// Returns a Future<bool>. The validator will check if FormControl's data is a valid email. In this case, validator will return [True], else it will return [False].
@@ -18,6 +30,9 @@ class Email extends FormControlValidatorAnnotation<String> {
   Future<bool> isValid(FormControl<String> control) async =>
       this._validate(control.value);
 
+  /* Protected methods */
+
+  /* Private methods */
   bool _validate(String value) {
     if (value == null || value.isEmpty) return true;
     RegExp regExp = new RegExp(Rules.email);
