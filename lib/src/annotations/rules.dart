@@ -506,33 +506,57 @@ class Rules {
     'ZW-mobile': r'',
   };
 
-  static String url(
-    bool allowEmptyProtocol,
-    bool allowLocal,
-    List<EUrlProtocol> protocols,
-  ) {
+  // From Diego Perini on https://gist.github.com/dperini/729294
+  static String url(List<EUrlProtocol> protocols) {
     String allowedProtocols = Collection(protocols)
         .select((arg1) => arg1.toString().split('.')[1])
         .toList()
         .join('|');
 
-    // allow protocol or not
-    String url = "^(?:(?:$allowedProtocols)://)";
-    if (allowEmptyProtocol) url += "?";
+    String url = "^";
 
-    url += r"(?:\S+(?::\S*)?@)?(?:";
+    // protocol identifier (optional)
+    // short syntax // still required
+    url += "(?:(?:(?:$allowedProtocols):)?\\/\\/)";
 
-    if (!allowLocal) {
-      url +=
-          r"(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})";
-    }
+    // user:pass BasicAuth (optional)
+    url += "(?:\\S+(?::\\S*)?@)?";
+    url += "(?:";
 
-    url +=
-        r"(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-?)*[a-z\u00a1-\uffff0-9])*(?:\.(?:[a-z\u00a1-\uffff]{2,}))";
+    // IP address exclusion
+    // private & local networks
+    url += "(?!(?:10|127)(?:\\.\\d{1,3}){3})" +
+        "(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})" +
+        "(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})";
 
-    if (allowLocal) url += "?";
+    // IP address dotted notation octets
+    // excludes loopback network 0.0.0.0
+    // excludes reserved space >= 224.0.0.0
+    // excludes network & broadcast addresses
+    // (first & last IP address of each class)
+    url += "(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])" +
+        "(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}" +
+        "(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))" +
+        "|" +
+        // host & domain names, may end with dot
+        // can be replaced by a shortest alternative
+        // (?![-_])(?:[-\\w\\u00a1-\\uffff]{0,63}[^-_]\\.)+
+        "(?:" +
+        "(?:" +
+        "[a-z0-9\\u00a1-\\uffff]" +
+        "[a-z0-9\\u00a1-\\uffff_-]{0,62}" +
+        ")?" +
+        "[a-z0-9\\u00a1-\\uffff]\\." +
+        ")+" +
+        // TLD identifier name, may end with dot
+        "(?:[a-z\\u00a1-\\uffff]{2,}\\.?)" +
+        ")";
 
-    url += r")(?::\d{2,5})?(?:/[^\s]*)?$";
+    // port number (optional)
+    url += "(?::\\d{2,5})?";
+
+    // resource path (optional)
+    url += "(?:[/?#]\\S*)?" + r"$";
 
     return url;
   }
