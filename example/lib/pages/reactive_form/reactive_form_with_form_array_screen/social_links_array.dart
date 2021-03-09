@@ -11,32 +11,6 @@ class SocialLinksArray extends StatefulWidget {
 }
 
 class _SocialLinksArrayState extends State<SocialLinksArray> {
-  SlidableController slidableController;
-  Animation<double> _rotationAnimation;
-  Color _fabColor = Colors.blue;
-
-  @override
-  void initState() {
-    super.initState();
-
-    this.slidableController = SlidableController(
-      onSlideAnimationChanged: handleSlideAnimationChanged,
-      onSlideIsOpenChanged: handleSlideIsOpenChanged,
-    );
-  }
-
-  void handleSlideAnimationChanged(Animation<double> slideAnimation) {
-    setState(() {
-      _rotationAnimation = slideAnimation;
-    });
-  }
-
-  void handleSlideIsOpenChanged(bool isOpen) {
-    setState(() {
-      _fabColor = isOpen ? Colors.green : Colors.blue;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     FormGroup parent = context.readFormGroup();
@@ -50,7 +24,6 @@ class _SocialLinksArrayState extends State<SocialLinksArray> {
           return SizedBox(
             height: 400,
             child: ListView.builder(
-              //shrinkWrap: true,
               scrollDirection: Axis.vertical,
               itemCount: formArray.groups.length,
               itemBuilder: (context, index) {
@@ -79,7 +52,6 @@ class _SocialLinksArrayState extends State<SocialLinksArray> {
 
     return Slidable(
       key: Key(socialNetwork.value.toString()),
-      controller: this.slidableController,
       direction: Axis.horizontal,
       actionPane: _getActionPane(index),
       actionExtentRatio: 0.25,
@@ -119,8 +91,6 @@ class _SocialLinksArrayState extends State<SocialLinksArray> {
   }
 
   void _goToPage(BuildContext context) {
-    //ReactiveFormState formState = context.readFormState();
-    FormArray socialLinks = context.readFormArray();
     FormGroup socialLink = context.readFormGroup();
 
     Navigator.push(
@@ -128,8 +98,6 @@ class _SocialLinksArrayState extends State<SocialLinksArray> {
       MaterialPageRoute(
         builder: (context) => MultiProvider(
           providers: [
-            //new FormStateProvider.value(value: formState),
-            new FormArrayProvider.value(value: socialLinks),
             new FormGroupProvider.value(value: socialLink),
           ],
           child: new EditSocialLink(),
@@ -154,11 +122,11 @@ class _SocialLinksArrayState extends State<SocialLinksArray> {
             title: Text('Delete'),
             content: Text('Item will be deleted'),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 child: Text('Cancel'),
                 onPressed: () => Navigator.of(context).pop(false),
               ),
-              FlatButton(
+              TextButton(
                 child: Text('Ok'),
                 onPressed: () {
                   FormArray socialLinks = context.readFormArray();
@@ -173,23 +141,6 @@ class _SocialLinksArrayState extends State<SocialLinksArray> {
       },
     );
   }
-
-  /*void _showSnackBar(BuildContext context, String text) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
-  }*/
-
-  /*FormGroup _getFormGroup() => new FormGroup(
-        controls: {
-          'social_network': new FormControl<ESocialNetwork>(
-            value: null,
-            validators: [Required(error: 'social network is required')],
-          ),
-          'url': new FormControl<String>(
-            value: null,
-            validators: [Required(error: 'url is required')],
-          ),
-        },
-      );*/
 }
 
 class ListItem extends StatefulWidget {
@@ -213,11 +164,6 @@ class _ListItemState extends State<ListItem> {
       child: new Container(
         color: Colors.white,
         child: new ListTile(
-          /*leading: new CircleAvatar(
-            backgroundColor: Colors.redAccent,
-            child: new Text('...'),
-            foregroundColor: Colors.white,
-          ),*/
           title: new Text(socialNetwork.value.toString()),
           subtitle: new Text(url.value),
         ),

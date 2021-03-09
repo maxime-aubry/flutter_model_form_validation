@@ -36,8 +36,7 @@ void main() {
 
     test('FormControlFilter does not allow EFakeEnum.', () {
       expect(() {
-        FormControlFilterTester<EFakeEnum> tester =
-            new FormControlFilterTester<EFakeEnum>();
+        new FormControlFilterTester<EFakeEnum>();
       }, throwsA(isInstanceOf<Exception>()));
     });
 
@@ -51,8 +50,7 @@ void main() {
         'FormControlFilter does not allow DateTime using by restricted filters.',
         () {
       expect(() {
-        FormControlCustomFilterTester<DateTime> tester =
-            new FormControlCustomFilterTester<DateTime>();
+        new FormControlCustomFilterTester<DateTime>();
       }, throwsA(isInstanceOf<Exception>()));
     });
   });

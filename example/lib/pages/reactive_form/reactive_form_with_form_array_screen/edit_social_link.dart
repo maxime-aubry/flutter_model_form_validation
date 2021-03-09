@@ -2,7 +2,6 @@ import 'package:example/models.dart';
 import 'package:example/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-import 'package:queries/collections.dart';
 
 class EditSocialLink extends StatefulWidget {
   @override
@@ -18,43 +17,43 @@ class _EditSocialLinkState extends State<EditSocialLink> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+
+    ListItemsProvider.register<ESocialNetwork>(
+      'getListOfSocialNetwork',
+      () async => socialNetworks,
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    FormGroup originalSocialLink = context.readFormGroup();
-    ReactiveFormBuilder clonedFormBuilder =
-        originalSocialLink.formBuilder.clone();
-    FormGroup socialLink =
-        Collection(clonedFormBuilder.group.getFormArray('social_links').groups)
-            .where((arg1) => arg1.name == originalSocialLink.name)
-            .single();
+    FormGroup socialLink = context.readFormGroup();
 
     return ReactiveForm(
-      formBuilder: this._getFormBuilder(socialLink),
+      formBuilder: this._getFormBuilder(socialLink.getClone()),
       child: new Scaffold(
         appBar: new AppBar(title: Text("Edit social link")),
-        body: new SingleChildScrollView(
-          child: new Padding(
-            padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-            child: Container(),
+        body: new Padding(
+          padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+          child: new FormGroupConsumer(
+            builder: (_, root, __) => new Column(
+              children: [
+                this._socialNetworkInput(
+                  root.getFormControl<ESocialNetwork>('social_network'),
+                ),
+                this._urlInput(root.getFormControl<String>('url')),
+              ],
+            ),
           ),
         ),
-        /*floatingActionButton: new FloatingActionButton(
-          onPressed: () async {
-            ReactiveFormState formState = context.readFormState();
-            FormGroup form = context.readFormGroup();
-
-            if (await formState.validate()) {
-              await this._saveForm(form);
-              Navigator.pop(context);
-            }
-          },
-          child: Icon(Icons.done),
-        ),*/
         floatingActionButton: new FormStateConsumer(
-          builder: (_, formState, __) => new FloatingActionButton(
+          builder: (context, formState, _) => new FloatingActionButton(
             child: Icon(Icons.done),
             onPressed: () async {
               if (await formState.validate()) {
-                // Data treatment and post to server here...
+                FormGroup socialLinkToEdit = context.readFormGroup();
+                this._saveForm(socialLink, socialLinkToEdit);
               }
             },
           ),
@@ -63,50 +62,57 @@ class _EditSocialLinkState extends State<EditSocialLink> {
     );
   }
 
-  ReactiveFormBuilder _getFormBuilder(FormGroup data) =>
-      new ReactiveFormBuilder(
-        group: new FormGroup(
-          controls: {
-            'social_network': new FormControl<ESocialNetwork>(
-              value:
-                  data.getFormControl<ESocialNetwork>('social_network').value,
-              validators: [],
-            ),
-            'url': new FormControl<String>(
-              value: data.getFormControl<String>('url').value,
-              validators: [],
-            ),
-          },
-          validators: [],
-        ),
-      );
+  ReactiveFormBuilder _getFormBuilder(FormGroup socialLink) {
+    ESocialNetwork socialNetwork =
+        socialLink.getFormControl<ESocialNetwork>('social_network').value;
+    String url = socialLink.getFormControl<String>('url').value;
 
-  Widget _form(BuildContext context) {
-    FormGroup form = context.watchFormGroup();
-
-    return new Column(
-      children: [
-        this._socialNetworkInput(form.controls['social_network']),
-        this._urlInput(form.controls['url']),
-      ],
+    ReactiveFormBuilder formBuilder = new ReactiveFormBuilder(
+      group: new FormGroup(
+        controls: {
+          'social_network': new FormControl<ESocialNetwork>(
+            value: socialNetwork,
+            validators: [
+              Required(error: 'social network is required.'),
+              SingleSelect(
+                serviceName: 'getListOfSocialNetwork',
+                error: 'unknown social network.',
+              )
+            ],
+          ),
+          'url': new FormControl<String>(
+            value: url,
+            validators: [
+              Required(error: 'url is required.'),
+              Url(
+                protocols: [EUrlProtocol.http, EUrlProtocol.https],
+                error: 'invalid URL.',
+              ),
+            ],
+          ),
+        },
+        validators: [],
+      ),
     );
+    return formBuilder;
   }
 
-  Future<void> _saveForm(FormGroup form) async {
+  Future<void> _saveForm(
+    FormGroup socialLink,
+    FormGroup socialLinkToEdit,
+  ) async {
     // get new data
-    FormControl<ESocialNetwork> socialNetwork =
-        form.getFormControl<ESocialNetwork>('social_network');
-    FormControl<String> url = form.getFormControl<String>('url');
+    ESocialNetwork socialNetwork =
+        socialLinkToEdit.getFormControl<ESocialNetwork>('social_network').value;
+    String url = socialLinkToEdit.getFormControl<String>('url').value;
 
     // save data
-    await context
-        .readFormGroup()
+    await socialLink
         .getFormControl<ESocialNetwork>('social_network')
-        .setValue(socialNetwork.value);
-    await context
-        .readFormGroup()
-        .getFormControl<String>('url')
-        .setValue(url.value);
+        .setValue(socialNetwork);
+    await socialLink.getFormControl<String>('url').setValue(url);
+
+    Navigator.of(context).pop();
   }
 
   Widget _socialNetworkInput(FormControl<ESocialNetwork> formControl) =>

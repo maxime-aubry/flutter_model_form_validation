@@ -5,17 +5,21 @@ import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart'
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
+//enum EFormType { mainForm, subForm }
+
 class ReactiveForm extends SingleChildStatefulWidget {
   final ReactiveFormBuilder formBuilder;
   final ReactiveFormState formState;
 
   ReactiveForm({
     Key key,
-    Widget child,
-    this.formBuilder,
+    @required Widget child,
+    @required this.formBuilder,
+    //EFormType formType = EFormType.mainForm,
   })  : this.formState = new ReactiveFormState(),
         super(key: key, child: child) {
-    this.formBuilder.initialize(this.formState);
+    //if (formType == EFormType.mainForm)
+      this.formBuilder.initialize(this.formState);
   }
 
   @override

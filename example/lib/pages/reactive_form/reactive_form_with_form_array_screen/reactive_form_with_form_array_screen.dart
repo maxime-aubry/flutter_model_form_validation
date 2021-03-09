@@ -4,6 +4,7 @@ import 'package:example/pages/index.dart';
 import 'package:example/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+import 'package:provider/provider.dart';
 
 class ReactiveFormWithFormArrayScreen extends StatefulWidget {
   static const String routeName = '/reactiveFormWithFormArray';
@@ -46,6 +47,15 @@ class _ReactiveFormWithFormArrayScreenState
                         'Social links',
                         style: TextStyle(fontSize: 20),
                       ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextButton.icon(
+                      onPressed: () => this._goToPage(root),
+                      style: ButtonStyle(),
+                      icon: Icon(Icons.add),
+                      label: Text('Add'),
                     ),
                   ),
                   new SocialLinksArray(),
@@ -118,4 +128,20 @@ class _ReactiveFormWithFormArrayScreenState
         dataSource: this.genders,
         formControl: formControl,
       );
+
+  void _goToPage(FormGroup root) {
+    FormArray socialLinks = root.getFormArray('social_links');
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MultiProvider(
+          providers: [
+            new FormArrayProvider.value(value: socialLinks),
+          ],
+          child: new AddSocialLink(),
+        ),
+      ),
+    );
+  }
 }

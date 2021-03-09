@@ -44,7 +44,9 @@ class _CustomDropdownState<TProperty>
       new FormControlProvider<List<TProperty>>(
         create: (_) => widget.formControl,
         builder: (context, _) {
-          FormControl<List<TProperty>> formControl =
+          FormControl<List<TProperty>> watchedFormControl =
+              context.watchFormControl<List<TProperty>>();
+          FormControl<List<TProperty>> readFormControl =
               context.readFormControl<List<TProperty>>();
 
           return new Column(
@@ -59,11 +61,7 @@ class _CustomDropdownState<TProperty>
                   value: (index, item) => item['key'],
                   title: (index, item) => item['value'],
                 ),
-                onChange: (state) {
-                  FormControl<List<TProperty>> formControl =
-                      context.readFormControl<List<TProperty>>();
-                  formControl.setValue(state.value);
-                },
+                onChange: (state) => readFormControl.setValue(state.value),
                 modalType: S2ModalType.bottomSheet,
                 modalConfirm: true,
                 modalFilter: true,
@@ -84,10 +82,10 @@ class _CustomDropdownState<TProperty>
                 decoration: BoxDecoration(
                   border: new Border(
                     top: new BorderSide(
-                      color:
-                          (formControl.status == EAbstractControlStatus.invalid)
-                              ? errorColor
-                              : Colors.grey,
+                      color: (watchedFormControl.status ==
+                              EAbstractControlStatus.invalid)
+                          ? errorColor
+                          : Colors.grey,
                       width: 1,
                       style: BorderStyle.solid,
                     ),
@@ -95,8 +93,8 @@ class _CustomDropdownState<TProperty>
                 ),
                 child: new Container(),
               ),
-              (formControl.status == EAbstractControlStatus.invalid)
-                  ? this._getErrorText(formControl.error?.message)
+              (watchedFormControl.status == EAbstractControlStatus.invalid)
+                  ? this._getErrorText(watchedFormControl.error?.message)
                   : new Container(),
             ],
           );

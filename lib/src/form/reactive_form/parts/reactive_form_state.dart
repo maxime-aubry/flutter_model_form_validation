@@ -12,7 +12,6 @@ enum EFormStatus {
 
 class ReactiveFormState {
   /* Public properties */
-  //bool isInitialized;
 
   /* Protected properties */
   ReactiveFormBuilder formBuilder;

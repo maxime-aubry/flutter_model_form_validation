@@ -17,65 +17,85 @@ class _AddSocialLinkState extends State<AddSocialLink> {
   ];
 
   @override
-  Widget build(BuildContext context) {
-    ReactiveFormState formState = context.readFormState();
-    FormArray socialLinks = context.readFormArray();
-    FormGroup root = socialLinks.parent;
-    FormGroup socialLink = new FormGroup(
-      controls: {
-        'social_network': new FormControl<ESocialNetwork>(
-          value: null,
-          validators: [],
-        ),
-        'url': new FormControl<String>(
-          value: null,
-          validators: [],
-        ),
-      },
+  void initState() {
+    super.initState();
+
+    ListItemsProvider.register<ESocialNetwork>(
+      'getListOfSocialNetwork',
+      () async => socialNetworks,
     );
-    socialLinks.addGroup(socialLink);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    FormArray socialLinks = context.readFormArray();
 
     return ReactiveForm(
-      //context: new SubFormContext(formState: formState, formGroup: root),
-      formBuilder: null,
-      child: new WillPopScope(
-        onWillPop: () async =>
-            await this._deleteCurrent(socialLinks, socialLink),
-        child: new Scaffold(
-          appBar: new AppBar(title: Text("Add new social link")),
-          body: new SingleChildScrollView(
-            child: new Padding(
-              padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-              child: new Column(
-                children: [
-                  this._socialNetworkInput(
-                      socialLink.controls['social_network']),
-                  this._urlInput(socialLink.controls['url']),
-                ],
-              ),
+      formBuilder: this._getFormBuilder(),
+      child: new Scaffold(
+        appBar: new AppBar(title: Text("Add social link")),
+        body: new Padding(
+          padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+          child: new FormGroupConsumer(
+            builder: (_, root, __) => new Column(
+              children: [
+                this._socialNetworkInput(
+                  root.getFormControl<ESocialNetwork>('social_network'),
+                ),
+                this._urlInput(root.getFormControl<String>('url')),
+              ],
             ),
           ),
-          floatingActionButton: new FloatingActionButton(
+        ),
+        floatingActionButton: new FormStateConsumer(
+          builder: (context, formState, _) => new FloatingActionButton(
+            child: Icon(Icons.done),
             onPressed: () async {
-              ReactiveFormState formState = context.readFormState();
-
               if (await formState.validate()) {
-                Navigator.pop(context);
+                FormGroup socialLinkToAdd = context.readFormGroup();
+                this._saveForm(socialLinks, socialLinkToAdd);
               }
             },
-            child: Icon(Icons.done),
           ),
         ),
       ),
     );
   }
 
-  Future<bool> _deleteCurrent(
+  ReactiveFormBuilder _getFormBuilder() => new ReactiveFormBuilder(
+        group: new FormGroup(
+          controls: {
+            'social_network': new FormControl<ESocialNetwork>(
+              value: null,
+              validators: [
+                Required(error: 'social network is required.'),
+                SingleSelect(
+                  serviceName: 'getListOfSocialNetwork',
+                  error: 'unknown social network.',
+                )
+              ],
+            ),
+            'url': new FormControl<String>(
+              value: null,
+              validators: [
+                Required(error: 'url is required.'),
+                Url(
+                  protocols: [EUrlProtocol.http, EUrlProtocol.https],
+                  error: 'invalid URL.',
+                ),
+              ],
+            ),
+          },
+          validators: [],
+        ),
+      );
+
+  Future<void> _saveForm(
     FormArray socialLinks,
-    FormGroup socialLink,
+    FormGroup socialLinkToAdd,
   ) async {
-    socialLinks.removeGroup(socialLink);
-    return true;
+    socialLinks.addGroup(socialLinkToAdd);
+    Navigator.of(context).pop();
   }
 
   Widget _socialNetworkInput(FormControl<ESocialNetwork> formControl) =>
