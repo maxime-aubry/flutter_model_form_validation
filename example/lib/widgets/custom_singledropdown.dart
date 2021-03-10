@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-import 'package:queries/collections.dart';
 import 'package:smart_select/smart_select.dart';
 
 class CustomSingleDropdown<TProperty> extends StatefulWidget {
   final String label;
-  final List<SelectListItem<TProperty>> dataSource;
+  final List<S2Choice<TProperty>> dataSource;
   final FormControl<TProperty> formControl;
 
   CustomSingleDropdown({
@@ -53,13 +52,7 @@ class _CustomDropdownState<TProperty>
               SmartSelect<TProperty>.single(
                 title: widget.label,
                 value: context.watchFormControl<TProperty>().value,
-                choiceItems: S2Choice.listFrom<TProperty, Map>(
-                  source: Collection(widget.dataSource)
-                      .select((arg1) => {'key': arg1.value, 'value': arg1.text})
-                      .toList(),
-                  value: (index, item) => item['key'],
-                  title: (index, item) => item['value'],
-                ),
+                choiceItems: widget.dataSource,
                 onChange: (state) => readFormControl.setValue(state.value),
                 modalType: S2ModalType.bottomSheet,
                 modalConfirm: true,

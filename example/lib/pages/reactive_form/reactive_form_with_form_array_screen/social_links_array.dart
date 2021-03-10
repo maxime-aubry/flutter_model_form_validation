@@ -13,10 +13,10 @@ class SocialLinksArray extends StatefulWidget {
 class _SocialLinksArrayState extends State<SocialLinksArray> {
   @override
   Widget build(BuildContext context) {
-    FormGroup parent = context.readFormGroup();
+    FormGroup root = context.readFormGroup();
 
     return new FormArrayProvider(
-      create: (context) => parent.controls['social_links'],
+      create: (context) => root.getFormArray('social_links'),
       builder: (context, _) {
         FormArray formArray = context.watchFormArray();
 
@@ -48,7 +48,7 @@ class _SocialLinksArrayState extends State<SocialLinksArray> {
   Widget _getSlidableWithLists(BuildContext context, int index) {
     FormGroup socialLink = context.readFormGroup();
     FormControl<ESocialNetwork> socialNetwork =
-        socialLink.controls['social_network'] as FormControl<ESocialNetwork>;
+        socialLink.getFormControl<ESocialNetwork>('social_network');
 
     return Slidable(
       key: Key(socialNetwork.value.toString()),

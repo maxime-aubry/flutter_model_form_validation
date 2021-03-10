@@ -5,6 +5,8 @@ import 'package:example/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:provider/provider.dart';
+import 'package:queries/collections.dart';
+import 'package:smart_select/smart_select.dart';
 
 class ReactiveFormWithFormArrayScreen extends StatefulWidget {
   static const String routeName = '/reactiveFormWithFormArray';
@@ -16,17 +18,55 @@ class ReactiveFormWithFormArrayScreen extends StatefulWidget {
 
 class _ReactiveFormWithFormArrayScreenState
     extends State<ReactiveFormWithFormArrayScreen> {
-  List<SelectListItem<EGender>> genders = [
-    new SelectListItem<EGender>(EGender.male, 'male'),
-    new SelectListItem<EGender>(EGender.female, 'female'),
-  ];
+  List<S2Choice<EGender>> genders = [];
+
+  @override
+  void initState() {
+    ListItemsProvider.register<EGender>(
+      'getListOfGenders',
+      () async => [
+        new SelectListItem<EGender>(EGender.male, 'male'),
+        new SelectListItem<EGender>(EGender.female, 'female'),
+      ],
+    );
+
+    ListItemsProvider.register<ESocialNetwork>(
+      'getListOfSocialNetwork',
+      () async => [
+        new SelectListItem<ESocialNetwork>(ESocialNetwork.facebook, 'Facebook'),
+        new SelectListItem<ESocialNetwork>(ESocialNetwork.github, 'Github'),
+        new SelectListItem<ESocialNetwork>(ESocialNetwork.pub, 'Pub.dev'),
+        new SelectListItem<ESocialNetwork>(ESocialNetwork.twitter, 'Twitter'),
+      ],
+    );
+
+    () async {
+      this.genders.addAll(
+            Collection(
+              await ListItemsProvider.provide<EGender>('getListOfGenders')(),
+            )
+                .select((arg1) => S2Choice(value: arg1.value, title: arg1.text))
+                .toList(),
+          );
+    }();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    ListItemsProvider.close('getListOfGenders');
+    ListItemsProvider.close('getListOfSocialNetwork');
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return ReactiveForm(
       formBuilder: this._getFormBuilder(),
       child: new Scaffold(
-        appBar: new AppBar(title: Text("Reactive form")),
+        appBar: new AppBar(title: Text("Reactive form with FormArray")),
         drawer: new CustomDrawer(),
         body: new SingleChildScrollView(
           child: new Padding(
@@ -58,6 +98,22 @@ class _ReactiveFormWithFormArrayScreenState
                       label: Text('Add'),
                     ),
                   ),
+                  new FormArrayProvider(
+                    create: (_) => root.getFormArray('social_links'),
+                    builder: (context, __) {
+                      FormArray socialLinks = context.watchFormArray();
+
+                      if (socialLinks.status ==
+                          EAbstractControlStatus.invalid) {
+                        return Align(
+                          alignment: Alignment.centerLeft,
+                          child: this._getErrorText(socialLinks.error?.message),
+                        );
+                      }
+
+                      return new Container();
+                    },
+                  ),
                   new SocialLinksArray(),
                 ],
               ),
@@ -69,7 +125,10 @@ class _ReactiveFormWithFormArrayScreenState
             child: Icon(Icons.done),
             onPressed: () async {
               if (await formState.validate()) {
+                print('ok');
                 // Data treatment and post to server here...
+              } else {
+                print('pas ok');
               }
             },
           ),
@@ -83,19 +142,31 @@ class _ReactiveFormWithFormArrayScreenState
           controls: {
             'firstname': new FormControl<String>(
               value: null,
-              validators: [Required(error: 'firstname is required')],
+              validators: [Required(error: 'firstname is required.')],
             ),
             'lastname': new FormControl<String>(
               value: null,
-              validators: [Required(error: 'lastname is required')],
+              validators: [Required(error: 'lastname is required.')],
             ),
             'gender': new FormControl<EGender>(
               value: null,
-              validators: [Required(error: 'gender is required')],
+              validators: [
+                Required(error: 'gender is required.'),
+                SingleSelect(
+                  serviceName: 'getListOfGenders',
+                  error: 'unknown gender.',
+                )
+              ],
             ),
             'social_links': new FormArray(
               groups: [],
-              validators: [NbItems(min: 1, max: 3, error: 'error')],
+              validators: [
+                NbItems(
+                  min: 1,
+                  max: 3,
+                  error: 'There must be between 1 and 3 items.',
+                )
+              ],
             ),
           },
           validators: [],
@@ -114,6 +185,21 @@ class _ReactiveFormWithFormArrayScreenState
         dataSource: this.genders,
         formControl: formControl,
       );
+
+  Widget _getErrorText(String error) {
+    Color errorColor = Colors.redAccent[700];
+
+    return new Padding(
+      padding: EdgeInsets.fromLTRB(0, 4, 0, 0),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          error,
+          style: new TextStyle(color: errorColor, fontSize: 12),
+        ),
+      ),
+    );
+  }
 
   void _goToPage(FormGroup root) {
     FormArray socialLinks = root.getFormArray('social_links');

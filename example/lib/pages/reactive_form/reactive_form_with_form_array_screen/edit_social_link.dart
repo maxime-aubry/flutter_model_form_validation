@@ -2,6 +2,8 @@ import 'package:example/models.dart';
 import 'package:example/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+import 'package:queries/collections.dart';
+import 'package:smart_select/smart_select.dart';
 
 class EditSocialLink extends StatefulWidget {
   @override
@@ -9,28 +11,23 @@ class EditSocialLink extends StatefulWidget {
 }
 
 class _EditSocialLinkState extends State<EditSocialLink> {
-  List<SelectListItem<ESocialNetwork>> socialNetworks = [
-    new SelectListItem<ESocialNetwork>(ESocialNetwork.facebook, 'Facebook'),
-    new SelectListItem<ESocialNetwork>(ESocialNetwork.github, 'Github'),
-    new SelectListItem<ESocialNetwork>(ESocialNetwork.pub, 'Pub.dev'),
-    new SelectListItem<ESocialNetwork>(ESocialNetwork.twitter, 'Twitter'),
-  ];
+  List<S2Choice<ESocialNetwork>> socialNetworks = [];
 
   @override
   void initState() {
-    ListItemsProvider.register<ESocialNetwork>(
-      'getListOfSocialNetwork',
-      () async => socialNetworks,
-    );
+    () async {
+      this.socialNetworks.addAll(
+            Collection(
+              await ListItemsProvider.provide<ESocialNetwork>(
+                'getListOfSocialNetwork',
+              )(),
+            )
+                .select((arg1) => S2Choice(value: arg1.value, title: arg1.text))
+                .toList(),
+          );
+    }();
 
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    ListItemsProvider.close('getListOfSocialNetwork');
-
-    super.dispose();
   }
 
   @override

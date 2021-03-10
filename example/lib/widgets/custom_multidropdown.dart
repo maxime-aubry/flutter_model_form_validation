@@ -5,7 +5,7 @@ import 'package:smart_select/smart_select.dart';
 
 class CustomMultiDropdown<TProperty> extends StatefulWidget {
   final String label;
-  final List<SelectListItem<TProperty>> dataSource;
+  final List<S2Choice<TProperty>> dataSource;
   final FormControl<List<TProperty>> formControl;
 
   CustomMultiDropdown({
@@ -54,13 +54,7 @@ class _CustomDropdownState<TProperty>
               SmartSelect<TProperty>.multiple(
                 title: widget.label,
                 value: context.watchFormControl<List<TProperty>>().value,
-                choiceItems: S2Choice.listFrom<TProperty, Map>(
-                  source: Collection(widget.dataSource)
-                      .select((arg1) => {'key': arg1.value, 'value': arg1.text})
-                      .toList(),
-                  value: (index, item) => item['key'],
-                  title: (index, item) => item['value'],
-                ),
+                choiceItems: widget.dataSource,
                 onChange: (state) => readFormControl.setValue(state.value),
                 modalType: S2ModalType.bottomSheet,
                 modalConfirm: true,

@@ -2,6 +2,8 @@ import 'package:example/models.dart';
 import 'package:example/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
+import 'package:queries/collections.dart';
+import 'package:smart_select/smart_select.dart';
 
 import '../../../custom_drawer.dart';
 
@@ -13,10 +15,37 @@ class ReactiveFormScreen extends StatefulWidget {
 }
 
 class _ReactiveFormScreenState extends State<ReactiveFormScreen> {
-  List<SelectListItem<EGender>> genders = [
-    new SelectListItem<EGender>(EGender.male, 'male'),
-    new SelectListItem<EGender>(EGender.female, 'female'),
-  ];
+  List<S2Choice<EGender>> genders = [];
+
+  @override
+  void initState() {
+    ListItemsProvider.register<EGender>(
+      'getListOfGenders',
+      () async => [
+        new SelectListItem<EGender>(EGender.male, 'male'),
+        new SelectListItem<EGender>(EGender.female, 'female'),
+      ],
+    );
+
+    () async {
+      this.genders.addAll(
+            Collection(
+              await ListItemsProvider.provide<EGender>('getListOfGenders')(),
+            )
+                .select((arg1) => S2Choice(value: arg1.value, title: arg1.text))
+                .toList(),
+          );
+    }();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    ListItemsProvider.close('getListOfGenders');
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +93,13 @@ class _ReactiveFormScreenState extends State<ReactiveFormScreen> {
             ),
             'gender': new FormControl<EGender>(
               value: null,
-              validators: [Required(error: 'gender is required')],
+              validators: [
+                Required(error: 'gender is required'),
+                SingleSelect(
+                  serviceName: 'getListOfGenders',
+                  error: 'unknown gender.',
+                ),
+              ],
             ),
           },
           validators: [],

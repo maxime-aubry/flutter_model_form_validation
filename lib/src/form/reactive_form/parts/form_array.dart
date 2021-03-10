@@ -78,11 +78,13 @@ class FormArray extends AbstractControl {
       throw new FormBuilderException(
           'Cannot add FormGroup if this one is null.');
 
-    if (this.groups.contains(formGroup))
-      throw new FormBuilderException(
-          'Cannot add FormGroup if this one is already added.');
+    // if (this.groups.contains(formGroup))
+    //   throw new FormBuilderException(
+    //       'Cannot add FormGroup if this one is already added.');
 
-    this.groups.add(formGroup);
+    FormGroup item = formGroup.clone(null);
+    this.groups.add(item);
+    this._initializeItem(item);
     if (notify) super.notifyListeners();
   }
 
