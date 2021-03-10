@@ -3,7 +3,6 @@ import 'package:example/pages/reactive_form/reactive_form_with_form_array_screen
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:provider/provider.dart';
 
 class SocialLinksArray extends StatefulWidget {
   @override
@@ -96,7 +95,7 @@ class _SocialLinksArrayState extends State<SocialLinksArray> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => MultiProvider(
+        builder: (context) => FormProvider(
           providers: [
             new FormGroupProvider.value(value: socialLink),
           ],
@@ -113,10 +112,12 @@ class _SocialLinksArrayState extends State<SocialLinksArray> {
     await showDialog<bool>(
       context: context,
       builder: (_) {
-        return MultiProvider(
+        return FormProvider(
           providers: [
-            new FormGroupProvider(create: (_) => socialLink),
-            new FormArrayProvider(create: (_) => socialLinks),
+            //new FormGroupProvider(create: (_) => socialLink),
+            //new FormArrayProvider(create: (_) => socialLinks),
+            new FormGroupProvider.value(value: socialLink),
+            new FormArrayProvider.value(value: socialLinks),
           ],
           builder: (context, _) => AlertDialog(
             title: Text('Delete'),

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 
 extension ReadContext on BuildContext {
   ReactiveFormState readFormState() =>
@@ -19,6 +20,20 @@ extension ReadContext on BuildContext {
       FormControlProvider.of<TProperty>(this, listen: false);
   FormControl<TProperty> watchFormControl<TProperty>() =>
       FormControlProvider.of<TProperty>(this, listen: true);
+}
+
+class FormProvider extends MultiProvider {
+  FormProvider({
+    Key key,
+    @required List<SingleChildWidget> providers,
+    Widget child,
+    TransitionBuilder builder,
+  }) : super(
+          key: key,
+          providers: providers,
+          child: child,
+          builder: builder,
+        );
 }
 
 class FormStateProvider extends Provider<ReactiveFormState> {

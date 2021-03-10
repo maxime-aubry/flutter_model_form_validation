@@ -2,10 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/provider/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
-import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-
-//enum EFormType { mainForm, subForm }
 
 class ReactiveForm extends SingleChildStatefulWidget {
   final ReactiveFormBuilder formBuilder;
@@ -15,10 +12,8 @@ class ReactiveForm extends SingleChildStatefulWidget {
     Key key,
     @required Widget child,
     @required this.formBuilder,
-    //EFormType formType = EFormType.mainForm,
   })  : this.formState = new ReactiveFormState(),
         super(key: key, child: child) {
-    //if (formType == EFormType.mainForm)
     this.formBuilder.initialize(this.formState);
   }
 
@@ -40,15 +35,13 @@ class _ReactiveFormState extends SingleChildState<ReactiveForm> {
     return Form(
       key: this._formKey,
       autovalidateMode: AutovalidateMode.always,
-      child: MultiProvider(
+      child: FormProvider(
         providers: [
-          new FormStateProvider(create: (_) => widget.formState),
-          new FormGroupProvider(create: (_) => widget.formBuilder.group),
+          //new FormStateProvider(create: (_) => widget.formState),
+          //new FormGroupProvider(create: (_) => widget.formBuilder.group),
+          new FormStateProvider.value(value: widget.formState),
+          new FormGroupProvider.value(value: widget.formBuilder.group),
         ],
-        /*builder: (context, child) => widget.builder(
-          context,
-          child,
-        ),*/
         child: child,
       ),
     );

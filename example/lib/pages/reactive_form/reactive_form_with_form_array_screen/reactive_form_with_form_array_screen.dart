@@ -4,7 +4,6 @@ import 'package:example/pages/index.dart';
 import 'package:example/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-import 'package:provider/provider.dart';
 import 'package:queries/collections.dart';
 import 'package:smart_select/smart_select.dart';
 
@@ -207,7 +206,7 @@ class _ReactiveFormWithFormArrayScreenState
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => MultiProvider(
+        builder: (context) => FormProvider(
           providers: [
             new FormArrayProvider.value(value: socialLinks),
           ],
