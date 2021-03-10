@@ -94,21 +94,7 @@ class _ReactiveFormWithFormArrayScreenState
               validators: [Required(error: 'gender is required')],
             ),
             'social_links': new FormArray(
-              groups: [
-                new FormGroup(
-                  controls: {
-                    'social_network': new FormControl<ESocialNetwork>(
-                      value: ESocialNetwork.github,
-                      validators: [],
-                    ),
-                    'url': new FormControl<String>(
-                      value: 'azerty',
-                      validators: [],
-                    ),
-                  },
-                  validators: [],
-                ),
-              ],
+              groups: [],
               validators: [NbItems(min: 1, max: 3, error: 'error')],
             ),
           },

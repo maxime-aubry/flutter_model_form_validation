@@ -17,16 +17,16 @@ class FormControl<TProperty> extends AbstractControl
   /* Getters */
   TProperty get value => this._value;
 
+  @override
   String get formPath {
-    String part =
-        (this.parent != null) ? '${this.parent.formPath}' : null;
+    String part = (this.parent != null) ? '${this.parent.formPath}' : null;
     part += '.controls[\'${this.name}\']';
     return part;
   }
 
+  @override
   String get modelPath {
-    String part =
-        (this.parent != null) ? '${this.parent.modelPath}' : null;
+    String part = (this.parent != null) ? '${this.parent.modelPath}' : null;
     part += '.${this.name}';
     return part;
   }
@@ -91,6 +91,13 @@ class FormControl<TProperty> extends AbstractControl
     }
 
     if (validate) await super.validateControl();
+  }
+
+  FormControl<TProperty> getClone() {
+    ReactiveFormBuilder formBuilder = this.root.formBuilder.clone();
+    FormControl<TProperty> currentClone =
+        formBuilder.indexer.getFormControlByFormPath<TProperty>(this.formPath);
+    return currentClone;
   }
 
   FormControl<TProperty> clone(FormGroup clonedParent) {

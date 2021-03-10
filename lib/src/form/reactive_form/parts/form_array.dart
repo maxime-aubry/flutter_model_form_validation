@@ -13,16 +13,16 @@ class FormArray extends AbstractControl {
   /* Private properties */
 
   /* Getters */
+  @override
   String get formPath {
-    String part =
-        (this.parent != null) ? '${this.parent.formPath}' : null;
+    String part = (this.parent != null) ? '${this.parent.formPath}' : null;
     part += '.controls[\'${this.name}\']';
     return part;
   }
 
+  @override
   String get modelPath {
-    String part =
-        (this.parent != null) ? '${this.parent.modelPath}' : null;
+    String part = (this.parent != null) ? '${this.parent.modelPath}' : null;
     part += '.${this.name}';
     return part;
   }
@@ -102,6 +102,13 @@ class FormArray extends AbstractControl {
     this.groups.remove(formGroup);
     this.reindexFormArrayItems();
     if (notify) super.notifyListeners();
+  }
+
+  FormArray getClone() {
+    ReactiveFormBuilder formBuilder = this.root.formBuilder.clone();
+    FormArray currentClone =
+        formBuilder.indexer.getFormArrayByFormPath(this.formPath);
+    return currentClone;
   }
 
   FormArray clone(FormGroup clonedParent) {

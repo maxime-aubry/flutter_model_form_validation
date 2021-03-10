@@ -10,14 +10,13 @@ class ReactiveFormBuilder {
   FormGroup group;
   ReactiveFormState formState;
   FormIndexer indexer;
+  bool isMultipleStepsForm;
 
   /* Protected properties */
 
   /* Private properties */
-  // bool _isMultipleStepsForm;
 
   /* Getters */
-  // bool get isMultipleStepsForm => this._isMultipleStepsForm;
 
   /* Setters */
 
@@ -28,7 +27,7 @@ class ReactiveFormBuilder {
   }) {
     this.isInitialized = false;
     this.indexer = new FormIndexer();
-    // this._isMultipleStepsForm = isMultipleStepsForm;
+    this.isMultipleStepsForm = isMultipleStepsForm;
   }
 
   /* Public methods */
@@ -40,7 +39,7 @@ class ReactiveFormBuilder {
     this.formState = formState;
     this.formState.formBuilder = this;
     this.group.initialize('root', null, false, this.formState);
-    // if (this._isMultipleStepsForm) this.checkMultipleStepsForm();
+    if (this.isMultipleStepsForm) this.checkMultipleStepsForm();
     this.isInitialized = true;
   }
 
@@ -52,22 +51,21 @@ class ReactiveFormBuilder {
     return formBuilder;
   }
 
-  /*/// If current form is multiple steps form, check if root level contains only form groups.
+  /// If current form is multiple steps form, check if root level contains only form groups.
   /// If it does not, throw an exception.
   @protected
-  bool isMultipleStepsForm() {
+  void checkMultipleStepsForm() {
     bool result = !this
         .group
         .controls
         .entries
         .toList()
         .any((element) => element.value is! FormGroup);
-    return result;
 
-    if (!isValidMultipleStepsForm)
+    if (!result)
       throw new FormBuilderException(
           'A form with multiple steps must contains form groups only into its root level.');
-  }*/
+  }
 
   /* Protected methods */
 

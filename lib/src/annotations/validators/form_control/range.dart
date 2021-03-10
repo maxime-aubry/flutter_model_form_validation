@@ -233,12 +233,12 @@ class RangeOfString extends Range<String> {
     String remoteMax,
     @required String error,
   }) : super(
-    min: min,
-    max: max,
-    remoteMin: remoteMin,
-    remoteMax: remoteMax,
-    error: error,
-  );
+          min: min,
+          max: max,
+          remoteMin: remoteMin,
+          remoteMax: remoteMax,
+          error: error,
+        );
 
   /* Public methods */
 

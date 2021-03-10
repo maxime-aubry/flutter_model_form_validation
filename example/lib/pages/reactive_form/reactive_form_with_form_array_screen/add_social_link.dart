@@ -18,12 +18,19 @@ class _AddSocialLinkState extends State<AddSocialLink> {
 
   @override
   void initState() {
-    super.initState();
-
     ListItemsProvider.register<ESocialNetwork>(
       'getListOfSocialNetwork',
       () async => socialNetworks,
     );
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    ListItemsProvider.close('getListOfSocialNetwork');
+
+    super.dispose();
   }
 
   @override

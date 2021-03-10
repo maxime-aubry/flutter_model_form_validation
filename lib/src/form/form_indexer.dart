@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter_model_form_validation/src/form/index.dart';
+import 'package:queries/collections.dart';
 
 class FormIndexer extends MapBase<String, AbstractControl> {
   /* Public properties */
@@ -39,47 +40,29 @@ class FormIndexer extends MapBase<String, AbstractControl> {
   void removeControl(AbstractControl control) =>
       this.remove(control.uniqueName);
 
-  /*FormGroup ofFormGroup(String key) {
-    // HashMap
-    if (!this.containsKey(key))
-      throw new Exception(
-          'Cannot get abstract control. Property $key not found.');
+  FormGroup getFormGroupByFormPath(String formPath) =>
+      this._getControlByFormPath<FormGroup>(formPath);
 
-    if (this[key] is! FormGroup)
-      throw new Exception(
-          'Cannot get abstract control named $key with FormGroup type.');
+  FormArray getFormArrayByFormPath(String formPath) =>
+      this._getControlByFormPath<FormArray>(formPath);
 
-    FormGroup formGroup = this[key];
-    return formGroup;
-  }
-
-  FormArray ofFormArray(String key) {
-    if (!this.containsKey(key))
-      throw new Exception(
-          'Cannot get abstract control. Property $key not found.');
-
-    if (this[key] is! FormArray)
-      throw new Exception(
-          'Cannot get abstract control named $key with FormArray type.');
-
-    FormArray formArray = this[key];
-    return formArray;
-  }
-
-  FormControl<TProperty> ofFormControl<TProperty>(String key) {
-    if (!this.containsKey(key))
-      throw new Exception(
-          'Cannot get abstract control. Property $key not found.');
-
-    if (this[key] is! FormControl<TProperty>)
-      throw new Exception(
-          'Cannot get abstract control named $key with FormControl<TProperty> type.');
-
-    FormControl<TProperty> formControl = this[key];
-    return formControl;
-  }*/
+  FormControl<TProperty> getFormControlByFormPath<TProperty>(String formPath) =>
+      this._getControlByFormPath<FormControl<TProperty>>(formPath);
 
   /* Protected methods */
 
   /* Private methods */
+  TAbstractControl
+      _getControlByFormPath<TAbstractControl extends AbstractControl>(
+          String formPath) {
+    TAbstractControl currentClone = Collection(this.values.toList())
+        .where((arg1) => arg1 is TAbstractControl)
+        .select((arg1) => arg1 as TAbstractControl)
+        .where((arg1) => arg1.formPath == formPath)
+        .singleOrDefault();
+
+    if (currentClone == null) throw new Exception('Cannot get current clone.');
+
+    return currentClone;
+  }
 }

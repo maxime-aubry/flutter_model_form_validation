@@ -19,7 +19,7 @@ class ReactiveForm extends SingleChildStatefulWidget {
   })  : this.formState = new ReactiveFormState(),
         super(key: key, child: child) {
     //if (formType == EFormType.mainForm)
-      this.formBuilder.initialize(this.formState);
+    this.formBuilder.initialize(this.formState);
   }
 
   @override

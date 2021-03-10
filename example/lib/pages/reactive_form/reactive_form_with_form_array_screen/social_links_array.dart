@@ -164,7 +164,7 @@ class _ListItemState extends State<ListItem> {
       child: new Container(
         color: Colors.white,
         child: new ListTile(
-          title: new Text(socialNetwork.value.toString()),
+          title: new Text(socialNetwork.value.toString().split('.')[1]),
           subtitle: new Text(url.value),
         ),
       ),

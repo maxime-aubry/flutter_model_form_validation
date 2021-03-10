@@ -24,10 +24,10 @@ class AbstractControl extends ChangeNotifier {
 
   /* Getters */
   String get uniqueName => '${this.hashCode}.${this.name}';
-
   ReactiveFormBuilder get formBuilder => this.formState.formBuilder;
-
   FormGroup get root => this._getRoot();
+  String get formPath => null;
+  String get modelPath => null;
 
   /* Setters */
 

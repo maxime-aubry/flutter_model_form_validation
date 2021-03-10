@@ -3,7 +3,6 @@ import 'package:flutter_model_form_validation/src/annotations/index.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
-import 'package:queries/collections.dart';
 
 class FormGroup extends AbstractControl {
   /* Public properties */
@@ -15,9 +14,9 @@ class FormGroup extends AbstractControl {
   /* Private properties */
 
   /* Getters */
+  @override
   String get formPath {
-    String part =
-        (this.parent != null) ? '${this.parent.formPath}' : 'root';
+    String part = (this.parent != null) ? '${this.parent.formPath}' : 'root';
 
     if (this.parent != null) {
       String key = this.name.split('[')[0];
@@ -33,13 +32,12 @@ class FormGroup extends AbstractControl {
     return part;
   }
 
+  @override
   String get modelPath {
-    String part =
-        (this.parent != null) ? '${this.parent.modelPath}' : 'root';
+    String part = (this.parent != null) ? '${this.parent.modelPath}' : 'root';
 
     if (this.parent != null) {
-      if (this.isArrayItem &&
-          this.parent.controls[this.name] is FormArray) {
+      if (this.isArrayItem && this.parent.controls[this.name] is FormArray) {
         FormArray formArray = this.parent.controls[this.name] as FormArray;
         int index = formArray.groups.indexOf(this);
         part += '.${this.name}[$index]';
@@ -143,16 +141,8 @@ class FormGroup extends AbstractControl {
 
   FormGroup getClone() {
     ReactiveFormBuilder formBuilder = this.root.formBuilder.clone();
-
-    FormGroup currentClone = Collection(formBuilder.indexer.values.toList())
-      .where((arg1) => arg1 is FormGroup)
-      .select((arg1) => arg1 as FormGroup)
-      .where((arg1) => arg1.formPath == this.formPath)
-      .singleOrDefault();
-    
-    if (currentClone == null)
-      throw new FormBuilderException('Cannot get current clone.');
-
+    FormGroup currentClone =
+        formBuilder.indexer.getFormGroupByFormPath(this.formPath);
     return currentClone;
   }
 
