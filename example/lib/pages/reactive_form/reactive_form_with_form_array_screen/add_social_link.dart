@@ -98,7 +98,7 @@ class _AddSocialLinkState extends State<AddSocialLink> {
     FormArray socialLinks,
     FormGroup model,
   ) async {
-    socialLinks.addGroup(model);
+    await socialLinks.addGroup(model);
     Navigator.of(context).pop();
   }
 

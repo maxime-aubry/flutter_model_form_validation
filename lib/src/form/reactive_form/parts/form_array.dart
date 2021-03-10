@@ -73,7 +73,7 @@ class FormArray extends AbstractControl {
   void addGroup(
     FormGroup formGroup, {
     bool notify = true,
-  }) {
+  }) async {
     if (formGroup == null)
       throw new FormBuilderException(
           'Cannot add FormGroup if this one is null.');
@@ -85,13 +85,14 @@ class FormArray extends AbstractControl {
     FormGroup item = formGroup.clone(null);
     this.groups.add(item);
     this._initializeItem(item);
+    await this.validate();
     if (notify) super.notifyListeners();
   }
 
   void removeGroup(
     FormGroup formGroup, {
     bool notify = true,
-  }) {
+  }) async {
     if (formGroup == null)
       throw new FormBuilderException(
           'Cannot add FormGroup if this one is null.');
@@ -103,6 +104,7 @@ class FormArray extends AbstractControl {
     this._deindexItem(formGroup);
     this.groups.remove(formGroup);
     this.reindexFormArrayItems();
+    await this.validate();
     if (notify) super.notifyListeners();
   }
 

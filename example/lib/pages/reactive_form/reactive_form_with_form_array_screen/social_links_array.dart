@@ -128,10 +128,10 @@ class _SocialLinksArrayState extends State<SocialLinksArray> {
               ),
               TextButton(
                 child: Text('Ok'),
-                onPressed: () {
+                onPressed: () async {
                   FormArray socialLinks = context.readFormArray();
                   FormGroup socialLink = context.readFormGroup();
-                  socialLinks.removeGroup(socialLink);
+                  await socialLinks.removeGroup(socialLink);
                   Navigator.of(context).pop(true);
                 },
               ),
