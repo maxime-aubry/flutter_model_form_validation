@@ -47,11 +47,11 @@ class _SocialLinksArrayState extends State<SocialLinksArray> {
 
   Widget _getSlidableWithLists(BuildContext context, int index) {
     FormGroup socialLink = context.readFormGroup();
-    FormControl<ESocialNetwork> socialNetwork =
-        socialLink.getFormControl<ESocialNetwork>('social_network');
+    ESocialNetwork socialNetwork =
+        socialLink.getFormControl<ESocialNetwork>('social_network').value;
 
     return Slidable(
-      key: Key(socialNetwork.value.toString()),
+      key: Key(socialNetwork.toString()),
       direction: Axis.horizontal,
       actionPane: _getActionPane(index),
       actionExtentRatio: 0.25,
@@ -152,9 +152,9 @@ class _ListItemState extends State<ListItem> {
   @override
   Widget build(BuildContext context) {
     FormGroup socialLink = context.readFormGroup();
-    FormControl<ESocialNetwork> socialNetwork =
-        socialLink.controls['social_network'] as FormControl<ESocialNetwork>;
-    FormControl<String> url = socialLink.controls['url'] as FormControl<String>;
+    ESocialNetwork socialNetwork =
+        socialLink.getFormControl<ESocialNetwork>('social_network').value;
+    String url = socialLink.getFormControl<String>('url').value;
 
     return new GestureDetector(
       onTap: () =>
@@ -164,8 +164,8 @@ class _ListItemState extends State<ListItem> {
       child: new Container(
         color: Colors.white,
         child: new ListTile(
-          title: new Text(socialNetwork.value.toString().split('.')[1]),
-          subtitle: new Text(url.value),
+          title: new Text(socialNetwork.toString().split('.')[1]),
+          subtitle: new Text(url),
         ),
       ),
     );
