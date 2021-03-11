@@ -21,6 +21,8 @@ class _ReactiveFormWithFormArrayScreenState
 
   @override
   void initState() {
+    ListItemsProvider.clear();
+
     ListItemsProvider.register<EGender>(
       'getListOfGenders',
       () async => [

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
-import 'package:queries/collections.dart';
 import 'package:smart_select/smart_select.dart';
 
 class CustomMultiDropdown<TProperty> extends StatefulWidget {
@@ -41,8 +40,8 @@ class _CustomDropdownState<TProperty>
 
   @override
   Widget build(BuildContext context) =>
-      new FormControlProvider<List<TProperty>>(
-        create: (_) => widget.formControl,
+      new FormControlProvider<List<TProperty>>.value(
+        value: widget.formControl,
         builder: (context, _) {
           FormControl<List<TProperty>> watchedFormControl =
               context.watchFormControl<List<TProperty>>();

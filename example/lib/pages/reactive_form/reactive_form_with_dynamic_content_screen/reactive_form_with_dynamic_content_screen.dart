@@ -20,6 +20,8 @@ class _ReactiveFormWithDynamicContentState
 
   @override
   void initState() {
+    ListItemsProvider.clear();
+
     ListItemsProvider.register<EGender>(
       'getListOfGenders',
       () async => [

@@ -39,8 +39,9 @@ class _CustomDropdownState<TProperty>
   }
 
   @override
-  Widget build(BuildContext context) => new FormControlProvider<TProperty>(
-        create: (_) => widget.formControl,
+  Widget build(BuildContext context) =>
+      new FormControlProvider<TProperty>.value(
+        value: widget.formControl,
         builder: (context, _) {
           FormControl<TProperty> watchedFormControl =
               context.watchFormControl<TProperty>();

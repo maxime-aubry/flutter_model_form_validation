@@ -19,6 +19,8 @@ class _ReactiveFormScreenState extends State<ReactiveFormScreen> {
 
   @override
   void initState() {
+    ListItemsProvider.clear();
+
     ListItemsProvider.register<EGender>(
       'getListOfGenders',
       () async => [

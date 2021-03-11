@@ -17,8 +17,8 @@ class CustomSwitchInput extends StatefulWidget {
 
 class _CustomSwitchState extends State<CustomSwitchInput> {
   @override
-  Widget build(BuildContext context) => new FormControlProvider<bool>(
-        create: (_) => widget.formControl,
+  Widget build(BuildContext context) => new FormControlProvider<bool>.value(
+        value: widget.formControl,
         builder: (BuildContext context, Widget child) => new Row(
           children: [
             Expanded(
