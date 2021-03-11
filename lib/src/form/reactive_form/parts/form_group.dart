@@ -83,10 +83,10 @@ class FormGroup extends AbstractControl {
     super.isInitialized = true;
   }
 
-  /// [forceToReinitialize] forces FormGroup to initialize all controls.
+  /*/// [forceToReinitialize] forces FormGroup to initialize all controls.
   /// Let use this function after adding a new FormGroup, FormArray or a FormControl.
   /// All descendants will be automatically initialized.
-  void forceToReinitialize() => this._initializeControls();
+  void forceToReinitialize() => this._initializeControls();*/
 
   @override
   void deindex() {
@@ -119,6 +119,7 @@ class FormGroup extends AbstractControl {
           'Cannot add control if this one is already added.');
 
     this.controls[name] = control;
+    this._initializeControl(name, control);
     super.notifyListeners();
   }
 

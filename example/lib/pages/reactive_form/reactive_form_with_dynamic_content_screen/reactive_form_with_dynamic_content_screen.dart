@@ -207,7 +207,6 @@ class _AddressFormGroupState extends State<_AddressFormGroup> {
           validators: [Required(error: 'country is required')],
         ),
       );
-      address.forceToReinitialize();
     }
   }
 
