@@ -147,9 +147,9 @@ class _AddressFormGroupState extends State<_AddressFormGroup> {
     FormGroup root = context.watchFormGroup();
 
     return new FormControlProvider<bool>(
-      create: (_) => root.controls['share_address'],
+      create: (_) => root.getFormControl<bool>('share_address'),
       builder: (context, __) {
-        FormGroup addressFormGroup = root.controls['address'] as FormGroup;
+        FormGroup addressFormGroup = root.getFormGroup('address');
         FormControl<bool> share_address = context.watchFormControl<bool>();
 
         if (share_address.value) {
@@ -157,9 +157,15 @@ class _AddressFormGroupState extends State<_AddressFormGroup> {
 
           return new Column(
             children: [
-              this._streetInput(addressFormGroup.controls['street']),
-              this._zipcodeInput(addressFormGroup.controls['zipcode']),
-              this._countryInput(addressFormGroup.controls['country']),
+              this._streetInput(
+                addressFormGroup.getFormControl<String>('street'),
+              ),
+              this._zipcodeInput(
+                addressFormGroup.getFormControl<String>('zipcode'),
+              ),
+              this._countryInput(
+                addressFormGroup.getFormControl<String>('country'),
+              ),
             ],
           );
         }
