@@ -14,8 +14,8 @@ class _SocialLinksArrayState extends State<SocialLinksArray> {
   Widget build(BuildContext context) {
     FormGroup root = context.readFormGroup();
 
-    return new FormArrayProvider(
-      create: (context) => root.getFormArray('social_links'),
+    return new FormArrayProvider.value(
+      value: root.getFormArray('social_links'),
       builder: (context, _) {
         FormArray formArray = context.watchFormArray();
 
@@ -29,10 +29,12 @@ class _SocialLinksArrayState extends State<SocialLinksArray> {
                 FormGroup socialLink = formArray.groups[index];
                 int itemIndex = formArray.groups.indexOf(socialLink);
 
-                return new FormGroupProvider(
-                  create: (context) => socialLink,
-                  builder: (context, __) =>
-                      this._getSlidableWithLists(context, itemIndex),
+                return new FormGroupProvider.value(
+                  value: socialLink,
+                  builder: (context, __) => this._getSlidableWithLists(
+                    context,
+                    itemIndex,
+                  ),
                 );
               },
             ),
@@ -114,8 +116,6 @@ class _SocialLinksArrayState extends State<SocialLinksArray> {
       builder: (_) {
         return FormProvider(
           providers: [
-            //new FormGroupProvider(create: (_) => socialLink),
-            //new FormArrayProvider(create: (_) => socialLinks),
             new FormGroupProvider.value(value: socialLink),
             new FormArrayProvider.value(value: socialLinks),
           ],

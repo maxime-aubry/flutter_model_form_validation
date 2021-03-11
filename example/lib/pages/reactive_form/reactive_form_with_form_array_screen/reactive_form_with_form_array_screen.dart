@@ -97,8 +97,8 @@ class _ReactiveFormWithFormArrayScreenState
                       label: Text('Add'),
                     ),
                   ),
-                  new FormArrayProvider(
-                    create: (_) => root.getFormArray('social_links'),
+                  new FormArrayProvider.value(
+                    value: root.getFormArray('social_links'),
                     builder: (context, __) {
                       FormArray socialLinks = context.watchFormArray();
 
