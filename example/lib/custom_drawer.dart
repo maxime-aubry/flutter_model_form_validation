@@ -2,17 +2,20 @@ import 'package:example/routes.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawer extends StatelessWidget {
-  Widget createDrawerBodyItem(
-      {IconData icon, String text, GestureTapCallback onTap}) {
+  Widget createDrawerBodyItem({
+    String text,
+    GestureTapCallback onTap,
+  }) {
     return ListTile(
-      title: Row(
-        children: <Widget>[
-          Icon(icon),
-          Padding(
-            padding: EdgeInsets.only(left: 8.0),
-            child: Text(text),
-          )
-        ],
+      title: Padding(
+        padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
+        child: Text(
+          text,
+          style: new TextStyle(
+            fontSize: onTap == null ? 12 : 14,
+            color: onTap == null ? Colors.grey : Colors.black,
+          ),
+        ),
       ),
       onTap: onTap,
     );
@@ -51,6 +54,67 @@ class CustomDrawer extends StatelessWidget {
             onTap: () => Navigator.pushReplacementNamed(
               context,
               pageRoutes.reactiveMultipleStepsForm,
+            ),
+          ),
+          new Divider(),
+          createDrawerBodyItem(
+            text: 'Inputs :',
+            onTap: null,
+          ),
+          createDrawerBodyItem(
+            text: 'DateTime',
+            onTap: () => Navigator.pushReplacementNamed(
+              context,
+              null,
+            ),
+          ),
+          createDrawerBodyItem(
+            text: 'Number (double, int, num)',
+            onTap: () => Navigator.pushReplacementNamed(
+              context,
+              null,
+            ),
+          ),
+          createDrawerBodyItem(
+            text: 'Text',
+            onTap: () => Navigator.pushReplacementNamed(
+              context,
+              null,
+            ),
+          ),
+          createDrawerBodyItem(
+            text: 'Password',
+            onTap: () => Navigator.pushReplacementNamed(
+              context,
+              null,
+            ),
+          ),
+          createDrawerBodyItem(
+            text: 'File (image for example)',
+            onTap: () => Navigator.pushReplacementNamed(
+              context,
+              null,
+            ),
+          ),
+          createDrawerBodyItem(
+            text: 'Dropdown',
+            onTap: () => Navigator.pushReplacementNamed(
+              context,
+              null,
+            ),
+          ),
+          createDrawerBodyItem(
+            text: 'Radio button',
+            onTap: () => Navigator.pushReplacementNamed(
+              context,
+              null,
+            ),
+          ),
+          createDrawerBodyItem(
+            text: 'Checkboxes',
+            onTap: () => Navigator.pushReplacementNamed(
+              context,
+              null,
             ),
           ),
         ],
