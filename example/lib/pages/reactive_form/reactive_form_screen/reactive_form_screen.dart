@@ -53,20 +53,19 @@ class _ReactiveFormScreenState extends State<ReactiveFormScreen> {
     return ReactiveForm(
       formBuilder: this._getFormBuilder(),
       builder: (context, _) {
+        FormGroup root = context.watchFormGroup();
+
         return new Scaffold(
           appBar: new AppBar(title: Text("Reactive form")),
           drawer: new CustomDrawer(),
           body: new Padding(
             padding: EdgeInsets.all(5.0),
-            child: new FormGroupConsumer(
-              builder: (_, root, __) => new Column(
-                children: [
-                  this._firstnameInput(
-                      root.getFormControl<String>('firstname')),
-                  this._lastnameInput(root.getFormControl<String>('lastname')),
-                  this._genderInput(root.getFormControl<EGender>('gender')),
-                ],
-              ),
+            child: new Column(
+              children: [
+                this._firstnameInput(root.getFormControl<String>('firstname')),
+                this._lastnameInput(root.getFormControl<String>('lastname')),
+                this._genderInput(root.getFormControl<EGender>('gender')),
+              ],
             ),
           ),
           floatingActionButton: new FloatingActionButton(

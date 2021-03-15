@@ -37,19 +37,19 @@ class _AddSocialLinkState extends State<AddSocialLink> {
     return ReactiveForm(
       formBuilder: this._getFormBuilder(),
       builder: (context, _) {
+        FormGroup root = context.watchFormGroup();
+
         return new Scaffold(
           appBar: new AppBar(title: Text("Add social link")),
           body: new Padding(
             padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-            child: new FormGroupConsumer(
-              builder: (_, root, __) => new Column(
-                children: [
-                  this._socialNetworkInput(
-                    root.getFormControl<ESocialNetwork>('social_network'),
-                  ),
-                  this._urlInput(root.getFormControl<String>('url')),
-                ],
-              ),
+            child: new Column(
+              children: [
+                this._socialNetworkInput(
+                  root.getFormControl<ESocialNetwork>('social_network'),
+                ),
+                this._urlInput(root.getFormControl<String>('url')),
+              ],
             ),
           ),
           floatingActionButton: new FloatingActionButton(

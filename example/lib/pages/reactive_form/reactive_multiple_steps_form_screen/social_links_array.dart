@@ -1,3 +1,4 @@
+import 'package:example/pages/reactive_form/reactive_multiple_steps_form_screen/add_social_link.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
@@ -13,7 +14,28 @@ class _SocialLinksArrayState extends State<SocialLinksArray> {
       step: 'social_links',
       formBuilder: this._getFormBuilder(),
       builder: (context, _) {
-        return Container();
+        FormGroup root = context.watchFormGroup();
+
+        return new SingleChildScrollView(
+          child: new Padding(
+            padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+            child: new Column(
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton.icon(
+                    onPressed: () => this._goToAddPage(
+                      root.getFormArray('social_links'),
+                    ),
+                    style: ButtonStyle(),
+                    icon: Icon(Icons.add),
+                    label: Text('Add'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
       },
     );
   }
@@ -33,6 +55,18 @@ class _SocialLinksArrayState extends State<SocialLinksArray> {
             ),
           },
           validators: [],
+        ),
+      );
+
+  void _goToAddPage(FormArray socialLinks) => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => FormProvider(
+            providers: [
+              new FormArrayProvider.value(value: socialLinks),
+            ],
+            child: new AddSocialLink(),
+          ),
         ),
       );
 }

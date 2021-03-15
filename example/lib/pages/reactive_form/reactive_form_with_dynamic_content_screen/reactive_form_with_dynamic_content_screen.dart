@@ -55,24 +55,23 @@ class _ReactiveFormWithDynamicContentState
     return ReactiveForm(
       formBuilder: this._getFormBuilder(),
       builder: (context, _) {
+        FormGroup root = context.watchFormGroup();
+
         return new Scaffold(
           appBar: new AppBar(title: Text("Reactive form with dynamic content")),
           drawer: new CustomDrawer(),
           body: new Padding(
             padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-            child: new FormGroupConsumer(
-              builder: (_, root, __) => new Column(
-                children: [
-                  this._firstnameInput(
-                      root.getFormControl<String>('firstname')),
-                  this._lastnameInput(root.getFormControl<String>('lastname')),
-                  this._genderInput(root.getFormControl<EGender>('gender')),
-                  this._shareAddressInput(
-                    root.getFormControl<bool>('share_address'),
-                  ),
-                  new _AddressFormGroup(),
-                ],
-              ),
+            child: new Column(
+              children: [
+                this._firstnameInput(root.getFormControl<String>('firstname')),
+                this._lastnameInput(root.getFormControl<String>('lastname')),
+                this._genderInput(root.getFormControl<EGender>('gender')),
+                this._shareAddressInput(
+                  root.getFormControl<bool>('share_address'),
+                ),
+                new _AddressFormGroup(),
+              ],
             ),
           ),
           floatingActionButton: new FloatingActionButton(

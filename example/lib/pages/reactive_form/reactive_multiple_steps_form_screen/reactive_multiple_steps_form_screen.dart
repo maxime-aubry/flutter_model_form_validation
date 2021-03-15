@@ -1,4 +1,5 @@
 import 'package:example/custom_drawer.dart';
+import 'package:example/models.dart';
 import 'package:example/pages/reactive_form/reactive_multiple_steps_form_screen/profile.dart';
 import 'package:example/pages/reactive_form/reactive_multiple_steps_form_screen/social_links_array.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class ReactiveMultipleStepsFormScreen extends StatefulWidget {
 
 class _ReactiveMultipleStepsFormScreenState
     extends State<ReactiveMultipleStepsFormScreen> {
-  /*@override
+  @override
   void initState() {
     ListItemsProvider.clear();
 
@@ -36,28 +37,16 @@ class _ReactiveMultipleStepsFormScreenState
       ],
     );
 
-    this.steps = [
-      new Step(
-        title: const Text('Profile'),
-        isActive: true,
-        state: StepState.editing,
-        content: new Profile(),
-      ),
-      new Step(
-        title: const Text('Social links'),
-        isActive: true,
-        state: StepState.disabled,
-        content: new SocialLinksArray(),
-      ),
-    ];
-
     super.initState();
   }
 
   @override
   void dispose() {
+    ListItemsProvider.close('getListOfGenders');
+    ListItemsProvider.close('getListOfSocialNetwork');
+
     super.dispose();
-  }*/
+  }
 
   List<Step> steps = [
     new Step(
@@ -73,6 +62,7 @@ class _ReactiveMultipleStepsFormScreenState
       content: new SocialLinksArray(),
     ),
   ];
+
   int currentStep = 0;
   bool complete = false;
 
@@ -105,8 +95,11 @@ class _ReactiveMultipleStepsFormScreenState
             steps: this.steps,
             currentStep: currentStep,
             onStepContinue: () async {
-              ReactiveFormState formState =
-                  context.readFormState(step: 'profile');
+              List<String> stepNames =
+                  context.readMultipleStepFormStateIndexer().keys.toList();
+              ReactiveFormState formState = context.readFormState(
+                step: stepNames[currentStep],
+              );
               if (await formState.validate()) {
                 // Data treatment and post to server here...
                 next();
