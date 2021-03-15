@@ -25,9 +25,10 @@ class AbstractControl extends ChangeNotifier {
   /* Getters */
   String get uniqueName => '${this.hashCode}.${this.name}';
   ReactiveFormBuilder get formBuilder => this.formState.formBuilder;
-  FormGroup get root => this._getRoot();
+  FormGroup get root => this._searchRoot();
   String get formPath => null;
   String get modelPath => null;
+  //String get step => this._searchStep()?.name;
 
   /* Setters */
 
@@ -103,16 +104,37 @@ class AbstractControl extends ChangeNotifier {
   }
 
   /* Private methods */
-  FormGroup _getRoot() {
+  bool _isRoot() =>
+      (this is FormGroup && this.parent == null && this.name == 'root');
+
+  FormGroup _searchRoot() {
     // if current control is root, return it.
-    if (this is FormGroup && this.parent == null && this.name == 'root')
-      return this;
+    if (this._isRoot()) return this;
 
     // if it's not root but there is not parent.
     if (this.parent == null)
       throw new FormBuilderException(
           'Current ${this.runtimeType} has no parent.');
 
-    return this.parent._getRoot();
+    return this.parent._searchRoot();
   }
+
+  /*FormGroup _searchStep() {
+    // if current form has no multiple steps, return null.
+    if (!this.formBuilder.isMultipleStepsForm) return null;
+
+    // if current control is root, return null.
+    // root FormGroup cannot be a step.
+    if (this._isRoot()) return null;
+
+    // if it's not root but there is not parent.
+    if (this.parent == null)
+      throw new FormBuilderException(
+          'Current ${this.runtimeType} has no parent.');
+
+    // if current control's parent is root, so current control is a step.
+    if (this.parent._isRoot()) return this;
+
+    return this.parent._searchStep();
+  }*/
 }

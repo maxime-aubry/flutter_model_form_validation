@@ -54,19 +54,24 @@ class ReactiveFormState {
   }
 
   Future<bool> validate() async {
-    for (MapEntry<String, AbstractControl> control
-        in this.formBuilder.group.controls.entries) {
-      if (control.value is FormGroup)
-        await this._validateFormGroup(control.value);
-      if (control.value is FormArray)
-        await this._validateFormArray(control.value);
-      if (control.value is FormControl)
-        await this._validateFormControl(control.value);
+    //#region locales methods
+    void validate() async {
+      for (MapEntry<String, AbstractControl> control
+          in this.formBuilder.group.controls.entries) {
+        if (control.value is FormGroup)
+          await this._validateFormGroup(control.value);
+        if (control.value is FormArray)
+          await this._validateFormArray(control.value);
+        if (control.value is FormControl)
+          await this._validateFormControl(control.value);
+      }
+      this._formKey.currentState.validate();
     }
+    //#endregion
 
-    this._formKey.currentState.validate();
-
-    return this.status == EFormStatus.valid;
+    await validate();
+    bool isValid = this.status == EFormStatus.valid;
+    return isValid;
   }
 
   EAbstractControlStatus getStatus(String name) {
@@ -96,6 +101,32 @@ class ReactiveFormState {
   /* Proptected methods */
 
   /* Private methods */
+  /*Future<bool> _validateFormStep(String step) async {
+    //#region locales methods
+    void checkStepName() {
+      if (step.isEmpty)
+        throw new FormBuilderException('Step name cannot be an empty string.');
+    }
+
+    void validate() async {
+      FormGroup currentStep = this.formBuilder.group.getFormGroup(step);
+      await this._validateFormGroup(currentStep);
+      this._formKeys[step].currentState.validate();
+    }
+
+    bool hasInvalidStepFields() =>
+        Collection(this.formBuilder.indexer.values.toList())
+            .where((arg1) => arg1.step == step)
+            .where((arg1) => arg1.status == EAbstractControlStatus.invalid)
+            .any();
+    //#endregion
+
+    checkStepName();
+    await validate();
+    bool isValid = !hasInvalidStepFields();
+    return isValid;
+  }*/
+
   Future _validateFormGroup(FormGroup formGroup) async {
     if (formGroup.isArrayItem) await formGroup.validate();
 

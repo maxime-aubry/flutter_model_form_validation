@@ -1,18 +1,24 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
-import 'package:flutter_model_form_validation/src/form/provider/index.dart';
+import 'package:flutter_model_form_validation/src/form/providers/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 import 'package:provider/single_child_widget.dart';
 
 class ReactiveForm extends SingleChildStatefulWidget {
   final ReactiveFormBuilder formBuilder;
   final ReactiveFormState formState;
+  final String step;
+  final TransitionBuilder builder;
 
   ReactiveForm({
     Key key,
-    @required Widget child,
+    Widget child,
+    TransitionBuilder builder,
     @required this.formBuilder,
+    String step,
   })  : this.formState = new ReactiveFormState(),
+        this.step = step,
+        this.builder = builder,
         super(key: key, child: child) {
     this.formBuilder.initialize(this.formState);
   }
@@ -32,18 +38,31 @@ class _ReactiveFormState extends SingleChildState<ReactiveForm> {
 
   @override
   Widget buildWithChild(BuildContext context, Widget child) {
+    this._registerStepFormState();
+
     return Form(
       key: this._formKey,
       autovalidateMode: AutovalidateMode.always,
       child: FormProvider(
         providers: [
-          //new FormStateProvider(create: (_) => widget.formState),
-          //new FormGroupProvider(create: (_) => widget.formBuilder.group),
           new FormStateProvider.value(value: widget.formState),
           new FormGroupProvider.value(value: widget.formBuilder.group),
         ],
+        builder: widget.builder,
         child: child,
       ),
     );
+  }
+
+  void _registerStepFormState() {
+    try {
+      if (widget.step != null) {
+        MultipleStepFormStateIndexer indexer =
+            context.readMultipleStepFormStateIndexer();
+        indexer.addFormState(widget.step, widget.formState);
+      }
+    } catch (e) {
+      throw new Exception('Cannot register FormState of this step.');
+    }
   }
 }

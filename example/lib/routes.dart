@@ -7,4 +7,6 @@ class pageRoutes {
       ReactiveFormWithDynamicContentScreen.routeName;
   static const String reactiveFormWithFormArray =
       ReactiveFormWithFormArrayScreen.routeName;
+  static const String reactiveMultipleStepsForm =
+      ReactiveMultipleStepsFormScreen.routeName;
 }

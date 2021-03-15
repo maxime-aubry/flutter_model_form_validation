@@ -1,6 +1,7 @@
 import 'package:example/custom_drawer.dart';
 import 'package:example/models.dart';
-import 'package:example/pages/index.dart';
+import 'package:example/pages/reactive_form/reactive_form_with_form_array_screen/add_social_link.dart';
+import 'package:example/pages/reactive_form/reactive_form_with_form_array_screen/social_links_array.dart';
 import 'package:example/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
@@ -66,75 +67,77 @@ class _ReactiveFormWithFormArrayScreenState
   Widget build(BuildContext context) {
     return ReactiveForm(
       formBuilder: this._getFormBuilder(),
-      child: new Scaffold(
-        appBar: new AppBar(title: Text("Reactive form with FormArray")),
-        drawer: new CustomDrawer(),
-        body: new SingleChildScrollView(
-          child: new Padding(
-            padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-            child: new FormGroupConsumer(
-              builder: (_, root, __) => new Column(
-                children: [
-                  this._firstnameInput(
-                    root.getFormControl<String>('firstname'),
-                  ),
-                  this._lastnameInput(root.getFormControl<String>('lastname')),
-                  this._genderInput(root.getFormControl<EGender>('gender')),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: new Padding(
-                      padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                      child: const Text(
-                        'Social links',
-                        style: TextStyle(fontSize: 20),
+      builder: (context, _) {
+        return new Scaffold(
+          appBar: new AppBar(title: Text("Reactive form with FormArray")),
+          drawer: new CustomDrawer(),
+          body: new SingleChildScrollView(
+            child: new Padding(
+              padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+              child: new FormGroupConsumer(
+                builder: (_, root, __) => new Column(
+                  children: [
+                    this._firstnameInput(
+                      root.getFormControl<String>('firstname'),
+                    ),
+                    this._lastnameInput(
+                        root.getFormControl<String>('lastname')),
+                    this._genderInput(root.getFormControl<EGender>('gender')),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: new Padding(
+                        padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        child: const Text(
+                          'Social links',
+                          style: TextStyle(fontSize: 20),
+                        ),
                       ),
                     ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: TextButton.icon(
-                      onPressed: () => this._goToPage(root),
-                      style: ButtonStyle(),
-                      icon: Icon(Icons.add),
-                      label: Text('Add'),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: TextButton.icon(
+                        onPressed: () => this._goToAddPage(
+                          root.getFormArray('social_links'),
+                        ),
+                        style: ButtonStyle(),
+                        icon: Icon(Icons.add),
+                        label: Text('Add'),
+                      ),
                     ),
-                  ),
-                  new FormArrayProvider.value(
-                    value: root.getFormArray('social_links'),
-                    builder: (context, __) {
-                      FormArray socialLinks = context.watchFormArray();
+                    new FormArrayProvider.value(
+                      value: root.getFormArray('social_links'),
+                      builder: (context, __) {
+                        FormArray socialLinks = context.watchFormArray();
 
-                      if (socialLinks.status ==
-                          EAbstractControlStatus.invalid) {
-                        return Align(
-                          alignment: Alignment.centerLeft,
-                          child: this._getErrorText(socialLinks.error?.message),
-                        );
-                      }
+                        if (socialLinks.status ==
+                            EAbstractControlStatus.invalid) {
+                          return Align(
+                            alignment: Alignment.centerLeft,
+                            child:
+                                this._getErrorText(socialLinks.error?.message),
+                          );
+                        }
 
-                      return new Container();
-                    },
-                  ),
-                  new SocialLinksArray(),
-                ],
+                        return new Container();
+                      },
+                    ),
+                    new SocialLinksArray(),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        floatingActionButton: new FormStateConsumer(
-          builder: (_, formState, __) => new FloatingActionButton(
+          floatingActionButton: new FloatingActionButton(
             child: Icon(Icons.done),
             onPressed: () async {
+              ReactiveFormState formState = context.readFormState();
               if (await formState.validate()) {
-                print('ok');
                 // Data treatment and post to server here...
-              } else {
-                print('pas ok');
               }
             },
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -202,19 +205,15 @@ class _ReactiveFormWithFormArrayScreenState
     );
   }
 
-  void _goToPage(FormGroup root) {
-    FormArray socialLinks = root.getFormArray('social_links');
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => FormProvider(
-          providers: [
-            new FormArrayProvider.value(value: socialLinks),
-          ],
-          child: new AddSocialLink(),
+  void _goToAddPage(FormArray socialLinks) => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => FormProvider(
+            providers: [
+              new FormArrayProvider.value(value: socialLinks),
+            ],
+            child: new AddSocialLink(),
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

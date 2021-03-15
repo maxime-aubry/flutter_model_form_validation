@@ -1,5 +1,4 @@
 import 'package:example/models.reflectable.dart';
-import 'package:example/pages/home.dart';
 import 'package:example/pages/index.dart';
 import 'package:example/routes.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +27,8 @@ class MyApp extends StatelessWidget {
             ReactiveFormWithDynamicContentScreen(),
         pageRoutes.reactiveFormWithFormArray: (context) =>
             ReactiveFormWithFormArrayScreen(),
+        pageRoutes.reactiveMultipleStepsForm: (context) =>
+            ReactiveMultipleStepsFormScreen(),
       },
     );
   }

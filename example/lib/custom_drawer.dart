@@ -46,6 +46,13 @@ class CustomDrawer extends StatelessWidget {
               pageRoutes.reactiveFormWithFormArray,
             ),
           ),
+          createDrawerBodyItem(
+            text: 'Reactive multiple steps form',
+            onTap: () => Navigator.pushReplacementNamed(
+              context,
+              pageRoutes.reactiveMultipleStepsForm,
+            ),
+          ),
         ],
       ),
     );

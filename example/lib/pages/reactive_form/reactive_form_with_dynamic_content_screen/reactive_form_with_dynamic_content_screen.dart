@@ -54,36 +54,38 @@ class _ReactiveFormWithDynamicContentState
   Widget build(BuildContext context) {
     return ReactiveForm(
       formBuilder: this._getFormBuilder(),
-      child: new Scaffold(
-        appBar: new AppBar(title: Text("Reactive form with dynamic content")),
-        drawer: new CustomDrawer(),
-        body: new Padding(
-          padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-          child: new FormGroupConsumer(
-            builder: (_, root, __) => new Column(
-              children: [
-                this._firstnameInput(root.getFormControl<String>('firstname')),
-                this._lastnameInput(root.getFormControl<String>('lastname')),
-                this._genderInput(root.getFormControl<EGender>('gender')),
-                this._shareAddressInput(
-                  root.getFormControl<bool>('share_address'),
-                ),
-                new _AddressFormGroup(),
-              ],
+      builder: (context, _) {
+        return new Scaffold(
+          appBar: new AppBar(title: Text("Reactive form with dynamic content")),
+          drawer: new CustomDrawer(),
+          body: new Padding(
+            padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+            child: new FormGroupConsumer(
+              builder: (_, root, __) => new Column(
+                children: [
+                  this._firstnameInput(
+                      root.getFormControl<String>('firstname')),
+                  this._lastnameInput(root.getFormControl<String>('lastname')),
+                  this._genderInput(root.getFormControl<EGender>('gender')),
+                  this._shareAddressInput(
+                    root.getFormControl<bool>('share_address'),
+                  ),
+                  new _AddressFormGroup(),
+                ],
+              ),
             ),
           ),
-        ),
-        floatingActionButton: new FormStateConsumer(
-          builder: (_, formState, __) => new FloatingActionButton(
+          floatingActionButton: new FloatingActionButton(
             child: Icon(Icons.done),
             onPressed: () async {
+              ReactiveFormState formState = context.readFormState();
               if (await formState.validate()) {
                 // Data treatment and post to server here...
               }
             },
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 

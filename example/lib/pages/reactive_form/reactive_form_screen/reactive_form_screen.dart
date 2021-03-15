@@ -1,11 +1,10 @@
+import 'package:example/custom_drawer.dart';
 import 'package:example/models.dart';
 import 'package:example/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:queries/collections.dart';
 import 'package:smart_select/smart_select.dart';
-
-import '../../../custom_drawer.dart';
 
 class ReactiveFormScreen extends StatefulWidget {
   static const String routeName = '/reactiveForm';
@@ -53,32 +52,34 @@ class _ReactiveFormScreenState extends State<ReactiveFormScreen> {
   Widget build(BuildContext context) {
     return ReactiveForm(
       formBuilder: this._getFormBuilder(),
-      child: new Scaffold(
-        appBar: new AppBar(title: Text("Reactive form")),
-        drawer: new CustomDrawer(),
-        body: new Padding(
-          padding: EdgeInsets.all(5.0),
-          child: new FormGroupConsumer(
-            builder: (_, root, __) => new Column(
-              children: [
-                this._firstnameInput(root.getFormControl<String>('firstname')),
-                this._lastnameInput(root.getFormControl<String>('lastname')),
-                this._genderInput(root.getFormControl<EGender>('gender')),
-              ],
+      builder: (context, _) {
+        return new Scaffold(
+          appBar: new AppBar(title: Text("Reactive form")),
+          drawer: new CustomDrawer(),
+          body: new Padding(
+            padding: EdgeInsets.all(5.0),
+            child: new FormGroupConsumer(
+              builder: (_, root, __) => new Column(
+                children: [
+                  this._firstnameInput(
+                      root.getFormControl<String>('firstname')),
+                  this._lastnameInput(root.getFormControl<String>('lastname')),
+                  this._genderInput(root.getFormControl<EGender>('gender')),
+                ],
+              ),
             ),
           ),
-        ),
-        floatingActionButton: new FormStateConsumer(
-          builder: (_, formState, __) => new FloatingActionButton(
+          floatingActionButton: new FloatingActionButton(
             child: Icon(Icons.done),
             onPressed: () async {
+              ReactiveFormState formState = context.readFormState();
               if (await formState.validate()) {
                 // Data treatment and post to server here...
               }
             },
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
