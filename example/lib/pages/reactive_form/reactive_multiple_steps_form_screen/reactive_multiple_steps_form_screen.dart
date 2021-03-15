@@ -37,6 +37,21 @@ class _ReactiveMultipleStepsFormScreenState
       ],
     );
 
+    this.steps = [
+      new Step(
+        title: const Text('Profile'),
+        isActive: true,
+        state: this.getStepState(0),
+        content: new Profile(),
+      ),
+      new Step(
+        title: const Text('Social links'),
+        isActive: true,
+        state: this.getStepState(1),
+        content: new SocialLinksArray(),
+      ),
+    ];
+
     super.initState();
   }
 
@@ -48,39 +63,38 @@ class _ReactiveMultipleStepsFormScreenState
     super.dispose();
   }
 
-  List<Step> steps = [
-    new Step(
-      title: const Text('Profile'),
-      isActive: true,
-      state: StepState.editing,
-      content: new Profile(),
-    ),
-    new Step(
-      title: const Text('Social links'),
-      isActive: true,
-      state: StepState.disabled,
-      content: new SocialLinksArray(),
-    ),
-  ];
-
+  List<Step> steps = [];
   int currentStep = 0;
-  bool complete = false;
 
-  next() {
-    bool isNotLastPage = (currentStep + 1 != steps.length);
-
-    if (isNotLastPage)
-      goTo(currentStep + 1);
-    else
-      setState(() => complete = true);
+  StepState getStepState(int index) {
+    if (index < currentStep) return StepState.complete;
+    if (index == currentStep) return StepState.editing;
+    return StepState.indexed;
   }
 
-  cancel() {
-    if (currentStep > 0) goTo(currentStep - 1);
+  /*StepState getStepState(int index, String step) {
+    if (!indexer.keys.contains(step)) {
+      if (index == currentStep) return StepState.editing;
+      return StepState.indexed;
+    }
+
+    int indexOfStep = indexer.keys.toList().indexOf(step);
+    if (indexOfStep < currentStep) return StepState.complete;
+    if (indexOfStep == currentStep) return StepState.editing;
+    return StepState.indexed;
+  }*/
+
+  void next() {
+    bool isNotLastPage = ((this.currentStep + 1) != this.steps.length);
+    if (isNotLastPage) goTo(this.currentStep + 1);
   }
 
-  goTo(int step) {
-    setState(() => currentStep = step);
+  void cancel() {
+    if (this.currentStep > 0) goTo(this.currentStep - 1);
+  }
+
+  void goTo(int step) {
+    setState(() => this.currentStep = step);
   }
 
   @override
@@ -95,11 +109,13 @@ class _ReactiveMultipleStepsFormScreenState
             steps: this.steps,
             currentStep: currentStep,
             onStepContinue: () async {
-              List<String> stepNames =
+              List<String> stepsNames =
                   context.readMultipleStepFormStateIndexer().keys.toList();
+
               ReactiveFormState formState = context.readFormState(
-                step: stepNames[currentStep],
+                step: stepsNames[currentStep],
               );
+
               if (await formState.validate()) {
                 // Data treatment and post to server here...
                 next();

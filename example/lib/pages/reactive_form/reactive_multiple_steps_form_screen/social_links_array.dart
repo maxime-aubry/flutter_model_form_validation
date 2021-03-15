@@ -1,4 +1,4 @@
-import 'package:example/pages/reactive_form/reactive_multiple_steps_form_screen/add_social_link.dart';
+import 'package:example/pages/reactive_form/common/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
@@ -32,6 +32,7 @@ class _SocialLinksArrayState extends State<SocialLinksArray> {
                     label: Text('Add'),
                   ),
                 ),
+                new SocialLinksSlidable(),
               ],
             ),
           ),

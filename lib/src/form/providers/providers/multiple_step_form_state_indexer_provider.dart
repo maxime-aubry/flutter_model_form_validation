@@ -20,6 +20,18 @@ class MultipleStepFormStateIndexerProvider
   static MultipleStepFormStateIndexer of(BuildContext context,
           {bool listen = true}) =>
       Provider.of<MultipleStepFormStateIndexer>(context, listen: listen);
+
+  MultipleStepFormStateIndexerProvider.value({
+    Key key,
+    @required MultipleStepFormStateIndexer value,
+    TransitionBuilder builder,
+    Widget child,
+  }) : super.value(
+          key: key,
+          value: value,
+          builder: builder,
+          child: child,
+        );
 }
 
 extension MultipleStepFormStateIndexerExtension on BuildContext {

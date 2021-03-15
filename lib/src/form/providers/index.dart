@@ -7,4 +7,4 @@ export './providers/form_control_provider.dart';
 export './providers/form_group_provider.dart';
 export './providers/form_provider.dart';
 export './providers/form_state_provider.dart';
-export './providers/multiple_step_form_state_indexer.dart';
+export 'providers/multiple_step_form_state_indexer_provider.dart';

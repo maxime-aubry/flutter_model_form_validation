@@ -7,8 +7,8 @@ class MultipleStepFormContainer extends SingleChildStatefulWidget {
 
   MultipleStepFormContainer({
     Key key,
-    Widget child,
     @required this.builder,
+    Widget child,
   }) : super(key: key, child: child) {}
 
   @override

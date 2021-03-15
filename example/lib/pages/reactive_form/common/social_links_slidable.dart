@@ -1,15 +1,15 @@
 import 'package:example/models.dart';
-import 'package:example/pages/reactive_form/reactive_form_with_form_array_screen/edit_social_link.dart';
+import 'package:example/pages/reactive_form/common/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class SocialLinksArray extends StatefulWidget {
+class SocialLinksSlidable extends StatefulWidget {
   @override
-  _SocialLinksArrayState createState() => _SocialLinksArrayState();
+  _SocialLinksSlidableState createState() => _SocialLinksSlidableState();
 }
 
-class _SocialLinksArrayState extends State<SocialLinksArray> {
+class _SocialLinksSlidableState extends State<SocialLinksSlidable> {
   @override
   Widget build(BuildContext context) {
     FormGroup root = context.readFormGroup();

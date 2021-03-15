@@ -1,7 +1,6 @@
 import 'package:example/custom_drawer.dart';
 import 'package:example/models.dart';
-import 'package:example/pages/reactive_form/reactive_form_with_form_array_screen/add_social_link.dart';
-import 'package:example/pages/reactive_form/reactive_form_with_form_array_screen/social_links_array.dart';
+import 'package:example/pages/reactive_form/common/index.dart';
 import 'package:example/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
@@ -120,7 +119,7 @@ class _ReactiveFormWithFormArrayScreenState
                       return new Container();
                     },
                   ),
-                  new SocialLinksArray(),
+                  new SocialLinksSlidable(),
                 ],
               ),
             ),
