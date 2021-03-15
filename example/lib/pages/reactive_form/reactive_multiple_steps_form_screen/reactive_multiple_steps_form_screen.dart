@@ -37,21 +37,6 @@ class _ReactiveMultipleStepsFormScreenState
       ],
     );
 
-    this.steps = [
-      new Step(
-        title: const Text('Profile'),
-        isActive: true,
-        state: this.getStepState(0),
-        content: new Profile(),
-      ),
-      new Step(
-        title: const Text('Social links'),
-        isActive: true,
-        state: this.getStepState(1),
-        content: new SocialLinksArray(),
-      ),
-    ];
-
     super.initState();
   }
 
@@ -63,26 +48,19 @@ class _ReactiveMultipleStepsFormScreenState
     super.dispose();
   }
 
-  List<Step> steps = [];
+  List<Step> steps = [
+    new Step(
+      title: const Text('Profile'),
+      isActive: true,
+      content: new Profile(),
+    ),
+    new Step(
+      title: const Text('Social links'),
+      isActive: true,
+      content: new SocialLinksArray(),
+    ),
+  ];
   int currentStep = 0;
-
-  StepState getStepState(int index) {
-    if (index < currentStep) return StepState.complete;
-    if (index == currentStep) return StepState.editing;
-    return StepState.indexed;
-  }
-
-  /*StepState getStepState(int index, String step) {
-    if (!indexer.keys.contains(step)) {
-      if (index == currentStep) return StepState.editing;
-      return StepState.indexed;
-    }
-
-    int indexOfStep = indexer.keys.toList().indexOf(step);
-    if (indexOfStep < currentStep) return StepState.complete;
-    if (indexOfStep == currentStep) return StepState.editing;
-    return StepState.indexed;
-  }*/
 
   void next() {
     bool isNotLastPage = ((this.currentStep + 1) != this.steps.length);
