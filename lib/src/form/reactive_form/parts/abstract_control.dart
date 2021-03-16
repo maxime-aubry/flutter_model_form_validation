@@ -29,7 +29,12 @@ class AbstractControl extends ChangeNotifier {
   String get uniqueName => '${this.hashCode}.${this.name}';
   ReactiveFormBuilder get formBuilder => this.formState.formBuilder;
   FormGroup get root => this._searchRoot();
+  
+  /// [formPath] is an interpretation of the way to find a form element.
   String get formPath => null;
+
+  /// [formPath] is an interpretation of the way to find a form element.
+  /// Here, it simulates a path of a object model.
   String get modelPath => null;
 
   /* Setters */

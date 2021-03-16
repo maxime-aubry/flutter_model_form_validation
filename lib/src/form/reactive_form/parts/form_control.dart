@@ -32,19 +32,6 @@ class FormControl<TProperty> extends AbstractControl
   }
 
   /* Setters */
-  /*@protected
-  void set value(TProperty value) {
-    // does not accept empty string value
-    if (TProperty == String) {
-      String _value = value as String;
-      if (_value.isEmpty)
-        this._value = null;
-      else
-        this._value = value;
-    } else {
-      this._value = value;
-    }
-  }*/
 
   /* Constructors */
   FormControl({
@@ -58,6 +45,12 @@ class FormControl<TProperty> extends AbstractControl
   }
 
   /* Public methods */
+  /// [initialize] initializes current [FormControl].
+  /// This sets :
+  ///   - the [FormGroup] name.
+  ///   - the parent [FormGroup] (except for the root, that's the top level of the form).
+  ///   - the ReactiveFormState.
+  /// This also indexes current [FormGroup] into [FormIndexer] and initialize sub form elements.
   void initialize(
     String name,
     FormGroup parentGroup,
@@ -78,9 +71,12 @@ class FormControl<TProperty> extends AbstractControl
     super.isInitialized = true;
   }
 
+  /// [deindex] removes the current [FormControl] from FormIndexer if you want to remove this [FormControl] from the form.
   @override
   void deindex() => super.deindex();
 
+  /// [setValue] sets the [FormControl] value.
+  /// It's possible to validate it after.
   Future<void> setValue(TProperty value, {bool validate = true}) async {
     // does not accept empty string value
     if (TProperty == String) {
@@ -93,6 +89,7 @@ class FormControl<TProperty> extends AbstractControl
     if (validate) await super.validateControl();
   }
 
+  /// [getClone] make a clone of the full form and returns the current [FormControl].
   FormControl<TProperty> getClone() {
     ReactiveFormBuilder formBuilder = this.root.formBuilder.clone();
     FormControl<TProperty> currentClone =
@@ -100,6 +97,7 @@ class FormControl<TProperty> extends AbstractControl
     return currentClone;
   }
 
+  /// [clone] make a clone of a form element and its sub form elements.
   FormControl<TProperty> clone(FormGroup clonedParent) {
     TProperty newValue = (this._value is List)
         ? ([]..addAll(this._value as List<TProperty>))
@@ -113,6 +111,7 @@ class FormControl<TProperty> extends AbstractControl
     return clone;
   }
 
+  /// [validate] validates the current [FormControl].
   Future<void> validate() async => await super.validateControl();
 
   /* Protected methods */

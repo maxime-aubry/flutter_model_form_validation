@@ -25,7 +25,6 @@ class FormGroup extends AbstractControl {
   /* Private properties */
 
   /* Getters */
-  /// [formPath] is an interpretation of the way to find a form element.
   @override
   String get formPath {
     String part = (this.parent != null) ? '${this.parent.formPath}' : 'root';
@@ -43,9 +42,7 @@ class FormGroup extends AbstractControl {
 
     return part;
   }
-
-  /// [formPath] is an interpretation of the way to find a form element.
-  /// Here, it simulates a path of a object model.
+  
   @override
   String get modelPath {
     String part = (this.parent != null) ? '${this.parent.modelPath}' : 'root';

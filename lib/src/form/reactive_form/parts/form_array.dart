@@ -5,10 +5,15 @@ import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
 /// [FormArray] is a sub-class of [AbstractControl].
+/// 
+/// It's a way to group form elements.
+/// 
+/// [FormArray] can contain [FormGroup] items only.
 /// {@category Form}
 /// {@subCategory Reactive forms}
 class FormArray extends AbstractControl {
   /* Public properties */
+  /// [groups] is a collection of [FormGroup] items.
   List<FormGroup> groups;
 
   /* Protected properties */
@@ -41,6 +46,12 @@ class FormArray extends AbstractControl {
   }
 
   /* Public methods */
+  /// [initialize] initializes current [FormArray].
+  /// This sets :
+  ///   - the [FormArray] name.
+  ///   - the parent [FormGroup] (except for the root, that's the top level of the form).
+  ///   - the ReactiveFormState.
+  /// This also indexes current [FormArray] into [FormIndexer] and initialize sub form elements.
   void initialize(
     String name,
     FormGroup parentGroup,
@@ -62,17 +73,17 @@ class FormArray extends AbstractControl {
     super.isInitialized = true;
   }
 
-  /// [forceToReinitialize] forces FormGroup to initialize all items.
-  /// Let use this function after adding a new item into the groups.
-  /// All descendants will be automatically initialized.
-  void forceToReinitialize() => this._initializeItems();
-
+  /// [deindex] removes the current [FormArray] from FormIndexer if you want to remove this [FormArray] from the form.
   @override
   void deindex() {
     this._deindexItems();
     super.deindex();
   }
 
+  /// [addGroup] adds a [FormGroup] item to the collection into this [FormArray].
+  /// After adding it, this new item is initialized, and its sub form elements too.
+  /// Then, current [FormArray] is validated.
+  /// Notify listeners.
   void addGroup(
     FormGroup formGroup, {
     bool notify = true,
@@ -92,6 +103,11 @@ class FormArray extends AbstractControl {
     if (notify) super.notifyListeners();
   }
 
+  /// [removeGroup] removes an item from the collection of this [FormArray].
+  /// Removed item is deindexed. That means it's removed form [FormIndexer].
+  /// FormArray collection of items is reindexed. That means each item name is updated.
+  /// Then, current [FormArray] is validated.
+  /// Notify listeners.
   void removeGroup(
     FormGroup formGroup, {
     bool notify = true,
@@ -111,6 +127,7 @@ class FormArray extends AbstractControl {
     if (notify) super.notifyListeners();
   }
 
+  /// [getClone] make a clone of the full form and returns the current [FormArray].
   FormArray getClone() {
     ReactiveFormBuilder formBuilder = this.root.formBuilder.clone();
     FormArray currentClone =
@@ -118,6 +135,7 @@ class FormArray extends AbstractControl {
     return currentClone;
   }
 
+  /// [clone] make a clone of a form element and its sub form elements.
   FormArray clone(FormGroup clonedParent) {
     FormArray clone = new FormArray(
       groups: [],
@@ -129,6 +147,7 @@ class FormArray extends AbstractControl {
     return clone;
   }
 
+  /// [validate] validates the current [FormArray].
   Future validate() async => await super.validateControl();
 
   /* Protected methods */

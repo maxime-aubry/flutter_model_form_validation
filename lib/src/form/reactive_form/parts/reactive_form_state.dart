@@ -41,10 +41,13 @@ class ReactiveFormState {
   }
 
   /* Public methods */
+  /// [attachFormKey] attaches a FormState to [ReactiveFormState].
+  /// When form will be validated, all widgets will display errors if they are invalid.
   void attachFormKey(GlobalKey<FormState> formKey) {
     this._formKey = formKey;
   }
 
+  /// [update] updates current form element status.
   void update() {
     bool isValid = !Dictionary.fromMap(this._statuses)
         .where((arg1) =>
@@ -53,6 +56,7 @@ class ReactiveFormState {
     this._status = isValid ? EFormStatus.valid : EFormStatus.invalid;
   }
 
+  /// [validate] validates the current form element.
   Future<bool> validate() async {
     //#region locales methods
     void validate() async {
