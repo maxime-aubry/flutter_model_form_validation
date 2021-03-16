@@ -12,7 +12,7 @@ class ListItemsProvider {
 
   /// [clear] clears the services.
   /// 
-  /// You can use this method just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// ListItemsProvider.clear();
@@ -29,7 +29,7 @@ class ListItemsProvider {
   /// If the service is not provided, the method will throw an exception.
   /// If the service name is already registered, the method will throw an exception.
   /// 
-  /// You can use this method just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// ListItemsProvider.register<TProperty>('serviceName', () async => []);
@@ -58,7 +58,7 @@ class ListItemsProvider {
   /// If the service name is not provided, the method will throw an exception.
   /// If the service name is not registered, the method will throw an exception.
   /// 
-  /// You can use this method just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// ListItemsProvider.close('serviceName');
@@ -80,7 +80,7 @@ class ListItemsProvider {
   /// If the service name is not provided, the method will throw an exception.
   /// If the service name is not registered, the method will throw an exception.
   /// 
-  /// You can use this method just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// Future<List<SelectListItem<TProperty>>> Function() service =

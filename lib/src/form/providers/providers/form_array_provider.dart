@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 /// [FormArrayProvider] provides a [FormArray] to a form.
 /// Use it when you want to instanciate a [FormArray] into the provider.
 /// 
-/// You can use it just like this :
+/// How to use it :
 /// 
 /// ``` dart
 /// child: new FormArrayProvider(
@@ -36,7 +36,7 @@ class FormArrayProvider extends ChangeNotifierProvider<FormArray> {
   /// [of] provides a [FormArray].
   /// If [listen] is [True], [FormArray] will refresh each time the object will change.
   /// 
-  /// You can use it just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// FormArray formArray = FormArrayProvider.of(context, listen: true);
@@ -47,7 +47,7 @@ class FormArrayProvider extends ChangeNotifierProvider<FormArray> {
   /// [FormArrayProvider] provides a [FormArray] to a form.
   /// Use it when you want to instanciate a [FormArray] outside the provider.
   /// 
-  /// You can use it just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// FormArray formArray = // ...
@@ -76,7 +76,7 @@ extension FormArrayProviderExtension on BuildContext {
   /// [readFormArray] gets a [FormArray] object.
   /// If a widget use this object, it won't rebuild when object changes.
   /// 
-  /// You can use it just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// FormArray formArray = context.readFormArray();
@@ -86,7 +86,7 @@ extension FormArrayProviderExtension on BuildContext {
   /// [watchFormArray] gets a [FormArray] object.
   /// If a widget use this object, it will rebuild when object changes.
   /// 
-  /// You can use it just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// FormArray formArray = context.watchFormArray();

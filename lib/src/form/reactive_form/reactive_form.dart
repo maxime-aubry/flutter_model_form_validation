@@ -6,7 +6,7 @@ import 'package:provider/single_child_widget.dart';
 
 /// [ReactiveForm] declares a new form.
 /// 
-/// You can use it just like this :
+/// How to use it :
 /// 
 /// ``` dart
 /// return ReactiveForm(

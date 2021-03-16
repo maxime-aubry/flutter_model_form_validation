@@ -3,11 +3,21 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:provider/provider.dart';
 
-/// [FormStateConsumer] listens for changes on last provided [ReactiveFormState].
+/// [ReactiveFormStateConsumer] listens for changes on last provided [ReactiveFormState].
+/// 
+/// How to use it :
+/// 
+/// ``` dart
+/// child: new ReactiveFormStateConsumer(
+///   builder: (context, formState, child) {
+///     return new Container();
+///   },
+/// );
+/// ```
 /// {@category Providers}
 /// {@subCategory Consumers}
-class FormStateConsumer extends Consumer<ReactiveFormState> {
-  FormStateConsumer({
+class ReactiveFormStateConsumer extends Consumer<ReactiveFormState> {
+  ReactiveFormStateConsumer({
     Key key,
     @required this.builder,
     Widget child,

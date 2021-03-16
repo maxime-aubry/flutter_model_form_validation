@@ -27,7 +27,7 @@ mixin FormValidatorNavigator {
   /// If parameter name is not provided, this function will throw an exception.
   /// For DateTime data, you must use a ConstantDateTime for default parameter. If you don't, this function will throw an exception.
   /// 
-  /// You can use it just like this :
+  /// How to use it :
   /// ```dart
   /// class CustomValidator extends FormControlValidatorAnnotation<String> {
   ///   final int localParameter;

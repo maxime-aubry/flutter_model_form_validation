@@ -23,7 +23,7 @@ class MultipleStepFormStateIndexerProvider
   /// [of] provides a [MultipleStepFormStateIndexer].
   /// If [listen] is [True], [MultipleStepFormStateIndexer] will refresh each time the object will change.
   /// 
-  /// You can use it just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// MultipleStepFormStateIndexer indexer =
@@ -36,7 +36,7 @@ class MultipleStepFormStateIndexerProvider
   /// [MultipleStepFormStateIndexerProvider] provides a [MultipleStepFormStateIndexer] to a form.
   /// Use it when you want to instanciate a [MultipleStepFormStateIndexer] outside the provider.
   /// 
-  /// You can use it just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// MultipleStepFormStateIndexer indexer = // ...
@@ -65,7 +65,7 @@ extension MultipleStepFormStateIndexerExtension on BuildContext {
   /// [readMultipleStepFormStateIndexer] gets a [MultipleStepFormStateIndexer] object.
   /// If a widget use this object, it won't rebuild when object changes.
   /// 
-  /// You can use it just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// MultipleStepFormStateIndexer indexer =
@@ -84,7 +84,7 @@ extension MultipleStepFormStateIndexerExtension on BuildContext {
   /// [watchMultipleStepFormStateIndexer] gets a [MultipleStepFormStateIndexer] object.
   /// If a widget use this object, it will rebuild when object changes.
   /// 
-  /// You can use it just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// MultipleStepFormStateIndexer indexer =

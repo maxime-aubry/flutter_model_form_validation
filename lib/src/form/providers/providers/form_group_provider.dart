@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 /// [FormGroupProvider] provides a [FormGroup] to a form.
 /// Use it when you want to instanciate a [FormGroup] into the provider.
 /// 
-/// You can use it just like this :
+/// How to use it :
 /// 
 /// ``` dart
 /// child: new FormGroupProvider(
@@ -35,7 +35,7 @@ class FormGroupProvider extends ChangeNotifierProvider<FormGroup> {
   /// [of] provides a [FormGroup].
   /// If [listen] is [True], [FormGroup] will refresh each time the object will change.
   /// 
-  /// You can use it just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// FormGroup formGroup = FormGroupProvider.of(context, listen: true);
@@ -46,7 +46,7 @@ class FormGroupProvider extends ChangeNotifierProvider<FormGroup> {
   /// [FormGroupProvider] provides a [FormGroup] to a form.
   /// Use it when you want to instanciate a [FormGroup] outside the provider.
   /// 
-  /// You can use it just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// FormGroup formGroup = // ...
@@ -75,7 +75,7 @@ extension FormGroupProviderExtension on BuildContext {
   /// [readFormGroup] gets a [FormGroup] object.
   /// If a widget use this object, it won't rebuild when object changes.
   /// 
-  /// You can use it just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// FormGroup formGroup = context.readFormGroup();
@@ -85,7 +85,7 @@ extension FormGroupProviderExtension on BuildContext {
   /// [watchFormGroup] gets a [FormGroup] object.
   /// If a widget use this object, it will rebuild when object changes.
   /// 
-  /// You can use it just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// FormGroup formGroup = context.watchFormGroup();

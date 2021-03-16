@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 /// [FormControlProvider] with [TProperty] generic type provides a [FormControl] to a form.
 /// Use it when you want instanciate a [FormControl] into the provider.
 /// 
-/// You can use it just like this :
+/// How to use it :
 /// 
 /// ``` dart
 /// child: new FormControlProvider<TProperty>(
@@ -37,7 +37,7 @@ class FormControlProvider<TProperty>
   /// [of] provides a [FormControl] with [TProperty] generic type.
   /// If [listen] is [True], [FormControl] will refresh each time the object will change.
   /// 
-  /// You can use it just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// FormControl<TProperty> formControl = FormControlProvider<TProperty>.of(context, listen: true);
@@ -51,7 +51,7 @@ class FormControlProvider<TProperty>
   /// [FormControlProvider] provides a [FormControl] to a form.
   /// Use it when you want to instanciate a [FormControl] outside the provider.
   /// 
-  /// You can use it just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// FormControl<TProperty> formControl = // ...
@@ -80,7 +80,7 @@ extension FormControlProviderExtension on BuildContext {
   /// [readFormControl] gets a [FormControl] object.
   /// If a widget use this object, it won't rebuild when object changes.
   /// 
-  /// You can use it just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// FormControl<TProperty> formControl = context.readFormControl<TProperty>();
@@ -91,7 +91,7 @@ extension FormControlProviderExtension on BuildContext {
   /// [watchFormControl] gets a [FormControl] object.
   /// If a widget use this object, it will rebuild when object changes.
   /// 
-  /// You can use it just like this :
+  /// How to use it :
   /// 
   /// ``` dart
   /// FormControl<TProperty> formControl = context.watchFormControl<TProperty>();

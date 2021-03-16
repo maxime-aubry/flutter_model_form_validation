@@ -4,6 +4,16 @@ import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:provider/provider.dart';
 
 /// [FormControlConsumer] with [TProperty] generic type listens for changes on last provided [FormControl].
+/// 
+/// How to use it :
+/// 
+/// ``` dart
+/// child: new FormControlConsumer<TProperty>(
+///   builder: (context, formControl, child) {
+///     return new Container();
+///   },
+/// );
+/// ```
 /// {@category Providers}
 /// {@subCategory Consumers}
 class FormControlConsumer<TProperty> extends Consumer<FormControl<TProperty>> {
