@@ -5,7 +5,7 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 import 'package:flutter_model_form_validation/src/annotations/validators/form_control/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
-/// [FileSize] is a validator that check if a file has an allowed size.
+/// [FileSize] is a validator that checks if a file has an allowed size.
 class FileSize extends FormControlValidatorAnnotation<Uint8List> {
   /* Public properties */
   /// [size] is the allowed size. It's a constant, provided by developer inside the [FileSize] annotation.
@@ -26,8 +26,6 @@ class FileSize extends FormControlValidatorAnnotation<Uint8List> {
   }) : super(error: error);
 
   /* Public methods */
-  /// Check [FormControl] value (a byte array) to confirm if this one has a valid size.
-  ///
   /// Returns a Future<bool>. The validator will check if FormControl's file has an allowed mime type. In this case, validator will return [True], else it will return [False].
   ///
   /// The [control] argument is of [FormControl] of [Uint8List] type here.

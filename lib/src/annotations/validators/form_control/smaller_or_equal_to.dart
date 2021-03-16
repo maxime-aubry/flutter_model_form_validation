@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
+/// [SmallerOrEqualTo] with [TProperty] generic type is a validator that checks if a value is smaller or equal to another.
 class SmallerOrEqualTo<TProperty extends Comparable>
     extends FormControlValidatorAnnotation<TProperty> {
   /* Public properties */
@@ -26,6 +27,9 @@ class SmallerOrEqualTo<TProperty extends Comparable>
   }) : super(error: error);
 
   /* Public methods */
+  /// Returns a Future<bool>. The validator will check if FormControl's value is smaller or equal to another. In this case, validator will return [True], else it will return [False].
+  ///
+  /// The [control] argument is of [FormControl] type here, with [TProperty] generic type.
   @override
   Future<bool> isValid(FormControl<TProperty> control) async {
     TProperty valueToCompare = super.getRemoteValidatorParameter<TProperty>(
@@ -49,6 +53,7 @@ class SmallerOrEqualTo<TProperty extends Comparable>
   }
 }
 
+/// [SmallerOrEqualToDateTime] is a validator that checks if a [DateTime] value is smaller or equal to another.
 class SmallerOrEqualToDateTime extends SmallerOrEqualTo<DateTime> {
   /* Public properties */
 
@@ -78,6 +83,7 @@ class SmallerOrEqualToDateTime extends SmallerOrEqualTo<DateTime> {
   /* Private methods */
 }
 
+/// [SmallerOrEqualToDouble] is a validator that checks if a [double] value is smaller or equal to another.
 class SmallerOrEqualToDouble extends SmallerOrEqualTo<double> {
   /* Public properties */
 
@@ -107,6 +113,7 @@ class SmallerOrEqualToDouble extends SmallerOrEqualTo<double> {
   /* Private methods */
 }
 
+/// [SmallerOrEqualToInt] is a validator that checks if a [int] value is smaller or equal to another.
 class SmallerOrEqualToInt extends SmallerOrEqualTo<int> {
   /* Public properties */
 
@@ -136,6 +143,7 @@ class SmallerOrEqualToInt extends SmallerOrEqualTo<int> {
   /* Private methods */
 }
 
+/// [SmallerOrEqualToNumber] is a validator that checks if a [num] value is smaller or equal to another.
 class SmallerOrEqualToNumber extends SmallerOrEqualTo<num> {
   /* Public properties */
 
@@ -165,6 +173,7 @@ class SmallerOrEqualToNumber extends SmallerOrEqualTo<num> {
   /* Private methods */
 }
 
+/// [SmallerOrEqualToString] is a validator that checks if a [String] value is smaller or equal to another.
 class SmallerOrEqualToString extends SmallerOrEqualTo<String> {
   /* Public properties */
 

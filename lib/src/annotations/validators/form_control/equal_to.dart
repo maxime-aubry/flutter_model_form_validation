@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/form_control/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
-/// [EqualTo] with [TProperty] generic type is a validator that check if a value is equal to another.
+/// [EqualTo] with [TProperty] generic type is a validator that checks if a value is equal to another.
 class EqualTo<TProperty extends Comparable>
     extends FormControlValidatorAnnotation<TProperty> {
   /* Public properties */
@@ -28,9 +28,7 @@ class EqualTo<TProperty extends Comparable>
   }) : super(error: error);
 
   /* Public methods */
-  /// Compares [FormControl] value with another value.
-  ///
-  /// Returns a Future<bool>. The validator will check if FormControl's data is equal to [valueToCompare]. In this case, validator will return [True], else it will return [False].
+  /// Returns a Future<bool>. The validator will check if FormControl's value is equal to another. In this case, validator will return [True], else it will return [False].
   ///
   /// The [control] argument is of [FormControl] type here, with [TProperty] generic type.
   @override
@@ -56,7 +54,7 @@ class EqualTo<TProperty extends Comparable>
   }
 }
 
-/// [EqualToDateTime] is a validator that check if a [DateTime] value is equal to another.
+/// [EqualToDateTime] is a validator that checks if a [DateTime] value is equal to another.
 class EqualToDateTime extends EqualTo<DateTime> {
   /* Public properties */
 
@@ -86,7 +84,7 @@ class EqualToDateTime extends EqualTo<DateTime> {
   /* Private methods */
 }
 
-/// [EqualToNumber] is a validator that check if a [num] value is equal to another.
+/// [EqualToNumber] is a validator that checks if a [num] value is equal to another.
 class EqualToNumber extends EqualTo<num> {
   /* Public properties */
 
@@ -116,7 +114,7 @@ class EqualToNumber extends EqualTo<num> {
   /* Private methods */
 }
 
-/// [EqualToDouble] is a validator that check if a [double] value is equal to another.
+/// [EqualToDouble] is a validator that checks if a [double] value is equal to another.
 class EqualToDouble extends EqualTo<double> {
   /* Public properties */
 
@@ -146,7 +144,7 @@ class EqualToDouble extends EqualTo<double> {
   /* Private methods */
 }
 
-/// [EqualToInt] is a validator that check if a [int] value is equal to another.
+/// [EqualToInt] is a validator that checks if a [int] value is equal to another.
 class EqualToInt extends EqualTo<int> {
   /* Public properties */
 
@@ -176,7 +174,7 @@ class EqualToInt extends EqualTo<int> {
   /* Private methods */
 }
 
-/// [EqualToString] is a validator that check if a [String] value is equal to another.
+/// [EqualToString] is a validator that checks if a [String] value is equal to another.
 class EqualToString extends EqualTo<String> {
   /* Public properties */
 

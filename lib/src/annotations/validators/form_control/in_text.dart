@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-/// [InText] is a validator that check if the text is contained into another text.
+/// [InText] is a validator that checks if the text is contained into another text.
 class InText extends FormControlValidatorAnnotation<String> {
   /* Public properties */
   /// [text] is the text in which user will search keywords.
@@ -26,9 +26,7 @@ class InText extends FormControlValidatorAnnotation<String> {
   }) : super(error: error);
 
   /* Public methods */
-  /// Compares [FormControl] value with another value.
-  ///
-  /// Returns a Future<bool>. The validator will check if FormControl's data is contained into antoher text. In this case, validator will return [True], else it will return [False].
+  /// Returns a Future<bool>. The validator will check if FormControl's value is contained into antoher text. In this case, validator will return [True], else it will return [False].
   ///
   /// The [control] argument is of [FormControl] of [String] type here.
   @override

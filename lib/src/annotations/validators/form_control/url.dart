@@ -3,6 +3,7 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 
 enum EUrlProtocol { http, https, ftp }
 
+/// [Url] is a validator that checks if a value has a good URL format.
 class Url extends FormControlValidatorAnnotation<String> {
   /* Public properties */
   final List<EUrlProtocol> protocols;
@@ -22,6 +23,9 @@ class Url extends FormControlValidatorAnnotation<String> {
   }) : super(error: error);
 
   /* Public methods */
+  /// Returns a Future<bool>. The validator will check if FormControl's value has a good URL format. In this case, validator will return [True], else it will return [False].
+  ///
+  /// The [control] argument is of [FormControl] of [String] type here.
   @override
   Future<bool> isValid(FormControl<String> control) async {
     this._validateParameters();

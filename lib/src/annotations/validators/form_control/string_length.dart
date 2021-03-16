@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
+/// [StringLength] is a validator that checks if a string value is a valid length.
 class StringLength extends FormControlValidatorAnnotation<String> {
   /* Public properties */
   /// [min] is the minimal number of your string length.
@@ -25,6 +26,9 @@ class StringLength extends FormControlValidatorAnnotation<String> {
   }) : super(error: error);
 
   /* Public methods */
+  /// Returns a Future<bool>. The validator will check if FormControl's string value is a valid length. In this case, validator will return [True], else it will return [False].
+  ///
+  /// The [control] argument is of [FormControl] of [String] type here.
   @override
   Future<bool> isValid(FormControl<String> control) async {
     this._validateParameters();

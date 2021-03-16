@@ -6,7 +6,7 @@ import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 import 'package:mime/mime.dart';
 
-/// [FileMimeType] is a validator that check if a file has an allowed mime type.
+/// [FileMimeType] is a validator that checks if a file has an allowed mime type.
 class FileMimeType extends FormControlValidatorAnnotation<Uint8List> {
   /* Public properties */
   /// [mimeTypes] is the allowed mime types list. It's a constant, provided by developer inside the [FileMimeType] annotation.
@@ -27,8 +27,6 @@ class FileMimeType extends FormControlValidatorAnnotation<Uint8List> {
   }) : super(error: error);
 
   /* Public methods */
-  /// Check [FormControl] value (a byte array) to confirm if this one has a valid mime type.
-  ///
   /// Returns a Future<bool>. The validator will check if FormControl's file has an allowed mime type. In this case, validator will return [True], else it will return [False].
   ///
   /// The [control] argument is of [FormControl] of [Uint8List] type here.

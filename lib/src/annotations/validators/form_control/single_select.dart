@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:queries/collections.dart';
 
+/// [MultiSelect] is a validator that checks if value is an item contained into a list of items.
 class SingleSelect<TProperty>
     extends FormControlValidatorAnnotation<TProperty> {
   /* Public properties */
@@ -21,6 +22,11 @@ class SingleSelect<TProperty>
   }) : super(serviceName: serviceName, error: error);
 
   /* Public methods */
+  /// Compares [FormControl] value with a list of items.
+  ///
+  /// Returns a Future<bool>. The validator will check if FormControl's value is an item contained into a list of items. In this case, validator will return [True], else it will return [False].
+  ///
+  /// The [control] argument is of [FormControl] of [TProperty] type here.
   @override
   Future<bool> isValid(FormControl<TProperty> control) async {
     Future<List<SelectListItem<TProperty>>> Function() service =

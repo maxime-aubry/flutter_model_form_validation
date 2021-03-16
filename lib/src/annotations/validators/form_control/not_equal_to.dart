@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
+/// [NotEqualTo] with [TProperty] generic type is a validator that checks if a value is not equal to another.
 class NotEqualTo<TProperty extends Comparable>
     extends FormControlValidatorAnnotation<TProperty> {
   /* Public properties */
@@ -26,6 +27,9 @@ class NotEqualTo<TProperty extends Comparable>
   }) : super(error: error);
 
   /* Public methods */
+  /// Returns a Future<bool>. The validator will check if FormControl's value is not equal to another. In this case, validator will return [True], else it will return [False].
+  ///
+  /// The [control] argument is of [FormControl] type here, with [TProperty] generic type.
   @override
   Future<bool> isValid(FormControl<TProperty> control) async {
     TProperty valueToCompare = super.getRemoteValidatorParameter<TProperty>(
@@ -49,6 +53,7 @@ class NotEqualTo<TProperty extends Comparable>
   }
 }
 
+/// [NotEqualToDateTime] is a validator that checks if a [DateTime] value is not equal to another.
 class NotEqualToDateTime extends NotEqualTo<DateTime> {
   /* Public properties */
 
@@ -78,6 +83,7 @@ class NotEqualToDateTime extends NotEqualTo<DateTime> {
   /* Private methods */
 }
 
+/// [NotEqualToDouble] is a validator that checks if a [double] value is not equal to another.
 class NotEqualToDouble extends NotEqualTo<double> {
   /* Public properties */
 
@@ -107,6 +113,7 @@ class NotEqualToDouble extends NotEqualTo<double> {
   /* Private methods */
 }
 
+/// [NotEqualToInt] is a validator that checks if a [int] value is not equal to another.
 class NotEqualToInt extends NotEqualTo<int> {
   /* Public properties */
 
@@ -136,6 +143,7 @@ class NotEqualToInt extends NotEqualTo<int> {
   /* Private methods */
 }
 
+/// [NotEqualToNumber] is a validator that checks if a [num] value is not equal to another.
 class NotEqualToNumber extends NotEqualTo<num> {
   /* Public properties */
 
@@ -165,6 +173,7 @@ class NotEqualToNumber extends NotEqualTo<num> {
   /* Private methods */
 }
 
+/// [NotEqualToString] is a validator that checks if a [String] value is not equal to another.
 class NotEqualToString extends NotEqualTo<String> {
   /* Public properties */
 

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
+/// [NbValues] is a validator that checks if a array value has a valid length.
 class NbValues extends FormControlValidatorAnnotation<List> {
   /* Public properties */
   /// [min] is minimal quantity of items.
@@ -33,6 +34,9 @@ class NbValues extends FormControlValidatorAnnotation<List> {
   }) : super(error: error);
 
   /* Public methods */
+  /// Returns a Future<bool>. The validator will check if FormControl's array value has a valid length. In this case, validator will return [True], else it will return [False].
+  ///
+  /// The [control] argument is of [FormControl] of [List] type here.
   @override
   Future<bool> isValid(FormControl<List> control) async {
     int min = super.getRemoteValidatorParameter<int>(

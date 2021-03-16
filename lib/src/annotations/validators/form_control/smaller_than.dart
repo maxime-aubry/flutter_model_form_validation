@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/form_control/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
+/// [SmallerThan] with [TProperty] generic type is a validator that checks if a value is smaller than another.
 class SmallerThan<TProperty extends Comparable>
     extends FormControlValidatorAnnotation<TProperty> {
   /* Public properties */
@@ -27,6 +28,9 @@ class SmallerThan<TProperty extends Comparable>
   }) : super(error: error);
 
   /* Public methods */
+  /// Returns a Future<bool>. The validator will check if FormControl's value is smaller than another. In this case, validator will return [True], else it will return [False].
+  ///
+  /// The [control] argument is of [FormControl] type here, with [TProperty] generic type.
   @override
   Future<bool> isValid(FormControl<TProperty> control) async {
     TProperty valueToCompare = super.getRemoteValidatorParameter<TProperty>(
@@ -50,6 +54,7 @@ class SmallerThan<TProperty extends Comparable>
   }
 }
 
+/// [SmallerThanDateTime] is a validator that checks if a [DateTime] value is smaller than another.
 class SmallerThanDateTime extends SmallerThan<DateTime> {
   /* Public properties */
 
@@ -79,6 +84,7 @@ class SmallerThanDateTime extends SmallerThan<DateTime> {
   /* Private methods */
 }
 
+/// [SmallerThanDouble] is a validator that checks if a [double] value is smaller than another.
 class SmallerThanDouble extends SmallerThan<double> {
   /* Public properties */
 
@@ -108,6 +114,7 @@ class SmallerThanDouble extends SmallerThan<double> {
   /* Private methods */
 }
 
+/// [SmallerThanInt] is a validator that checks if a [int] value is smaller than another.
 class SmallerThanInt extends SmallerThan<int> {
   /* Public properties */
 
@@ -137,6 +144,7 @@ class SmallerThanInt extends SmallerThan<int> {
   /* Private methods */
 }
 
+/// [SmallerThanNumber] is a validator that checks if a [num] value is smaller than another.
 class SmallerThanNumber extends SmallerThan<num> {
   /* Public properties */
 
@@ -166,6 +174,7 @@ class SmallerThanNumber extends SmallerThan<num> {
   /* Private methods */
 }
 
+/// [SmallerThanString] is a validator that checks if a [String] value is smaller than another.
 class SmallerThanString extends SmallerThan<String> {
   /* Public properties */
 

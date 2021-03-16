@@ -193,7 +193,7 @@ class _PasswordCheckSpecialCharacters implements _IPasswordCheckRule {
   /* Private methods */
 }
 
-/// [MembershipPassword] is a validator that check if the password has a good format according to the settings.
+/// [MembershipPassword] is a validator that checks if the password has a good format according to the settings.
 class MembershipPassword extends FormControlValidatorAnnotation<String> {
   /* Public properties */
   /// [minLength] is the minimal string length of your password.
@@ -234,9 +234,7 @@ class MembershipPassword extends FormControlValidatorAnnotation<String> {
   }) : super(error: error);
 
   /* Public methods */
-  /// Compares [FormControl] value with another value.
-  ///
-  /// Returns a Future<bool>. The validator will check if FormControl's data has a good format according to the settings. In this case, validator will return [True], else it will return [False].
+  /// Returns a Future<bool>. The validator will check if FormControl's value has a good format according to the settings. In this case, validator will return [True], else it will return [False].
   ///
   /// The [control] argument is of [FormControl] of [String] type here.
   @override

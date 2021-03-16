@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
+/// [Range] with [TProperty] generic type is a validator that checks if a value is between min and max values.
 class Range<TProperty extends Comparable>
     extends FormControlValidatorAnnotation<TProperty> {
   /* Public properties */
@@ -34,6 +35,9 @@ class Range<TProperty extends Comparable>
   }) : super(error: error);
 
   /* Public methods */
+  /// Returns a Future<bool>. The validator will check if FormControl's value is is between [min] and [max] values. In this case, validator will return [True], else it will return [False].
+  ///
+  /// The [control] argument is of [FormControl] type here, with [TProperty] generic type.
   @override
   Future<bool> isValid(FormControl<TProperty> control) async {
     TProperty min = super.getRemoteValidatorParameter(
@@ -82,6 +86,7 @@ class Range<TProperty extends Comparable>
   }
 }
 
+/// [RangeOfDateTime] is a validator that checks if a [DateTime] value is between [min] and [max] values.
 class RangeOfDateTime extends Range<DateTime> {
   /* Public properties */
 
@@ -115,6 +120,7 @@ class RangeOfDateTime extends Range<DateTime> {
   /* Private methods */
 }
 
+/// [RangeOfDouble] is a validator that checks if a [double] value is between [min] and [max] values.
 class RangeOfDouble extends Range<double> {
   /* Public properties */
 
@@ -148,6 +154,7 @@ class RangeOfDouble extends Range<double> {
   /* Private methods */
 }
 
+/// [RangeOfInt] is a validator that checks if a [int] value is between [min] and [max] values.
 class RangeOfInt extends Range<int> {
   /* Public properties */
 
@@ -181,6 +188,7 @@ class RangeOfInt extends Range<int> {
   /* Private methods */
 }
 
+/// [RangeOfNumber] is a validator that checks if a [num] value is between [min] and [max] values.
 class RangeOfNumber extends Range<num> {
   /* Public properties */
 
@@ -214,6 +222,7 @@ class RangeOfNumber extends Range<num> {
 /* Private methods */
 }
 
+/// [RangeOfString] is a validator that checks if a [String] value is between [min] and [max] values.
 class RangeOfString extends Range<String> {
   /* Public properties */
 
