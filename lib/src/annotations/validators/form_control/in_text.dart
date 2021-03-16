@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 /// [InText] is a validator that checks if the text is contained into another text.
+/// {@category Metadata}
+/// {@subCategory Form validators}
 class InText extends FormControlValidatorAnnotation<String> {
   /* Public properties */
   /// [text] is the text in which user will search keywords.

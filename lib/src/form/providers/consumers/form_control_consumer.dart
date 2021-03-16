@@ -3,7 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:provider/provider.dart';
 
-class FormControlConsumer<TField> extends Consumer<FormControl<TField>> {
+/// [FormControlConsumer] with [TProperty] generic type listens for changes on last provided [FormControl].
+class FormControlConsumer<TProperty> extends Consumer<FormControl<TProperty>> {
   FormControlConsumer({
     Key key,
     @required this.builder,
@@ -14,7 +15,7 @@ class FormControlConsumer<TField> extends Consumer<FormControl<TField>> {
   @override
   final Widget Function(
     BuildContext context,
-    FormControl<TField> formControl,
+    FormControl<TProperty> formControl,
     Widget child,
   ) builder;
 }

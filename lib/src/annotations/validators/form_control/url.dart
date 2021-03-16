@@ -4,6 +4,8 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 enum EUrlProtocol { http, https, ftp }
 
 /// [Url] is a validator that checks if a value has a good URL format.
+/// {@category Metadata}
+/// {@subCategory Form validators}
 class Url extends FormControlValidatorAnnotation<String> {
   /* Public properties */
   final List<EUrlProtocol> protocols;

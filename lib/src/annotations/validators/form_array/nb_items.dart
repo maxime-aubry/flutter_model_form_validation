@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 /// [NbItems] is a validator that checks if a FormArray has a valid length.
+/// {@category Metadata}
+/// {@subCategory Form validators}
 class NbItems extends FormArrayValidatorAnnotation {
   /* Public properties */
   /// [min] is minimal quantity of items.

@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 /// [StringLength] is a validator that checks if a string value is a valid length.
+/// {@category Metadata}
+/// {@subCategory Form validators}
 class StringLength extends FormControlValidatorAnnotation<String> {
   /* Public properties */
   /// [min] is the minimal number of your string length.

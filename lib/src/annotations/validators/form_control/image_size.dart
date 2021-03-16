@@ -5,6 +5,8 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 import 'package:image/image.dart' as imageDecoder;
 
 /// [ImageSize] is a validator that checks if the image width and height.
+/// {@category Metadata}
+/// {@subCategory Form validators}
 class ImageSize extends FormControlValidatorAnnotation<Uint8List> {
   /* Public properties */
   /// [minWidth] is the allowed min width.

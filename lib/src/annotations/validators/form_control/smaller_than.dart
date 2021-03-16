@@ -3,6 +3,8 @@ import 'package:flutter_model_form_validation/src/annotations/validators/form_co
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
 /// [SmallerThan] with [TProperty] generic type is a validator that checks if a value is smaller than another.
+/// {@category Metadata}
+/// {@subCategory Form validators}
 class SmallerThan<TProperty extends Comparable>
     extends FormControlValidatorAnnotation<TProperty> {
   /* Public properties */

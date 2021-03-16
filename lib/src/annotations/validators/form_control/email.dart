@@ -4,6 +4,8 @@ import 'package:flutter_model_form_validation/src/annotations/validators/form_co
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
 /// [Email] is a validator that checks if a value is a valid email.
+/// {@category Metadata}
+/// {@subCategory Form validators}
 class Email extends FormControlValidatorAnnotation<String> {
   /* Public properties */
 

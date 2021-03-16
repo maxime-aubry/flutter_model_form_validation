@@ -3,6 +3,8 @@ import 'package:flutter_model_form_validation/src/annotations/validators/form_co
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
 /// [EqualTo] with [TProperty] generic type is a validator that checks if a value is equal to another.
+/// {@category Metadata}
+/// {@subCategory Form validators}
 class EqualTo<TProperty extends Comparable>
     extends FormControlValidatorAnnotation<TProperty> {
   /* Public properties */

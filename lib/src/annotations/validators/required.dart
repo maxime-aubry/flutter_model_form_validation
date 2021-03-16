@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 /// [Required] is a validator that checks if a value is provided or not.
+/// {@category Metadata}
+/// {@subCategory Form validators}
 class Required extends FormValidatorAnnotation<AbstractControl> {
   /* Public properties */
 

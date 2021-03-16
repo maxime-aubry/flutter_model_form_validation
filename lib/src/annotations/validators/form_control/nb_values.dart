@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 /// [NbValues] is a validator that checks if a array value has a valid length.
+/// {@category Metadata}
+/// {@subCategory Form validators}
 class NbValues extends FormControlValidatorAnnotation<List> {
   /* Public properties */
   /// [min] is minimal quantity of items.

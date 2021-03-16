@@ -3,6 +3,8 @@ import 'package:flutter_model_form_validation/flutter_model_form_validation.dart
 import 'package:queries/collections.dart';
 
 /// [MultiSelect] is a validator that checks if value is an item contained into a list of items.
+/// {@category Metadata}
+/// {@subCategory Form validators}
 class SingleSelect<TProperty>
     extends FormControlValidatorAnnotation<TProperty> {
   /* Public properties */
