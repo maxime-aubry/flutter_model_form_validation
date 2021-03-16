@@ -29,7 +29,7 @@ class MultiSelect<TProperty>
   Future<bool> isValid(FormControl<List<TProperty>> control) async {
     Future<List<SelectListItem<TProperty>>> Function() service =
         ListItemsProvider.provide<TProperty>(super.serviceName);
-    List<SelectListItem> items = await service();
+    List<SelectListItem<TProperty>> items = await service();
 
     this._validateParameters(items);
     bool isValid = this._validate(control.value, items);

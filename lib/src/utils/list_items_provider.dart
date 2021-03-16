@@ -5,10 +5,17 @@ typedef Future<List<SelectListItem<TProperty>>> ListItemsServiceFunction<
     TProperty>();
 
 /// [ListItemsProvider] provides data to validators, as dropdown, autocomplete...
-/// Items are provided from local or global data, or using by a HTTP request.
+/// Items are provided from local data, or using by a HTTP request.
 class ListItemsProvider {
   static Map<String, ListItemsServiceFunction> _services = {};
 
+  /// [clear] clears the services.
+  /// 
+  /// You can use this method just like this :
+  /// 
+  /// ``` dart
+  /// ListItemsProvider.clear();
+  /// ```
   static void clear() {
     if (ListItemsProvider._services == null)
       ListItemsProvider._services = new Map<String, ListItemsServiceFunction>();
@@ -16,6 +23,16 @@ class ListItemsProvider {
     ListItemsProvider._services.clear();
   }
 
+  /// [register] registers a service.
+  /// If the service name is not provided, the method will throw an exception.
+  /// If the service is not provided, the method will throw an exception.
+  /// If the service name is already registered, the method will throw an exception.
+  /// 
+  /// You can use this method just like this :
+  /// 
+  /// ``` dart
+  /// ListItemsProvider.register<TProperty>('serviceName', () async => []);
+  /// ```
   static void register<TProperty>(
     String name,
     ListItemsServiceFunction<TProperty> service,
@@ -36,6 +53,15 @@ class ListItemsProvider {
     ListItemsProvider._services[name] = service;
   }
 
+  /// [close] closes a service.
+  /// If the service name is not provided, the method will throw an exception.
+  /// If the service name is not registered, the method will throw an exception.
+  /// 
+  /// You can use this method just like this :
+  /// 
+  /// ``` dart
+  /// ListItemsProvider.close('serviceName');
+  /// ```
   static void close(String name) {
     if (name == null || name.isEmpty)
       throw new ListItemProviderException('Service name is required.');
@@ -49,6 +75,17 @@ class ListItemsProvider {
     ListItemsProvider._services.remove(name);
   }
 
+  /// [provide] provides a service.
+  /// If the service name is not provided, the method will throw an exception.
+  /// If the service name is not registered, the method will throw an exception.
+  /// 
+  /// You can use this method just like this :
+  /// 
+  /// ``` dart
+  /// Future<List<SelectListItem<TProperty>>> Function() service =
+  ///   ListItemsProvider.provide<TProperty>('serviceName');
+  /// List<SelectListItem<TProperty>> items = await service();
+  /// ```
   static ListItemsServiceFunction<TProperty> provide<TProperty>(String name) {
     if (name == null || name.isEmpty)
       throw new ListItemProviderException('Service name is required.');
