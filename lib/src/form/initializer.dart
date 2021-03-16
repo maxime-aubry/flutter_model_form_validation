@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 
+/// [LibraryInitializer] initializes the library, declares the library name that contains contents (models, enums...).
 class LibraryInitializer {
   static bool _isInitialized = false;
   static String _libraryName;
@@ -8,6 +9,7 @@ class LibraryInitializer {
   static get isInitialized => LibraryInitializer._isInitialized;
   static get libraryName => LibraryInitializer._libraryName;
 
+  /// [initialize] initializes the library, declares the library name that contains contents (models, enums...).
   static void initialize({
     @required String libraryName,
   }) {

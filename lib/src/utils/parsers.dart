@@ -1,11 +1,23 @@
-import 'package:queries/collections.dart';
-
 extension DateTimeParsing on String {
+  /// [toDateTime] converts a [String] value to a [DateTime].
   DateTime toDateTime() {
     if (this == null) return null;
     return DateTime.tryParse(this) ?? null;
   }
 
+  /// [toDouble] converts a [String] value to a [num].
+  double toDouble() {
+    if (this == null) return null;
+    return double.tryParse(this) ?? null;
+  }
+
+  /// [toInt] converts a [String] value to a [int].
+  int toInt() {
+    if (this == null) return null;
+    return int.tryParse(this) ?? null;
+  }
+
+  /// [toNumber] converts a [String] value to a [num].
   num toNumber() {
     if (this == null) return null;
     return num.tryParse(this) ?? null;
