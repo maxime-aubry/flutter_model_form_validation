@@ -4,9 +4,20 @@ import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
+/// [FormGroup] is a sub-class of [AbstractControl].
+/// 
+/// It's a way to group form elements.
+/// 
+/// [FormGroup] can contain [FormGroup], [FormArray] and [FormControl] elements.
+/// {@category Form}
+/// {@subCategory Reactive forms}
 class FormGroup extends AbstractControl {
   /* Public properties */
+  /// [isArrayItem] permits to know if current [FormGroup] is a FormArray item.
   bool isArrayItem;
+
+  /// [controls] is the collection of sub form elements.
+  /// They can be [FormGroup], [FormArray] or [FormControl].
   Map<String, AbstractControl> controls;
 
   /* Protected properties */
@@ -14,6 +25,7 @@ class FormGroup extends AbstractControl {
   /* Private properties */
 
   /* Getters */
+  /// [formPath] is an interpretation of the way to find a form element.
   @override
   String get formPath {
     String part = (this.parent != null) ? '${this.parent.formPath}' : 'root';
@@ -32,6 +44,8 @@ class FormGroup extends AbstractControl {
     return part;
   }
 
+  /// [formPath] is an interpretation of the way to find a form element.
+  /// Here, it simulates a path of a object model.
   @override
   String get modelPath {
     String part = (this.parent != null) ? '${this.parent.modelPath}' : 'root';
@@ -60,6 +74,13 @@ class FormGroup extends AbstractControl {
   }
 
   /* Public methods */
+  /// [initialize] initializes current [FormGroup].
+  /// This sets :
+  ///   - the [FormGroup] name.
+  ///   - the parent [FormGroup] (except for the root, that's the top level of the form).
+  ///   - the ReactiveFormState.
+  ///   - the boolean value to know if current [FormGroup] is a [FormArray] item.
+  /// This also indexes current [FormGroup] into [FormIndexer] and initialize sub form elements.
   void initialize(
     String name,
     FormGroup parentGroup,
@@ -83,12 +104,14 @@ class FormGroup extends AbstractControl {
     super.isInitialized = true;
   }
 
+  /// [deindex] removes the current [FormGroup] from FormIndexer if you want to remove this [FormGroup] from the form.
   @override
   void deindex() {
     this._deindexControls();
     super.deindex();
   }
 
+  /// [containsControl] checks if the current [FormGroup] contains a form element using by its name.
   bool containsControl(String name) {
     if (name == null || name.isEmpty)
       throw new FormBuilderException(
@@ -98,8 +121,8 @@ class FormGroup extends AbstractControl {
     return hasKey;
   }
 
-  /// Add abstract control into this form group.
-  /// And then, force the reinitialization of the form builder to update the tree.
+  /// [addControl] adds an abstract control into this [FormGroup].
+  /// After adding it, this new sub form element is initialized, and its sub form elements too.
   /// Notify listeners.
   void addControl(String name, AbstractControl control) {
     if (name == null || name.isEmpty)
@@ -118,9 +141,8 @@ class FormGroup extends AbstractControl {
     super.notifyListeners();
   }
 
-  /// Remove abstract control from this form group.
+  /// [removeControl] removes an abstract control from this [FormGroup].
   /// Notify listeners.
-  /// Remove listeners.
   void removeControl(String name) {
     if (name == null || name.isEmpty)
       throw new FormBuilderException(
@@ -135,6 +157,7 @@ class FormGroup extends AbstractControl {
     super.notifyListeners();
   }
 
+  /// [getClone] make a clone of the full form and returns the current [FormGroup].
   FormGroup getClone() {
     ReactiveFormBuilder formBuilder = this.root.formBuilder.clone();
     FormGroup currentClone =
@@ -142,6 +165,7 @@ class FormGroup extends AbstractControl {
     return currentClone;
   }
 
+  /// [clone] make a clone of a form element and its sub form elements.
   FormGroup clone(FormGroup clonedParent) {
     FormGroup clone = new FormGroup(
       controls: {},
@@ -151,6 +175,7 @@ class FormGroup extends AbstractControl {
     return clone;
   }
 
+  /// [getFormGroup] gets a sub [FormGroup] of the current [FormGroup] using by its name.
   FormGroup getFormGroup(String name) {
     if (!this.containsControl(name))
       throw new FormBuilderException('FormGroup not found.');
@@ -162,6 +187,7 @@ class FormGroup extends AbstractControl {
     return formGroup;
   }
 
+  /// [getFormGroup] gets a sub [FormArray] of the current [FormGroup] using by its name.
   FormArray getFormArray(String name) {
     if (!this.containsControl(name))
       throw new FormBuilderException('FormArray not found.');
@@ -173,6 +199,7 @@ class FormGroup extends AbstractControl {
     return formArray;
   }
 
+  /// [getFormGroup] gets a sub [FormControl] with [TProperty] generiuc type of the current [FormGroup] using by its name.
   FormControl<TProperty> getFormControl<TProperty>(String name) {
     if (!this.containsControl(name))
       throw new FormBuilderException('FormControl not found.');
@@ -186,6 +213,7 @@ class FormGroup extends AbstractControl {
     return formControl;
   }
 
+  /// [validate] validates the current [FormGroup].
   Future validate() async => await super.validateControl();
 
   /* Protected methods */

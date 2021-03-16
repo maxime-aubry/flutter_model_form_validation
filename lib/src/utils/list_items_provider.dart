@@ -5,6 +5,7 @@ typedef Future<List<SelectListItem<TProperty>>> ListItemsServiceFunction<
     TProperty>();
 
 /// [ListItemsProvider] provides data to validators, as dropdown, autocomplete...
+/// 
 /// Items are provided from local data, or using by a HTTP request.
 /// {@category Utilities}
 class ListItemsProvider {
@@ -25,8 +26,11 @@ class ListItemsProvider {
   }
 
   /// [register] registers a service.
+  /// 
   /// If the service name is not provided, the method will throw an exception.
+  /// 
   /// If the service is not provided, the method will throw an exception.
+  /// 
   /// If the service name is already registered, the method will throw an exception.
   /// 
   /// How to use it :
@@ -55,7 +59,9 @@ class ListItemsProvider {
   }
 
   /// [close] closes a service.
+  /// 
   /// If the service name is not provided, the method will throw an exception.
+  /// 
   /// If the service name is not registered, the method will throw an exception.
   /// 
   /// How to use it :
@@ -77,7 +83,9 @@ class ListItemsProvider {
   }
 
   /// [provide] provides a service.
+  /// 
   /// If the service name is not provided, the method will throw an exception.
+  /// 
   /// If the service name is not registered, the method will throw an exception.
   /// 
   /// How to use it :

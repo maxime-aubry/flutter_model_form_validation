@@ -4,6 +4,9 @@ import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
+/// [FormArray] is a sub-class of [AbstractControl].
+/// {@category Form}
+/// {@subCategory Reactive forms}
 class FormArray extends AbstractControl {
   /* Public properties */
   List<FormGroup> groups;

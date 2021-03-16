@@ -4,6 +4,7 @@ import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:provider/provider.dart';
 
 /// [FormControlProvider] with [TProperty] generic type provides a [FormControl] to a form.
+/// 
 /// Use it when you want instanciate a [FormControl] into the provider.
 /// 
 /// How to use it :
@@ -35,6 +36,7 @@ class FormControlProvider<TProperty>
         );
 
   /// [of] provides a [FormControl] with [TProperty] generic type.
+  /// 
   /// If [listen] is [True], [FormControl] will refresh each time the object will change.
   /// 
   /// How to use it :
@@ -49,6 +51,7 @@ class FormControlProvider<TProperty>
       Provider.of<FormControl<TProperty>>(context, listen: listen);
 
   /// [FormControlProvider] provides a [FormControl] to a form.
+  /// 
   /// Use it when you want to instanciate a [FormControl] outside the provider.
   /// 
   /// How to use it :
@@ -78,6 +81,7 @@ class FormControlProvider<TProperty>
 
 extension FormControlProviderExtension on BuildContext {
   /// [readFormControl] gets a [FormControl] object.
+  /// 
   /// If a widget use this object, it won't rebuild when object changes.
   /// 
   /// How to use it :
@@ -89,6 +93,7 @@ extension FormControlProviderExtension on BuildContext {
       FormControlProvider.of<TProperty>(this, listen: false);
   
   /// [watchFormControl] gets a [FormControl] object.
+  /// 
   /// If a widget use this object, it will rebuild when object changes.
   /// 
   /// How to use it :

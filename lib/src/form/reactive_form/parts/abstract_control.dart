@@ -5,6 +5,7 @@ import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 import 'package:queries/collections.dart';
 
+/// [AbstractControl] is the parent class for every form element.
 class AbstractControl extends ChangeNotifier {
   /* Public properties */
   FormGroup parent;
@@ -14,9 +15,11 @@ class AbstractControl extends ChangeNotifier {
   bool isInitialized;
 
   /* Protected properties */
+  /// [validators] is a collection of validators.
   @protected
   List<FormValidatorAnnotation> validators;
 
+  /// [formState] is the form state.
   @protected
   ReactiveFormState formState;
 
@@ -28,7 +31,6 @@ class AbstractControl extends ChangeNotifier {
   FormGroup get root => this._searchRoot();
   String get formPath => null;
   String get modelPath => null;
-  //String get step => this._searchStep()?.name;
 
   /* Setters */
 
@@ -118,23 +120,4 @@ class AbstractControl extends ChangeNotifier {
 
     return this.parent._searchRoot();
   }
-
-  /*FormGroup _searchStep() {
-    // if current form has no multiple steps, return null.
-    if (!this.formBuilder.isMultipleStepsForm) return null;
-
-    // if current control is root, return null.
-    // root FormGroup cannot be a step.
-    if (this._isRoot()) return null;
-
-    // if it's not root but there is not parent.
-    if (this.parent == null)
-      throw new FormBuilderException(
-          'Current ${this.runtimeType} has no parent.');
-
-    // if current control's parent is root, so current control is a step.
-    if (this.parent._isRoot()) return this;
-
-    return this.parent._searchStep();
-  }*/
 }

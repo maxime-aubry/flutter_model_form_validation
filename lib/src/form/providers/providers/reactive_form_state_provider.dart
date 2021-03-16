@@ -24,6 +24,7 @@ class ReactiveFormStateProvider extends Provider<ReactiveFormState> {
   //       );
 
   /// [of] provides a [ReactiveFormState].
+  /// 
   /// If [listen] is [True], [ReactiveFormState] will refresh each time the object will change.
   /// 
   /// How to use it :
@@ -35,6 +36,7 @@ class ReactiveFormStateProvider extends Provider<ReactiveFormState> {
       Provider.of<ReactiveFormState>(context, listen: listen);
 
   /// [ReactiveFormStateProvider] provides a [ReactiveFormState] to a form.
+  /// 
   /// Use it when you want to instanciate a [ReactiveFormState] outside the provider.
   /// 
   /// How to use it :
@@ -66,6 +68,7 @@ class ReactiveFormStateProvider extends Provider<ReactiveFormState> {
 
 extension FormStateProviderExtension on BuildContext {
   /// [readFormState] gets a [ReactiveFormState] object.
+  /// 
   /// If a widget use this object, it won't rebuild when object changes.
   /// 
   /// How to use it :
@@ -96,6 +99,7 @@ extension FormStateProviderExtension on BuildContext {
   }
 
   /// [watchFormState] gets a [ReactiveFormState] object.
+  /// 
   /// If a widget use this object, it will rebuild when object changes.
   /// 
   /// How to use it :

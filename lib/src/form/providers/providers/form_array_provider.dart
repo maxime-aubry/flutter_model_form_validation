@@ -4,6 +4,7 @@ import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:provider/provider.dart';
 
 /// [FormArrayProvider] provides a [FormArray] to a form.
+/// 
 /// Use it when you want to instanciate a [FormArray] into the provider.
 /// 
 /// How to use it :
@@ -34,6 +35,7 @@ class FormArrayProvider extends ChangeNotifierProvider<FormArray> {
         );
 
   /// [of] provides a [FormArray].
+  /// 
   /// If [listen] is [True], [FormArray] will refresh each time the object will change.
   /// 
   /// How to use it :
@@ -45,6 +47,7 @@ class FormArrayProvider extends ChangeNotifierProvider<FormArray> {
       Provider.of<FormArray>(context, listen: listen);
 
   /// [FormArrayProvider] provides a [FormArray] to a form.
+  /// 
   /// Use it when you want to instanciate a [FormArray] outside the provider.
   /// 
   /// How to use it :
@@ -74,6 +77,7 @@ class FormArrayProvider extends ChangeNotifierProvider<FormArray> {
 
 extension FormArrayProviderExtension on BuildContext {
   /// [readFormArray] gets a [FormArray] object.
+  /// 
   /// If a widget use this object, it won't rebuild when object changes.
   /// 
   /// How to use it :
@@ -84,6 +88,7 @@ extension FormArrayProviderExtension on BuildContext {
   FormArray readFormArray() => FormArrayProvider.of(this, listen: false);
   
   /// [watchFormArray] gets a [FormArray] object.
+  /// 
   /// If a widget use this object, it will rebuild when object changes.
   /// 
   /// How to use it :

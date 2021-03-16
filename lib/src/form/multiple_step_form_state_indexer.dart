@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 /// [MultipleStepFormStateIndexer] indexes all [ReactiveFormState] items of a form by their name.
+/// 
 /// Must be used for forms with multiple steps .
 class MultipleStepFormStateIndexer extends MapBase<String, ReactiveFormState> {
   /* Public properties */

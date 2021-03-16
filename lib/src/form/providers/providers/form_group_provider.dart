@@ -3,6 +3,7 @@ import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:provider/provider.dart';
 
 /// [FormGroupProvider] provides a [FormGroup] to a form.
+/// 
 /// Use it when you want to instanciate a [FormGroup] into the provider.
 /// 
 /// How to use it :
@@ -33,6 +34,7 @@ class FormGroupProvider extends ChangeNotifierProvider<FormGroup> {
         );
 
   /// [of] provides a [FormGroup].
+  /// 
   /// If [listen] is [True], [FormGroup] will refresh each time the object will change.
   /// 
   /// How to use it :
@@ -44,6 +46,7 @@ class FormGroupProvider extends ChangeNotifierProvider<FormGroup> {
       Provider.of<FormGroup>(context, listen: listen);
 
   /// [FormGroupProvider] provides a [FormGroup] to a form.
+  /// 
   /// Use it when you want to instanciate a [FormGroup] outside the provider.
   /// 
   /// How to use it :
@@ -73,6 +76,7 @@ class FormGroupProvider extends ChangeNotifierProvider<FormGroup> {
 
 extension FormGroupProviderExtension on BuildContext {
   /// [readFormGroup] gets a [FormGroup] object.
+  /// 
   /// If a widget use this object, it won't rebuild when object changes.
   /// 
   /// How to use it :
@@ -83,6 +87,7 @@ extension FormGroupProviderExtension on BuildContext {
   FormGroup readFormGroup() => FormGroupProvider.of(this, listen: false);
   
   /// [watchFormGroup] gets a [FormGroup] object.
+  /// 
   /// If a widget use this object, it will rebuild when object changes.
   /// 
   /// How to use it :

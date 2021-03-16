@@ -21,6 +21,7 @@ class MultipleStepFormStateIndexerProvider
         );
 
   /// [of] provides a [MultipleStepFormStateIndexer].
+  /// 
   /// If [listen] is [True], [MultipleStepFormStateIndexer] will refresh each time the object will change.
   /// 
   /// How to use it :
@@ -34,6 +35,7 @@ class MultipleStepFormStateIndexerProvider
       Provider.of<MultipleStepFormStateIndexer>(context, listen: listen);
 
   /// [MultipleStepFormStateIndexerProvider] provides a [MultipleStepFormStateIndexer] to a form.
+  /// 
   /// Use it when you want to instanciate a [MultipleStepFormStateIndexer] outside the provider.
   /// 
   /// How to use it :
@@ -63,6 +65,7 @@ class MultipleStepFormStateIndexerProvider
 
 extension MultipleStepFormStateIndexerExtension on BuildContext {
   /// [readMultipleStepFormStateIndexer] gets a [MultipleStepFormStateIndexer] object.
+  /// 
   /// If a widget use this object, it won't rebuild when object changes.
   /// 
   /// How to use it :
@@ -82,6 +85,7 @@ extension MultipleStepFormStateIndexerExtension on BuildContext {
       MultipleStepFormStateIndexerProvider.of(this, listen: false);
 
   /// [watchMultipleStepFormStateIndexer] gets a [MultipleStepFormStateIndexer] object.
+  /// 
   /// If a widget use this object, it will rebuild when object changes.
   /// 
   /// How to use it :
