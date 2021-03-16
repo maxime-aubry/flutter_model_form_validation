@@ -30,8 +30,7 @@ class GreaterOrEqualTo<TProperty extends Comparable>
   /* Public methods */
   /// Compares [FormControl] value with another value.
   ///
-  /// Returns a Future<bool>. If no data is provided using by [valueToCompare] or [remoteValueToCompare], validator will return [False].
-  /// Else, the validator will check if FormControl's data is greater or equal to [valueToCompare]. In this case, validator will return [True], else it will return [False].
+  /// Returns a Future<bool>. The validator will check if FormControl's data is greater or equal to [valueToCompare]. In this case, validator will return [True], else it will return [False].
   ///
   /// The [control] argument is of [FormControl] type here, with [TProperty] generic type.
   @override

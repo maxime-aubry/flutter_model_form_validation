@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/exceptions/index.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 
+/// [FormValidatorNavigator] is a mixin used to navigate into a form with a validator.
 mixin FormValidatorNavigator {
   /* Public properties */
 
@@ -17,6 +18,37 @@ mixin FormValidatorNavigator {
   /* Constructors */
 
   /* Public methods */
+  /// [getRemoteValidatorParameter] is a function used to get remote data.
+  /// A default value can be provided by the developer, inside de definition of the validator.
+  /// But this one can be overrided by a remote value into the form.
+  /// 
+  /// If parameter name is not provided, this function will throw an exception.
+  /// For DateTime data, you must use a ConstantDateTime for default parameter. If you don't, this function will throw an exception.
+  /// 
+  /// You can use it just like this :
+  /// ```dart
+  /// class CustomValidator extends FormControlValidatorAnnotation<String> {
+  ///   final int localParameter;
+  ///   final String remoteParameterName;
+  /// 
+  ///   const CustomValidator(
+  ///     this.localParameter,
+  ///     @required String error,
+  ///   ) : super(error: error);
+  /// 
+  ///   @override
+  ///   Future<bool> isValid(FormControl<String> control) async {
+  ///     int parameter = super.getRemoteValidatorParameter<int>(
+  ///       defaultValue: this.localParameter,
+  ///       localParameterName: 'localParameter',
+  ///       remoteParameterName: this.remoteParameterName,
+  ///       formGroup: control.parent,
+  ///     );
+  ///
+  ///     // ...
+  ///   }
+  /// }
+  /// ```
   TParameter getRemoteValidatorParameter<TParameter>({
     /// [defaultValue] is a constant, provided by developer inside the validator annotation.
     @required TParameter defaultValue,

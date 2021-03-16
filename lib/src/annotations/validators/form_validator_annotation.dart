@@ -4,7 +4,7 @@ import 'package:flutter_model_form_validation/src/form/index.dart';
 
 /// [FormValidatorAnnotation] is the parent class for every validators you will create and use.
 /// {@category Metadata}
-/// {@subCategory Form declarations}
+/// {@subCategory Form validators}
 abstract class FormValidatorAnnotation<TAbstractControl extends AbstractControl>
     with FormValidatorNavigator {
   /* Public properties */

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/src/annotations/validators/form_control/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 
+/// [GreaterThan] with [TProperty] generic type is a validator that check if a value is greater than another.
 class GreaterThan<TProperty extends Comparable>
     extends FormControlValidatorAnnotation<TProperty> {
   /* Public properties */
@@ -27,6 +28,11 @@ class GreaterThan<TProperty extends Comparable>
   }) : super(error: error);
 
   /* Public methods */
+  /// Compares [FormControl] value with another value.
+  ///
+  /// Returns a Future<bool>. The validator will check if FormControl's data is greater than [valueToCompare]. In this case, validator will return [True], else it will return [False].
+  ///
+  /// The [control] argument is of [FormControl] type here, with [TProperty] generic type.
   @override
   Future<bool> isValid(FormControl<TProperty> control) async {
     TProperty valueToCompare = super.getRemoteValidatorParameter<TProperty>(

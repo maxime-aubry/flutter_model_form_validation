@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 import 'package:image/image.dart' as imageDecoder;
 
+/// [ImageSize] is a validator that check if the image width and height.
 class ImageSize extends FormControlValidatorAnnotation<Uint8List> {
   /* Public properties */
   /// [minWidth] is the allowed min width.
@@ -52,6 +53,11 @@ class ImageSize extends FormControlValidatorAnnotation<Uint8List> {
   }) : super(error: error);
 
   /* Public methods */
+  /// Checks [FormControl] image width and height with provided size.
+  ///
+  /// Returns a Future<bool>. The validator will check if FormControl's image has a valid size. In this case, validator will return [True], else it will return [False].
+  ///
+  /// The [control] argument is of [FormControl] type here, with [TProperty] generic type.
   @override
   Future<bool> isValid(FormControl<Uint8List> control) async {
     int minWidth = super.getRemoteValidatorParameter<int>(

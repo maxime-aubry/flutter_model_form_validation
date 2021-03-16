@@ -83,13 +83,6 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
           createDrawerBodyItem(
-            text: 'Password',
-            onTap: () => Navigator.pushReplacementNamed(
-              context,
-              null,
-            ),
-          ),
-          createDrawerBodyItem(
             text: 'File (image for example)',
             onTap: () => Navigator.pushReplacementNamed(
               context,

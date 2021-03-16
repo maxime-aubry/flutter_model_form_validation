@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
+/// [Required] is a validator that check if a value is provided or not.
 class Required extends FormValidatorAnnotation<AbstractControl> {
   /* Public properties */
 
@@ -18,6 +19,15 @@ class Required extends FormValidatorAnnotation<AbstractControl> {
   }) : super(error: error);
 
   /* Public methods */
+  /// Check if [AbstractControl] is provided or not.
+  /// Accepted [AbstractControl] are [FormGroup], [FormArray] and [FormControl].
+  /// 
+  /// If control is a [FormGroup], check if 'controls' variable length is greater than 0. If it is, returns [true], else returns [false].
+  /// If control is a [FormArray], check if 'groups' variable length is grater than 0. If it is, returns [true], else returns [false].
+  /// If control is a [FormControl] :
+  ///   - if it's null, returns [false].
+  ///   - if it's a [String] and it's an empty [String], returns [false].
+  ///   - else, returns [true];
   @override
   Future<bool> isValid(AbstractControl control) async {
     if (control is FormGroup) return this._validateFormGroup(control);
