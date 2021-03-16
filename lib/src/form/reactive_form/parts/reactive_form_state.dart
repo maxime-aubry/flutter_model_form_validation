@@ -10,6 +10,8 @@ enum EFormStatus {
   invalid,
 }
 
+/// [ReactiveFormState] is the state of the form.
+/// This one permits to validate the form and get the status and error of each field.
 class ReactiveFormState {
   /* Public properties */
 
@@ -78,6 +80,7 @@ class ReactiveFormState {
     return isValid;
   }
 
+  /// [getStatus] returns form element's status using by unique name.
   EAbstractControlStatus getStatus(String name) {
     if (name == null || name.isEmpty)
       throw new FormBuilderException(
@@ -89,6 +92,7 @@ class ReactiveFormState {
     return status;
   }
 
+  /// [getError] returns form element's error using by unique name.
   ValidationError getError(String name) {
     if (name == null || name.isEmpty)
       throw new FormBuilderException(
@@ -100,37 +104,12 @@ class ReactiveFormState {
     return error;
   }
 
+  /// [getError] returns form element's error message using by unique name.
   String getErrorMessage(String name) => this.getError(name)?.message;
 
   /* Proptected methods */
 
   /* Private methods */
-  /*Future<bool> _validateFormStep(String step) async {
-    //#region locales methods
-    void checkStepName() {
-      if (step.isEmpty)
-        throw new FormBuilderException('Step name cannot be an empty string.');
-    }
-
-    void validate() async {
-      FormGroup currentStep = this.formBuilder.group.getFormGroup(step);
-      await this._validateFormGroup(currentStep);
-      this._formKeys[step].currentState.validate();
-    }
-
-    bool hasInvalidStepFields() =>
-        Collection(this.formBuilder.indexer.values.toList())
-            .where((arg1) => arg1.step == step)
-            .where((arg1) => arg1.status == EAbstractControlStatus.invalid)
-            .any();
-    //#endregion
-
-    checkStepName();
-    await validate();
-    bool isValid = !hasInvalidStepFields();
-    return isValid;
-  }*/
-
   Future _validateFormGroup(FormGroup formGroup) async {
     if (formGroup.isArrayItem) await formGroup.validate();
 

@@ -46,7 +46,7 @@ class FormArray extends AbstractControl {
   }
 
   /* Public methods */
-  /// [initialize] initializes current [FormArray].
+  /// [initialize] initializes the current [FormArray].
   /// This sets :
   ///   - the [FormArray] name.
   ///   - the parent [FormGroup] (except for the root, that's the top level of the form).

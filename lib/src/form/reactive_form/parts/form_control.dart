@@ -45,7 +45,7 @@ class FormControl<TProperty> extends AbstractControl
   }
 
   /* Public methods */
-  /// [initialize] initializes current [FormControl].
+  /// [initialize] initializes the current [FormControl].
   /// This sets :
   ///   - the [FormGroup] name.
   ///   - the parent [FormGroup] (except for the root, that's the top level of the form).

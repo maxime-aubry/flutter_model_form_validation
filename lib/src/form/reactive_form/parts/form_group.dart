@@ -42,7 +42,7 @@ class FormGroup extends AbstractControl {
 
     return part;
   }
-  
+
   @override
   String get modelPath {
     String part = (this.parent != null) ? '${this.parent.modelPath}' : 'root';
@@ -71,7 +71,7 @@ class FormGroup extends AbstractControl {
   }
 
   /* Public methods */
-  /// [initialize] initializes current [FormGroup].
+  /// [initialize] initializes the current [FormGroup].
   /// This sets :
   ///   - the [FormGroup] name.
   ///   - the parent [FormGroup] (except for the root, that's the top level of the form).
