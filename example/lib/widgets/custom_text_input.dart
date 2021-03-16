@@ -23,6 +23,8 @@ class _CustomTextInputState extends State<CustomTextInput> {
         controller: new TextEditingController(text: widget.formControl.value),
         onChanged: (String value) async =>
             await widget.formControl.setValue(value),
+        onSaved: (String value) async =>
+            await widget.formControl.setValue(value),
         validator: (String value) => widget.formControl.error?.message,
       );
 }

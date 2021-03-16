@@ -2,6 +2,7 @@ import 'package:example/models.reflectable.dart';
 import 'package:example/pages/index.dart';
 import 'package:example/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
 void main() {
@@ -19,9 +20,17 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
+      localizationsDelegates: [
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [Locale('en', 'US')],
       home: Home(),
       routes: {
         pageRoutes.home: (context) => Home(),
+        pageRoutes.inputText: (context) => InputText(),
+        pageRoutes.inputDateTime: (context) => InputDateTime(),
         pageRoutes.reactiveForm: (context) => ReactiveFormScreen(),
         pageRoutes.reactiveFormWithDynamicContent: (context) =>
             ReactiveFormWithDynamicContentScreen(),

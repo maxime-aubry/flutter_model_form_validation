@@ -4,24 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_model_form_validation/flutter_model_form_validation.dart';
 
-class InputText extends StatefulWidget {
-  static const String routeName = '/inputText';
+class InputDateTime extends StatefulWidget {
+  static const String routeName = '/inputDateTime';
 
   @override
-  _InputTextState createState() => _InputTextState();
+  _InputDateTimeState createState() => _InputDateTimeState();
 }
 
-class _InputTextState extends State<InputText> {
+class _InputDateTimeState extends State<InputDateTime> {
   @override
   Widget build(BuildContext context) {
     return ReactiveForm(
       formBuilder: this._getFormBuilder(),
       builder: (context, _) {
         FormGroup root = context.watchFormGroup();
-        FormControl<String> formControl = root.getFormControl<String>('field');
+        FormControl<DateTime> formControl =
+            root.getFormControl<DateTime>('field');
 
         return new Scaffold(
-          appBar: new AppBar(title: Text("Input text")),
+          appBar: new AppBar(title: Text("Input datetime")),
           drawer: new CustomDrawer(),
           body: new Padding(
             padding: EdgeInsets.all(5.0),
@@ -44,13 +45,13 @@ class _InputTextState extends State<InputText> {
   ReactiveFormBuilder _getFormBuilder() => new ReactiveFormBuilder(
         group: new FormGroup(
           controls: {
-            'field': new FormControl<String>(value: null, validators: []),
+            'field': new FormControl<DateTime>(value: null, validators: []),
           },
           validators: [],
         ),
       );
 
-  Widget getInput(FormControl<String> formControl) => new CustomTextInput(
+  Widget getInput(FormControl<DateTime> formControl) => new CustomDatePicker(
         label: 'input',
         formControl: formControl,
       );

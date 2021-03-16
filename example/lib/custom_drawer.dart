@@ -65,7 +65,7 @@ class CustomDrawer extends StatelessWidget {
             text: 'DateTime',
             onTap: () => Navigator.pushReplacementNamed(
               context,
-              null,
+              pageRoutes.inputDateTime,
             ),
           ),
           createDrawerBodyItem(
@@ -79,7 +79,7 @@ class CustomDrawer extends StatelessWidget {
             text: 'Text',
             onTap: () => Navigator.pushReplacementNamed(
               context,
-              null,
+              pageRoutes.inputText,
             ),
           ),
           createDrawerBodyItem(
@@ -98,6 +98,13 @@ class CustomDrawer extends StatelessWidget {
           ),
           createDrawerBodyItem(
             text: 'Dropdown',
+            onTap: () => Navigator.pushReplacementNamed(
+              context,
+              null,
+            ),
+          ),
+          createDrawerBodyItem(
+            text: 'Autocomplete',
             onTap: () => Navigator.pushReplacementNamed(
               context,
               null,
