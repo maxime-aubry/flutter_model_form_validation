@@ -72,7 +72,7 @@ extension MultipleStepFormStateIndexerExtension on BuildContext {
   ///   context.readMultipleStepFormStateIndexer();
   /// ```
   /// 
-  /// If form has multiple steps, you can use it juste like it :
+  /// How to use it if form has multiple steps :
   /// 
   /// ``` dart
   /// MultipleStepFormStateIndexer indexer =
@@ -91,7 +91,7 @@ extension MultipleStepFormStateIndexerExtension on BuildContext {
   ///   context.watchMultipleStepFormStateIndexer();
   /// ```
   /// 
-  /// If form has multiple steps, you can use it juste like it :
+  /// How to use it if form has multiple steps :
   /// 
   /// ``` dart
   /// MultipleStepFormStateIndexer indexer =

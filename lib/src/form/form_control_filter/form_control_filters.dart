@@ -9,7 +9,7 @@ mixin FormControlFilter<TProperty> {
   /* Protected properties */
 
   /* Private properties */
-  final List<ICheckFilter> _defaultFilters = [
+  final List<ICheckFilter> _filters = [
     new CheckSingleValue<TProperty, DateTime>(),
     new CheckSingleValue<TProperty, num>(),
     new CheckSingleValue<TProperty, int>(),
@@ -60,7 +60,7 @@ mixin FormControlFilter<TProperty> {
   void checkAllowedFormControlType({List<ICheckFilter> filters = null}) {
     bool isAllowed = false;
 
-    for (ICheckFilter filter in (filters ?? this._defaultFilters)) {
+    for (ICheckFilter filter in (filters ?? this._filters)) {
       if (filter.checkFilter()) {
         isAllowed = true;
         break;

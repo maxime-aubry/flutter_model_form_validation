@@ -15,7 +15,18 @@ import 'package:provider/single_child_widget.dart';
 ///     return new Container();
 ///   },
 /// );
+/// ```
 /// 
+/// How to use it if form has multiple steps :
+/// 
+/// ``` dart
+/// return ReactiveForm(
+///   formBuilder: this._getFormBuilder(), // define this method provides a ReactiveFormBuilder
+///   step: 'step1',
+///   builder: (context, _) {
+///     return new Container();
+///   },
+/// );
 /// ```
 /// {@category Providers}
 /// {@subCategory Providers}

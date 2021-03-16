@@ -74,7 +74,7 @@ extension FormStateProviderExtension on BuildContext {
   /// ReactiveFormState formState = context.readFormState();
   /// ```
   /// 
-  /// If form has multiple steps, you can use it juste like it :
+  /// How to use it if form has multiple steps : :
   /// 
   /// ``` dart
   /// ReactiveFormState formState = context.readFormState(step: 'step1');
@@ -104,7 +104,7 @@ extension FormStateProviderExtension on BuildContext {
   /// ReactiveFormState formState = context.watchFormState();
   /// ```
   /// 
-  /// If form has multiple steps, you can use it juste like it :
+  /// How to use it if form has multiple steps : :
   /// 
   /// ``` dart
   /// ReactiveFormState formState = context.watchFormState(step: 'step1');
