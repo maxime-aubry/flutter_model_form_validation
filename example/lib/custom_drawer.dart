@@ -72,7 +72,7 @@ class CustomDrawer extends StatelessWidget {
             text: 'Number (double, int, num)',
             onTap: () => Navigator.pushReplacementNamed(
               context,
-              null,
+              pageRoutes.inputNumber,
             ),
           ),
           createDrawerBodyItem(

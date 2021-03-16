@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
       home: Home(),
       routes: {
         pageRoutes.home: (context) => Home(),
+        pageRoutes.inputNumber: (context) => InputNumber(),
         pageRoutes.inputText: (context) => InputText(),
         pageRoutes.inputDateTime: (context) => InputDateTime(),
         pageRoutes.reactiveForm: (context) => ReactiveFormScreen(),
