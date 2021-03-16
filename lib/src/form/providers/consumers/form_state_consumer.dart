@@ -4,6 +4,8 @@ import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:provider/provider.dart';
 
 /// [FormStateConsumer] listens for changes on last provided [ReactiveFormState].
+/// {@category Providers}
+/// {@subCategory Consumers}
 class FormStateConsumer extends Consumer<ReactiveFormState> {
   FormStateConsumer({
     Key key,

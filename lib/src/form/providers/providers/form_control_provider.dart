@@ -3,6 +3,21 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:provider/provider.dart';
 
+/// [FormControlProvider] with [TProperty] generic type provides a [FormControl] to a form.
+/// Use it when you want instanciate a [FormControl] into the provider.
+/// 
+/// You can use it just like this :
+/// 
+/// ``` dart
+/// child: new FormControlProvider<TProperty>(
+///   create: (_) => new FormControl<TProperty>(),
+///   builder: (context, _) {
+///     return new Container();
+///   },
+/// );
+/// ```
+/// {@category Providers}
+/// {@subCategory Providers}
 class FormControlProvider<TProperty>
     extends ChangeNotifierProvider<FormControl<TProperty>> {
   FormControlProvider({
@@ -19,12 +34,35 @@ class FormControlProvider<TProperty>
           child: child,
         );
 
+  /// [of] provides a [FormControl] with [TProperty] generic type.
+  /// If [listen] is [True], [FormControl] will refresh each time the object will change.
+  /// 
+  /// You can use it just like this :
+  /// 
+  /// ``` dart
+  /// FormControl<TProperty> formControl = FormControlProvider<TProperty>.of(context, listen: true);
+  /// ```
   static FormControl<TProperty> of<TProperty>(
     BuildContext context, {
     bool listen = true,
   }) =>
       Provider.of<FormControl<TProperty>>(context, listen: listen);
 
+  /// [FormControlProvider] provides a [FormControl] to a form.
+  /// Use it when you want to instanciate a [FormControl] outside the provider.
+  /// 
+  /// You can use it just like this :
+  /// 
+  /// ``` dart
+  /// FormControl<TProperty> formControl = // ...
+  /// 
+  /// child: new FormControlProvider<TProperty>.value(
+  ///   value: formControl,
+  ///   builder: (context, _) {
+  ///     return new Container();
+  ///   },
+  /// );
+  /// ```
   FormControlProvider.value({
     Key key,
     @required FormControl<TProperty> value,
@@ -39,8 +77,25 @@ class FormControlProvider<TProperty>
 }
 
 extension FormControlProviderExtension on BuildContext {
+  /// [readFormControl] gets a [FormControl] object.
+  /// If a widget use this object, it won't rebuild when object changes.
+  /// 
+  /// You can use it just like this :
+  /// 
+  /// ``` dart
+  /// FormControl<TProperty> formControl = context.readFormControl<TProperty>();
+  /// ```
   FormControl<TProperty> readFormControl<TProperty>() =>
       FormControlProvider.of<TProperty>(this, listen: false);
+  
+  /// [watchFormControl] gets a [FormControl] object.
+  /// If a widget use this object, it will rebuild when object changes.
+  /// 
+  /// You can use it just like this :
+  /// 
+  /// ``` dart
+  /// FormControl<TProperty> formControl = context.watchFormControl<TProperty>();
+  /// ```
   FormControl<TProperty> watchFormControl<TProperty>() =>
       FormControlProvider.of<TProperty>(this, listen: true);
 }

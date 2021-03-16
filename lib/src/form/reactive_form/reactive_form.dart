@@ -4,12 +4,37 @@ import 'package:flutter_model_form_validation/src/form/providers/index.dart';
 import 'package:flutter_model_form_validation/src/form/reactive_form/index.dart';
 import 'package:provider/single_child_widget.dart';
 
+/// [ReactiveForm] declares a new form.
+/// 
+/// You can use it just like this :
+/// 
+/// ``` dart
+/// return ReactiveForm(
+///   formBuilder: this._getFormBuilder(), // define this method provides a ReactiveFormBuilder
+///   builder: (context, _) {
+///     return new Container();
+///   },
+/// );
+/// 
+/// ```
+/// {@category Providers}
+/// {@subCategory Providers}
 class ReactiveForm extends SingleChildStatefulWidget {
+  /* Public properties */
   final ReactiveFormBuilder formBuilder;
   final ReactiveFormState formState;
   final String step;
   final TransitionBuilder builder;
 
+  /* Protected properties */
+
+  /* Private properties */
+
+  /* Getters */
+
+  /* Setters */
+
+  /* Constructors */
   ReactiveForm({
     Key key,
     Widget child,
@@ -23,8 +48,13 @@ class ReactiveForm extends SingleChildStatefulWidget {
     this.formBuilder.initialize(this.formState);
   }
 
+  /* Public methods */
   @override
   SingleChildState<ReactiveForm> createState() => _ReactiveFormState();
+
+  /* Protected methods */
+
+  /* Private methods */
 }
 
 class _ReactiveFormState extends SingleChildState<ReactiveForm> {
@@ -45,7 +75,7 @@ class _ReactiveFormState extends SingleChildState<ReactiveForm> {
       autovalidateMode: AutovalidateMode.always,
       child: FormProvider(
         providers: [
-          new FormStateProvider.value(value: widget.formState),
+          new ReactiveFormStateProvider.value(value: widget.formState),
           new FormGroupProvider.value(value: widget.formBuilder.group),
         ],
         builder: widget.builder,

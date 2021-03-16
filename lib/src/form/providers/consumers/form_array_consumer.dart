@@ -3,6 +3,8 @@ import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:provider/provider.dart';
 
 /// [FormArrayConsumer] listens for changes on last provided [FormArray].
+/// {@category Providers}
+/// {@subCategory Consumers}
 class FormArrayConsumer extends Consumer<FormArray> {
   FormArrayConsumer({
     Key key,

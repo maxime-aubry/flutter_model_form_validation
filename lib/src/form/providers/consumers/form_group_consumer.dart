@@ -4,6 +4,8 @@ import 'package:flutter_model_form_validation/src/form/index.dart';
 import 'package:provider/provider.dart';
 
 /// [FormGroupConsumer] listens for changes on last provided [FormGroup].
+/// {@category Providers}
+/// {@subCategory Consumers}
 class FormGroupConsumer extends Consumer<FormGroup> {
   FormGroupConsumer({
     Key key,

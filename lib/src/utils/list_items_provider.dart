@@ -6,6 +6,7 @@ typedef Future<List<SelectListItem<TProperty>>> ListItemsServiceFunction<
 
 /// [ListItemsProvider] provides data to validators, as dropdown, autocomplete...
 /// Items are provided from local data, or using by a HTTP request.
+/// {@category Utilities}
 class ListItemsProvider {
   static Map<String, ListItemsServiceFunction> _services = {};
 
